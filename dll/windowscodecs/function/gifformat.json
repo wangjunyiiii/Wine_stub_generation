@@ -1,0 +1,1716 @@
+[
+  {
+    "function": {
+      "name": "impl_from_decoder",
+      "description": "This function returns a pointer to the gif_decoder structure that contains the given decoder structure.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder *",
+          "description": "Pointer to a decoder structure."
+        }
+      ],
+      "return_type": "struct gif_decoder *: Pointer to a gif_decoder structure that contains the given decoder structure."
+    }
+  },
+  {
+    "function": {
+      "name": "load_LSD_metadata",
+      "description": "This function reads the logical screen descriptor metadata from a stream, allocates memory for the metadata items, initializes them, and assigns them to the handler. It also handles any errors that occur during these processes.",
+      "parameters": [
+        {
+          "name": "handler",
+          "type": "MetadataHandler *",
+          "description": "Pointer to the metadata handler where the read metadata items will be stored"
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the stream from which the logical screen descriptor metadata will be read"
+        },
+        {
+          "name": "vendor",
+          "type": "const GUID *",
+          "description": "Pointer to the vendor GUID, not used in this function"
+        },
+        {
+          "name": "options",
+          "type": "DWORD",
+          "description": "Options for loading the metadata, not used in this function"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, E_OUTOFMEMORY if memory allocation fails, or the error code from IStream_Read if it fails"
+    }
+  },
+  {
+    "function": {
+      "name": "LSDReader_CreateInstance",
+      "description": "This function creates an instance of LSDReader",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Interface identifier to be used for creating the LSDReader instance"
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Pointer to the memory location where the created LSDReader instance will be stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "load_IMD_metadata",
+      "description": "This function reads image metadata from a stream, initializes and populates a MetadataItem array with the read data, and assigns it to a MetadataHandler.",
+      "parameters": [
+        {
+          "name": "handler",
+          "type": "MetadataHandler*",
+          "description": "Pointer to a MetadataHandler structure to which the function assigns the populated MetadataItem array."
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "Pointer to an IStream interface from which the function reads image metadata."
+        },
+        {
+          "name": "vendor",
+          "type": "GUID*",
+          "description": "Pointer to a GUID structure that identifies the vendor. This parameter is not used in the function."
+        },
+        {
+          "name": "options",
+          "type": "DWORD",
+          "description": "A DWORD value that specifies options. This parameter is not used in the function."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If the function fails, it returns an error code. For example, if memory allocation for the MetadataItem array fails, the function returns E_OUTOFMEMORY."
+    }
+  },
+  {
+    "function": {
+      "name": "IMDReader_CreateInstance",
+      "description": "This function creates an instance of the IMDReader object.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "This is the interface identifier for the desired interface."
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "This is a pointer to a pointer that, on successful return, points to the desired interface."
+        }
+      ],
+      "return_type": "HRESULT, which indicates the success or failure of the function."
+    }
+  },
+  {
+    "function": {
+      "name": "load_GCE_metadata",
+      "description": "This function reads the Graphic Control Extension (GCE) data from a stream, allocates memory for metadata items, initializes them, and assigns them to the handler. It also sets the handler's item count to 5.",
+      "parameters": [
+        {
+          "name": "handler",
+          "type": "MetadataHandler *",
+          "description": "Pointer to a MetadataHandler object to which the function assigns the metadata items"
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to an IStream object from which the function reads the GCE data"
+        },
+        {
+          "name": "vendor",
+          "type": "const GUID *",
+          "description": "Pointer to a GUID object, not used in this function"
+        },
+        {
+          "name": "options",
+          "type": "DWORD",
+          "description": "A DWORD value, not used in this function"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. It returns S_OK if the function executes successfully, E_OUTOFMEMORY if memory allocation fails, or the error code returned by IStream_Read if it fails"
+    }
+  },
+  {
+    "function": {
+      "name": "GCEReader_CreateInstance",
+      "description": "This function creates an instance of GCEReader.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Interface identifier that the caller is to use to communicate with the resulting object"
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Address of pointer variable that receives the interface pointer requested in iid"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function execution. If the function succeeds, it returns S_OK. If it fails, it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "load_APE_metadata",
+      "description": "This function reads APE (Audio Playback Extension) metadata from a stream, processes it and stores it in a handler. It also handles memory allocation and deallocation for the data read from the stream.",
+      "parameters": [
+        {
+          "name": "handler",
+          "type": "MetadataHandler*",
+          "description": "Pointer to a metadata handler where the processed metadata will be stored"
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "Pointer to a stream from which the APE metadata will be read"
+        },
+        {
+          "name": "vendor",
+          "type": "const GUID*",
+          "description": "Pointer to a GUID representing the vendor of the APE format"
+        },
+        {
+          "name": "options",
+          "type": "DWORD",
+          "description": "Options for loading the metadata"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful, E_OUTOFMEMORY if memory allocation failed"
+    }
+  },
+  {
+    "function": {
+      "name": "APEReader_CreateInstance",
+      "description": "This function creates an instance of APEReader using the provided interface ID and pointer to a pointer variable.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "This is the interface ID for the APEReader instance to be created."
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "This is a pointer to a pointer variable where the created APEReader instance will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "create_gifcomment_item",
+      "description": "This function creates a GIF comment item by allocating memory for it, initializing its id with a string, and setting its value type and value.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "char *",
+          "description": "This is the data to be set as the value of the GIF comment item."
+        },
+        {
+          "name": "item",
+          "type": "MetadataItem **",
+          "description": "This is a pointer to a pointer to a MetadataItem. The function sets this pointer to point to the newly created GIF comment item."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the function succeeds, E_OUTOFMEMORY if memory allocation fails, or other error codes if other operations fail."
+    }
+  },
+  {
+    "function": {
+      "name": "load_GifComment_metadata",
+      "description": "This function reads GIF comment metadata from a stream, allocates and reallocates memory for the data as needed, and assigns the data to a MetadataHandler object.",
+      "parameters": [
+        {
+          "name": "handler",
+          "type": "MetadataHandler*",
+          "description": "Pointer to a MetadataHandler object where the read metadata will be stored"
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "Pointer to an IStream object from which the GIF comment metadata will be read"
+        },
+        {
+          "name": "vendor",
+          "type": "GUID*",
+          "description": "Pointer to a GUID object representing the vendor of the GIF"
+        },
+        {
+          "name": "options",
+          "type": "DWORD",
+          "description": "Options for loading the GIF comment metadata"
+        }
+      ],
+      "return_type": "HRESULT, representing the status of the operation. S_OK if the operation is successful, otherwise an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "CreateGifCommentHandler",
+      "description": "This function creates a GIF comment handler. It allocates memory for data, creates a GIF comment item, and assigns it to the handler. If any step fails, it cleans up and returns an error.",
+      "parameters": [
+        {
+          "name": "handler",
+          "type": "MetadataHandler*",
+          "description": "This is a pointer to the MetadataHandler structure where the created GIF comment item will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_OUTOFMEMORY if memory allocation fails, or other error codes if creating the GIF comment item fails."
+    }
+  },
+  {
+    "function": {
+      "name": "GifCommentReader_CreateInstance",
+      "description": "This function creates an instance of a GIF comment reader.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "This is an identifier for the interface."
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "This is a pointer to the instance of the GIF comment reader."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. A successful operation returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "copy_palette",
+      "description": "This function copies the color palette from a ColorMapObject to a WICColor array. If the ColorMapObject is null, it sets the first two colors to specific values and the rest to a default value. It also checks for a transparent color extension and sets the alpha of the corresponding color to 0.",
+      "parameters": [
+        {
+          "name": "cm",
+          "type": "ColorMapObject *",
+          "description": "Pointer to the source color map object"
+        },
+        {
+          "name": "extensions",
+          "type": "Extensions *",
+          "description": "Pointer to the extensions object which may contain a transparent color extension"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "description": "The number of colors to copy"
+        },
+        {
+          "name": "colors",
+          "type": "WICColor *",
+          "description": "Pointer to the destination color array"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "copy_interlaced_pixels",
+      "description": "This function copies interlaced pixels from a source buffer to a destination buffer, taking into account the source and destination strides, the source width and height, and a rectangle that specifies the region to copy.",
+      "parameters": [
+        {
+          "name": "srcbuffer",
+          "type": "const BYTE *",
+          "description": "The source buffer from which to copy pixels."
+        },
+        {
+          "name": "srcwidth",
+          "type": "UINT",
+          "description": "The width of the source image."
+        },
+        {
+          "name": "srcheight",
+          "type": "UINT",
+          "description": "The height of the source image."
+        },
+        {
+          "name": "srcstride",
+          "type": "INT",
+          "description": "The stride of the source image."
+        },
+        {
+          "name": "rc",
+          "type": "const WICRect *",
+          "description": "A rectangle that specifies the region of the source image to copy. If this parameter is NULL, the entire source image is copied."
+        },
+        {
+          "name": "dststride",
+          "type": "UINT",
+          "description": "The stride of the destination image."
+        },
+        {
+          "name": "dstbuffersize",
+          "type": "UINT",
+          "description": "The size of the destination buffer."
+        },
+        {
+          "name": "dstbuffer",
+          "type": "BYTE *",
+          "description": "The destination buffer to which to copy pixels."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. The function returns S_OK on success and E_INVALIDARG if the provided arguments are not valid."
+    }
+  },
+  {
+    "function": {
+      "name": "_gif_inputfunc",
+      "description": "This function reads data from a stream into a buffer.",
+      "parameters": [
+        {
+          "name": "gif",
+          "type": "GifFileType*",
+          "description": "Pointer to a GIF file type structure. The user data of this structure is expected to be a pointer to an IStream."
+        },
+        {
+          "name": "data",
+          "type": "GifByteType*",
+          "description": "Pointer to a buffer where the read data will be stored."
+        },
+        {
+          "name": "len",
+          "type": "int",
+          "description": "Number of bytes to read from the stream."
+        }
+      ],
+      "return_type": "int, represents the number of bytes actually read from the stream. If an error occurs, the function returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "gif_decoder_initialize",
+      "description": "This function initializes a GIF decoder. It seeks to the start of the stream, reads all data from the stream, and sets the stream's user data to NULL. It also sets the decoder's flags and frame count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder *",
+          "description": "This is the interface for the decoder."
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "This is the stream of data to be decoded."
+        },
+        {
+          "name": "st",
+          "type": "struct decoder_stat *",
+          "description": "This is the status of the decoder."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK on success and E_FAIL on failure."
+    }
+  },
+  {
+    "function": {
+      "name": "gif_decoder_get_frame_info",
+      "description": "This function retrieves information about a specific frame in a GIF image, including its dimensions, pixel format, and color information.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder *",
+          "description": "A pointer to the decoder structure which contains the GIF image data."
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "The index of the frame in the GIF image for which information is to be retrieved."
+        },
+        {
+          "name": "info",
+          "type": "struct decoder_frame *",
+          "description": "A pointer to a decoder_frame structure where the retrieved frame information will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK if the function successfully retrieves the frame information, and WINCODEC_ERR_FRAMEMISSING if the specified frame index is out of range."
+    }
+  },
+  {
+    "function": {
+      "name": "gif_decoder_get_decoder_palette",
+      "description": "This function retrieves the color palette of a specific frame in a GIF image.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder *",
+          "description": "Pointer to the decoder structure"
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "The frame number to retrieve the color palette from"
+        },
+        {
+          "name": "colors",
+          "type": "WICColor *",
+          "description": "Pointer to an array where the color palette will be stored"
+        },
+        {
+          "name": "num_colors",
+          "type": "UINT *",
+          "description": "Pointer to an integer where the number of colors in the palette will be stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, WINCODEC_ERR_WRONGSTATE if the GIF is not initialized, WINCODEC_ERR_FRAMEMISSING if the frame is not found, and E_FAIL if the GIF contains an invalid number of colors."
+    }
+  },
+  {
+    "function": {
+      "name": "gif_decoder_copy_pixels",
+      "description": "This function is used to copy pixels from a given frame of a GIF image. It handles both interlaced and non-interlaced images.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder *",
+          "description": "Interface to the decoder structure"
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "The frame number from which pixels are to be copied"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to the rectangle structure defining the area to copy"
+        },
+        {
+          "name": "stride",
+          "type": "UINT",
+          "description": "The stride, or width in memory, of the area to copy"
+        },
+        {
+          "name": "buffersize",
+          "type": "UINT",
+          "description": "The size of the buffer where the pixels will be copied"
+        },
+        {
+          "name": "buffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer where the pixels will be copied"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns E_INVALIDARG if the frame number is greater than the total number of frames in the GIF. Otherwise, it returns the result of the pixel copying operation."
+    }
+  },
+  {
+    "function": {
+      "name": "gif_decoder_get_metadata_blocks",
+      "description": "This function retrieves metadata blocks from a GIF decoder for a specific frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder*",
+          "description": "Pointer to the decoder interface."
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "The frame number from which to retrieve the metadata blocks."
+        },
+        {
+          "name": "count",
+          "type": "UINT*",
+          "description": "Pointer to a variable where the function will store the count of metadata blocks retrieved."
+        },
+        {
+          "name": "blocks",
+          "type": "struct decoder_block**",
+          "description": "Pointer to a variable where the function will store the pointer to the array of retrieved metadata blocks."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation was successful, E_OUTOFMEMORY if memory allocation failed, or E_INVALIDARG if the frame number is invalid."
+    }
+  },
+  {
+    "function": {
+      "name": "gif_decoder_get_color_context",
+      "description": "This function is not implemented yet. It is expected to get the color context of a specific frame in a GIF decoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder *",
+          "description": "Pointer to the GIF decoder interface"
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "The frame number to get the color context from"
+        },
+        {
+          "name": "num",
+          "type": "UINT",
+          "description": "Not clear from the function's current implementation"
+        },
+        {
+          "name": "data",
+          "type": "BYTE **",
+          "description": "Expected to be a pointer to the color context data"
+        },
+        {
+          "name": "datasize",
+          "type": "DWORD *",
+          "description": "Expected to be a pointer to the size of the color context data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "gif_decoder_destroy",
+      "description": "This function is used to destroy a gif decoder. It closes the gif file and frees the memory allocated to the decoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder*",
+          "description": "This parameter is a pointer to the decoder interface that needs to be destroyed."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "gif_decoder_create",
+      "description": "This function creates a GIF decoder, initializes it, and assigns it to the result. It also sets the container format, block format, and class ID in the decoder info structure.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "struct decoder_info*",
+          "description": "A pointer to a decoder_info structure where the function sets the container format, block format, and class ID."
+        },
+        {
+          "name": "result",
+          "type": "struct decoder**",
+          "description": "A pointer to a pointer to a decoder structure. The function creates a new GIF decoder and assigns it to this pointer."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function execution. It returns E_OUTOFMEMORY if memory allocation fails, and S_OK if the function executes successfully."
+    }
+  },
+  {
+    "function": {
+      "name": "GifDecoder_CreateInstance",
+      "description": "This function creates an instance of a GIF decoder.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "This is an interface identifier for the GIF decoder."
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "This is a pointer to the created GIF decoder instance."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IWICBitmapEncoder",
+      "description": "This function retrieves the GifEncoder instance from the IWICBitmapEncoder interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to the IWICBitmapEncoder interface."
+        }
+      ],
+      "return_type": "GifEncoder *: Pointer to the GifEncoder instance."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IWICBitmapFrameEncode",
+      "description": "This function returns a pointer to a GifFrameEncode structure that contains the specified IWICBitmapFrameEncode interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to an IWICBitmapFrameEncode interface"
+        }
+      ],
+      "return_type": "GifFrameEncode *; Represents a pointer to a GifFrameEncode structure that contains the specified IWICBitmapFrameEncode interface"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IWICMetadataBlockWriter",
+      "description": "This function returns a pointer to a GifFrameEncode structure that contains the given IWICMetadataBlockWriter interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter*",
+          "description": "Pointer to an IWICMetadataBlockWriter interface"
+        }
+      ],
+      "return_type": "GifFrameEncode*; Pointer to a GifFrameEncode structure that contains the given IWICMetadataBlockWriter interface"
+    }
+  },
+  {
+    "function": {
+      "name": "GifFrameEncode_QueryInterface",
+      "description": "This function queries the interface of a GIF frame encoder. It checks if the provided interface ID matches any of the known interfaces (IUnknown, IWICBitmapFrameEncode, IWICMetadataBlockWriter). If a match is found, it assigns the corresponding interface to the output parameter and increases its reference count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to the IWICBitmapFrameEncode interface of the GIF frame encoder."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being queried."
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Pointer to a pointer that, if the function is successful, will be set to point to the requested interface."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the function is successful, E_INVALIDARG if the ppv parameter is NULL, or E_NOINTERFACE if the requested interface is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "GifFrameEncode_AddRef",
+      "description": "This function increments the reference count of a GifFrameEncode object and returns the new reference count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This parameter is a pointer to an IWICBitmapFrameEncode interface."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after incrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "GifFrameEncode_Release",
+      "description": "This function releases the resources associated with a GIF frame encoder. It decrements the reference count, and if it reaches zero, it releases the associated bitmap encoder and frees the memory allocated for the image data and the GIF frame encoder itself.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is a pointer to the interface of the bitmap frame encoder to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after decrement. If it is zero, the resources have been released."
+    }
+  },
+  {
+    "function": {
+      "name": "GifFrameEncode_Initialize",
+      "description": "This function initializes the GifFrameEncode. If it is already initialized, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is an interface used to encode an individual frame within a bitmap image."
+        },
+        {
+          "name": "options",
+          "type": "IPropertyBag2 *",
+          "description": "This is used to specify the encoding options."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the initialization is successful, otherwise it returns WINCODEC_ERR_WRONGSTATE."
+    }
+  },
+  {
+    "function": {
+      "name": "GifFrameEncode_SetSize",
+      "description": "This function sets the size of a GIF frame. It first checks if the width and height are valid. If they are, it enters a critical section and checks if the frame is initialized. If it is, it frees the existing image data and allocates new memory for the image data. It then sets the width and height of the frame and returns a success status. If the frame is not initialized, it returns an error status. It leaves the critical section before returning.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is an interface to a bitmap frame encoder."
+        },
+        {
+          "name": "width",
+          "type": "UINT",
+          "description": "This is the width of the GIF frame."
+        },
+        {
+          "name": "height",
+          "type": "UINT",
+          "description": "This is the height of the GIF frame."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It can be S_OK for success, E_INVALIDARG if the width or height is zero, E_OUTOFMEMORY if memory allocation fails, or WINCODEC_ERR_WRONGSTATE if the frame is not initialized."
+    }
+  },
+  {
+    "function": {
+      "name": "GifFrameEncode_SetResolution",
+      "description": "This function sets the resolution of a GIF frame. It first checks if the frame is initialized. If it is, it sets the x and y resolution values and returns S_OK. If not, it returns an error code WINCODEC_ERR_WRONGSTATE.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is an interface to the bitmap frame that needs its resolution set."
+        },
+        {
+          "name": "xres",
+          "type": "double",
+          "description": "This is the x-resolution to set for the GIF frame."
+        },
+        {
+          "name": "yres",
+          "type": "double",
+          "description": "This is the y-resolution to set for the GIF frame."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and WINCODEC_ERR_WRONGSTATE if the frame is not initialized."
+    }
+  },
+  {
+    "function": {
+      "name": "GifFrameEncode_SetPixelFormat",
+      "description": "This function sets the pixel format for a GIF frame. It checks if the format is initialized, if it is, it sets the format to GUID_WICPixelFormat8bppIndexed and returns S_OK. If not, it returns WINCODEC_ERR_WRONGSTATE.",
+      "parameters": [
+        {
+          "name": "IWICBitmapFrameEncode *iface",
+          "type": "pointer",
+          "description": "This is a pointer to the interface for encoding a bitmap frame."
+        },
+        {
+          "name": "WICPixelFormatGUID *format",
+          "type": "pointer",
+          "description": "This is a pointer to the GUID for the pixel format."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function execution. It returns S_OK if the format is successfully set, WINCODEC_ERR_WRONGSTATE if the format is not initialized, and E_INVALIDARG if the format pointer is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GifFrameEncode_SetColorContexts",
+      "description": "This function is a stub and currently not implemented. It is supposed to set color contexts for a GIF frame encode.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Interface for bitmap frame encoding"
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "Number of color contexts"
+        },
+        {
+          "name": "context",
+          "type": "IWICColorContext **",
+          "description": "Pointer to the color context"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Currently always returns E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "GifFrameEncode_SetPalette",
+      "description": "This function sets the palette for a GIF frame. It checks if the palette is initialized and if so, gets the colors from the palette. If not, it returns an error indicating that the palette is not initialized.",
+      "parameters": [
+        {
+          "name": "IWICBitmapFrameEncode *iface",
+          "type": "pointer",
+          "description": "This is a pointer to the interface of the bitmap frame that is being encoded."
+        },
+        {
+          "name": "IWICPalette *palette",
+          "type": "pointer",
+          "description": "This is a pointer to the palette that is to be set for the GIF frame."
+        }
+      ],
+      "return_type": "HRESULT, which is a data type used in Windows programming to represent error conditions, and warning conditions as well. The function returns this to indicate the success or failure of the function."
+    }
+  },
+  {
+    "function": {
+      "name": "GifFrameEncode_SetThumbnail",
+      "description": "This function is a stub and not yet implemented. It is intended to set the thumbnail for a GIF frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is an interface to the bitmap frame that needs a thumbnail."
+        },
+        {
+          "name": "thumbnail",
+          "type": "IWICBitmapSource *",
+          "description": "This is the source of the thumbnail image."
+        }
+      ],
+      "return_type": "HRESULT, which is a data type used in Windows operating systems, and the COM programming model to represent error conditions, and warning conditions. The function returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "GifFrameEncode_WritePixels",
+      "description": "This function encodes the pixel data for a GIF frame. It checks if the pixel data is valid, then enters a critical section to prevent other threads from accessing the shared resource. If the frame is initialized and has image data, it copies the pixel data into the image data. If the number of lines to be written exceeds the frame's height, it returns an error. If the frame is not initialized or has no image data, it returns an error indicating the wrong state. Finally, it leaves the critical section and returns the result.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to an IWICBitmapFrameEncode interface"
+        },
+        {
+          "name": "lines",
+          "type": "UINT",
+          "description": "Number of lines to write"
+        },
+        {
+          "name": "stride",
+          "type": "UINT",
+          "description": "Stride of the pixel data"
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "Size of the pixel data"
+        },
+        {
+          "name": "pixels",
+          "type": "BYTE *",
+          "description": "Pointer to the pixel data to write"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function. It can be S_OK if the function succeeds, E_INVALIDARG if the arguments are invalid, or WINCODEC_ERR_WRONGSTATE if the function is in the wrong state to perform the operation"
+    }
+  },
+  {
+    "function": {
+      "name": "GifFrameEncode_WriteSource",
+      "description": "This function is used to write the source of a GIF frame encode. It checks if the source is initialized, and if so, it configures and writes the source. If not, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Interface for the bitmap frame encode"
+        },
+        {
+          "name": "source",
+          "type": "IWICBitmapSource *",
+          "description": "Source of the bitmap"
+        },
+        {
+          "name": "rc",
+          "type": "WICRect *",
+          "description": "Rectangle structure that specifies the portion of the source to use"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the source is null, or WINCODEC_ERR_WRONGSTATE if the source is not initialized"
+    }
+  },
+  {
+    "function": {
+      "name": "lzw_output_code",
+      "description": "This function is used to output the LZW (Lempel-Ziv-Welch) code. It shifts the code to the left by the number of bits specified in the state's bits_count, adds the number of code bits to the bits_count, and then writes the least significant byte of the bits buffer to the user data. If the write operation is not successful, it returns 0. Otherwise, it shifts the bits buffer to the right by 8 bits and subtracts 8 from the bits_count, repeating this process until the bits_count is less than 8.",
+      "parameters": [
+        {
+          "name": "state",
+          "type": "struct lzw_state *",
+          "description": "This is a pointer to the LZW state structure, which contains the bits buffer, bits count, code bits, user write data function, and user pointer."
+        },
+        {
+          "name": "code",
+          "type": "short",
+          "description": "This is the LZW code to be output."
+        }
+      ],
+      "return_type": "int. This function returns 1 if the LZW code is successfully output, or 0 if the write operation is not successful."
+    }
+  },
+  {
+    "function": {
+      "name": "lzw_output_clear_code",
+      "description": "This function outputs the clear code of the given LZW state.",
+      "parameters": [
+        {
+          "name": "state",
+          "type": "struct lzw_state*",
+          "description": "This is a pointer to the LZW state structure."
+        }
+      ],
+      "return_type": "int, represents the output of the clear code of the given LZW state"
+    }
+  },
+  {
+    "function": {
+      "name": "lzw_output_eof_code",
+      "description": "This function outputs the end-of-file (EOF) code for a given LZW state.",
+      "parameters": [
+        {
+          "name": "state",
+          "type": "struct lzw_state *",
+          "description": "This is a pointer to an LZW state structure."
+        }
+      ],
+      "return_type": "int, represents the EOF code for the given LZW state"
+    }
+  },
+  {
+    "function": {
+      "name": "lzw_flush_bits",
+      "description": "This function flushes the bits stored in the lzw_state structure. If the number of bits is greater than or equal to 8, it writes the bits to the user data. If there are remaining bits, it masks them and writes them to the user data. Finally, it resets the bits buffer and count in the lzw_state structure.",
+      "parameters": [
+        {
+          "name": "state",
+          "type": "struct lzw_state *",
+          "description": "This parameter is a pointer to the lzw_state structure that contains the bits to be flushed."
+        }
+      ],
+      "return_type": "int, represents whether the function was successful in flushing the bits. Returns 1 if successful, 0 otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "lzw_dict_reset",
+      "description": "This function resets the dictionary of the LZW state by setting the code bits, next code, prefix and suffix of the dictionary.",
+      "parameters": [
+        {
+          "name": "state",
+          "type": "struct lzw_state *",
+          "description": "This is a pointer to the LZW state structure that needs to be reset."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "lzw_state_init",
+      "description": "This function initializes the lzw_state structure with the provided parameters and resets the dictionary.",
+      "parameters": [
+        {
+          "name": "state",
+          "type": "struct lzw_state *",
+          "description": "Pointer to the lzw_state structure to be initialized"
+        },
+        {
+          "name": "init_code_bits",
+          "type": "short",
+          "description": "Initial code bits to be set in the lzw_state structure"
+        },
+        {
+          "name": "user_write_data",
+          "type": "void *",
+          "description": "User data to be written"
+        },
+        {
+          "name": "user_ptr",
+          "type": "void *",
+          "description": "User pointer to be set in the lzw_state structure"
+        }
+      ],
+      "return_type": "void, as this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "lzw_dict_add",
+      "description": "This function adds a new entry to the dictionary in the LZW state, increments the next code and the code bits if necessary, and returns the next code. If the dictionary is full, it returns -1.",
+      "parameters": [
+        {
+          "name": "state",
+          "type": "struct lzw_state *",
+          "description": "This is a pointer to the LZW state structure which contains the dictionary and other related data."
+        },
+        {
+          "name": "prefix",
+          "type": "short",
+          "description": "This is the prefix of the new dictionary entry."
+        },
+        {
+          "name": "suffix",
+          "type": "unsigned char",
+          "description": "This is the suffix of the new dictionary entry."
+        }
+      ],
+      "return_type": "int, represents the next code if the dictionary entry was added successfully, or -1 if the dictionary is full."
+    }
+  },
+  {
+    "function": {
+      "name": "lzw_dict_lookup",
+      "description": "This function looks up a prefix and suffix in the dictionary of the given LZW state and returns the index if found, otherwise returns -1.",
+      "parameters": [
+        {
+          "name": "state",
+          "type": "struct lzw_state *",
+          "description": "Pointer to the LZW state structure which contains the dictionary to be searched."
+        },
+        {
+          "name": "prefix",
+          "type": "short",
+          "description": "The prefix to be looked up in the dictionary."
+        },
+        {
+          "name": "suffix",
+          "type": "unsigned char",
+          "description": "The suffix to be looked up in the dictionary."
+        }
+      ],
+      "return_type": "short, represents the index of the found prefix and suffix in the dictionary if found, otherwise -1."
+    }
+  },
+  {
+    "function": {
+      "name": "write_byte",
+      "description": "This function writes a byte to the output stream. If the gif block length is 255, it resets the length to 0 after writing the block to the output stream. It then adds the byte to the gif block data and increments the length.",
+      "parameters": [
+        {
+          "name": "out",
+          "type": "struct output_stream *",
+          "description": "This is a pointer to the output stream where the byte will be written."
+        },
+        {
+          "name": "byte",
+          "type": "char",
+          "description": "This is the byte that will be written to the output stream."
+        }
+      ],
+      "return_type": "int, returns 1 if the byte is successfully written to the output stream, and 0 if the writing operation fails when the gif block length is 255."
+    }
+  },
+  {
+    "function": {
+      "name": "write_data",
+      "description": "This function writes bytes of data to an output stream.",
+      "parameters": [
+        {
+          "name": "user_ptr",
+          "type": "void *",
+          "description": "This parameter is used as a pointer to the output stream."
+        },
+        {
+          "name": "user_data",
+          "type": "void *",
+          "description": "This parameter is used as a pointer to the data to be written."
+        },
+        {
+          "name": "length",
+          "type": "int",
+          "description": "This parameter represents the number of bytes to be written."
+        }
+      ],
+      "return_type": "int, represents the number of bytes written if successful, or 0 if a write operation failed."
+    }
+  },
+  {
+    "function": {
+      "name": "flush_output_data",
+      "description": "This function writes the gif block from the output stream to the output. If the gif block length is not zero, it writes the gif block and its length to the output. It then sets the gif block length to zero and writes the gif block length to the output again. The function returns whether the last write operation was successful.",
+      "parameters": [
+        {
+          "name": "user_ptr",
+          "type": "void *",
+          "description": "This parameter is a pointer to the output stream structure."
+        }
+      ],
+      "return_type": "int, represents whether the last write operation was successful (1 for success, 0 for failure)"
+    }
+  },
+  {
+    "function": {
+      "name": "read_byte",
+      "description": "This function reads a byte from the input stream and decreases the length of the stream by one. If the stream length is zero, it returns 0.",
+      "parameters": [
+        {
+          "name": "in",
+          "type": "struct input_stream*",
+          "description": "This is a pointer to the input stream from which the byte is read."
+        },
+        {
+          "name": "byte",
+          "type": "unsigned char*",
+          "description": "This is a pointer to the byte that is read from the input stream."
+        }
+      ],
+      "return_type": "int, represents whether a byte was successfully read from the input stream. Returns 1 if a byte was read, and 0 if the stream length was zero."
+    }
+  },
+  {
+    "function": {
+      "name": "gif_compress",
+      "description": "This function compresses GIF data using the LZW (Lempel–Ziv–Welch) compression algorithm. It reads input data byte by byte, and writes the compressed data to an output stream.",
+      "parameters": [
+        {
+          "name": "out_stream",
+          "type": "IStream*",
+          "description": "This is the output stream where the compressed data is written."
+        },
+        {
+          "name": "in_data",
+          "type": "const BYTE*",
+          "description": "This is the input data that needs to be compressed."
+        },
+        {
+          "name": "in_size",
+          "type": "ULONG",
+          "description": "This is the size of the input data."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and E_FAIL if the operation fails at any point."
+    }
+  },
+  {
+    "function": {
+      "name": "GifFrameEncode_Commit",
+      "description": "This function commits a GIF frame encoding. It writes the logical screen descriptor, global color table, image descriptor, local color table, and image data to the encoder's stream. It also handles synchronization with a critical section.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is an interface pointer to the bitmap frame that needs to be encoded."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK if the function is successful, and WINCODEC_ERR_WRONGSTATE if the function is in an incorrect state for the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "GifFrameEncode_GetMetadataQueryWriter",
+      "description": "This function retrieves a metadata query writer for a GIF frame encode interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "A pointer to an IWICBitmapFrameEncode interface that represents the GIF frame to encode."
+        },
+        {
+          "name": "writer",
+          "type": "IWICMetadataQueryWriter **",
+          "description": "A pointer to a pointer to an IWICMetadataQueryWriter interface. This parameter receives the interface pointer of the metadata query writer."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns E_INVALIDARG if the writer parameter is NULL, WINCODEC_ERR_NOTINITIALIZED if the encode object is not initialized, or the result of the MetadataQueryWriter_CreateInstanceFromBlockWriter function."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoder_QueryInterface",
+      "description": "This function checks if the provided interface supports the IUnknown or IWICBitmapEncoder interface. If it does, it increments the reference count of the interface and returns a pointer to it. If the interface does not support either interface, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to the interface to be checked"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Identifier of the interface to be checked against"
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Pointer to a pointer variable that receives the interface pointer requested in iid"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the interface supports the requested interface, E_NOINTERFACE if it does not, and E_INVALIDARG if the ppv parameter is NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoder_AddRef",
+      "description": "This function increments the reference count of the GifEncoder object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is a pointer to the IWICBitmapEncoder interface."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after increment."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoder_Release",
+      "description": "This function releases the GifEncoder object and its associated resources. It decrements the reference count and if it reaches zero, it releases the stream, deletes the critical section, and frees the memory allocated for the GifEncoder object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This parameter is a pointer to the IWICBitmapEncoder interface that is used to access the GifEncoder object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after decrement. If it is zero, it means that the object has been released."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoder_Initialize",
+      "description": "This function initializes a GIF encoder. If the encoder is already initialized, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Interface for the bitmap encoder"
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Stream to which the GIF encoder writes"
+        },
+        {
+          "name": "option",
+          "type": "WICBitmapEncoderCacheOption",
+          "description": "Options for caching during encoding"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the initialization is successful, WINCODEC_ERR_WRONGSTATE if the encoder is already initialized, and E_INVALIDARG if the stream is null"
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoder_GetContainerFormat",
+      "description": "This function checks if the format is null, if not, it sets the format to GUID_ContainerFormatGif and returns S_OK.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to an IWICBitmapEncoder interface"
+        },
+        {
+          "name": "format",
+          "type": "GUID *",
+          "description": "Pointer to a GUID to receive the container format"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns E_INVALIDARG if the format is null, otherwise it returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoder_GetEncoderInfo",
+      "description": "This function retrieves the encoder information for a GIF encoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to an interface for a bitmap encoder."
+        },
+        {
+          "name": "info",
+          "type": "IWICBitmapEncoderInfo **",
+          "description": "Pointer to a pointer to receive the encoder information."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation is successful, the return value is S_OK. If the 'info' parameter is NULL, the function returns E_INVALIDARG. If the operation fails for other reasons, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoder_SetColorContexts",
+      "description": "This function is a stub and not yet implemented. It is supposed to set color contexts for a GIF encoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Interface for the bitmap encoder"
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "Number of color contexts"
+        },
+        {
+          "name": "context",
+          "type": "IWICColorContext **",
+          "description": "Pointer to the color context"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoder_SetPalette",
+      "description": "This function sets the palette for a GIF encoder. It checks if the palette is initialized and gets the colors if it is, otherwise it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Interface for a Windows Imaging Component (WIC) bitmap encoder. Used to convert bitmap data to an encoded image stream."
+        },
+        {
+          "name": "palette",
+          "type": "IWICPalette *",
+          "description": "Interface for a WIC palette. Used to define a custom color palette for the GIF encoder."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If the palette is not initialized, it returns WINCODEC_ERR_NOTINITIALIZED. If the palette is null, it returns E_INVALIDARG."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoder_SetThumbnail",
+      "description": "This function is designed to set the thumbnail for a GIF encoder, but it currently returns an unsupported operation error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is an interface to the bitmap encoder."
+        },
+        {
+          "name": "thumbnail",
+          "type": "IWICBitmapSource *",
+          "description": "This is the source of the bitmap for the thumbnail."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. In this case, it always returns WINCODEC_ERR_UNSUPPORTEDOPERATION indicating the operation is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoder_SetPreview",
+      "description": "This function sets the preview for a GIF encoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is an interface to the bitmap encoder."
+        },
+        {
+          "name": "preview",
+          "type": "IWICBitmapSource *",
+          "description": "This is the source of the bitmap for the preview."
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the operation. In this case, it always returns WINCODEC_ERR_UNSUPPORTEDOPERATION indicating that the operation is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoderFrame_Block_QueryInterface",
+      "description": "This function queries the interface of a GIF frame encoder block writer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter*",
+          "description": "Pointer to an instance of IWICMetadataBlockWriter interface."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier (IID) of the interface being queried."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in iid."
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the interface query. If the operation was successful, it returns S_OK, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoderFrame_Block_AddRef",
+      "description": "This function adds a reference to a GIF frame encoder block.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter*",
+          "description": "This parameter is an interface to a metadata block writer."
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count of the GIF frame encoder block."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoderFrame_Block_Release",
+      "description": "This function releases the Gif frame encoder block by calling the IWICBitmapFrameEncode_Release function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter *",
+          "description": "This parameter is a pointer to an interface of a metadata block writer."
+        }
+      ],
+      "return_type": "ULONG, represents the status of the release operation."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoderFrame_Block_GetContainerFormat",
+      "description": "This function is a stub and not yet implemented. It is intended to get the container format of a GIF encoder frame block.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter*",
+          "description": "Interface for writing a block of metadata."
+        },
+        {
+          "name": "container_format",
+          "type": "GUID*",
+          "description": "Pointer to a GUID to receive the container format."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoderFrame_Block_GetCount",
+      "description": "This function is a stub and not yet implemented. It is intended to get the count of metadata blocks in a GIF encoder frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter*",
+          "description": "Interface for writing metadata blocks."
+        },
+        {
+          "name": "count",
+          "type": "UINT*",
+          "description": "Pointer to a variable where the count of metadata blocks will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoderFrame_Block_GetReaderByIndex",
+      "description": "This function is a stub and not yet implemented. It is supposed to get a reader for a specific metadata block in a GIF encoder frame by its index.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter *",
+          "description": "Interface to a metadata block writer."
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "Index of the metadata block to get the reader for."
+        },
+        {
+          "name": "metadata_reader",
+          "type": "IWICMetadataReader **",
+          "description": "Pointer to a pointer to a metadata reader, which will be set by this function."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoderFrame_Block_GetEnumerator",
+      "description": "This function is a stub and not yet implemented. It is expected to get an enumerator for a GIF encoder frame block.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter *",
+          "description": "An interface to a metadata block writer."
+        },
+        {
+          "name": "enum_metadata",
+          "type": "IEnumUnknown **",
+          "description": "A pointer to a pointer to an enumerator for unknown metadata."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function. Currently, it always returns E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoderFrame_Block_InitializeFromBlockReader",
+      "description": "This function is a stub, not yet implemented, intended to initialize a GIF encoder frame from a metadata block reader.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter *",
+          "description": "Pointer to an interface for writing metadata blocks."
+        },
+        {
+          "name": "block_reader",
+          "type": "IWICMetadataBlockReader *",
+          "description": "Pointer to an interface for reading metadata blocks."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoderFrame_Block_GetWriterByIndex",
+      "description": "This function is a stub and not yet implemented. It is expected to get a metadata writer by index from a GIF encoder frame block.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter *",
+          "description": "Interface to a metadata block writer."
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "Index of the metadata writer to get."
+        },
+        {
+          "name": "metadata_writer",
+          "type": "IWICMetadataWriter **",
+          "description": "Pointer to a pointer to receive the metadata writer."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoderFrame_Block_AddWriter",
+      "description": "This function is a stub and not yet implemented. It is intended to add a metadata writer to a metadata block writer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter*",
+          "description": "This is a pointer to an interface of a metadata block writer."
+        },
+        {
+          "name": "metadata_writer",
+          "type": "IWICMetadataWriter*",
+          "description": "This is a pointer to a metadata writer."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoderFrame_Block_SetWriterByIndex",
+      "description": "This function is a stub and not yet implemented. It is intended to set a metadata writer at a specified index in a block of metadata for a GIF encoder frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter*",
+          "description": "Interface to a block writer for metadata."
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "The index at which to set the metadata writer."
+        },
+        {
+          "name": "metadata_writer",
+          "type": "IWICMetadataWriter*",
+          "description": "The metadata writer to set at the specified index."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoderFrame_Block_RemoveWriterByIndex",
+      "description": "This function is a stub and not yet implemented. It is intended to remove a writer from a metadata block by its index.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter *",
+          "description": "Pointer to an interface for a metadata block writer."
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "The index of the writer to be removed."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoder_CreateNewFrame",
+      "description": "This function creates a new frame for a GIF encoder. It checks if the encoder is initialized and not committed, then allocates memory for a new frame and initializes its properties. If the options parameter is not null, it creates a property bag. If any step fails, it releases the frame and returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to an IWICBitmapEncoder interface that represents the GIF encoder."
+        },
+        {
+          "name": "frame",
+          "type": "IWICBitmapFrameEncode **",
+          "description": "Pointer to a pointer to an IWICBitmapFrameEncode interface that will receive the new frame."
+        },
+        {
+          "name": "options",
+          "type": "IPropertyBag2 **",
+          "description": "Pointer to a pointer to an IPropertyBag2 interface that will receive the property bag, if it is created."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It can be S_OK if the operation is successful, E_INVALIDARG if the frame parameter is null, E_OUTOFMEMORY if memory allocation fails, or WINCODEC_ERR_WRONGSTATE if the encoder is not in the correct state."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoder_Commit",
+      "description": "This function commits the GIF encoder. It writes a GIF trailer to the stream if the encoder is initialized and not yet committed. If the encoder is not in the correct state, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is an interface pointer to the WIC bitmap encoder."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and WINCODEC_ERR_WRONGSTATE if the encoder is not in the correct state."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoder_GetMetadataQueryWriter",
+      "description": "This function is a stub and not yet implemented. It is supposed to get the metadata query writer from a GIF encoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to an interface of a WIC bitmap encoder"
+        },
+        {
+          "name": "writer",
+          "type": "IWICMetadataQueryWriter **",
+          "description": "Pointer to a pointer to an interface of a WIC metadata query writer"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "GifEncoder_CreateInstance",
+      "description": "This function creates an instance of a GifEncoder, initializes its properties, and queries an interface based on the provided REFIID.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "The interface identifier that is used to query the interface."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to the location where the queried interface pointer will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If successful, the function returns S_OK. If the function fails, it returns an error code."
+    }
+  }
+]

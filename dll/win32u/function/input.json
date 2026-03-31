@@ -1,0 +1,1382 @@
+[
+  {
+    "function": {
+      "name": "kbd_tables_init_vsc2vk",
+      "description": "This function initializes the keyboard tables by mapping virtual scan codes to virtual key codes.",
+      "parameters": [
+        {
+          "name": "tables",
+          "type": "KBDTABLES*",
+          "description": "A pointer to the keyboard tables structure that contains the mappings of virtual scan codes to virtual key codes."
+        },
+        {
+          "name": "vsc2vk",
+          "type": "USHORT[0x300]",
+          "description": "An array that will be filled with the mappings of virtual scan codes to virtual key codes."
+        }
+      ],
+      "return_type": "void, this function does not return a value but modifies the vsc2vk array in place."
+    }
+  },
+  {
+    "function": {
+      "name": "kbd_tables_init_vk2char",
+      "description": "This function initializes the vk2char array by iterating over the tables' pVkToWcharTable and setting the vk2char at the index of each VirtualKey to the first character of the corresponding wch array. It skips over any VirtualKeys that are outside the range of a BYTE.",
+      "parameters": [
+        {
+          "name": "tables",
+          "type": "KBDTABLES*",
+          "description": "A pointer to the KBDTABLES structure that contains the pVkToWcharTable to be iterated over."
+        },
+        {
+          "name": "vk2char",
+          "type": "BYTE[0x100]",
+          "description": "An array of BYTEs that is to be initialized with characters from the wch arrays of the pVkToWcharTable."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "kbd_tables_get_mod_bits",
+      "description": "This function iterates over the ModNumber array in the MODIFIERS structure pointed to by the tables parameter, comparing each element to the mod parameter. If a match is found, the function returns the index at which the match was found. If no match is found, the function returns -1.",
+      "parameters": [
+        {
+          "name": "tables",
+          "type": "KBDTABLES*",
+          "description": "A pointer to a KBDTABLES structure. This structure contains a pointer to a MODIFIERS structure, which in turn contains the ModNumber array that the function iterates over."
+        },
+        {
+          "name": "mod",
+          "type": "UINT",
+          "description": "The value that the function attempts to find in the ModNumber array."
+        }
+      ],
+      "return_type": "UINT. This represents the index at which the mod parameter was found in the ModNumber array. If mod was not found in the array, the function returns -1."
+    }
+  },
+  {
+    "function": {
+      "name": "kbd_tables_get_mod_num",
+      "description": "This function calculates the modifier number based on the keyboard state and caps lock status.",
+      "parameters": [
+        {
+          "name": "tables",
+          "type": "KBDTABLES",
+          "description": "Pointer to the keyboard tables."
+        },
+        {
+          "name": "state",
+          "type": "BYTE",
+          "description": "Pointer to the keyboard state."
+        },
+        {
+          "name": "caps",
+          "type": "BOOL",
+          "description": "Caps lock status."
+        }
+      ],
+      "return_type": "UINT, represents the modifier number. If the calculated bits exceed the maximum modifier bits, it returns -1."
+    }
+  },
+  {
+    "function": {
+      "name": "kbd_tables_wchar_to_vkey",
+      "description": "This function converts a wide character to a virtual key code. It iterates over the keyboard tables and returns the virtual key code corresponding to the input wide character. If the wide character is an escape character, it returns VK_ESCAPE. If the wide character is between 0x0001 and 0x001a, it returns a control character. If the wide character is greater than or equal to 0x0080, it returns -1, otherwise it returns 0.",
+      "parameters": [
+        {
+          "name": "tables",
+          "type": "KBDTABLES*",
+          "description": "Pointer to the keyboard tables"
+        },
+        {
+          "name": "wch",
+          "type": "WCHAR",
+          "description": "The wide character to be converted to a virtual key code"
+        }
+      ],
+      "return_type": "WORD. It represents the virtual key code corresponding to the input wide character"
+    }
+  },
+  {
+    "function": {
+      "name": "kbd_tables_vkey_to_wchar",
+      "description": "This function converts a virtual key code to a wide character, considering the current keyboard state and layout.",
+      "parameters": [
+        {
+          "name": "tables",
+          "type": "KBDTABLES *",
+          "description": "Pointer to the keyboard tables structure, which contains information about the keyboard layout."
+        },
+        {
+          "name": "vkey",
+          "type": "UINT",
+          "description": "The virtual key code to be converted."
+        },
+        {
+          "name": "state",
+          "type": "BYTE *",
+          "description": "Pointer to the keyboard state array, which contains the state of each key."
+        }
+      ],
+      "return_type": "WCHAR. It represents the wide character corresponding to the virtual key code, considering the current keyboard state and layout. If no corresponding character can be found, the function returns WCH_NONE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetForegroundWindow",
+      "description": "This function retrieves the handle to the window that is currently in the foreground.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "HWND, which represents the handle to the window that is currently in the foreground."
+    }
+  },
+  {
+    "function": {
+      "name": "get_active_window",
+      "description": "This function retrieves the handle to the active window attached to the calling thread's message queue.",
+      "parameters": [],
+      "return_type": "HWND, which is a handle to the active window. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "get_capture",
+      "description": "This function retrieves the handle to the window (if any) that has captured the mouse and keyboard input.",
+      "parameters": [],
+      "return_type": "HWND, which is a handle to the window that has captured the mouse and keyboard input. If no window has captured the input, the function returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "get_focus",
+      "description": "This function retrieves the handle to the window that has the keyboard focus for the calling thread's message queue.",
+      "parameters": [],
+      "return_type": "HWND, which represents the handle to the window that has the keyboard focus. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserAttachThreadInput",
+      "description": "This function attaches or detaches the input processing mechanism of one thread to that of another thread.",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "DWORD",
+          "description": "The identifier of the thread to be attached from."
+        },
+        {
+          "name": "to",
+          "type": "DWORD",
+          "description": "The identifier of the thread to be attached to."
+        },
+        {
+          "name": "attach",
+          "type": "BOOL",
+          "description": "The action to be performed, whether to attach or detach the input processing mechanism."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in attaching or detaching the input processing mechanism."
+    }
+  },
+  {
+    "function": {
+      "name": "update_mouse_coords",
+      "description": "This function updates the coordinates of the mouse based on the input received. It handles both absolute and relative movements, and adjusts the coordinates based on the screen or monitor rectangle and mouse acceleration settings.",
+      "parameters": [
+        {
+          "name": "input",
+          "type": "INPUT*",
+          "description": "This parameter is a pointer to an INPUT structure that contains information about a simulated mouse event."
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSendInput",
+      "description": "This function sends a series of inputs to the system. It checks the validity of the parameters and depending on the type of input, it updates mouse coordinates or sends a hardware message. If the input type is not supported, it sets an error and returns 0.",
+      "parameters": [
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of inputs to be sent"
+        },
+        {
+          "name": "inputs",
+          "type": "INPUT*",
+          "description": "A pointer to an array of INPUT structures. Each structure represents an event to be inserted into the keyboard or mouse input stream."
+        },
+        {
+          "name": "size",
+          "type": "int",
+          "description": "The size of the INPUT structure"
+        }
+      ],
+      "return_type": "UINT, represents the number of inputs that are successfully sent. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetCursorPos",
+      "description": "This function sets the cursor position on the screen. It first maps the provided coordinates to raw coordinates, then sends a request to the server to set the cursor position. If the server call is successful and the new position is different from the previous one, it updates the cursor position using the user driver.",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the new cursor position."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the new cursor position."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation of setting the cursor position was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetCursorPos",
+      "description": "This function retrieves the position of the cursor on the desktop. It also updates the cursor position if it hasn't been updated recently.",
+      "parameters": [
+        {
+          "name": "pt",
+          "type": "POINT *",
+          "description": "A pointer to a POINT structure that receives the screen coordinates of the cursor."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully retrieves the cursor position, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetCursorInfo",
+      "description": "This function retrieves the state and position of the cursor.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "CURSORINFO*",
+          "description": "A pointer to a CURSORINFO structure that receives the cursor information."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function is successful, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetAsyncKeyState",
+      "description": "This function retrieves the status of the specified virtual key. The status specifies whether the key is up, down, or toggled (on, off—alternating each time the key is pressed).",
+      "parameters": [
+        {
+          "name": "key",
+          "type": "INT",
+          "description": "This parameter represents the virtual-key code. The code must be a value in the range 0 to 255."
+        }
+      ],
+      "return_type": "SHORT. If the function succeeds, the return value specifies whether the key was pressed since the last call to GetAsyncKeyState, and whether the key is currently up or down. If the most significant bit is set, the key is down, and if the least significant bit is set, the key was pressed after the previous call to GetAsyncKeyState. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "get_shared_queue_bits",
+      "description": "This function initializes a lock and a shared queue, then continuously checks the status of the shared queue. If the status is pending, it updates the wake_bits and changed_bits from the shared queue. The function returns TRUE if the status is not pending, otherwise it returns FALSE.",
+      "parameters": [
+        {
+          "name": "wake_bits",
+          "type": "UINT*",
+          "description": "Pointer to a UINT variable where the wake_bits from the shared queue will be stored"
+        },
+        {
+          "name": "changed_bits",
+          "type": "UINT*",
+          "description": "Pointer to a UINT variable where the changed_bits from the shared queue will be stored"
+        }
+      ],
+      "return_type": "BOOL, represents whether the status of the shared queue is not pending"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetQueueStatus",
+      "description": "This function retrieves the status of the thread's message queue.",
+      "parameters": [
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "This parameter is used to specify the types of input events to be checked."
+        }
+      ],
+      "return_type": "DWORD, represents the types of messages currently in the calling thread's message queue."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetThreadState",
+      "description": "This function retrieves the state of a thread based on the USERTHREADSTATECLASS enumeration value passed to it.",
+      "parameters": [
+        {
+          "name": "cls",
+          "type": "USERTHREADSTATECLASS",
+          "description": "This parameter is an enumeration value that specifies the thread state to retrieve."
+        }
+      ],
+      "return_type": "ULONG_PTR, represents the state of the thread based on the USERTHREADSTATECLASS enumeration value passed to the function."
+    }
+  },
+  {
+    "function": {
+      "name": "get_input_state",
+      "description": "This function checks for input events and returns the state of the keyboard or mouse button.",
+      "parameters": [],
+      "return_type": "DWORD, represents the state of the keyboard or mouse button"
+    }
+  },
+  {
+    "function": {
+      "name": "get_last_input_time",
+      "description": "This function retrieves the last input time from the server.",
+      "parameters": [],
+      "return_type": "DWORD, represents the last input time retrieved from the server"
+    }
+  },
+  {
+    "function": {
+      "name": "get_locale_kbd_layout",
+      "description": "This function retrieves the keyboard layout of the current locale. It uses the NtQueryDefaultLocale function to get the default locale, then it converts this locale into a long value and returns it as a handle.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "HKL, which represents a handle to the keyboard layout of the current locale."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetKeyboardLayout",
+      "description": "This function retrieves the keyboard layout associated with the specified thread. If the thread ID is not the same as the current thread ID, a warning is issued. If no layout is found, it retrieves the locale keyboard layout.",
+      "parameters": [
+        {
+          "name": "thread_id",
+          "type": "DWORD",
+          "description": "The ID of the thread for which the keyboard layout is to be retrieved."
+        }
+      ],
+      "return_type": "HKL, which represents the handle to the keyboard layout for the specified thread."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetKeyState",
+      "description": "This function retrieves the status of the specified virtual key. The status specifies whether the key is up, down, or toggled (on, off—alternating each time the key is pressed).",
+      "parameters": [
+        {
+          "name": "vkey",
+          "type": "INT",
+          "description": "A virtual key code. The code must be a value in the range 1 to 254."
+        }
+      ],
+      "return_type": "SHORT: The return value specifies the status of the specified virtual key."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetKeyboardState",
+      "description": "This function gets the state of the keyboard by copying the state of the keys into the parameter. It uses shared input and object locks to ensure thread safety.",
+      "parameters": [
+        {
+          "name": "state",
+          "type": "BYTE *",
+          "description": "This is a pointer to a BYTE array where the function will store the state of the keyboard."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function executed successfully. Always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "get_async_keyboard_state",
+      "description": "This function gets the state of the keyboard asynchronously. It copies the keyboard state from shared memory to the provided array, and returns a boolean indicating success or failure.",
+      "parameters": [
+        {
+          "name": "state",
+          "type": "BYTE[256]",
+          "description": "An array to store the state of the keyboard."
+        }
+      ],
+      "return_type": "BOOL, where a return value of 0 indicates failure and a non-zero value indicates success."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetKeyboardState",
+      "description": "This function sets the state of the keyboard.",
+      "parameters": [
+        {
+          "name": "state",
+          "type": "BYTE *",
+          "description": "This is a pointer to a BYTE that represents the state of the keyboard."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserVkKeyScanEx",
+      "description": "This function scans a character and returns the corresponding virtual-key code and shift state for the key combination that generates the character based on the specified input locale identifier.",
+      "parameters": [
+        {
+          "name": "chr",
+          "type": "WCHAR",
+          "description": "This parameter represents the character for which a virtual-key code is to be retrieved."
+        },
+        {
+          "name": "layout",
+          "type": "HKL",
+          "description": "This parameter represents the input locale identifier to use for translating the character to a virtual-key code."
+        }
+      ],
+      "return_type": "WORD. It represents the virtual-key code and shift state. The low-order byte contains the virtual-key code and the high-order byte contains the shift state, which can be a combination of any of the following flags: 1 if a SHIFT key is pressed; 2 if a CTRL key is pressed; 4 if an ALT key is pressed."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserMapVirtualKeyEx",
+      "description": "This function maps a virtual key code into a scan code, a virtual key code, or a unshifted character that corresponds to the virtual key code. The function also translates the virtual key code, depending on the current keyboard layout.",
+      "parameters": [
+        {
+          "name": "code",
+          "type": "UINT",
+          "description": "The virtual key code or scan code to be translated."
+        },
+        {
+          "name": "type",
+          "type": "UINT",
+          "description": "The translation to be performed. The value of this parameter depends on the value of the code parameter."
+        },
+        {
+          "name": "layout",
+          "type": "HKL",
+          "description": "The input locale identifier to use for the translation. This parameter can be any input locale identifier previously returned by the LoadKeyboardLayout function."
+        }
+      ],
+      "return_type": "UINT, represents the result of the translation. The value of the return depends on the translation being performed."
+    }
+  },
+  {
+    "function": {
+      "name": "map_scan_to_kbd_vkey",
+      "description": "This function maps a scan code to a virtual key code based on the keyboard layout. It uses the user driver's MapVirtualKeyEx method and KbdLayerDescriptor method to get the keyboard tables and map the scan code. If the scan code is out of range, it returns 0. It also releases the keyboard tables if they are not the default US keyboard tables.",
+      "parameters": [
+        {
+          "name": "scan",
+          "type": "USHORT",
+          "description": "This is the scan code to be mapped to a virtual key code."
+        },
+        {
+          "name": "layout",
+          "type": "HKL",
+          "description": "This is the handle to the input locale identifier indicating the keyboard layout."
+        }
+      ],
+      "return_type": "USHORT, representing the virtual key code corresponding to the given scan code and keyboard layout."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetKeyNameText",
+      "description": "This function retrieves the text of the key name that corresponds to the specified key code.",
+      "parameters": [
+        {
+          "name": "lparam",
+          "type": "LONG",
+          "description": "The key code to be translated into a key name."
+        },
+        {
+          "name": "buffer",
+          "type": "WCHAR*",
+          "description": "A pointer to a buffer that receives the key name."
+        },
+        {
+          "name": "size",
+          "type": "INT",
+          "description": "The maximum length of the key name that the buffer can hold."
+        }
+      ],
+      "return_type": "INT, represents the length of the key name. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserToUnicodeEx",
+      "description": "This function converts a virtual-key code into a Unicode character.",
+      "parameters": [
+        {
+          "name": "virt",
+          "type": "UINT",
+          "description": "The virtual-key code to be converted."
+        },
+        {
+          "name": "scan",
+          "type": "UINT",
+          "description": "The hardware scan code of the key to be translated."
+        },
+        {
+          "name": "state",
+          "type": "BYTE*",
+          "description": "A pointer to a 256-byte array that contains the current keyboard state."
+        },
+        {
+          "name": "str",
+          "type": "WCHAR*",
+          "description": "A pointer to the buffer that receives the translated Unicode character or characters."
+        },
+        {
+          "name": "size",
+          "type": "int",
+          "description": "The size of the buffer pointed to by the str parameter."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "The behavior of the function."
+        },
+        {
+          "name": "layout",
+          "type": "HKL",
+          "description": "Input locale identifier to use for the translation."
+        }
+      ],
+      "return_type": "INT, represents the number of characters written to the buffer pointed to by str."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserActivateKeyboardLayout",
+      "description": "This function is used to activate a specific keyboard layout. It checks the layout and flags passed, and if valid, it activates the specified layout. If the layout is not supported or if changing the user locale is not supported, it sets the last error to ERROR_CALL_NOT_IMPLEMENTED and returns 0. If the activation fails, it also returns 0. If the old layout is not equal to the new layout, it deactivates the old layout and activates the new one. If there is no old layout, it returns the default locale keyboard layout.",
+      "parameters": [
+        {
+          "name": "layout",
+          "type": "HKL",
+          "description": "This is the handle to the input locale identifier for the new layout."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "This is the type of activation. Currently, this parameter is not supported and should be 0."
+        }
+      ],
+      "return_type": "HKL. This is the handle to the previous input locale identifier. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetKeyboardLayoutList",
+      "description": "This function retrieves the input locale identifiers for the system, fills an array with the identifiers, and returns the number of identifiers.",
+      "parameters": [
+        {
+          "name": "size",
+          "type": "INT",
+          "description": "The maximum number of elements in the array that the function can fill."
+        },
+        {
+          "name": "layouts",
+          "type": "HKL*",
+          "description": "Pointer to the buffer that receives an array of input locale identifiers."
+        }
+      ],
+      "return_type": "UINT, represents the number of input locale identifiers copied to the buffer or, if the function fails, a negative error code."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetKeyboardLayoutName",
+      "description": "This function retrieves the name of the active keyboard layout for the calling thread. If the function succeeds, it copies the name of the keyboard layout into the specified buffer.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "WCHAR *",
+          "description": "This is a pointer to a buffer that receives a null-terminated string that specifies the name of the keyboard layout."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds in retrieving the keyboard layout name. It returns FALSE if it fails, for instance, if the 'name' parameter is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserRegisterHotKey",
+      "description": "This function registers a hot key with the system associated with the specified window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window associated with the hot key"
+        },
+        {
+          "name": "id",
+          "type": "INT",
+          "description": "Identifier of the hot key"
+        },
+        {
+          "name": "modifiers",
+          "type": "UINT",
+          "description": "Key modifiers that can be combined with the key to create a hot key"
+        },
+        {
+          "name": "vk",
+          "type": "UINT",
+          "description": "Virtual-key code of the hot key"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in registering the hot key"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserUnregisterHotKey",
+      "description": "This function unregisters a hot key previously registered by the calling thread.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window associated with the hot key to be freed."
+        },
+        {
+          "name": "id",
+          "type": "INT",
+          "description": "The identifier of the hot key to be freed."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function successfully unregistered the hot key or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetMouseMovePointsEx",
+      "description": "This function retrieves the history of the last several points where the mouse was moved. It checks the validity of the parameters, retrieves the cursor history from the server, and then copies the relevant points into the output array.",
+      "parameters": [
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "The size of the MOUSEMOVEPOINT structure."
+        },
+        {
+          "name": "ptin",
+          "type": "MOUSEMOVEPOINT*",
+          "description": "Pointer to the MOUSEMOVEPOINT structure that specifies the starting point."
+        },
+        {
+          "name": "ptout",
+          "type": "MOUSEMOVEPOINT*",
+          "description": "Pointer to the array of MOUSEMOVEPOINT structures that will receive the points."
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "description": "The number of points to be retrieved."
+        },
+        {
+          "name": "resolution",
+          "type": "DWORD",
+          "description": "The resolution to be used. Currently, only GMMP_USE_DISPLAY_POINTS is supported."
+        }
+      ],
+      "return_type": "int, represents the number of points copied into the output array. If an error occurs, the function returns -1 and sets the last error code."
+    }
+  },
+  {
+    "function": {
+      "name": "get_key_state",
+      "description": "This function checks the state of various keys/buttons on the system. It checks if the left, right, middle, shift, control, and X buttons are pressed. It also checks if the system's swap button metric is true, and if so, it swaps the left and right button states.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "WORD, represents the state of the keys/buttons. Each bit in the returned WORD corresponds to a different key/button."
+    }
+  },
+  {
+    "function": {
+      "name": "get_mouse_tracking_info",
+      "description": "This function retrieves the mouse tracking information from the current user thread. If the mouse tracking information is not initialized, it allocates memory for it.",
+      "parameters": [],
+      "return_type": "struct mouse_tracking_info pointer, representing the mouse tracking information of the current user thread"
+    }
+  },
+  {
+    "function": {
+      "name": "update_current_mouse_window",
+      "description": "This function updates the current mouse window with the given parameters.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window where the mouse event occurred."
+        },
+        {
+          "name": "hittest",
+          "type": "INT",
+          "description": "The hit-test value of the mouse event."
+        },
+        {
+          "name": "pos",
+          "type": "POINT",
+          "description": "The position of the mouse cursor, in client coordinates."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "check_mouse_leave",
+      "description": "This function checks if the mouse has left a certain area and sends a message accordingly. It also updates the tracking information.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "hittest",
+          "type": "int",
+          "description": "The hit-test value of the mouse event."
+        },
+        {
+          "name": "tracking",
+          "type": "struct mouse_tracking_info *",
+          "description": "A pointer to a structure that contains tracking information for the mouse."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "get_mouse_window",
+      "description": "This function retrieves the window under the mouse cursor and updates the mouse tracking information.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window."
+        },
+        {
+          "name": "hittest",
+          "type": "INT*",
+          "description": "Pointer to an integer that receives a hit-test value."
+        },
+        {
+          "name": "ret_pos",
+          "type": "POINT*",
+          "description": "Pointer to a POINT structure that receives the screen coordinates of the cursor."
+        },
+        {
+          "name": "tracking",
+          "type": "struct mouse_tracking_info*",
+          "description": "Pointer to a mouse_tracking_info structure that receives the updated mouse tracking information."
+        }
+      ],
+      "return_type": "HWND, represents the handle to the window under the mouse cursor."
+    }
+  },
+  {
+    "function": {
+      "name": "update_mouse_tracking_info",
+      "description": "This function updates the mouse tracking information. It retrieves the current mouse tracking info, gets the mouse window, updates hover width and height, checks mouse leave, updates tracking flags and position, posts messages for mouse hover, and stops the timer if the tracking list is empty.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window where the mouse tracking information is to be updated."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserTrackMouseEvent",
+      "description": "This function is used to track the mouse event. It checks the validity of the parameters, queries the mouse tracking info, checks if the window is valid, and handles different flags for mouse events. It also manages system timers related to mouse tracking.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "TRACKMOUSEEVENT*",
+          "description": "This is a pointer to a TRACKMOUSEEVENT structure that contains tracking information. The function uses this information to track the mouse event."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function successfully tracks the mouse event, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "set_capture_window",
+      "description": "This function sets the capture window and notifies the system of the capture start and end events. It also sends a message if there is a previous capture window and updates the previous window handle if prev_ret is not null.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to capture."
+        },
+        {
+          "name": "gui_flags",
+          "type": "UINT",
+          "description": "Flags that specify the GUI mode."
+        },
+        {
+          "name": "prev_ret",
+          "type": "HWND*",
+          "description": "Pointer to a variable that receives the handle to the previous capture window."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function succeeded or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetCapture",
+      "description": "This function sets the window capture to the specified window and returns the handle of the previous capture window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This parameter is a handle to the window to set the capture."
+        }
+      ],
+      "return_type": "HWND, represents the handle to the previous capture window."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserReleaseCapture",
+      "description": "This function releases the mouse capture from a window in the system and returns the status of this operation.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not accept any parameters."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation of releasing the mouse capture was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "set_focus_window",
+      "description": "This function sets the focus to a specified window, handles the deactivation and activation of the input method editor (IME) for the previous and current window respectively, and sends appropriate notifications and messages.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that is to be focused."
+        }
+      ],
+      "return_type": "HWND, represents the handle to the window that previously had the focus. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "set_active_window",
+      "description": "This function sets a specified window as the active window, and performs various actions such as sending messages to the window, changing focus if necessary, and handling thread changes.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be activated."
+        },
+        {
+          "name": "prev",
+          "type": "HWND*",
+          "description": "Pointer to a handle that receives the handle to the previously active window."
+        },
+        {
+          "name": "mouse",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether the activation is done by a mouse click."
+        },
+        {
+          "name": "focus",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether the focus should be changed."
+        },
+        {
+          "name": "new_active_thread_id",
+          "type": "DWORD",
+          "description": "ID of the new active thread."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully sets the active window, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetActiveWindow",
+      "description": "This function sets the active window to the window represented by the given handle. If the window cannot be set as active, it returns the handle of the previously active window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that is to be made active."
+        }
+      ],
+      "return_type": "HWND, represents the handle of the previously active window if the operation is successful, otherwise it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetFocus",
+      "description": "This function sets the focus to a specified window and returns the handle to the window that previously had the focus. It also checks if the window can receive the focus, and if not, it sets the last error to ERROR_INVALID_WINDOW_HANDLE and returns 0.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that should receive the focus."
+        }
+      ],
+      "return_type": "HWND, represents the handle to the window that previously had the focus. If the function fails, the return value is 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetForegroundWindow",
+      "description": "This function sets the specified window to the foreground.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window that should be brought to the foreground."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "set_foreground_window",
+      "description": "This function sets the specified window to the foreground and activates it. It also handles the necessary server requests and message calls.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that should be brought to the foreground and activated."
+        },
+        {
+          "name": "mouse",
+          "type": "BOOL",
+          "description": "Boolean value that indicates whether the window is being activated by a mouse click."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "display_caret",
+      "description": "This function is used to display a caret on a given window. It creates a compatible device context, selects the caret bitmap into it, performs a bit-block transfer to the original device context, and then cleans up.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window where the caret is to be displayed."
+        },
+        {
+          "name": "r",
+          "type": "const RECT *",
+          "description": "Pointer to a RECT structure that specifies the coordinates of the caret."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "get_caret_registry_timeout",
+      "description": "This function retrieves the caret blink rate from the system registry. If it fails to access the registry, it returns a default value of 500.",
+      "parameters": [],
+      "return_type": "unsigned int, representing the caret blink rate in milliseconds"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserCreateCaret",
+      "description": "This function creates a new caret (cursor) for a window, and assigns it a bitmap, width, and height. If the bitmap is not provided, it creates a uniform bitmap on the fly. It also handles the hiding of the previous caret and the display of the new one.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window where the caret is to be created."
+        },
+        {
+          "name": "bitmap",
+          "type": "HBITMAP",
+          "description": "Handle to the bitmap that defines the caret shape."
+        },
+        {
+          "name": "width",
+          "type": "int",
+          "description": "The width of the caret. If a bitmap is provided, this value is ignored."
+        },
+        {
+          "name": "height",
+          "type": "int",
+          "description": "The height of the caret. If a bitmap is provided, this value is ignored."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function successfully creates a caret. Returns FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserDestroyCaret",
+      "description": "This function destroys the caret, a cursor represented by a blinking vertical line, in the current window. It also handles the removal of the system timer associated with the caret and the deletion of the caret bitmap if it exists.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "BOOL, a boolean value indicating the success (TRUE) or failure (FALSE) of the function."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetCaretBlinkTime",
+      "description": "This function returns the timeout value of the caret.",
+      "parameters": [],
+      "return_type": "UINT, represents the timeout value of the caret"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetCaretBlinkTime",
+      "description": "This function sets the blink time of the caret.",
+      "parameters": [
+        {
+          "name": "time",
+          "type": "unsigned int",
+          "description": "This parameter represents the blink time for the caret."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function executed successfully or not"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetCaretPos",
+      "description": "This function retrieves the caret position.",
+      "parameters": [
+        {
+          "name": "pt",
+          "type": "POINT *",
+          "description": "This is a pointer to a POINT structure that receives the client coordinates of the caret."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "set_ime_composition_rect",
+      "description": "This function sets the IME composition rectangle for a given window. It first checks if the window exists, then maps the window points, converts the rectangle from virtual to raw coordinates, and finally sets the IME composition rectangle.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the IME composition rectangle is to be set."
+        },
+        {
+          "name": "rect",
+          "type": "RECT",
+          "description": "The rectangle to be set as the IME composition rectangle."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the IME composition rectangle was successfully set, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetCaretPos",
+      "description": "This function sets the caret position and updates the caret state on the server side. If the caret is not hidden and its position has changed, it displays the caret at the new position and sets the IME composition rectangle. It also sets the system caret timer.",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the new caret position."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the new caret position."
+        }
+      ],
+      "return_type": "BOOL, represents whether the server call was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserShowCaret",
+      "description": "This function is used to display the caret in a given window. It also sets the system timer for the caret and adjusts the IME composition rectangle based on the caret's position.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window where the caret is to be displayed."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in showing the caret or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserHideCaret",
+      "description": "This function hides the caret (text cursor) in a specific window. It communicates with a server to change the caret's state and position, and to retrieve the old state and position. If the caret was not previously hidden, the function displays the caret in its old position and kills the system timer associated with the caret.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window where the caret is to be hidden."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in hiding the caret or not."
+    }
+  },
+  {
+    "function": {
+      "name": "toggle_caret",
+      "description": "This function toggles the state of the caret in a given window. If the caret was hidden, it is displayed; if it was displayed, it is hidden.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window where the caret state is to be toggled."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserEnableMouseInPointer",
+      "description": "This function is currently not implemented, it is a stub. It is supposed to enable or disable the mouse in pointer.",
+      "parameters": [
+        {
+          "name": "enable",
+          "type": "BOOL",
+          "description": "A boolean value that indicates whether to enable or disable the mouse in pointer."
+        }
+      ],
+      "return_type": "BOOL, returns FALSE because the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserEnableMouseInPointerForThread",
+      "description": "This function is currently a stub and not implemented. It is intended to enable the mouse in pointer for the thread.",
+      "parameters": [],
+      "return_type": "BOOL, returns FALSE as the function is not yet implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserIsMouseInPointerEnabled",
+      "description": "This function is a stub and not yet implemented. It is supposed to check if the mouse is in pointer enabled state.",
+      "parameters": [],
+      "return_type": "BOOL, returns FALSE because the function is not yet implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "is_captured_by_system",
+      "description": "This function checks if the current thread's GUI is captured by the system.",
+      "parameters": [],
+      "return_type": "BOOL, returns TRUE if the GUI thread is captured by the system, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "clip_fullscreen_window",
+      "description": "This function checks if a window is in fullscreen mode and if so, clips it to the screen. It also handles DPI awareness and monitors information.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be checked and potentially clipped."
+        },
+        {
+          "name": "reset",
+          "type": "BOOL",
+          "description": "Flag to indicate if the clipping should be reset."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the window is successfully clipped, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetPointerInfoList",
+      "description": "This function is not implemented yet. It is expected to retrieve a list of pointer information.",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "UINT32",
+          "description": "An identifier for the pointer info list"
+        },
+        {
+          "name": "type",
+          "type": "POINTER_INPUT_TYPE",
+          "description": "The type of the pointer input"
+        },
+        {
+          "name": "unk0",
+          "type": "UINT_PTR",
+          "description": "Unknown parameter"
+        },
+        {
+          "name": "unk1",
+          "type": "UINT_PTR",
+          "description": "Unknown parameter"
+        },
+        {
+          "name": "size",
+          "type": "SIZE_T",
+          "description": "The size of the pointer info list"
+        },
+        {
+          "name": "entry_count",
+          "type": "UINT32 *",
+          "description": "A pointer to store the count of entries in the list"
+        },
+        {
+          "name": "pointer_count",
+          "type": "UINT32 *",
+          "description": "A pointer to store the count of pointers in the list"
+        },
+        {
+          "name": "pointer_info",
+          "type": "void *",
+          "description": "A pointer to store the pointer info list"
+        }
+      ],
+      "return_type": "BOOL, returns FALSE because the function is not implemented yet"
+    }
+  },
+  {
+    "function": {
+      "name": "get_clip_cursor",
+      "description": "This function gets the clip cursor, locks the object, gets the shared desktop, and maps the rectangle from raw to virtual if the type is MDT_EFFECTIVE_DPI.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that receives the screen coordinates of the clipped cursor"
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "The DPI value to be used for mapping the rectangle from raw to virtual"
+        },
+        {
+          "name": "type",
+          "type": "MONITOR_DPI_TYPE",
+          "description": "The type of DPI used. If it is MDT_EFFECTIVE_DPI, the rectangle is mapped from raw to virtual"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation is successful, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "process_wine_clipcursor",
+      "description": "This function processes the clipping of the cursor in a Wine environment. It checks whether the cursor is being clipped, and if so, it decrements the clipping counter. If the reset flag is set, it resets the clipping. If the cursor is not being grabbed, it returns TRUE. If the clipping rectangle is smaller than the screen, it checks whether it should switch to fullscreen clipping. If not, it sets the clipping to FALSE and returns the result of the clipping function. If the clipping function fails, it returns FALSE. Otherwise, it increments the clipping counter, sets the clipping to TRUE, and returns TRUE.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window where the cursor is being clipped"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags that control the clipping behavior"
+        },
+        {
+          "name": "reset",
+          "type": "BOOL",
+          "description": "Flag that indicates whether the clipping should be reset"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in processing the cursor clipping or not"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetClipCursor",
+      "description": "This function retrieves the screen coordinates of the rectangular area to which the cursor is confined.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "A pointer to a RECT structure that receives the screen coordinates of the confining rectangle."
+        }
+      ],
+      "return_type": "BOOL, returns whether the function successfully retrieves the screen coordinates of the confining rectangle or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserClipCursor",
+      "description": "This function clips the cursor to a specific rectangular area on the screen. If the rectangle is NULL, the cursor is not clipped.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "This is a pointer to a RECT structure that defines the screen coordinates of the rectangular area to which the cursor is confined."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function is successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserRegisterTouchPadCapable",
+      "description": "This function is a stub and not yet implemented. It is intended to register a touchpad as capable or not.",
+      "parameters": [
+        {
+          "name": "capable",
+          "type": "BOOL",
+          "description": "A boolean value representing whether the touchpad is capable or not."
+        }
+      ],
+      "return_type": "BOOL, always returns FALSE as the function is not yet implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserScheduleDispatchNotification",
+      "description": "This function checks if the given window handle represents a valid window. If it does, it returns 2, otherwise it returns 0.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window that needs to be checked."
+        }
+      ],
+      "return_type": "INT, represents the status of the window. Returns 2 if the window is valid, otherwise returns 0."
+    }
+  }
+]

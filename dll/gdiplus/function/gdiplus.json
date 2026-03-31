@@ -1,0 +1,610 @@
+[
+  {
+    "function": {
+      "name": "NotificationHook",
+      "description": "This function checks if the token is null and returns a status based on the check.",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "ULONG_PTR*",
+          "description": "This is a pointer to a token that is checked within the function."
+        }
+      ],
+      "return_type": "Status, represents the result of the function, returns 'InvalidParameter' if token is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "NotificationUnhook",
+      "description": "This function is used to unhook a notification using a token.",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "ULONG_PTR",
+          "description": "This parameter is used to identify the notification to be unhooked."
+        }
+      ],
+      "return_type": "void, this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "DllMain",
+      "description": "This function is an entry point to a DLL. It is called by the system when processes and threads are initialized and terminated, or upon using LoadLibrary and FreeLibrary. It handles the DLL_PROCESS_ATTACH and DLL_PROCESS_DETACH cases to initialize and clean up resources respectively.",
+      "parameters": [
+        {
+          "name": "hinst",
+          "type": "HINSTANCE",
+          "description": "A handle to the DLL module. The value is the base address of the DLL."
+        },
+        {
+          "name": "reason",
+          "type": "DWORD",
+          "description": "The reason code that indicates why the DLL entry-point function is being called."
+        },
+        {
+          "name": "reserved",
+          "type": "LPVOID",
+          "description": "If the DLL_PROCESS_DETACH is due to a process termination, the reserved parameter will be non-null. If the DLL_PROCESS_DETACH is due to a call to FreeLibrary, the reserved parameter will be NULL."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful or not. The function always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "GdiplusStartup",
+      "description": "This function initializes the Microsoft GDI+ version 1.0 library and provides a startup token.",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "ULONG_PTR*",
+          "description": "Pointer to a ULONG_PTR variable that receives a token."
+        },
+        {
+          "name": "input",
+          "type": "struct GdiplusStartupInput*",
+          "description": "Pointer to a GdiplusStartupInput structure that specifies how the GDI+ version 1.0 library should be initialized."
+        },
+        {
+          "name": "output",
+          "type": "struct GdiplusStartupOutput*",
+          "description": "Pointer to a GdiplusStartupOutput structure. If the SuppressBackgroundThread member of the input parameter is TRUE, the GDI+ version 1.0 library will provide notification hooks in this structure."
+        }
+      ],
+      "return_type": "Status, represents the status of the function execution. It can return 'InvalidParameter' if the token or input is null, 'UnsupportedGdiplusVersion' if the GdiplusVersion is not 1 or 2, and 'Ok' if the function executes successfully."
+    }
+  },
+  {
+    "function": {
+      "name": "GdiplusNotificationHook",
+      "description": "This function is used to hook notifications in GDI+.",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "ULONG_PTR*",
+          "description": "This is a pointer to a token that is used for the notification hook."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "GdiplusNotificationUnhook",
+      "description": "This function unregisters a previously registered notification hook.",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "ULONG_PTR",
+          "description": "This is a token that represents the notification hook to be unregistered."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "GdiplusShutdown_wrapper",
+      "description": "This function is a wrapper for GdiplusShutdown with a slightly different prototype. It currently does not track objects and is expected to return a value of 0.",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "ULONG_PTR",
+          "description": "This parameter is not currently used in the function."
+        }
+      ],
+      "return_type": "ULONG, represents the status of the function execution, currently always returns 0"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAlloc",
+      "description": "This function allocates memory of a given size.",
+      "parameters": [
+        {
+          "name": "size",
+          "type": "SIZE_T",
+          "description": "The size of the memory to be allocated."
+        }
+      ],
+      "return_type": "void pointer, represents the starting address of the allocated memory."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipFree",
+      "description": "This function is used to free the memory that has been previously allocated by malloc, calloc, etc.",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "void*",
+          "description": "This is a pointer to the memory block that needs to be freed."
+        }
+      ],
+      "return_type": "void, it does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "add_arc_part",
+      "description": "This function calculates the points on an arc of an ellipse and writes them into an array. It also expands the points back from the unit circle to the ellipse.",
+      "parameters": [
+        {
+          "name": "pt",
+          "type": "GpPointF *",
+          "description": "Pointer to an array where the calculated points are stored"
+        },
+        {
+          "name": "x1",
+          "type": "REAL",
+          "description": "X-coordinate of the top-left corner of the bounding rectangle"
+        },
+        {
+          "name": "y1",
+          "type": "REAL",
+          "description": "Y-coordinate of the top-left corner of the bounding rectangle"
+        },
+        {
+          "name": "x2",
+          "type": "REAL",
+          "description": "Width of the bounding rectangle"
+        },
+        {
+          "name": "y2",
+          "type": "REAL",
+          "description": "Height of the bounding rectangle"
+        },
+        {
+          "name": "start",
+          "type": "REAL",
+          "description": "Starting angle of the arc, in radians"
+        },
+        {
+          "name": "end",
+          "type": "REAL",
+          "description": "Ending angle of the arc, in radians"
+        },
+        {
+          "name": "write_first",
+          "type": "BOOL",
+          "description": "If TRUE, the function writes the starting point of the arc into the array. If FALSE, it starts from the second point."
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "unstretch_angle",
+      "description": "This function unstretches an angle based on the given x and y diameters. It calculates the stretched angle and adjusts it based on the number of revolutions off from the original angle.",
+      "parameters": [
+        {
+          "name": "angle",
+          "type": "REAL",
+          "description": "The original angle to be unstretched."
+        },
+        {
+          "name": "dia_x",
+          "type": "REAL",
+          "description": "The x diameter used for unstretching the angle."
+        },
+        {
+          "name": "dia_y",
+          "type": "REAL",
+          "description": "The y diameter used for unstretching the angle."
+        }
+      ],
+      "return_type": "REAL, representing the unstretched angle."
+    }
+  },
+  {
+    "function": {
+      "name": "arc2polybezier",
+      "description": "This function converts an arc defined by its bounding rectangle, start angle and sweep angle into a series of cubic bezier curves.",
+      "parameters": [
+        {
+          "name": "points",
+          "type": "GpPointF *",
+          "description": "Pointer to an array of GpPointF structures that receives the bezier points."
+        },
+        {
+          "name": "left",
+          "type": "REAL",
+          "description": "The x-coordinate of the upper-left corner of the bounding rectangle."
+        },
+        {
+          "name": "top",
+          "type": "REAL",
+          "description": "The y-coordinate of the upper-left corner of the bounding rectangle."
+        },
+        {
+          "name": "width",
+          "type": "REAL",
+          "description": "The width of the bounding rectangle."
+        },
+        {
+          "name": "height",
+          "type": "REAL",
+          "description": "The height of the bounding rectangle."
+        },
+        {
+          "name": "start_angle",
+          "type": "REAL",
+          "description": "The start angle of the arc, measured in degrees clockwise from the x-axis."
+        },
+        {
+          "name": "sweep_angle",
+          "type": "REAL",
+          "description": "The sweep angle of the arc, measured in degrees clockwise from the start_angle."
+        }
+      ],
+      "return_type": "INT, represents the number of points added to the points array. If no points are added, the function returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "ARGB2COLORREF",
+      "description": "This function converts ARGB color format to COLORREF format. It doesn't handle alpha channel.",
+      "parameters": [
+        {
+          "name": "color",
+          "type": "ARGB",
+          "description": "This parameter is the ARGB color that needs to be converted to COLORREF format."
+        }
+      ],
+      "return_type": "COLORREF, which represents the converted color from ARGB to COLORREF format."
+    }
+  },
+  {
+    "function": {
+      "name": "ARGB2BMP",
+      "description": "This function converts an ARGB color to a bitmap (BMP).",
+      "parameters": [
+        {
+          "name": "color",
+          "type": "ARGB",
+          "description": "This parameter represents the ARGB color that will be converted to a bitmap."
+        }
+      ],
+      "return_type": "HBITMAP, which represents the bitmap created from the ARGB color."
+    }
+  },
+  {
+    "function": {
+      "name": "gdiplus_atan2",
+      "description": "This function calculates the arctangent of the two variables dy and dx. It handles the case where dx is zero separately to avoid division by zero.",
+      "parameters": [
+        {
+          "name": "dy",
+          "type": "REAL",
+          "description": "The y-coordinate of a point"
+        },
+        {
+          "name": "dx",
+          "type": "REAL",
+          "description": "The x-coordinate of a point"
+        }
+      ],
+      "return_type": "REAL, representing the arctangent of the two input parameters"
+    }
+  },
+  {
+    "function": {
+      "name": "hresult_to_status",
+      "description": "This function converts a HRESULT into a GpStatus by using a switch case statement.",
+      "parameters": [
+        {
+          "name": "res",
+          "type": "HRESULT",
+          "description": "This parameter is used to represent the HRESULT that needs to be converted into a GpStatus."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "units_to_pixels",
+      "description": "This function converts units to pixels based on the unit type and dpi provided. It also considers whether the display is a printer display or not.",
+      "parameters": [
+        {
+          "name": "units",
+          "type": "REAL",
+          "description": "The amount of units to be converted to pixels."
+        },
+        {
+          "name": "unit",
+          "type": "GpUnit",
+          "description": "The type of unit to be converted."
+        },
+        {
+          "name": "dpi",
+          "type": "REAL",
+          "description": "The dots per inch, used in the conversion calculation."
+        },
+        {
+          "name": "printer_display",
+          "type": "BOOL",
+          "description": "A flag indicating whether the display is a printer display or not."
+        }
+      ],
+      "return_type": "REAL, representing the converted units in pixels."
+    }
+  },
+  {
+    "function": {
+      "name": "pixels_to_units",
+      "description": "This function converts pixels to different units based on the unit type provided.",
+      "parameters": [
+        {
+          "name": "pixels",
+          "type": "REAL",
+          "description": "The number of pixels to be converted."
+        },
+        {
+          "name": "unit",
+          "type": "GpUnit",
+          "description": "The unit type to which the pixels will be converted."
+        },
+        {
+          "name": "dpi",
+          "type": "REAL",
+          "description": "The dots per inch value for the conversion."
+        },
+        {
+          "name": "printer_display",
+          "type": "BOOL",
+          "description": "A boolean value that determines if the display is a printer display."
+        }
+      ],
+      "return_type": "REAL, represents the converted value in the specified unit."
+    }
+  },
+  {
+    "function": {
+      "name": "units_scale",
+      "description": "This function converts units to pixels and then back to units, effectively scaling the units.",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "GpUnit",
+          "description": "The original unit to be converted to pixels."
+        },
+        {
+          "name": "to",
+          "type": "GpUnit",
+          "description": "The unit to which pixels will be converted back."
+        },
+        {
+          "name": "dpi",
+          "type": "REAL",
+          "description": "The resolution in dots per inch used for conversion."
+        },
+        {
+          "name": "printer_display",
+          "type": "BOOL",
+          "description": "A flag indicating whether the conversion is for a printer display."
+        }
+      ],
+      "return_type": "REAL, representing the scaled units."
+    }
+  },
+  {
+    "function": {
+      "name": "calc_curve_bezier",
+      "description": "This function calculates the control points for a Bezier curve based on the input points and tension.",
+      "parameters": [
+        {
+          "name": "pts",
+          "type": "GpPointF*",
+          "description": "Pointer to an array of points used for calculating the Bezier curve"
+        },
+        {
+          "name": "tension",
+          "type": "REAL",
+          "description": "The tension of the curve"
+        },
+        {
+          "name": "x1",
+          "type": "REAL*",
+          "description": "Pointer to the x-coordinate of the first control point"
+        },
+        {
+          "name": "y1",
+          "type": "REAL*",
+          "description": "Pointer to the y-coordinate of the first control point"
+        },
+        {
+          "name": "x2",
+          "type": "REAL*",
+          "description": "Pointer to the x-coordinate of the second control point"
+        },
+        {
+          "name": "y2",
+          "type": "REAL*",
+          "description": "Pointer to the y-coordinate of the second control point"
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the values pointed to by the x1, y1, x2, y2 pointers"
+    }
+  },
+  {
+    "function": {
+      "name": "calc_curve_bezier_endp",
+      "description": "This function calculates the end point of a bezier curve based on the given parameters.",
+      "parameters": [
+        {
+          "name": "xend",
+          "type": "REAL",
+          "description": "x-coordinate of the end point"
+        },
+        {
+          "name": "yend",
+          "type": "REAL",
+          "description": "y-coordinate of the end point"
+        },
+        {
+          "name": "xadj",
+          "type": "REAL",
+          "description": "x-coordinate of the adjacent point"
+        },
+        {
+          "name": "yadj",
+          "type": "REAL",
+          "description": "y-coordinate of the adjacent point"
+        },
+        {
+          "name": "tension",
+          "type": "REAL",
+          "description": "tension of the curve"
+        },
+        {
+          "name": "x",
+          "type": "REAL*",
+          "description": "pointer to store the calculated x-coordinate of the end point"
+        },
+        {
+          "name": "y",
+          "type": "REAL*",
+          "description": "pointer to store the calculated y-coordinate of the end point"
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the values pointed by 'x' and 'y'"
+    }
+  },
+  {
+    "function": {
+      "name": "lengthen_path",
+      "description": "This function lengthens the path by allocating or reallocating memory. If the initial allocation is zero, it allocates memory of double the length. If the path data length is less than the length, it reallocates memory by doubling the size of arrays until it is not less than the length.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "This is a pointer to the path that needs to be lengthened."
+        },
+        {
+          "name": "len",
+          "type": "INT",
+          "description": "This is the length that the path needs to be extended to."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the memory allocation or reallocation is successful, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "convert_32bppARGB_to_32bppPARGB",
+      "description": "This function converts a 32-bit ARGB image to a 32-bit PARGB image.",
+      "parameters": [
+        {
+          "name": "width",
+          "type": "UINT",
+          "description": "The width of the image in pixels."
+        },
+        {
+          "name": "height",
+          "type": "UINT",
+          "description": "The height of the image in pixels."
+        },
+        {
+          "name": "dst_bits",
+          "type": "BYTE*",
+          "description": "Pointer to the destination buffer where the converted image will be stored."
+        },
+        {
+          "name": "dst_stride",
+          "type": "INT",
+          "description": "The stride (in bytes) of the destination buffer."
+        },
+        {
+          "name": "src_bits",
+          "type": "BYTE*",
+          "description": "Pointer to the source buffer containing the original image."
+        },
+        {
+          "name": "src_stride",
+          "type": "INT",
+          "description": "The stride (in bytes) of the source buffer."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the destination buffer directly."
+    }
+  },
+  {
+    "function": {
+      "name": "delete_element",
+      "description": "This function deletes an element based on its type. If the type is RegionDataPath, it deletes the path. If the type is not recognized, it deletes the left and right elements of the combine type and frees the memory.",
+      "parameters": [
+        {
+          "name": "element",
+          "type": "region_element*",
+          "description": "This is the element to be deleted. It is a pointer to a region_element structure."
+        }
+      ],
+      "return_type": "void, as this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "debugstr_rectf",
+      "description": "This function returns a formatted string representing the coordinates and dimensions of a rectangle.",
+      "parameters": [
+        {
+          "name": "rc",
+          "type": "const RectF*",
+          "description": "This is a pointer to the rectangle structure that needs to be formatted into a string."
+        }
+      ],
+      "return_type": "char: This represents the formatted string of the rectangle's coordinates and dimensions."
+    }
+  },
+  {
+    "function": {
+      "name": "debugstr_pointf",
+      "description": "This function returns a formatted string representing the coordinates of a PointF object. If the PointF object is null, it returns the string '(null)'.",
+      "parameters": [
+        {
+          "name": "pt",
+          "type": "const PointF*",
+          "description": "Pointer to a PointF object whose coordinates are to be formatted into a string."
+        }
+      ],
+      "return_type": "char: A string representing the coordinates of the PointF object in the format '(x,y)', or '(null)' if the PointF object is null."
+    }
+  },
+  {
+    "function": {
+      "name": "debugstr_matrix",
+      "description": "This function returns a formatted string that represents the values of a given matrix. If the matrix is null, it returns the string '(null)'.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "const GpMatrix*",
+          "description": "This is the matrix whose values are to be formatted into a string."
+        }
+      ],
+      "return_type": "char: Returns a string that represents the values of the matrix. If the matrix is null, it returns the string '(null)'."
+    }
+  }
+]

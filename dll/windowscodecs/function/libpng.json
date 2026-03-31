@@ -1,0 +1,461 @@
+[
+  {
+    "function": {
+      "name": "impl_from_decoder",
+      "description": "This function returns a pointer to the png_decoder structure that contains the given decoder structure.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder*",
+          "description": "Pointer to the decoder structure that is contained within a png_decoder structure."
+        }
+      ],
+      "return_type": "struct png_decoder*; Pointer to the png_decoder structure that contains the given decoder structure."
+    }
+  },
+  {
+    "function": {
+      "name": "user_read_data",
+      "description": "This function reads data from a stream into a buffer, and throws an error if the reading fails or the number of bytes read does not match the expected length.",
+      "parameters": [
+        {
+          "name": "png_ptr",
+          "type": "png_structp",
+          "description": "Pointer to a PNG structure"
+        },
+        {
+          "name": "data",
+          "type": "png_bytep",
+          "description": "Pointer to a buffer where the data will be read into"
+        },
+        {
+          "name": "length",
+          "type": "png_size_t",
+          "description": "The expected number of bytes to read"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "png_decoder_initialize",
+      "description": "This function initializes a PNG decoder. It reads the PNG file, sets the appropriate color format, and prepares the image for further processing.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder *",
+          "description": "Pointer to the decoder interface."
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the input stream from which the PNG image is read."
+        },
+        {
+          "name": "st",
+          "type": "struct decoder_stat *",
+          "description": "Pointer to the decoder status structure, which is used to store information about the decoding process."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function execution. If the function completes successfully, it returns S_OK. If an error occurs, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "png_decoder_get_frame_info",
+      "description": "This function retrieves the frame information from a PNG decoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder*",
+          "description": "Pointer to the decoder interface"
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "Frame number to get information for"
+        },
+        {
+          "name": "info",
+          "type": "struct decoder_frame*",
+          "description": "Pointer to a structure where the frame information will be stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK if successful"
+    }
+  },
+  {
+    "function": {
+      "name": "png_decoder_get_decoder_palette",
+      "description": "This function is used to get the decoder palette of a PNG decoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder *",
+          "description": "This is an interface to the decoder structure."
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "This represents the frame for which the palette is to be obtained."
+        },
+        {
+          "name": "colors",
+          "type": "WICColor *",
+          "description": "This is a pointer to the colors in the palette."
+        },
+        {
+          "name": "num_colors",
+          "type": "UINT *",
+          "description": "This is a pointer to the number of colors in the palette."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns WINCODEC_ERR_PALETTEUNAVAILABLE, indicating that the palette is not available."
+    }
+  },
+  {
+    "function": {
+      "name": "png_decoder_copy_pixels",
+      "description": "This function copies pixels from a PNG decoder frame to a buffer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder *",
+          "description": "Interface to the decoder structure"
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "Frame number to be decoded"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to a WICRect structure that specifies the portion of the image to copy"
+        },
+        {
+          "name": "stride",
+          "type": "UINT",
+          "description": "Stride of the destination bitmap"
+        },
+        {
+          "name": "buffersize",
+          "type": "UINT",
+          "description": "Size of the buffer"
+        },
+        {
+          "name": "buffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer where the pixels will be copied"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, the return value is S_OK. If the function fails, the return value can be one of the error values."
+    }
+  },
+  {
+    "function": {
+      "name": "png_decoder_get_metadata_blocks",
+      "description": "This function reads PNG chunks from a stream, identifies metadata chunks, and stores their details in an array of decoder_block structures. It also keeps track of the total number of metadata blocks found.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder *",
+          "description": "Pointer to the decoder structure"
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "Frame number to be decoded"
+        },
+        {
+          "name": "count",
+          "type": "UINT *",
+          "description": "Pointer to a variable where the function will store the total number of metadata blocks found"
+        },
+        {
+          "name": "blocks",
+          "type": "struct decoder_block **",
+          "description": "Pointer to a pointer to an array of decoder_block structures where the function will store the details of each metadata block found"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "png_decoder_get_color_context",
+      "description": "This function allocates memory for color profile data, copies the color profile data into the allocated memory, and returns the size of the color profile data.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder*",
+          "description": "Interface of the decoder"
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "Frame number"
+        },
+        {
+          "name": "num",
+          "type": "UINT",
+          "description": "Number of color contexts"
+        },
+        {
+          "name": "data",
+          "type": "BYTE**",
+          "description": "Pointer to the color profile data"
+        },
+        {
+          "name": "datasize",
+          "type": "DWORD*",
+          "description": "Size of the color profile data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, E_OUTOFMEMORY if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "png_decoder_destroy",
+      "description": "This function frees up the memory allocated to the image bits, color profile, and the png_decoder structure itself.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder*",
+          "description": "This parameter is a pointer to the decoder structure that needs to be destroyed."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "png_decoder_create",
+      "description": "This function creates a PNG decoder, initializes it, and assigns it to the result. It also sets the container format, block format, and clsid of the info structure.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "struct decoder_info*",
+          "description": "A pointer to a decoder_info structure. The function sets its container_format, block_format, and clsid fields."
+        },
+        {
+          "name": "result",
+          "type": "struct decoder**",
+          "description": "A pointer to a pointer to a decoder structure. The function creates a new png_decoder, initializes it, and assigns its address to *result."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns E_OUTOFMEMORY if memory allocation fails, and S_OK otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_encoder",
+      "description": "This function returns a pointer to a png_encoder structure that contains the given encoder structure.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct encoder*",
+          "description": "This is a pointer to an encoder structure."
+        }
+      ],
+      "return_type": "struct png_encoder*, represents a pointer to a png_encoder structure that contains the given encoder structure."
+    }
+  },
+  {
+    "function": {
+      "name": "user_write_data",
+      "description": "This function writes data to a PNG structure. It checks if the writing process was successful and if the written bytes match the expected length.",
+      "parameters": [
+        {
+          "name": "png_ptr",
+          "type": "png_structp",
+          "description": "Pointer to the PNG structure where the data is to be written"
+        },
+        {
+          "name": "data",
+          "type": "png_bytep",
+          "description": "Pointer to the data to be written"
+        },
+        {
+          "name": "length",
+          "type": "png_size_t",
+          "description": "The length of the data to be written"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "user_flush",
+      "description": "This function is currently empty and does not perform any operation.",
+      "parameters": [
+        {
+          "name": "png_ptr",
+          "type": "png_structp",
+          "description": "This parameter is a pointer to a png_struct, which is typically used for handling PNG images."
+        }
+      ],
+      "return_type": "void, which means this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "png_encoder_initialize",
+      "description": "This function initializes a PNG encoder. It sets up the libpng structures, error handling, and custom I/O handling.",
+      "parameters": [
+        {
+          "name": "encoder",
+          "type": "struct encoder *",
+          "description": "This is a pointer to the encoder structure that needs to be initialized."
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "This is a pointer to the stream where the encoded data will be written."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function execution. It returns S_OK if the function executes successfully, and E_FAIL if there is an error during execution."
+    }
+  },
+  {
+    "function": {
+      "name": "png_encoder_get_supported_format",
+      "description": "This function checks the supported format for png encoder by comparing the provided pixel format with the available formats. If a match is found, it sets the pixel format, bits per pixel (bpp), and a boolean flag indicating whether the color type is palette or not.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct encoder *",
+          "description": "Pointer to the encoder structure"
+        },
+        {
+          "name": "pixel_format",
+          "type": "GUID *",
+          "description": "Pointer to the GUID representing pixel format"
+        },
+        {
+          "name": "bpp",
+          "type": "DWORD *",
+          "description": "Pointer to the DWORD representing bits per pixel"
+        },
+        {
+          "name": "indexed",
+          "type": "BOOL *",
+          "description": "Pointer to the BOOL flag indicating whether the color type is palette or not"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, returns S_OK if the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "png_encoder_create_frame",
+      "description": "This function creates a frame for a PNG encoder. It sets up the frame's properties, handles errors, and writes the frame's information.",
+      "parameters": [
+        {
+          "name": "encoder",
+          "type": "struct encoder *",
+          "description": "Pointer to the encoder structure which contains the encoder's properties."
+        },
+        {
+          "name": "encoder_frame",
+          "type": "struct encoder_frame *",
+          "description": "Pointer to the encoder frame structure which contains the frame's properties."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function execution. It returns S_OK if the function executes successfully, E_FAIL if there is an error during execution, and E_OUTOFMEMORY if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "png_encoder_write_lines",
+      "description": "This function writes lines to a PNG encoder. If the encoder frame is interlaced, it stores the data for multiple passes in Commit. Otherwise, it writes rows directly to the PNG encoder.",
+      "parameters": [
+        {
+          "name": "encoder",
+          "type": "struct encoder *",
+          "description": "Pointer to the encoder structure"
+        },
+        {
+          "name": "data",
+          "type": "BYTE *",
+          "description": "Pointer to the data to be written"
+        },
+        {
+          "name": "line_count",
+          "type": "DWORD",
+          "description": "Number of lines to be written"
+        },
+        {
+          "name": "stride",
+          "type": "DWORD",
+          "description": "Stride of the data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful, E_FAIL if there was an error during the operation, and E_OUTOFMEMORY if memory allocation failed"
+    }
+  },
+  {
+    "function": {
+      "name": "png_encoder_commit_frame",
+      "description": "This function commits a frame for a PNG encoder. It sets up error handling, checks for interlacing, allocates memory for row pointers, writes rows for each pass if interlacing is enabled, and finally writes the end of the PNG file.",
+      "parameters": [
+        {
+          "name": "encoder",
+          "type": "struct encoder *",
+          "description": "A pointer to the encoder structure that is used for the PNG encoding process."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_FAIL if there is an error in the setjmp/longjmp error handling, and E_OUTOFMEMORY if memory allocation for row pointers fails."
+    }
+  },
+  {
+    "function": {
+      "name": "png_encoder_commit_file",
+      "description": "This function commits a PNG encoder file.",
+      "parameters": [
+        {
+          "name": "encoder",
+          "type": "struct encoder *",
+          "description": "This is a pointer to the encoder structure."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, returns S_OK if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "png_encoder_destroy",
+      "description": "This function destroys the PNG encoder, freeing up the memory allocated to it.",
+      "parameters": [
+        {
+          "name": "encoder",
+          "type": "struct encoder *",
+          "description": "This is a pointer to the encoder structure that needs to be destroyed."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "png_encoder_create",
+      "description": "This function creates a PNG encoder, initializes its properties, and sets the encoder options.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "struct encoder_info*",
+          "description": "A pointer to an encoder_info structure that will be filled with information about the encoder."
+        },
+        {
+          "name": "result",
+          "type": "struct encoder**",
+          "description": "A pointer to a pointer to an encoder structure. This will be set to point to the newly created encoder."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the function succeeds and E_OUTOFMEMORY if memory allocation fails."
+    }
+  }
+]

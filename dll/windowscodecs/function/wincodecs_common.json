@@ -1,0 +1,206 @@
+[
+  {
+    "function": {
+      "name": "configure_write_source",
+      "description": "This function configures the source for writing to a bitmap frame. It sets the size, pixel format, and resolution based on the provided parameters or the source's current settings.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to the bitmap frame encoder interface"
+        },
+        {
+          "name": "source",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to the bitmap source"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to the rectangle structure that specifies the portion of the source bitmap to use"
+        },
+        {
+          "name": "format",
+          "type": "WICPixelFormatGUID *",
+          "description": "Pointer to the GUID for the pixel format"
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "The width of the bitmap"
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "The height of the bitmap"
+        },
+        {
+          "name": "xres",
+          "type": "double",
+          "description": "The horizontal resolution of the bitmap"
+        },
+        {
+          "name": "yres",
+          "type": "double",
+          "description": "The vertical resolution of the bitmap"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "write_source",
+      "description": "This function writes a source bitmap to a bitmap frame encode object, optionally converting its pixel format and applying a palette.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to the bitmap frame encode object where the source will be written."
+        },
+        {
+          "name": "source",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to the source bitmap."
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to a rectangle that specifies the portion of the source bitmap to write. If this parameter is NULL, the entire source bitmap is used."
+        },
+        {
+          "name": "format",
+          "type": "WICPixelFormatGUID *",
+          "description": "Pointer to a GUID that specifies the desired pixel format of the source. If the source is not in this format, it is converted."
+        },
+        {
+          "name": "bpp",
+          "type": "UINT",
+          "description": "Specifies the number of bits per pixel in the source bitmap."
+        },
+        {
+          "name": "need_palette",
+          "type": "BOOL",
+          "description": "Specifies whether a palette needs to be applied to the source bitmap."
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "Specifies the width of the source bitmap."
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "Specifies the height of the source bitmap."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK on success, and an error code on failure."
+    }
+  },
+  {
+    "function": {
+      "name": "stream_getsize",
+      "description": "This function gets the size of a stream.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the stream whose size is to be determined."
+        },
+        {
+          "name": "size",
+          "type": "ULONGLONG *",
+          "description": "Pointer to a variable where the size of the stream will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, the function returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "stream_read",
+      "description": "This function reads data from a stream into a buffer",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "The stream to read from"
+        },
+        {
+          "name": "buffer",
+          "type": "void *",
+          "description": "The buffer to read data into"
+        },
+        {
+          "name": "read",
+          "type": "ULONG",
+          "description": "The number of bytes to read"
+        },
+        {
+          "name": "bytes_read",
+          "type": "ULONG *",
+          "description": "Pointer to a variable where the number of bytes actually read will be stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or the error code"
+    }
+  },
+  {
+    "function": {
+      "name": "stream_seek",
+      "description": "This function seeks to a new position in a stream.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the stream to seek."
+        },
+        {
+          "name": "ofs",
+          "type": "LONGLONG",
+          "description": "Offset to seek from the origin."
+        },
+        {
+          "name": "origin",
+          "type": "DWORD",
+          "description": "The origin from where to seek."
+        },
+        {
+          "name": "new_position",
+          "type": "ULONGLONG *",
+          "description": "Pointer to store the new position in the stream after seeking."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "stream_write",
+      "description": "This function writes a specified number of bytes from a buffer to a stream.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "The stream to which the data is written."
+        },
+        {
+          "name": "buffer",
+          "type": "void*",
+          "description": "The buffer from which the data is taken."
+        },
+        {
+          "name": "write",
+          "type": "ULONG",
+          "description": "The number of bytes to write."
+        },
+        {
+          "name": "bytes_written",
+          "type": "ULONG*",
+          "description": "A pointer to a ULONG where the number of actually written bytes will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, it returns S_OK. If the operation failed, it returns a failure code."
+    }
+  }
+]

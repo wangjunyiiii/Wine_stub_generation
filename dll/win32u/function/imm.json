@@ -1,0 +1,578 @@
+[
+  {
+    "function": {
+      "name": "get_imc_ptr",
+      "description": "This function retrieves a pointer to an IMC (Input Method Context) structure associated with a given handle. If the handle is invalid, it sets the last error to ERROR_INVALID_HANDLE and returns NULL.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HIMC",
+          "description": "This is a handle to an IMC (Input Method Context)."
+        }
+      ],
+      "return_type": "struct imc pointer. It represents a pointer to an IMC structure. If the handle is invalid, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "release_imc_ptr",
+      "description": "This function releases the user handle pointer of the given imc structure.",
+      "parameters": [
+        {
+          "name": "imc",
+          "type": "struct imc*",
+          "description": "This is a pointer to the imc structure to be released."
+        }
+      ],
+      "return_type": "void, it does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserCreateInputContext",
+      "description": "This function creates an input context and returns a handle to it. It allocates memory for the input context, sets the client pointer and thread id, and allocates a user handle. If any allocation fails, it frees up any allocated memory and returns 0.",
+      "parameters": [
+        {
+          "name": "client_ptr",
+          "type": "UINT_PTR",
+          "description": "This is a pointer to the client that will be set in the input context."
+        }
+      ],
+      "return_type": "HIMC, which is a handle to the created input context. If the function fails to create the input context, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserDestroyInputContext",
+      "description": "This function is used to destroy an input context associated with a user handle.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HIMC",
+          "description": "This is a handle to the input context to be destroyed."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the input context is successfully destroyed, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserUpdateInputContext",
+      "description": "This function updates the input context based on the given attribute and value. If the attribute is unknown, it sets the return value to FALSE.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HIMC",
+          "description": "Handle to the input context"
+        },
+        {
+          "name": "attr",
+          "type": "UINT",
+          "description": "Attribute to be updated"
+        },
+        {
+          "name": "value",
+          "type": "UINT_PTR",
+          "description": "Value to be set for the attribute"
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserQueryInputContext",
+      "description": "This function queries an input context based on the given attribute.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "attr",
+          "type": "UINT",
+          "description": "Attribute to query in the input context."
+        }
+      ],
+      "return_type": "UINT_PTR, represents the queried attribute value from the input context. Returns FALSE if the input context handle is invalid, or 0 if the attribute is unknown."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserAssociateInputContext",
+      "description": "This function associates an input context with a window and handles the different flags that can be passed to it. It checks for valid input context and window, and returns different status codes based on the conditions met.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window with which the input context is to be associated."
+        },
+        {
+          "name": "ctx",
+          "type": "HIMC",
+          "description": "Handle to the input context to be associated with the window."
+        },
+        {
+          "name": "flags",
+          "type": "ULONG",
+          "description": "Flags that control the association of the input context with the window."
+        }
+      ],
+      "return_type": "UINT. It represents the status of the operation. It can return AICR_OK if the operation is successful, AICR_FAILED if the operation fails, and AICR_FOCUS_CHANGED if the input context is different and the window is in focus."
+    }
+  },
+  {
+    "function": {
+      "name": "get_default_input_context",
+      "description": "This function retrieves the default input context for the current thread. If the default input context does not exist, it creates one.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "HIMC, which represents a handle to the default input context for the current thread."
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_input_context",
+      "description": "This function retrieves the input context for a given window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window for which to retrieve the input context."
+        }
+      ],
+      "return_type": "HIMC, which represents the input context of the window. If the window handle is invalid, the function returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "detach_default_window",
+      "description": "This function detaches the default window from the thread data and resets the window count.",
+      "parameters": [
+        {
+          "name": "thread_data",
+          "type": "struct imm_thread_data*",
+          "description": "This parameter is used to access the thread data which includes the default window and window count."
+        }
+      ],
+      "return_type": "HWND, which represents the handle to the detached window."
+    }
+  },
+  {
+    "function": {
+      "name": "get_imm_thread_data",
+      "description": "This function retrieves the immediate thread data. If the thread data does not exist, it allocates memory for it, assigns the current thread ID to it, adds it to the thread data list, and assigns it to the user thread info.",
+      "parameters": [],
+      "return_type": "struct imm_thread_data pointer. It represents the immediate thread data associated with the current user thread."
+    }
+  },
+  {
+    "function": {
+      "name": "needs_ime_window",
+      "description": "This function checks if a window needs an IME (Input Method Editor) window by comparing the window's class style and name with predefined values.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window to be checked."
+        }
+      ],
+      "return_type": "BOOL, returns FALSE if the window's class style includes CS_IME, or if the window's class name is not 'IME'. Otherwise, it returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "register_imm_window",
+      "description": "This function registers an IME window. If the IME is disabled or the window does not need an IME window, the function returns FALSE. Otherwise, it gets the IME thread data. If the thread data is not available or the IME is disabled in the thread data, the function returns FALSE. If the window count in the thread data is zero, it creates a default IME window and returns TRUE.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window to be registered."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the window was successfully registered and FALSE indicates that the window was not registered."
+    }
+  },
+  {
+    "function": {
+      "name": "unregister_imm_window",
+      "description": "This function unregisters an IME window, detaches it if it's the default window, and destroys it if it's the last window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be unregistered"
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserDisableThreadIme",
+      "description": "This function disables the Input Method Editor (IME) for a specific thread or all threads, depending on the thread_id parameter. It also destroys the default window associated with the thread's IME.",
+      "parameters": [
+        {
+          "name": "thread_id",
+          "type": "DWORD",
+          "description": "The identifier of the thread for which the IME is to be disabled. If this parameter is -1, the IME is disabled for all threads. If this parameter is 0 or the identifier of the current thread, the IME for the current thread is disabled."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation was successful, and FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "get_default_ime_window",
+      "description": "This function retrieves the default input method editor (IME) window for a given window or thread. If the window handle is provided, it looks for the corresponding thread and returns its default IME window. If no window handle is provided, it retrieves the IME window for the current user thread.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which to retrieve the default IME window. If this parameter is NULL, the function retrieves the IME window for the current user thread."
+        }
+      ],
+      "return_type": "HWND, represents the handle to the default IME window for the specified window or thread. If the function fails, the return value is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "cleanup_imm_thread",
+      "description": "This function cleans up the thread-specific data related to the Input Method Manager (IMM). It locks the mutex to safely remove the thread data from a list, then unlocks the mutex and frees the memory. It also destroys the input context associated with the thread.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserBuildHimcList",
+      "description": "This function builds a list of input method context (IMC) handles for a given thread. It locks the user space, iterates over the thread's user objects, and populates the buffer with the handles of the IMCs, until the count is reached or there are no more IMCs.",
+      "parameters": [
+        {
+          "name": "thread_id",
+          "type": "UINT",
+          "description": "The ID of the thread for which to build the IMC list. If this is 0, the function uses the ID of the current thread."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The maximum number of IMC handles to put in the buffer."
+        },
+        {
+          "name": "buffer",
+          "type": "HIMC*",
+          "description": "A pointer to the buffer in which to store the IMC handles."
+        },
+        {
+          "name": "size",
+          "type": "UINT*",
+          "description": "A pointer to a variable in which the function will store the actual number of IMC handles put in the buffer."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. Returns STATUS_SUCCESS if the operation is successful, and STATUS_UNSUCCESSFUL if the buffer is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "post_ime_update",
+      "description": "This function updates the Input Method Editor (IME) after a change in the composition string or the result string. It also handles memory allocation and thread synchronization for these updates.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to a window"
+        },
+        {
+          "name": "cursor_pos",
+          "type": "UINT",
+          "description": "Position of the cursor"
+        },
+        {
+          "name": "comp_str",
+          "type": "WCHAR *",
+          "description": "Pointer to the composition string"
+        },
+        {
+          "name": "result_str",
+          "type": "WCHAR *",
+          "description": "Pointer to the result string"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "get_comp_clause_count",
+      "description": "This function determines the count of comparison clauses based on the given parameters.",
+      "parameters": [
+        {
+          "name": "comp_len",
+          "type": "UINT",
+          "description": "This parameter represents the length of the comparison."
+        },
+        {
+          "name": "cursor_begin",
+          "type": "UINT",
+          "description": "This parameter represents the starting position of the cursor."
+        },
+        {
+          "name": "cursor_end",
+          "type": "UINT",
+          "description": "This parameter represents the ending position of the cursor."
+        }
+      ],
+      "return_type": "UINT, represents the count of comparison clauses. It returns 2 if cursor_begin equals cursor_end or if cursor_begin is 0 and cursor_end equals comp_len. It returns 3 if cursor_begin is 0 or cursor_end equals comp_len. Otherwise, it returns 4."
+    }
+  },
+  {
+    "function": {
+      "name": "set_comp_clause",
+      "description": "This function sets the composition clause based on the count. It uses a switch case to determine how to set the composition clause.",
+      "parameters": [
+        {
+          "name": "comp_clause",
+          "type": "DWORD*",
+          "description": "Pointer to the composition clause"
+        },
+        {
+          "name": "comp_clause_count",
+          "type": "UINT",
+          "description": "Count of the composition clause"
+        },
+        {
+          "name": "comp_len",
+          "type": "UINT",
+          "description": "Length of the composition"
+        },
+        {
+          "name": "cursor_begin",
+          "type": "UINT",
+          "description": "Cursor beginning position"
+        },
+        {
+          "name": "cursor_end",
+          "type": "UINT",
+          "description": "Cursor ending position"
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "set_comp_attr",
+      "description": "This function sets the attribute of a component. If the cursor beginning and end are the same, it sets the attribute to ATTR_INPUT. Otherwise, it sets the attribute to ATTR_CONVERTED and the range between cursor beginning and end to ATTR_TARGET_CONVERTED.",
+      "parameters": [
+        {
+          "name": "comp_attr",
+          "type": "BYTE*",
+          "description": "Pointer to the component attribute"
+        },
+        {
+          "name": "comp_attr_len",
+          "type": "UINT",
+          "description": "Length of the component attribute"
+        },
+        {
+          "name": "cursor_begin",
+          "type": "UINT",
+          "description": "Beginning of the cursor"
+        },
+        {
+          "name": "cursor_end",
+          "type": "UINT",
+          "description": "End of the cursor"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "find_ime_update",
+      "description": "This function traverses a list of ime_updates to find and return the one that matches the given vkey and scan values. If no match is found, it returns NULL.",
+      "parameters": [
+        {
+          "name": "vkey",
+          "type": "WORD",
+          "description": "This parameter represents the virtual key code to be matched."
+        },
+        {
+          "name": "scan",
+          "type": "WORD",
+          "description": "This parameter represents the hardware scan code to be matched."
+        }
+      ],
+      "return_type": "struct ime_update. This represents the ime_update structure that matches the given vkey and scan values. If no match is found, NULL is returned."
+    }
+  },
+  {
+    "function": {
+      "name": "ime_to_tascii_ex",
+      "description": "This function converts IME to TASCII. It locks a mutex, checks for an IME update, processes composition and result strings, unlocks the mutex, and frees the update.",
+      "parameters": [
+        {
+          "name": "vkey",
+          "type": "UINT",
+          "description": "Virtual-key code of the key that generated the keystroke message."
+        },
+        {
+          "name": "lparam",
+          "type": "UINT",
+          "description": "Specifies the repeat count, scan code, extended-key flag, context code, previous key-state flag, and transition-state flag."
+        },
+        {
+          "name": "state",
+          "type": "const BYTE *",
+          "description": "Pointer to a 256-byte array that contains the current keyboard state."
+        },
+        {
+          "name": "compstr",
+          "type": "COMPOSITIONSTRING *",
+          "description": "Pointer to a COMPOSITIONSTRING structure that receives the composition string information."
+        },
+        {
+          "name": "key_consumed",
+          "type": "BOOL *",
+          "description": "Pointer to a BOOL that indicates whether the key was consumed."
+        },
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        }
+      ],
+      "return_type": "UINT. It represents the status of the function execution. It can return STATUS_NOT_FOUND, STATUS_BUFFER_TOO_SMALL or 0 if the function executes successfully."
+    }
+  },
+  {
+    "function": {
+      "name": "ime_driver_call",
+      "description": "This function processes different types of IME driver calls and performs the corresponding actions.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window for the IME."
+        },
+        {
+          "name": "call",
+          "type": "enum wine_ime_call",
+          "description": "The type of IME driver call to process."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "params",
+          "type": "struct ime_driver_call_params *",
+          "description": "A pointer to a structure that contains additional parameters required for the IME driver call."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the IME driver call. The specific meaning depends on the type of call processed."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserNotifyIMEStatus",
+      "description": "This function notifies the IME status.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "status",
+          "type": "UINT",
+          "description": "The status to be notified."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmProcessKey",
+      "description": "This function processes a key input in the context of a specific window and keyboard layout.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that receives the key input."
+        },
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "Handle to the keyboard layout."
+        },
+        {
+          "name": "vkey",
+          "type": "UINT",
+          "description": "Virtual-key code of the key input."
+        },
+        {
+          "name": "key_data",
+          "type": "LPARAM",
+          "description": "Additional data associated with the key input."
+        },
+        {
+          "name": "unknown",
+          "type": "DWORD",
+          "description": "Unknown parameter."
+        }
+      ],
+      "return_type": "BOOL, returns a boolean value indicating whether the key input was processed successfully or not."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmTranslateMessage",
+      "description": "This function translates messages for the Input Method Manager (IMM).",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that receives the message."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be translated."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "key_data",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "BOOL, represents whether the message was successfully translated or not."
+    }
+  }
+]

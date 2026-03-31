@@ -1,0 +1,467 @@
+[
+  {
+    "function": {
+      "name": "_READ",
+      "description": "This function reads data from a GIF file into a buffer.",
+      "parameters": [
+        {
+          "name": "_gif",
+          "type": "GifFileType*",
+          "description": "This is a pointer to the GIF file from which data is to be read."
+        },
+        {
+          "name": "_buf",
+          "type": "GifByteType*",
+          "description": "This is a pointer to the buffer into which the data is to be read."
+        },
+        {
+          "name": "_len",
+          "type": "int",
+          "description": "This is the length of the data to be read from the GIF file."
+        }
+      ],
+      "return_type": "int, represents the number of bytes read from the GIF file."
+    }
+  },
+  {
+    "function": {
+      "name": "GetFileOffset",
+      "description": "This function returns the offset of a given GIF file.",
+      "parameters": [
+        {
+          "name": "GifFile",
+          "type": "GifFileType*",
+          "description": "This is a pointer to the GIF file for which the offset is to be obtained."
+        }
+      ],
+      "return_type": "int, represents the offset of the GIF file"
+    }
+  },
+  {
+    "function": {
+      "name": "BitSize",
+      "description": "This function calculates the minimum number of bits required to represent a given integer.",
+      "parameters": [
+        {
+          "name": "n",
+          "type": "int",
+          "description": "The integer to calculate the bit size for."
+        }
+      ],
+      "return_type": "int, representing the minimum number of bits required to represent the input integer."
+    }
+  },
+  {
+    "function": {
+      "name": "MakeMapObject",
+      "description": "This function creates a new ColorMapObject and initializes it with the given color count and color map. If the color count is not a power of two, or if memory allocation fails, it returns NULL.",
+      "parameters": [
+        {
+          "name": "ColorCount",
+          "type": "int",
+          "description": "The number of colors to be included in the ColorMapObject. Must be a power of two."
+        },
+        {
+          "name": "ColorMap",
+          "type": "const GifColorType *",
+          "description": "Pointer to an array of GifColorType that represents the color map to be copied into the ColorMapObject. If NULL, the Colors field of the created object is initialized to zero."
+        }
+      ],
+      "return_type": "ColorMapObject * - A pointer to the created ColorMapObject, or NULL if the creation failed."
+    }
+  },
+  {
+    "function": {
+      "name": "FreeMapObject",
+      "description": "This function frees the memory allocated to the ColorMapObject and its Colors attribute. There is a note to potentially change the function to accept a pointer to a pointer to a ColorMapObject and set it to NULL in the future.",
+      "parameters": [
+        {
+          "name": "Object",
+          "type": "ColorMapObject *",
+          "description": "This is a pointer to the ColorMapObject that needs to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "AddExtensionBlock",
+      "description": "This function adds an extension block to the Extensions structure. It reallocates memory for the new block, sets the block's byte count and bytes, and copies the extension data into the block. If any memory allocation fails, it returns an error.",
+      "parameters": [
+        {
+          "name": "New",
+          "type": "Extensions*",
+          "description": "Pointer to the Extensions structure where the new block will be added"
+        },
+        {
+          "name": "Len",
+          "type": "int",
+          "description": "Length of the extension data"
+        },
+        {
+          "name": "ExtData",
+          "type": "unsigned char[]",
+          "description": "Array containing the extension data to be added to the block"
+        }
+      ],
+      "return_type": "int, represents the status of the function execution. Returns GIF_OK if successful, GIF_ERROR if there is a memory allocation error"
+    }
+  },
+  {
+    "function": {
+      "name": "AppendExtensionBlock",
+      "description": "This function appends an extension block to the existing ones. It reallocates memory for the new block, copies the extension data into the new block, and updates the byte count.",
+      "parameters": [
+        {
+          "name": "New",
+          "type": "Extensions*",
+          "description": "Pointer to the Extensions structure where the new block will be appended"
+        },
+        {
+          "name": "Len",
+          "type": "int",
+          "description": "Length of the extension data"
+        },
+        {
+          "name": "ExtData",
+          "type": "unsigned char[]",
+          "description": "Array containing the extension data to be appended"
+        }
+      ],
+      "return_type": "int, returns GIF_OK if the operation is successful, otherwise returns GIF_ERROR"
+    }
+  },
+  {
+    "function": {
+      "name": "FreeExtension",
+      "description": "This function frees up the memory allocated to the extension blocks within the Extensions object.",
+      "parameters": [
+        {
+          "name": "Extensions",
+          "type": "Extensions*",
+          "description": "Pointer to the Extensions object whose extension blocks need to be freed."
+        }
+      ],
+      "return_type": "void, as this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "FreeSavedImages",
+      "description": "This function frees the memory allocated to the saved images in the given GIF file.",
+      "parameters": [
+        {
+          "name": "GifFile",
+          "type": "GifFileType *",
+          "description": "This is a pointer to the GIF file whose saved images are to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "DGifGetScreenDesc",
+      "description": "This function retrieves the screen description from a GIF file. It reads the screen width, height, color resolution, background color, aspect ratio and color map from the file. If any error occurs during reading, it returns an error code.",
+      "parameters": [
+        {
+          "name": "GifFile",
+          "type": "GifFileType *",
+          "description": "This is a pointer to the GIF file from which the screen description is to be retrieved."
+        }
+      ],
+      "return_type": "int, represents the status of the operation. Returns GIF_OK if successful, otherwise returns GIF_ERROR."
+    }
+  },
+  {
+    "function": {
+      "name": "DGifGetRecordType",
+      "description": "This function reads a byte from the GifFile, and based on the value of the byte, it sets the Type to the corresponding record type. If the byte read is not one of the predefined values, it sets the Type to UNDEFINED_RECORD_TYPE and returns an error.",
+      "parameters": [
+        {
+          "name": "GifFile",
+          "type": "GifFileType *",
+          "description": "Pointer to the GIF file from which a byte is read"
+        },
+        {
+          "name": "Type",
+          "type": "GifRecordType *",
+          "description": "Pointer to the variable where the record type will be stored"
+        }
+      ],
+      "return_type": "int, represents the status of the operation. Returns GIF_OK if the operation is successful, and GIF_ERROR otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "DGifGetImageDesc",
+      "description": "This function is used to get the image description from a GIF file. It reads the image's dimensions, checks if it has a local color map, and if it does, it reads the color map. It then reallocates memory for the image and saves the image description in the GIF file's SavedImages array.",
+      "parameters": [
+        {
+          "name": "GifFile",
+          "type": "GifFileType *",
+          "description": "This is a pointer to the GIF file from which the image description is to be obtained."
+        }
+      ],
+      "return_type": "int. This function returns GIF_OK if it successfully gets the image description, and GIF_ERROR if it encounters an error while getting the image description."
+    }
+  },
+  {
+    "function": {
+      "name": "DGifGetLine",
+      "description": "This function gets a line from a GIF file, decompresses it, and checks for errors. If the pixel count is zero, it cleans everything before returning.",
+      "parameters": [
+        {
+          "name": "GifFile",
+          "type": "GifFileType *",
+          "description": "Pointer to the GIF file"
+        },
+        {
+          "name": "Line",
+          "type": "GifPixelType *",
+          "description": "Pointer to the line of pixels"
+        },
+        {
+          "name": "LineLen",
+          "type": "int",
+          "description": "Length of the line"
+        }
+      ],
+      "return_type": "int, returns GIF_OK if the operation is successful, otherwise returns GIF_ERROR"
+    }
+  },
+  {
+    "function": {
+      "name": "DGifGetExtension",
+      "description": "This function reads the next extension block from the given GIF file, and returns the extension function code and the extension itself.",
+      "parameters": [
+        {
+          "name": "GifFile",
+          "type": "GifFileType *",
+          "description": "A pointer to the GIF file from which to read the extension."
+        },
+        {
+          "name": "ExtCode",
+          "type": "int *",
+          "description": "A pointer to an integer where the function will store the extension function code."
+        },
+        {
+          "name": "Extension",
+          "type": "GifByteType **",
+          "description": "A pointer to a byte array where the function will store the extension."
+        }
+      ],
+      "return_type": "int, represents the status of the operation. Returns GIF_ERROR if the read operation fails, otherwise the result of DGifGetExtensionNext function."
+    }
+  },
+  {
+    "function": {
+      "name": "DGifGetExtensionNext",
+      "description": "This function reads the next extension from the given GIF file and stores it in the provided extension buffer. If the read operation fails or there are no more extensions, it returns an error code.",
+      "parameters": [
+        {
+          "name": "GifFile",
+          "type": "GifFileType *",
+          "description": "A pointer to the GIF file from which to read the extension."
+        },
+        {
+          "name": "Extension",
+          "type": "GifByteType **",
+          "description": "A pointer to a buffer where the read extension will be stored."
+        }
+      ],
+      "return_type": "int, returns GIF_OK if the operation is successful, otherwise returns GIF_ERROR"
+    }
+  },
+  {
+    "function": {
+      "name": "DGifGetWord",
+      "description": "This function reads two bytes from the GifFile and stores the result in Word. It returns GIF_OK on success and GIF_ERROR on failure.",
+      "parameters": [
+        {
+          "name": "GifFile",
+          "type": "GifFileType *",
+          "description": "Pointer to the GIF file from which two bytes are read"
+        },
+        {
+          "name": "Word",
+          "type": "GifWord *",
+          "description": "Pointer to the variable where the result of the read operation is stored"
+        }
+      ],
+      "return_type": "int, represents the status of the operation, returning GIF_OK on success and GIF_ERROR on failure"
+    }
+  },
+  {
+    "function": {
+      "name": "DGifGetCodeNext",
+      "description": "This function reads the next code block from a GIF file. If the block size is greater than 0, it reads the block into a private buffer and sets the CodeBlock pointer to this buffer. If the block size is 0, it sets the CodeBlock pointer to NULL and resets the private buffer and pixel count.",
+      "parameters": [
+        {
+          "name": "GifFile",
+          "type": "GifFileType *",
+          "description": "A pointer to the GIF file structure"
+        },
+        {
+          "name": "CodeBlock",
+          "type": "GifByteType **",
+          "description": "A pointer to a pointer, which will be set to point to the next code block"
+        }
+      ],
+      "return_type": "int, returns GIF_OK if successful, or GIF_ERROR if an error occurs"
+    }
+  },
+  {
+    "function": {
+      "name": "DGifSetupDecompress",
+      "description": "This function sets up the decompression for a GIF file. It initializes various properties of the file, reads the code size from the file, and sets up the prefix array.",
+      "parameters": [
+        {
+          "name": "GifFile",
+          "type": "GifFileType *",
+          "description": "This is a pointer to the GIF file that is to be decompressed."
+        }
+      ],
+      "return_type": "int, returns GIF_OK on successful execution of the function"
+    }
+  },
+  {
+    "function": {
+      "name": "DGifDecompressLine",
+      "description": "This function decompresses a line from a GIF file. It reads the GIF file, decodes the line items, and handles different codes such as EOFCode and ClearCode. It also manages a stack for the output stream.",
+      "parameters": [
+        {
+          "name": "GifFile",
+          "type": "GifFileType *",
+          "description": "Pointer to the GIF file type"
+        },
+        {
+          "name": "Line",
+          "type": "GifPixelType *",
+          "description": "Pointer to the pixel type of the line to be decompressed"
+        },
+        {
+          "name": "LineLen",
+          "type": "int",
+          "description": "Length of the line to be decompressed"
+        }
+      ],
+      "return_type": "int, returns GIF_OK if the operation is successful, otherwise returns GIF_ERROR"
+    }
+  },
+  {
+    "function": {
+      "name": "DGifGetPrefixChar",
+      "description": "This function is used to get the prefix character from a GIF file. It iterates through the prefix until the code is less than or equal to the clear code or the maximum limit is reached.",
+      "parameters": [
+        {
+          "name": "Prefix",
+          "type": "GifPrefixType *",
+          "description": "This is a pointer to the prefix type of the GIF."
+        },
+        {
+          "name": "Code",
+          "type": "int",
+          "description": "This is the code that is compared with the clear code."
+        },
+        {
+          "name": "ClearCode",
+          "type": "int",
+          "description": "This is the clear code that is compared with the code."
+        }
+      ],
+      "return_type": "int, represents the final value of the code after the loop ends."
+    }
+  },
+  {
+    "function": {
+      "name": "DGifDecompressInput",
+      "description": "This function decompresses the input GIF file. It reads the input stream for the next code, checks if the code can fit into RunningBits bits, and raises its size if necessary.",
+      "parameters": [
+        {
+          "name": "GifFile",
+          "type": "GifFileType *",
+          "description": "Pointer to the GIF file to be decompressed"
+        },
+        {
+          "name": "Code",
+          "type": "int *",
+          "description": "Pointer to the code that will be decompressed"
+        }
+      ],
+      "return_type": "int, returns GIF_OK if the decompression is successful, otherwise returns GIF_ERROR"
+    }
+  },
+  {
+    "function": {
+      "name": "DGifBufferedInput",
+      "description": "This function reads the next buffer if the current one is empty, checks for any empty data blocks, reads the next data block if the current one is not empty, and updates the value of NextByte and Buf.",
+      "parameters": [
+        {
+          "name": "GifFile",
+          "type": "GifFileType *",
+          "description": "Pointer to the GIF file from which data is read"
+        },
+        {
+          "name": "Buf",
+          "type": "GifByteType *",
+          "description": "Buffer used for reading data from the GIF file"
+        },
+        {
+          "name": "NextByte",
+          "type": "GifByteType *",
+          "description": "Pointer to the byte that will be read next"
+        }
+      ],
+      "return_type": "int, returns GIF_OK if the operation is successful, otherwise returns GIF_ERROR"
+    }
+  },
+  {
+    "function": {
+      "name": "DGifSlurp",
+      "description": "This function reads a GIF file and stores the image data and any associated metadata in the GifFile structure.",
+      "parameters": [
+        {
+          "name": "GifFile",
+          "type": "GifFileType *",
+          "description": "A pointer to a GifFileType structure, which will be filled with the image data and metadata from the GIF file."
+        }
+      ],
+      "return_type": "int, returns GIF_OK if the function successfully reads the GIF file, and GIF_ERROR if an error occurs."
+    }
+  },
+  {
+    "function": {
+      "name": "DGifOpen",
+      "description": "This function opens a GIF file, checks if it is a valid GIF file, gets its screen description and returns a pointer to the file type. If any step fails, it cleans up and returns NULL.",
+      "parameters": [
+        {
+          "name": "userData",
+          "type": "void *",
+          "description": "This parameter is used to store user data."
+        },
+        {
+          "name": "readFunc",
+          "type": "InputFunc",
+          "description": "This parameter is a function pointer used to read the GIF file."
+        }
+      ],
+      "return_type": "GifFileType *, represents a pointer to the GIF file type. If the file could not be opened or is not a valid GIF file, NULL is returned."
+    }
+  },
+  {
+    "function": {
+      "name": "DGifCloseFile",
+      "description": "This function closes a GIF file, frees the memory allocated for the color maps and saved images, and releases the memory allocated for the GIF file itself.",
+      "parameters": [
+        {
+          "name": "GifFile",
+          "type": "GifFileType *",
+          "description": "Pointer to the GIF file to be closed"
+        }
+      ],
+      "return_type": "int, returns GIF_OK on successful closure, GIF_ERROR if the GifFile pointer is NULL"
+    }
+  }
+]

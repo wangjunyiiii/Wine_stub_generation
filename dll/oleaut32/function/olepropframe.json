@@ -1,0 +1,251 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IPropertyPageSite",
+      "description": "This function retrieves the containing record for the given interface pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPropertyPageSite *",
+          "description": "Interface pointer to get the containing record of."
+        }
+      ],
+      "return_type": "PropertyPageSite pointer, representing the containing record of the given interface pointer."
+    }
+  },
+  {
+    "function": {
+      "name": "property_sheet_proc",
+      "description": "This function handles the initialization, display, and destruction of a property page. It is a callback function that is called when a dialog box is created, moved, resized, or destroyed.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the dialog box."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "INT_PTR, represents a pointer to the function that is the window procedure for the dialog box. It returns FALSE if it processes the message, otherwise it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "PropertyPageSite_QueryInterface",
+      "description": "This function checks if the provided interface ID matches either IID_IUnknown or IID_IPropertyPageSite. If it does, it assigns the interface pointer to the output parameter and increases its reference count. If it doesn't, it sets the output parameter to NULL and returns an error code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPropertyPageSite*",
+          "description": "Pointer to the interface that is being queried"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Identifier of the interface being requested"
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Address of the pointer variable that receives the interface pointer"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the interface is supported, and E_NOINTERFACE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "PropertyPageSite_AddRef",
+      "description": "This function increments the reference count of a PropertyPageSite object and returns the new count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPropertyPageSite*",
+          "description": "This parameter is a pointer to an IPropertyPageSite interface object."
+        }
+      ],
+      "return_type": "ULONG, which represents the new reference count after incrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "PropertyPageSite_Release",
+      "description": "This function decrements the reference count of the PropertyPageSite object. If the reference count becomes zero, it frees the memory allocated to the object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPropertyPageSite*",
+          "description": "This parameter is a pointer to the IPropertyPageSite interface of the PropertyPageSite object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the PropertyPageSite object after decrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "PropertyPageSite_OnStatusChange",
+      "description": "This function traces the interface and flag values and returns a status code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPropertyPageSite *",
+          "description": "Pointer to an interface"
+        },
+        {
+          "name": "dwFlags",
+          "type": "DWORD",
+          "description": "32-bit unsigned integer representing flags"
+        }
+      ],
+      "return_type": "HRESULT, which is a status code indicating success or failure of the function"
+    }
+  },
+  {
+    "function": {
+      "name": "PropertyPageSite_GetLocaleID",
+      "description": "This function retrieves the locale identifier from the PropertyPageSite object and assigns it to the provided pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPropertyPageSite *",
+          "description": "Pointer to an IPropertyPageSite interface."
+        },
+        {
+          "name": "pLocaleID",
+          "type": "LCID *",
+          "description": "Pointer to a variable that receives the locale identifier."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation was successful."
+    }
+  },
+  {
+    "function": {
+      "name": "PropertyPageSite_GetPageContainer",
+      "description": "This function is not implemented yet and returns a 'not implemented' error code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPropertyPageSite*",
+          "description": "Interface pointer to the property page site"
+        },
+        {
+          "name": "ppUnk",
+          "type": "IUnknown**",
+          "description": "Pointer to the unknown interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, in this case, it returns E_NOTIMPL indicating the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "PropertyPageSite_TranslateAccelerator",
+      "description": "This function is not implemented yet and returns E_NOTIMPL.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPropertyPageSite*",
+          "description": "Interface pointer to the property page site"
+        },
+        {
+          "name": "pMsg",
+          "type": "MSG*",
+          "description": "Pointer to the MSG structure"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, in this case E_NOTIMPL indicating the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "OleCreatePropertyFrameIndirect",
+      "description": "This function creates a property frame and initializes it indirectly with the specified parameters.",
+      "parameters": [
+        {
+          "name": "lpParams",
+          "type": "LPOCPFIPARAMS",
+          "description": "Pointer to a structure that contains initialization parameters for the property frame."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If the function fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "OleCreatePropertyFrame",
+      "description": "This function creates a property frame and initializes it with the given parameters.",
+      "parameters": [
+        {
+          "name": "hwndOwner",
+          "type": "HWND",
+          "description": "Handle to the owner window of the property sheet dialog box."
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The horizontal position of the dialog box."
+        },
+        {
+          "name": "y",
+          "type": "UINT",
+          "description": "The vertical position of the dialog box."
+        },
+        {
+          "name": "lpszCaption",
+          "type": "LPCOLESTR",
+          "description": "Pointer to a string that contains the caption of the dialog box."
+        },
+        {
+          "name": "cObjects",
+          "type": "ULONG",
+          "description": "The count of objects being passed in."
+        },
+        {
+          "name": "ppUnk",
+          "type": "LPUNKNOWN*",
+          "description": "Pointer to the array of objects for which the dialog box displays properties."
+        },
+        {
+          "name": "cPages",
+          "type": "ULONG",
+          "description": "The count of property pages being passed in."
+        },
+        {
+          "name": "pPageClsID",
+          "type": "LPCLSID",
+          "description": "Pointer to an array of CLSIDs that specify the property pages to display."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "The locale identifier for the property frame."
+        },
+        {
+          "name": "dwReserved",
+          "type": "DWORD",
+          "description": "Reserved. Must be zero."
+        },
+        {
+          "name": "pvReserved",
+          "type": "LPVOID",
+          "description": "Reserved. Must be NULL."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns the standard values E_OUTOFMEMORY, E_UNEXPECTED, E_POINTER, and E_FAIL."
+    }
+  }
+]

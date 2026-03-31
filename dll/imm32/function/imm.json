@@ -1,0 +1,3003 @@
+[
+  {
+    "function": {
+      "name": "debugstr_composition",
+      "description": "This function checks if the composition is null, if it is, it returns '(null)'. If not, it returns a formatted string that includes the style, current position, and area of the composition.",
+      "parameters": [
+        {
+          "name": "composition",
+          "type": "const COMPOSITIONFORM *",
+          "description": "A pointer to a COMPOSITIONFORM structure that contains information about the composition."
+        }
+      ],
+      "return_type": "char: Returns a string that represents the composition's style, current position, and area or '(null)' if the composition is null."
+    }
+  },
+  {
+    "function": {
+      "name": "debugstr_candidate",
+      "description": "This function returns a formatted string that represents the details of a CANDIDATEFORM object. If the object is null, it returns the string '(null)'.",
+      "parameters": [
+        {
+          "name": "candidate",
+          "type": "const CANDIDATEFORM*",
+          "description": "This is a pointer to a CANDIDATEFORM object whose details are to be formatted into a string."
+        }
+      ],
+      "return_type": "char: This is a string that represents the details of the CANDIDATEFORM object. If the object is null, the function returns the string '(null)'."
+    }
+  },
+  {
+    "function": {
+      "name": "ime_is_unicode",
+      "description": "This function checks if the input method editor (IME) is in unicode mode.",
+      "parameters": [
+        {
+          "name": "ime",
+          "type": "struct ime*",
+          "description": "This is a pointer to the IME structure that is being checked."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the IME is in unicode mode, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "input_context_is_unicode",
+      "description": "This function checks if the input context is unicode or not.",
+      "parameters": [
+        {
+          "name": "ctx",
+          "type": "INPUTCONTEXT*",
+          "description": "This parameter is used to represent the input context."
+        }
+      ],
+      "return_type": "BOOL, returns true if the input context is unicode, false otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "strdupAtoW",
+      "description": "This function converts a string from ASCII to wide character format.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "const char *",
+          "description": "This is the ASCII string that needs to be converted to wide character format."
+        }
+      ],
+      "return_type": "WCHAR *. It represents the wide character version of the input string."
+    }
+  },
+  {
+    "function": {
+      "name": "strdupWtoA",
+      "description": "This function converts a wide character string to a multi-byte string.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "const WCHAR *",
+          "description": "This is the wide character string that needs to be converted."
+        }
+      ],
+      "return_type": "CHAR, it represents the converted multi-byte string."
+    }
+  },
+  {
+    "function": {
+      "name": "convert_candidatelist_WtoA",
+      "description": "This function converts a candidate list from wide characters to ASCII characters.",
+      "parameters": [
+        {
+          "name": "lpSrc",
+          "type": "LPCANDIDATELIST",
+          "description": "Source candidate list in wide characters."
+        },
+        {
+          "name": "lpDst",
+          "type": "LPCANDIDATELIST",
+          "description": "Destination candidate list in ASCII characters."
+        },
+        {
+          "name": "dwBufLen",
+          "type": "DWORD",
+          "description": "Buffer length for the destination candidate list."
+        }
+      ],
+      "return_type": "DWORD, represents the total length of the converted characters."
+    }
+  },
+  {
+    "function": {
+      "name": "convert_candidatelist_AtoW",
+      "description": "This function converts a candidate list from ASCII to wide characters.",
+      "parameters": [
+        {
+          "name": "lpSrc",
+          "type": "LPCANDIDATELIST",
+          "description": "Source candidate list in ASCII format"
+        },
+        {
+          "name": "lpDst",
+          "type": "LPCANDIDATELIST",
+          "description": "Destination candidate list in wide character format"
+        },
+        {
+          "name": "dwBufLen",
+          "type": "DWORD",
+          "description": "Length of the buffer"
+        }
+      ],
+      "return_type": "DWORD, represents the size of the converted candidate list in bytes"
+    }
+  },
+  {
+    "function": {
+      "name": "get_thread_coinit_spy",
+      "description": "This function retrieves the coinit_spy structure associated with the current thread.",
+      "parameters": [],
+      "return_type": "struct coinit_spy - a pointer to the coinit_spy structure associated with the current thread"
+    }
+  },
+  {
+    "function": {
+      "name": "imm_couninit_thread",
+      "description": "This function handles the implicit COM deinitialization and cleanup of a thread if certain conditions are met.",
+      "parameters": [
+        {
+          "name": "cleanup",
+          "type": "BOOL",
+          "description": "This parameter determines whether the function should perform cleanup operations or not."
+        }
+      ],
+      "return_type": "void, this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IInitializeSpy",
+      "description": "This function returns a pointer to a coinit_spy structure that contains the given IInitializeSpy interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IInitializeSpy *",
+          "description": "Pointer to an IInitializeSpy interface"
+        }
+      ],
+      "return_type": "Pointer to struct coinit_spy. It represents the containing record of the given IInitializeSpy interface."
+    }
+  },
+  {
+    "function": {
+      "name": "InitializeSpy_QueryInterface",
+      "description": "This function checks if the provided interface ID matches the ID of IInitializeSpy or IUnknown. If it does, it increases the reference count of the interface and returns S_OK. If it doesn't, it returns E_NOINTERFACE.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IInitializeSpy *",
+          "description": "Pointer to the IInitializeSpy interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface ID to be checked"
+        },
+        {
+          "name": "obj",
+          "type": "void **",
+          "description": "Pointer to the location where the interface pointer will be stored if the interface ID matches"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the interface ID matches, E_NOINTERFACE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "InitializeSpy_AddRef",
+      "description": "This function increments the reference count of the IInitializeSpy interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IInitializeSpy *",
+          "description": "Pointer to the IInitializeSpy interface whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after incrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "InitializeSpy_Release",
+      "description": "This function decrements the reference count of the IInitializeSpy interface. If the reference count becomes zero, it frees the memory allocated to the spy and sets the client_imm of the current thread to zero.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IInitializeSpy *",
+          "description": "This parameter is a pointer to the IInitializeSpy interface whose reference count is to be decremented."
+        }
+      ],
+      "return_type": "ULONG, which represents the new reference count after decrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "InitializeSpy_PreInitialize",
+      "description": "This function pre-initializes a spy object, checks if certain conditions are met, and if so, modifies the spy object's flags and calls a function to uninitialize a thread.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IInitializeSpy *",
+          "description": "Pointer to an IInitializeSpy interface"
+        },
+        {
+          "name": "coinit",
+          "type": "DWORD",
+          "description": "A set of flags that specify the concurrency model used for the call to the CoInitializeEx function"
+        },
+        {
+          "name": "refs",
+          "type": "DWORD",
+          "description": "The number of references to the object"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function, S_OK if the function succeeds"
+    }
+  },
+  {
+    "function": {
+      "name": "InitializeSpy_PostInitialize",
+      "description": "This function modifies the HRESULT based on certain conditions and updates the apt_flags of the coinit_spy structure.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IInitializeSpy *",
+          "description": "Pointer to an IInitializeSpy interface"
+        },
+        {
+          "name": "hr",
+          "type": "HRESULT",
+          "description": "The result of a previous operation"
+        },
+        {
+          "name": "coinit",
+          "type": "DWORD",
+          "description": "A value representing the initialization of the Component Object Model (COM) library"
+        },
+        {
+          "name": "refs",
+          "type": "DWORD",
+          "description": "The number of active references"
+        }
+      ],
+      "return_type": "HRESULT, represents the modified result of the operation"
+    }
+  },
+  {
+    "function": {
+      "name": "InitializeSpy_PreUninitialize",
+      "description": "This function is a stub, it does not perform any action and always returns S_OK.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IInitializeSpy *",
+          "description": "Pointer to an IInitializeSpy interface"
+        },
+        {
+          "name": "refs",
+          "type": "DWORD",
+          "description": "A 32-bit unsigned integer"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function, always returns S_OK in this case"
+    }
+  },
+  {
+    "function": {
+      "name": "InitializeSpy_PostUninitialize",
+      "description": "This function checks the reference count and the status of the default input method editor (IME) window. If the reference count is 1 and there is no default IME window, it uninitializes the thread. If the reference count is 0, it updates the apartment threading flags to indicate that it can't be freed.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IInitializeSpy *",
+          "description": "Interface pointer used to get the implementation of IInitializeSpy"
+        },
+        {
+          "name": "refs",
+          "type": "DWORD",
+          "description": "The reference count"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "init_ole32_funcs",
+      "description": "This function initializes the ole32 functions by getting the module handle of 'ole32' and assigning the addresses of 'CoRevokeInitializeSpy' and 'CoUninitialize' functions to the respective pointers.",
+      "parameters": [
+        {
+          "name": "once",
+          "type": "INIT_ONCE*",
+          "description": "Pointer to an INIT_ONCE structure that the function uses to determine whether to perform the initialization."
+        },
+        {
+          "name": "param",
+          "type": "void*",
+          "description": "This parameter is not used in the function and can be any value."
+        },
+        {
+          "name": "context",
+          "type": "void**",
+          "description": "This parameter is not used in the function and can be any value."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE after successfully initializing the ole32 functions."
+    }
+  },
+  {
+    "function": {
+      "name": "imm_coinit_thread",
+      "description": "This function initializes a COM thread. It checks if the thread has already been initialized or is broken, and if not, it registers an InitializeSpy, initializes the COM library and sets the thread as created.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "query_imc_data",
+      "description": "This function queries the input method context (IMC) data associated with a given handle. If the handle is null or if the handle does not match the handle in the returned IMC structure, the function returns null.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HIMC",
+          "description": "This is the handle for which the IMC data is queried."
+        }
+      ],
+      "return_type": "struct imc*. It represents the pointer to the IMC data structure associated with the given handle. If the handle is null or does not match the handle in the returned IMC structure, the function returns null."
+    }
+  },
+  {
+    "function": {
+      "name": "find_ime_from_hkl",
+      "description": "This function searches through a list of IME structures and returns the one that matches the given HKL value. If no match is found, it returns NULL.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "This parameter is the HKL value that the function is searching for in the list of IME structures."
+        }
+      ],
+      "return_type": "struct ime*. This represents the IME structure that matches the given HKL value. If no match is found, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmFreeLayout",
+      "description": "This function is used to free the layout of an Input Method Editor (IME). It removes the IME from the list, destroys the IME, and frees the associated memory.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "This parameter is a handle to the keyboard layout."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation is successful, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmLoadIME",
+      "description": "This function loads an Input Method Editor (IME) module and initializes the IME function pointers. If the IME module fails to load, it falls back to a default IME.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "Handle to the input locale identifier"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the IME module is successfully loaded and initialized, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "ime_acquire",
+      "description": "This function acquires an IME (Input Method Editor) structure based on the given HKL (Handle to Keyboard Layout). It increases the reference count of the IME if it exists.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "Handle to Keyboard Layout. Used to load the IME and find it in the system."
+        }
+      ],
+      "return_type": "struct ime*. Returns a pointer to the acquired IME structure, or NULL if the IME could not be loaded."
+    }
+  },
+  {
+    "function": {
+      "name": "ime_release",
+      "description": "This function decreases the reference count of the given IME (Input Method Editor) object. If the reference count reaches zero and the IME object has the IME_PROP_END_UNLOAD property set, it frees the layout associated with the IME object.",
+      "parameters": [
+        {
+          "name": "ime",
+          "type": "struct ime*",
+          "description": "Pointer to the IME object whose reference count is to be decreased."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "ime_save_input_context",
+      "description": "This function saves the input context in the IME. It creates a default input context and copies the old context into it. It then creates a new IMC entry and adds it to the IME's input context list. If the list was previously empty, it increments the IME's reference count.",
+      "parameters": [
+        {
+          "name": "ime",
+          "type": "struct ime*",
+          "description": "Pointer to the IME structure"
+        },
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context"
+        },
+        {
+          "name": "ctx",
+          "type": "INPUTCONTEXT*",
+          "description": "Pointer to the input context to be saved"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "ime_find_input_context",
+      "description": "This function is used to find an input context in a given IME structure. It iterates over the input contexts of the IME, and returns the one that matches the provided HIMC. If no match is found, it returns NULL.",
+      "parameters": [
+        {
+          "name": "ime",
+          "type": "struct ime*",
+          "description": "Pointer to the IME structure to search in"
+        },
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "The HIMC to match in the input contexts of the IME"
+        }
+      ],
+      "return_type": "INPUTCONTEXT*. It represents the input context that matches the provided HIMC. If no match is found, NULL is returned."
+    }
+  },
+  {
+    "function": {
+      "name": "imc_release_ime",
+      "description": "This function releases the input method context (IMC) and the input method editor (IME). It destroys the window associated with the IMC, sets the ui_hwnd to NULL, deselects the IME, updates the input context if it exists, and finally releases the IME.",
+      "parameters": [
+        {
+          "name": "imc",
+          "type": "struct imc*",
+          "description": "Pointer to the input method context (IMC) to be released"
+        },
+        {
+          "name": "ime",
+          "type": "struct ime*",
+          "description": "Pointer to the input method editor (IME) to be released"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "imc_select_ime",
+      "description": "This function selects an Input Method Editor (IME) based on the current keyboard layout, releases the previous IME if it doesn't match the current one, acquires a new IME if necessary, finds or saves the input context, and selects the IME for the input method context.",
+      "parameters": [
+        {
+          "name": "imc",
+          "type": "struct imc*",
+          "description": "Pointer to an imc structure which represents the input method context."
+        }
+      ],
+      "return_type": "struct ime*; represents a pointer to the selected IME structure."
+    }
+  },
+  {
+    "function": {
+      "name": "enum_activate_layout",
+      "description": "This function locks and immediately unlocks the input context, essentially doing nothing but returning true.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "BOOL, represents the success of the function. Always returns TRUE in this case."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmActivateLayout",
+      "description": "This function activates a specific keyboard layout, and enumerates the input context.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "This parameter represents the handle to the keyboard layout to be activated."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the keyboard layout is successfully activated, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "free_input_context_data",
+      "description": "This function frees the input context data associated with a given HIMC handle. It first queries the input method context data, then selects and releases the input method editor (IME) if one is associated with the data. It then destroys various components of the input method context before finally freeing the data itself.",
+      "parameters": [
+        {
+          "name": "hIMC",
+          "type": "HIMC",
+          "description": "Handle to the input method context whose data is to be freed."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation is successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "input_context_init",
+      "description": "This function initializes an input context, allocating and setting up necessary structures such as COMPOSITIONSTRING, CANDIDATEINFO, GUIDELINE and an array of candidate forms.",
+      "parameters": [
+        {
+          "name": "ctx",
+          "type": "INPUTCONTEXT*",
+          "description": "A pointer to the input context to be initialized."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "IMM_FreeThreadData",
+      "description": "This function frees the input context data of the current thread and releases the IInitializeSpy interface if it exists.",
+      "parameters": [
+        {
+          "name": "None",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "IMM_FreeAllImmHkl",
+      "description": "This function iterates over a list of IME (Input Method Editor) structures and frees the memory allocated to each of them. It also destroys the associated input context and frees the memory allocated to it.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "DllMain",
+      "description": "This function is an entry point to a DLL. It is called by the system when processes and threads are initialized and terminated, or upon using LoadLibrary and FreeLibrary. It initializes the User32 Imm entry table, sets the imm32 module to the instance, and frees thread data and all Imm HKLs upon process detach.",
+      "parameters": [
+        {
+          "name": "instance",
+          "type": "HINSTANCE",
+          "description": "Handle to the DLL module. The value is the base address of the DLL."
+        },
+        {
+          "name": "reason",
+          "type": "DWORD",
+          "description": "Indicates why the DLL entry-point function is being called."
+        },
+        {
+          "name": "reserved",
+          "type": "void *",
+          "description": "If the reason is DLL_PROCESS_DETACH, reserved is used to indicate if the DLL is being unloaded or the process is terminating."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if successful or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmSetActiveContext",
+      "description": "This function sets the active input method context for a given window and input method context. It also sends a message to the window to update the UI and sets the last error to 0.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the input method context is to be set."
+        },
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input method context."
+        },
+        {
+          "name": "activate",
+          "type": "BOOL",
+          "description": "Boolean value that indicates whether to activate or deactivate the input method context."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function successfully sets the active input method context, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmConfigureIMEA",
+      "description": "This function is used to configure the Input Method Editor (IME). It checks the mode and data parameters, acquires the IME, and then calls the IME's configuration function. If the mode is IME_CONFIG_REGISTERWORD and the IME is Unicode, it also converts the word and reading from ASCII to wide characters before calling the configuration function.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "Handle to the input locale identifier"
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the parent window"
+        },
+        {
+          "name": "mode",
+          "type": "DWORD",
+          "description": "Specifies the action to be performed"
+        },
+        {
+          "name": "data",
+          "type": "void *",
+          "description": "Pointer to the data to be configured"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "ImmConfigureIMEW",
+      "description": "This function is used to configure the Input Method Editor (IME).",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "A handle to the input locale identifier"
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window for which the IME is to be configured"
+        },
+        {
+          "name": "mode",
+          "type": "DWORD",
+          "description": "The mode of configuration"
+        },
+        {
+          "name": "data",
+          "type": "void *",
+          "description": "A pointer to the configuration data"
+        }
+      ],
+      "return_type": "BOOL, represents whether the IME was successfully configured or not"
+    }
+  },
+  {
+    "function": {
+      "name": "create_input_context",
+      "description": "This function creates a new input context, initializes it, and updates or creates a handle for it based on the default input context provided. If the handle is not created, it frees the input context data and returns 0.",
+      "parameters": [
+        {
+          "name": "default_imc",
+          "type": "HIMC",
+          "description": "This is the default input method context (IMC) that is used to create or update the new context's handle."
+        }
+      ],
+      "return_type": "Returns a pointer to the new input context of type 'struct imc'. If the handle is not created, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "get_imc_data",
+      "description": "This function queries IMC data using a given handle. If the query fails or the handle is null, it creates a new input context using the handle.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HIMC",
+          "description": "Handle to the IMC data"
+        }
+      ],
+      "return_type": "struct imc pointer, represents the queried IMC data or a newly created input context"
+    }
+  },
+  {
+    "function": {
+      "name": "default_input_context",
+      "description": "This function retrieves the default input context for the current thread, creates one if it doesn't exist, and returns the associated data.",
+      "parameters": [],
+      "return_type": "struct imc*, represents the data associated with the default input context of the current thread"
+    }
+  },
+  {
+    "function": {
+      "name": "get_ime_ui_window",
+      "description": "This function gets the window handle of the Input Method Editor (IME) user interface. If the window does not exist, it creates one.",
+      "parameters": [],
+      "return_type": "HWND, which represents the handle to the IME user interface window"
+    }
+  },
+  {
+    "function": {
+      "name": "set_ime_ui_window_himc",
+      "description": "This function sets the Input Method Editor (IME) user interface window handle context.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "ImmCreateContext",
+      "description": "This function creates a new input context and returns its handle.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "HIMC, which represents the handle to the newly created input context. If the creation fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "IMM_DestroyContext",
+      "description": "This function is used to destroy an input context. It first frees the input context data, if it fails to do so, it returns FALSE. If it succeeds, it destroys the input context and returns TRUE.",
+      "parameters": [
+        {
+          "name": "hIMC",
+          "type": "HIMC",
+          "description": "This parameter is a handle to the input context that is to be destroyed."
+        }
+      ],
+      "return_type": "BOOL, represents whether the input context was successfully destroyed or not. Returns TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmDestroyContext",
+      "description": "This function destroys the specified input context. It checks if the input context is the default one for the thread or if it belongs to another thread, in which cases it does not destroy it and returns FALSE. Otherwise, it destroys the input context and returns the result of the operation.",
+      "parameters": [
+        {
+          "name": "hIMC",
+          "type": "HIMC",
+          "description": "Handle to the input context to be destroyed."
+        }
+      ],
+      "return_type": "BOOL, represents whether the input context was successfully destroyed or not. Returns FALSE if the input context is the default one for the thread or if it belongs to another thread, otherwise returns the result of the IMM_DestroyContext function."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmAssociateContext",
+      "description": "This function associates a new input context with a window, retrieves the old input context, and handles focus change events.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window with which the input context is to be associated."
+        },
+        {
+          "name": "new_himc",
+          "type": "HIMC",
+          "description": "Handle to the input context that is to be associated with the window."
+        }
+      ],
+      "return_type": "HIMC, represents the old input context if the association was successful, or 0 if the association failed."
+    }
+  },
+  {
+    "function": {
+      "name": "enum_associate_context",
+      "description": "This function associates a specified input context with a specified window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be associated with the input context."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Specifies the input context."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE always"
+    }
+  },
+  {
+    "function": {
+      "name": "ImmAssociateContextEx",
+      "description": "This function associates a new input context with a window, and sets the active context according to the specified flags.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window with which the input context is to be associated."
+        },
+        {
+          "name": "new_himc",
+          "type": "HIMC",
+          "description": "Handle to the input context to be associated with the window."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Specifies how the input context is associated with the window."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "enum_register_word_WtoA",
+      "description": "This function converts wide characters to ASCII, registers them and then frees up the allocated memory.",
+      "parameters": [
+        {
+          "name": "readingW",
+          "type": "WCHAR *",
+          "description": "Pointer to the wide character string to be converted and registered."
+        },
+        {
+          "name": "style",
+          "type": "DWORD",
+          "description": "Style parameter for the registration process."
+        },
+        {
+          "name": "stringW",
+          "type": "WCHAR *",
+          "description": "Another wide character string to be converted and registered."
+        },
+        {
+          "name": "user",
+          "type": "void *",
+          "description": "Pointer to a structure that contains the procedure to register the converted strings and an additional user parameter."
+        }
+      ],
+      "return_type": "int, represents the result of the registration process. Returns the value returned by the registration procedure."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmEnumRegisterWordA",
+      "description": "This function is used to enumerate the registered words in the specified Input Method Editor (IME). It handles both Unicode and non-Unicode IMEs.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "A handle to the input locale identifier"
+        },
+        {
+          "name": "procA",
+          "type": "REGISTERWORDENUMPROCA",
+          "description": "A pointer to the callback function"
+        },
+        {
+          "name": "readingA",
+          "type": "char *",
+          "description": "A pointer to the reading string"
+        },
+        {
+          "name": "style",
+          "type": "DWORD",
+          "description": "The style of the registered words"
+        },
+        {
+          "name": "stringA",
+          "type": "char *",
+          "description": "A pointer to the registered string"
+        },
+        {
+          "name": "user",
+          "type": "void *",
+          "description": "A pointer to the user-defined data"
+        }
+      ],
+      "return_type": "UINT, represents the result of the function. If the function succeeds, the return value is non-zero. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "enum_register_word_AtoW",
+      "description": "This function converts strings from ASCII to wide characters, calls a procedure with these converted strings and other parameters, and then frees the memory allocated for the converted strings.",
+      "parameters": [
+        {
+          "name": "readingA",
+          "type": "const char *",
+          "description": "An ASCII string to be converted to wide characters"
+        },
+        {
+          "name": "style",
+          "type": "DWORD",
+          "description": "A parameter to be passed to the procedure"
+        },
+        {
+          "name": "stringA",
+          "type": "const char *",
+          "description": "Another ASCII string to be converted to wide characters"
+        },
+        {
+          "name": "user",
+          "type": "void *",
+          "description": "A pointer to a structure containing the procedure to be called and its parameters"
+        }
+      ],
+      "return_type": "int, represents the return value of the procedure called within the function"
+    }
+  },
+  {
+    "function": {
+      "name": "ImmEnumRegisterWordW",
+      "description": "This function is used to enumerate the registered words in the specified Input Method Editor (IME). It acquires the IME, checks if it is Unicode, and then calls the IME's EnumRegisterWord function. If the IME is not Unicode, it converts the reading and string parameters from wide characters to multibyte characters before calling the EnumRegisterWord function.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "A handle to the input locale identifier"
+        },
+        {
+          "name": "procW",
+          "type": "REGISTERWORDENUMPROCW",
+          "description": "A pointer to the callback function"
+        },
+        {
+          "name": "readingW",
+          "type": "WCHAR",
+          "description": "A pointer to the reading string"
+        },
+        {
+          "name": "style",
+          "type": "DWORD",
+          "description": "The style of the registered words to enumerate"
+        },
+        {
+          "name": "stringW",
+          "type": "WCHAR",
+          "description": "A pointer to the string of the registered word"
+        },
+        {
+          "name": "user",
+          "type": "void",
+          "description": "A pointer to the user-defined data"
+        }
+      ],
+      "return_type": "UINT. It represents the result of the enumeration. If the function succeeds, the return value is a non-zero value. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "EscapeRequiresWA",
+      "description": "This function checks if the input parameter matches any of the predefined constants. If it does, the function returns TRUE, otherwise it returns FALSE.",
+      "parameters": [
+        {
+          "name": "uEscape",
+          "type": "UINT",
+          "description": "This parameter is checked against predefined constants."
+        }
+      ],
+      "return_type": "BOOL, represents whether the input parameter matches any of the predefined constants."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmEscapeA",
+      "description": "This function is used to process various escape sequences for Input Method Manager (IMM). It handles different codes and data inputs, and performs different actions based on these inputs.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "A handle to the keyboard layout"
+        },
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "A handle to the input context"
+        },
+        {
+          "name": "code",
+          "type": "UINT",
+          "description": "The escape function to be performed"
+        },
+        {
+          "name": "data",
+          "type": "void *",
+          "description": "A pointer to the data to be processed"
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the escape function. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmEscapeW",
+      "description": "This function is used to process various escape sequences. It acquires an IME (Input Method Editor), checks if the escape requires wide characters or if the IME is unicode or if data is not null. If any of these conditions are met, it calls the IME escape function. If not, it checks if the code is set to IME_ESC_SET_EUDC_DICTIONARY, converts wide characters to multibyte characters and calls the IME escape function. If the code is not set to IME_ESC_SET_EUDC_DICTIONARY, it calls the IME escape function and converts multibyte characters to wide characters.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "Handle to the input locale identifier"
+        },
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context"
+        },
+        {
+          "name": "code",
+          "type": "UINT",
+          "description": "Unsigned integer representing the escape function to be performed"
+        },
+        {
+          "name": "data",
+          "type": "void *",
+          "description": "Pointer to the data to be processed"
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the escape function. If the IME could not be acquired, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetCandidateListA",
+      "description": "This function retrieves the candidate list for an Input Method Manager (IMM) context.",
+      "parameters": [
+        {
+          "name": "hIMC",
+          "type": "HIMC",
+          "description": "Handle to the input context"
+        },
+        {
+          "name": "dwIndex",
+          "type": "DWORD",
+          "description": "Index of the candidate list"
+        },
+        {
+          "name": "lpCandList",
+          "type": "LPCANDIDATELIST",
+          "description": "Pointer to a buffer that receives the candidate list"
+        },
+        {
+          "name": "dwBufLen",
+          "type": "DWORD",
+          "description": "Size, in bytes, of the buffer pointed to by lpCandList"
+        }
+      ],
+      "return_type": "DWORD. The function returns the size, in bytes, of the written candidate list. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetCandidateListCountA",
+      "description": "This function retrieves the number of candidate lists for an Input Method Manager context and returns the size of the candidate list.",
+      "parameters": [
+        {
+          "name": "hIMC",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "lpdwListCount",
+          "type": "LPDWORD",
+          "description": "Pointer to a variable that receives the number of candidate lists."
+        }
+      ],
+      "return_type": "DWORD, represents the size of the candidate list. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetCandidateListCountW",
+      "description": "This function retrieves the count of candidate lists and the size of the candidate list for a specified input context.",
+      "parameters": [
+        {
+          "name": "hIMC",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "lpdwListCount",
+          "type": "LPDWORD",
+          "description": "Pointer to a variable that receives the number of candidate lists."
+        }
+      ],
+      "return_type": "DWORD, represents the size of the candidate list. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetCandidateListW",
+      "description": "This function retrieves the candidate list for an Input Method Editor (IME). It locks the IMCC, checks the index and the candidate list, and then either copies the candidate list to the buffer or converts it from ANSI to wide characters, depending on the IME. It then unlocks the IMCC and returns the size of the candidate list or the result of the conversion.",
+      "parameters": [
+        {
+          "name": "hIMC",
+          "type": "HIMC",
+          "description": "Handle to the input context"
+        },
+        {
+          "name": "dwIndex",
+          "type": "DWORD",
+          "description": "Index of the candidate list"
+        },
+        {
+          "name": "lpCandList",
+          "type": "LPCANDIDATELIST",
+          "description": "Pointer to a buffer that receives the candidate list"
+        },
+        {
+          "name": "dwBufLen",
+          "type": "DWORD",
+          "description": "Size, in bytes, of the buffer pointed to by lpCandList"
+        }
+      ],
+      "return_type": "DWORD, represents the size, in bytes, of the candidate list. If the function fails, it returns zero."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetCandidateWindow",
+      "description": "This function retrieves the candidate window information for the specified input context.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "index",
+          "type": "DWORD",
+          "description": "Index of the candidate list."
+        },
+        {
+          "name": "candidate",
+          "type": "CANDIDATEFORM*",
+          "description": "Pointer to a CANDIDATEFORM structure that receives the candidate window information."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, FALSE if it fails or if the specified index does not exist."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetCompositionFontA",
+      "description": "This function retrieves the logical font information for the current composition window based on the input context information. It handles both ANSI and Unicode input contexts.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "fontA",
+          "type": "LOGFONTA*",
+          "description": "Pointer to the LOGFONTA structure that receives the logical font information."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetCompositionFontW",
+      "description": "This function retrieves the logical font information for the specified input context. It also handles the conversion between different character sets if necessary.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "fontW",
+          "type": "LOGFONTW*",
+          "description": "Pointer to a LOGFONTW structure that receives the logical font information."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds; otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "CopyCompStringIMEtoClient",
+      "description": "This function copies a string from the source to the destination, converting between Unicode and ASCII if necessary.",
+      "parameters": [
+        {
+          "name": "src_unicode",
+          "type": "BOOL",
+          "description": "A flag indicating if the source string is in Unicode"
+        },
+        {
+          "name": "src",
+          "type": "void*",
+          "description": "The source string to be copied"
+        },
+        {
+          "name": "src_len",
+          "type": "INT",
+          "description": "The length of the source string"
+        },
+        {
+          "name": "dst",
+          "type": "void*",
+          "description": "The destination where the source string will be copied to"
+        },
+        {
+          "name": "dst_len",
+          "type": "INT",
+          "description": "The length of the destination string"
+        },
+        {
+          "name": "dst_unicode",
+          "type": "BOOL",
+          "description": "A flag indicating if the destination string is in Unicode"
+        }
+      ],
+      "return_type": "INT, representing the number of characters copied to the destination string"
+    }
+  },
+  {
+    "function": {
+      "name": "CopyCompAttrIMEtoClient",
+      "description": "This function copies attributes from an Input Method Editor (IME) to a client, with conversion between Unicode and non-Unicode strings as necessary.",
+      "parameters": [
+        {
+          "name": "src_unicode",
+          "type": "BOOL",
+          "description": "Flag indicating if the source string is in Unicode"
+        },
+        {
+          "name": "src",
+          "type": "BYTE *",
+          "description": "Pointer to the source string"
+        },
+        {
+          "name": "src_len",
+          "type": "INT",
+          "description": "Length of the source string"
+        },
+        {
+          "name": "comp_string",
+          "type": "void *",
+          "description": "Pointer to the composition string"
+        },
+        {
+          "name": "str_len",
+          "type": "INT",
+          "description": "Length of the composition string"
+        },
+        {
+          "name": "dst",
+          "type": "BYTE *",
+          "description": "Pointer to the destination buffer"
+        },
+        {
+          "name": "dst_len",
+          "type": "INT",
+          "description": "Length of the destination buffer"
+        },
+        {
+          "name": "unicode",
+          "type": "BOOL",
+          "description": "Flag indicating if the destination string should be in Unicode"
+        }
+      ],
+      "return_type": "INT, represents the number of characters copied to the destination buffer"
+    }
+  },
+  {
+    "function": {
+      "name": "CopyCompClauseIMEtoClient",
+      "description": "This function copies a composition clause from an IME to a client, converting between Unicode and non-Unicode as necessary.",
+      "parameters": [
+        {
+          "name": "src_unicode",
+          "type": "BOOL",
+          "description": "Indicates if the source is Unicode"
+        },
+        {
+          "name": "source",
+          "type": "LPBYTE",
+          "description": "Pointer to the source data"
+        },
+        {
+          "name": "slen",
+          "type": "INT",
+          "description": "Length of the source data"
+        },
+        {
+          "name": "ssource",
+          "type": "LPBYTE",
+          "description": "Pointer to the secondary source data"
+        },
+        {
+          "name": "target",
+          "type": "LPBYTE",
+          "description": "Pointer to the target data"
+        },
+        {
+          "name": "tlen",
+          "type": "INT",
+          "description": "Length of the target data"
+        },
+        {
+          "name": "unicode",
+          "type": "BOOL",
+          "description": "Indicates if the target should be Unicode"
+        }
+      ],
+      "return_type": "INT, represents the number of bytes copied to the target"
+    }
+  },
+  {
+    "function": {
+      "name": "CopyCompOffsetIMEtoClient",
+      "description": "This function copies the composition offset from the IME to the client. It handles both unicode and non-unicode sources.",
+      "parameters": [
+        {
+          "name": "src_unicode",
+          "type": "BOOL",
+          "description": "Indicates if the source is unicode"
+        },
+        {
+          "name": "offset",
+          "type": "DWORD",
+          "description": "The offset to be copied"
+        },
+        {
+          "name": "ssource",
+          "type": "LPBYTE",
+          "description": "The source from which to copy"
+        },
+        {
+          "name": "unicode",
+          "type": "BOOL",
+          "description": "Indicates if the destination should be unicode"
+        }
+      ],
+      "return_type": "INT, represents the result of the copy operation. It is either the result of WideCharToMultiByte, MultiByteToWideChar or the offset itself depending on the conditions"
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetCompositionStringT",
+      "description": "This function retrieves the composition string of the specified input context. It handles different cases based on the dwIndex value.",
+      "parameters": [
+        {
+          "name": "hIMC",
+          "type": "HIMC",
+          "description": "Handle to the input context"
+        },
+        {
+          "name": "dwIndex",
+          "type": "DWORD",
+          "description": "Specifies the type of the composition string to retrieve"
+        },
+        {
+          "name": "lpBuf",
+          "type": "LPVOID",
+          "description": "Pointer to the buffer to receive the composition string"
+        },
+        {
+          "name": "dwBufLen",
+          "type": "DWORD",
+          "description": "Specifies the size, in bytes, of the buffer pointed to by lpBuf"
+        },
+        {
+          "name": "unicode",
+          "type": "BOOL",
+          "description": "Boolean value that specifies whether the function retrieves a Unicode string or an ANSI string"
+        }
+      ],
+      "return_type": "LONG, represents the number of bytes copied to the buffer, or a negative error code if the function fails"
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetCompositionStringA",
+      "description": "This function retrieves composition string information. It is a part of the Input Method Manager (IMM) API and is used for managing complex input for different languages.",
+      "parameters": [
+        {
+          "name": "hIMC",
+          "type": "HIMC",
+          "description": "Handle to the input context"
+        },
+        {
+          "name": "dwIndex",
+          "type": "DWORD",
+          "description": "Specifies the type of composition string to retrieve"
+        },
+        {
+          "name": "lpBuf",
+          "type": "LPVOID",
+          "description": "Pointer to the buffer that receives the composition string data"
+        },
+        {
+          "name": "dwBufLen",
+          "type": "DWORD",
+          "description": "Specifies the size, in bytes, of the buffer pointed to by lpBuf"
+        }
+      ],
+      "return_type": "LONG, represents the number of bytes copied to the buffer if successful, or a negative error code if not successful"
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetCompositionStringW",
+      "description": "This function retrieves the composition string of the specified input context.",
+      "parameters": [
+        {
+          "name": "hIMC",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "dwIndex",
+          "type": "DWORD",
+          "description": "Index of the composition string to retrieve."
+        },
+        {
+          "name": "lpBuf",
+          "type": "LPVOID",
+          "description": "Pointer to the buffer that receives the composition string."
+        },
+        {
+          "name": "dwBufLen",
+          "type": "DWORD",
+          "description": "Specifies the size, in bytes, of the buffer pointed to by lpBuf."
+        }
+      ],
+      "return_type": "LONG, represents the number of bytes copied to the buffer if successful, or a negative error code if not successful."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetCompositionWindow",
+      "description": "This function retrieves the composition window information for a specified input context.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "composition",
+          "type": "COMPOSITIONFORM*",
+          "description": "Pointer to the COMPOSITIONFORM structure that receives the composition window information."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetContext",
+      "description": "This function retrieves the input context associated with the specified window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose input context is to be retrieved."
+        }
+      ],
+      "return_type": "HIMC, which represents the handle to the input context."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetConversionListA",
+      "description": "This function retrieves the conversion candidate list for a specified string of characters. It handles both unicode and non-unicode input.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "Handle to the input locale identifier."
+        },
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "srcA",
+          "type": "char *",
+          "description": "Pointer to the source string for which conversion candidates are to be retrieved."
+        },
+        {
+          "name": "listA",
+          "type": "CANDIDATELIST *",
+          "description": "Pointer to the buffer in which the function retrieves the candidate list."
+        },
+        {
+          "name": "lengthA",
+          "type": "DWORD",
+          "description": "Specifies the length, in bytes, of the buffer pointed to by listA."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies how the function retrieves the candidate list."
+        }
+      ],
+      "return_type": "DWORD, represents the size, in bytes, of the conversion candidate list. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetConversionListW",
+      "description": "This function retrieves the list of conversion candidates for a specified string of source characters.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "A handle to the input locale identifier."
+        },
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "A handle to the input context."
+        },
+        {
+          "name": "srcW",
+          "type": "const WCHAR *",
+          "description": "A pointer to the source string of characters."
+        },
+        {
+          "name": "listW",
+          "type": "CANDIDATELIST *",
+          "description": "A pointer to the candidate list structure."
+        },
+        {
+          "name": "lengthW",
+          "type": "DWORD",
+          "description": "The length of the candidate list."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "The conversion flags."
+        }
+      ],
+      "return_type": "DWORD, represents the size of the conversion candidate list. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetConversionStatus",
+      "description": "This function retrieves the conversion status and sentence status for a specified input context.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "conversion",
+          "type": "DWORD*",
+          "description": "Pointer to a variable that receives the conversion status."
+        },
+        {
+          "name": "sentence",
+          "type": "DWORD*",
+          "description": "Pointer to a variable that receives the sentence status."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds; otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetDefaultIMEWnd",
+      "description": "This function queries the default Input Method Editor (IME) window associated with the specified window.",
+      "parameters": [
+        {
+          "name": "hWnd",
+          "type": "HWND",
+          "description": "A handle to the window for which the default IME window is to be retrieved."
+        }
+      ],
+      "return_type": "HWND, represents a handle to the default IME window for the specified window."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetDescriptionA",
+      "description": "This function retrieves the description of the input method manager (IMM) associated with the specified input locale identifier (HKL), converts it to an ANSI string, and stores it in the specified buffer.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "Handle to the input locale identifier."
+        },
+        {
+          "name": "bufferA",
+          "type": "LPSTR",
+          "description": "Pointer to the buffer that receives the ANSI string."
+        },
+        {
+          "name": "lengthA",
+          "type": "UINT",
+          "description": "Specifies the size, in characters, of the buffer pointed to by the bufferA parameter."
+        }
+      ],
+      "return_type": "UINT, represents the length of the ANSI string stored in bufferA. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetDescriptionW",
+      "description": "This function retrieves the description of the specified input method editor (IME) layout.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "Handle to the keyboard layout."
+        },
+        {
+          "name": "buffer",
+          "type": "WCHAR*",
+          "description": "Pointer to the buffer that receives the description of the IME layout."
+        },
+        {
+          "name": "length",
+          "type": "UINT",
+          "description": "Specifies the maximum number of characters to be copied to the buffer, including the null character."
+        }
+      ],
+      "return_type": "UINT. If the function succeeds, the return value is the number of characters copied to the buffer. If the buffer is null, the function returns the size of the buffer required to receive the description, in characters. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetGuideLineA",
+      "description": "This function is a stub and not yet implemented. It sets the last error to ERROR_CALL_NOT_IMPLEMENTED and returns 0.",
+      "parameters": [
+        {
+          "name": "hIMC",
+          "type": "HIMC",
+          "description": "Handle to the input context"
+        },
+        {
+          "name": "dwIndex",
+          "type": "DWORD",
+          "description": "Index value"
+        },
+        {
+          "name": "lpBuf",
+          "type": "LPSTR",
+          "description": "Pointer to the buffer"
+        },
+        {
+          "name": "dwBufLen",
+          "type": "DWORD",
+          "description": "Length of the buffer"
+        }
+      ],
+      "return_type": "DWORD, represents the error code, in this case always 0 because the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetGuideLineW",
+      "description": "This function is a stub, not yet implemented, and is intended to get the guideline of an Input Method Manager context.",
+      "parameters": [
+        {
+          "name": "hIMC",
+          "type": "HIMC",
+          "description": "Handle to the input context"
+        },
+        {
+          "name": "dwIndex",
+          "type": "DWORD",
+          "description": "Index of the guideline"
+        },
+        {
+          "name": "lpBuf",
+          "type": "LPWSTR",
+          "description": "Pointer to the buffer that receives the guideline"
+        },
+        {
+          "name": "dwBufLen",
+          "type": "DWORD",
+          "description": "Length of the buffer"
+        }
+      ],
+      "return_type": "DWORD, represents error code, always returns 0 as the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetIMEFileNameA",
+      "description": "This function retrieves the file name of the Input Method Editor (IME) associated with a given input locale identifier, converts it to ANSI format, and stores it in a buffer.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "Input locale identifier."
+        },
+        {
+          "name": "bufferA",
+          "type": "char *",
+          "description": "Pointer to a buffer that receives the file name of the IME in ANSI format."
+        },
+        {
+          "name": "lengthA",
+          "type": "UINT",
+          "description": "Size of the buffer pointed to by bufferA."
+        }
+      ],
+      "return_type": "UINT, represents the length of the IME file name. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetIMEFileNameW",
+      "description": "This function retrieves the name of the Input Method Editor (IME) associated with a given keyboard layout.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "Handle to the keyboard layout."
+        },
+        {
+          "name": "buffer",
+          "type": "WCHAR*",
+          "description": "Pointer to the buffer that receives the IME file name."
+        },
+        {
+          "name": "length",
+          "type": "UINT",
+          "description": "Specifies the length of the buffer."
+        }
+      ],
+      "return_type": "UINT, represents the length of the IME file name. If the buffer parameter is NULL, the return value is the size required for the buffer, in characters. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetOpenStatus",
+      "description": "This function retrieves the open status of the input context associated with the specified input context handle.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "This is a handle to the input context."
+        }
+      ],
+      "return_type": "BOOL, represents the open status of the input context. If the input context is open, the return value is non-zero. If the input context is closed or the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetProperty",
+      "description": "This function retrieves the property of the Input Method Editor (IME) based on the given index.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "Handle to the input locale identifier."
+        },
+        {
+          "name": "index",
+          "type": "DWORD",
+          "description": "Index of the property to be retrieved."
+        }
+      ],
+      "return_type": "DWORD, represents the property value of the IME based on the index. Returns 0 if the IME is not found or the index is not recognized."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetRegisterWordStyleA",
+      "description": "This function acquires an IME, checks if it is unicode, gets the register word style, converts wide characters to multi-byte characters if necessary, releases the IME, and returns the result.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "Handle to the input locale identifier"
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of elements in the buffer pointed to by the styleA parameter"
+        },
+        {
+          "name": "styleA",
+          "type": "STYLEBUFA*",
+          "description": "Pointer to a buffer that receives one or more STYLEBUFA structures"
+        }
+      ],
+      "return_type": "UINT, represents the number of styles copied to the buffer pointed to by the styleA parameter"
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetRegisterWordStyleW",
+      "description": "This function gets the registered word style. It checks if the IME is Unicode. If it is, it gets the register word style directly. If not, it converts the style from ANSI to Unicode.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "Handle to the input locale identifier"
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "Number of styles to be retrieved"
+        },
+        {
+          "name": "styleW",
+          "type": "STYLEBUFW*",
+          "description": "Pointer to the buffer that receives the styles"
+        }
+      ],
+      "return_type": "UINT, represents the number of styles copied to the buffer"
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetStatusWindowPos",
+      "description": "This function retrieves the position of the status window for a specified input context.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "pos",
+          "type": "POINT*",
+          "description": "Pointer to the POINT structure that receives the coordinates of the upper-left corner of the status window."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds; otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetVirtualKey",
+      "description": "This function retrieves the virtual key that corresponds to the specified window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the virtual key is to be retrieved."
+        }
+      ],
+      "return_type": "UINT, represents the virtual key that corresponds to the specified window."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmInstallIMEA",
+      "description": "This function installs the Input Method Editor (IME) and converts the filename and description from ASCII to wide characters.",
+      "parameters": [
+        {
+          "name": "filenameA",
+          "type": "char *",
+          "description": "The filename of the IME to install."
+        },
+        {
+          "name": "descriptionA",
+          "type": "char *",
+          "description": "The description of the IME to install."
+        }
+      ],
+      "return_type": "HKL, which represents a handle to the installed IME."
+    }
+  },
+  {
+    "function": {
+      "name": "get_ime_file_lang",
+      "description": "This function retrieves the language identifier for the input IME file.",
+      "parameters": [
+        {
+          "name": "filename",
+          "type": "WCHAR",
+          "description": "This is the name of the IME file for which the language identifier is to be retrieved."
+        }
+      ],
+      "return_type": "LCID, which represents the language identifier of the input IME file."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmInstallIMEW",
+      "description": "This function installs an Input Method Editor (IME) and writes the necessary information to the registry. It returns a handle to the keyboard layout.",
+      "parameters": [
+        {
+          "name": "filename",
+          "type": "WCHAR *",
+          "description": "The name of the IME file to install."
+        },
+        {
+          "name": "description",
+          "type": "WCHAR *",
+          "description": "A description of the IME."
+        }
+      ],
+      "return_type": "HKL, which represents a handle to the keyboard layout. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmIsIME",
+      "description": "This function checks if the input HKL handle is NULL or not.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "This is a handle to the input parameter that the function checks."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the input HKL handle is not NULL, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmIsUIMessageA",
+      "description": "This function checks if the given message is a UI message and if so, sends it to the specified window.",
+      "parameters": [
+        {
+          "name": "hWndIME",
+          "type": "HWND",
+          "description": "Handle to the window to which the message is sent."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be checked and possibly sent."
+        },
+        {
+          "name": "wParam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lParam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the message is a UI message and it is sent to the window, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmIsUIMessageW",
+      "description": "This function checks if a message is an IME message and if so, sends the message to the specified window.",
+      "parameters": [
+        {
+          "name": "hWndIME",
+          "type": "HWND",
+          "description": "Handle to the window to which the message is to be sent."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be checked and possibly sent."
+        },
+        {
+          "name": "wParam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lParam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the message is an IME message and it is sent to the window, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmNotifyIME",
+      "description": "This function notifies the Input Method Editor (IME) about various actions. It retrieves the IMC data, checks for validity, selects the IME and calls the pNotifyIME function of the selected IME.",
+      "parameters": [
+        {
+          "name": "hIMC",
+          "type": "HIMC",
+          "description": "Handle to the input context"
+        },
+        {
+          "name": "dwAction",
+          "type": "DWORD",
+          "description": "Specifies the action to be taken"
+        },
+        {
+          "name": "dwIndex",
+          "type": "DWORD",
+          "description": "Specifies the index"
+        },
+        {
+          "name": "dwValue",
+          "type": "DWORD",
+          "description": "Specifies the value"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, FALSE if it fails"
+    }
+  },
+  {
+    "function": {
+      "name": "ImmRegisterWordA",
+      "description": "This function registers a word in the specified Input Method Editor (IME).",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "A handle to the input locale identifier."
+        },
+        {
+          "name": "readingA",
+          "type": "char *",
+          "description": "A pointer to the reading string of the word."
+        },
+        {
+          "name": "style",
+          "type": "DWORD",
+          "description": "The style of the word."
+        },
+        {
+          "name": "stringA",
+          "type": "char *",
+          "description": "A pointer to the string of the word."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmRegisterWordW",
+      "description": "This function registers a word in the specified input method editor (IME). It handles both Unicode and ANSI strings.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "A handle to the input locale identifier"
+        },
+        {
+          "name": "readingW",
+          "type": "WCHAR *",
+          "description": "A pointer to the word reading string"
+        },
+        {
+          "name": "style",
+          "type": "DWORD",
+          "description": "The style of the word"
+        },
+        {
+          "name": "stringW",
+          "type": "WCHAR *",
+          "description": "A pointer to the word string"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, or FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "ImmReleaseContext",
+      "description": "This function releases the specified input context.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the input context is to be released."
+        },
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, otherwise FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmRequestMessageA",
+      "description": "This function handles the messages for the Input Method Manager (IMM). It checks if the current thread is the one associated with the input context, validates the WPARAM value, locks the input context, sends a message, unlocks the input context, and returns the result of the message sending.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing. It returns FALSE if the current thread is not the one associated with the input context, if the WPARAM value is not valid, or if the input context cannot be locked."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmRequestMessageW",
+      "description": "This function handles various input context requests and sends messages to the input method context (IMC).",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input method context."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Parameter that specifies the type of IMC request."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing. It returns FALSE if the current thread ID does not match the input context thread ID, if the wparam is not one of the specified cases, or if the IMC lock fails. Otherwise, it returns the result of the SendMessageW function."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmSetCandidateWindow",
+      "description": "This function sets the candidate window for the specified input context. It returns a boolean value indicating whether the operation was successful or not.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "candidate",
+          "type": "CANDIDATEFORM*",
+          "description": "Pointer to a CANDIDATEFORM structure that contains the information about the candidate window."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully sets the candidate window; otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmSetCompositionFontA",
+      "description": "This function sets the font for the composition window of the specified input context.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "fontA",
+          "type": "LOGFONTA*",
+          "description": "Pointer to a LOGFONTA structure that specifies the font to set."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds; otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmSetCompositionFontW",
+      "description": "This function sets the font for the composition window of the specified input context. It checks if the input context is unicode or not and sets the font accordingly.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "fontW",
+          "type": "LOGFONTW*",
+          "description": "Pointer to the LOGFONTW structure that contains the new font information."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds; otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmSetCompositionStringA",
+      "description": "This function sets the composition string in the specified input context. It converts the composition and reading strings from ANSI to Unicode, and then calls the ImmSetCompositionStringW function.",
+      "parameters": [
+        {
+          "name": "hIMC",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "dwIndex",
+          "type": "DWORD",
+          "description": "Specifies the type of operation to perform."
+        },
+        {
+          "name": "lpComp",
+          "type": "LPCVOID",
+          "description": "Pointer to the composition string."
+        },
+        {
+          "name": "dwCompLen",
+          "type": "DWORD",
+          "description": "Specifies the length, in bytes, of the composition string."
+        },
+        {
+          "name": "lpRead",
+          "type": "LPCVOID",
+          "description": "Pointer to the reading string."
+        },
+        {
+          "name": "dwReadLen",
+          "type": "DWORD",
+          "description": "Specifies the length, in bytes, of the reading string."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmSetCompositionStringW",
+      "description": "This function sets the composition string in the specified input context. It converts wide characters to multi-byte characters if the input method editor is not Unicode.",
+      "parameters": [
+        {
+          "name": "hIMC",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "dwIndex",
+          "type": "DWORD",
+          "description": "Specifies how the function will set the composition string."
+        },
+        {
+          "name": "lpComp",
+          "type": "LPCVOID",
+          "description": "Pointer to the composition string to be set."
+        },
+        {
+          "name": "dwCompLen",
+          "type": "DWORD",
+          "description": "Specifies the length, in bytes, of the composition string."
+        },
+        {
+          "name": "lpRead",
+          "type": "LPCVOID",
+          "description": "Pointer to the reading string that corresponds to the composition string."
+        },
+        {
+          "name": "dwReadLen",
+          "type": "DWORD",
+          "description": "Specifies the length, in bytes, of the reading string."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function succeeds, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmSetCompositionWindow",
+      "description": "This function sets the composition window for the specified input context.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "composition",
+          "type": "COMPOSITIONFORM *",
+          "description": "Pointer to a COMPOSITIONFORM structure that contains the new composition window."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmSetConversionStatus",
+      "description": "This function sets the conversion and sentence mode for a specified input context. It also sends notifications when the conversion or sentence mode changes.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "conversion",
+          "type": "DWORD",
+          "description": "Specifies the conversion mode."
+        },
+        {
+          "name": "sentence",
+          "type": "DWORD",
+          "description": "Specifies the sentence mode."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, otherwise FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmSetOpenStatus",
+      "description": "This function sets the open status of the input context. It checks if the current thread is the one associated with the input context, locks the input context, updates the open status if it's different from the current one, sends a notification about the update, and then unlocks the input context.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "status",
+          "type": "BOOL",
+          "description": "The new open status to be set."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the open status was successfully set, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmSetStatusWindowPos",
+      "description": "This function sets the position of the status window in the input context. It also sends a notification message to the input method editor (IME) and the window associated with the input context.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "pos",
+          "type": "POINT*",
+          "description": "Pointer to a POINT structure that specifies the new position of the status window."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function succeeds. Otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmCreateSoftKeyboard",
+      "description": "This function is a stub and not yet implemented. It is supposed to create a software keyboard, but currently it only sets an error and returns 0.",
+      "parameters": [
+        {
+          "name": "uType",
+          "type": "UINT",
+          "description": "Type of the software keyboard to be created"
+        },
+        {
+          "name": "hOwner",
+          "type": "UINT",
+          "description": "Handle to the owner of the software keyboard"
+        },
+        {
+          "name": "x",
+          "type": "int",
+          "description": "The x-coordinate of the top-left corner of the software keyboard"
+        },
+        {
+          "name": "y",
+          "type": "int",
+          "description": "The y-coordinate of the top-left corner of the software keyboard"
+        }
+      ],
+      "return_type": "HWND, represents a handle to the created software keyboard, but currently it always returns 0"
+    }
+  },
+  {
+    "function": {
+      "name": "ImmDestroySoftKeyboard",
+      "description": "This function is a stub and not yet implemented. It is supposed to destroy a soft keyboard.",
+      "parameters": [
+        {
+          "name": "hSoftWnd",
+          "type": "HWND",
+          "description": "Handle to the soft keyboard window."
+        }
+      ],
+      "return_type": "BOOL, returns FALSE indicating that the function is not yet implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmShowSoftKeyboard",
+      "description": "This function is a stub and not yet implemented. It is supposed to show or hide the soft keyboard.",
+      "parameters": [
+        {
+          "name": "hSoftWnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the soft keyboard is to be shown or hidden"
+        },
+        {
+          "name": "nCmdShow",
+          "type": "int",
+          "description": "Command to either show or hide the soft keyboard"
+        }
+      ],
+      "return_type": "BOOL, returns FALSE because the function is not yet implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "ImmSimulateHotKey",
+      "description": "This function is a stub, not yet implemented, that is intended to simulate a hotkey press.",
+      "parameters": [
+        {
+          "name": "hWnd",
+          "type": "HWND",
+          "description": "A handle to the window that will receive the hotkey event."
+        },
+        {
+          "name": "dwHotKeyID",
+          "type": "DWORD",
+          "description": "The identifier of the hotkey to simulate."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful. In this case, it always returns FALSE because the function is not yet implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmUnregisterWordA",
+      "description": "This function unregisters a word from the specified Input Method Editor (IME).",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "A handle to the input locale identifier"
+        },
+        {
+          "name": "readingA",
+          "type": "char *",
+          "description": "A pointer to the reading string of the word to unregister"
+        },
+        {
+          "name": "style",
+          "type": "DWORD",
+          "description": "The style of the word"
+        },
+        {
+          "name": "stringA",
+          "type": "char *",
+          "description": "A pointer to the string of the word to unregister"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, or FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "ImmUnregisterWordW",
+      "description": "This function unregisters a word from the specified Input Method Editor (IME). It handles both Unicode and ANSI strings.",
+      "parameters": [
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "A handle to the input locale identifier"
+        },
+        {
+          "name": "readingW",
+          "type": "WCHAR *",
+          "description": "A pointer to the word reading string"
+        },
+        {
+          "name": "style",
+          "type": "DWORD",
+          "description": "The style of the word"
+        },
+        {
+          "name": "stringW",
+          "type": "WCHAR *",
+          "description": "A pointer to the word string"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, or FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetImeMenuItemsA",
+      "description": "This function retrieves the menu items of the Input Method Editor (IME).",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Specifies the flags."
+        },
+        {
+          "name": "type",
+          "type": "DWORD",
+          "description": "Specifies the type of the menu item."
+        },
+        {
+          "name": "parentA",
+          "type": "IMEMENUITEMINFOA*",
+          "description": "Pointer to the parent menu item."
+        },
+        {
+          "name": "menuA",
+          "type": "IMEMENUITEMINFOA*",
+          "description": "Pointer to the menu item."
+        },
+        {
+          "name": "size",
+          "type": "DWORD",
+          "description": "Specifies the size of the menu item."
+        }
+      ],
+      "return_type": "DWORD, represents the number of menu items retrieved. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetImeMenuItemsW",
+      "description": "This function retrieves the menu items of the Input Method Editor (IME).",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Specifies the type of menu items to retrieve."
+        },
+        {
+          "name": "type",
+          "type": "DWORD",
+          "description": "Specifies the type of the menu items."
+        },
+        {
+          "name": "parentW",
+          "type": "IMEMENUITEMINFOW*",
+          "description": "Pointer to the parent menu item information."
+        },
+        {
+          "name": "menuW",
+          "type": "IMEMENUITEMINFOW*",
+          "description": "Pointer to the menu item information."
+        },
+        {
+          "name": "size",
+          "type": "DWORD",
+          "description": "Specifies the size of the menu item information."
+        }
+      ],
+      "return_type": "DWORD, represents the number of menu items retrieved. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmUnlockIMC",
+      "description": "This function unlocks an Input Method Context (IMC) if it is locked. It first retrieves the IMC data using the provided handle. If the data doesn't exist or the IMC is not locked, it returns FALSE. If the IMC is locked, it decreases the lock count by one and returns TRUE.",
+      "parameters": [
+        {
+          "name": "hIMC",
+          "type": "HIMC",
+          "description": "This is a handle to the Input Method Context (IMC) that needs to be unlocked."
+        }
+      ],
+      "return_type": "BOOL. It returns TRUE if the IMC is successfully unlocked, otherwise it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetIMCLockCount",
+      "description": "This function retrieves the lock count of the input context.",
+      "parameters": [
+        {
+          "name": "hIMC",
+          "type": "HIMC",
+          "description": "Handle to the input context."
+        }
+      ],
+      "return_type": "DWORD, represents the lock count of the input context. If the input context is not found, the function returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmCreateIMCC",
+      "description": "This function allocates memory blocks and initializes them to zero.",
+      "parameters": [
+        {
+          "name": "size",
+          "type": "DWORD",
+          "description": "This parameter specifies the size of the memory block to be allocated."
+        }
+      ],
+      "return_type": "HIMCC, which represents a handle to the newly allocated memory block."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmDestroyIMCC",
+      "description": "This function destroys an input method context component.",
+      "parameters": [
+        {
+          "name": "block",
+          "type": "HIMCC",
+          "description": "This is the handle to the input method context component to be destroyed."
+        }
+      ],
+      "return_type": "HIMCC, represents the handle to the memory object. If the function fails, the return value is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmLockIMCC",
+      "description": "This function locks a handle to the input context component.",
+      "parameters": [
+        {
+          "name": "imcc",
+          "type": "HIMCC",
+          "description": "Handle to the input context component to be locked."
+        }
+      ],
+      "return_type": "LPVOID, represents a pointer to the locked memory object."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmUnlockIMCC",
+      "description": "This function unlocks a memory object in the input method manager.",
+      "parameters": [
+        {
+          "name": "imcc",
+          "type": "HIMCC",
+          "description": "Handle to the input method context component."
+        }
+      ],
+      "return_type": "BOOL, returns a non-zero value if the function is successful; otherwise, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetIMCCLockCount",
+      "description": "This function returns the lock count of a given handle to an input method context component.",
+      "parameters": [
+        {
+          "name": "imcc",
+          "type": "HIMCC",
+          "description": "Handle to an input method context component."
+        }
+      ],
+      "return_type": "DWORD, represents the lock count of the input method context component."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmReSizeIMCC",
+      "description": "This function reallocates the memory block of a specified size and returns the handle to the newly allocated memory.",
+      "parameters": [
+        {
+          "name": "imcc",
+          "type": "HIMCC",
+          "description": "Handle to the input memory block that needs to be reallocated."
+        },
+        {
+          "name": "size",
+          "type": "DWORD",
+          "description": "The new size for the memory block."
+        }
+      ],
+      "return_type": "HIMCC, represents the handle to the newly allocated memory block."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetIMCCSize",
+      "description": "This function returns the size of a given input memory object.",
+      "parameters": [
+        {
+          "name": "imcc",
+          "type": "HIMCC",
+          "description": "This is a handle to the input memory object whose size is to be determined."
+        }
+      ],
+      "return_type": "DWORD, represents the size of the input memory object."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGenerateMessage",
+      "description": "This function generates a message by locking the input context, processing the messages in the buffer, and then unlocking the input context.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully generates a message, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "ImmTranslateMessage",
+      "description": "This function translates the input message and posts the translated messages. It is used in the context of Input Method Editor (IME) to handle keyboard inputs for languages that have more characters than can be encoded for a regular keyboard.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that will receive the message."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be translated."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function successfully translates the message and posts it. Returns FALSE if the function fails to translate the message or if the message is not within the range of WM_KEYDOWN to WM_KEYUP."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmProcessKey",
+      "description": "This function processes a key input in the context of an Input Method Editor (IME). It checks the keyboard layout, retrieves IME context data, selects an IME, gets the keyboard state, and processes the key input using the selected IME.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the input is intended"
+        },
+        {
+          "name": "hkl",
+          "type": "HKL",
+          "description": "Handle to the keyboard layout"
+        },
+        {
+          "name": "vkey",
+          "type": "UINT",
+          "description": "Virtual-key code of the key input"
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "unknown",
+          "type": "DWORD",
+          "description": "Unknown parameter"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the key was processed by the IME, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "ImmDisableTextFrameService",
+      "description": "This function is currently a stub and does not perform any operation.",
+      "parameters": [
+        {
+          "name": "idThread",
+          "type": "DWORD",
+          "description": "This parameter represents the identifier for the thread."
+        }
+      ],
+      "return_type": "BOOL, returns FALSE as the function is a stub and does not perform any operation."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmEnumInputContext",
+      "description": "This function enumerates the input context for a given thread, and invokes a callback function for each context.",
+      "parameters": [
+        {
+          "name": "thread",
+          "type": "DWORD",
+          "description": "The identifier of the thread for which the input context is to be enumerated."
+        },
+        {
+          "name": "callback",
+          "type": "IMCENUMPROC",
+          "description": "A pointer to the function to be executed for each input context."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "An application-defined value to be passed to the callback function."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function successfully enumerates the input context and invokes the callback function for each context. Returns FALSE if the function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmGetHotKey",
+      "description": "This function is a stub and does not perform any operation. It is intended to get the hot key.",
+      "parameters": [
+        {
+          "name": "hotkey",
+          "type": "DWORD",
+          "description": "A hot key identifier."
+        },
+        {
+          "name": "modifiers",
+          "type": "UINT*",
+          "description": "A pointer to a variable that receives the modifier keys."
+        },
+        {
+          "name": "key",
+          "type": "UINT*",
+          "description": "A pointer to a variable that receives the virtual key code."
+        },
+        {
+          "name": "hkl",
+          "type": "HKL*",
+          "description": "A pointer to a variable that receives the keyboard layout handle."
+        }
+      ],
+      "return_type": "BOOL, returns FALSE as it is a stub function."
+    }
+  },
+  {
+    "function": {
+      "name": "ImmDisableLegacyIME",
+      "description": "This function is a stub with no implementation. It is intended to disable legacy IME but currently does nothing.",
+      "parameters": [],
+      "return_type": "BOOL, always returns TRUE"
+    }
+  },
+  {
+    "function": {
+      "name": "is_ime_ui_msg",
+      "description": "This function checks if the given message is an IME (Input Method Editor) UI message by comparing it to a set of predefined IME message constants.",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "This is the message that is being checked against the set of predefined IME message constants."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the message is an IME UI message, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "ime_internal_msg",
+      "description": "This function handles internal messages for Input Method Editor (IME). It activates or deactivates the IME, or activates or deactivates the keyboard layout for the IME, based on the WPARAM parameter.",
+      "parameters": [
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "This parameter is used to determine the action to be performed. It can be IME_INTERNAL_ACTIVATE, IME_INTERNAL_DEACTIVATE, IME_INTERNAL_HKL_ACTIVATE, or IME_INTERNAL_HKL_DEACTIVATE."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "This parameter is used as the handle to the window when activating or deactivating the IME. It is also used as the input parameter when sending a message to the IME UI window."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing. In this function, it always returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "init_messages",
+      "description": "This function registers several window messages related to MSIME operations. It only performs this operation once, as controlled by the 'initialized' static variable.",
+      "parameters": [],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "__wine_ime_wnd_proc",
+      "description": "This function processes Windows messages for the IME window. It handles creation and destruction of the window, internal IME messages, and forwards other messages to the appropriate window procedure.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that the message is for."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be processed."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "Flag indicating whether the message is ANSI or Unicode."
+        }
+      ],
+      "return_type": "LRESULT, the result of the message processing. The exact meaning depends on the message."
+    }
+  },
+  {
+    "function": {
+      "name": "CtfImmIsCiceroEnabled",
+      "description": "This function is a stub, not yet implemented. It sets the last error to ERROR_CALL_NOT_IMPLEMENTED and returns FALSE.",
+      "parameters": [],
+      "return_type": "BOOL, represents a boolean return value. In this case, it always returns FALSE as the function is not yet implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "CtfImmHideToolbarWnd",
+      "description": "This function is a stub and not yet implemented. It sets the last error to ERROR_CALL_NOT_IMPLEMENTED and returns 0.",
+      "parameters": [],
+      "return_type": "DWORD, represents a 32-bit unsigned integer. In this function, it always returns 0 indicating the function is not yet implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "CtfImmRestoreToolbarWnd",
+      "description": "This function is a stub, it sets the last error to ERROR_CALL_NOT_IMPLEMENTED and returns 0.",
+      "parameters": [
+        {
+          "name": "unknown",
+          "type": "DWORD",
+          "description": "This parameter is currently unknown and not used in the function."
+        }
+      ],
+      "return_type": "DWORD, represents the return value of the function, in this case it is always 0."
+    }
+  }
+]

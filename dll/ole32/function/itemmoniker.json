@@ -1,0 +1,848 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IMoniker",
+      "description": "This function returns the containing record for the given interface, specifically the ItemMonikerImpl record.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "This is the interface from which the containing record is to be retrieved."
+        }
+      ],
+      "return_type": "ItemMonikerImpl*, which represents the containing record for the given interface."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IROTData",
+      "description": "This function returns a pointer to an ItemMonikerImpl structure that contains the given IROTData interface pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IROTData*",
+          "description": "This is an interface pointer that is used to find the containing ItemMonikerImpl structure."
+        }
+      ],
+      "return_type": "ItemMonikerImpl* - a pointer to the ItemMonikerImpl structure that contains the given IROTData interface pointer."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_lock_from_IUnknown",
+      "description": "This function returns a pointer to a container_lock structure that contains the given IUnknown interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown *",
+          "description": "Pointer to an IUnknown interface"
+        }
+      ],
+      "return_type": "struct container_lock pointer, representing a pointer to a container_lock structure that contains the given IUnknown interface"
+    }
+  },
+  {
+    "function": {
+      "name": "container_lock_QueryInterface",
+      "description": "This function checks if the provided interface ID matches with IID_IUnknown. If it matches, it increases the reference count of the interface and returns S_OK. If it doesn't match, it warns about the unsupported interface and returns E_NOINTERFACE.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown *",
+          "description": "Pointer to the interface that is being queried"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Identifier of the interface being requested"
+        },
+        {
+          "name": "obj",
+          "type": "void **",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the interface is supported, E_NOINTERFACE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "container_lock_AddRef",
+      "description": "This function increments the reference count of a container lock object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown*",
+          "description": "This parameter is used to get the container lock object."
+        }
+      ],
+      "return_type": "ULONG, represents the incremented reference count of the container lock object."
+    }
+  },
+  {
+    "function": {
+      "name": "container_lock_Release",
+      "description": "This function releases a lock on a container. It decrements the reference count of the lock. If the reference count reaches zero, it unlocks the container, releases the container, and frees the lock.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown *",
+          "description": "This parameter is used to get the container lock implementation."
+        }
+      ],
+      "return_type": "ULONG, represents the reference count after it has been decremented."
+    }
+  },
+  {
+    "function": {
+      "name": "set_container_lock",
+      "description": "This function sets a lock on a container. It first allocates memory for the lock. If the allocation fails, it returns an error. If the allocation is successful, it attempts to lock the container. If the lock fails, it frees the memory and returns an error. If the lock is successful, it sets the lock's properties, registers the lock, releases it, and returns the result.",
+      "parameters": [
+        {
+          "name": "container",
+          "type": "IOleItemContainer *",
+          "description": "This is the container that the function will attempt to lock."
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx *",
+          "description": "This is the bind context used for registering the lock."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function. It can indicate success, failure due to memory allocation issues, or failure due to the container lock operation."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_QueryInterface",
+      "description": "This function is used to query an interface of a COM object. If the requested interface is supported by the object, the function returns a pointer to that interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to the interface of a COM object."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested."
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *ppvObject contains the requested interface pointer. If the object does not support the interface, *ppvObject is set to NULL."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. It returns S_OK if the interface is supported, E_NOINTERFACE if not supported, and E_INVALIDARG if ppvObject is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_AddRef",
+      "description": "This function increments the reference count of the ItemMonikerImpl object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to an IMoniker interface object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after the increment."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_Release",
+      "description": "This function releases an ItemMonikerImpl object, decrements its reference count, and frees its memory if the reference count reaches zero.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "This is a pointer to the IMoniker interface of the ItemMonikerImpl object to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the ItemMonikerImpl object after it has been decremented."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_GetClassID",
+      "description": "This function checks if the pointer to the Class ID is null, if not, it assigns the Class ID of the Item Moniker to the pointer and returns a success code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Interface pointer to the Moniker"
+        },
+        {
+          "name": "pClassID",
+          "type": "CLSID*",
+          "description": "Pointer to the Class ID"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns E_POINTER if pClassID is NULL, otherwise returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_IsDirty",
+      "description": "This function checks if the OLE-provided moniker interfaces have changed their internal state. However, they always return S_FALSE because their internal state never changes.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "This is an interface pointer to the OLE-provided moniker interfaces."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns S_FALSE indicating that the internal state of the OLE-provided moniker interfaces never changes."
+    }
+  },
+  {
+    "function": {
+      "name": "item_moniker_load_string_record",
+      "description": "This function reads a string record from a stream, handles memory allocation and error checking, and returns the string in a wide character format.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "The input stream from which the string record is read."
+        },
+        {
+          "name": "ret",
+          "type": "WCHAR **",
+          "description": "A pointer to a wide character string where the result will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_FAIL if there is a failure in reading from the stream or if the string is not null terminated, and E_OUTOFMEMORY if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_Load",
+      "description": "This function loads a string record into the itemDelimiter and itemName fields of an ItemMonikerImpl object from a given stream.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to an IMoniker interface, used to get the implementation of ItemMonikerImpl."
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "Pointer to an IStream interface, from which the string records are loaded."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_Save",
+      "description": "This function saves the item moniker implementation. It writes the size and value of the item delimiter string and the item name string to the stream.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Interface pointer to the item moniker implementation"
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "Stream where the data will be written"
+        },
+        {
+          "name": "fClearDirty",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether to clear the dirty flag after saving"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_GetSizeMax",
+      "description": "This function calculates the maximum size of an ItemMoniker object and stores it in the provided ULARGE_INTEGER structure.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to an IMoniker interface object from which the ItemMonikerImpl object is derived."
+        },
+        {
+          "name": "pcbSize",
+          "type": "ULARGE_INTEGER*",
+          "description": "Pointer to a ULARGE_INTEGER structure that receives the size of the ItemMoniker object."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, and E_POINTER if the pcbSize parameter is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "get_bind_speed_from_bindctx",
+      "description": "This function retrieves the bind speed from a bind context.",
+      "parameters": [
+        {
+          "name": "pbc",
+          "type": "IBindCtx *",
+          "description": "Pointer to the bind context from which the bind speed is to be retrieved."
+        }
+      ],
+      "return_type": "DWORD representing the bind speed. It can be either BINDSPEED_INDEFINITE, BINDSPEED_IMMEDIATE or BINDSPEED_MODERATE depending on the tick count deadline."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_BindToObject",
+      "description": "This function binds an object to a moniker, which is a component that provides a pointer to an object. It is used in the implementation of the IMoniker interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface"
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to the IBindCtx interface, which represents the bind context"
+        },
+        {
+          "name": "pmkToLeft",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface that represents the moniker to the left of the current moniker"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface that the client is to use to communicate with the object"
+        },
+        {
+          "name": "ppvResult",
+          "type": "VOID**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function execution. It can be a success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_BindToStorage",
+      "description": "This function binds an item moniker to a storage. It first checks if the pmkToLeft parameter is not null, then binds the pmkToLeft to an IOleItemContainer object. If the binding is successful, it sets a lock on the container and gets the object storage of the container.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to an IMoniker interface"
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to an IBindCtx interface"
+        },
+        {
+          "name": "pmkToLeft",
+          "type": "IMoniker*",
+          "description": "Pointer to an IMoniker interface on the left"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface"
+        },
+        {
+          "name": "ppvResult",
+          "type": "void**",
+          "description": "Pointer to the pointer of the result"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the function is successful, E_INVALIDARG if pmkToLeft is NULL, or other error codes if the function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_Reduce",
+      "description": "This function reduces the moniker to its simplest form for the specified bind context.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to the Item Moniker interface."
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to the bind context interface."
+        },
+        {
+          "name": "dwReduceHowFar",
+          "type": "DWORD",
+          "description": "Specifies how far the moniker should be reduced."
+        },
+        {
+          "name": "ppmkToLeft",
+          "type": "IMoniker**",
+          "description": "Address of pointer variable that receives the reduced moniker that was originally to the left of this moniker."
+        },
+        {
+          "name": "ppmkReduced",
+          "type": "IMoniker**",
+          "description": "Address of pointer variable that receives the reduced form of the moniker."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is MK_S_REDUCED_TO_SELF. If the ppmkReduced parameter is NULL, the function returns E_POINTER."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_ComposeWith",
+      "description": "This function composes a new moniker with the current moniker from the right. If the right moniker is an anti-moniker, it creates a new anti-moniker. If the 'only_if_not_generic' parameter is TRUE, it returns an error if the moniker is generic.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to the interface of the current moniker"
+        },
+        {
+          "name": "right",
+          "type": "IMoniker*",
+          "description": "Pointer to the interface of the right moniker"
+        },
+        {
+          "name": "only_if_not_generic",
+          "type": "BOOL",
+          "description": "Flag indicating whether the function should return an error if the moniker is generic"
+        },
+        {
+          "name": "result",
+          "type": "IMoniker**",
+          "description": "Pointer to the pointer of the resulting moniker"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It can be a success code, an error code or a warning code."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_Enum",
+      "description": "This function checks if the ppenumMoniker pointer is NULL, if it is, it returns an error, otherwise it sets the value pointed by ppenumMoniker to NULL and returns a success code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Interface pointer used in the function"
+        },
+        {
+          "name": "fForward",
+          "type": "BOOL",
+          "description": "Boolean value used in the function"
+        },
+        {
+          "name": "ppenumMoniker",
+          "type": "IEnumMoniker**",
+          "description": "Double pointer to IEnumMoniker, checked and potentially modified in the function"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, either success (S_OK) or an error (E_POINTER)"
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_IsEqual",
+      "description": "This function compares two IMoniker objects for equality.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "First IMoniker object to compare"
+        },
+        {
+          "name": "other",
+          "type": "IMoniker*",
+          "description": "Second IMoniker object to compare"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the objects are equal, S_FALSE if they are not, and E_INVALIDARG if the 'other' parameter is null."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_Hash",
+      "description": "This function calculates a hash value for an ItemMonikerImpl object. It uses the object's itemName to calculate the hash. If the pdwHash parameter is NULL, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to an IMoniker interface which is used to get the ItemMonikerImpl object"
+        },
+        {
+          "name": "pdwHash",
+          "type": "DWORD*",
+          "description": "Pointer to a DWORD to store the calculated hash value"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error value otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_IsRunning",
+      "description": "This function checks if a specific item moniker is running.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Interface to the item moniker."
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to the bind context."
+        },
+        {
+          "name": "pmkToLeft",
+          "type": "IMoniker*",
+          "description": "Pointer to the moniker to the left of the current moniker."
+        },
+        {
+          "name": "pmkNewlyRunning",
+          "type": "IMoniker*",
+          "description": "Pointer to the newly running moniker."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation was successful, and an error code otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_GetTimeOfLastChange",
+      "description": "This function gets the time of the last change of the object that the moniker refers to. If the object is not in the Running Object Table (ROT), the function calls IMoniker::GetTimeOfLastChange on the pmkToLeft parameter.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface"
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to the IBindCtx interface"
+        },
+        {
+          "name": "pmkToLeft",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface that represents the moniker to the left of this moniker"
+        },
+        {
+          "name": "pItemTime",
+          "type": "FILETIME*",
+          "description": "Pointer to a FILETIME structure that receives the time of the last change"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It can return E_INVALIDARG if pItemTime is NULL, MK_E_NOTBINDABLE if pmkToLeft is NULL, or the result of the CreateGenericComposite or IBindCtx_GetRunningObjectTable functions"
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_Inverse",
+      "description": "This function checks if the ppmk parameter is NULL, if it is, it returns an error. If not, it calls the CreateAntiMoniker function with ppmk as the argument.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to an IMoniker interface"
+        },
+        {
+          "name": "ppmk",
+          "type": "IMoniker**",
+          "description": "Double pointer to an IMoniker interface"
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function. It can be a success or an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_CommonPrefixWith",
+      "description": "This function checks if two IMoniker interfaces are equal. If they are, it sets the prefix to the interface and adds a reference to it. If they are not equal, it calls another function to find the common prefix.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "The first IMoniker interface to compare"
+        },
+        {
+          "name": "other",
+          "type": "IMoniker*",
+          "description": "The second IMoniker interface to compare"
+        },
+        {
+          "name": "prefix",
+          "type": "IMoniker**",
+          "description": "A pointer to an IMoniker interface that will be set to the common prefix if the two interfaces are equal"
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. It returns MK_S_US if the interfaces are equal, otherwise it returns the result of the MonikerCommonPrefixWith function"
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_RelativePathTo",
+      "description": "This function checks the validity of the parameters and returns a specific HRESULT value.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker *",
+          "description": "Pointer to an IMoniker interface."
+        },
+        {
+          "name": "other",
+          "type": "IMoniker *",
+          "description": "Pointer to another IMoniker interface."
+        },
+        {
+          "name": "result",
+          "type": "IMoniker **",
+          "description": "Double pointer to an IMoniker interface, used to store the result."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. It returns E_INVALIDARG if either 'other' or 'result' is NULL, and MK_E_NOTBINDABLE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_GetDisplayName",
+      "description": "This function retrieves the display name of an item moniker. It checks if the display name and left moniker are valid, calculates the size of the item name and delimiter, allocates memory for the display name, and concatenates the item delimiter and name to the display name.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to the interface of the item moniker"
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to the bind context"
+        },
+        {
+          "name": "pmkToLeft",
+          "type": "IMoniker*",
+          "description": "Pointer to the moniker to the left of the item moniker"
+        },
+        {
+          "name": "ppszDisplayName",
+          "type": "LPOLESTR*",
+          "description": "Pointer to the display name of the item moniker"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It can return S_OK if successful, E_POINTER if the display name is NULL, E_INVALIDARG if the left moniker is not NULL, or E_OUTOFMEMORY if memory allocation for the display name fails"
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_ParseDisplayName",
+      "description": "This function parses the display name of an item moniker. It binds the moniker to an object, locks the container, gets the object and parses the display name.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface"
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to the IBindCtx interface"
+        },
+        {
+          "name": "pmkToLeft",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface that represents the moniker to the left of the current moniker"
+        },
+        {
+          "name": "displayname",
+          "type": "LPOLESTR",
+          "description": "Pointer to the display name to be parsed"
+        },
+        {
+          "name": "eaten",
+          "type": "ULONG*",
+          "description": "Pointer to the number of characters parsed from the display name"
+        },
+        {
+          "name": "ppmkOut",
+          "type": "IMoniker**",
+          "description": "Pointer to the output IMoniker interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerImpl_IsSystemMoniker",
+      "description": "This function checks if the system moniker is valid and sets the value of pwdMksys to MKSYS_ITEMMONIKER if it is valid.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "This is an interface pointer used in the function."
+        },
+        {
+          "name": "pwdMksys",
+          "type": "DWORD*",
+          "description": "This is a pointer to a DWORD in which the function stores the value of MKSYS_ITEMMONIKER if the system moniker is valid."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and E_POINTER if pwdMksys is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerROTDataImpl_QueryInterface",
+      "description": "This function is used to query an interface from an ItemMonikerImpl object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IROTData *",
+          "description": "Pointer to an IROTData interface."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested."
+        },
+        {
+          "name": "ppvObject",
+          "type": "void **",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerROTDataImpl_AddRef",
+      "description": "This function adds a reference to an ItemMonikerImpl object from an IROTData interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IROTData *",
+          "description": "This is a pointer to an IROTData interface."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the ItemMonikerImpl object."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerROTDataImpl_Release",
+      "description": "This function releases the ItemMonikerImpl instance from the IROTData interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IROTData*",
+          "description": "This is the interface from which the ItemMonikerImpl instance is to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the status of the ItemMonikerImpl release operation."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMonikerROTDataImpl_GetComparisonData",
+      "description": "This function gets the comparison data for an ItemMoniker object. It calculates the length of the item's name and delimiter, determines the total data length, checks if the buffer has enough space, and then writes the CLSID, delimiter, and name to the buffer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IROTData*",
+          "description": "Interface pointer to the ItemMoniker object"
+        },
+        {
+          "name": "buffer",
+          "type": "BYTE*",
+          "description": "Buffer to write the comparison data to"
+        },
+        {
+          "name": "max_len",
+          "type": "ULONG",
+          "description": "Maximum length of the buffer"
+        },
+        {
+          "name": "data_len",
+          "type": "ULONG*",
+          "description": "Pointer to a variable where the function will store the actual length of the written data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, E_OUTOFMEMORY if the buffer does not have enough space"
+    }
+  },
+  {
+    "function": {
+      "name": "unsafe_impl_from_IMoniker",
+      "description": "This function checks if the virtual function table of the interface is the same as the VT_ItemMonikerImpl. If it is, it returns the containing record of the interface, otherwise it returns NULL.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker *",
+          "description": "This parameter is used to access the interface's virtual function table and to get the containing record."
+        }
+      ],
+      "return_type": "ItemMonikerImpl pointer. It represents the containing record of the interface if the virtual function table of the interface is the same as the VT_ItemMonikerImpl, otherwise it represents NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "CreateItemMoniker",
+      "description": "This function creates an Item Moniker by allocating memory for it, setting its properties, and returning a pointer to it.",
+      "parameters": [
+        {
+          "name": "delimiter",
+          "type": "WCHAR *",
+          "description": "The delimiter for the Item Moniker."
+        },
+        {
+          "name": "name",
+          "type": "WCHAR *",
+          "description": "The name of the Item Moniker."
+        },
+        {
+          "name": "ret",
+          "type": "IMoniker **",
+          "description": "A pointer to a pointer to an IMoniker interface, which will be set to point to the newly created Item Moniker."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and E_OUTOFMEMORY if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "ItemMoniker_CreateInstance",
+      "description": "This function creates an instance of an ItemMoniker, which is a type of COM object that provides a link to an object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClassFactory*",
+          "description": "Pointer to the IClassFactory interface that creates the object"
+        },
+        {
+          "name": "outer",
+          "type": "IUnknown*",
+          "description": "Pointer to the controlling IUnknown interface, if part of an aggregate component"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface that the caller is to use to communicate with the new object"
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, which indicates the success or failure of the function. It returns specific error codes when the function fails."
+    }
+  }
+]

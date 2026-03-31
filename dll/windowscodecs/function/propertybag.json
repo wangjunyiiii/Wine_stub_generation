@@ -1,0 +1,285 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IPropertyBag2",
+      "description": "This function returns the containing record for the given interface, effectively casting the interface to its containing type.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPropertyBag2 *",
+          "description": "The interface from which to retrieve the containing record."
+        }
+      ],
+      "return_type": "PropertyBag *. It represents the containing record for the given interface."
+    }
+  },
+  {
+    "function": {
+      "name": "PropertyBag_QueryInterface",
+      "description": "This function checks if the provided interface ID matches either IID_IUnknown or IID_IPropertyBag2. If it does, it assigns the address of the IPropertyBag2 interface to the provided void pointer. If it doesn't, it assigns NULL to the provided void pointer and returns an error code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPropertyBag2 *",
+          "description": "Pointer to the IPropertyBag2 interface"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Interface ID to be checked"
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Pointer to a void pointer where the address of the IPropertyBag2 interface will be stored if the provided interface ID matches either IID_IUnknown or IID_IPropertyBag2"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the ppv parameter is NULL, and E_NOINTERFACE if the provided interface ID doesn't match either IID_IUnknown or IID_IPropertyBag2"
+    }
+  },
+  {
+    "function": {
+      "name": "PropertyBag_AddRef",
+      "description": "This function increments the reference count of the PropertyBag object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPropertyBag2 *",
+          "description": "This is a pointer to the IPropertyBag2 interface."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after increment."
+    }
+  },
+  {
+    "function": {
+      "name": "PropertyBag_Release",
+      "description": "This function releases the memory allocated for the properties and values of the PropertyBag object, and then frees the object itself when its reference count reaches zero.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPropertyBag2*",
+          "description": "Pointer to the IPropertyBag2 interface of the PropertyBag object."
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count of the PropertyBag object after decrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "find_item",
+      "description": "This function searches for a property by name in a PropertyBag object and returns its index if found, otherwise returns -1.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "PropertyBag*",
+          "description": "The PropertyBag object in which to search for the property."
+        },
+        {
+          "name": "name",
+          "type": "LPCOLESTR",
+          "description": "The name of the property to search for."
+        }
+      ],
+      "return_type": "LONG, represents the index of the found property in the PropertyBag object, or -1 if the property is not found or the input parameters are invalid."
+    }
+  },
+  {
+    "function": {
+      "name": "PropertyBag_Read",
+      "description": "This function reads properties from a property bag. It iterates over the properties and copies the values if found. If a property is not found, it fails and breaks the loop.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPropertyBag2 *",
+          "description": "Pointer to the interface of the property bag"
+        },
+        {
+          "name": "cProperties",
+          "type": "ULONG",
+          "description": "Count of properties to be read"
+        },
+        {
+          "name": "pPropBag",
+          "type": "PROPBAG2 *",
+          "description": "Pointer to the property bag structure"
+        },
+        {
+          "name": "pErrLog",
+          "type": "IErrorLog *",
+          "description": "Pointer to the error log"
+        },
+        {
+          "name": "pvarValue",
+          "type": "VARIANT *",
+          "description": "Pointer to the variant value to be filled with the property value"
+        },
+        {
+          "name": "phrError",
+          "type": "HRESULT *",
+          "description": "Pointer to the HRESULT error code"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if successful, E_FAIL if it fails to find a property"
+    }
+  },
+  {
+    "function": {
+      "name": "PropertyBag_Write",
+      "description": "This function writes properties to a property bag. It iterates over the properties and checks if the property type matches the expected type. If it does, it copies the value to the property bag. If it doesn't, it returns an error. If the property is unknown, it logs a warning and returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPropertyBag2 *",
+          "description": "Pointer to the IPropertyBag2 interface"
+        },
+        {
+          "name": "cProperties",
+          "type": "ULONG",
+          "description": "Count of properties to be written"
+        },
+        {
+          "name": "pPropBag",
+          "type": "PROPBAG2 *",
+          "description": "Pointer to the property bag where the properties are to be written"
+        },
+        {
+          "name": "pvarValue",
+          "type": "VARIANT *",
+          "description": "Pointer to the variant values to be written to the property bag"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. S_OK if successful, E_FAIL if an error occurred, WINCODEC_ERR_PROPERTYUNEXPECTEDTYPE if the property type does not match the expected type."
+    }
+  },
+  {
+    "function": {
+      "name": "PropertyBag_CountProperties",
+      "description": "This function counts the properties in a PropertyBag object and returns the count in the pcProperties parameter.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPropertyBag2 *",
+          "description": "Pointer to the PropertyBag object."
+        },
+        {
+          "name": "pcProperties",
+          "type": "ULONG *",
+          "description": "Pointer to a ULONG variable where the count of properties will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful, and E_INVALIDARG if the pcProperties parameter is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "copy_propbag2",
+      "description": "This function copies the contents of a source PROPBAG2 structure to a destination PROPBAG2 structure. It also allocates memory for the pstrName string in the destination structure.",
+      "parameters": [
+        {
+          "name": "dest",
+          "type": "PROPBAG2*",
+          "description": "Pointer to the destination PROPBAG2 structure"
+        },
+        {
+          "name": "src",
+          "type": "PROPBAG2*",
+          "description": "Pointer to the source PROPBAG2 structure"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful, E_OUTOFMEMORY if memory allocation fails"
+    }
+  },
+  {
+    "function": {
+      "name": "PropertyBag_GetPropertyInfo",
+      "description": "This function retrieves information about one or more properties in a property bag.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPropertyBag2 *",
+          "description": "Pointer to an IPropertyBag2 interface."
+        },
+        {
+          "name": "iProperty",
+          "type": "ULONG",
+          "description": "The zero-based index of the first property for which to retrieve information."
+        },
+        {
+          "name": "cProperties",
+          "type": "ULONG",
+          "description": "The count of properties for which to retrieve information."
+        },
+        {
+          "name": "pPropBag",
+          "type": "PROPBAG2 *",
+          "description": "Pointer to an array of PROPBAG2 structures that receive the property information."
+        },
+        {
+          "name": "pcProperties",
+          "type": "ULONG *",
+          "description": "Pointer to a variable that receives the count of properties for which information is retrieved."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "PropertyBag_LoadObject",
+      "description": "This function is currently a stub and not implemented. It is expected to load an object into a property bag.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPropertyBag2 *",
+          "description": "Pointer to an IPropertyBag2 interface"
+        },
+        {
+          "name": "pstrName",
+          "type": "LPCOLESTR",
+          "description": "Pointer to a string that specifies the name of the property"
+        },
+        {
+          "name": "dwHint",
+          "type": "DWORD",
+          "description": "A hint to the property bag about how the property should be loaded"
+        },
+        {
+          "name": "pUnkObject",
+          "type": "IUnknown *",
+          "description": "Pointer to the IUnknown interface on the object to be loaded"
+        },
+        {
+          "name": "pErrLog",
+          "type": "IErrorLog *",
+          "description": "Pointer to an IErrorLog interface that the property bag can use to log errors"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "CreatePropertyBag2",
+      "description": "This function creates a new PropertyBag2 object and initializes it with the given options and count. It also handles memory allocation and error checking for the new object.",
+      "parameters": [
+        {
+          "name": "options",
+          "type": "const PROPBAG2 *",
+          "description": "Pointer to an array of PROPBAG2 structures that specify the properties to be contained in the new property bag."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of properties to be contained in the new property bag."
+        },
+        {
+          "name": "ppPropertyBag2",
+          "type": "IPropertyBag2 **",
+          "description": "Address of a pointer to the new IPropertyBag2 interface."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. S_OK if the function succeeds, E_OUTOFMEMORY if there is insufficient memory to create the property bag."
+    }
+  }
+]

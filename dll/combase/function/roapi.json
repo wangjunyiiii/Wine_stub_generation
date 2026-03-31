@@ -1,0 +1,573 @@
+[
+  {
+    "function": {
+      "name": "get_library_for_classid",
+      "description": "This function retrieves the library for a given class ID. It first searches the activation context. If not found, it then loads the class registry key and DllPath registry value.",
+      "parameters": [
+        {
+          "name": "classid",
+          "type": "const WCHAR *",
+          "description": "The class ID for which the library is to be retrieved."
+        },
+        {
+          "name": "out",
+          "type": "WCHAR **",
+          "description": "A pointer to a pointer where the output will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function. It returns S_OK if the function succeeds. If it fails, it returns an error code such as REGDB_E_READREGDB, REGDB_E_CLASSNOTREG, or E_OUTOFMEMORY."
+    }
+  },
+  {
+    "function": {
+      "name": "RoInitialize",
+      "description": "This function initializes the runtime object (RO) based on the type of threading model specified.",
+      "parameters": [
+        {
+          "name": "type",
+          "type": "RO_INIT_TYPE",
+          "description": "This parameter specifies the type of threading model to be used for initialization."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns a success code if the function successfully initializes the runtime object, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "RoUninitialize",
+      "description": "This function is used to uninitialize the COM library on the current thread.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "RoGetActivationFactory",
+      "description": "This function is used to get the activation factory for a specified class ID. It loads the library associated with the class ID, retrieves the 'DllGetActivationFactory' function from the library, and then uses this function to create the activation factory. If successful, it queries the factory for a specified interface.",
+      "parameters": [
+        {
+          "name": "classid",
+          "type": "HSTRING",
+          "description": "The class ID for which to get the activation factory."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "The interface identifier to query on the activation factory."
+        },
+        {
+          "name": "class_factory",
+          "type": "void **",
+          "description": "Pointer to a pointer to receive the interface pointer requested in iid. Upon successful return, *class_factory contains the requested interface pointer to the activation factory."
+        }
+      ],
+      "return_type": "DECLSPEC_HOTPATCH, represents the status of the operation. If the operation is successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "RoGetParameterizedTypeInstanceIID",
+      "description": "This function is a stub and not yet implemented. It sets the values of iid and hiid if they are not null.",
+      "parameters": [
+        {
+          "name": "name_element_count",
+          "type": "UINT32",
+          "description": "The count of name elements"
+        },
+        {
+          "name": "name_elements",
+          "type": "WCHAR **",
+          "description": "Pointer to the name elements"
+        },
+        {
+          "name": "meta_data_locator",
+          "type": "IRoMetaDataLocator *",
+          "description": "Pointer to the meta data locator"
+        },
+        {
+          "name": "iid",
+          "type": "GUID *",
+          "description": "Pointer to the GUID"
+        },
+        {
+          "name": "hiid",
+          "type": "ROPARAMIIDHANDLE *",
+          "description": "Pointer to the ROPARAMIIDHANDLE"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "RoActivateInstance",
+      "description": "This function activates an instance of a class.",
+      "parameters": [
+        {
+          "name": "classid",
+          "type": "HSTRING",
+          "description": "This parameter represents the class identifier."
+        },
+        {
+          "name": "instance",
+          "type": "IInspectable**",
+          "description": "This is a pointer to the instance to be activated."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function execution. It returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "marshal_object_in_agile_reference",
+      "description": "This function marshals an object into an agile reference.",
+      "parameters": [
+        {
+          "name": "ref",
+          "type": "struct agile_reference*",
+          "description": "Pointer to the agile reference structure where the marshalled object will be stored."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Interface identifier for the object to be marshalled."
+        },
+        {
+          "name": "obj",
+          "type": "IUnknown*",
+          "description": "Pointer to the object to be marshalled."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IAgileReference",
+      "description": "This function returns a pointer to the containing structure of the IAgileReference interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAgileReference *",
+          "description": "This parameter is a pointer to an IAgileReference interface."
+        }
+      ],
+      "return_type": "struct agile_reference*, represents a pointer to the containing structure of the IAgileReference interface."
+    }
+  },
+  {
+    "function": {
+      "name": "agile_ref_QueryInterface",
+      "description": "This function checks if the provided interface identifier (riid) matches any of the known identifiers. If it does, it increments the reference count of the interface and returns a pointer to it. If it doesn't, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAgileReference*",
+          "description": "Pointer to the IAgileReference interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier to be checked"
+        },
+        {
+          "name": "obj",
+          "type": "void**",
+          "description": "Pointer to the location where the pointer to the interface will be stored if the function is successful"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the function is successful, E_INVALIDARG if any of the arguments is NULL, and E_NOINTERFACE if the provided interface identifier does not match any of the known identifiers"
+    }
+  },
+  {
+    "function": {
+      "name": "agile_ref_AddRef",
+      "description": "This function increments the reference count of the given Agile Reference object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAgileReference *",
+          "description": "This is a pointer to the Agile Reference object whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after incrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "agile_ref_Release",
+      "description": "This function releases an interface and cleans up the associated resources when the reference count reaches zero.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAgileReference *",
+          "description": "This is a pointer to the interface that needs to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after the release operation."
+    }
+  },
+  {
+    "function": {
+      "name": "agile_ref_Resolve",
+      "description": "This function resolves an Agile Reference, potentially unmarshalling the object if it is not already agile. It also handles the case of delayed marshalling.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAgileReference*",
+          "description": "Pointer to the Agile Reference interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface"
+        },
+        {
+          "name": "obj",
+          "type": "void**",
+          "description": "Pointer to the object where the interface pointer is to be stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the function is successful, otherwise it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "object_has_interface",
+      "description": "This function checks if a given object supports a specific interface.",
+      "parameters": [
+        {
+          "name": "obj",
+          "type": "IUnknown*",
+          "description": "Pointer to the object to check."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Identifier of the interface to check for."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the object supports the interface, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "RoGetAgileReference",
+      "description": "This function is used to get an agile reference for a specified object. It checks the validity of the parameters, initializes the process if not already done, checks if the object has the required interface, allocates memory for the agile reference implementation, sets the values for the implementation, and finally returns the agile reference.",
+      "parameters": [
+        {
+          "name": "option",
+          "type": "enum AgileReferenceOptions",
+          "description": "This parameter is used to specify the option for the agile reference."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "This parameter is used to specify the interface identifier."
+        },
+        {
+          "name": "obj",
+          "type": "IUnknown *",
+          "description": "This parameter is used to specify the object for which the agile reference is to be obtained."
+        },
+        {
+          "name": "agile_reference",
+          "type": "IAgileReference **",
+          "description": "This parameter is used to return the agile reference."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and error codes if not."
+    }
+  },
+  {
+    "function": {
+      "name": "RoFailFastWithErrorContextInternal2",
+      "description": "This function logs an error, exception count, and information, then raises a fail fast exception.",
+      "parameters": [
+        {
+          "name": "error",
+          "type": "HRESULT",
+          "description": "The error code"
+        },
+        {
+          "name": "exception_count",
+          "type": "ULONG",
+          "description": "The count of exceptions"
+        },
+        {
+          "name": "information",
+          "type": "void *",
+          "description": "Pointer to additional exception information"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "RoGetApartmentIdentifier",
+      "description": "This function assigns a fixed value to the pointer 'identifier' and returns a status code.",
+      "parameters": [
+        {
+          "name": "identifier",
+          "type": "UINT64*",
+          "description": "A pointer to an identifier that will be assigned a fixed value."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns E_INVALIDARG if the 'identifier' is NULL, and S_OK otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "RoRegisterForApartmentShutdown",
+      "description": "This function registers for the shutdown of an apartment. It first gets the apartment identifier and then sets the cookie if it exists.",
+      "parameters": [
+        {
+          "name": "callback",
+          "type": "IApartmentShutdown *",
+          "description": "This is a callback function that is called when the apartment is shutting down."
+        },
+        {
+          "name": "identifier",
+          "type": "UINT64 *",
+          "description": "This is the identifier of the apartment."
+        },
+        {
+          "name": "cookie",
+          "type": "APARTMENT_SHUTDOWN_REGISTRATION_COOKIE *",
+          "description": "This is a cookie that is set if it exists."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation is successful, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "RoGetServerActivatableClasses",
+      "description": "This function is a stub and does not perform any operation. It is used to get server activatable classes.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "HSTRING",
+          "description": "This parameter is not used in the function."
+        },
+        {
+          "name": "classes",
+          "type": "HSTRING**",
+          "description": "This parameter is not used in the function."
+        },
+        {
+          "name": "count",
+          "type": "DWORD*",
+          "description": "This parameter is used to store the count of server activatable classes. In this stub function, it is always set to 0."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this stub function, it always returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "RoRegisterActivationFactories",
+      "description": "This function is a stub and doesn't perform any operation. It is used to register activation factories.",
+      "parameters": [
+        {
+          "name": "classes",
+          "type": "HSTRING*",
+          "description": "Pointer to the classes"
+        },
+        {
+          "name": "callbacks",
+          "type": "PFNGETACTIVATIONFACTORY*",
+          "description": "Pointer to the callbacks"
+        },
+        {
+          "name": "count",
+          "type": "UINT32",
+          "description": "Count of the elements"
+        },
+        {
+          "name": "cookie",
+          "type": "RO_REGISTRATION_COOKIE*",
+          "description": "Pointer to the registration cookie"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, in this case always returns S_OK"
+    }
+  },
+  {
+    "function": {
+      "name": "GetRestrictedErrorInfo",
+      "description": "This function is not implemented yet. It is expected to get restricted error information.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "IRestrictedErrorInfo**",
+          "description": "A pointer to a pointer to an IRestrictedErrorInfo interface."
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function call. In this case, it returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "SetRestrictedErrorInfo",
+      "description": "This function is not implemented yet. It is supposed to set restricted error information.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "IRestrictedErrorInfo*",
+          "description": "Pointer to an IRestrictedErrorInfo object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "RoOriginateLanguageException",
+      "description": "This function is a stub and currently only logs the parameters it receives without performing any operations.",
+      "parameters": [
+        {
+          "name": "error",
+          "type": "HRESULT",
+          "description": "This parameter represents an error code."
+        },
+        {
+          "name": "message",
+          "type": "HSTRING",
+          "description": "This parameter represents a message associated with the error."
+        },
+        {
+          "name": "language_exception",
+          "type": "IUnknown*",
+          "description": "This parameter represents an exception object."
+        }
+      ],
+      "return_type": "BOOL, it represents the success or failure of the function. Currently, it always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "RoOriginateError",
+      "description": "This function is a stub that logs an error and a message, but does not perform any other action.",
+      "parameters": [
+        {
+          "name": "error",
+          "type": "HRESULT",
+          "description": "The error code to be logged."
+        },
+        {
+          "name": "message",
+          "type": "HSTRING",
+          "description": "The message to be logged along with the error."
+        }
+      ],
+      "return_type": "BOOL, always returns FALSE in this implementation"
+    }
+  },
+  {
+    "function": {
+      "name": "RoOriginateErrorW",
+      "description": "This function is a stub that currently does not perform any operation other than returning FALSE.",
+      "parameters": [
+        {
+          "name": "error",
+          "type": "HRESULT",
+          "description": "This parameter represents an error code."
+        },
+        {
+          "name": "max_len",
+          "type": "UINT",
+          "description": "This parameter represents the maximum length of the message."
+        },
+        {
+          "name": "message",
+          "type": "WCHAR *",
+          "description": "This parameter is a pointer to a wide-character string that represents the message."
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the function. Currently, it always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "RoReportUnhandledError",
+      "description": "This function is a stub that reports unhandled errors.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "IRestrictedErrorInfo *",
+          "description": "Pointer to an IRestrictedErrorInfo object that contains error information."
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function. It returns S_OK to indicate successful execution."
+    }
+  },
+  {
+    "function": {
+      "name": "RoSetErrorReportingFlags",
+      "description": "This function is a stub that sets error reporting flags.",
+      "parameters": [
+        {
+          "name": "flags",
+          "type": "UINT32",
+          "description": "This parameter represents the flags for error reporting."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, returns S_OK for this stub function."
+    }
+  },
+  {
+    "function": {
+      "name": "RoGetErrorReportingFlags",
+      "description": "This function gets the error reporting flags. If the flags pointer is null, it returns an error. Otherwise, it sets the flags to RO_ERROR_REPORTING_USESETERRORINFO and returns success.",
+      "parameters": [
+        {
+          "name": "flags",
+          "type": "UINT32*",
+          "description": "A pointer to a UINT32 variable where the function will store the error reporting flags."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. It returns E_POINTER if the flags pointer is null, otherwise it returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "CleanupTlsOleState",
+      "description": "This function is a stub, intended to be replaced by real functionality in the future. Currently, it just logs the address of the input parameter.",
+      "parameters": [
+        {
+          "name": "unknown",
+          "type": "void*",
+          "description": "An unknown parameter. Its purpose is not clear from the function's current implementation."
+        }
+      ],
+      "return_type": "void, meaning this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "DllGetActivationFactory",
+      "description": "This function is a stub that currently just logs its parameters and returns an error code indicating the class is not registered.",
+      "parameters": [
+        {
+          "name": "classid",
+          "type": "HSTRING",
+          "description": "This parameter represents the class id."
+        },
+        {
+          "name": "factory",
+          "type": "IActivationFactory **",
+          "description": "This is a pointer to a pointer to an IActivationFactory interface."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns REGDB_E_CLASSNOTREG indicating the class is not registered."
+    }
+  }
+]

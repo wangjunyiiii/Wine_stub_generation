@@ -1,0 +1,391 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IConnectionPoint",
+      "description": "This function returns the containing record of the given interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IConnectionPoint *",
+          "description": "This parameter is a pointer to the IConnectionPoint interface."
+        }
+      ],
+      "return_type": "ConnectionPointImpl pointer, representing the containing record of the given interface."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IEnumConnections",
+      "description": "This function returns a pointer to the EnumConnectionsImpl structure that contains the IEnumConnections interface passed to it.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumConnections*",
+          "description": "Pointer to the IEnumConnections interface."
+        }
+      ],
+      "return_type": "Pointer to EnumConnectionsImpl structure that contains the IEnumConnections interface."
+    }
+  },
+  {
+    "function": {
+      "name": "ConnectionPointImpl_Destroy",
+      "description": "This function releases the memory allocated for the sinks in the given ConnectionPointImpl object and then releases the memory allocated for the object itself.",
+      "parameters": [
+        {
+          "name": "Obj",
+          "type": "ConnectionPointImpl*",
+          "description": "This is a pointer to the ConnectionPointImpl object that needs to be destroyed."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "ConnectionPointImpl_QueryInterface",
+      "description": "This function performs a query on the interface of a connection point. It checks if the requested interface is supported, and if so, it increases the reference count of the interface and returns it.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IConnectionPoint*",
+          "description": "Pointer to the interface of the connection point."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Identifier of the interface being requested."
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Pointer to the location where the interface pointer will be stored, if the interface is supported."
+        }
+      ],
+      "return_type": "HRESULT, where a successful operation returns S_OK, E_INVALIDARG if ppvObject is NULL, and E_NOINTERFACE if the requested interface is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "ConnectionPointImpl_AddRef",
+      "description": "This function increments the reference count of a ConnectionPointImpl object and returns the updated count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IConnectionPoint*",
+          "description": "This parameter is a pointer to an IConnectionPoint interface object."
+        }
+      ],
+      "return_type": "ULONG, representing the updated reference count of the ConnectionPointImpl object."
+    }
+  },
+  {
+    "function": {
+      "name": "ConnectionPointImpl_Release",
+      "description": "This function releases a connection point interface, decrements the reference count, and destroys the connection point if the reference count is zero.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IConnectionPoint*",
+          "description": "This parameter is a pointer to the IConnectionPoint interface that is to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count after the release operation."
+    }
+  },
+  {
+    "function": {
+      "name": "ConnectionPointImpl_GetConnectionInterface",
+      "description": "This function retrieves the interface identifier (IID) of the outgoing interface managed by the connection point.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IConnectionPoint*",
+          "description": "Pointer to the IConnectionPoint interface"
+        },
+        {
+          "name": "piid",
+          "type": "IID*",
+          "description": "Address of caller-allocated interface identifier (IID) that receives the IID of the outgoing interface managed by the connection point"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. S_OK if successful"
+    }
+  },
+  {
+    "function": {
+      "name": "ConnectionPointImpl_GetConnectionPointContainer",
+      "description": "This function retrieves the connection point container associated with a specific connection point.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IConnectionPoint*",
+          "description": "Pointer to an interface of a connection point."
+        },
+        {
+          "name": "ppCPC",
+          "type": "IConnectionPointContainer**",
+          "description": "Address of a pointer to a IConnectionPointContainer interface. On successful return, this address contains the requested interface pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. It can indicate success, warning or error values."
+    }
+  },
+  {
+    "function": {
+      "name": "ConnectionPointImpl_Advise",
+      "description": "This function is used to establish a connection point between a component and its client. It also manages the list of sinks (clients that have requested notifications) and assigns a unique cookie to each connection.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IConnectionPoint*",
+          "description": "Pointer to the IConnectionPoint interface."
+        },
+        {
+          "name": "lpUnk",
+          "type": "IUnknown*",
+          "description": "Pointer to the IUnknown interface of the advise sink."
+        },
+        {
+          "name": "pdwCookie",
+          "type": "DWORD*",
+          "description": "Pointer to a variable that receives the connection cookie."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "ConnectionPointImpl_Unadvise",
+      "description": "This function unadvises or disconnects a connection point from a specific sink, identified by the dwCookie parameter. If the dwCookie is invalid or there is no connection, the function returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IConnectionPoint*",
+          "description": "This is an interface pointer to the connection point object."
+        },
+        {
+          "name": "dwCookie",
+          "type": "DWORD",
+          "description": "This is an identifier for the sink to be disconnected."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the dwCookie is invalid, and CONNECT_E_NOCONNECTION if there is no connection."
+    }
+  },
+  {
+    "function": {
+      "name": "ConnectionPointImpl_EnumConnections",
+      "description": "This function enumerates the connections in a connection point object. It creates an enumeration object, queries its interface, and releases it. The function also handles memory allocation and deallocation for the connection data.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IConnectionPoint*",
+          "description": "Pointer to the IConnectionPoint interface of the connection point object"
+        },
+        {
+          "name": "ppEnum",
+          "type": "IEnumConnections**",
+          "description": "Pointer to a pointer to an IEnumConnections interface, which will be set to the address of the enumeration object"
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns OLE_E_NOCONNECTION if there are no connections, and the result of IEnumConnections_QueryInterface otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "EnumConnectionsImpl_Construct",
+      "description": "This function constructs an instance of EnumConnectionsImpl, initializes its properties, and returns a pointer to it.",
+      "parameters": [
+        {
+          "name": "pUnk",
+          "type": "IUnknown *",
+          "description": "Pointer to an IUnknown interface that the EnumConnectionsImpl object will reference."
+        },
+        {
+          "name": "nSinks",
+          "type": "DWORD",
+          "description": "The number of connections to be enumerated."
+        },
+        {
+          "name": "pCD",
+          "type": "CONNECTDATA *",
+          "description": "Pointer to an array of CONNECTDATA structures representing the connections."
+        }
+      ],
+      "return_type": "EnumConnectionsImpl *; Pointer to the constructed EnumConnectionsImpl object."
+    }
+  },
+  {
+    "function": {
+      "name": "EnumConnectionsImpl_Destroy",
+      "description": "This function releases the connections and frees the memory allocated for the connections and the object itself.",
+      "parameters": [
+        {
+          "name": "Obj",
+          "type": "EnumConnectionsImpl*",
+          "description": "Pointer to the object that contains the connections to be released and freed."
+        }
+      ],
+      "return_type": "void, this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "EnumConnectionsImpl_QueryInterface",
+      "description": "This function checks if the provided interface supports the requested interface ID (IID). If it does, it returns a pointer to this interface; otherwise, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumConnections*",
+          "description": "Pointer to the interface that is being queried."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Identifier of the interface being requested."
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "If the interface is supported, upon return, this will point to the requested interface."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the interface is supported, E_NOINTERFACE if the interface is not supported, and E_INVALIDARG if ppvObject is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "EnumConnectionsImpl_AddRef",
+      "description": "This function increments the reference count of an EnumConnectionsImpl object and returns the updated count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumConnections*",
+          "description": "Pointer to an IEnumConnections interface object"
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count of the EnumConnectionsImpl object"
+    }
+  },
+  {
+    "function": {
+      "name": "EnumConnectionsImpl_Release",
+      "description": "This function releases an interface of IEnumConnections type, decrements the reference count, and destroys the interface if the reference count is zero.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumConnections *",
+          "description": "This is the interface to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the current reference count after decrement."
+    }
+  },
+  {
+    "function": {
+      "name": "EnumConnectionsImpl_Next",
+      "description": "This function iterates over a list of connections, incrementing the current connection index and adding a reference to the connection's unknown interface. It also checks for null pointers and invalid connection counts.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumConnections*",
+          "description": "Pointer to an interface for enumerating connections"
+        },
+        {
+          "name": "cConn",
+          "type": "ULONG",
+          "description": "Number of connections to iterate over"
+        },
+        {
+          "name": "pCD",
+          "type": "LPCONNECTDATA",
+          "description": "Pointer to a connection data structure"
+        },
+        {
+          "name": "pEnum",
+          "type": "ULONG*",
+          "description": "Pointer to a variable to store the number of connections processed"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK on success, E_POINTER if pEnum is NULL and cConn is not 1, and S_FALSE if the current connection index is greater than or equal to the total number of connections"
+    }
+  },
+  {
+    "function": {
+      "name": "EnumConnectionsImpl_Skip",
+      "description": "This function skips a specified number of connections in the enumeration sequence.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumConnections*",
+          "description": "Interface for the enumeration of connections."
+        },
+        {
+          "name": "cSkip",
+          "type": "ULONG",
+          "description": "The number of connections to skip in the enumeration sequence."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, and S_FALSE if the end of the sequence is reached."
+    }
+  },
+  {
+    "function": {
+      "name": "EnumConnectionsImpl_Reset",
+      "description": "This function resets the current position of the enumeration sequence to the beginning.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumConnections*",
+          "description": "This parameter is an interface pointer used to access the enumeration sequence."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK indicates success."
+    }
+  },
+  {
+    "function": {
+      "name": "EnumConnectionsImpl_Clone",
+      "description": "This function clones an instance of the EnumConnectionsImpl object and increments the reference count of the original object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumConnections*",
+          "description": "Pointer to the original EnumConnectionsImpl object to be cloned."
+        },
+        {
+          "name": "ppEnum",
+          "type": "IEnumConnections**",
+          "description": "Pointer to the pointer of the new cloned EnumConnectionsImpl object."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK if the operation was successful."
+    }
+  },
+  {
+    "function": {
+      "name": "CreateConnectionPoint",
+      "description": "This function creates a connection point, allocates memory for it, initializes its properties and returns a pointer to it.",
+      "parameters": [
+        {
+          "name": "pUnk",
+          "type": "IUnknown*",
+          "description": "Pointer to an IUnknown interface that the connection point will be associated with."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface that the connection point will be associated with."
+        },
+        {
+          "name": "pCP",
+          "type": "IConnectionPoint**",
+          "description": "Pointer to a pointer to an IConnectionPoint interface. This will be set to point to the created connection point."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error code if the operation fails."
+    }
+  }
+]

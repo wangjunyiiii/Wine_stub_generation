@@ -1,0 +1,284 @@
+[
+  {
+    "function": {
+      "name": "add_device",
+      "description": "This function adds a device by querying the registry value, initializing object attributes, opening the device file, and controlling the device IO. It handles different types of devices such as HID, mouse, and keyboard. If the device is already added or any operation fails, it returns NULL. Otherwise, it returns the added device.",
+      "parameters": [
+        {
+          "name": "key",
+          "type": "HKEY",
+          "description": "Handle to an open registry key"
+        },
+        {
+          "name": "type",
+          "type": "DWORD",
+          "description": "The type of the device to be added"
+        }
+      ],
+      "return_type": "struct device, represents the added device if successful, otherwise NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "enumerate_devices",
+      "description": "This function enumerates devices of a specific type and class. It opens the registry key for the class, then iterates over each device key in the class. For each device, it opens the interface key and adds the device.",
+      "parameters": [
+        {
+          "name": "type",
+          "type": "DWORD",
+          "description": "This parameter represents the type of the device to be enumerated."
+        },
+        {
+          "name": "class",
+          "type": "WCHAR *",
+          "description": "This parameter represents the class of the device to be enumerated."
+        }
+      ],
+      "return_type": "void, this function does not return a value. It performs actions based on the parameters given."
+    }
+  },
+  {
+    "function": {
+      "name": "rawinput_update_device_list",
+      "description": "This function updates the list of raw input devices. It removes all devices from the list, closes their files, and frees their memory. Then it enumerates new devices of type mouse, keyboard, and HID.",
+      "parameters": [
+        {
+          "name": "force",
+          "type": "BOOL",
+          "description": "This parameter is used to force the update of the device list regardless of the time elapsed since the last check."
+        }
+      ],
+      "return_type": "void, meaning this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "find_device_from_handle",
+      "description": "This function searches for a device in the devices list using the provided handle. If the device is not found and refresh is true, it updates the device list and searches again.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HANDLE",
+          "description": "The handle of the device to search for."
+        },
+        {
+          "name": "refresh",
+          "type": "BOOL",
+          "description": "A flag indicating whether to refresh the device list if the device is not initially found."
+        }
+      ],
+      "return_type": "struct device, represents the device found with the given handle. If no device is found, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetRawInputDeviceList",
+      "description": "This function retrieves the raw input device list, updates the device list, and returns the count of the devices.",
+      "parameters": [
+        {
+          "name": "device_list",
+          "type": "RAWINPUTDEVICELIST*",
+          "description": "Pointer to an array of RAWINPUTDEVICELIST structures to receive the information about raw input devices"
+        },
+        {
+          "name": "device_count",
+          "type": "UINT*",
+          "description": "Pointer to a variable that specifies the number of RAWINPUTDEVICELIST structures requested"
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "Size of a single RAWINPUTDEVICELIST structure"
+        }
+      ],
+      "return_type": "UINT, represents the number of devices in the list. If the function fails, it returns ~0u."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetRawInputDeviceInfo",
+      "description": "This function retrieves information about the raw input device.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HANDLE",
+          "description": "A handle to the raw input device."
+        },
+        {
+          "name": "command",
+          "type": "UINT",
+          "description": "The command to issue for the raw input device."
+        },
+        {
+          "name": "data",
+          "type": "void *",
+          "description": "A pointer to the data that comes from the raw input device."
+        },
+        {
+          "name": "data_size",
+          "type": "UINT *",
+          "description": "A pointer to the size of the data from the raw input device."
+        }
+      ],
+      "return_type": "UINT, represents the size of the data from the raw input device or an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetRawInputBuffer",
+      "description": "This function retrieves the raw input from a device.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "RAWINPUT*",
+          "description": "Pointer to a buffer that receives the raw input data."
+        },
+        {
+          "name": "data_size",
+          "type": "UINT*",
+          "description": "Pointer to a variable that specifies the size, in bytes, of the data in the buffer specified by the pData parameter."
+        },
+        {
+          "name": "header_size",
+          "type": "UINT",
+          "description": "Size of the header for the raw input data."
+        }
+      ],
+      "return_type": "UINT, represents the number of raw input data. If the function fails, the return value is (UINT)-1."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetRawInputData",
+      "description": "This function retrieves raw input data from a specified device.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HRAWINPUT",
+          "description": "A handle to the raw input device."
+        },
+        {
+          "name": "command",
+          "type": "UINT",
+          "description": "The command to issue for the raw input data."
+        },
+        {
+          "name": "data",
+          "type": "void *",
+          "description": "A pointer to the data that comes from the raw input device."
+        },
+        {
+          "name": "data_size",
+          "type": "UINT *",
+          "description": "A pointer to the size of the data in bytes."
+        },
+        {
+          "name": "header_size",
+          "type": "UINT",
+          "description": "The size of the header for the raw input data."
+        }
+      ],
+      "return_type": "UINT, represents the number of bytes that are copied into data, or -1 if there is an error."
+    }
+  },
+  {
+    "function": {
+      "name": "process_rawinput_message",
+      "description": "This function processes raw input messages, handles device changes, and updates the thread's raw input data.",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "MSG *",
+          "description": "Pointer to the message to be processed."
+        },
+        {
+          "name": "hw_id",
+          "type": "UINT",
+          "description": "Hardware ID associated with the message."
+        },
+        {
+          "name": "msg_data",
+          "type": "struct hardware_msg_data *",
+          "description": "Pointer to the data of the hardware message."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function executes successfully, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "post_device_notifications",
+      "description": "This function posts device notifications for different types of devices such as mouse, keyboard and HID. It iterates over a list of devices and posts a message for each device that matches the usage page and usage of the filter.",
+      "parameters": [
+        {
+          "name": "filter",
+          "type": "RAWINPUTDEVICE *",
+          "description": "This parameter is a pointer to a RAWINPUTDEVICE structure that specifies the device for which notifications are to be posted."
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "register_rawinput_device",
+      "description": "This function registers a raw input device and updates the registered device count. It also handles device removal and device notifications.",
+      "parameters": [
+        {
+          "name": "device",
+          "type": "RAWINPUTDEVICE *",
+          "description": "This is a pointer to the raw input device to be registered or removed."
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserRegisterRawInputDevices",
+      "description": "This function registers raw input devices for the calling thread or removes previously registered raw input devices from the calling thread.",
+      "parameters": [
+        {
+          "name": "devices",
+          "type": "RAWINPUTDEVICE *",
+          "description": "Pointer to an array of RAWINPUTDEVICE structures that represent the devices to be registered."
+        },
+        {
+          "name": "device_count",
+          "type": "UINT",
+          "description": "Number of RAWINPUTDEVICE structures pointed to by the devices parameter."
+        },
+        {
+          "name": "device_size",
+          "type": "UINT",
+          "description": "Size of the RAWINPUTDEVICE structure."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function is successful. Otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetRegisteredRawInputDevices",
+      "description": "This function retrieves the registered raw input devices for the current application.",
+      "parameters": [
+        {
+          "name": "devices",
+          "type": "RAWINPUTDEVICE*",
+          "description": "Pointer to an array of RAWINPUTDEVICE structures that will receive the information."
+        },
+        {
+          "name": "device_count",
+          "type": "UINT*",
+          "description": "Pointer to a variable that specifies the number of RAWINPUTDEVICE structures in the array. On return, this variable will contain the number of devices registered."
+        },
+        {
+          "name": "device_size",
+          "type": "UINT",
+          "description": "Size of the RAWINPUTDEVICE structure, in bytes."
+        }
+      ],
+      "return_type": "UINT, represents the number of devices registered. If the function fails, it returns ~0u."
+    }
+  }
+]

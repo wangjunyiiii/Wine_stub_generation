@@ -1,0 +1,966 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IRunningObjectTable",
+      "description": "This function returns the containing record of the given interface in the RunningObjectTableImpl structure.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunningObjectTable *",
+          "description": "Pointer to the IRunningObjectTable interface"
+        }
+      ],
+      "return_type": "RunningObjectTableImpl pointer, representing the containing record of the given interface"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IEnumMoniker",
+      "description": "This function returns a pointer to the EnumMonikerImpl structure that contains the given IEnumMoniker interface pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumMoniker*",
+          "description": "This is a pointer to the IEnumMoniker interface."
+        }
+      ],
+      "return_type": "EnumMonikerImpl pointer, representing the containing record of the given IEnumMoniker interface pointer."
+    }
+  },
+  {
+    "function": {
+      "name": "create_stream_on_mip_ro",
+      "description": "This function creates a stream on a memory block, copies data into it and returns the stream.",
+      "parameters": [
+        {
+          "name": "mip",
+          "type": "InterfaceData *",
+          "description": "Pointer to the InterfaceData structure that contains the data to be copied into the stream"
+        },
+        {
+          "name": "stream",
+          "type": "IStream **",
+          "description": "Pointer to a pointer to an IStream interface on which the function creates a new stream object"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "rot_entry_delete",
+      "description": "This function deletes a rot_entry object. It frees the memory allocated for the object, its moniker_data and object fields. If the object's cookie field is not null, it revokes the cookie, frees the memory allocated for the object and moniker returned by the revoke operation, and releases the marshalled data if a stream could be created on the moniker. If the object's object field is not null, it releases the marshalled data if a stream could be created on the object.",
+      "parameters": [
+        {
+          "name": "rot_entry",
+          "type": "struct rot_entry*",
+          "description": "Pointer to the rot_entry object to be deleted"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "get_moniker_comparison_data",
+      "description": "This function retrieves comparison data for a given moniker. If the moniker supports IROTData, it uses that to retrieve the comparison data. If not, it generates comparison data from the moniker's display name.",
+      "parameters": [
+        {
+          "name": "pMoniker",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface on the moniker for which to get comparison data."
+        },
+        {
+          "name": "moniker_data",
+          "type": "MonikerComparisonData**",
+          "description": "Pointer to a pointer to a MonikerComparisonData structure. This structure receives the comparison data."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. It returns S_OK if the function is successful, E_OUTOFMEMORY if there is insufficient memory, or other standard COM error codes."
+    }
+  },
+  {
+    "function": {
+      "name": "reduce_moniker",
+      "description": "This function reduces a moniker using the IMoniker_Reduce method. If the provided bind context is null, it creates a new one. It also handles the release of the newly created bind context.",
+      "parameters": [
+        {
+          "name": "pmk",
+          "type": "IMoniker*",
+          "description": "Pointer to the moniker to be reduced"
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to the bind context. If this is null, a new bind context is created"
+        },
+        {
+          "name": "pmkReduced",
+          "type": "IMoniker**",
+          "description": "Pointer to the location where the reduced moniker will be stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, it returns S_OK. If it fails, it returns the error code"
+    }
+  },
+  {
+    "function": {
+      "name": "RunningObjectTableImpl_QueryInterface",
+      "description": "This function queries an interface of the running object table implementation.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunningObjectTable*",
+          "description": "Pointer to the IRunningObjectTable interface."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier (IID)."
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call. It returns S_OK if the interface is supported, and E_NOINTERFACE if not. It also returns E_INVALIDARG if the ppvObject argument is invalid."
+    }
+  },
+  {
+    "function": {
+      "name": "RunningObjectTableImpl_AddRef",
+      "description": "This function traces the interface and returns the value 2.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunningObjectTable *",
+          "description": "This parameter is a pointer to an IRunningObjectTable interface."
+        }
+      ],
+      "return_type": "ULONG, represents the constant value 2 in this context."
+    }
+  },
+  {
+    "function": {
+      "name": "RunningObjectTableImpl_Release",
+      "description": "This function releases an interface from the running object table.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunningObjectTable *",
+          "description": "This is the interface to be released from the running object table."
+        }
+      ],
+      "return_type": "ULONG, represents the status of the operation, in this case always returns 1 indicating success."
+    }
+  },
+  {
+    "function": {
+      "name": "RunningObjectTableImpl_Register",
+      "description": "This function registers an object and its moniker in the running object table (ROT). It also provides a unique identifier for the registered object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunningObjectTable*",
+          "description": "Pointer to the IRunningObjectTable interface"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags controlling the registration"
+        },
+        {
+          "name": "punkObject",
+          "type": "IUnknown*",
+          "description": "Pointer to the object to be registered"
+        },
+        {
+          "name": "pmkObjectName",
+          "type": "IMoniker*",
+          "description": "Pointer to the moniker of the object to be registered"
+        },
+        {
+          "name": "pdwRegister",
+          "type": "DWORD*",
+          "description": "Pointer to a DWORD variable which receives the unique identifier for the registered object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the function succeeds; otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "RunningObjectTableImpl_Revoke",
+      "description": "This function revokes a registration for a running object. It searches for the registration in the running object table and if found, removes it and deletes the entry.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunningObjectTable*",
+          "description": "Pointer to the IRunningObjectTable interface of the running object to be revoked."
+        },
+        {
+          "name": "dwRegister",
+          "type": "DWORD",
+          "description": "The registration key of the running object."
+        }
+      ],
+      "return_type": "HRESULT. Returns S_OK if the function successfully revokes the running object, otherwise returns E_INVALIDARG if the registration key is not found."
+    }
+  },
+  {
+    "function": {
+      "name": "RunningObjectTableImpl_IsRunning",
+      "description": "This function checks if the given object is running in the running object table. It does this by comparing the moniker data of the object with the entries in the running object table.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunningObjectTable*",
+          "description": "Interface to the running object table."
+        },
+        {
+          "name": "pmkObjectName",
+          "type": "IMoniker*",
+          "description": "Pointer to the moniker of the object to check."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. S_OK if the object is running, S_FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "RunningObjectTableImpl_GetObject",
+      "description": "This function retrieves an object from the Running Object Table (ROT) using a moniker. It also handles the case when the moniker is not available locally and needs to be fetched from the SCM.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunningObjectTable*",
+          "description": "Interface to the Running Object Table."
+        },
+        {
+          "name": "pmkObjectName",
+          "type": "IMoniker*",
+          "description": "Pointer to the moniker of the object to be retrieved."
+        },
+        {
+          "name": "ppunkObject",
+          "type": "IUnknown**",
+          "description": "Pointer to the location where the retrieved object's IUnknown interface pointer will be stored."
+        }
+      ],
+      "return_type": "HRESULT, where a successful operation returns S_OK and an unsuccessful operation returns a failure code. E_POINTER is returned if ppunkObject is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "RunningObjectTableImpl_NoteChangeTime",
+      "description": "This function updates the last modified time of a registered object in the running object table.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunningObjectTable*",
+          "description": "Pointer to an interface of the running object table."
+        },
+        {
+          "name": "dwRegister",
+          "type": "DWORD",
+          "description": "The registration key of the object in the running object table."
+        },
+        {
+          "name": "pfiletime",
+          "type": "FILETIME*",
+          "description": "Pointer to the new last modified time to be set for the object."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns E_INVALIDARG if the object is not found in the running object table, otherwise it returns the result of the InternalIrotNoteChangeTime function."
+    }
+  },
+  {
+    "function": {
+      "name": "RunningObjectTableImpl_GetTimeOfLastChange",
+      "description": "This function retrieves the time of the last change to the specified object in the running object table (ROT).",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunningObjectTable*",
+          "description": "Pointer to the IRunningObjectTable interface."
+        },
+        {
+          "name": "pmkObjectName",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface that represents the object name."
+        },
+        {
+          "name": "pfiletime",
+          "type": "FILETIME*",
+          "description": "Pointer to a FILETIME structure that receives the object's last change time."
+        }
+      ],
+      "return_type": "HRESULT, where a successful return is S_OK and any other value indicates failure. It represents the status of the function call."
+    }
+  },
+  {
+    "function": {
+      "name": "RunningObjectTableImpl_EnumRunning",
+      "description": "This function enumerates the running object table and creates an enumeration of monikers.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunningObjectTable*",
+          "description": "Pointer to an interface of the running object table."
+        },
+        {
+          "name": "ppenumMoniker",
+          "type": "IEnumMoniker**",
+          "description": "Double pointer to an enumeration of monikers."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "GetRunningObjectTable",
+      "description": "This function retrieves the Running Object Table (ROT) for the current process, checks if the process is initialized, and increments the reference count of the ROT.",
+      "parameters": [
+        {
+          "name": "reserved",
+          "type": "DWORD",
+          "description": "This parameter is reserved and must be zero."
+        },
+        {
+          "name": "ret",
+          "type": "IRunningObjectTable **",
+          "description": "This is a pointer to a pointer to the IRunningObjectTable interface. On successful return, *ret contains the requested interface pointer to the ROT."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If the process is not initialized, it returns CO_E_NOTINITIALIZED. If the reserved parameter is not zero, it returns E_UNEXPECTED."
+    }
+  },
+  {
+    "function": {
+      "name": "DestroyRunningObjectTable",
+      "description": "This function destroys the running object table by entering a critical section, iterating over each entry in the table, removing the entry and deleting it, and then leaving the critical section.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, meaning it does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "get_moniker_for_progid_display_name",
+      "description": "This function gets a moniker for a given program identifier display name. It handles memory allocation, class ID retrieval, moniker creation, and object binding, with error checking at each step.",
+      "parameters": [
+        {
+          "name": "pbc",
+          "type": "LPBC",
+          "description": "Pointer to the bind context interface"
+        },
+        {
+          "name": "szDisplayName",
+          "type": "LPCOLESTR",
+          "description": "Pointer to the display name string"
+        },
+        {
+          "name": "pchEaten",
+          "type": "LPDWORD",
+          "description": "Pointer to the number of characters parsed in the display name"
+        },
+        {
+          "name": "ppmk",
+          "type": "LPMONIKER*",
+          "description": "Pointer to the resulting moniker"
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns MK_E_SYNTAX if the syntax is incorrect, or the result of the moniker creation and binding operations."
+    }
+  },
+  {
+    "function": {
+      "name": "MkParseDisplayName",
+      "description": "This function parses a display name and returns a moniker that represents it.",
+      "parameters": [
+        {
+          "name": "pbc",
+          "type": "LPBC",
+          "description": "Pointer to the bind context used in this operation"
+        },
+        {
+          "name": "szDisplayName",
+          "type": "LPCOLESTR",
+          "description": "Pointer to the display name to be parsed"
+        },
+        {
+          "name": "pchEaten",
+          "type": "LPDWORD",
+          "description": "Pointer to a variable that receives the number of characters successfully parsed in szDisplayName"
+        },
+        {
+          "name": "ppmk",
+          "type": "LPMONIKER*",
+          "description": "Address of IMoniker pointer variable that receives the interface pointer to the resulting moniker"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "GetClassFile",
+      "description": "This function attempts to retrieve the CLSID associated with a given file. It first checks if the file contains a storage object and returns the CLSID written by IStorage_SetClass method. If the file is not a storage object, it attempts to match various bits in the file against a pattern in the registry. If these strategies fail, it searches for the extension key in the registry.",
+      "parameters": [
+        {
+          "name": "filePathName",
+          "type": "LPCOLESTR",
+          "description": "The path of the file to get the CLSID from."
+        },
+        {
+          "name": "pclsid",
+          "type": "CLSID*",
+          "description": "Pointer to the CLSID associated with the file."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns S_OK if the function is successful, MK_E_INVALIDEXTENSION if the file extension is not valid or not found in the registry, or other error codes as defined by the HRESULT type."
+    }
+  },
+  {
+    "function": {
+      "name": "EnumMonikerImpl_QueryInterface",
+      "description": "This function is used to query an interface of a moniker enumerator. It checks if the requested interface (identified by riid) is supported, and if so, returns a pointer to it in ppvObject.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumMoniker*",
+          "description": "Pointer to the IEnumMoniker interface of the moniker enumerator"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Identifier of the interface being requested"
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "If the interface is supported, a pointer to it is returned in this parameter"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the interface is supported, E_NOINTERFACE if the interface is not supported, and E_INVALIDARG if ppvObject is NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "EnumMonikerImpl_AddRef",
+      "description": "This function increments the reference count of the EnumMonikerImpl object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumMoniker*",
+          "description": "Pointer to the IEnumMoniker interface of the EnumMonikerImpl object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after the increment."
+    }
+  },
+  {
+    "function": {
+      "name": "EnumMonikerImpl_Release",
+      "description": "This function releases the IEnumMoniker interface, decrements the reference count, and if there are no more references, it uninitializes the ROT structure and frees the memory allocated for the moniker list and the interface itself.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumMoniker*",
+          "description": "Pointer to the IEnumMoniker interface to be released"
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after the release operation"
+    }
+  },
+  {
+    "function": {
+      "name": "EnumMonikerImpl_Next",
+      "description": "This function retrieves the requested number of moniker from the current position.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumMoniker*",
+          "description": "Interface for enumeration of the monikers."
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "Number of elements in the enumeration sequence to return."
+        },
+        {
+          "name": "rgelt",
+          "type": "IMoniker**",
+          "description": "Pointer to an array to receive the interfaces requested in the enumeration sequence."
+        },
+        {
+          "name": "pceltFetched",
+          "type": "ULONG*",
+          "description": "Pointer to a location that receives the actual number of elements enumerated."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. S_OK if the function was successful, S_FALSE if not all elements could be enumerated, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "EnumMonikerImpl_Skip",
+      "description": "This function skips a certain number of elements in a moniker list.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumMoniker*",
+          "description": "Interface pointer to the enumeration object"
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "The number of elements to be skipped"
+        }
+      ],
+      "return_type": "HRESULT, where S_OK represents successful completion and S_FALSE indicates that there are not enough elements to skip"
+    }
+  },
+  {
+    "function": {
+      "name": "EnumMonikerImpl_Reset",
+      "description": "This function resets the position of the EnumMonikerImpl object back to the start of the list.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumMoniker*",
+          "description": "This parameter is a pointer to an IEnumMoniker interface."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. It returns S_OK if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "EnumMonikerImpl_Clone",
+      "description": "This function clones an enumeration of monikers, which are objects that provide a pointer to other objects, allowing the same object to be accessed multiple times.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumMoniker*",
+          "description": "Pointer to the enumeration of monikers to be cloned"
+        },
+        {
+          "name": "ppenum",
+          "type": "IEnumMoniker**",
+          "description": "Pointer to a pointer, where the cloned enumeration of monikers will be stored"
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns E_OUTOFMEMORY if there is not enough memory to complete the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "EnumMonikerImpl_CreateEnumROTMoniker",
+      "description": "This function creates an enumeration of Component Object Model (COM) monikers from a list of interfaces, starting at a specified position.",
+      "parameters": [
+        {
+          "name": "moniker_list",
+          "type": "InterfaceList *",
+          "description": "Pointer to the list of interfaces from which the enumeration is created."
+        },
+        {
+          "name": "current_pos",
+          "type": "ULONG",
+          "description": "The position in the list where the enumeration should start."
+        },
+        {
+          "name": "ppenumMoniker",
+          "type": "IEnumMoniker **",
+          "description": "Pointer to a pointer to the IEnumMoniker interface on the enumeration object that this function creates."
+        }
+      ],
+      "return_type": "HRESULT, which represents whether the function was successful or not. It returns S_OK if successful, E_INVALIDARG if the ppenumMoniker argument is NULL, or E_OUTOFMEMORY if there is insufficient memory to create the enumeration object."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IUnknown",
+      "description": "This function returns the containing record for the given interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown *",
+          "description": "This is the interface for which the containing record is to be returned."
+        }
+      ],
+      "return_type": "MonikerMarshal, which represents the containing record for the given interface."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IMarshal",
+      "description": "This function returns the containing record for the given interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal",
+          "description": "Interface for which the containing record is to be returned."
+        }
+      ],
+      "return_type": "MonikerMarshal, which represents the containing record for the given interface."
+    }
+  },
+  {
+    "function": {
+      "name": "MonikerMarshalInner_QueryInterface",
+      "description": "This function queries an interface and returns a pointer to that interface if it is supported.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown*",
+          "description": "Pointer to the interface to be queried."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested."
+        },
+        {
+          "name": "ppv",
+          "type": "LPVOID*",
+          "description": "Address of the pointer variable that receives the interface pointer requested in riid. Upon successful return, *ppv contains the requested interface pointer. If the object does not support the interface, *ppv will contain NULL."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns S_OK if the interface is supported, and E_NOINTERFACE if not."
+    }
+  },
+  {
+    "function": {
+      "name": "MonikerMarshalInner_AddRef",
+      "description": "This function increments the reference count of the MonikerMarshal object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown*",
+          "description": "This parameter is a pointer to an IUnknown interface."
+        }
+      ],
+      "return_type": "ULONG, which represents the new reference count after increment."
+    }
+  },
+  {
+    "function": {
+      "name": "MonikerMarshalInner_Release",
+      "description": "This function releases the MonikerMarshal object and decrements the reference count. If the reference count is zero, it frees the memory allocated for this object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown *",
+          "description": "This parameter is a pointer to the IUnknown interface of the MonikerMarshal object."
+        }
+      ],
+      "return_type": "ULONG, it represents the new reference count of the MonikerMarshal object after it has been decremented."
+    }
+  },
+  {
+    "function": {
+      "name": "MonikerMarshal_QueryInterface",
+      "description": "This function queries an interface of a MonikerMarshal object and returns the interface if it is available.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal*",
+          "description": "Pointer to an IMarshal interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested"
+        },
+        {
+          "name": "ppv",
+          "type": "LPVOID*",
+          "description": "Pointer to the pointer that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the operation. If the interface is successfully retrieved, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "MonikerMarshal_AddRef",
+      "description": "This function adds a reference to a MonikerMarshal object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal*",
+          "description": "Pointer to an IMarshal interface"
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the MonikerMarshal object"
+    }
+  },
+  {
+    "function": {
+      "name": "MonikerMarshal_Release",
+      "description": "This function releases the MonikerMarshal object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal *",
+          "description": "Pointer to an IMarshal interface"
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the MonikerMarshal object"
+    }
+  },
+  {
+    "function": {
+      "name": "MonikerMarshal_GetUnmarshalClass",
+      "description": "This function retrieves the CLSID of the unmarshaler that will be used when an object is unmarshaled from a buffer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPMARSHAL",
+          "description": "Pointer to the IMarshal interface."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface to be unmarshaled."
+        },
+        {
+          "name": "pv",
+          "type": "void*",
+          "description": "Pointer to the buffer from which the object is to be unmarshaled."
+        },
+        {
+          "name": "dwDestContext",
+          "type": "DWORD",
+          "description": "The destination context where the unmarshaled object will be run."
+        },
+        {
+          "name": "pvDestContext",
+          "type": "void*",
+          "description": "Pointer to the destination context."
+        },
+        {
+          "name": "mshlflags",
+          "type": "DWORD",
+          "description": "Indicates the reason for marshaling the interface."
+        },
+        {
+          "name": "pCid",
+          "type": "CLSID*",
+          "description": "Pointer to the CLSID of the unmarshaler."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns the standard values E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, or the standard self-registrable UnMarshaler errors."
+    }
+  },
+  {
+    "function": {
+      "name": "MonikerMarshal_GetMarshalSizeMax",
+      "description": "This function retrieves the size, in bytes, of the stream needed to marshal the object pointed to by the IMoniker pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPMARSHAL",
+          "description": "Pointer to the IMarshal interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface to be marshaled"
+        },
+        {
+          "name": "pv",
+          "type": "void*",
+          "description": "Pointer to the object to be marshaled"
+        },
+        {
+          "name": "dwDestContext",
+          "type": "DWORD",
+          "description": "Destination context for marshaling"
+        },
+        {
+          "name": "pvDestContext",
+          "type": "void*",
+          "description": "Pointer to the destination context"
+        },
+        {
+          "name": "mshlflags",
+          "type": "DWORD",
+          "description": "Indicates the type of marshaling being used"
+        },
+        {
+          "name": "pSize",
+          "type": "DWORD*",
+          "description": "Pointer to the variable that receives the size of the stream needed to marshal the object"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns S_OK if successful"
+    }
+  },
+  {
+    "function": {
+      "name": "MonikerMarshal_MarshalInterface",
+      "description": "This function marshals interfaces of a MonikerMarshal object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPMARSHAL",
+          "description": "Pointer to the interface to be marshaled."
+        },
+        {
+          "name": "pStm",
+          "type": "IStream*",
+          "description": "Pointer to the stream where the marshaled interface is to be written."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface to be marshaled."
+        },
+        {
+          "name": "pv",
+          "type": "void*",
+          "description": "Pointer to the object to be marshaled."
+        },
+        {
+          "name": "dwDestContext",
+          "type": "DWORD",
+          "description": "Destination context for the marshaled data."
+        },
+        {
+          "name": "pvDestContext",
+          "type": "void*",
+          "description": "Pointer to the destination context."
+        },
+        {
+          "name": "mshlflags",
+          "type": "DWORD",
+          "description": "Flags controlling the marshaling process."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the marshaling operation. If the operation was successful, it returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "MonikerMarshal_UnmarshalInterface",
+      "description": "This function unmarshals an interface from a stream, using the IMoniker interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPMARSHAL",
+          "description": "Pointer to the IMarshal interface"
+        },
+        {
+          "name": "pStm",
+          "type": "IStream*",
+          "description": "Pointer to the IStream interface from which the object is to be marshaled"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface to be unmarshaled"
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK if successful"
+    }
+  },
+  {
+    "function": {
+      "name": "MonikerMarshal_ReleaseMarshalData",
+      "description": "This function is used to release marshal data for a moniker. However, it does not actually release anything as there is nothing on the server side to release.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPMARSHAL",
+          "description": "Interface pointer to the marshal"
+        },
+        {
+          "name": "pStm",
+          "type": "IStream*",
+          "description": "Pointer to the stream where the marshal data is stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns S_OK indicating success."
+    }
+  },
+  {
+    "function": {
+      "name": "MonikerMarshal_DisconnectObject",
+      "description": "This function is used to disconnect a state-based marshal. However, it doesn't actually disconnect anything because there's nothing on the server side to disconnect from.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPMARSHAL",
+          "description": "Interface to the marshal that is to be disconnected"
+        },
+        {
+          "name": "dwReserved",
+          "type": "DWORD",
+          "description": "Reserved for future use"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns S_OK indicating the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "MonikerMarshal_Create",
+      "description": "This function creates a MonikerMarshal object and initializes its members. It also allocates memory for the new object.",
+      "parameters": [
+        {
+          "name": "inner",
+          "type": "IMoniker*",
+          "description": "Pointer to an IMoniker interface that the MonikerMarshal object will use."
+        },
+        {
+          "name": "outer",
+          "type": "IUnknown**",
+          "description": "Address of a pointer to an IUnknown interface. This function will set the pointer to the IUnknown interface of the new MonikerMarshal object."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. It returns S_OK if the function succeeds or an error code if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "MIDL_user_allocate",
+      "description": "This function allocates memory of a specified size.",
+      "parameters": [
+        {
+          "name": "size",
+          "type": "SIZE_T",
+          "description": "This parameter specifies the size of the memory to be allocated."
+        }
+      ],
+      "return_type": "void pointer, representing the starting address of the allocated memory."
+    }
+  },
+  {
+    "function": {
+      "name": "MIDL_user_free",
+      "description": "This function frees the memory space pointed to by the parameter.",
+      "parameters": [
+        {
+          "name": "p",
+          "type": "void*",
+          "description": "This is a pointer to the memory space that needs to be freed."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  }
+]

@@ -1,0 +1,1744 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IOleObject",
+      "description": "This function returns the containing record for the given IOleObject interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject *",
+          "description": "Pointer to IOleObject interface from which the containing record is to be retrieved."
+        }
+      ],
+      "return_type": "DefaultHandler * - Pointer to the containing record of type DefaultHandler."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IUnknown",
+      "description": "This function returns the containing record for the given interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown *",
+          "description": "Pointer to the interface from which the containing record is to be retrieved."
+        }
+      ],
+      "return_type": "DefaultHandler pointer, representing the containing record for the given interface."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IDataObject",
+      "description": "This function returns the containing record for the given IDataObject interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "This parameter represents the IDataObject interface for which the containing record is to be returned."
+        }
+      ],
+      "return_type": "DefaultHandler* - Represents the containing record for the given IDataObject interface."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IRunnableObject",
+      "description": "This function returns the containing record for the given IRunnableObject interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunnableObject*",
+          "description": "This parameter is used to specify the IRunnableObject interface for which the containing record is to be returned."
+        }
+      ],
+      "return_type": "DefaultHandler*; represents the containing record for the given IRunnableObject interface."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IAdviseSink",
+      "description": "This function returns a pointer to the DefaultHandler structure that contains the given IAdviseSink interface pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAdviseSink *",
+          "description": "Pointer to IAdviseSink interface"
+        }
+      ],
+      "return_type": "DefaultHandler pointer, representing the DefaultHandler structure that contains the IAdviseSink interface pointer"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IPersistStorage",
+      "description": "This function returns the containing record for the given IPersistStorage interface pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage *",
+          "description": "Pointer to an IPersistStorage interface"
+        }
+      ],
+      "return_type": "DefaultHandler pointer that represents the containing record for the given IPersistStorage interface pointer"
+    }
+  },
+  {
+    "function": {
+      "name": "object_is_running",
+      "description": "This function checks if the object is running by calling the IRunnableObject_IsRunning method on the IRunnableObject interface of the object.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "DefaultHandler*",
+          "description": "This is a pointer to the object that we want to check if it is running."
+        }
+      ],
+      "return_type": "BOOL, represents whether the object is running or not."
+    }
+  },
+  {
+    "function": {
+      "name": "start_object_call",
+      "description": "This function increments the 'in_call' property of the DefaultHandler object.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "DefaultHandler*",
+          "description": "Pointer to the DefaultHandler object whose 'in_call' property is to be incremented."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "end_object_call",
+      "description": "This function decreases the in_call count of the DefaultHandler object. If the in_call count reaches 0 and the object_state is object_state_deferred_close, it stops the DefaultHandler.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "DefaultHandler*",
+          "description": "This is a pointer to the DefaultHandler object whose in_call count is to be decreased and possibly stopped."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_NDIUnknown_QueryInterface",
+      "description": "This function is used to query an interface based on the provided interface identifier (riid). It checks if the requested interface is supported, and if so, it returns a pointer to that interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown*",
+          "description": "Pointer to the IUnknown interface of the object for which the new interface is being requested."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Identifier of the interface being requested."
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *ppvObject contains the requested interface pointer. If the object does not support the interface, *ppvObject is set to NULL."
+        }
+      ],
+      "return_type": "HRESULT. It returns S_OK if the interface is supported, E_NOINTERFACE if not supported, and E_INVALIDARG if ppvObject is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_NDIUnknown_AddRef",
+      "description": "This function increments the reference count of the DefaultHandler object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown*",
+          "description": "Pointer to the IUnknown interface of the DefaultHandler object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the DefaultHandler object after increment."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_NDIUnknown_Release",
+      "description": "This function decrements the reference count of the DefaultHandler object. If the reference count becomes zero, the object is destroyed.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown*",
+          "description": "Pointer to an IUnknown interface of the DefaultHandler object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the DefaultHandler object after decrement."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_QueryInterface",
+      "description": "This function queries an interface from a DefaultHandler object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "Pointer to an IOleObject interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested"
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. The value S_OK indicates success and any other value indicates failure"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_AddRef",
+      "description": "This function increments the reference count for an interface on an object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "Pointer to the interface that needs its reference count incremented."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the object after the increment."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_Release",
+      "description": "This function releases the DefaultHandler object by calling the IUnknown_Release method on its outerUnknown member.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "Pointer to an IOleObject interface that is used to get the DefaultHandler object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count. This value is intended to be used for test purposes only."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_SetClientSite",
+      "description": "This function sets the client site for the default handler. It also manages the reference count for the client site.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "Pointer to an IOleObject interface that represents the object for which the client site is being set."
+        },
+        {
+          "name": "pClientSite",
+          "type": "IOleClientSite*",
+          "description": "Pointer to an IOleClientSite interface that represents the client site to be set."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful, error code otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_GetClientSite",
+      "description": "This function retrieves the client site for the default handler. If the client site is not null, it increments the reference count of the client site.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "Pointer to an IOleObject interface."
+        },
+        {
+          "name": "ppClientSite",
+          "type": "IOleClientSite**",
+          "description": "Address of IOleClientSite pointer variable that receives the interface pointer to the client site."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. Returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_SetHostNames",
+      "description": "This function sets the host names for a DefaultHandler object. It first checks if the object is running, and if so, it starts an object call and sets the host names. It then cleans up any existing host names before re-assigning the new ones.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "Interface to the DefaultHandler object"
+        },
+        {
+          "name": "szContainerApp",
+          "type": "LPCOLESTR",
+          "description": "Name of the container application"
+        },
+        {
+          "name": "szContainerObj",
+          "type": "LPCOLESTR",
+          "description": "Name of the container object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK if the operation was successful"
+    }
+  },
+  {
+    "function": {
+      "name": "release_delegates",
+      "description": "This function releases the delegates and sets them to NULL.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "DefaultHandler*",
+          "description": "Pointer to the DefaultHandler object whose delegates are to be released"
+        }
+      ],
+      "return_type": "void, as this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_Stop",
+      "description": "This function stops the default handler by releasing its delegates, disconnecting its data advise holder, and setting its object state to not running. It also unadvises the OleDelegate and releases the cache control if the query for the interface is successful.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "DefaultHandler *",
+          "description": "This is a pointer to the DefaultHandler instance that needs to be stopped."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_Close",
+      "description": "This function closes the DefaultHandler object and stops its operation. It first checks if the object is running, if not it returns S_OK. If it is running, it starts an object call, attempts to close the IOleObject, ends the object call, and then stops the DefaultHandler.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "This is an interface pointer to the object that needs to be closed."
+        },
+        {
+          "name": "dwSaveOption",
+          "type": "DWORD",
+          "description": "This parameter represents the options for saving the object before closing it."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the object is not running, otherwise it returns the result of the IOleObject_Close function."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_SetMoniker",
+      "description": "This function sets a moniker for a default handler object if the object is running.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "Pointer to an IOleObject interface"
+        },
+        {
+          "name": "dwWhichMoniker",
+          "type": "DWORD",
+          "description": "Specifies the moniker"
+        },
+        {
+          "name": "pmk",
+          "type": "IMoniker*",
+          "description": "Pointer to an IMoniker interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK if the operation was successful"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_GetMoniker",
+      "description": "This function is used to get a moniker that can be used to create a link to the object. If the object is running, it delegates the call to the object's IOleObject interface. If the object is not running but has a client site, it delegates the call to the object's IOleClientSite interface. If neither condition is met, it returns E_FAIL.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "Pointer to the IOleObject interface of the object."
+        },
+        {
+          "name": "dwAssign",
+          "type": "DWORD",
+          "description": "Specifies the degree of moniker assignment."
+        },
+        {
+          "name": "dwWhichMoniker",
+          "type": "DWORD",
+          "description": "Specifies which moniker to return."
+        },
+        {
+          "name": "ppmk",
+          "type": "IMoniker**",
+          "description": "Address of IMoniker pointer variable that receives the interface pointer to the moniker."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. It returns S_OK on success, and an error code on failure."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_InitFromData",
+      "description": "This function initializes a DefaultHandler object from data. It checks if the object is running, and if so, it starts an object call, initializes the object from data, and ends the object call.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "Interface pointer to an IOleObject"
+        },
+        {
+          "name": "pDataObject",
+          "type": "IDataObject*",
+          "description": "Pointer to the data object from which the DefaultHandler object is to be initialized"
+        },
+        {
+          "name": "fCreation",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether the object is being created"
+        },
+        {
+          "name": "dwReserved",
+          "type": "DWORD",
+          "description": "Reserved DWORD value"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation is successful, it returns S_OK. If the object is not running, it returns OLE_E_NOTRUNNING."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_GetClipboardData",
+      "description": "This function checks if an object is running, if so, it starts the object call, gets the clipboard data, ends the object call and returns the HRESULT status.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "Interface pointer to the object"
+        },
+        {
+          "name": "dwReserved",
+          "type": "DWORD",
+          "description": "Reserved DWORD value"
+        },
+        {
+          "name": "ppDataObject",
+          "type": "IDataObject**",
+          "description": "Pointer to the IDataObject interface pointer to receive the interface pointer to the data object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. OLE_E_NOTRUNNING if the object is not running, otherwise the status of IOleObject_GetClipboardData operation"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_DoVerb",
+      "description": "This function runs an object and starts an object call, then performs a verb on the object and ends the object call.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "Interface pointer to an OLE object"
+        },
+        {
+          "name": "iVerb",
+          "type": "LONG",
+          "description": "Specifies the verb to be performed"
+        },
+        {
+          "name": "lpmsg",
+          "type": "struct tagMSG*",
+          "description": "Pointer to a structure that specifies a message"
+        },
+        {
+          "name": "pActiveSite",
+          "type": "IOleClientSite*",
+          "description": "Pointer to the active client site"
+        },
+        {
+          "name": "lindex",
+          "type": "LONG",
+          "description": "Specifies the index of the verb"
+        },
+        {
+          "name": "hwndParent",
+          "type": "HWND",
+          "description": "Handle to the parent window"
+        },
+        {
+          "name": "lprcPosRect",
+          "type": "LPCRECT",
+          "description": "Pointer to a structure that specifies the position rectangle"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. If the function call is successful, it returns S_OK. If the function call fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_EnumVerbs",
+      "description": "This function is used to enumerate the OLE verbs for a given object. If the object is running, it calls the IOleObject_EnumVerbs function. If the HRESULT returned is OLE_S_USEREG, it calls the OleRegEnumVerbs function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "This is the interface pointer for the object."
+        },
+        {
+          "name": "ppEnumOleVerb",
+          "type": "IEnumOLEVERB**",
+          "description": "This is a pointer to a pointer to an IEnumOLEVERB interface, which will receive the enumerated OLE verbs."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation was successful, it returns S_OK. If it failed, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_Update",
+      "description": "This function updates the default handler. It checks if the object is running, if not, it returns an error. If the object is running, it starts the object call, updates the IOleObject and ends the object call.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "This is the interface of the OleObject that needs to be updated."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation is successful, it returns the updated IOleObject. If the object is not running, it returns an error."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IsUpToDate",
+      "description": "This function checks if the default handler is up to date. If the object is running, it starts an object call, checks if the OleObject is up to date, ends the object call, and returns the result.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "This is an interface pointer used to interact with the OLE Object."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. It returns OLE_E_NOTRUNNING if the object is not running, otherwise it returns the result of the IOleObject_IsUpToDate function."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_GetUserClassID",
+      "description": "This function retrieves the CLSID for an object and handles the object based on its running state. If the object is running, it delegates the call to the object's IOleObject interface. If the object is not running, it directly assigns the object's CLSID to the provided pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "Pointer to the IOleObject interface of the object"
+        },
+        {
+          "name": "pClsid",
+          "type": "CLSID*",
+          "description": "Pointer to a CLSID variable that receives the object's class identifier"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. It returns S_OK if the function succeeds. If the pClsid pointer is NULL, it returns E_POINTER. If the object is running, it returns the result of the delegated IOleObject_GetUserClassID call."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_GetUserType",
+      "description": "This function retrieves the user type name of the object from the registry or the delegate, if the object is running.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "Pointer to an IOleObject interface."
+        },
+        {
+          "name": "dwFormOfType",
+          "type": "DWORD",
+          "description": "The form of the user type name to be retrieved."
+        },
+        {
+          "name": "pszUserType",
+          "type": "LPOLESTR*",
+          "description": "Pointer to a string that receives the user type name."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_SetExtent",
+      "description": "This function sets the extent of an object. It checks if the object is running, if so, it starts an object call, sets the extent, and ends the object call.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "Pointer to an IOleObject interface"
+        },
+        {
+          "name": "dwDrawAspect",
+          "type": "DWORD",
+          "description": "The aspect of the object"
+        },
+        {
+          "name": "psizel",
+          "type": "SIZEL*",
+          "description": "Pointer to a SIZEL structure that specifies the intended size of the object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. If the function succeeds, it returns S_OK. If the object is not running, it returns OLE_E_NOTRUNNING."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_GetExtent",
+      "description": "This function is used to get the extent of an object. If the object is running, it gets the extent from the IOleObject interface. If not, it queries the data cache for the IViewObject2 interface and gets the extent from there.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "Pointer to an IOleObject interface."
+        },
+        {
+          "name": "dwDrawAspect",
+          "type": "DWORD",
+          "description": "Specifies the aspect to be used for subsequent drawing operations."
+        },
+        {
+          "name": "psizel",
+          "type": "SIZEL*",
+          "description": "Pointer to a SIZEL structure that should receive the object's extent."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If the function fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_Advise",
+      "description": "This function is used to create an advise holder if it doesn't exist and then advise the advise holder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "Interface pointer used to get the implementation from IOleObject"
+        },
+        {
+          "name": "pAdvSink",
+          "type": "IAdviseSink*",
+          "description": "Pointer to the IAdviseSink interface"
+        },
+        {
+          "name": "pdwConnection",
+          "type": "DWORD*",
+          "description": "Pointer to a DWORD to receive the advise connection"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, it returns S_OK, otherwise it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_Unadvise",
+      "description": "This function unadvises a connection from an IOleObject interface. If the object does not have an advise holder, it means it does not have a connection and returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "Pointer to an IOleObject interface"
+        },
+        {
+          "name": "dwConnection",
+          "type": "DWORD",
+          "description": "A connection to be unadvised"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns OLE_E_NOCONNECTION if the object does not have a connection, otherwise returns the result of IOleAdviseHolder_Unadvise function"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_EnumAdvise",
+      "description": "This function is used to enumerate through the advise holders of an OLE object. If the advise holder does not exist, the function returns S_OK. If the pointer to the enumeration interface is null, it returns E_POINTER.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "This is an interface pointer to the OLE object."
+        },
+        {
+          "name": "ppenumAdvise",
+          "type": "IEnumSTATDATA**",
+          "description": "This is a pointer to a pointer to the enumeration interface."
+        }
+      ],
+      "return_type": "HRESULT. This represents the status of the operation. It returns S_OK if the operation is successful, E_POINTER if the pointer to the enumeration interface is null, or the result of the IOleAdviseHolder_EnumAdvise function."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_GetMiscStatus",
+      "description": "This function retrieves the status of an object and checks if it is running. If the object is running, it starts an object call, gets the object's miscellaneous status, ends the object call, and returns the HRESULT. If the object is not running, it retrieves the object's miscellaneous status from the registry. If the retrieval fails, it sets the status to 0 and returns the HRESULT.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "Pointer to an IOleObject interface"
+        },
+        {
+          "name": "dwAspect",
+          "type": "DWORD",
+          "description": "Specifies the aspect of an object"
+        },
+        {
+          "name": "pdwStatus",
+          "type": "DWORD*",
+          "description": "Pointer to a variable that receives the status of an object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status code of the function execution"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_SetColorScheme",
+      "description": "This function sets the color scheme for a given IOleObject. It first checks if the object is running, then starts the object call, sets the color scheme, and ends the object call.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleObject*",
+          "description": "This is the interface for the object that the color scheme is being set for."
+        },
+        {
+          "name": "pLogpal",
+          "type": "struct tagLOGPALETTE*",
+          "description": "This is the new color scheme that is being set."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation is successful, it returns S_OK. If the object is not running, it returns OLE_E_NOTRUNNING."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IDataObject_QueryInterface",
+      "description": "This function queries an interface of a data object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Pointer to the interface of the data object."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested."
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. It can indicate success or failure, and carries information about the result of the function."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IDataObject_AddRef",
+      "description": "This function adds a reference to the IDataObject interface of the DefaultHandler object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Pointer to the IDataObject interface of the DefaultHandler object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the IDataObject interface of the DefaultHandler object."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IDataObject_Release",
+      "description": "This function releases the IDataObject interface of the DefaultHandler object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Pointer to the IDataObject interface of the DefaultHandler object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the outer unknown object after the release operation."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_GetData",
+      "description": "This function retrieves data from a source data object. The function implements error handling and checks the running state of the object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Pointer to an interface that allows a client to communicate with a data object"
+        },
+        {
+          "name": "pformatetcIn",
+          "type": "LPFORMATETC",
+          "description": "Pointer to a FORMATETC structure that defines the format, medium, and target device for notification"
+        },
+        {
+          "name": "pmedium",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to a STGMEDIUM structure that defines the storage medium in which the data is being transferred"
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function. It can return various status codes, including S_OK if the function is successful, E_UNEXPECTED if an unexpected error occurs, or OLE_E_NOTRUNNING if the object is not running."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_GetDataHere",
+      "description": "This function is a stub and not yet implemented. It is expected to handle data retrieval in the default handler.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Interface for the data object"
+        },
+        {
+          "name": "pformatetc",
+          "type": "LPFORMATETC",
+          "description": "Pointer to a FORMATETC structure"
+        },
+        {
+          "name": "pmedium",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to a STGMEDIUM structure"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function call. In this case, it always returns E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_QueryGetData",
+      "description": "This function queries the data object to get the data. If the object is running, it starts the object call and queries the data again. If the object is not running, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Interface to the data object"
+        },
+        {
+          "name": "pformatetc",
+          "type": "LPFORMATETC",
+          "description": "Pointer to the FORMATETC structure"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function execution. It can be a success code, an error code or a warning code."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_GetCanonicalFormatEtc",
+      "description": "This function checks if the object is running, starts the object call, gets the canonical format, ends the object call, and returns the HRESULT.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Interface pointer to the data object"
+        },
+        {
+          "name": "pformatetcIn",
+          "type": "LPFORMATETC",
+          "description": "Pointer to the FORMATETC structure that defines the format, medium, and target device that the caller would like to use for a subsequent data transfer"
+        },
+        {
+          "name": "pformatetcOut",
+          "type": "LPFORMATETC",
+          "description": "Pointer to a FORMATETC structure that receives the most general information possible for a subsequent data transfer"
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function. It can return OLE_E_NOTRUNNING if the object is not running, or the result of IDataObject_GetCanonicalFormatEtc function call."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_SetData",
+      "description": "This function sets data to a default handler. It first retrieves the default handler from the IDataObject interface, then queries the data cache for an IDataObject interface. If successful, it sets the data using the IDataObject_SetData function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Pointer to an IDataObject interface"
+        },
+        {
+          "name": "pformatetc",
+          "type": "LPFORMATETC",
+          "description": "Pointer to a FORMATETC structure"
+        },
+        {
+          "name": "pmedium",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to a STGMEDIUM structure"
+        },
+        {
+          "name": "fRelease",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether to release the data object after setting the data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_EnumFormatEtc",
+      "description": "This function is used to enumerate the FORMATETC structures for a data object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Pointer to an IDataObject interface"
+        },
+        {
+          "name": "dwDirection",
+          "type": "DWORD",
+          "description": "Specifies the direction of the enumeration"
+        },
+        {
+          "name": "ppenumFormatEtc",
+          "type": "IEnumFORMATETC**",
+          "description": "Pointer to a pointer to an IEnumFORMATETC interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_DAdvise",
+      "description": "This function is used to create a data advise holder if it doesn't exist and then advise the data advise holder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Pointer to an IDataObject interface"
+        },
+        {
+          "name": "pformatetc",
+          "type": "FORMATETC*",
+          "description": "Pointer to a FORMATETC structure"
+        },
+        {
+          "name": "advf",
+          "type": "DWORD",
+          "description": "Advise flags"
+        },
+        {
+          "name": "pAdvSink",
+          "type": "IAdviseSink*",
+          "description": "Pointer to the IAdviseSink interface"
+        },
+        {
+          "name": "pdwConnection",
+          "type": "DWORD*",
+          "description": "Pointer to a DWORD to store the advise connection"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful, otherwise an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_DUnadvise",
+      "description": "This function is used to remove a previously set up advisory connection.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Pointer to an IDataObject interface on the object that the client is managing."
+        },
+        {
+          "name": "dwConnection",
+          "type": "DWORD",
+          "description": "The connection token previously returned from the IDataObject_DAdvise method."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, the return value is S_OK. If the data advise holder does not exist, the function returns OLE_E_NOCONNECTION. If the function fails for other reasons, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_EnumDAdvise",
+      "description": "This function delegates the enumeration of data advise if a data advise holder object exists. If the pointer to the enumeration advise is null, it returns an error. Otherwise, it sets the enumeration advise to null and returns a success code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Interface to the data object from which the implementation is derived."
+        },
+        {
+          "name": "ppenumAdvise",
+          "type": "IEnumSTATDATA**",
+          "description": "Pointer to the enumeration advise. This function sets it to null if a data advise holder object doesn't exist."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns E_POINTER if the pointer to the enumeration advise is null, S_OK if the operation is successful, or the result of IDataAdviseHolder_EnumAdvise if a data advise holder object exists."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IRunnableObject_QueryInterface",
+      "description": "This function queries an interface of a runnable object and returns the interface if it is available.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunnableObject*",
+          "description": "Pointer to the IRunnableObject interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested"
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function execution. It returns S_OK if the interface is successfully obtained, otherwise it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IRunnableObject_AddRef",
+      "description": "This function adds a reference to the IRunnableObject interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunnableObject*",
+          "description": "This parameter is used to represent the IRunnableObject interface."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IRunnableObject_Release",
+      "description": "This function releases the IRunnableObject interface and returns the number of objects that still hold a reference to this object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunnableObject*",
+          "description": "Pointer to the IRunnableObject interface to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the number of objects still holding a reference to this object after the release operation."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_GetRunningClass",
+      "description": "This function is currently not implemented and always returns S_OK.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunnableObject*",
+          "description": "Interface to a runnable object."
+        },
+        {
+          "name": "lpClsid",
+          "type": "LPCLSID",
+          "description": "Pointer to the CLSID of the object."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, in this case always S_OK indicating success."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_Run",
+      "description": "This function is responsible for running a default handler. It checks if the object is already running, if not, it releases delegates, creates an instance, sets client site, initializes or loads storage, sets host names, queries interface, and finally runs the cache control. If any of these steps fail, it stops the default handler and returns the HRESULT.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunnableObject*",
+          "description": "Interface to the runnable object"
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to the bind context"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation is successful, it returns S_OK, otherwise it returns the error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IsRunning",
+      "description": "This function checks if the DefaultHandler object is in a running state.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunnableObject*",
+          "description": "This parameter is an interface to the DefaultHandler object."
+        }
+      ],
+      "return_type": "BOOL, represents whether the DefaultHandler object is running or not."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_LockRunning",
+      "description": "This function is currently not implemented and always returns S_OK.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunnableObject*",
+          "description": "Interface to a runnable object"
+        },
+        {
+          "name": "fLock",
+          "type": "BOOL",
+          "description": "Flag to lock or unlock the object"
+        },
+        {
+          "name": "fLastUnlockCloses",
+          "type": "BOOL",
+          "description": "Flag that determines if the last unlock operation closes the object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, always returns S_OK in the current implementation"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_SetContainedObject",
+      "description": "This function is a placeholder for a function that is not yet implemented. It currently returns S_OK without performing any operations.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRunnableObject*",
+          "description": "This parameter is an interface pointer to a runnable object."
+        },
+        {
+          "name": "fContained",
+          "type": "BOOL",
+          "description": "This parameter is a boolean flag indicating whether the object is contained or not."
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the operation. Currently, it always returns S_OK indicating a successful operation."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IAdviseSink_QueryInterface",
+      "description": "This function checks if the provided interface identifier (riid) matches either IID_IUnknown or IID_IAdviseSink. If it does, it assigns the interface pointer to the output parameter and increments the reference count of the interface. If it doesn't, it returns an error code indicating no such interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAdviseSink *",
+          "description": "Pointer to the interface that is being queried."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "The interface identifier that is being requested."
+        },
+        {
+          "name": "ppvObject",
+          "type": "void **",
+          "description": "Pointer to the location where the interface pointer will be stored if the requested interface is supported."
+        }
+      ],
+      "return_type": "HRESULT, where S_OK indicates success and E_NOINTERFACE indicates that the requested interface is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IAdviseSink_AddRef",
+      "description": "This function adds a reference to the IAdviseSink interface of the DefaultHandler object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAdviseSink*",
+          "description": "Pointer to the IAdviseSink interface of the DefaultHandler object"
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count to the IAdviseSink interface of the DefaultHandler object"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IAdviseSink_Release",
+      "description": "This function releases the IAdviseSink interface and returns the number of objects in use.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAdviseSink*",
+          "description": "Pointer to the IAdviseSink interface that is to be released"
+        }
+      ],
+      "return_type": "ULONG, represents the number of objects still in use after the release operation"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IAdviseSink_OnDataChange",
+      "description": "This function is a stub, meaning it is intended to be replaced by a full function definition in the future. It currently does not perform any operation.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAdviseSink*",
+          "description": "Pointer to an IAdviseSink interface"
+        },
+        {
+          "name": "pFormatetc",
+          "type": "FORMATETC*",
+          "description": "Pointer to a FORMATETC structure"
+        },
+        {
+          "name": "pStgmed",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to a STGMEDIUM structure"
+        }
+      ],
+      "return_type": "void, meaning this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IAdviseSink_OnViewChange",
+      "description": "This function is a stub and currently does not perform any operation.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAdviseSink*",
+          "description": "Pointer to an IAdviseSink interface"
+        },
+        {
+          "name": "dwAspect",
+          "type": "DWORD",
+          "description": "Specifies the aspect of the object that has changed"
+        },
+        {
+          "name": "lindex",
+          "type": "LONG",
+          "description": "Specifies the portion of the object that has changed"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IAdviseSink_OnRename",
+      "description": "This function handles the renaming event in the IAdviseSink interface. If the oleAdviseHolder object exists, it sends a renaming notification.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAdviseSink*",
+          "description": "Pointer to the IAdviseSink interface which is being used for the renaming operation."
+        },
+        {
+          "name": "pmk",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface which represents the new name of the object."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IAdviseSink_OnSave",
+      "description": "This function is used to handle the 'OnSave' event for the 'IAdviseSink' interface in the 'DefaultHandler'. If the 'oleAdviseHolder' is not null, it triggers the 'SendOnSave' event on the 'oleAdviseHolder'.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAdviseSink*",
+          "description": "This is a pointer to the 'IAdviseSink' interface that the 'OnSave' event is being handled for."
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IAdviseSink_OnClose",
+      "description": "This function handles the closing of an IAdviseSink interface. If the oleAdviseHolder is not null, it sends a close notification. If not in a call, it stops the DefaultHandler. If in a call, it defers the shutdown and sets the object state to deferred close.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAdviseSink*",
+          "description": "This is the IAdviseSink interface that is being closed."
+        }
+      ],
+      "return_type": "void, this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IPersistStorage_QueryInterface",
+      "description": "This function queries an interface of a DefaultHandler object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "Pointer to an IPersistStorage interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested"
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. The value S_OK indicates success and any other value indicates failure"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IPersistStorage_AddRef",
+      "description": "This function adds a reference to the IPersistStorage interface of the DefaultHandler object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "Pointer to an IPersistStorage interface"
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after the AddRef operation"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IPersistStorage_Release",
+      "description": "This function releases the IPersistStorage interface of the DefaultHandler object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "Pointer to the IPersistStorage interface of the DefaultHandler object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the DefaultHandler object after the release."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IPersistStorage_GetClassID",
+      "description": "This function retrieves the class identifier (CLSID) of an object that can be stored persistently in the system. It checks if the object is running and based on that, it calls the appropriate function to get the CLSID.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "Interface pointer to the object whose CLSID is being requested"
+        },
+        {
+          "name": "clsid",
+          "type": "CLSID*",
+          "description": "Pointer to the location that receives the CLSID on return"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It could be a success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IPersistStorage_IsDirty",
+      "description": "This function checks if the storage object is dirty (modified). It first checks the data cache, and if it's not dirty, it checks if the object is running and then checks the delegate storage.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "This is an interface pointer to the storage object that needs to be checked."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If the storage object is not dirty, it returns S_FALSE. It can also return other standard COM error codes."
+    }
+  },
+  {
+    "function": {
+      "name": "load_ole_stream",
+      "description": "This function opens an OLE stream from a given storage. If successful, it reads the stream header and checks its validity. If the header is valid and indicates a linked object, a warning is issued as this is not yet supported. If the header is not valid, a warning is issued and the function returns an error. If opening the stream fails, it attempts to create a new OLE stream.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "DefaultHandler*",
+          "description": "Pointer to the DefaultHandler object"
+        },
+        {
+          "name": "storage",
+          "type": "IStorage*",
+          "description": "Pointer to the IStorage object from which the OLE stream is to be opened"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or the error that occurred"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IPersistStorage_InitNew",
+      "description": "This function initializes a new storage object and sets up the necessary streams and states for the DefaultHandler object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "Interface pointer to the IPersistStorage object"
+        },
+        {
+          "name": "pStg",
+          "type": "IStorage*",
+          "description": "Pointer to the IStorage object to be initialized"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful, otherwise an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IPersistStorage_Load",
+      "description": "This function loads an OLE stream, checks if the object is running, and updates the storage state if the operations are successful.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "Interface pointer to the persistent storage object"
+        },
+        {
+          "name": "pStg",
+          "type": "IStorage*",
+          "description": "Pointer to the storage object where the OLE stream is loaded from"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operations performed within the function. If the operations are successful, it returns S_OK, otherwise it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IPersistStorage_Save",
+      "description": "This function saves the persistable object. If the object is running, it also saves the delegated persistent storage.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "Interface pointer to the persistent storage object"
+        },
+        {
+          "name": "pStgSave",
+          "type": "IStorage*",
+          "description": "Pointer to the storage where the object needs to be saved"
+        },
+        {
+          "name": "fSameAsLoad",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether the save operation is the same as the load operation"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IPersistStorage_SaveCompleted",
+      "description": "This function completes the saving process of a storage object and manages the storage state accordingly.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "Interface pointer to the persist storage object."
+        },
+        {
+          "name": "pStgNew",
+          "type": "IStorage*",
+          "description": "Pointer to the new storage object."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_IPersistStorage_HandsOffStorage",
+      "description": "This function handles the storage handoff for the default handler of IPersistStorage interface. It releases the storage if it exists and sets the storage state to uninitialised.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "This parameter is a pointer to an IPersistStorage interface which is used for the storage handoff."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation was successful, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_Construct",
+      "description": "This function constructs a DefaultHandler object. It initializes the object, sets the vtable pointers, creates a datacache object, and handles the object's lifetime and state.",
+      "parameters": [
+        {
+          "name": "clsid",
+          "type": "REFCLSID",
+          "description": "Class identifier for the object"
+        },
+        {
+          "name": "pUnkOuter",
+          "type": "LPUNKNOWN",
+          "description": "Pointer to the controlling IUnknown interface of the aggregate"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags to control the behavior of the object"
+        },
+        {
+          "name": "pCF",
+          "type": "IClassFactory *",
+          "description": "Pointer to the class factory that creates the object"
+        }
+      ],
+      "return_type": "Returns a pointer to the constructed DefaultHandler object"
+    }
+  },
+  {
+    "function": {
+      "name": "DefaultHandler_Destroy",
+      "description": "This function destroys a DefaultHandler object by releasing its delegates, freeing its memory allocations, and setting its pointers to NULL.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "DefaultHandler*",
+          "description": "Pointer to the DefaultHandler object to be destroyed"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "OleCreateEmbeddingHelper",
+      "description": "This function creates a default handler for an embedded object, which can be used to create an instance of the object.",
+      "parameters": [
+        {
+          "name": "clsid",
+          "type": "REFCLSID",
+          "description": "The CLSID of the object to be created."
+        },
+        {
+          "name": "pUnkOuter",
+          "type": "LPUNKNOWN",
+          "description": "If non-NULL, the outer unknown of the aggregate object."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags associated with the object creation."
+        },
+        {
+          "name": "pCF",
+          "type": "IClassFactory *",
+          "description": "A pointer to the class factory."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "The identifier of the interface that the caller is to use to communicate with the object."
+        },
+        {
+          "name": "ppvObj",
+          "type": "LPVOID *",
+          "description": "The address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *ppvObj contains the requested interface pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. It returns S_OK if successful, or an error HRESULT if the function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "OleCreateDefaultHandler",
+      "description": "This function creates a default handler for a specified object class. It is typically used when an in-process server cannot be found for a given object.",
+      "parameters": [
+        {
+          "name": "clsid",
+          "type": "REFCLSID",
+          "description": "The CLSID of the object that needs a handler."
+        },
+        {
+          "name": "pUnkOuter",
+          "type": "LPUNKNOWN",
+          "description": "If non-NULL, the handler being created is part of an aggregate, and pUnkOuter is the controlling IUnknown. If NULL, the handler is not part of an aggregate."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "The identifier of the interface to the handler."
+        },
+        {
+          "name": "ppvObj",
+          "type": "LPVOID*",
+          "description": "The address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *ppvObject contains the requested interface pointer. If the object does not support the interface specified in riid, the implementation must set *ppvObj to NULL."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. If the function succeeds, the return value is S_OK. If the function fails, the return value can be one of the error values specific to this function, or a general error value."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IClassFactory",
+      "description": "This function returns a pointer to a HandlerCF structure that contains the given IClassFactory interface pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClassFactory *",
+          "description": "This is an interface pointer used to get the containing HandlerCF record."
+        }
+      ],
+      "return_type": "HandlerCF pointer, representing the containing record of the given IClassFactory interface pointer."
+    }
+  },
+  {
+    "function": {
+      "name": "HandlerCF_QueryInterface",
+      "description": "This function checks if the provided interface ID matches either IID_IUnknown or IID_IClassFactory. If it does, it assigns the interface to the provided void pointer and increments the reference count of the interface. Otherwise, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPCLASSFACTORY",
+          "description": "Pointer to the interface that needs to be checked"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface ID that needs to be matched"
+        },
+        {
+          "name": "ppv",
+          "type": "LPVOID *",
+          "description": "Pointer to a void pointer where the interface will be assigned if the IDs match"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the IDs match, otherwise returns E_NOINTERFACE"
+    }
+  },
+  {
+    "function": {
+      "name": "HandlerCF_AddRef",
+      "description": "This function increments the reference count of the HandlerCF object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPCLASSFACTORY",
+          "description": "This parameter is used to get the HandlerCF object from its IClassFactory interface."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after incrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "HandlerCF_Release",
+      "description": "This function decrements the reference count of the HandlerCF object. If the reference count becomes zero, it frees the memory allocated to the object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPCLASSFACTORY",
+          "description": "This parameter is a pointer to the HandlerCF object whose reference count is to be decremented."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the HandlerCF object after decrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "HandlerCF_CreateInstance",
+      "description": "This function creates an instance of a HandlerCF class.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPCLASSFACTORY",
+          "description": "Pointer to the class factory interface"
+        },
+        {
+          "name": "pUnk",
+          "type": "LPUNKNOWN",
+          "description": "Pointer to the IUnknown interface of the object that is to control the lifetime of the new object"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface that the caller is to use to communicate with the new object"
+        },
+        {
+          "name": "ppv",
+          "type": "LPVOID",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, success or error code"
+    }
+  },
+  {
+    "function": {
+      "name": "HandlerCF_LockServer",
+      "description": "This function is a stub and does not perform any operation. It simply returns S_OK.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPCLASSFACTORY",
+          "description": "This parameter is not used in the function."
+        },
+        {
+          "name": "fLock",
+          "type": "BOOL",
+          "description": "This parameter is used for the FIXME output but does not affect the function's operation."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "HandlerCF_Create",
+      "description": "This function creates a HandlerCF object, initializes it and queries an interface based on the provided interface ID. If the function fails, it frees the allocated memory.",
+      "parameters": [
+        {
+          "name": "rclsid",
+          "type": "REFCLSID",
+          "description": "A reference to the CLSID of the object"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "A reference to the IID of the interface to be queried"
+        },
+        {
+          "name": "ppv",
+          "type": "LPVOID*",
+          "description": "A pointer to the location of the requested interface pointer"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If the function fails, it returns an error code."
+    }
+  }
+]

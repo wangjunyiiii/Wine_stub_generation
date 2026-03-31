@@ -1,0 +1,213 @@
+[
+  {
+    "function": {
+      "name": "NtGdiCreateCompatibleBitmap",
+      "description": "This function creates a bitmap compatible with the device that is associated with the specified device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "The bitmap width."
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "The bitmap height."
+        }
+      ],
+      "return_type": "HBITMAP, represents a handle to the compatible bitmap if the function is successful. Otherwise, it returns zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiCreateBitmap",
+      "description": "This function creates a bitmap with specified width, height, planes, bits per pixel (bpp), and bits. It validates the parameters, calculates the size and stride of the bitmap, allocates memory for the bitmap object, sets the bitmap properties, and returns a handle to the bitmap.",
+      "parameters": [
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "The width of the bitmap."
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "The height of the bitmap."
+        },
+        {
+          "name": "planes",
+          "type": "UINT",
+          "description": "The number of planes for the bitmap. This value must be 1."
+        },
+        {
+          "name": "bpp",
+          "type": "UINT",
+          "description": "The number of bits per pixel for the bitmap. Valid values are 1, 4, 8, 16, 24, and 32."
+        },
+        {
+          "name": "bits",
+          "type": "void *",
+          "description": "A pointer to the bits of the bitmap."
+        }
+      ],
+      "return_type": "HBITMAP. It represents a handle to the created bitmap. If the function fails, it returns 0 or NULL, and sets the last error to a system error code."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetBitmapBits",
+      "description": "This function retrieves the bits of a specified bitmap and copies them into a buffer as a DIB using the specified format.",
+      "parameters": [
+        {
+          "name": "hbitmap",
+          "type": "HBITMAP",
+          "description": "Handle to the bitmap."
+        },
+        {
+          "name": "count",
+          "type": "LONG",
+          "description": "Number of bytes to copy."
+        },
+        {
+          "name": "bits",
+          "type": "LPVOID",
+          "description": "Pointer to the buffer to receive the bits."
+        }
+      ],
+      "return_type": "LONG, represents the number of bytes copied into the buffer. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSetBitmapBits",
+      "description": "This function sets the bits of a specified bitmap according to the data in a buffer.",
+      "parameters": [
+        {
+          "name": "hbitmap",
+          "type": "HBITMAP",
+          "description": "Handle to the bitmap."
+        },
+        {
+          "name": "count",
+          "type": "LONG",
+          "description": "Number of bytes in the bitmap array."
+        },
+        {
+          "name": "bits",
+          "type": "LPCVOID",
+          "description": "Address of the array with bitmap bits."
+        }
+      ],
+      "return_type": "LONG, represents the number of bits set in the bitmap. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSelectBitmap",
+      "description": "This function selects a bitmap into a device context, which can then be used for drawing. It also performs various checks and operations on the bitmap and device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "Handle to the bitmap object."
+        }
+      ],
+      "return_type": "HGDIOBJ, represents the previously selected bitmap if the function is successful. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "BITMAP_DeleteObject",
+      "description": "This function deletes a bitmap object by freeing the associated GDI handle and the memory allocated for the bitmap object.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "This parameter is a handle to the GDI object that needs to be deleted."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the bitmap object was successfully deleted, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "BITMAP_GetObject",
+      "description": "This function retrieves information for the specified graphics object.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "Handle to the graphics object"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of bytes of information to be written to the buffer"
+        },
+        {
+          "name": "buffer",
+          "type": "LPVOID",
+          "description": "Pointer to a buffer that receives the information about the graphics object"
+        }
+      ],
+      "return_type": "INT, represents the number of bytes written to the buffer. If the buffer is null, return the size of the object in bytes."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetBitmapDimension",
+      "description": "This function retrieves the dimensions of a specified bitmap. It returns a boolean value indicating the success or failure of the operation.",
+      "parameters": [
+        {
+          "name": "hbitmap",
+          "type": "HBITMAP",
+          "description": "Handle to the bitmap whose dimensions are to be retrieved."
+        },
+        {
+          "name": "size",
+          "type": "LPSIZE",
+          "description": "Address of a structure that will receive the dimensions of the bitmap."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the function successfully retrieved the bitmap dimensions and FALSE indicates a failure in retrieving the dimensions."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSetBitmapDimension",
+      "description": "This function sets the dimensions of a bitmap. If the 'prevSize' parameter is not NULL, the function places the previous dimensions of the bitmap into the SIZE structure pointed to by 'prevSize'.",
+      "parameters": [
+        {
+          "name": "hbitmap",
+          "type": "HBITMAP",
+          "description": "Handle to the bitmap whose dimensions are to be set."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The new width of the bitmap."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The new height of the bitmap."
+        },
+        {
+          "name": "prevSize",
+          "type": "LPSIZE",
+          "description": "Pointer to a SIZE structure that will receive the previous dimensions of the bitmap. This parameter can be NULL."
+        }
+      ],
+      "return_type": "BOOL. The function returns TRUE if successful, or FALSE otherwise."
+    }
+  }
+]

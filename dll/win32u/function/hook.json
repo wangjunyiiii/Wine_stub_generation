@@ -1,0 +1,391 @@
+[
+  {
+    "function": {
+      "name": "debugstr_hook_id",
+      "description": "This function returns the name of the hook corresponding to the given id. If the id is out of range, it returns the id as a string.",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "unsigned int",
+          "description": "This parameter represents the id of the hook."
+        }
+      ],
+      "return_type": "char: Returns the name of the hook corresponding to the id as a string. If the id is out of range, it returns the id as a string."
+    }
+  },
+  {
+    "function": {
+      "name": "is_hooked",
+      "description": "This function checks if a given id is hooked in a shared queue.",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "INT",
+          "description": "This parameter represents the id to be checked if it's hooked in the shared queue."
+        }
+      ],
+      "return_type": "BOOL, represents whether the given id is hooked or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetWindowsHookEx",
+      "description": "This function installs an application-defined hook procedure into a hook chain. The hook procedure can monitor the system for certain types of events. These events are associated either with a specific thread or with all threads in the same desktop as the calling thread.",
+      "parameters": [
+        {
+          "name": "inst",
+          "type": "HINSTANCE",
+          "description": "A handle to the DLL containing the hook procedure pointed to by the lpfn parameter"
+        },
+        {
+          "name": "module",
+          "type": "UNICODE_STRING*",
+          "description": "A pointer to a UNICODE_STRING structure that contains the name of the DLL containing the hook procedure pointed to by the lpfn parameter"
+        },
+        {
+          "name": "tid",
+          "type": "DWORD",
+          "description": "The identifier of the thread with which the hook procedure is to be associated"
+        },
+        {
+          "name": "id",
+          "type": "INT",
+          "description": "The type of hook procedure to be installed"
+        },
+        {
+          "name": "proc",
+          "type": "HOOKPROC",
+          "description": "A pointer to the hook procedure"
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "A boolean value that specifies whether the hook procedure processes ANSI or Unicode messages"
+        }
+      ],
+      "return_type": "HHOOK. If the function succeeds, the return value is the handle to the hook procedure. If the function fails, the return value is NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserUnhookWindowsHookEx",
+      "description": "This function is used to remove a system-wide hook installed by a previous call to the function.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HHOOK",
+          "description": "This is a handle to the hook to be removed."
+        }
+      ],
+      "return_type": "BOOL, returns a boolean value indicating the success or failure of the function. If the function succeeds, the return value is nonzero. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserUnhookWindowsHook",
+      "description": "This function is used to unhook a Windows hook.",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "INT",
+          "description": "This is the identifier of the hook to be removed."
+        },
+        {
+          "name": "proc",
+          "type": "HOOKPROC",
+          "description": "This is a pointer to the hook procedure."
+        }
+      ],
+      "return_type": "BOOL. Returns a non-zero value if the function succeeds, and zero if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserCallMsgFilter",
+      "description": "This function calls hooks based on the given code and message. If the system message filter hook is called successfully, it returns TRUE. Otherwise, it calls the message filter hook.",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "MSG *",
+          "description": "This is a pointer to the message to be processed."
+        },
+        {
+          "name": "code",
+          "type": "INT",
+          "description": "This is the code based on which the appropriate hook is called."
+        }
+      ],
+      "return_type": "BOOL, represents whether the hook was called successfully or not."
+    }
+  },
+  {
+    "function": {
+      "name": "get_ll_hook_timeout",
+      "description": "This function is intended to retrieve the LowLevelHooksTimeout in HKEY_CURRENT_USER\\Control Panel\\Desktop, but currently it returns a fixed value of 2000.",
+      "parameters": [],
+      "return_type": "UINT, represents the LowLevelHooksTimeout value, currently returns 2000"
+    }
+  },
+  {
+    "function": {
+      "name": "call_hook",
+      "description": "This function is used to call a hook in a thread or process. It handles different types of hooks and manages memory allocation and deallocation for the hook parameters. It also handles recursive hook calls and prevents stack overflow.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "struct win_hook_params*",
+          "description": "Pointer to the structure containing the hook parameters."
+        },
+        {
+          "name": "module",
+          "type": "WCHAR*",
+          "description": "Pointer to the module name where the hook is located."
+        },
+        {
+          "name": "lparam_size",
+          "type": "size_t",
+          "description": "Size of the lparam parameter."
+        },
+        {
+          "name": "message_size",
+          "type": "size_t",
+          "description": "Size of the message parameter."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether the message is in ANSI format or not."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the hook call. If the hook call fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserCallNextHookEx",
+      "description": "This function is used to call the next hook in the hook chain. It is typically used in hook procedures to allow the system to continue processing the hook.",
+      "parameters": [
+        {
+          "name": "hhook",
+          "type": "HHOOK",
+          "description": "A handle to the current hook. This parameter is ignored."
+        },
+        {
+          "name": "code",
+          "type": "INT",
+          "description": "The hook code passed to the current hook procedure. This code determines how to process the hook."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "The first message parameter. Its interpretation depends on the code."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "The second message parameter. Its interpretation depends on the code."
+        }
+      ],
+      "return_type": "LRESULT. The return value specifies the result of the message processing and depends on the message sent."
+    }
+  },
+  {
+    "function": {
+      "name": "call_current_hook",
+      "description": "This function calls the current hook, retrieves hook information from the server, sets up parameters for the hook, and then calls the hook.",
+      "parameters": [
+        {
+          "name": "hhook",
+          "type": "HHOOK",
+          "description": "A handle to the hook to be called."
+        },
+        {
+          "name": "code",
+          "type": "INT",
+          "description": "The hook code passed to the hook procedure."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "The first parameter passed to the hook procedure."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "The second parameter passed to the hook procedure."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the hook call."
+    }
+  },
+  {
+    "function": {
+      "name": "call_message_hooks",
+      "description": "This function calls message hooks, checks if the hook is active, starts and finishes a hook chain on a server, and returns the result of a hook call.",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "INT",
+          "description": "Identifier for the hook"
+        },
+        {
+          "name": "code",
+          "type": "INT",
+          "description": "Code for the hook"
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "First message parameter"
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Second message parameter"
+        },
+        {
+          "name": "lparam_size",
+          "type": "size_t",
+          "description": "Size of the second message parameter"
+        },
+        {
+          "name": "message_size",
+          "type": "size_t",
+          "description": "Size of the message"
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "Boolean value indicating if the message is ANSI or not"
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the hook call"
+    }
+  },
+  {
+    "function": {
+      "name": "call_hooks",
+      "description": "This function calls the 'call_message_hooks' function with the given parameters and returns the result.",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "INT",
+          "description": "An identifier for the hook to be called"
+        },
+        {
+          "name": "code",
+          "type": "INT",
+          "description": "A code to be passed to the hook"
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "A parameter to be passed to the hook"
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Another parameter to be passed to the hook"
+        },
+        {
+          "name": "lparam_size",
+          "type": "size_t",
+          "description": "The size of the 'lparam' parameter"
+        }
+      ],
+      "return_type": "LRESULT, the result of the 'call_message_hooks' function"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetWinEventHook",
+      "description": "This function sets a hook function for a range of events. It checks for valid parameters, sets the hook request and returns a handle to the event hook.",
+      "parameters": [
+        {
+          "name": "event_min",
+          "type": "DWORD",
+          "description": "The event constant for the lowest event value in the range of events that the hook procedure monitors."
+        },
+        {
+          "name": "event_max",
+          "type": "DWORD",
+          "description": "The event constant for the highest event value in the range of events that the hook procedure monitors."
+        },
+        {
+          "name": "inst",
+          "type": "HMODULE",
+          "description": "A handle to the DLL that contains the hook procedure."
+        },
+        {
+          "name": "module",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to a string that specifies the name of the module to be loaded."
+        },
+        {
+          "name": "proc",
+          "type": "WINEVENTPROC",
+          "description": "A pointer to the hook procedure."
+        },
+        {
+          "name": "pid",
+          "type": "DWORD",
+          "description": "The identifier of the process to be hooked."
+        },
+        {
+          "name": "tid",
+          "type": "DWORD",
+          "description": "The identifier of the thread to be hooked."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Specifies the location of the hook function and of the events to be skipped."
+        }
+      ],
+      "return_type": "HWINEVENTHOOK. It represents a handle to the event hook. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserUnhookWinEvent",
+      "description": "This function unhooks a win event from the system.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HWINEVENTHOOK",
+          "description": "This is a handle to the event hook to be removed."
+        }
+      ],
+      "return_type": "BOOL, represents whether the unhooking was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserNotifyWinEvent",
+      "description": "This function is used to notify the system about an event that an assistive technology product might be interested in. It checks if the window handle is valid and if the event is hooked. If both conditions are met, it starts a hook chain, calls the event hook, gets the hook info, and finishes the hook chain.",
+      "parameters": [
+        {
+          "name": "event",
+          "type": "DWORD",
+          "description": "Specifies the event that occurred."
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that generates the event."
+        },
+        {
+          "name": "object_id",
+          "type": "LONG",
+          "description": "Identifies the object associated with the event."
+        },
+        {
+          "name": "child_id",
+          "type": "LONG",
+          "description": "Identifies whether the event was triggered by an object or a child element of the object."
+        }
+      ],
+      "return_type": "void, it does not return a value but performs actions based on the parameters received."
+    }
+  }
+]

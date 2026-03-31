@@ -1,0 +1,802 @@
+[
+  {
+    "function": {
+      "name": "get_scroll_info_ptr",
+      "description": "This function retrieves a pointer to the scroll information of a window. It can also allocate memory for a new scroll bar information structure if requested and if the window doesn't already have one.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which to get the scroll information."
+        },
+        {
+          "name": "bar",
+          "type": "int",
+          "description": "Specifies the type of scroll bar for which to get the information. This parameter can be one of the following values: SB_HORZ, SB_VERT, SB_CTL, SB_BOTH."
+        },
+        {
+          "name": "alloc",
+          "type": "BOOL",
+          "description": "If this parameter is TRUE and the window doesn't have a scroll bar information structure, the function allocates memory for a new one."
+        }
+      ],
+      "return_type": "struct scroll_info pointer. It represents the scroll information of the window. If the window doesn't have a scroll bar information structure and the alloc parameter is FALSE, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "release_scroll_info_ptr",
+      "description": "This function releases the scroll information pointer by calling the user_unlock function.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "struct scroll_info *",
+          "description": "This is a pointer to the scroll information structure."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "show_scroll_bar",
+      "description": "This function is used to show or hide the horizontal and vertical scroll bars of a window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window."
+        },
+        {
+          "name": "bar",
+          "type": "int",
+          "description": "Specifies the scroll bar(s) to be shown or hidden."
+        },
+        {
+          "name": "show_horz",
+          "type": "BOOL",
+          "description": "If TRUE, the horizontal scroll bar is shown; otherwise, it is hidden."
+        },
+        {
+          "name": "show_vert",
+          "type": "BOOL",
+          "description": "If TRUE, the vertical scroll bar is shown; otherwise, it is hidden."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the operation was successful or if the specified scroll bar does not exist. Returns FALSE if the operation failed."
+    }
+  },
+  {
+    "function": {
+      "name": "get_scroll_bar_rect",
+      "description": "This function retrieves the dimensions of the specified scroll bar, including the length of the arrow buttons, the size and position of the scroll box (thumb), and the length of the shaft.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that owns the scroll bar."
+        },
+        {
+          "name": "bar",
+          "type": "int",
+          "description": "Specifies the type of scroll bar for which to retrieve dimensions."
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that receives the dimensions of the specified scroll bar."
+        },
+        {
+          "name": "arrow_size",
+          "type": "int*",
+          "description": "Pointer to a variable that receives the length of the arrow button on the scroll bar."
+        },
+        {
+          "name": "thumb_size",
+          "type": "int*",
+          "description": "Pointer to a variable that receives the size of the scroll box."
+        },
+        {
+          "name": "thumb_pos",
+          "type": "int*",
+          "description": "Pointer to a variable that receives the position of the scroll box."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "draw_scroll_bar",
+      "description": "This function is responsible for drawing a scroll bar in a window. It handles different types of scroll bars, including vertical, horizontal, and control scroll bars. It also manages the scroll bar's appearance based on various conditions, such as the window's style and the scroll bar's state.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that contains the scroll bar."
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context for the window."
+        },
+        {
+          "name": "bar",
+          "type": "int",
+          "description": "Specifies the type of scroll bar to be drawn."
+        },
+        {
+          "name": "hit_test",
+          "type": "enum SCROLL_HITTEST",
+          "description": "Specifies the part of the scroll bar that was hit."
+        },
+        {
+          "name": "tracking_info",
+          "type": "struct SCROLL_TRACKING_INFO *",
+          "description": "Pointer to a structure that contains information about the scroll bar's tracking."
+        },
+        {
+          "name": "draw_arrows",
+          "type": "BOOL",
+          "description": "Specifies whether the scroll bar's arrows should be drawn."
+        },
+        {
+          "name": "draw_interior",
+          "type": "BOOL",
+          "description": "Specifies whether the scroll bar's interior should be drawn."
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "draw_nc_scrollbar",
+      "description": "This function draws horizontal and/or vertical scrollbars depending on the boolean values of 'draw_horizontal' and 'draw_vertical'.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window where the scrollbars are to be drawn."
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context for the specified window."
+        },
+        {
+          "name": "draw_horizontal",
+          "type": "BOOL",
+          "description": "Boolean value that determines whether to draw a horizontal scrollbar."
+        },
+        {
+          "name": "draw_vertical",
+          "type": "BOOL",
+          "description": "Boolean value that determines whether to draw a vertical scrollbar."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "refresh_scroll_bar",
+      "description": "This function refreshes the scroll bar by drawing it and then releasing the device context.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that contains the scroll bar."
+        },
+        {
+          "name": "nBar",
+          "type": "int",
+          "description": "Specifies the type of scroll bar for which to redraw."
+        },
+        {
+          "name": "arrows",
+          "type": "BOOL",
+          "description": "Determines whether the scroll bar arrows are drawn."
+        },
+        {
+          "name": "interior",
+          "type": "BOOL",
+          "description": "Determines whether the interior of the scroll bar is drawn."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "point_in_scroll_rect",
+      "description": "This function checks if a given point is within a scroll rectangle. It adjusts the rectangle dimensions based on whether the scroll is vertical or not before checking the point's position.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "RECT *",
+          "description": "A pointer to the rectangle structure representing the scroll area."
+        },
+        {
+          "name": "pt",
+          "type": "POINT",
+          "description": "The point to be checked if it's within the scroll rectangle."
+        },
+        {
+          "name": "vertical",
+          "type": "BOOL",
+          "description": "A boolean value indicating whether the scroll is vertical or not."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the point is within the adjusted scroll rectangle, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "scroll_hit_test",
+      "description": "This function tests where a given point falls in a scroll bar (top arrow, bottom arrow, top rectangle, bottom rectangle, or thumb) and returns the corresponding enum value. It also considers whether the scroll bar is vertical or horizontal.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that contains the scroll bar."
+        },
+        {
+          "name": "bar",
+          "type": "int",
+          "description": "An integer representing the scroll bar to be tested."
+        },
+        {
+          "name": "pt",
+          "type": "POINT",
+          "description": "A POINT structure that specifies the coordinates of the point to be tested."
+        },
+        {
+          "name": "dragging",
+          "type": "BOOL",
+          "description": "A boolean value that specifies whether the scroll bar thumb is being dragged."
+        }
+      ],
+      "return_type": "enum SCROLL_HITTEST, represents the part of the scroll bar where the point falls."
+    }
+  },
+  {
+    "function": {
+      "name": "is_standard_scroll_painted",
+      "description": "This function checks if the standard scroll is painted or not.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "bar",
+          "type": "int",
+          "description": "Specifies the type of scroll bar for which to get information"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the standard scroll is painted, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "get_thumb_val",
+      "description": "This function calculates the value of a scrollbar thumb based on its position and other parameters.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that contains the scrollbar."
+        },
+        {
+          "name": "bar",
+          "type": "int",
+          "description": "Specifies the type of scroll bar for which to get the thumb value."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that specifies the dimensions of the scroll bar."
+        },
+        {
+          "name": "vertical",
+          "type": "BOOL",
+          "description": "Specifies whether the scroll bar is vertical or horizontal."
+        },
+        {
+          "name": "pos",
+          "type": "int",
+          "description": "Specifies the position of the scroll bar thumb."
+        }
+      ],
+      "return_type": "UINT, represents the calculated value of the scrollbar thumb. Returns 0 if the scroll information pointer is null."
+    }
+  },
+  {
+    "function": {
+      "name": "clip_scroll_pos",
+      "description": "This function adjusts the x and y coordinates of a point to ensure they fall within the boundaries of a given rectangle.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "This is a pointer to a RECT structure that defines the boundaries within which the point's coordinates should fall."
+        },
+        {
+          "name": "pt",
+          "type": "POINT",
+          "description": "This is the point that will be adjusted to ensure it falls within the boundaries of the given rectangle."
+        }
+      ],
+      "return_type": "POINT, representing the adjusted coordinates of the point to ensure it falls within the boundaries of the given rectangle."
+    }
+  },
+  {
+    "function": {
+      "name": "update_scroll_timer",
+      "description": "This function updates the scroll timer based on the hit test result. If the hit test matches the tracking info, it sends a message and sets the system timer. If not, it stops the scroll timer and kills the system timer.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "owner_hwnd",
+          "type": "HWND",
+          "description": "Handle to the owner window"
+        },
+        {
+          "name": "ctl_hwnd",
+          "type": "HWND",
+          "description": "Handle to the control window"
+        },
+        {
+          "name": "hittest",
+          "type": "enum SCROLL_HITTEST",
+          "description": "Result of the hit test"
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "Message to be processed"
+        },
+        {
+          "name": "msg_send",
+          "type": "UINT",
+          "description": "Message to be sent"
+        },
+        {
+          "name": "vertical",
+          "type": "BOOL",
+          "description": "Indicates whether the scroll is vertical or not"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "handle_scroll_event",
+      "description": "This function handles various scroll events such as mouse movements, button clicks, and system timers on a scroll bar. It also manages the scroll bar's appearance and position based on these events.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that contains the scroll bar."
+        },
+        {
+          "name": "bar",
+          "type": "int",
+          "description": "Specifies the type of scroll bar for which the event is intended."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "Specifies the message to be sent."
+        },
+        {
+          "name": "pt",
+          "type": "POINT",
+          "description": "Specifies the coordinates of the mouse cursor, relative to the upper-left corner of the client area."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "track_scroll_bar",
+      "description": "This function tracks the scroll bar events and handles them accordingly. It adjusts the point coordinates based on the window's rectangle and handles different types of mouse events. If the window is no longer valid, it releases the capture.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that contains the scroll bar"
+        },
+        {
+          "name": "scrollbar",
+          "type": "int",
+          "description": "The scrollbar that needs to be tracked"
+        },
+        {
+          "name": "pt",
+          "type": "POINT",
+          "description": "The coordinates of the point where the event occurred"
+        }
+      ],
+      "return_type": "void, as this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "validate_scroll_info",
+      "description": "This function validates the scroll information by checking the mask and size of the SCROLLINFO structure.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "SCROLLINFO *",
+          "description": "Pointer to a SCROLLINFO structure that contains scroll bar parameters to be validated."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the scroll information is valid, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "get_scroll_info",
+      "description": "This function retrieves the scroll information for a given window and bar. It validates the scroll information, gets the scroll info pointer, fills in the desired scroll info structure, releases the scroll info pointer, and finally traces the scroll info.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which scroll information is required"
+        },
+        {
+          "name": "bar",
+          "type": "int",
+          "description": "Specifies the type of scroll bar for which to retrieve information"
+        },
+        {
+          "name": "info",
+          "type": "SCROLLINFO *",
+          "description": "Pointer to a SCROLLINFO structure that receives the scroll bar information"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully retrieves the scroll information, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "set_scroll_info",
+      "description": "This function sets the scroll information for a given window and scroll bar. It validates the scroll information, sets the page size, scroll position, and scroll range, ensures the page size and position are valid, checks if the scroll bar should be hidden or disabled, and returns the current position.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the scroll information is to be set."
+        },
+        {
+          "name": "bar",
+          "type": "int",
+          "description": "Specifies the type of scroll bar for which to set the scroll information."
+        },
+        {
+          "name": "info",
+          "type": "SCROLLINFO *",
+          "description": "Pointer to a SCROLLINFO structure that contains the new scroll parameters."
+        },
+        {
+          "name": "redraw",
+          "type": "BOOL",
+          "description": "Specifies whether the scroll bar is redrawn to reflect the changes to the scroll bar."
+        }
+      ],
+      "return_type": "int, represents the current position of the scroll bar after the scroll information has been set."
+    }
+  },
+  {
+    "function": {
+      "name": "get_scroll_bar_info",
+      "description": "This function retrieves information about the scroll bar, including its state, position, and other related properties.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that contains the scroll bar."
+        },
+        {
+          "name": "id",
+          "type": "LONG",
+          "description": "The object identifier. The object identifier must be one of the predefined object identifiers or a custom object identifier."
+        },
+        {
+          "name": "info",
+          "type": "SCROLLBARINFO*",
+          "description": "A pointer to a SCROLLBARINFO structure that receives the scroll bar information."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "create_scroll_bar",
+      "description": "This function creates a scroll bar and sets its properties based on the provided parameters.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that the scroll bar is to be created in."
+        },
+        {
+          "name": "create",
+          "type": "CREATESTRUCTW *",
+          "description": "A pointer to a CREATESTRUCTW structure that contains information about the scroll bar."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "handle_kbd_event",
+      "description": "This function handles keyboard events, hides the caret on the first KEYDOWN to prevent flicker, and sends a message to the parent window depending on the key pressed.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that receives the message."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information, represents the virtual-key code of the key that is pressed."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information, used here to check if the PFD_DOUBLEBUFFER_DONTCARE flag is set."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "get_scroll_pos",
+      "description": "This function retrieves the current position of the scroll bar.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that has the scroll bar."
+        },
+        {
+          "name": "bar",
+          "type": "int",
+          "description": "Specifies the type of scroll bar for which to retrieve the position."
+        }
+      ],
+      "return_type": "int, represents the current position of the scroll bar. Returns 0 if the scroll info pointer is null."
+    }
+  },
+  {
+    "function": {
+      "name": "set_scroll_range",
+      "description": "This function sets the scroll range of a given window and bar. It retrieves the scroll information, updates the minimum and maximum values, and then releases the scroll information.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "bar",
+          "type": "int",
+          "description": "Specifies the type of scroll bar for which to set the scroll range"
+        },
+        {
+          "name": "min_val",
+          "type": "int",
+          "description": "Specifies the minimum scrolling position"
+        },
+        {
+          "name": "max_val",
+          "type": "int",
+          "description": "Specifies the maximum scrolling position"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function executed successfully or not"
+    }
+  },
+  {
+    "function": {
+      "name": "get_scroll_range",
+      "description": "This function retrieves the minimum and maximum scroll box positions for the specified scroll bar.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window with the scroll bar."
+        },
+        {
+          "name": "nBar",
+          "type": "int",
+          "description": "Specifies the type of scroll bar for which to retrieve the position."
+        },
+        {
+          "name": "min",
+          "type": "int*",
+          "description": "Pointer to variable that receives the minimum scroll box position."
+        },
+        {
+          "name": "max",
+          "type": "int*",
+          "description": "Pointer to variable that receives the maximum scroll box position."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function is successful, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "scroll_bar_window_proc",
+      "description": "This function handles various messages for a scroll bar window. It processes different cases based on the message received and performs the corresponding operations.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be processed."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "A flag indicating whether the function should use the ANSI or Unicode character set."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing. The exact meaning depends on the message processed."
+    }
+  },
+  {
+    "function": {
+      "name": "set_standard_scroll_painted",
+      "description": "This function sets the painted property of the scroll bar (either horizontal or vertical) of a given window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that contains the scroll bar."
+        },
+        {
+          "name": "bar",
+          "type": "int",
+          "description": "Specifies the type of scroll bar for which to set the painted property. This parameter can be either SB_HORZ for horizontal scroll bar or SB_VERT for vertical scroll bar."
+        },
+        {
+          "name": "painted",
+          "type": "BOOL",
+          "description": "Specifies the new painted property for the scroll bar. If this parameter is TRUE, the scroll bar will be painted; if it is FALSE, the scroll bar will not be painted."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserShowScrollBar",
+      "description": "This function is used to show or hide the scroll bar in the window specified by the HWND parameter. The type of scroll bar to be shown or hidden (vertical or horizontal) is determined by the INT parameter. The BOOL parameter determines whether to show or hide the scroll bar.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window with the scroll bar"
+        },
+        {
+          "name": "bar",
+          "type": "INT",
+          "description": "Specifies the type of scroll bar. This parameter can be one of the following values: SB_HORZ, SB_VERT"
+        },
+        {
+          "name": "show",
+          "type": "BOOL",
+          "description": "Specifies whether the scroll bar is shown or hidden. If this parameter is TRUE, the scroll bar is shown; if it is FALSE, the scroll bar is hidden."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not. Returns TRUE if the operation is successful; otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetScrollBarInfo",
+      "description": "This function retrieves the information about the scroll bar and sends a message to the window if the id is OBJID_CLIENT.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that contains the scroll bar"
+        },
+        {
+          "name": "id",
+          "type": "LONG",
+          "description": "Identifier of the scroll bar"
+        },
+        {
+          "name": "info",
+          "type": "SCROLLBARINFO*",
+          "description": "Pointer to a SCROLLBARINFO structure that receives the scroll bar information"
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserEnableScrollBar",
+      "description": "This function enables or disables the scroll bar of a window based on the provided flags. It also refreshes the scroll bar and, in certain conditions, enables or disables the window itself.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window with the scroll bar that this function operates on."
+        },
+        {
+          "name": "bar",
+          "type": "UINT",
+          "description": "Specifies the scroll bar(s) to be enabled or disabled. This parameter can be one of the following values: SB_BOTH, SB_CTL, SB_HORZ, SB_VERT."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies how the scroll bar is to be enabled or disabled. This parameter can be one of the following values: ESB_DISABLE_BOTH, ESB_ENABLE_BOTH."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function successfully enables or disables the scroll bar. Returns FALSE if the function fails to enable or disable the scroll bar or if the scroll bar's flags match the provided flags."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetScrollInfo",
+      "description": "This function sets the scroll information for a specified window or control.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window or control"
+        },
+        {
+          "name": "bar",
+          "type": "int",
+          "description": "Specifies the scroll bar to be set"
+        },
+        {
+          "name": "info",
+          "type": "SCROLLINFO*",
+          "description": "Pointer to a SCROLLINFO structure that contains the new scroll parameters"
+        },
+        {
+          "name": "redraw",
+          "type": "BOOL",
+          "description": "Specifies whether the scroll bar is redrawn to reflect the new scroll parameters"
+        }
+      ],
+      "return_type": "INT, represents the current position of the scroll box of the specified scroll bar"
+    }
+  }
+]

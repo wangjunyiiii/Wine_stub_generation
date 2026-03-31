@@ -1,0 +1,4576 @@
+[
+  {
+    "function": {
+      "name": "get_font_dev",
+      "description": "This function casts a PHYSDEV object to a struct font_physdev pointer and returns it.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is a PHYSDEV object that is to be cast to a struct font_physdev pointer."
+        }
+      ],
+      "return_type": "struct font_physdev pointer, which represents the PHYSDEV object after being cast."
+    }
+  },
+  {
+    "function": {
+      "name": "facename_tolower",
+      "description": "This function converts an uppercase character to lowercase. If the character is not an uppercase ASCII character, it is returned as is or downcased if it's a Unicode character.",
+      "parameters": [
+        {
+          "name": "c",
+          "type": "WCHAR",
+          "description": "This parameter is the character that is to be converted to lowercase."
+        }
+      ],
+      "return_type": "WCHAR, which represents the lowercase version of the input character."
+    }
+  },
+  {
+    "function": {
+      "name": "facename_compare",
+      "description": "This function compares two strings character by character in a case-insensitive manner up to a given length.",
+      "parameters": [
+        {
+          "name": "str1",
+          "type": "WCHAR *",
+          "description": "First string to be compared"
+        },
+        {
+          "name": "str2",
+          "type": "WCHAR *",
+          "description": "Second string to be compared"
+        },
+        {
+          "name": "len",
+          "type": "SIZE_T",
+          "description": "Length up to which the strings are to be compared"
+        }
+      ],
+      "return_type": "int, represents the difference between the first pair of characters that do not match in the strings, or 0 if the strings are equal or if the end of the strings is reached"
+    }
+  },
+  {
+    "function": {
+      "name": "INTERNAL_XDSTOWS",
+      "description": "This function converts the width from device coordinates to world coordinates using the transformation matrix, and then rounds it to the nearest integer.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This is a pointer to the device context, which contains the transformation matrix."
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "This is the width in device coordinates that needs to be converted to world coordinates."
+        }
+      ],
+      "return_type": "INT, represents the width in world coordinates."
+    }
+  },
+  {
+    "function": {
+      "name": "INTERNAL_YDSTOWS",
+      "description": "This function performs an operation with floating point on the 'height' parameter and the 'eM22' attribute of the 'xformVport2World' attribute of the 'dc' parameter, then rounds the result to an integer.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC*",
+          "description": "Pointer to a DC object, used to access 'xformVport2World.eM22' for the operation."
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "An integer used in the floating point operation."
+        }
+      ],
+      "return_type": "INT, represents the result of the operation and rounding."
+    }
+  },
+  {
+    "function": {
+      "name": "width_to_LP",
+      "description": "This function calculates the logical point width from the given width using the transformation matrix of the device context.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This is a pointer to the device context."
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "This is the width that needs to be converted to logical points."
+        }
+      ],
+      "return_type": "INT, represents the width in logical points."
+    }
+  },
+  {
+    "function": {
+      "name": "height_to_LP",
+      "description": "This function converts a given height to logical points using the vertical component of the transformation matrix.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This parameter is a pointer to a device context structure that contains the transformation matrix."
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "This parameter represents the height to be converted to logical points."
+        }
+      ],
+      "return_type": "INT, represents the height in logical points."
+    }
+  },
+  {
+    "function": {
+      "name": "INTERNAL_YWSTODS",
+      "description": "This function converts logical coordinates to device coordinates for a given height and returns the difference in y-coordinates.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC*",
+          "description": "Pointer to a device context"
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "The height in logical units"
+        }
+      ],
+      "return_type": "INT, representing the difference in y-coordinates after conversion from logical to device coordinates"
+    }
+  },
+  {
+    "function": {
+      "name": "get_fonts_data_dir_path",
+      "description": "This function gets the path of the fonts data directory and copies it to the 'path' parameter. If a file name is provided, it appends it to the path.",
+      "parameters": [
+        {
+          "name": "file",
+          "type": "WCHAR*",
+          "description": "This parameter represents the name of a file. If provided, it is appended to the path of the fonts data directory."
+        },
+        {
+          "name": "path",
+          "type": "WCHAR*",
+          "description": "This parameter is used to store the path of the fonts data directory. If a file name is provided, it is appended to this path."
+        }
+      ],
+      "return_type": "void, this function does not return a value. It modifies the 'path' parameter to hold the required path."
+    }
+  },
+  {
+    "function": {
+      "name": "get_fonts_win_dir_path",
+      "description": "This function converts the given path to unicode and appends the file name to the path if the file exists.",
+      "parameters": [
+        {
+          "name": "file",
+          "type": "WCHAR",
+          "description": "The name of the file to be appended to the path."
+        },
+        {
+          "name": "path",
+          "type": "WCHAR",
+          "description": "The path to which the file name will be appended."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "get_nt_path",
+      "description": "This function converts a given path into an NT-style path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "const WCHAR *",
+          "description": "The path to be converted into NT-style."
+        }
+      ],
+      "return_type": "WCHAR *; Returns a pointer to the converted NT-style path."
+    }
+  },
+  {
+    "function": {
+      "name": "reg_open_key",
+      "description": "This function opens a registry key with the specified name and attributes.",
+      "parameters": [
+        {
+          "name": "root",
+          "type": "HKEY",
+          "description": "The root key to open."
+        },
+        {
+          "name": "name",
+          "type": "WCHAR *",
+          "description": "The name of the key to open."
+        },
+        {
+          "name": "name_len",
+          "type": "ULONG",
+          "description": "The length of the name of the key."
+        }
+      ],
+      "return_type": "HKEY, represents the handle to the opened key. Returns 0 if the key could not be opened."
+    }
+  },
+  {
+    "function": {
+      "name": "reg_open_ascii_key",
+      "description": "This function opens a registry key. It first converts the ASCII name to a Unicode string, then calls reg_open_key with the root key and the Unicode string.",
+      "parameters": [
+        {
+          "name": "root",
+          "type": "HKEY",
+          "description": "This is the root key from which the specified key is opened."
+        },
+        {
+          "name": "name",
+          "type": "char *",
+          "description": "This is the name of the key to open, in ASCII format."
+        }
+      ],
+      "return_type": "HKEY, which represents the opened registry key."
+    }
+  },
+  {
+    "function": {
+      "name": "reg_create_key",
+      "description": "This function creates a new registry key or opens an existing one, with the specified options and disposition.",
+      "parameters": [
+        {
+          "name": "root",
+          "type": "HKEY",
+          "description": "Handle to an open registry key"
+        },
+        {
+          "name": "name",
+          "type": "WCHAR *",
+          "description": "Pointer to a null-terminated string specifying the name of the key to be opened or created"
+        },
+        {
+          "name": "name_len",
+          "type": "ULONG",
+          "description": "Length of the name string"
+        },
+        {
+          "name": "options",
+          "type": "DWORD",
+          "description": "Specifies special options for the key"
+        },
+        {
+          "name": "disposition",
+          "type": "DWORD *",
+          "description": "Pointer to a variable that receives a disposition value"
+        }
+      ],
+      "return_type": "HKEY, represents a handle to the opened or created key"
+    }
+  },
+  {
+    "function": {
+      "name": "reg_create_ascii_key",
+      "description": "This function creates a registry key with a specified name, options, and disposition. The name is converted from ASCII to Unicode before the key is created.",
+      "parameters": [
+        {
+          "name": "root",
+          "type": "HKEY",
+          "description": "The root key under which the new key is created"
+        },
+        {
+          "name": "name",
+          "type": "char *",
+          "description": "The name of the key to be created"
+        },
+        {
+          "name": "options",
+          "type": "DWORD",
+          "description": "The options to be used when creating the key"
+        },
+        {
+          "name": "disposition",
+          "type": "DWORD *",
+          "description": "A pointer to a variable that receives a disposition code"
+        }
+      ],
+      "return_type": "HKEY, which represents the handle to the newly created key"
+    }
+  },
+  {
+    "function": {
+      "name": "reg_open_hkcu_key",
+      "description": "This function opens a registry key with the given name under the HKEY_CURRENT_USER root key.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "const char*",
+          "description": "The name of the registry key to open."
+        }
+      ],
+      "return_type": "HKEY, which represents a handle to the opened registry key."
+    }
+  },
+  {
+    "function": {
+      "name": "set_reg_value",
+      "description": "This function sets a value to a specified registry key.",
+      "parameters": [
+        {
+          "name": "hkey",
+          "type": "HKEY",
+          "description": "A handle to an open registry key."
+        },
+        {
+          "name": "name",
+          "type": "WCHAR *",
+          "description": "The name of the value to be set."
+        },
+        {
+          "name": "type",
+          "type": "UINT",
+          "description": "The type of data pointed to by the 'value' parameter."
+        },
+        {
+          "name": "value",
+          "type": "void *",
+          "description": "The data to be set."
+        },
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "The size of the data pointed to by the 'value' parameter."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully writes a value to the registry, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "set_reg_ascii_value",
+      "description": "This function sets the value of a registry key. It first converts the ASCII name and value to Unicode, then sets the registry key value.",
+      "parameters": [
+        {
+          "name": "hkey",
+          "type": "HKEY",
+          "description": "This is the handle to an open registry key."
+        },
+        {
+          "name": "name",
+          "type": "char *",
+          "description": "This is the name of the registry value to be set."
+        },
+        {
+          "name": "value",
+          "type": "char *",
+          "description": "This is the data to be stored as the registry value."
+        }
+      ],
+      "return_type": "void, meaning it does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "query_reg_value",
+      "description": "This function queries the value of a registry key.",
+      "parameters": [
+        {
+          "name": "hkey",
+          "type": "HKEY",
+          "description": "A handle to an open registry key."
+        },
+        {
+          "name": "name",
+          "type": "WCHAR *",
+          "description": "The name of the registry value."
+        },
+        {
+          "name": "info",
+          "type": "KEY_VALUE_PARTIAL_INFORMATION *",
+          "description": "A pointer to a buffer that receives the value information."
+        },
+        {
+          "name": "size",
+          "type": "ULONG",
+          "description": "The size of the info buffer."
+        }
+      ],
+      "return_type": "ULONG, represents the size of the registry value data minus the offset of the Data member of the KEY_VALUE_PARTIAL_INFORMATION structure. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "query_reg_ascii_value",
+      "description": "This function converts ASCII string to Unicode, then queries the registry value.",
+      "parameters": [
+        {
+          "name": "hkey",
+          "type": "HKEY",
+          "description": "Handle to an open registry key"
+        },
+        {
+          "name": "name",
+          "type": "const char *",
+          "description": "Name of the registry value"
+        },
+        {
+          "name": "info",
+          "type": "KEY_VALUE_PARTIAL_INFORMATION *",
+          "description": "Pointer to a buffer that receives the value information"
+        },
+        {
+          "name": "size",
+          "type": "ULONG",
+          "description": "Size of the info buffer"
+        }
+      ],
+      "return_type": "ULONG, represents the result of the registry query operation"
+    }
+  },
+  {
+    "function": {
+      "name": "reg_enum_value",
+      "description": "This function enumerates the values for a given key in the registry. It returns a boolean value indicating the success or failure of the operation.",
+      "parameters": [
+        {
+          "name": "hkey",
+          "type": "HKEY",
+          "description": "A handle to an open registry key."
+        },
+        {
+          "name": "index",
+          "type": "unsigned int",
+          "description": "The index of the value to be retrieved."
+        },
+        {
+          "name": "info",
+          "type": "KEY_VALUE_FULL_INFORMATION*",
+          "description": "A pointer to a buffer that receives the value information."
+        },
+        {
+          "name": "size",
+          "type": "ULONG",
+          "description": "The size of the info buffer."
+        },
+        {
+          "name": "name",
+          "type": "WCHAR*",
+          "description": "A pointer to a buffer that receives the name of the value."
+        },
+        {
+          "name": "name_size",
+          "type": "ULONG",
+          "description": "The size of the name buffer."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the function successfully enumerated the value and FALSE indicates that the function failed to enumerate the value."
+    }
+  },
+  {
+    "function": {
+      "name": "reg_delete_value",
+      "description": "This function deletes a value from the registry.",
+      "parameters": [
+        {
+          "name": "hkey",
+          "type": "HKEY",
+          "description": "A handle to an open registry key."
+        },
+        {
+          "name": "name",
+          "type": "WCHAR *",
+          "description": "The name of the value to be deleted."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "reg_delete_tree",
+      "description": "This function deletes a registry key and all its subkeys.",
+      "parameters": [
+        {
+          "name": "parent",
+          "type": "HKEY",
+          "description": "Handle to an open registry key."
+        },
+        {
+          "name": "name",
+          "type": "WCHAR *",
+          "description": "Pointer to a null-terminated string specifying the name of the registry key to delete."
+        },
+        {
+          "name": "name_len",
+          "type": "ULONG",
+          "description": "Length of the name string."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully deletes the key and all its subkeys, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "get_subst_to_name",
+      "description": "This function returns a pointer to a wide character string that is a part of the 'names' field of the 'gdi_font_subst' structure, starting from the position after the last character of the 'names' string.",
+      "parameters": [
+        {
+          "name": "subst",
+          "type": "struct gdi_font_subst *",
+          "description": "A pointer to a 'gdi_font_subst' structure whose 'names' field is used in the function."
+        }
+      ],
+      "return_type": "WCHAR *, a pointer to a wide character string."
+    }
+  },
+  {
+    "function": {
+      "name": "dump_gdi_font_subst",
+      "description": "This function iterates over the font substitution list and prints the substitution details. If the 'from_charset' or 'to_charset' is not -1, it prints both the charsets along with the names. Otherwise, it only prints the names.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "get_gdi_font_subst",
+      "description": "This function is used to get the substitution of a GDI font. It iterates through a list of font substitutions until it finds a match for the given name and charset, then returns the name of the substitution.",
+      "parameters": [
+        {
+          "name": "from_name",
+          "type": "const WCHAR *",
+          "description": "The name of the font to be substituted."
+        },
+        {
+          "name": "from_charset",
+          "type": "int",
+          "description": "The character set of the font to be substituted."
+        },
+        {
+          "name": "to_charset",
+          "type": "int *",
+          "description": "A pointer to an integer where the character set of the substitution will be stored."
+        }
+      ],
+      "return_type": "WCHAR. It represents the name of the substituted font. If no substitution is found, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "add_gdi_font_subst",
+      "description": "This function adds a new font substitution to the gdi_font_subst structure. It checks if the font substitution already exists, if not, it allocates memory for the new substitution, copies the from_name and to_name into the structure, sets the from_charset and to_charset, and adds the new substitution to the font_subst_list.",
+      "parameters": [
+        {
+          "name": "from_name",
+          "type": "WCHAR *",
+          "description": "Name of the font to be substituted"
+        },
+        {
+          "name": "from_charset",
+          "type": "int",
+          "description": "Character set of the font to be substituted"
+        },
+        {
+          "name": "to_name",
+          "type": "WCHAR *",
+          "description": "Name of the font to substitute with"
+        },
+        {
+          "name": "to_charset",
+          "type": "int",
+          "description": "Character set of the font to substitute with"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the font substitution was successfully added, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "load_gdi_font_subst",
+      "description": "This function loads the GDI font substitution from the registry, and if the charset mapping is valid, it adds the font substitution to the GDI.",
+      "parameters": [],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "family_namecmp",
+      "description": "This function compares two strings and returns a value based on their priority and vertical position.",
+      "parameters": [
+        {
+          "name": "str1",
+          "type": "WCHAR *",
+          "description": "First string to be compared"
+        },
+        {
+          "name": "str2",
+          "type": "WCHAR *",
+          "description": "Second string to be compared"
+        }
+      ],
+      "return_type": "int, represents the result of the comparison. If the priorities are not equal, it returns the difference between prio1 and prio2. If the vertical positions are not equal, it returns the difference between vert1 and vert2. Otherwise, it returns the result of the facename_compare function."
+    }
+  },
+  {
+    "function": {
+      "name": "family_name_compare",
+      "description": "This function compares a given key with the family name of a given wine_rb_entry structure.",
+      "parameters": [
+        {
+          "name": "key",
+          "type": "void*",
+          "description": "This is the key to be compared with the family name."
+        },
+        {
+          "name": "entry",
+          "type": "struct wine_rb_entry*",
+          "description": "This is the entry whose family name is to be compared with the key."
+        }
+      ],
+      "return_type": "int, represents the result of the comparison between the key and the family name. The exact meaning of the return value depends on the implementation of the family_namecmp function."
+    }
+  },
+  {
+    "function": {
+      "name": "family_second_name_compare",
+      "description": "This function compares a key with the second name of a gdi_font_family structure.",
+      "parameters": [
+        {
+          "name": "key",
+          "type": "void *",
+          "description": "This parameter represents the key to be compared with the second name of the gdi_font_family structure."
+        },
+        {
+          "name": "entry",
+          "type": "struct wine_rb_entry *",
+          "description": "This parameter represents the entry in the wine_rb tree that contains the gdi_font_family structure."
+        }
+      ],
+      "return_type": "int, represents the result of the comparison between the key and the second name of the gdi_font_family structure. The comparison is done using the family_namecmp function."
+    }
+  },
+  {
+    "function": {
+      "name": "face_full_name_compare",
+      "description": "This function compares the full name of a font face with a key.",
+      "parameters": [
+        {
+          "name": "key",
+          "type": "void*",
+          "description": "This is the key to be compared with the font face full name."
+        },
+        {
+          "name": "entry",
+          "type": "struct wine_rb_entry*",
+          "description": "This is the entry from which the font face is retrieved."
+        }
+      ],
+      "return_type": "int, represents the result of the comparison between the key and the font face full name."
+    }
+  },
+  {
+    "function": {
+      "name": "face_is_in_full_name_tree",
+      "description": "This function checks if the given face is in the full name tree by checking the parent of the full name entry of the face or if the root of the full name tree is the full name entry of the face.",
+      "parameters": [
+        {
+          "name": "face",
+          "type": "struct gdi_font_face *",
+          "description": "This is a pointer to the face structure that is to be checked if it is in the full name tree."
+        }
+      ],
+      "return_type": "int, returns 1 if the face is in the full name tree, otherwise 0."
+    }
+  },
+  {
+    "function": {
+      "name": "create_family",
+      "description": "This function creates a new gdi_font_family structure, initializes its fields, and adds it to the family_name_tree and family_second_name_tree if a second name is provided.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "const WCHAR *",
+          "description": "The primary name of the font family."
+        },
+        {
+          "name": "second_name",
+          "type": "const WCHAR *",
+          "description": "The secondary name of the font family, if any."
+        }
+      ],
+      "return_type": "struct gdi_font_family*, representing the newly created font family."
+    }
+  },
+  {
+    "function": {
+      "name": "release_family",
+      "description": "This function releases a font family by decreasing its reference count. If the reference count reaches zero, it ensures that the list of faces is empty, removes the family from the family name tree and the family second name tree (if it has a second name), releases the replacement family (if it exists), and finally frees the memory allocated to the family.",
+      "parameters": [
+        {
+          "name": "family",
+          "type": "struct gdi_font_family *",
+          "description": "This is a pointer to the font family that is to be released."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "find_family_from_name",
+      "description": "This function searches for a font family by its name in the family_name_tree. If it doesn't find any, it returns NULL.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "const WCHAR *",
+          "description": "This is the name of the font family to be searched in the family_name_tree."
+        }
+      ],
+      "return_type": "struct gdi_font_family. It represents the font family found with the given name. If no font family is found, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "find_family_from_any_name",
+      "description": "This function is used to find a font family from any given name. It first tries to find the family from the name directly, if not found, it tries to get it from the family_second_name_tree. If still not found, it returns NULL.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "const WCHAR *",
+          "description": "This is the name of the font family to be found."
+        }
+      ],
+      "return_type": "struct gdi_font_family. This represents the font family found. If not found, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "find_face_from_full_name",
+      "description": "This function is used to find a font face from a given full name. It searches the face_full_name_tree for the provided full name. If it finds a match, it returns the corresponding font face. If it doesn't find a match, it returns NULL.",
+      "parameters": [
+        {
+          "name": "full_name",
+          "type": "const WCHAR *",
+          "description": "This is the full name of the font face that the function is trying to find."
+        }
+      ],
+      "return_type": "struct gdi_font_face pointer. It represents the found font face. If no font face is found, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "get_family_face_list",
+      "description": "This function returns a list of faces from a given font family. If the font family has a replacement, it returns the replacement's faces; otherwise, it returns the family's faces.",
+      "parameters": [
+        {
+          "name": "family",
+          "type": "const struct gdi_font_family *",
+          "description": "This is a pointer to the font family from which the list of faces is to be obtained."
+        }
+      ],
+      "return_type": "struct list. This represents a list of faces from the given font family or its replacement."
+    }
+  },
+  {
+    "function": {
+      "name": "family_find_face_from_filename",
+      "description": "This function searches for a font face within a given font family based on the provided file name. It increments the reference count of the found font face before returning it.",
+      "parameters": [
+        {
+          "name": "family",
+          "type": "struct gdi_font_family *",
+          "description": "Pointer to the font family where the function will search for the font face."
+        },
+        {
+          "name": "file_name",
+          "type": "const WCHAR *",
+          "description": "Name of the file to be searched within the font family."
+        }
+      ],
+      "return_type": "struct gdi_font_face * - Returns a pointer to the found font face. If no font face is found, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "find_face_from_filename",
+      "description": "This function is used to find a font face from a given file name and family name. If no family name is provided, it searches through all families. If a family name is provided, it searches only within that family.",
+      "parameters": [
+        {
+          "name": "file_name",
+          "type": "const WCHAR *",
+          "description": "The name of the file to search for the font face"
+        },
+        {
+          "name": "family_name",
+          "type": "const WCHAR *",
+          "description": "The name of the font family to search within. If this is NULL, the function searches all families."
+        }
+      ],
+      "return_type": "struct gdi_font_face * - A pointer to the found font face. If no face is found, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "add_family_replacement",
+      "description": "This function adds a new font family replacement. If the replacement or new family does not exist, or if the family already has a replacement, the function will return false. Otherwise, it will create a new family, set its replacement to the existing family, increment the family's refcount, and return true. It also handles the case of vertical fonts.",
+      "parameters": [
+        {
+          "name": "new_name",
+          "type": "WCHAR *",
+          "description": "The name of the new font family to be created"
+        },
+        {
+          "name": "replace",
+          "type": "WCHAR *",
+          "description": "The name of the existing font family to be replaced"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the family replacement was added successfully, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "load_gdi_font_replacements",
+      "description": "This function loads the GDI font replacements from the registry. It iterates through the registry keys, checks if the font replacement is available, and if not, it adds the replacement.",
+      "parameters": [],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "dump_gdi_font_list",
+      "description": "This function traverses through a list of font families and their faces, printing their details for debugging purposes.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "enum_fallbacks",
+      "description": "This function determines the default font list based on the pitch and family, converts the default font to unicode, and returns a boolean value based on the index.",
+      "parameters": [
+        {
+          "name": "pitch_and_family",
+          "type": "DWORD",
+          "description": "This parameter is used to determine the pitch and family of the font."
+        },
+        {
+          "name": "index",
+          "type": "int",
+          "description": "This parameter is used to access the specific font from the default font list."
+        },
+        {
+          "name": "buffer",
+          "type": "WCHAR[LF_FACESIZE]",
+          "description": "This parameter is used to store the unicode converted font."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was able to successfully determine the default font and convert it to unicode or not."
+    }
+  },
+  {
+    "function": {
+      "name": "set_default_family",
+      "description": "This function sets the default family by iterating through fallbacks, removing the existing entry from the family_name_tree, copying the name to the default_name, and then reinserting the entry back into the family_name_tree.",
+      "parameters": [
+        {
+          "name": "pitch_and_family",
+          "type": "DWORD",
+          "description": "This parameter is used to enumerate fallbacks."
+        },
+        {
+          "name": "default_name",
+          "type": "WCHAR pointer",
+          "description": "This parameter is used to store the default family name."
+        }
+      ],
+      "return_type": "void, this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "reorder_font_list",
+      "description": "This function sets the default family for different font types.",
+      "parameters": [],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "release_face",
+      "description": "This function releases the resources associated with a given font face. It decreases the reference count of the face, and if the count reaches zero, it removes the face from the cache (if it was added to it), removes it from the list, and releases the associated family. It also removes the face from the full name tree (if it is present there), and frees the memory allocated for the file, style name, full name, cached enum data, and the face itself.",
+      "parameters": [
+        {
+          "name": "face",
+          "type": "struct gdi_font_face *",
+          "description": "This is a pointer to the font face structure that needs to be released."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "remove_font",
+      "description": "This function removes a font face that matches the given file and flags from the font family. It locks the font family to ensure thread safety during the operation, and increments a counter for each face removed.",
+      "parameters": [
+        {
+          "name": "file",
+          "type": "WCHAR *",
+          "description": "This is the file name of the font face to be removed."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "These are the flags associated with the font face to be removed."
+        }
+      ],
+      "return_type": "int, representing the number of font faces removed from the font family."
+    }
+  },
+  {
+    "function": {
+      "name": "faces_equal",
+      "description": "This function compares two gdi_font_face structures to check if they are equal. It first compares the full names of the faces, then checks if the first face is scalable. If it is, it returns true. If not, it checks if the sizes of the faces are equal. If they are not, it returns false. Finally, it compares the fs fields of the faces using memcmp.",
+      "parameters": [
+        {
+          "name": "f1",
+          "type": "struct gdi_font_face *",
+          "description": "Pointer to the first gdi_font_face structure to be compared"
+        },
+        {
+          "name": "f2",
+          "type": "struct gdi_font_face *",
+          "description": "Pointer to the second gdi_font_face structure to be compared"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the faces are equal, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "style_order",
+      "description": "This function determines the style order of a font face based on its flags. It returns an integer representing the order.",
+      "parameters": [
+        {
+          "name": "face",
+          "type": "struct gdi_font_face *",
+          "description": "This is a pointer to a gdi_font_face structure. It represents the font face whose style order is to be determined."
+        }
+      ],
+      "return_type": "int, representing the style order of the font face. 0 for regular, 1 for bold, 2 for italic, 3 for bold and italic, and 9999 for unknown flags."
+    }
+  },
+  {
+    "function": {
+      "name": "insert_face_in_family_list",
+      "description": "This function inserts a font face into a font family list. It checks if the face is already in the list and updates the reference count and version accordingly. If the face is not in the list, it adds it and updates the reference count.",
+      "parameters": [
+        {
+          "name": "face",
+          "type": "struct gdi_font_face *",
+          "description": "The font face to be inserted into the list"
+        },
+        {
+          "name": "family",
+          "type": "struct gdi_font_family *",
+          "description": "The font family list where the face will be inserted"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the face was successfully inserted or updated in the list, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "create_face",
+      "description": "This function creates a new face for a given font family. It initializes the face with the provided parameters and inserts it into the family list. If the insertion fails, it releases the face and returns NULL.",
+      "parameters": [
+        {
+          "name": "family",
+          "type": "struct gdi_font_family *",
+          "description": "Pointer to the font family to which the face will be added"
+        },
+        {
+          "name": "style",
+          "type": "const WCHAR *",
+          "description": "Pointer to the style of the face"
+        },
+        {
+          "name": "fullname",
+          "type": "const WCHAR *",
+          "description": "Pointer to the full name of the face"
+        },
+        {
+          "name": "file",
+          "type": "const WCHAR *",
+          "description": "Pointer to the file name of the face"
+        },
+        {
+          "name": "data_ptr",
+          "type": "void *",
+          "description": "Pointer to the data of the face"
+        },
+        {
+          "name": "data_size",
+          "type": "SIZE_T",
+          "description": "Size of the data of the face"
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "Index of the face"
+        },
+        {
+          "name": "fs",
+          "type": "FONTSIGNATURE",
+          "description": "Font signature of the face"
+        },
+        {
+          "name": "ntmflags",
+          "type": "DWORD",
+          "description": "Flags of the face"
+        },
+        {
+          "name": "weight",
+          "type": "DWORD",
+          "description": "Weight of the face"
+        },
+        {
+          "name": "version",
+          "type": "DWORD",
+          "description": "Version of the face"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Additional flags of the face"
+        },
+        {
+          "name": "size",
+          "type": "const struct bitmap_font_size *",
+          "description": "Pointer to the size of the face"
+        }
+      ],
+      "return_type": "struct gdi_font_face * - Pointer to the created face if successful, NULL otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "add_gdi_face",
+      "description": "This function is used to add a new GDI font face, possibly creating a new font family if it doesn't exist. It also handles vertical fonts and caching.",
+      "parameters": [
+        {
+          "name": "family_name",
+          "type": "WCHAR *",
+          "description": "The name of the font family"
+        },
+        {
+          "name": "second_name",
+          "type": "WCHAR *",
+          "description": "The secondary name of the font"
+        },
+        {
+          "name": "style",
+          "type": "WCHAR *",
+          "description": "The style of the font"
+        },
+        {
+          "name": "fullname",
+          "type": "WCHAR *",
+          "description": "The full name of the font"
+        },
+        {
+          "name": "file",
+          "type": "WCHAR *",
+          "description": "The file path of the font"
+        },
+        {
+          "name": "data_ptr",
+          "type": "void *",
+          "description": "Pointer to the font data"
+        },
+        {
+          "name": "data_size",
+          "type": "SIZE_T",
+          "description": "The size of the font data"
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "The index of the font"
+        },
+        {
+          "name": "fs",
+          "type": "FONTSIGNATURE",
+          "description": "The font signature"
+        },
+        {
+          "name": "ntmflags",
+          "type": "DWORD",
+          "description": "Flags for the new text metrics"
+        },
+        {
+          "name": "weight",
+          "type": "DWORD",
+          "description": "The weight of the font"
+        },
+        {
+          "name": "version",
+          "type": "DWORD",
+          "description": "The version of the font"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Additional flags for the font"
+        },
+        {
+          "name": "size",
+          "type": "struct bitmap_font_size *",
+          "description": "Pointer to the structure containing the size of the bitmap font"
+        }
+      ],
+      "return_type": "int, represents the number of font faces added, 0 if none were added"
+    }
+  },
+  {
+    "function": {
+      "name": "load_face_from_cache",
+      "description": "This function loads a font face from the cache. It also handles the loading of bitmap strikes.",
+      "parameters": [
+        {
+          "name": "hkey_family",
+          "type": "HKEY",
+          "description": "Handle to a registry key for the font family"
+        },
+        {
+          "name": "family",
+          "type": "struct gdi_font_family *",
+          "description": "Pointer to a gdi_font_family structure"
+        },
+        {
+          "name": "buffer",
+          "type": "void *",
+          "description": "Pointer to a buffer where the function stores temporary data"
+        },
+        {
+          "name": "buffer_size",
+          "type": "DWORD",
+          "description": "Size of the buffer"
+        },
+        {
+          "name": "scalable",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether the font face is scalable or not"
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "load_font_list_from_cache",
+      "description": "This function loads a list of font families from a cache. It iterates over the keys in the wine_fonts_cache_key, opens each key, queries its value, creates a font family, loads a face from the cache, and then closes the key and releases the family.",
+      "parameters": [],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "add_face_to_cache",
+      "description": "This function adds a font face to the cache. It creates a registry key for the font family, sets the registry value for the second name if it exists, and creates a registry key for the font face if it is not scalable. It then initializes a cached_face structure with the properties of the font face and sets the registry value for the style name. Finally, it closes the registry keys.",
+      "parameters": [
+        {
+          "name": "face",
+          "type": "struct gdi_font_face *",
+          "description": "This is a pointer to the font face structure that needs to be added to the cache."
+        }
+      ],
+      "return_type": "void, as this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "remove_face_from_cache",
+      "description": "This function removes a font face from the cache. If the font face is not scalable, it deletes the key associated with the font size. If the font face is scalable, it deletes the value associated with the font style. The function operates on the Windows registry.",
+      "parameters": [
+        {
+          "name": "face",
+          "type": "struct gdi_font_face *",
+          "description": "This is a pointer to the font face structure that is to be removed from the cache."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "find_gdi_font_link",
+      "description": "This function searches for a gdi font link that matches the given name. It iterates over the list of font links and compares each link's name with the provided name. If it finds a match, it returns that link. If no match is found, it returns NULL.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "const WCHAR *",
+          "description": "This is the name of the gdi font link to be found."
+        }
+      ],
+      "return_type": "struct gdi_font_link * - This represents a pointer to the found gdi font link. If no link is found, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "find_family_from_font_links",
+      "description": "This function searches for a font family in the font links list using the provided name and substitute name. It also checks for font signature compatibility. If a match is found, it returns the corresponding font family; otherwise, it returns NULL.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "const WCHAR *",
+          "description": "The name of the font family to search for in the font links list."
+        },
+        {
+          "name": "subst",
+          "type": "const WCHAR *",
+          "description": "A substitute name for the font family, used if the original name does not yield a match."
+        },
+        {
+          "name": "fs",
+          "type": "FONTSIGNATURE",
+          "description": "The font signature to check for compatibility with the font family."
+        }
+      ],
+      "return_type": "struct gdi_font_family *; Returns a pointer to the matched font family if found, otherwise returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "add_gdi_font_link",
+      "description": "This function is used to add a new GDI font link. If the font link already exists, it returns the existing link. Otherwise, it creates a new link, initializes it, and adds it to the tail of the font links list.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "const WCHAR *",
+          "description": "This is the name of the GDI font link to be added."
+        }
+      ],
+      "return_type": "struct gdi_font_link *; It represents a pointer to the added or found GDI font link."
+    }
+  },
+  {
+    "function": {
+      "name": "add_gdi_font_link_entry",
+      "description": "This function adds a new entry to the gdi font link. It allocates memory for the new entry, copies the family name into the new entry, assigns the font signature, updates the font signature in the link, and finally adds the new entry to the link's list of entries.",
+      "parameters": [
+        {
+          "name": "link",
+          "type": "struct gdi_font_link *",
+          "description": "This is the link to which the new entry will be added."
+        },
+        {
+          "name": "family_name",
+          "type": "WCHAR *",
+          "description": "This is the family name that will be copied into the new entry."
+        },
+        {
+          "name": "fs",
+          "type": "FONTSIGNATURE",
+          "description": "This is the font signature that will be assigned to the new entry and used to update the link's font signature."
+        }
+      ],
+      "return_type": "void, as this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "populate_system_links",
+      "description": "This function populates system links for a given font family. It ignores fonts that are only substitutes for other fonts. For each value in the values array, it compares the name with the value, gets the font substitution if it exists, finds the font family from the value, and adds a font link entry for the first extant filename for the family.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "WCHAR *",
+          "description": "This parameter represents the name of the font family."
+        },
+        {
+          "name": "values",
+          "type": "WCHAR * const *",
+          "description": "This parameter is a pointer to an array of values to be processed for the given font family."
+        }
+      ],
+      "return_type": "void, as this function does not return any value but performs operations on the provided parameters."
+    }
+  },
+  {
+    "function": {
+      "name": "load_system_links",
+      "description": "This function loads system links for fonts. It opens a registry key and enumerates its values, adding font links for each value that is not a substitute for another font. It also handles special cases for the MS Shell Dlg font and the system font.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "translate_charset_info",
+      "description": "This function translates charset information based on the provided flags. It iterates over the charset_info array and checks for matching conditions based on the flag type. If a match is found, it assigns the matching charset_info to the CHARSETINFO pointer and returns TRUE. If no match is found, it returns FALSE.",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "DWORD *",
+          "description": "Pointer to the source DWORD. Depending on the flag, it represents either a font signature, a code page, or a charset."
+        },
+        {
+          "name": "cs",
+          "type": "CHARSETINFO *",
+          "description": "Pointer to a CHARSETINFO structure. If a match is found, the function assigns the matching charset_info to this pointer."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flag that determines the type of the source DWORD. It can be TCI_SRCFONTSIG for a font signature, TCI_SRCCODEPAGE for a code page, or TCI_SRCCHARSET for a charset."
+        }
+      ],
+      "return_type": "BOOL, represents whether a match was found in the charset_info array. Returns TRUE if a match is found, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "can_select_face",
+      "description": "This function determines if a specific font face can be selected based on its scalability, font signature, and the ability to use bitmap.",
+      "parameters": [
+        {
+          "name": "face",
+          "type": "struct gdi_font_face *",
+          "description": "Pointer to the font face structure to be selected"
+        },
+        {
+          "name": "fs",
+          "type": "FONTSIGNATURE",
+          "description": "Font signature of the font face"
+        },
+        {
+          "name": "can_use_bitmap",
+          "type": "BOOL",
+          "description": "Boolean value indicating if bitmap can be used or not"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the font face can be selected, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "find_best_matching_face",
+      "description": "This function finds the best matching font face from a given font family, based on the provided font signature, logfont, and a boolean indicating whether bitmap can be used or not.",
+      "parameters": [
+        {
+          "name": "family",
+          "type": "const struct gdi_font_family *",
+          "description": "Pointer to the font family from which the best matching face is to be found"
+        },
+        {
+          "name": "lf",
+          "type": "const LOGFONTW *",
+          "description": "Pointer to the logical font structure containing font attributes"
+        },
+        {
+          "name": "fs",
+          "type": "FONTSIGNATURE",
+          "description": "Font signature containing information about the character sets supported by the font"
+        },
+        {
+          "name": "can_use_bitmap",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether bitmap can be used or not"
+        }
+      ],
+      "return_type": "struct gdi_font_face * - Pointer to the best matching font face. If no matching face is found, it returns NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "find_matching_face_by_name",
+      "description": "This function searches for a matching font face by its name. If a substitute name is provided, it will be used in case the original name doesn't match any font face. The function also considers the font signature, whether bitmap can be used, and the original name of the font face.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "const WCHAR *",
+          "description": "The name of the font face to search for"
+        },
+        {
+          "name": "subst",
+          "type": "const WCHAR *",
+          "description": "The substitute name to use if the original name doesn't match any font face"
+        },
+        {
+          "name": "lf",
+          "type": "const LOGFONTW *",
+          "description": "The logical font structure"
+        },
+        {
+          "name": "fs",
+          "type": "FONTSIGNATURE",
+          "description": "The font signature"
+        },
+        {
+          "name": "can_use_bitmap",
+          "type": "BOOL",
+          "description": "A flag indicating whether bitmap can be used"
+        },
+        {
+          "name": "orig_name",
+          "type": "const WCHAR **",
+          "description": "The original name of the font face"
+        }
+      ],
+      "return_type": "struct gdi_font_face * - A pointer to the matching font face structure if found, NULL otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "find_any_face",
+      "description": "This function tries to find a font face that matches the given criteria. It first tries to find a match in the family fallbacks. If no match is found, it tries to find a scalable match. If still no match is found and bitmap fonts can be used, it tries to find a bitmap match. If no match is found in any of these steps, it returns NULL.",
+      "parameters": [
+        {
+          "name": "lf",
+          "type": "const LOGFONTW *",
+          "description": "Pointer to a LOGFONTW structure that contains information about the logical font"
+        },
+        {
+          "name": "fs",
+          "type": "FONTSIGNATURE",
+          "description": "Font signature, used to match the font"
+        },
+        {
+          "name": "can_use_bitmap",
+          "type": "BOOL",
+          "description": "Flag indicating whether bitmap fonts can be used"
+        },
+        {
+          "name": "want_vertical",
+          "type": "BOOL",
+          "description": "Flag indicating whether a vertical font is desired"
+        }
+      ],
+      "return_type": "struct gdi_font_face *: Pointer to a gdi_font_face structure that represents the found font face. If no matching font face is found, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "find_matching_face",
+      "description": "This function finds a matching font face based on the provided parameters. It checks for charset translation, font substitution, and if necessary, tries to find any face matching the criteria. If no matching face is found, it returns NULL.",
+      "parameters": [
+        {
+          "name": "lf",
+          "type": "const LOGFONTW *",
+          "description": "Pointer to a LOGFONTW structure that defines the logical font"
+        },
+        {
+          "name": "csi",
+          "type": "CHARSETINFO *",
+          "description": "Pointer to a CHARSETINFO structure that defines the character set information"
+        },
+        {
+          "name": "can_use_bitmap",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether bitmap can be used"
+        },
+        {
+          "name": "substituted",
+          "type": "BOOL *",
+          "description": "Pointer to a boolean value indicating whether a substitution has been made"
+        },
+        {
+          "name": "orig_name",
+          "type": "const WCHAR **",
+          "description": "Pointer to the original name of the font face"
+        }
+      ],
+      "return_type": "struct gdi_font_face *: Pointer to a gdi_font_face structure representing the matching font face. Returns NULL if no matching face is found."
+    }
+  },
+  {
+    "function": {
+      "name": "handle_entry",
+      "description": "This function takes a handle, calculates an index from it, and returns a pointer to the font handle entry at that index if it exists and matches the generation of the handle. If the handle is invalid, it logs a warning and returns NULL.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "unsigned int",
+          "description": "This parameter represents a handle to a font."
+        }
+      ],
+      "return_type": "struct font_handle_entry pointer. It represents a pointer to a font handle entry if the handle is valid and matches the generation, otherwise NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "get_font_from_handle",
+      "description": "This function retrieves a font from a given handle. If the handle is invalid, it sets the last win32 error to ERROR_INVALID_PARAMETER and returns NULL.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "unsigned int",
+          "description": "This is the handle used to retrieve the font."
+        }
+      ],
+      "return_type": "struct gdi_font pointer. It represents the font associated with the given handle. If the handle is invalid, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "alloc_font_handle",
+      "description": "This function allocates a font handle. It either gets the next free entry or uses the next unused one. If all font handles are used, it returns an error and a 0. It also manages the generation of the font handle entries.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "struct gdi_font *",
+          "description": "This parameter is used to assign a font to the font handle entry."
+        }
+      ],
+      "return_type": "DWORD, represents the font handle. If no handles are available, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "free_font_handle",
+      "description": "This function frees a font handle by setting its entry's font to the next free entry and then setting the next free entry to the current entry.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "DWORD",
+          "description": "This is the handle of the font to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "alloc_gdi_font",
+      "description": "This function allocates memory for a new gdi_font structure, initializes its fields, and returns a pointer to it. If a file is provided, it queries its attributes and copies them into the structure. Otherwise, it uses the provided data pointer and size.",
+      "parameters": [
+        {
+          "name": "file",
+          "type": "const WCHAR *",
+          "description": "Pointer to a wide-character string representing the file name. If this parameter is NULL, the function uses the data_ptr and data_size parameters instead."
+        },
+        {
+          "name": "data_ptr",
+          "type": "void *",
+          "description": "Pointer to the data to be used if the file parameter is NULL."
+        },
+        {
+          "name": "data_size",
+          "type": "SIZE_T",
+          "description": "Size of the data to be used if the file parameter is NULL."
+        }
+      ],
+      "return_type": "struct gdi_font * - Pointer to the newly allocated and initialized gdi_font structure."
+    }
+  },
+  {
+    "function": {
+      "name": "free_gdi_font",
+      "description": "This function is used to free the memory allocated for a gdi_font structure and its associated properties. It also handles the destruction of the font if it's private, and recursively frees any child fonts.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "struct gdi_font *",
+          "description": "This is a pointer to the gdi_font structure that needs to be freed."
+        }
+      ],
+      "return_type": "void, as this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "get_gdi_font_name",
+      "description": "This function returns the name of the GDI font. It checks if the 'use_logfont_name' attribute of the font is true, if so it returns the 'lfFaceName' attribute of the 'lf' object of the font. Otherwise, it returns the 'otmpFamilyName' attribute of the 'otm' object of the font.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "struct gdi_font *",
+          "description": "This is a pointer to the GDI font structure from which the font name is to be retrieved."
+        }
+      ],
+      "return_type": "WCHAR. This represents the name of the GDI font."
+    }
+  },
+  {
+    "function": {
+      "name": "create_gdi_font",
+      "description": "This function creates a new gdi_font structure, initializes it with the provided parameters and returns a pointer to it.",
+      "parameters": [
+        {
+          "name": "face",
+          "type": "const struct gdi_font_face *",
+          "description": "Pointer to a gdi_font_face structure that provides the font face details"
+        },
+        {
+          "name": "family_name",
+          "type": "const WCHAR *",
+          "description": "Pointer to a string representing the family name of the font"
+        },
+        {
+          "name": "lf",
+          "type": "const LOGFONTW *",
+          "description": "Pointer to a LOGFONTW structure that provides the logical font details"
+        }
+      ],
+      "return_type": "struct gdi_font *; Pointer to the newly created gdi_font structure"
+    }
+  },
+  {
+    "function": {
+      "name": "get_gdi_font_glyph_metrics",
+      "description": "This function retrieves the glyph metrics for a specified font and index. If the metrics are cached, it assigns them to the provided pointers and returns TRUE, otherwise it returns FALSE.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "struct gdi_font *",
+          "description": "Pointer to the font structure from which to retrieve the glyph metrics"
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "Index of the glyph for which to retrieve the metrics"
+        },
+        {
+          "name": "gm",
+          "type": "GLYPHMETRICS *",
+          "description": "Pointer to a GLYPHMETRICS structure that will receive the glyph metrics"
+        },
+        {
+          "name": "abc",
+          "type": "ABC *",
+          "description": "Pointer to an ABC structure that will receive the glyph metrics"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the glyph metrics were successfully retrieved and assigned, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "set_gdi_font_glyph_metrics",
+      "description": "This function sets the glyph metrics for a given font, index, and ABC structure. It reallocates memory for the glyph metrics if needed and initializes the glyph metrics and ABC structure for the given index.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "struct gdi_font *",
+          "description": "Pointer to the gdi_font structure for which the glyph metrics are to be set"
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "Index at which the glyph metrics are to be set"
+        },
+        {
+          "name": "gm",
+          "type": "GLYPHMETRICS *",
+          "description": "Pointer to the GLYPHMETRICS structure that contains the glyph metrics to be set"
+        },
+        {
+          "name": "abc",
+          "type": "ABC *",
+          "description": "Pointer to the ABC structure that contains the abc values to be set"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "get_GSUB_vert_feature",
+      "description": "This function retrieves the 'GSUB' vertical feature from a given font. It checks for 'vrt2' and 'vert' features in the font's 'GSUB' table and returns the feature if found. If not found, it frees the allocated memory and returns NULL.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "struct gdi_font *",
+          "description": "A pointer to the font structure from which the 'GSUB' vertical feature is to be retrieved."
+        }
+      ],
+      "return_type": "void *: Returns a pointer to the 'GSUB' vertical feature if found, otherwise returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GSUB_is_glyph_covered",
+      "description": "This function checks if a glyph is covered in a given table. It handles two coverage formats and returns the index of the glyph if it is covered, otherwise it returns -1.",
+      "parameters": [
+        {
+          "name": "table",
+          "type": "void *",
+          "description": "A pointer to the table where the glyph is to be searched."
+        },
+        {
+          "name": "glyph",
+          "type": "UINT",
+          "description": "The glyph that is to be checked for coverage in the table."
+        }
+      ],
+      "return_type": "int, represents the index of the glyph in the table if it is covered, otherwise -1."
+    }
+  },
+  {
+    "function": {
+      "name": "GSUB_apply_feature",
+      "description": "This function applies a specific feature to a glyph in a GSUB header. It iterates over the lookups in the feature, and for each lookup, it applies the substitution specified in the lookup to the glyph if the glyph is covered by the lookup.",
+      "parameters": [
+        {
+          "name": "header",
+          "type": "GSUB_Header *",
+          "description": "Pointer to the GSUB header where the feature is to be applied."
+        },
+        {
+          "name": "feature",
+          "type": "GSUB_Feature *",
+          "description": "Pointer to the feature to be applied."
+        },
+        {
+          "name": "glyph",
+          "type": "UINT",
+          "description": "The glyph to which the feature is to be applied."
+        }
+      ],
+      "return_type": "UINT, represents the glyph after the feature has been applied."
+    }
+  },
+  {
+    "function": {
+      "name": "get_GSUB_vert_glyph",
+      "description": "This function checks if the glyph is null or if the gsub_table of the font is null, it returns the glyph. Otherwise, it applies the vert_feature of the font to the glyph using the GSUB_apply_feature function.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "struct gdi_font *",
+          "description": "This is a pointer to the gdi_font structure which contains the font details."
+        },
+        {
+          "name": "glyph",
+          "type": "UINT",
+          "description": "This is the glyph that needs to be checked and possibly transformed."
+        }
+      ],
+      "return_type": "UINT, represents the possibly transformed glyph."
+    }
+  },
+  {
+    "function": {
+      "name": "add_child_font",
+      "description": "This function creates a child font for a given font and adds it to the list of child fonts. It also copies the properties of the base font to the child font.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "struct gdi_font *",
+          "description": "This is the base font for which a child font is to be created."
+        },
+        {
+          "name": "family_name",
+          "type": "WCHAR *",
+          "description": "This is the family name of the font face to be used for creating the child font."
+        }
+      ],
+      "return_type": "void, as this function does not return anything. It modifies the base font by adding a child font to it."
+    }
+  },
+  {
+    "function": {
+      "name": "create_child_font_list",
+      "description": "This function creates a list of child fonts for a given font. It first checks if the font is in the system list. If it is, it adds all the child fonts to the font. If the font's charset is not SYMBOL or OEM, it also adds Microsoft Sans Serif and all its fonts, and Tahoma and all its fonts as a backup.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "struct gdi_font *",
+          "description": "This is the font for which the child font list is to be created."
+        }
+      ],
+      "return_type": "void, as this function does not return anything. It modifies the font by adding child fonts to it."
+    }
+  },
+  {
+    "function": {
+      "name": "fontcmp",
+      "description": "This function compares the properties of a given font with the specified parameters. It checks the hash, matrix, logfont, and bitmap usage of the font. If any of these properties do not match, it returns TRUE. If all properties match, it compares the face name of the font and returns the result.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "struct gdi_font *",
+          "description": "Pointer to the font structure to be compared"
+        },
+        {
+          "name": "hash",
+          "type": "DWORD",
+          "description": "The hash value to be compared with the font's hash"
+        },
+        {
+          "name": "lf",
+          "type": "LOGFONTW *",
+          "description": "Pointer to the LOGFONTW structure to be compared with the font's LOGFONTW"
+        },
+        {
+          "name": "matrix",
+          "type": "FMAT2 *",
+          "description": "Pointer to the FMAT2 structure to be compared with the font's matrix"
+        },
+        {
+          "name": "can_use_bitmap",
+          "type": "BOOL",
+          "description": "Boolean value to be compared with the font's bitmap usage"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if any of the font's properties do not match the specified parameters, otherwise it returns the result of comparing the face name of the font"
+    }
+  },
+  {
+    "function": {
+      "name": "hash_font",
+      "description": "This function calculates and returns a hash value for a given font, based on its LOGFONTW structure, FMAT2 matrix, and a boolean value indicating whether a bitmap can be used or not.",
+      "parameters": [
+        {
+          "name": "lf",
+          "type": "LOGFONTW *",
+          "description": "Pointer to a LOGFONTW structure that defines the font"
+        },
+        {
+          "name": "matrix",
+          "type": "FMAT2 *",
+          "description": "Pointer to a FMAT2 structure that defines the transformation matrix for the font"
+        },
+        {
+          "name": "can_use_bitmap",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether a bitmap can be used for the font or not"
+        }
+      ],
+      "return_type": "DWORD, represents the hash value for the given font"
+    }
+  },
+  {
+    "function": {
+      "name": "cache_gdi_font",
+      "description": "This function caches a gdi font, updates its cache number and hash, and adds it to the gdi font list.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "struct gdi_font*",
+          "description": "This is a pointer to the gdi font to be cached."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "find_cached_gdi_font",
+      "description": "This function searches for a cached GDI font based on the provided parameters. If found, it removes the font from its current position in the list and adds it to the head of the list. If the font's reference count is zero, it also removes the font from the unused list and decrements the unused font count. If the font is not found, it returns NULL.",
+      "parameters": [
+        {
+          "name": "lf",
+          "type": "const LOGFONTW *",
+          "description": "Pointer to a LOGFONTW structure that defines the logical attributes of the font."
+        },
+        {
+          "name": "matrix",
+          "type": "const FMAT2 *",
+          "description": "Pointer to a FMAT2 structure that defines the transformation matrix for the font."
+        },
+        {
+          "name": "can_use_bitmap",
+          "type": "BOOL",
+          "description": "Boolean value that indicates whether the font can use a bitmap."
+        }
+      ],
+      "return_type": "struct gdi_font *; Returns a pointer to the found cached GDI font, or NULL if the font is not found."
+    }
+  },
+  {
+    "function": {
+      "name": "release_gdi_font",
+      "description": "This function releases a GDI font, adds it to the unused list if its reference count is zero, and frees it if the unused font count exceeds the cache size.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "struct gdi_font *",
+          "description": "This is a pointer to the GDI font structure to be released."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "add_font_list",
+      "description": "This function sets the registry values for different font types based on the provided parameters.",
+      "parameters": [
+        {
+          "name": "hkey",
+          "type": "HKEY",
+          "description": "A handle to an open registry key."
+        },
+        {
+          "name": "fl",
+          "type": "struct nls_update_font_list *",
+          "description": "A pointer to a structure that contains font information."
+        },
+        {
+          "name": "dpi",
+          "type": "int",
+          "description": "The dots per inch (dpi) setting for the fonts."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "set_value_key",
+      "description": "This function sets a value to a registry key. If the value is null, it deletes the value associated with the name.",
+      "parameters": [
+        {
+          "name": "hkey",
+          "type": "HKEY",
+          "description": "This is a handle to an open registry key."
+        },
+        {
+          "name": "name",
+          "type": "const char*",
+          "description": "This is the name of the value to be set. If value is null, this is the name of the value to be deleted."
+        },
+        {
+          "name": "value",
+          "type": "const char*",
+          "description": "This is the value to be set to the registry key. If this is null, the function deletes the value associated with the name."
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "update_font_association_info",
+      "description": "This function updates the font association information. If the maximum character size of ansi_cp is 2, it creates a registry key and sets certain values based on the code page of ansi_cp. If the maximum character size is not 2, it deletes a registry tree.",
+      "parameters": [],
+      "return_type": "void, meaning it does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "set_multi_value_key",
+      "description": "This function sets a multi-value key in the registry. If the value is null, it deletes the registry value.",
+      "parameters": [
+        {
+          "name": "hkey",
+          "type": "HKEY",
+          "description": "Handle to an open registry key."
+        },
+        {
+          "name": "name",
+          "type": "WCHAR*",
+          "description": "Pointer to a null-terminated string specifying the name of the registry value."
+        },
+        {
+          "name": "value",
+          "type": "char*",
+          "description": "Pointer to the buffer that contains the new data for the registry value."
+        },
+        {
+          "name": "len",
+          "type": "UINT",
+          "description": "Size of the data pointed by 'value' parameter."
+        }
+      ],
+      "return_type": "void, does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "update_font_system_link_info",
+      "description": "This function updates the system link information for fonts. It creates a registry key and sets multiple values for it based on the default system link array. The function also handles locale-dependent links and adjusts the link and length accordingly.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, meaning this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "update_codepage",
+      "description": "This function updates the codepage and font information based on the screen DPI. It checks the registry for existing values, updates them if necessary, and creates new registry keys for font information if they do not exist. It also handles font substitution for different locales.",
+      "parameters": [
+        {
+          "name": "screen_dpi",
+          "type": "UINT",
+          "description": "The screen DPI (dots per inch) value used to update the codepage and font information."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "font_CreateDC",
+      "description": "This function creates a device context for a font, allocating memory for the font physical device and pushing the device context driver to the stack.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV*",
+          "description": "Pointer to the physical device."
+        },
+        {
+          "name": "device",
+          "type": "LPCWSTR",
+          "description": "Wide string representing the device."
+        },
+        {
+          "name": "output",
+          "type": "LPCWSTR",
+          "description": "Wide string representing the output."
+        },
+        {
+          "name": "devmode",
+          "type": "DEVMODEW*",
+          "description": "Pointer to the device mode."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the device context was successfully created and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "font_DeleteDC",
+      "description": "This function deletes a device context related to a font. It first retrieves the font device, releases the GDI font and then frees the memory allocated to the font device.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is a device context for the font to be deleted."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE after successfully deleting the font device context."
+    }
+  },
+  {
+    "function": {
+      "name": "is_complex_script_ansi_cp",
+      "description": "This function checks if the code page of ansi_cp is Thai, Hebrew, or Arabic.",
+      "parameters": [],
+      "return_type": "BOOL, returns TRUE if the code page of ansi_cp is Thai, Hebrew, or Arabic, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "create_enum_charset_list",
+      "description": "This function creates a list of character sets. If the charset is valid, it sets the list's mask, charset, and script. If the charset is DEFAULT_CHARSET or invalid, it sets the current codepage's charset as the first element and fills out the remaining elements. It also adds a catch-all mask for remaining bits.",
+      "parameters": [
+        {
+          "name": "charset",
+          "type": "DWORD",
+          "description": "The character set to be translated"
+        },
+        {
+          "name": "list",
+          "type": "struct enum_charset *",
+          "description": "Pointer to the list where the character sets will be stored"
+        }
+      ],
+      "return_type": "DWORD, represents the number of elements in the list"
+    }
+  },
+  {
+    "function": {
+      "name": "get_font_type",
+      "description": "This function determines the type of font based on the 'tmPitchAndFamily' attribute of the 'ntmTm' structure within the 'ntm' parameter. It checks for TrueType, Device, and Raster font types.",
+      "parameters": [
+        {
+          "name": "ntm",
+          "type": "NEWTEXTMETRICEXW *",
+          "description": "Pointer to a NEWTEXTMETRICEXW structure that contains information about the font."
+        }
+      ],
+      "return_type": "UINT, represents the type of font. It could be TrueType, Device, Raster or a combination of these."
+    }
+  },
+  {
+    "function": {
+      "name": "get_face_enum_data",
+      "description": "This function retrieves the enumeration data for a given font face. It creates a GDI font, loads it, sets its metrics, and copies these metrics and other properties to the provided ENUMLOGFONTEXW and NEWTEXTMETRICEXW structures.",
+      "parameters": [
+        {
+          "name": "face",
+          "type": "struct gdi_font_face *",
+          "description": "Pointer to the font face structure from which to retrieve enumeration data"
+        },
+        {
+          "name": "elf",
+          "type": "ENUMLOGFONTEXW *",
+          "description": "Pointer to the ENUMLOGFONTEXW structure where the function will store the enumeration data"
+        },
+        {
+          "name": "ntm",
+          "type": "NEWTEXTMETRICEXW *",
+          "description": "Pointer to the NEWTEXTMETRICEXW structure where the function will store the new text metrics"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully retrieves the enumeration data and FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "family_matches",
+      "description": "This function checks if the provided face name matches with the family name or any of the face names in the given font family.",
+      "parameters": [
+        {
+          "name": "family",
+          "type": "struct gdi_font_family *",
+          "description": "This is a pointer to the font family structure to be checked."
+        },
+        {
+          "name": "face_name",
+          "type": "WCHAR *",
+          "description": "This is the face name to be compared with the family name and face names in the font family."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the face name matches with the family name or any of the face names in the font family, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "face_matches",
+      "description": "This function compares the family name and full name of a font face with a given face name. If either matches, it returns TRUE, otherwise FALSE.",
+      "parameters": [
+        {
+          "name": "family_name",
+          "type": "WCHAR *",
+          "description": "This is the family name of the font face to be compared."
+        },
+        {
+          "name": "face",
+          "type": "struct gdi_font_face *",
+          "description": "This is the font face structure that contains the full name of the font face to be compared."
+        },
+        {
+          "name": "face_name",
+          "type": "WCHAR *",
+          "description": "This is the face name to be compared with the family name and full name of the font face."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the face name matches either the family name or the full name of the font face, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "enum_face_charsets",
+      "description": "This function enumerates the character sets of a given font face. It also handles font replacement and performs a callback operation for each character set.",
+      "parameters": [
+        {
+          "name": "family",
+          "type": "struct gdi_font_family *",
+          "description": "Pointer to the font family structure"
+        },
+        {
+          "name": "face",
+          "type": "struct gdi_font_face *",
+          "description": "Pointer to the font face structure"
+        },
+        {
+          "name": "list",
+          "type": "struct enum_charset *",
+          "description": "Pointer to the character set enumeration structure"
+        },
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "The count of character sets"
+        },
+        {
+          "name": "proc",
+          "type": "font_enum_proc",
+          "description": "Callback function to be called for each enumerated character set"
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Parameter to be passed to the callback function"
+        },
+        {
+          "name": "subst",
+          "type": "WCHAR *",
+          "description": "Pointer to the substitution string in case of font replacement"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully enumerates all character sets, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "font_EnumFonts",
+      "description": "This function enumerates fonts based on the provided parameters. It locks the font, checks if the font family and face match the given parameters, and if they do, it enumerates the face charsets. If the enumeration fails, it unlocks the font and returns FALSE. If all enumerations are successful, it unlocks the font and returns TRUE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "lf",
+          "type": "LOGFONTW *",
+          "description": "Pointer to a LOGFONTW structure that contains information about the logical font"
+        },
+        {
+          "name": "proc",
+          "type": "font_enum_proc",
+          "description": "Callback function for each enumerated font"
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Application-defined value"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if all enumerations are successful, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "check_unicode_tategaki",
+      "description": "This function checks if a given unicode character has vertical orientation. It uses a predefined table to determine the orientation of the character.",
+      "parameters": [
+        {
+          "name": "ch",
+          "type": "WCHAR",
+          "description": "This is the unicode character that is being checked for vertical orientation."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the orientation of the character is either 1 or 3, indicating vertical orientation, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_glyph_index_symbol",
+      "description": "This function adjusts the glyph value based on certain conditions and retrieves the glyph index from the font using the font_funcs object. If the index is not found, it tries to retrieve the index again after adjusting the glyph value.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "struct gdi_font *",
+          "description": "This is a pointer to the gdi_font structure which represents the font from which the glyph index is to be retrieved."
+        },
+        {
+          "name": "glyph",
+          "type": "UINT",
+          "description": "This is the glyph value for which the index is to be retrieved from the font."
+        }
+      ],
+      "return_type": "UINT, represents the index of the glyph in the font. If the index is not found, it returns the adjusted glyph value."
+    }
+  },
+  {
+    "function": {
+      "name": "get_cptable",
+      "description": "This function retrieves a code page table corresponding to a given code page identifier. It first checks if the code page is ANSI or UTF-8, returning the corresponding table if so. If not, it searches an array of tables for the specified code page. If the code page is not found and the array is not full, it attempts to initialize a new table with the code page data.",
+      "parameters": [
+        {
+          "name": "cp",
+          "type": "WORD",
+          "description": "This is the code page identifier for which the function will retrieve a code page table."
+        }
+      ],
+      "return_type": "CPTABLEINFO pointer. This represents a pointer to the code page table corresponding to the given code page identifier. If the code page is not found or cannot be initialized, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "get_locale_data",
+      "description": "This function retrieves locale-specific data based on a given locale identifier (LCID). It initializes NLS files if they are not already initialized, and then uses a binary search to find the LCID in the locale table. If the LCID is found, the function returns a pointer to the corresponding locale data. If the LCID is not found, the function returns NULL.",
+      "parameters": [
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "This is the locale identifier for which the function retrieves data."
+        }
+      ],
+      "return_type": "NLS_LOCALE_DATA. This represents the locale-specific data for the given LCID. If the LCID is not found in the locale table, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wctomb",
+      "description": "This function converts a wide character string to a new character string, using a specified code page.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "CPTABLEINFO *",
+          "description": "Pointer to a CPTABLEINFO structure that contains information about the code page used for conversion."
+        },
+        {
+          "name": "dst",
+          "type": "char *",
+          "description": "Pointer to the buffer that receives the converted string."
+        },
+        {
+          "name": "dstlen",
+          "type": "DWORD",
+          "description": "Specifies the size, in bytes, of the buffer pointed to by the dst parameter."
+        },
+        {
+          "name": "src",
+          "type": "WCHAR *",
+          "description": "Pointer to the wide character string to convert."
+        },
+        {
+          "name": "srclen",
+          "type": "DWORD",
+          "description": "Specifies the number of wide characters in the string pointed to by the src parameter."
+        }
+      ],
+      "return_type": "DWORD, represents the number of bytes written to the buffer pointed to by dst, not including the null terminator. If the function fails, the return value is 0."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wctomb_size",
+      "description": "This function calculates the size of a wide character string when converted to a multibyte string using a given code page.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "CPTABLEINFO *",
+          "description": "Pointer to a CPTABLEINFO structure that contains information about the code page used for conversion."
+        },
+        {
+          "name": "src",
+          "type": "WCHAR *",
+          "description": "Pointer to the wide character string to be converted."
+        },
+        {
+          "name": "srclen",
+          "type": "DWORD",
+          "description": "Length of the source wide character string."
+        }
+      ],
+      "return_type": "DWORD, represents the size of the multibyte string after conversion."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_mbtowc",
+      "description": "This function converts a multibyte string to a wide character string using a specified code page.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "CPTABLEINFO *",
+          "description": "Pointer to a CPTABLEINFO structure that contains information about the code page used for conversion."
+        },
+        {
+          "name": "dst",
+          "type": "WCHAR *",
+          "description": "Pointer to a buffer that receives the converted wide character string."
+        },
+        {
+          "name": "dstlen",
+          "type": "DWORD",
+          "description": "Size of the buffer pointed to by dst, in characters."
+        },
+        {
+          "name": "src",
+          "type": "char *",
+          "description": "Pointer to the null-terminated multibyte string to convert."
+        },
+        {
+          "name": "srclen",
+          "type": "DWORD",
+          "description": "Length of the string pointed to by src, in bytes."
+        }
+      ],
+      "return_type": "DWORD, represents the number of characters written to the buffer pointed to by dst, not including the terminating null character."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_mbtowc_size",
+      "description": "This function calculates the size of a wide character string that would result from converting a multibyte character string using a specified code page.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "CPTABLEINFO *",
+          "description": "Pointer to a CPTABLEINFO structure that contains information about the code page used for the conversion."
+        },
+        {
+          "name": "src",
+          "type": "char *",
+          "description": "Pointer to the multibyte character string to be converted."
+        },
+        {
+          "name": "srclen",
+          "type": "DWORD",
+          "description": "Length of the source string."
+        }
+      ],
+      "return_type": "DWORD, represents the size of the wide character string that would result from the conversion."
+    }
+  },
+  {
+    "function": {
+      "name": "wc_to_index",
+      "description": "This function converts a wide character to a code page index. It checks if the code page table exists, if the code page is UTF8, if the wide character is less than 0x80, and if the default is allowed. It also checks if the code page is DBCS and assigns the wide character to the destination. If the multi-byte table does not match the wide character, it assigns the default character to the destination if allowed.",
+      "parameters": [
+        {
+          "name": "cp",
+          "type": "UINT",
+          "description": "This is the code page."
+        },
+        {
+          "name": "wc",
+          "type": "WCHAR",
+          "description": "This is the wide character to be converted."
+        },
+        {
+          "name": "dst",
+          "type": "unsigned char *",
+          "description": "This is the destination where the converted character will be stored."
+        },
+        {
+          "name": "allow_default",
+          "type": "BOOL",
+          "description": "This indicates whether the default character is allowed to be used."
+        }
+      ],
+      "return_type": "BOOL, it returns TRUE if the conversion is successful, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_glyph_index",
+      "description": "This function retrieves the glyph index for a given font and glyph. It handles different codepages and uses different methods to retrieve the glyph index based on the font's codepage.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "struct gdi_font *",
+          "description": "A pointer to a gdi_font structure that represents the font for which the glyph index is to be retrieved."
+        },
+        {
+          "name": "glyph",
+          "type": "UINT",
+          "description": "An unsigned integer that represents the glyph for which the index is to be retrieved."
+        }
+      ],
+      "return_type": "UINT, represents the glyph index for the given font and glyph. Returns 0 if the glyph index could not be retrieved."
+    }
+  },
+  {
+    "function": {
+      "name": "get_glyph_index_linked",
+      "description": "This function retrieves the glyph index from a linked list of fonts. If the glyph is not found in the current font, it checks the child fonts. If the glyph is a control character (less than 32), it returns 0.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "struct gdi_font **",
+          "description": "A pointer to a pointer to a gdi_font structure. This parameter is used to access the font and its child fonts."
+        },
+        {
+          "name": "glyph",
+          "type": "UINT",
+          "description": "The glyph index to be retrieved."
+        }
+      ],
+      "return_type": "UINT. This represents the glyph index if found, otherwise it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "get_glyph_outline",
+      "description": "This function retrieves the outline or bitmap for a TrueType glyph. It also handles the glyph index and metrics, and checks for vertical writing.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "struct gdi_font *",
+          "description": "Pointer to the font structure"
+        },
+        {
+          "name": "glyph",
+          "type": "UINT",
+          "description": "The glyph for which the outline or bitmap is to be retrieved"
+        },
+        {
+          "name": "format",
+          "type": "UINT",
+          "description": "The format of the glyph outline"
+        },
+        {
+          "name": "gm_ret",
+          "type": "GLYPHMETRICS *",
+          "description": "Pointer to a GLYPHMETRICS structure for returning glyph metrics"
+        },
+        {
+          "name": "abc_ret",
+          "type": "ABC *",
+          "description": "Pointer to an ABC structure for returning glyph metrics"
+        },
+        {
+          "name": "buflen",
+          "type": "DWORD",
+          "description": "The length of the buffer for the glyph outline"
+        },
+        {
+          "name": "buf",
+          "type": "void *",
+          "description": "Pointer to the buffer that receives the glyph outline"
+        },
+        {
+          "name": "mat",
+          "type": "MAT2 *",
+          "description": "Pointer to a MAT2 structure that contains the transformation matrix for the glyph outline"
+        }
+      ],
+      "return_type": "DWORD, represents the result of the function. If the function succeeds, the return value is the number of bytes in the glyph's outline if the function is successful. If the function fails, the return value is GDI_ERROR."
+    }
+  },
+  {
+    "function": {
+      "name": "font_FontIsLinked",
+      "description": "This function checks if a font is linked or not.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device for which the font linkage is to be checked."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the font is linked, otherwise FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "font_GetCharABCWidths",
+      "description": "This function retrieves the widths of characters in a font. If the font is not available, it calls the next physical device's GetCharABCWidths function.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "The physical device to get the font from."
+        },
+        {
+          "name": "first",
+          "type": "UINT",
+          "description": "The first character to get the width of."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of characters to get the width of."
+        },
+        {
+          "name": "chars",
+          "type": "WCHAR *",
+          "description": "A pointer to the characters to get the width of."
+        },
+        {
+          "name": "buffer",
+          "type": "ABC *",
+          "description": "A buffer to store the widths of the characters."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function executes successfully, otherwise it returns the result of the next physical device's GetCharABCWidths function."
+    }
+  },
+  {
+    "function": {
+      "name": "font_GetCharABCWidthsI",
+      "description": "This function retrieves the widths of characters in a font. If the font is not available, it calls the next physical device's function to get the character widths. It also locks the operation with a mutex to prevent data races.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "The physical device for which the character widths are to be retrieved"
+        },
+        {
+          "name": "first",
+          "type": "UINT",
+          "description": "The first character for which the width is to be retrieved"
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of characters for which the widths are to be retrieved"
+        },
+        {
+          "name": "gi",
+          "type": "WORD*",
+          "description": "Pointer to the glyph indices"
+        },
+        {
+          "name": "buffer",
+          "type": "ABC*",
+          "description": "Buffer where the character widths will be stored"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation is successful, otherwise returns the result of the next physical device's function call"
+    }
+  },
+  {
+    "function": {
+      "name": "font_GetCharWidth",
+      "description": "This function retrieves the width of specified characters in a font. It locks the font, iterates over the characters, gets their outline and calculates their width, then unlocks the font.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to draw on"
+        },
+        {
+          "name": "first",
+          "type": "UINT",
+          "description": "The first character to get the width for"
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of characters to get the width for"
+        },
+        {
+          "name": "chars",
+          "type": "WCHAR *",
+          "description": "Pointer to the characters to get the width for"
+        },
+        {
+          "name": "buffer",
+          "type": "INT *",
+          "description": "Buffer to store the widths of the characters"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully retrieves the width of the characters, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "font_GetCharWidthInfo",
+      "description": "This function retrieves the width information of a character from a specific font. If the font is not scalable or the width information cannot be retrieved, it sets the left side bearing (lsb) and right side bearing (rsb) to 0.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is a device context that the function uses to get the font device."
+        },
+        {
+          "name": "ptr",
+          "type": "void*",
+          "description": "This is a pointer to a char_width_info structure where the function stores the width information of the character."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function executes successfully, otherwise it returns the result of the pGetCharWidthInfo function from the next physical device in the chain."
+    }
+  },
+  {
+    "function": {
+      "name": "font_GetFontData",
+      "description": "This function retrieves font data from a specified table and offset, and stores it in a buffer.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to get the font data from."
+        },
+        {
+          "name": "table",
+          "type": "DWORD",
+          "description": "The table that contains the font data."
+        },
+        {
+          "name": "offset",
+          "type": "DWORD",
+          "description": "The offset at which to start retrieving the font data."
+        },
+        {
+          "name": "buf",
+          "type": "void *",
+          "description": "Buffer to store the retrieved font data."
+        },
+        {
+          "name": "size",
+          "type": "DWORD",
+          "description": "The size of the font data to retrieve."
+        }
+      ],
+      "return_type": "DWORD, represents the number of bytes returned in the buffer. If the function fails, it returns GDI_ERROR."
+    }
+  },
+  {
+    "function": {
+      "name": "font_GetFontRealizationInfo",
+      "description": "This function retrieves the font realization information for a given device and pointer. It checks if the font exists, if not, it gets the next physical device and returns its font realization info. It also sets various properties of the font realization info structure based on the properties of the font.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the physical device for which the font realization information is to be retrieved."
+        },
+        {
+          "name": "ptr",
+          "type": "void *",
+          "description": "This is a pointer to the font realization info structure where the retrieved information will be stored."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function executes successfully, otherwise it returns the result of the 'pGetFontRealizationInfo' function of the next physical device."
+    }
+  },
+  {
+    "function": {
+      "name": "font_GetFontUnicodeRanges",
+      "description": "This function retrieves the Unicode ranges supported by a font.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is a physical device handle."
+        },
+        {
+          "name": "glyphset",
+          "type": "GLYPHSET*",
+          "description": "This is a pointer to a GLYPHSET structure that receives the Unicode ranges."
+        }
+      ],
+      "return_type": "DWORD, represents the size of the GLYPHSET structure."
+    }
+  },
+  {
+    "function": {
+      "name": "font_GetGlyphIndices",
+      "description": "This function retrieves the glyph indices of the characters in the specified string. It locks the font, iterates over each character in the string, gets the glyph index, and stores it in the gi array. If a glyph doesn't exist, it uses a default glyph. It then unlocks the font and returns the count of characters processed.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to draw on"
+        },
+        {
+          "name": "str",
+          "type": "WCHAR *",
+          "description": "String of characters to get glyph indices for"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of characters in the string"
+        },
+        {
+          "name": "gi",
+          "type": "WORD *",
+          "description": "Array to store the glyph indices"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags to control the behavior of the function"
+        }
+      ],
+      "return_type": "DWORD representing the number of characters processed"
+    }
+  },
+  {
+    "function": {
+      "name": "font_GetGlyphOutline",
+      "description": "This function retrieves the outline or bitmap for a character in a TrueType font or a character in a font resource.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "glyph",
+          "type": "UINT",
+          "description": "Specifies the character for which the function retrieves the outline or bitmap."
+        },
+        {
+          "name": "format",
+          "type": "UINT",
+          "description": "Specifies the format of the data to be returned."
+        },
+        {
+          "name": "gm",
+          "type": "GLYPHMETRICS*",
+          "description": "Pointer to a GLYPHMETRICS structure that receives information about the placement and orientation of the glyph."
+        },
+        {
+          "name": "buflen",
+          "type": "DWORD",
+          "description": "Specifies the size, in bytes, of the buffer."
+        },
+        {
+          "name": "buf",
+          "type": "void*",
+          "description": "Pointer to a buffer that receives the outline or bitmap data."
+        },
+        {
+          "name": "mat",
+          "type": "MAT2*",
+          "description": "Pointer to a MAT2 structure that contains the transformation matrix for the character."
+        }
+      ],
+      "return_type": "DWORD, represents the size of the required buffer."
+    }
+  },
+  {
+    "function": {
+      "name": "font_GetKerningPairs",
+      "description": "This function retrieves the kerning pairs for a font. If the font does not exist, it gets the next physical device and returns its kerning pairs. If the font exists, it locks the font, checks if the kerning count is -1 and if so, gets the kerning pairs. It then unlocks the font. If count and pairs are provided, it copies the minimum of count and kerning count pairs into the pairs array. If not, it sets count to the kerning count of the font.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "The physical device for which to get the kerning pairs."
+        },
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "The number of kerning pairs to retrieve."
+        },
+        {
+          "name": "pairs",
+          "type": "KERNINGPAIR*",
+          "description": "A pointer to an array where the retrieved kerning pairs will be stored."
+        }
+      ],
+      "return_type": "DWORD, represents the number of kerning pairs retrieved."
+    }
+  },
+  {
+    "function": {
+      "name": "scale_outline_font_metrics",
+      "description": "This function scales the metrics of an outline font according to the font's average width, scale, and transformation matrix.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "struct gdi_font *",
+          "description": "This is a pointer to the font structure that contains the font's average width, scale, and transformation matrix."
+        },
+        {
+          "name": "otm",
+          "type": "OUTLINETEXTMETRICW *",
+          "description": "This is a pointer to the OUTLINETEXTMETRICW structure that contains the metrics of the outline font to be scaled."
+        }
+      ],
+      "return_type": "void, as this function does not return any value but modifies the font metrics in place."
+    }
+  },
+  {
+    "function": {
+      "name": "font_GetOutlineTextMetrics",
+      "description": "This function retrieves the text metrics for a specified font and stores them in a structure. It also handles the case where the font is not scalable and returns 0 in such cases.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the physical device for which the font metrics are to be retrieved."
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "This is the size of the font for which the metrics are to be retrieved."
+        },
+        {
+          "name": "metrics",
+          "type": "OUTLINETEXTMETRICW *",
+          "description": "This is a pointer to a structure where the retrieved font metrics will be stored."
+        }
+      ],
+      "return_type": "UINT, represents the size of the font metrics. If the font is not scalable, the function returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "font_GetTextCharsetInfo",
+      "description": "This function retrieves the character set information of a font from a physical device.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the physical device from which the font information is retrieved."
+        },
+        {
+          "name": "fs",
+          "type": "FONTSIGNATURE*",
+          "description": "This is a pointer to the font signature structure where the font information will be stored."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "This parameter is used to control the behavior of the function."
+        }
+      ],
+      "return_type": "UINT, represents the character set of the font."
+    }
+  },
+  {
+    "function": {
+      "name": "font_GetTextExtentExPoint",
+      "description": "This function calculates the width and height of the specified string of text.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context."
+        },
+        {
+          "name": "str",
+          "type": "WCHAR *",
+          "description": "Pointer to the string of text."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of characters in the string."
+        },
+        {
+          "name": "dxs",
+          "type": "INT *",
+          "description": "Pointer to an array of integers that receives the logical widths of each character in the string."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "font_GetTextExtentExPointI",
+      "description": "This function calculates the width and height of a character string. If the function succeeds, the return value is a non-zero value.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context."
+        },
+        {
+          "name": "indices",
+          "type": "WORD*",
+          "description": "Pointer to the array of character indices."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Specifies the number of characters in the string."
+        },
+        {
+          "name": "dxs",
+          "type": "INT*",
+          "description": "Pointer to the array that receives the logical widths of each character."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function succeeded or not."
+    }
+  },
+  {
+    "function": {
+      "name": "scale_font_metrics",
+      "description": "This function scales the font metrics based on the given parameters. It checks the width/height ratio of the font and adjusts the average width if necessary. It then calculates the scale factors for x and y, and applies these to various properties of the text metrics. If the font is set to 'fake bold', it also adjusts the overhang, average character width, and maximum character width.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "struct gdi_font *",
+          "description": "This parameter is a pointer to a gdi_font structure. It contains information about the font, including its average width, scale factors, and whether it is 'fake bold' or scalable."
+        },
+        {
+          "name": "tm",
+          "type": "TEXTMETRICW *",
+          "description": "This parameter is a pointer to a TEXTMETRICW structure. It contains various properties of the text metrics, such as the height, ascent, descent, internal leading, external leading, overhang, average character width, and maximum character width."
+        }
+      ],
+      "return_type": "void, as this function does not return a value. It modifies the properties of the text metrics in place."
+    }
+  },
+  {
+    "function": {
+      "name": "font_GetTextMetrics",
+      "description": "This function retrieves the text metrics for a specified physical device and font. It checks if the font is set, if not, it gets the next physical device and retrieves its text metrics. If the font is set, it locks the font mutex, sets the outline and bitmap text metrics, scales the font metrics, and sets the return value to TRUE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the physical device for which the text metrics are to be retrieved."
+        },
+        {
+          "name": "metrics",
+          "type": "TEXTMETRICW*",
+          "description": "This is a pointer to the structure that will receive the text metrics."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in retrieving and setting the text metrics. Returns TRUE if successful, otherwise FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "get_nearest_charset",
+      "description": "This function checks if the selected font supports the current ANSI codepage, if it does it returns the corresponding charset, else it returns the first charset.",
+      "parameters": [
+        {
+          "name": "family_name",
+          "type": "WCHAR",
+          "description": "The family name of the font."
+        },
+        {
+          "name": "face",
+          "type": "struct gdi_font_face",
+          "description": "The structure representing the font face."
+        },
+        {
+          "name": "csi",
+          "type": "CHARSETINFO",
+          "description": "The structure to store the charset information."
+        }
+      ],
+      "return_type": "void, it does not return any value but modifies the csi parameter to store the charset information."
+    }
+  },
+  {
+    "function": {
+      "name": "select_font",
+      "description": "This function selects a font based on the given parameters, checks the cache for the font, creates a new font if not found in cache, and returns the selected font.",
+      "parameters": [
+        {
+          "name": "lf",
+          "type": "LOGFONTW *",
+          "description": "Pointer to a LOGFONTW structure that defines the logical font."
+        },
+        {
+          "name": "dcmat",
+          "type": "FMAT2",
+          "description": "Device context matrix used for transformations."
+        },
+        {
+          "name": "can_use_bitmap",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether the function can use bitmap fonts."
+        }
+      ],
+      "return_type": "struct gdi_font*, represents the selected font. If no appropriate font is found, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "font_SelectFont",
+      "description": "This function selects a font based on the provided parameters, applies transformations if necessary, and returns the selected font.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to which the font is to be selected."
+        },
+        {
+          "name": "hfont",
+          "type": "HFONT",
+          "description": "Handle to the logical font to be selected."
+        },
+        {
+          "name": "aa_flags",
+          "type": "UINT*",
+          "description": "Pointer to the anti-aliasing flags."
+        }
+      ],
+      "return_type": "HFONT, represents the handle to the selected font. If no font is selected, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "get_key_value",
+      "description": "This function retrieves the value of a specified key from the registry.",
+      "parameters": [
+        {
+          "name": "key",
+          "type": "HKEY",
+          "description": "This is the handle to an open registry key."
+        },
+        {
+          "name": "name",
+          "type": "char *",
+          "description": "This is the name of the registry value."
+        },
+        {
+          "name": "value",
+          "type": "DWORD *",
+          "description": "This is a pointer to a variable that receives the registry value."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully retrieves the value of the specified registry key, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "init_font_options",
+      "description": "This function initializes font options by querying registry values related to font settings such as antialiasing, font smoothing, gamma, and dpi. It also calibrates the gamma value and sets the font gamma ramp accordingly.",
+      "parameters": [],
+      "return_type": "UINT, represents the dpi (dots per inch) value for the font settings"
+    }
+  },
+  {
+    "function": {
+      "name": "get_char_positions",
+      "description": "This function calculates the positions of characters in a string, taking into account the device context, the string itself, the count of characters, and the size of the characters. It also handles the case where there are extra spaces or remaining spaces in the string.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "Device context, used for drawing and other graphical operations."
+        },
+        {
+          "name": "str",
+          "type": "WCHAR *",
+          "description": "The string of characters whose positions are to be calculated."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "The number of characters in the string."
+        },
+        {
+          "name": "dx",
+          "type": "INT *",
+          "description": "Array to store the width of each character in the string."
+        },
+        {
+          "name": "size",
+          "type": "SIZE *",
+          "description": "Structure to store the total size of the string."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the function executed successfully, and FALSE indicates that it failed."
+    }
+  },
+  {
+    "function": {
+      "name": "get_char_positions_indices",
+      "description": "This function calculates the positions of characters in a string based on their indices. It also handles the case where there are extra spaces or remainder spaces in the string.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "Device Context, used for various Windows GDI functions"
+        },
+        {
+          "name": "indices",
+          "type": "WORD *",
+          "description": "Array of character indices in the string"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of characters in the string"
+        },
+        {
+          "name": "dx",
+          "type": "INT *",
+          "description": "Array to store the calculated positions of the characters"
+        },
+        {
+          "name": "size",
+          "type": "SIZE *",
+          "description": "Structure to store the total size of the string"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function executes successfully, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "get_text_charset_info",
+      "description": "This function retrieves the character set information of a specified device context, and if the return value is the default character set, it resets the FONTSIGNATURE structure.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "Pointer to the device context"
+        },
+        {
+          "name": "fs",
+          "type": "FONTSIGNATURE *",
+          "description": "Pointer to the FONTSIGNATURE structure to receive the character set information"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags to specify the character set information to retrieve"
+        }
+      ],
+      "return_type": "UINT, represents the character set of the text in the specified device context"
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetTextCharsetInfo",
+      "description": "This function retrieves the character set information for a specified device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "fs",
+          "type": "FONTSIGNATURE*",
+          "description": "Pointer to a FONTSIGNATURE structure that receives the font signature."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Specifies the flags for the function."
+        }
+      ],
+      "return_type": "UINT, represents the character set of the font that is currently selected into the specified device context."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiHfontCreate",
+      "description": "This function creates a new font object and returns a handle to it. It checks the size of the logfont, allocates memory for a new font object, and sets the logfont of the new object. If any step fails, it returns 0.",
+      "parameters": [
+        {
+          "name": "logfont",
+          "type": "void *",
+          "description": "Pointer to a LOGFONT structure that defines the characteristics of the font."
+        },
+        {
+          "name": "size",
+          "type": "ULONG",
+          "description": "Size of the logfont structure."
+        },
+        {
+          "name": "type",
+          "type": "ULONG",
+          "description": "Type of the font. Not used in this function."
+        },
+        {
+          "name": "flags",
+          "type": "ULONG",
+          "description": "Flags for the font creation. Not used in this function."
+        },
+        {
+          "name": "data",
+          "type": "void *",
+          "description": "Additional data for the font creation. Not used in this function."
+        }
+      ],
+      "return_type": "HFONT. It represents a handle to the newly created font. If the function fails to create a new font, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "get_associated_charset_info",
+      "description": "This function retrieves the associated charset information from the registry. If the charset is not set, it defaults to 0. It checks for three specific registry entries (ANSI(00), OEM(FF), and SYMBOL(02)) and sets the associated charset accordingly.",
+      "parameters": [],
+      "return_type": "DWORD, representing the associated charset. If the charset is not set, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "update_font_code_page",
+      "description": "This function updates the code page of a font in a device context. It retrieves the text charset info, checks if it matches certain conditions, and then updates the font code page accordingly.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This is a pointer to the device context where the font is located."
+        },
+        {
+          "name": "font",
+          "type": "HANDLE",
+          "description": "This is a handle to the font whose code page is to be updated."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSelectFont",
+      "description": "This function selects a new font into the specified device context and returns the previously selected font. It also updates the font code page and handles reference counting for the font objects.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "Handle to the font to be selected."
+        }
+      ],
+      "return_type": "HGDIOBJ, represents the handle to the previously selected font. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "FONT_GetObjectW",
+      "description": "This function retrieves information for the specified graphics object.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "Handle to the graphics object"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "The number of bytes of information to be written to the buffer"
+        },
+        {
+          "name": "buffer",
+          "type": "LPVOID",
+          "description": "Pointer to a buffer that receives the information about the graphics object"
+        }
+      ],
+      "return_type": "INT, represents the number of bytes written to the buffer"
+    }
+  },
+  {
+    "function": {
+      "name": "FONT_DeleteObject",
+      "description": "This function deletes a font object by freeing the associated GDI handle and the font object itself.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "This is a handle to the GDI object that needs to be deleted."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the object was successfully deleted, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "enum_fonts",
+      "description": "This function enumerates fonts based on the provided parameters, and updates the font_enum structure accordingly. It returns 1 in all cases.",
+      "parameters": [
+        {
+          "name": "lf",
+          "type": "LOGFONTW *",
+          "description": "Pointer to a LOGFONTW structure that defines the logical attributes of a font."
+        },
+        {
+          "name": "tm",
+          "type": "TEXTMETRICW *",
+          "description": "Pointer to a TEXTMETRICW structure that contains basic metrics for a physical font."
+        },
+        {
+          "name": "type",
+          "type": "DWORD",
+          "description": "The type of the font."
+        },
+        {
+          "name": "lp",
+          "type": "LPARAM",
+          "description": "A pointer to a font_enum structure."
+        }
+      ],
+      "return_type": "INT, always returns 1."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiEnumFonts",
+      "description": "This function enumerates the fonts available on a device context, and provides information about them.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "type",
+          "type": "ULONG",
+          "description": "Type of enumeration."
+        },
+        {
+          "name": "win32_compat",
+          "type": "ULONG",
+          "description": "Win32 compatibility flag."
+        },
+        {
+          "name": "face_name_len",
+          "type": "ULONG",
+          "description": "Length of the face name string."
+        },
+        {
+          "name": "face_name",
+          "type": "WCHAR *",
+          "description": "Pointer to the face name string."
+        },
+        {
+          "name": "charset",
+          "type": "ULONG",
+          "description": "Character set to be used."
+        },
+        {
+          "name": "count",
+          "type": "ULONG *",
+          "description": "Pointer to the count of fonts."
+        },
+        {
+          "name": "buf",
+          "type": "void *",
+          "description": "Pointer to the buffer that receives the font data."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSetTextJustification",
+      "description": "This function adjusts the inter-character spacing in a string of text. It calculates the extra space and the remaining space after distributing the extra space evenly among the specified number of breaks in the text.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "extra",
+          "type": "INT",
+          "description": "The total extra space, in logical units, to be added to the line of text."
+        },
+        {
+          "name": "breaks",
+          "type": "INT",
+          "description": "The total number of breaks in the line."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetTextFaceW",
+      "description": "This function retrieves the typeface name of the font that is selected into the specified device context, optionally returning the name in the form of a pointer to a string.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "A handle to the device context."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "The length of the buffer pointed to by name."
+        },
+        {
+          "name": "name",
+          "type": "WCHAR *",
+          "description": "A pointer to the buffer that receives the typeface name."
+        },
+        {
+          "name": "alias_name",
+          "type": "BOOL",
+          "description": "A boolean value that specifies whether to return the name in the form of a pointer to a string."
+        }
+      ],
+      "return_type": "INT, represents the length of the typeface name, in characters, if the function succeeds. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetTextExtentExW",
+      "description": "This function retrieves the extent of a string of text using the specified font and text output options. It also optionally retrieves the widths of individual characters in the string.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "str",
+          "type": "WCHAR *",
+          "description": "Pointer to the string of text."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of characters in the string."
+        },
+        {
+          "name": "max_ext",
+          "type": "INT",
+          "description": "Maximum extent to be filled."
+        },
+        {
+          "name": "nfit",
+          "type": "INT *",
+          "description": "Pointer to the variable that receives the number of characters that fit within the specified maximum extent."
+        },
+        {
+          "name": "dxs",
+          "type": "INT *",
+          "description": "Pointer to the array that receives the partial string extents."
+        },
+        {
+          "name": "size",
+          "type": "SIZE *",
+          "description": "Pointer to the SIZE structure that receives the dimensions of the string."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags for the function."
+        }
+      ],
+      "return_type": "BOOL. If the function succeeds, the return value is TRUE. If the function fails, the return value is FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetTextMetricsW",
+      "description": "This function retrieves the text metrics for a specified device context, including aspects such as character width, height, and ascent. It also converts these values from device units to logical units.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "metrics",
+          "type": "TEXTMETRICW*",
+          "description": "Pointer to a TEXTMETRICW structure that receives the text metrics."
+        },
+        {
+          "name": "flags",
+          "type": "ULONG",
+          "description": "Flags to control the function's behavior. Not used in this function."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetOutlineTextMetricsInternalW",
+      "description": "This function retrieves text metrics for TrueType fonts.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "cbData",
+          "type": "UINT",
+          "description": "Specifies the size, in bytes, of the buffer pointed to by the lpOTM parameter."
+        },
+        {
+          "name": "lpOTM",
+          "type": "OUTLINETEXTMETRICW *",
+          "description": "Pointer to an OUTLINETEXTMETRIC structure that receives the text metrics."
+        },
+        {
+          "name": "opts",
+          "type": "ULONG",
+          "description": "Options for the function."
+        }
+      ],
+      "return_type": "UINT, represents the number of bytes required to store the metrics if the function is successful. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetCharWidthW",
+      "description": "This function retrieves the width of specified characters. The width is retrieved in logical units or device units, depending on a flag. It also handles the case where the characters are represented by their indices.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "first",
+          "type": "UINT",
+          "description": "The first character to get the width for."
+        },
+        {
+          "name": "last",
+          "type": "UINT",
+          "description": "The last character to get the width for."
+        },
+        {
+          "name": "chars",
+          "type": "WCHAR *",
+          "description": "Pointer to the characters to get the width for."
+        },
+        {
+          "name": "flags",
+          "type": "ULONG",
+          "description": "Flags that specify how to retrieve the width."
+        },
+        {
+          "name": "buf",
+          "type": "void *",
+          "description": "Buffer to store the retrieved widths."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, otherwise FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "get_glyph_bitmap",
+      "description": "This function retrieves the bitmap of a glyph from a specified device context. It uses the NtGdiGetGlyphOutline function to get the glyph outline and stores it in the provided image structure. If the glyph is empty, it sets the metrics to 0. If memory allocation for the image fails, it returns an error.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "Index of the glyph."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to specify the character to be used."
+        },
+        {
+          "name": "aa_flags",
+          "type": "UINT",
+          "description": "Flags to specify the anti-aliasing format."
+        },
+        {
+          "name": "metrics",
+          "type": "GLYPHMETRICS*",
+          "description": "Pointer to a GLYPHMETRICS structure to receive the glyph metrics."
+        },
+        {
+          "name": "image",
+          "type": "struct gdi_image_bits*",
+          "description": "Pointer to a gdi_image_bits structure to receive the glyph image."
+        }
+      ],
+      "return_type": "DWORD. It returns ERROR_SUCCESS if the function succeeds. If the glyph is not found, it returns ERROR_NOT_FOUND. If memory allocation fails, it returns ERROR_OUTOFMEMORY."
+    }
+  },
+  {
+    "function": {
+      "name": "get_total_extents",
+      "description": "This function calculates the total extents of a series of glyphs in a string, considering their positions and sizes.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "Initial horizontal position."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "Initial vertical position."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags specifying the glyph drawing mode."
+        },
+        {
+          "name": "aa_flags",
+          "type": "UINT",
+          "description": "Flags specifying the anti-aliasing mode."
+        },
+        {
+          "name": "str",
+          "type": "LPCWSTR",
+          "description": "Pointer to the string of glyphs."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "Number of glyphs in the string."
+        },
+        {
+          "name": "dx",
+          "type": "INT *",
+          "description": "Pointer to an array of glyph positions. If NULL, glyph metrics are used."
+        }
+      ],
+      "return_type": "RECT, representing the bounding rectangle that encompasses all the glyphs."
+    }
+  },
+  {
+    "function": {
+      "name": "draw_glyph",
+      "description": "This function draws a glyph on the screen. It calculates the glyph's position, clips it if necessary, and then draws it using the NtGdiPolyPolyDraw function.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "Device context where the glyph will be drawn"
+        },
+        {
+          "name": "origin_x",
+          "type": "INT",
+          "description": "X-coordinate of the glyph's origin"
+        },
+        {
+          "name": "origin_y",
+          "type": "INT",
+          "description": "Y-coordinate of the glyph's origin"
+        },
+        {
+          "name": "metrics",
+          "type": "GLYPHMETRICS *",
+          "description": "Metrics of the glyph to be drawn"
+        },
+        {
+          "name": "image",
+          "type": "struct gdi_image_bits *",
+          "description": "Image bits of the glyph"
+        },
+        {
+          "name": "clip",
+          "type": "RECT *",
+          "description": "Rectangle to clip the glyph to. If NULL, no clipping is performed."
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_ExtTextOut",
+      "description": "This function is used to draw text using the specified font, background color, and text color. It also provides options for opaque or transparent text and optional clipping.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to draw on"
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "X-coordinate of the starting position"
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "Y-coordinate of the starting position"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Options for the text output"
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Optional clipping rectangle"
+        },
+        {
+          "name": "str",
+          "type": "LPCWSTR",
+          "description": "String to be drawn"
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "Length of the string to be drawn"
+        },
+        {
+          "name": "dx",
+          "type": "INT *",
+          "description": "Optional array of distances between adjacent characters in the string"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, otherwise FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "get_line_width",
+      "description": "This function calculates the absolute width of a line based on a given metric size. If the width is zero, it sets it to one. If the metric size is negative, it negates the width.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This parameter is a pointer to a DC structure which is used in the INTERNAL_YWSTODS function."
+        },
+        {
+          "name": "metric_size",
+          "type": "int",
+          "description": "This parameter represents the metric size of the line. If it's negative, the width will also be negative."
+        }
+      ],
+      "return_type": "int, represents the calculated width of the line"
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiExtTextOutW",
+      "description": "This function is used to draw text using specified font, background color, and text color. It also provides options for controlling the layout and alignment, and for setting intercharacter spacing.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate, in logical units, of the reference point used to position the string."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate, in logical units, of the reference point used to position the string."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies how to use the application-defined rectangle and how to interpret the string array."
+        },
+        {
+          "name": "lprect",
+          "type": "RECT *",
+          "description": "Pointer to an optional rectangle structure that specifies dimensions, in logical units."
+        },
+        {
+          "name": "str",
+          "type": "WCHAR *",
+          "description": "Pointer to the string to be drawn. The string does not need to be zero-terminated, since count specifies the length of the string."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "Specifies the number of characters in the string."
+        },
+        {
+          "name": "lpDx",
+          "type": "INT *",
+          "description": "Pointer to an optional array of values that indicate the distance between origins of adjacent character cells."
+        },
+        {
+          "name": "cp",
+          "type": "DWORD",
+          "description": "Specifies the code page used to perform the conversion."
+        }
+      ],
+      "return_type": "BOOL. If the function succeeds, the return value is nonzero. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetCharABCWidthsW",
+      "description": "This function retrieves the widths, in logical units, of consecutive characters in a specified range from the current font.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "A handle to the device context."
+        },
+        {
+          "name": "first",
+          "type": "UINT",
+          "description": "The first character in the range of characters."
+        },
+        {
+          "name": "last",
+          "type": "UINT",
+          "description": "The last character in the range of characters."
+        },
+        {
+          "name": "chars",
+          "type": "WCHAR*",
+          "description": "A pointer to the buffer that receives the character widths."
+        },
+        {
+          "name": "flags",
+          "type": "ULONG",
+          "description": "A flag that indicates the type of widths to retrieve."
+        },
+        {
+          "name": "buffer",
+          "type": "void*",
+          "description": "A pointer to the buffer that receives the widths."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds; otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetGlyphOutline",
+      "description": "This function retrieves the outline or bitmap for a character in the specified font.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "ch",
+          "type": "UINT",
+          "description": "Specifies the character for which the data is to be retrieved."
+        },
+        {
+          "name": "format",
+          "type": "UINT",
+          "description": "Specifies the format of the data to be retrieved."
+        },
+        {
+          "name": "metrics",
+          "type": "GLYPHMETRICS*",
+          "description": "Pointer to a GLYPHMETRICS structure that receives the metrics of the character."
+        },
+        {
+          "name": "size",
+          "type": "DWORD",
+          "description": "Specifies the size, in bytes, of the buffer."
+        },
+        {
+          "name": "buffer",
+          "type": "void*",
+          "description": "Pointer to a buffer that receives the data."
+        },
+        {
+          "name": "mat2",
+          "type": "MAT2*",
+          "description": "Pointer to a MAT2 structure that contains the transformation matrix."
+        },
+        {
+          "name": "ignore_rotation",
+          "type": "BOOL",
+          "description": "Specifies whether to ignore rotation."
+        }
+      ],
+      "return_type": "DWORD. If the function succeeds, the return value is the number of bytes required to store the character data. If the function fails, the return value is GDI_ERROR."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiMakeFontDir",
+      "description": "This function creates a font directory with the specified parameters, locks the font, loads the font, sets the outline text metrics, checks if the font is TrueType, and then sets the font directory fields with the font metrics. If any of these operations fail, it frees the font and unlocks it, returning 0. If all operations are successful, it copies the font directory to the buffer, frees the font, unlocks it, and returns the face offset plus the position.",
+      "parameters": [
+        {
+          "name": "embed",
+          "type": "DWORD",
+          "description": "Embedding level for the font"
+        },
+        {
+          "name": "buffer",
+          "type": "BYTE *",
+          "description": "Buffer to hold the font directory"
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "Size of the buffer"
+        },
+        {
+          "name": "path",
+          "type": "WCHAR *",
+          "description": "Path to the font file"
+        },
+        {
+          "name": "len",
+          "type": "UINT",
+          "description": "Length of the path"
+        }
+      ],
+      "return_type": "ULONG, represents the face offset plus the position if all operations are successful, or 0 if any operation fails"
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetKerningPairs",
+      "description": "This function retrieves the kerning pairs from the specified device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "Number of kerning pairs to retrieve."
+        },
+        {
+          "name": "kern_pair",
+          "type": "KERNINGPAIR*",
+          "description": "Pointer to an array of KERNINGPAIR structures that receives the kerning pairs."
+        }
+      ],
+      "return_type": "DWORD, represents the number of kerning pairs retrieved. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetFontData",
+      "description": "This function retrieves font data for the specified device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "table",
+          "type": "DWORD",
+          "description": "Specifies the table number."
+        },
+        {
+          "name": "offset",
+          "type": "DWORD",
+          "description": "Specifies the offset from the beginning of the table."
+        },
+        {
+          "name": "buffer",
+          "type": "void *",
+          "description": "Pointer to the buffer that receives the font data."
+        },
+        {
+          "name": "length",
+          "type": "DWORD",
+          "description": "Specifies the length, in bytes, of the data to be retrieved."
+        }
+      ],
+      "return_type": "DWORD, represents the number of bytes returned if the function is successful, or GDI_ERROR if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetGlyphIndicesW",
+      "description": "This function retrieves the glyph indices of the specified characters. It is a part of the Windows Native API and is used in font rendering.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "str",
+          "type": "const WCHAR*",
+          "description": "Pointer to the string of characters."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of characters in the string."
+        },
+        {
+          "name": "indices",
+          "type": "WORD*",
+          "description": "Pointer to the buffer that receives the glyph indices."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Specifies the options for the function."
+        }
+      ],
+      "return_type": "DWORD. It represents the number of glyphs written to the buffer. If the function fails, it returns GDI_ERROR."
+    }
+  },
+  {
+    "function": {
+      "name": "add_system_font_resource",
+      "description": "This function adds a system font resource from a specified file and with specified flags. It first tries to add the font from the Windows directory, and if that fails, it tries to add the font from the data directory.",
+      "parameters": [
+        {
+          "name": "file",
+          "type": "WCHAR",
+          "description": "This is the file path of the font to be added."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "These are the flags to be used when adding the font."
+        }
+      ],
+      "return_type": "int, represents the result of the font addition operation. A return value of 0 indicates that the operation was unsuccessful, while any other value indicates success."
+    }
+  },
+  {
+    "function": {
+      "name": "remove_system_font_resource",
+      "description": "This function removes a system font resource from the Windows directory and the data directory. It first tries to remove the font from the Windows directory. If that fails, it tries to remove it from the data directory.",
+      "parameters": [
+        {
+          "name": "file",
+          "type": "LPCWSTR",
+          "description": "The name of the font file to be removed"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags that specify the removal method"
+        }
+      ],
+      "return_type": "BOOL, returns a non-zero value if the font was successfully removed, and zero otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "add_font_resource",
+      "description": "This function adds a font resource from a given file. If the file starts with a backslash, it adds the font to the cache unless the FR_PRIVATE flag is set. If the file does not contain a backslash, it adds the font as a system font resource.",
+      "parameters": [
+        {
+          "name": "file",
+          "type": "LPCWSTR",
+          "description": "The file path of the font resource to be added."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags to control the behavior of the font addition. FR_PRIVATE flag can be used to prevent adding the font to the cache."
+        }
+      ],
+      "return_type": "int, represents the result of the font addition operation. A return value of 0 indicates success."
+    }
+  },
+  {
+    "function": {
+      "name": "remove_font_resource",
+      "description": "This function removes a font resource based on the provided file path and flags. If the file path starts with a backslash, it removes the font using the 'remove_font' function with specific flags. If the file path does not contain a backslash, it removes the system font resource using the 'remove_system_font_resource' function with specific flags.",
+      "parameters": [
+        {
+          "name": "file",
+          "type": "LPCWSTR",
+          "description": "This is a long pointer to a constant wide string that represents the file path of the font resource to be removed."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "This is a 32-bit unsigned integer that represents the flags to be used when removing the font resource."
+        }
+      ],
+      "return_type": "BOOL, represents whether the font resource was successfully removed or not."
+    }
+  },
+  {
+    "function": {
+      "name": "load_system_bitmap_fonts",
+      "description": "This function loads system bitmap fonts from the registry. It queries the registry for the font files 'FONTS.FON', 'OEMFONT.FON', 'FIXEDFON.FON' and adds them as system font resources if they exist and are of type REG_SZ.",
+      "parameters": [],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "load_directory_fonts",
+      "description": "This function loads the fonts from a given directory path. It opens the directory, queries for file information, and adds any non-directory files as fonts.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "WCHAR *",
+          "description": "This is the path to the directory from which the fonts will be loaded."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "These are the flags that will be passed to the add_font function."
+        }
+      ],
+      "return_type": "void, meaning this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "load_file_system_fonts",
+      "description": "This function loads the system fonts from the Windows directory, Wine data directory, and custom paths specified in the Wine registry key.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "update_external_font_keys",
+      "description": "This function updates the external font keys in the Windows registry. It enumerates the fonts and adds external ones to the two keys. It also handles the deletion and addition of registry values related to the fonts.",
+      "parameters": [],
+      "return_type": "void, meaning it does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "load_registry_fonts",
+      "description": "This function loads fonts from the registry. It looks under HKLM\\Software\\Microsoft\\Windows[ NT]\\CurrentVersion\\Fonts for any fonts not installed in %WINDOWSDIR%\\Fonts. It also looks for any .fon fonts, since ReadFontDir will skip these.",
+      "parameters": [],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "open_hkcu",
+      "description": "This function opens a handle to the HKEY_CURRENT_USER registry key. It first gets the security identifier (SID) for the current user, then constructs a registry path string using this SID. This path is then passed to the reg_open_key function to open the registry key.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not accept any parameters."
+        }
+      ],
+      "return_type": "HKEY, which is a handle to the opened registry key. If the function fails to get the current user's SID or to open the registry key, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "font_init",
+      "description": "This function initializes the font by setting up the necessary attributes, loading system and file system fonts, creating a mutex, and loading font substitutions and replacements. It also handles the creation of a registry key for font caching and loading fonts from the registry or cache as necessary.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "UINT, represents the DPI (dots per inch) of the initialized font. If the font initialization fails, it returns 0 or 96 depending on the failure point."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiAddFontResourceW",
+      "description": "This function checks if font_funcs is not null and then calls the add_font_resource function with str and flags as parameters.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "WCHAR",
+          "description": "This is a pointer to a wide-character string."
+        },
+        {
+          "name": "size",
+          "type": "ULONG",
+          "description": "This parameter represents the size."
+        },
+        {
+          "name": "files",
+          "type": "ULONG",
+          "description": "This parameter represents the number of files."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "This parameter represents the flags."
+        },
+        {
+          "name": "tid",
+          "type": "DWORD",
+          "description": "This parameter represents the thread identifier."
+        },
+        {
+          "name": "dv",
+          "type": "void",
+          "description": "This is a pointer to an arbitrary type."
+        }
+      ],
+      "return_type": "INT. The function returns 1 if font_funcs is null, otherwise it returns the result of add_font_resource function."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiAddFontMemResourceEx",
+      "description": "This function adds a font resource from a memory image to the system.",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "void *",
+          "description": "Pointer to the font resource in memory."
+        },
+        {
+          "name": "size",
+          "type": "DWORD",
+          "description": "Size of the font resource in memory."
+        },
+        {
+          "name": "dv",
+          "type": "void *",
+          "description": "Unused parameter."
+        },
+        {
+          "name": "dv_size",
+          "type": "ULONG",
+          "description": "Unused parameter."
+        },
+        {
+          "name": "count",
+          "type": "DWORD *",
+          "description": "Pointer to a variable that receives the number of fonts added."
+        }
+      ],
+      "return_type": "HANDLE. Returns a handle to the added font resource. If the function fails, the return value is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiRemoveFontMemResourceEx",
+      "description": "This function is a stub that is intended to remove a font memory resource. The actual functionality is not yet implemented.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HANDLE",
+          "description": "This parameter is a handle to the font memory resource that should be removed."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function succeeded or not. Currently, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiRemoveFontResourceW",
+      "description": "This function removes a font resource from the system.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "WCHAR",
+          "description": "This is the name of the font resource to be removed."
+        },
+        {
+          "name": "size",
+          "type": "ULONG",
+          "description": "This parameter is not used in the function."
+        },
+        {
+          "name": "files",
+          "type": "ULONG",
+          "description": "This parameter is not used in the function."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "This parameter specifies the characteristics of the font resource to be removed."
+        },
+        {
+          "name": "tid",
+          "type": "DWORD",
+          "description": "This parameter is not used in the function."
+        },
+        {
+          "name": "dv",
+          "type": "void",
+          "description": "This parameter is not used in the function."
+        }
+      ],
+      "return_type": "BOOL, represents whether the font resource was successfully removed or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetFontUnicodeRanges",
+      "description": "This function retrieves the Unicode character ranges that are supported by a specified font.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "lpgs",
+          "type": "GLYPHSET*",
+          "description": "Pointer to a GLYPHSET structure that receives the Unicode ranges."
+        }
+      ],
+      "return_type": "DWORD, represents the number of bytes required for the GLYPHSET structure. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiFontIsLinked",
+      "description": "This function checks if a font is linked to a device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the font is linked, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetRealizationInfo",
+      "description": "This function retrieves the realization information of a font associated with the specified device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "info",
+          "type": "struct font_realization_info*",
+          "description": "Pointer to a FONT_REALIZATION_INFO structure that receives the font realization information."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds; otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetRasterizerCaps",
+      "description": "This function sets the size, flags, and language ID of a RASTERIZER_STATUS structure.",
+      "parameters": [
+        {
+          "name": "status",
+          "type": "RASTERIZER_STATUS *",
+          "description": "Pointer to a RASTERIZER_STATUS structure that will be updated by the function"
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "Size of the RASTERIZER_STATUS structure"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE indicating successful execution of the function"
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetFontFileData",
+      "description": "This function retrieves font file data based on the provided parameters.",
+      "parameters": [
+        {
+          "name": "instance_id",
+          "type": "DWORD",
+          "description": "An instance identifier for the font."
+        },
+        {
+          "name": "file_index",
+          "type": "DWORD",
+          "description": "The index of the font file."
+        },
+        {
+          "name": "offset",
+          "type": "UINT64*",
+          "description": "A pointer to the offset within the font file."
+        },
+        {
+          "name": "buff",
+          "type": "void*",
+          "description": "A buffer to store the retrieved font data."
+        },
+        {
+          "name": "buff_size",
+          "type": "SIZE_T",
+          "description": "The size of the buffer."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in retrieving the font file data."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetFontFileInfo",
+      "description": "This function retrieves font file information for a given instance ID and file index. It locks the font, checks if the required size is less than or equal to the provided size, and if so, copies the font information into the provided structure. If the required size is larger than the provided size, it sets the last error to ERROR_INSUFFICIENT_BUFFER. It then unlocks the font and returns a boolean indicating success or failure.",
+      "parameters": [
+        {
+          "name": "instance_id",
+          "type": "DWORD",
+          "description": "The instance ID of the font to retrieve information for."
+        },
+        {
+          "name": "file_index",
+          "type": "DWORD",
+          "description": "The file index of the font to retrieve information for."
+        },
+        {
+          "name": "info",
+          "type": "struct font_fileinfo *",
+          "description": "A pointer to a structure that receives the font file information."
+        },
+        {
+          "name": "size",
+          "type": "SIZE_T",
+          "description": "The size of the structure that receives the font file information."
+        },
+        {
+          "name": "needed",
+          "type": "SIZE_T *",
+          "description": "A pointer to a variable that receives the required size of the structure that receives the font file information."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully retrieves the font file information, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetCharWidthInfo",
+      "description": "This function retrieves the character width information of a device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "info",
+          "type": "struct char_width_info*",
+          "description": "Pointer to a char_width_info structure that receives the character width information."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds; otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "DrawTextW",
+      "description": "This function is used to draw text on a device context. It calculates the length of the string, allocates memory for the parameters, copies the parameters and the string into the allocated memory, and then makes a user mode callback to draw the text. If the callback is successful, it updates the rectangle and returns the height of the drawn text.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "str",
+          "type": "WCHAR *",
+          "description": "Pointer to the string to be drawn."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of characters in the string. If this value is -1, the function uses wcslen to calculate the number of characters."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that contains the rectangle (in logical coordinates) in which the text is to be formatted."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies method of formatting the text."
+        }
+      ],
+      "return_type": "INT, represents the height of the drawn text. If the function fails, it returns 0."
+    }
+  }
+]

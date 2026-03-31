@@ -1,0 +1,188 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IClassFactory",
+      "description": "This function returns a pointer to a ClassFactoryImpl structure that contains the IClassFactory interface passed to it.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClassFactory *",
+          "description": "This is a pointer to an IClassFactory interface."
+        }
+      ],
+      "return_type": "ClassFactoryImpl pointer, which represents the ClassFactoryImpl structure that contains the IClassFactory interface."
+    }
+  },
+  {
+    "function": {
+      "name": "ClassFactoryImpl_QueryInterface",
+      "description": "This function checks if the provided interface ID matches either IID_IUnknown or IID_IClassFactory. If it does, it assigns the address of the IClassFactory interface to the provided pointer and increases the reference count. If it doesn't, it assigns NULL to the provided pointer and returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClassFactory*",
+          "description": "Pointer to the IClassFactory interface"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Interface ID to be checked"
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to a pointer that will receive the address of the requested interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation was successful, E_INVALIDARG if the ppv parameter is NULL, or E_NOINTERFACE if the requested interface is not supported"
+    }
+  },
+  {
+    "function": {
+      "name": "ClassFactoryImpl_AddRef",
+      "description": "This function increments the reference count of the ClassFactoryImpl object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClassFactory *",
+          "description": "This parameter is a pointer to the IClassFactory interface object."
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count of the ClassFactoryImpl object."
+    }
+  },
+  {
+    "function": {
+      "name": "ClassFactoryImpl_Release",
+      "description": "This function decrements the reference count of the class factory implementation. If the reference count reaches zero, the memory allocated for the class factory implementation is freed.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClassFactory *",
+          "description": "This is a pointer to the interface of the class factory."
+        }
+      ],
+      "return_type": "ULONG. This represents the updated reference count after decrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "ClassFactoryImpl_CreateInstance",
+      "description": "This function creates an instance of a class factory implementation.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClassFactory *",
+          "description": "Pointer to an interface of the class factory."
+        },
+        {
+          "name": "pUnkOuter",
+          "type": "IUnknown *",
+          "description": "Pointer to the controlling IUnknown interface of the aggregate."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface that the caller is to use to communicate with the new object."
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. It can be a success or an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ClassFactoryImpl_LockServer",
+      "description": "This function is a stub, currently not implemented, and is used to lock or unlock the class factory server.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClassFactory *",
+          "description": "This is a pointer to the interface of the class factory."
+        },
+        {
+          "name": "lock",
+          "type": "BOOL",
+          "description": "This parameter is a boolean value indicating whether to lock (TRUE) or unlock (FALSE) the server."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "ClassFactoryImpl_Constructor",
+      "description": "This function is a constructor for the ClassFactoryImpl class. It allocates memory for a new ClassFactoryImpl object, sets its properties, and performs a query interface operation.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "const classinfo *",
+          "description": "Pointer to the class information to be used in the constructor."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier that will be used in the query interface operation."
+        },
+        {
+          "name": "ppv",
+          "type": "LPVOID *",
+          "description": "Pointer to the pointer variable that will receive the interface pointer from the query interface operation."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns E_OUTOFMEMORY if memory allocation fails, otherwise it returns the result of the query interface operation."
+    }
+  },
+  {
+    "function": {
+      "name": "DllGetClassObject",
+      "description": "This function retrieves a class object from a DLL object and provides a pointer to its IClassFactory interface, if it is available.",
+      "parameters": [
+        {
+          "name": "rclsid",
+          "type": "REFCLSID",
+          "description": "This is the CLSID associated with the data and code that will be used to create the object."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "This is the identifier of the interface that the caller is to use to communicate with the object."
+        },
+        {
+          "name": "ppv",
+          "type": "LPVOID*",
+          "description": "This is the address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *ppv contains the requested interface pointer. If the object does not support the interface specified in iid, the function sets ppv to NULL."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns standard COM error codes as well as S_OK for successful retrieval of the class object."
+    }
+  },
+  {
+    "function": {
+      "name": "create_instance",
+      "description": "This function creates an instance of a class. It iterates through the 'wic_classes' array and checks if the 'classid' of any element matches the 'clsid' parameter. If a match is found, it calls the 'constructor' function of the matching element with 'iid' and 'ppv' as arguments. If no match is found, it calls the 'CoCreateInstance' function with 'clsid', 'NULL', 'CLSCTX_INPROC_SERVER', 'iid', and 'ppv' as arguments.",
+      "parameters": [
+        {
+          "name": "clsid",
+          "type": "const CLSID *",
+          "description": "Pointer to the class identifier of the object to be created"
+        },
+        {
+          "name": "iid",
+          "type": "const IID *",
+          "description": "Pointer to the interface identifier that the object is being created for"
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Pointer to the pointer that receives the interface pointer requested in 'iid'. Upon successful return, '*ppv' contains the requested interface pointer"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function call. If the function succeeds, it returns S_OK. If it fails, it returns an error code"
+    }
+  }
+]

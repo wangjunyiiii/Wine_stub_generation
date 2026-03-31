@@ -1,0 +1,723 @@
+[
+  {
+    "function": {
+      "name": "SAFEARRAY_Malloc",
+      "description": "This function allocates a block of memory of a specified size and initializes it to zero.",
+      "parameters": [
+        {
+          "name": "size",
+          "type": "ULONG",
+          "description": "The size of the memory block to be allocated."
+        }
+      ],
+      "return_type": "void pointer, represents the starting address of the allocated memory block."
+    }
+  },
+  {
+    "function": {
+      "name": "SAFEARRAY_Free",
+      "description": "This function is used to free the memory allocated to a pointer.",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "void *",
+          "description": "This is a pointer to the memory block that needs to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "SAFEARRAY_GetVTSize",
+      "description": "This function determines the size of the given VARTYPE. It uses a switch statement to handle different cases of VARTYPE and returns the size of the corresponding type.",
+      "parameters": [
+        {
+          "name": "vt",
+          "type": "VARTYPE",
+          "description": "This parameter represents the VARTYPE whose size is to be determined."
+        }
+      ],
+      "return_type": "DWORD, represents the size of the given VARTYPE in bytes."
+    }
+  },
+  {
+    "function": {
+      "name": "SAFEARRAY_SetHiddenDWORD",
+      "description": "This function stores implementation data in the 4 bytes before the header of a SAFEARRAY.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "A pointer to a SAFEARRAY where the DWORD will be stored."
+        },
+        {
+          "name": "dw",
+          "type": "DWORD",
+          "description": "The DWORD value to be stored."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "SAFEARRAY_GetHiddenDWORD",
+      "description": "This function retrieves a DWORD value that is hidden in a SAFEARRAY structure.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "A pointer to a SAFEARRAY structure."
+        }
+      ],
+      "return_type": "DWORD, represents the hidden DWORD value in the SAFEARRAY structure."
+    }
+  },
+  {
+    "function": {
+      "name": "SAFEARRAY_GetCellCount",
+      "description": "This function calculates and returns the total number of cells in a SAFEARRAY.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "A pointer to the SAFEARRAY whose cell count is to be calculated."
+        }
+      ],
+      "return_type": "ULONG, represents the total number of cells in the provided SAFEARRAY."
+    }
+  },
+  {
+    "function": {
+      "name": "SAFEARRAY_AllocDescriptor",
+      "description": "This function allocates memory for a SAFEARRAY descriptor and assigns it to the output pointer.",
+      "parameters": [
+        {
+          "name": "ulSize",
+          "type": "ULONG",
+          "description": "The size of the SAFEARRAY to be allocated."
+        },
+        {
+          "name": "ppsaOut",
+          "type": "SAFEARRAY**",
+          "description": "A pointer to a pointer to a SAFEARRAY. This will point to the allocated SAFEARRAY upon successful execution."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and E_OUTOFMEMORY if the memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "SAFEARRAY_SetFeatures",
+      "description": "This function sets the features of a SAFEARRAY based on the VARTYPE provided. It sets the IID if the VARTYPE is VT_DISPATCH or VT_UNKNOWN, sets the feature as FADF_RECORD if the VARTYPE is VT_RECORD, and sets the feature as FADF_HAVEVARTYPE for all other VARTYPEs.",
+      "parameters": [
+        {
+          "name": "vt",
+          "type": "VARTYPE",
+          "description": "This parameter represents the VARTYPE of the SAFEARRAY."
+        },
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "This parameter is a pointer to the SAFEARRAY whose features are to be set."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "SAFEARRAY_Create",
+      "description": "This function creates a SAFEARRAY. It allocates and initializes a SAFEARRAY descriptor, sets the features of the SAFEARRAY based on the VARTYPE, copies the SAFEARRAYBOUND structures into the SAFEARRAY, and allocates memory for the data of the SAFEARRAY. If any of these operations fail, it destroys the SAFEARRAY descriptor and returns NULL.",
+      "parameters": [
+        {
+          "name": "vt",
+          "type": "VARTYPE",
+          "description": "The variant type of the elements in the SAFEARRAY."
+        },
+        {
+          "name": "cDims",
+          "type": "UINT",
+          "description": "The number of dimensions in the SAFEARRAY."
+        },
+        {
+          "name": "rgsabound",
+          "type": "const SAFEARRAYBOUND *",
+          "description": "A pointer to an array of SAFEARRAYBOUND structures that define the bounds of each dimension of the SAFEARRAY."
+        },
+        {
+          "name": "ulSize",
+          "type": "ULONG",
+          "description": "The size of an element in the SAFEARRAY."
+        }
+      ],
+      "return_type": "SAFEARRAY*. It represents a pointer to the created SAFEARRAY, or NULL if the creation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "SAFEARRAY_CreateVector",
+      "description": "This function creates a one-dimensional SafeArray. It allocates the header and data together, sets features, assigns data, and sets the number of elements and lower bounds of the SafeArray. It also handles different variant types.",
+      "parameters": [
+        {
+          "name": "vt",
+          "type": "VARTYPE",
+          "description": "The variant type of the elements in the SafeArray."
+        },
+        {
+          "name": "lLbound",
+          "type": "LONG",
+          "description": "The lower bound of the SafeArray."
+        },
+        {
+          "name": "cElements",
+          "type": "ULONG",
+          "description": "The number of elements in the SafeArray."
+        },
+        {
+          "name": "ulSize",
+          "type": "ULONG",
+          "description": "The size of each element in the SafeArray."
+        }
+      ],
+      "return_type": "SAFEARRAY*. It returns a pointer to the created SafeArray."
+    }
+  },
+  {
+    "function": {
+      "name": "SAFEARRAY_DestroyData",
+      "description": "This function is used to destroy or free the data in a SAFEARRAY starting from a specified cell. It handles different types of data including UNKNOWN, DISPATCH, RECORD, BSTR, and VARIANT.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "Pointer to the SAFEARRAY whose data is to be destroyed"
+        },
+        {
+          "name": "ulStartCell",
+          "type": "ULONG",
+          "description": "The starting cell from where the data destruction begins"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful, and E_UNEXPECTED if the starting cell is greater than the cell count"
+    }
+  },
+  {
+    "function": {
+      "name": "SAFEARRAY_CopyData",
+      "description": "This function copies data from one SAFEARRAY to another. It handles different types of data including VARIANT, BSTR, RECORD, UNKNOWN, DISPATCH, and others. It also handles errors and special features.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "Pointer to the source SAFEARRAY from which data is to be copied."
+        },
+        {
+          "name": "dest",
+          "type": "SAFEARRAY*",
+          "description": "Pointer to the destination SAFEARRAY to which data is to be copied."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation is successful, E_INVALIDARG if the destination array is null or the source array data is deleted, E_OUTOFMEMORY if there is not enough memory to complete the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayAllocDescriptor",
+      "description": "This function allocates a descriptor for a safe array. It checks the validity of the dimensions and the pointer, calculates the allocation size, and then calls SAFEARRAY_AllocDescriptor to allocate the descriptor. If the allocation is successful, it sets the dimension count of the safe array and returns S_OK.",
+      "parameters": [
+        {
+          "name": "cDims",
+          "type": "UINT",
+          "description": "The number of dimensions for the safe array. It must be less than 65535."
+        },
+        {
+          "name": "ppsaOut",
+          "type": "SAFEARRAY**",
+          "description": "A pointer to a pointer to a SAFEARRAY. If the function is successful, this will point to the allocated descriptor."
+        }
+      ],
+      "return_type": "HRESULT. It represents the status of the function execution. If the function is successful, it returns S_OK. If the dimensions are invalid, it returns E_INVALIDARG. If the pointer is null, it returns E_POINTER. If the allocation fails, it returns the HRESULT from SAFEARRAY_AllocDescriptor."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayAllocDescriptorEx",
+      "description": "This function allocates and initializes a SafeArray descriptor of a specified type and dimension.",
+      "parameters": [
+        {
+          "name": "vt",
+          "type": "VARTYPE",
+          "description": "Specifies the variant type for the elements of the array."
+        },
+        {
+          "name": "cDims",
+          "type": "UINT",
+          "description": "Specifies the number of dimensions in the array."
+        },
+        {
+          "name": "ppsaOut",
+          "type": "SAFEARRAY**",
+          "description": "On successful return, contains the allocated and initialized array descriptor."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns standard HRESULT success/error codes."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayAllocData",
+      "description": "This function allocates memory for the data of a SAFEARRAY object. It calculates the total size required by multiplying the number of elements in the SAFEARRAY by the size of each element, and then attempts to allocate that much memory. If the allocation is successful, it sets the pvData pointer of the SAFEARRAY to the allocated memory and returns S_OK. If the allocation fails, it returns E_OUTOFMEMORY. If the input SAFEARRAY pointer is NULL, it returns E_INVALIDARG.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "A pointer to the SAFEARRAY object for which to allocate data."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_OUTOFMEMORY if the memory allocation fails, and E_INVALIDARG if the input SAFEARRAY pointer is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayDestroyDescriptor",
+      "description": "This function is used to destroy a safe array descriptor. It checks if the array is locked or if certain features are enabled before proceeding with the destruction. If the array is locked, the function returns an error. If certain features are enabled, it sets the record info to NULL or destroys the data if it hasn't been previously deleted.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "This is a pointer to the safe array that is to be destroyed."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and DISP_E_ARRAYISLOCKED if the array is locked and cannot be destroyed."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayLock",
+      "description": "This function locks a safe array and increments the lock count. If the lock count exceeds the maximum limit, it decrements the lock count and returns an error.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "Pointer to the safe array to be locked"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, E_INVALIDARG if the array pointer is null, and E_UNEXPECTED if the lock count exceeds the maximum limit."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayUnlock",
+      "description": "This function unlocks a safe array by decrementing the lock count. If the array is already unlocked, it issues a warning and increments the lock count back.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "Pointer to the safe array to be unlocked"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the provided array pointer is null, and E_UNEXPECTED if the array is already unlocked."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayPutElement",
+      "description": "This function is used to replace an element in an existing safe array. It locks the safe array, replaces the specified element, and then unlocks the safe array.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "Pointer to a SAFEARRAY structure. It is the safe array in which the element is replaced."
+        },
+        {
+          "name": "rgIndices",
+          "type": "LONG*",
+          "description": "Pointer to a location that contains the index values for each dimension of the array. The right-most (least significant) dimension is rgIndices[0]."
+        },
+        {
+          "name": "pvData",
+          "type": "void*",
+          "description": "Pointer to the data to assign to the array element. The variant types VT_UNKNOWN, VT_DISPATCH, VT_VARIANT, and VT_BSTR are pointers to pointers."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, the return value is S_OK. If the array is not locked, or if the specified index is invalid, the return value is a standard COM error code."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayGetElement",
+      "description": "This function retrieves data from a specified location in a safe array. The function locks the array, retrieves the data, and then unlocks the array.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "Pointer to a SAFEARRAY structure."
+        },
+        {
+          "name": "rgIndices",
+          "type": "LONG*",
+          "description": "Pointer to a location in the safe array."
+        },
+        {
+          "name": "pvData",
+          "type": "void*",
+          "description": "Pointer to the location where the retrieved data is stored."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If the function fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayGetUBound",
+      "description": "This function retrieves the upper bound for any dimension in the specified safe array.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "Pointer to a SAFEARRAY structure."
+        },
+        {
+          "name": "nDim",
+          "type": "UINT",
+          "description": "The dimension of the array."
+        },
+        {
+          "name": "plUbound",
+          "type": "LONG*",
+          "description": "Pointer to a variable that receives the upper bound for the specified array dimension."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call. Returns S_OK if successful, E_INVALIDARG if the arguments are invalid, and DISP_E_BADINDEX if the dimension is not valid."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayGetLBound",
+      "description": "This function retrieves the lower bound for the specified dimension of the array.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "Pointer to an array descriptor created by SafeArrayCreate."
+        },
+        {
+          "name": "nDim",
+          "type": "UINT",
+          "description": "The dimension of the array. The rightmost (least significant) dimension is number 1."
+        },
+        {
+          "name": "plLbound",
+          "type": "LONG*",
+          "description": "Pointer to a location where the function writes the lower bound for the specified array dimension."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, the return value is S_OK. If the array descriptor or the plLbound parameter is null, the return value is E_INVALIDARG. If the nDim parameter is not a valid dimension for the array, the return value is DISP_E_BADINDEX."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayGetDim",
+      "description": "This function returns the number of dimensions in a safe array.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "A pointer to the safe array whose dimensions are to be determined."
+        }
+      ],
+      "return_type": "UINT, represents the number of dimensions in the safe array."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayGetElemsize",
+      "description": "This function returns the size of the elements in the safe array.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "A pointer to the safe array whose element size is to be determined."
+        }
+      ],
+      "return_type": "UINT, represents the size of the elements in the safe array."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayAccessData",
+      "description": "This function locks a safe array and retrieves a pointer to the array data.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "Pointer to a SAFEARRAY structure."
+        },
+        {
+          "name": "ppvData",
+          "type": "void**",
+          "description": "Pointer to the place where the pointer to the array data is returned."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, the function returns S_OK. If the array is not valid or if the pvData parameter is NULL, the function returns E_INVALIDARG."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayUnaccessData",
+      "description": "This function unlocks a safe array that was previously locked using SafeArrayLock function.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "Pointer to a SAFEARRAY structure that represents the array to be unlocked."
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the operation. If the operation was successful, the return value is S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayPtrOfIndex",
+      "description": "This function calculates the cell number of an entry in a multidimensional array and returns the pointer to the data at that cell.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "Pointer to the SafeArray structure"
+        },
+        {
+          "name": "rgIndices",
+          "type": "LONG*",
+          "description": "Pointer to the indices for each dimension of the array"
+        },
+        {
+          "name": "ppvData",
+          "type": "void**",
+          "description": "Pointer to the location where the function stores the data pointer"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, DISP_E_BADINDEX if the index is out of bounds, and E_INVALIDARG if any of the arguments is NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayDestroyData",
+      "description": "This function is used to destroy the data in a safe array. It checks if the array is locked or not, if it is, it returns an error. If the array is not locked, it deletes the actual item data. If the array has static features, it zeroes the memory. If the array is not a vector, it frees the data memory block. If it is a vector, it marks the data as deleted.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY *",
+          "description": "This is a pointer to the safe array whose data is to be destroyed."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the array pointer is null, DISP_E_ARRAYISLOCKED if the array is locked, or the error code from SAFEARRAY_DestroyData if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayCopyData",
+      "description": "This function copies data from one SAFEARRAY to another. It checks if the source and target SAFEARRAYs are valid and have the same dimensions and element sizes. If not, it returns an error. If they are valid, it copies the data from the source to the target.",
+      "parameters": [
+        {
+          "name": "psaSource",
+          "type": "SAFEARRAY*",
+          "description": "This is the source SAFEARRAY from which data is to be copied."
+        },
+        {
+          "name": "psaTarget",
+          "type": "SAFEARRAY*",
+          "description": "This is the target SAFEARRAY to which data is to be copied."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns E_INVALIDARG if the source and target SAFEARRAYs are not valid or do not have the same dimensions or element sizes. Otherwise, it returns the result of the SAFEARRAY_CopyData function."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayDestroy",
+      "description": "This function is used to destroy a safe array. It first checks if the array exists and if it is not locked. If these conditions are met, it destroys the array data and descriptor.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "This is a pointer to the safe array to be destroyed."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and DISP_E_ARRAYISLOCKED if the array is locked."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayCopy",
+      "description": "This function copies a SAFEARRAY structure. It checks for valid arguments, allocates memory for the new array, copies the data, and handles any errors that occur during these processes.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "Pointer to the source SAFEARRAY structure to be copied."
+        },
+        {
+          "name": "ppsaOut",
+          "type": "SAFEARRAY**",
+          "description": "Pointer to a pointer to a SAFEARRAY structure. This will point to the copied SAFEARRAY structure after the function is executed."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If the function fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayRedim",
+      "description": "This function resizes (redimensions) an existing safe array to the specified SAFEARRAYBOUND structure. It handles both shortening and lengthening of the final dimension of the array.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "Pointer to a SAFEARRAY structure that represents the safe array to be resized."
+        },
+        {
+          "name": "psabound",
+          "type": "SAFEARRAYBOUND*",
+          "description": "Pointer to a SAFEARRAYBOUND structure that contains the new bounds of the safe array."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the arguments are invalid, DISP_E_ARRAYISLOCKED if the array is locked, and E_OUTOFMEMORY if the operation runs out of memory."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayGetVartype",
+      "description": "This function retrieves the VARTYPE of the elements in the array. It checks the features of the SAFEARRAY and assigns the appropriate VARTYPE to the pointer pvt.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "Pointer to a SAFEARRAY structure, which is the array that the function operates on."
+        },
+        {
+          "name": "pvt",
+          "type": "VARTYPE*",
+          "description": "Pointer to a VARTYPE variable, which will hold the VARTYPE of the elements in the array after the function executes."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation was successful, and E_INVALIDARG if the arguments are not valid."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArraySetRecordInfo",
+      "description": "This function sets the record information for a safe array. It checks if the safe array and its features are valid, adds a reference to the record info if it exists, releases the previous record info if it exists, and then sets the new record info.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "This is a pointer to the safe array for which the record information is to be set."
+        },
+        {
+          "name": "pRinfo",
+          "type": "IRecordInfo*",
+          "description": "This is a pointer to the record information to be set for the safe array."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and E_INVALIDARG if the safe array is null or its features are not valid."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayGetRecordInfo",
+      "description": "This function retrieves the IRecordInfo interface of an array. It checks the validity of the parameters and the array features. If the parameters are valid and the array has the FADF_RECORD feature, it assigns the IRecordInfo interface to the second parameter and increases its reference count.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "Pointer to a SAFEARRAY structure. This is the array from which the function retrieves the IRecordInfo interface."
+        },
+        {
+          "name": "pRinfo",
+          "type": "IRecordInfo**",
+          "description": "Pointer to a pointer to an IRecordInfo interface. This is where the function stores the retrieved IRecordInfo interface."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If it fails, it returns an error code, specifically E_INVALIDARG if the parameters are invalid or the array does not have the FADF_RECORD feature."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArraySetIID",
+      "description": "This function sets the interface identifier (IID) for a safe array.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "A pointer to the safe array whose IID is to be set."
+        },
+        {
+          "name": "guid",
+          "type": "REFGUID",
+          "description": "A reference to the GUID that represents the IID to be set."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, otherwise returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "SafeArrayGetIID",
+      "description": "This function retrieves the interface identifier (IID) associated with an array.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "Pointer to a SAFEARRAY structure."
+        },
+        {
+          "name": "pGuid",
+          "type": "GUID*",
+          "description": "Pointer to a variable that receives the IID."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "VectorFromBstr",
+      "description": "This function creates a SAFEARRAY from a BSTR by copying the BSTR's data into the SAFEARRAY's data buffer.",
+      "parameters": [
+        {
+          "name": "bstr",
+          "type": "BSTR",
+          "description": "This is the source BSTR that will be copied into the SAFEARRAY."
+        },
+        {
+          "name": "ppsa",
+          "type": "SAFEARRAY**",
+          "description": "This is a pointer to a SAFEARRAY pointer. The function will create a new SAFEARRAY and store the pointer to it in *ppsa."
+        }
+      ],
+      "return_type": "HRESULT. It represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the ppsa argument is NULL, and E_OUTOFMEMORY if the SAFEARRAY creation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "BstrFromVector",
+      "description": "This function converts a SAFEARRAY to a BSTR string. It checks the validity of the input parameters and allocates memory for the BSTR string. If the parameters are not valid or memory allocation fails, it returns an error code.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "Pointer to the SAFEARRAY to be converted"
+        },
+        {
+          "name": "pbstr",
+          "type": "BSTR*",
+          "description": "Pointer to the BSTR string where the result will be stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the input parameters are not valid, or E_OUTOFMEMORY if memory allocation fails"
+    }
+  }
+]

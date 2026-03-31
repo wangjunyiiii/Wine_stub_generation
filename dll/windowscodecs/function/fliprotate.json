@@ -1,0 +1,226 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IWICBitmapFlipRotator",
+      "description": "This function returns a pointer to a FlipRotator structure that contains the given IWICBitmapFlipRotator interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFlipRotator*",
+          "description": "Pointer to an IWICBitmapFlipRotator interface"
+        }
+      ],
+      "return_type": "FlipRotator*. It represents a pointer to a FlipRotator structure that contains the given IWICBitmapFlipRotator interface."
+    }
+  },
+  {
+    "function": {
+      "name": "FlipRotator_QueryInterface",
+      "description": "This function checks if the provided interface supports the requested interface ID (IID). If it does, it returns a pointer to that interface; otherwise, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFlipRotator*",
+          "description": "Pointer to the interface that is being queried."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "The identifier of the interface being requested."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "If the interface is supported, this will point to that interface after the function call."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the interface is supported, E_NOINTERFACE if it is not, and E_INVALIDARG if the ppv parameter is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "FlipRotator_AddRef",
+      "description": "This function increments the reference count of the FlipRotator object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFlipRotator*",
+          "description": "This is a pointer to the FlipRotator object whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "ULONG, which represents the new reference count after increment."
+    }
+  },
+  {
+    "function": {
+      "name": "FlipRotator_Release",
+      "description": "This function releases the resources associated with a FlipRotator object. It decrements the reference count and if it reaches zero, it deletes the critical section, releases the bitmap source if it exists, and frees the memory allocated for the FlipRotator object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFlipRotator*",
+          "description": "Pointer to the FlipRotator object to be released"
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after the decrement operation"
+    }
+  },
+  {
+    "function": {
+      "name": "FlipRotator_GetSize",
+      "description": "This function gets the size of the FlipRotator object. If the 'swap_xy' attribute of the object is true, it swaps the width and height values.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFlipRotator*",
+          "description": "Pointer to an instance of IWICBitmapFlipRotator"
+        },
+        {
+          "name": "puiWidth",
+          "type": "UINT*",
+          "description": "Pointer to store the width of the FlipRotator object"
+        },
+        {
+          "name": "puiHeight",
+          "type": "UINT*",
+          "description": "Pointer to store the height of the FlipRotator object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns WINCODEC_ERR_WRONGSTATE if the source of the FlipRotator object is not set, otherwise it returns the result of IWICBitmapSource_GetSize function call"
+    }
+  },
+  {
+    "function": {
+      "name": "FlipRotator_GetPixelFormat",
+      "description": "This function retrieves the pixel format of the source bitmap flip rotator.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFlipRotator*",
+          "description": "Interface pointer to the bitmap flip rotator."
+        },
+        {
+          "name": "pPixelFormat",
+          "type": "WICPixelFormatGUID*",
+          "description": "Pointer to a variable that receives the pixel format of the source bitmap."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns WINCODEC_ERR_WRONGSTATE if the source is not available, otherwise it returns the pixel format of the source bitmap."
+    }
+  },
+  {
+    "function": {
+      "name": "FlipRotator_GetResolution",
+      "description": "This function retrieves the resolution of a bitmap flip rotator. If the source is not available, it returns an error. If the swap_xy flag is set, it swaps the X and Y parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFlipRotator*",
+          "description": "Pointer to an interface of a bitmap flip rotator"
+        },
+        {
+          "name": "pDpiX",
+          "type": "double*",
+          "description": "Pointer to store the X resolution"
+        },
+        {
+          "name": "pDpiY",
+          "type": "double*",
+          "description": "Pointer to store the Y resolution"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns WINCODEC_ERR_WRONGSTATE if the source is not available. Otherwise, it returns the result of IWICBitmapSource_GetResolution function call."
+    }
+  },
+  {
+    "function": {
+      "name": "FlipRotator_CopyPalette",
+      "description": "This function copies the palette from the source to the given palette. If the source is not available, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFlipRotator *",
+          "description": "Pointer to an instance of IWICBitmapFlipRotator from which the palette is to be copied."
+        },
+        {
+          "name": "pIPalette",
+          "type": "IWICPalette *",
+          "description": "Pointer to an instance of IWICPalette where the copied palette will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns WINCODEC_ERR_WRONGSTATE if the source is not available, otherwise it returns the status of the palette copy operation."
+    }
+  },
+  {
+    "function": {
+      "name": "FlipRotator_CopyPixels",
+      "description": "This function copies pixels from a source to a destination, with the ability to flip and rotate the pixels.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFlipRotator*",
+          "description": "Interface pointer to the bitmap flip rotator"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect*",
+          "description": "Pointer to the rectangle structure that defines the portion of the source bitmap to copy"
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "The stride, or pitch, of the bitmap. This is the number of bytes from one row of pixels in memory to the next row of pixels in memory"
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "The size of the buffer to receive the pixels"
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE*",
+          "description": "Pointer to the buffer to receive the pixels"
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns standard HRESULT error codes."
+    }
+  },
+  {
+    "function": {
+      "name": "FlipRotator_Initialize",
+      "description": "This function initializes a FlipRotator object, setting the rotation and flip options based on the provided parameters. It also locks the object during the operation to prevent other threads from accessing it simultaneously.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFlipRotator*",
+          "description": "Pointer to the FlipRotator object to be initialized."
+        },
+        {
+          "name": "pISource",
+          "type": "IWICBitmapSource*",
+          "description": "Pointer to the source bitmap."
+        },
+        {
+          "name": "options",
+          "type": "WICBitmapTransformOptions",
+          "description": "Options for transforming the bitmap, such as rotation and flipping."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, and an error code if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "FlipRotator_Create",
+      "description": "This function initializes a FlipRotator object, sets its properties to default values, and assigns it to the provided pointer.",
+      "parameters": [
+        {
+          "name": "fliprotator",
+          "type": "IWICBitmapFlipRotator**",
+          "description": "A pointer to a pointer to an IWICBitmapFlipRotator object. The function will assign the address of the newly created FlipRotator object to this pointer."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and E_OUTOFMEMORY if the memory allocation for the new FlipRotator object fails."
+    }
+  }
+]

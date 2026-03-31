@@ -1,0 +1,1047 @@
+[
+  {
+    "function": {
+      "name": "nulldrv_AngleArc",
+      "description": "This function calculates the start and end points of an arc based on the given parameters, sets the arc direction, draws the arc using NtGdiArcInternal function, and then resets the arc direction.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Physical device for which the arc is to be drawn"
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "X-coordinate of the center of the arc"
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "Y-coordinate of the center of the arc"
+        },
+        {
+          "name": "radius",
+          "type": "DWORD",
+          "description": "Radius of the arc"
+        },
+        {
+          "name": "start",
+          "type": "FLOAT",
+          "description": "Starting angle of the arc in degrees"
+        },
+        {
+          "name": "sweep",
+          "type": "FLOAT",
+          "description": "Sweep angle of the arc in degrees"
+        }
+      ],
+      "return_type": "BOOL, represents whether the arc was successfully drawn or not"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_ArcTo",
+      "description": "This function calculates the parameters for an arc and draws it using the NtGdiArcInternal function. It also draws a line from the current position to the starting point of the arc.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to draw on"
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "Left coordinate of the bounding rectangle"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "Top coordinate of the bounding rectangle"
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "Right coordinate of the bounding rectangle"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "Bottom coordinate of the bounding rectangle"
+        },
+        {
+          "name": "xstart",
+          "type": "INT",
+          "description": "X coordinate of the starting point of the arc"
+        },
+        {
+          "name": "ystart",
+          "type": "INT",
+          "description": "Y coordinate of the starting point of the arc"
+        },
+        {
+          "name": "xend",
+          "type": "INT",
+          "description": "X coordinate of the ending point of the arc"
+        },
+        {
+          "name": "yend",
+          "type": "INT",
+          "description": "Y coordinate of the ending point of the arc"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the arc is successfully drawn, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_FillRgn",
+      "description": "This function fills a region with a specified brush. It first selects the brush into the device context, then calls the pPaintRgn function of the physical device, and finally reselects the previous brush into the device context.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the physical device where the region will be filled."
+        },
+        {
+          "name": "rgn",
+          "type": "HRGN",
+          "description": "This is the region that will be filled with the brush."
+        },
+        {
+          "name": "brush",
+          "type": "HBRUSH",
+          "description": "This is the brush that will be used to fill the region."
+        }
+      ],
+      "return_type": "BOOL, represents whether the region was successfully filled or not."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_FrameRgn",
+      "description": "This function creates a rectangular region, frames it, fills it with a specified brush, and then deletes the region.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to be used for the operation"
+        },
+        {
+          "name": "rgn",
+          "type": "HRGN",
+          "description": "Handle to the region to be framed"
+        },
+        {
+          "name": "brush",
+          "type": "HBRUSH",
+          "description": "Handle to the brush used to fill the region"
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "Width of the region"
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "Height of the region"
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_InvertRgn",
+      "description": "This function inverts the colors in a specified region by using the specified device context.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the device context that the function uses to perform the inversion."
+        },
+        {
+          "name": "rgn",
+          "type": "HRGN",
+          "description": "This is the region in which the colors are to be inverted."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function successfully inverted the colors in the specified region or not."
+    }
+  },
+  {
+    "function": {
+      "name": "polyline",
+      "description": "This function draws a polyline on a device context using the provided points.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context where the polyline is to be drawn."
+        },
+        {
+          "name": "points",
+          "type": "const POINT*",
+          "description": "Pointer to an array of POINT structures that contains the vertices of the polyline."
+        },
+        {
+          "name": "count",
+          "type": "ULONG",
+          "description": "Number of points in the array."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in drawing the polyline."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_PolyBezier",
+      "description": "This function is used to draw a Bezier curve based on the provided points. It uses the GDI_Bezier function to calculate the points of the curve, then draws the curve using the polyline function.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is a physical device object that the function will draw on."
+        },
+        {
+          "name": "points",
+          "type": "const POINT*",
+          "description": "This is an array of points that define the Bezier curve."
+        },
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "This is the number of points in the points array."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the Bezier curve was successfully drawn, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_PolyBezierTo",
+      "description": "This function draws a PolyBezier using the provided points and count. It first gets the DC from the provided PHYSDEV, then allocates memory for the points. It then copies the points into the allocated memory and increments the count. It then calls NtGdiPolyPolyDraw to draw the PolyBezier. If the points were successfully allocated, it frees the memory and returns the result of the draw call.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the device context to draw on."
+        },
+        {
+          "name": "points",
+          "type": "const POINT*",
+          "description": "This is an array of points that define the PolyBezier."
+        },
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "This is the number of points in the points array."
+        }
+      ],
+      "return_type": "BOOL, represents whether the PolyBezier was successfully drawn or not."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_PolyDraw",
+      "description": "This function draws lines and curves using the specified points. It checks for valid point types, allocates memory for line points, and performs operations based on the type of point. It also handles memory reallocation and cleanup.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Physical device to be used for drawing"
+        },
+        {
+          "name": "points",
+          "type": "const POINT*",
+          "description": "Pointer to an array of points to be used for drawing"
+        },
+        {
+          "name": "types",
+          "type": "const BYTE*",
+          "description": "Pointer to an array of types corresponding to the points"
+        },
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "Number of points to be drawn"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully draws the lines and curves, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_PolylineTo",
+      "description": "This function draws a polyline on a device context associated with a given PHYSDEV object. It uses the POINT array and count to determine the vertices of the polyline.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the physical device object on which the polyline is to be drawn."
+        },
+        {
+          "name": "points",
+          "type": "POINT*",
+          "description": "This is a pointer to an array of POINT structures that contains the vertices of the polyline."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "This is the number of points in the points array."
+        }
+      ],
+      "return_type": "BOOL, represents whether the polyline was successfully drawn or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiLineTo",
+      "description": "This function draws a line from the current position up to, but not including, the specified point.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate, in logical units, of the line's ending point."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate, in logical units, of the line's ending point."
+        }
+      ],
+      "return_type": "BOOL. If the function succeeds, the return value is nonzero. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiMoveTo",
+      "description": "This function moves the current position to the specified coordinates and optionally returns the previous position.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The new x-coordinate."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The new y-coordinate."
+        },
+        {
+          "name": "pt",
+          "type": "POINT*",
+          "description": "Pointer to a POINT structure that receives the previous current position. If this parameter is NULL, the previous position is not returned."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function is successful. Otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiArcInternal",
+      "description": "This function is used to draw different types of arcs based on the type parameter. It can draw a simple arc, an arc to a specific point, a chord, or a pie. The arc is drawn within the rectangle defined by the left, top, right, and bottom parameters. The arc starts at the point defined by xstart and ystart and ends at the point defined by xend and yend.",
+      "parameters": [
+        {
+          "name": "type",
+          "type": "UINT",
+          "description": "This parameter defines the type of arc to be drawn."
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This parameter is a handle to the device context."
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "This parameter defines the left side of the bounding rectangle."
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "This parameter defines the top side of the bounding rectangle."
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "This parameter defines the right side of the bounding rectangle."
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "This parameter defines the bottom side of the bounding rectangle."
+        },
+        {
+          "name": "xstart",
+          "type": "INT",
+          "description": "This parameter defines the x-coordinate of the start point of the arc."
+        },
+        {
+          "name": "ystart",
+          "type": "INT",
+          "description": "This parameter defines the y-coordinate of the start point of the arc."
+        },
+        {
+          "name": "xend",
+          "type": "INT",
+          "description": "This parameter defines the x-coordinate of the end point of the arc."
+        },
+        {
+          "name": "yend",
+          "type": "INT",
+          "description": "This parameter defines the y-coordinate of the end point of the arc."
+        }
+      ],
+      "return_type": "BOOL. This function returns TRUE if the function is successful. Otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiEllipse",
+      "description": "This function draws an ellipse that fits into the specified rectangle, using the device context specified.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "Specifies the x-coordinate of the upper-left corner of the bounding rectangle."
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "Specifies the y-coordinate of the upper-left corner of the bounding rectangle."
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "Specifies the x-coordinate of the lower-right corner of the bounding rectangle."
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "Specifies the y-coordinate of the lower-right corner of the bounding rectangle."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in drawing the ellipse. Returns TRUE if successful; otherwise FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiRectangle",
+      "description": "This function draws a rectangle on a device context using the specified dimensions.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "Specifies the x-coordinate of the upper-left corner of the rectangle."
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "Specifies the y-coordinate of the upper-left corner of the rectangle."
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "Specifies the x-coordinate of the lower-right corner of the rectangle."
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "Specifies the y-coordinate of the lower-right corner of the rectangle."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, FALSE if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiRoundRect",
+      "description": "This function draws a rectangle with rounded corners. The rectangle is outlined by using the current pen and filled by using the current brush.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "Specifies the x-coordinate of the upper-left corner of the rectangle."
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "Specifies the y-coordinate of the upper-left corner of the rectangle."
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "Specifies the x-coordinate of the lower-right corner of the rectangle."
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "Specifies the y-coordinate of the lower-right corner of the rectangle."
+        },
+        {
+          "name": "ell_width",
+          "type": "INT",
+          "description": "Specifies the width of the ellipse used to create the rounded corners."
+        },
+        {
+          "name": "ell_height",
+          "type": "INT",
+          "description": "Specifies the height of the ellipse used to create the rounded corners."
+        }
+      ],
+      "return_type": "BOOL. If the function succeeds, the return value is nonzero. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSetPixel",
+      "description": "This function sets the pixel at the specified coordinates to a specified color.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the pixel."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the pixel."
+        },
+        {
+          "name": "color",
+          "type": "COLORREF",
+          "description": "The color to set the pixel."
+        }
+      ],
+      "return_type": "COLORREF, represents the final color that the pixel was set to."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetPixel",
+      "description": "This function retrieves the red, green, blue (RGB) color value of the pixel at the specified coordinates.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "A handle to the device context."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate, in logical units, of the pixel to be examined."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate, in logical units, of the pixel to be examined."
+        }
+      ],
+      "return_type": "COLORREF, represents the RGB color value of the pixel. If the pixel is outside of the current clipping region, it returns CLR_INVALID."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSetPixelFormat",
+      "description": "This function sets the pixel format for a device context. If the pixel format has not been set, it assigns the provided format. If the pixel format has already been set, it checks if the existing format matches the provided format.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This is a handle to the device context."
+        },
+        {
+          "name": "format",
+          "type": "INT",
+          "description": "This is the pixel format to be set."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the pixel format was successfully set or if the existing format matches the provided format. Returns FALSE if the device context could not be retrieved."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDescribePixelFormat",
+      "description": "This function is a stub and does not perform any operation. It is intended to describe the pixel format of a device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "format",
+          "type": "INT",
+          "description": "Specifies the number that identifies the pixel format to describe."
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "Specifies the size, in bytes, of the structure pointed to by descr."
+        },
+        {
+          "name": "descr",
+          "type": "PIXELFORMATDESCRIPTOR *",
+          "description": "Pointer to a PIXELFORMATDESCRIPTOR structure that contains the logical pixel format specification."
+        }
+      ],
+      "return_type": "INT, represents the maximum pixel format index of the device context. In this stub function, it always returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSwapBuffers",
+      "description": "This function is a stub and does not perform any operation. It always returns FALSE.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "A handle to the device context."
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the function. In this case, always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiCancelDC",
+      "description": "This function is a stub and does not perform any operation. It always returns TRUE.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This parameter is not used in the function."
+        }
+      ],
+      "return_type": "BOOL, always returns TRUE"
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiFillRgn",
+      "description": "This function fills a region with a specified brush.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "Handle to the region to be filled."
+        },
+        {
+          "name": "hbrush",
+          "type": "HBRUSH",
+          "description": "Handle to the brush to be used for filling."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful or not. Returns TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiFrameRgn",
+      "description": "This function is used to draw a border around the specified region using the specified brush.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "Handle to the region."
+        },
+        {
+          "name": "hbrush",
+          "type": "HBRUSH",
+          "description": "Handle to the brush."
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "Width of the border."
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "Height of the border."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, FALSE if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiInvertRgn",
+      "description": "This function inverts the colors in the specified region.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "Handle to the region."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiPolyPolyDraw",
+      "description": "This function is used to draw complex shapes and lines based on the function parameter. It can handle multiple types of drawing functions such as PolyPolygon, PolyPolyline, PolyBezier, PolyBezierTo, and PolylineTo.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "points",
+          "type": "const POINT *",
+          "description": "Pointer to an array of POINT structures that define the vertices of the polygons or lines to be drawn."
+        },
+        {
+          "name": "counts",
+          "type": "const ULONG *",
+          "description": "Pointer to an array of ULONG integers, each element of which specifies the count of points in the corresponding polygon or line."
+        },
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "Specifies the total number of integers in the counts array."
+        },
+        {
+          "name": "function",
+          "type": "UINT",
+          "description": "Specifies the drawing function to be performed. It can be one of the following: NtGdiPolyPolygon, NtGdiPolyPolyline, NtGdiPolyBezier, NtGdiPolyBezierTo, NtGdiPolylineTo, NtGdiPolyPolygonRgn."
+        }
+      ],
+      "return_type": "ULONG. Returns the result of the drawing operation. If the function succeeds, the return value is non-zero. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiExtFloodFill",
+      "description": "This function fills an area of the display surface with the specified color.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate, in logical units, of the point to be filled."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate, in logical units, of the point to be filled."
+        },
+        {
+          "name": "color",
+          "type": "COLORREF",
+          "description": "The color to fill the area."
+        },
+        {
+          "name": "fill_type",
+          "type": "UINT",
+          "description": "The type of fill operation to be performed."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function is successful; otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiAngleArc",
+      "description": "This function draws a line segment of an arc. The arc is specified by a radius and two radian values. The line segment is drawn from the start angle to the end angle.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "A handle to the device context."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the center of the arc."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the center of the arc."
+        },
+        {
+          "name": "dwRadius",
+          "type": "DWORD",
+          "description": "The radius of the arc."
+        },
+        {
+          "name": "start_angle",
+          "type": "DWORD",
+          "description": "The start angle of the arc, in degrees."
+        },
+        {
+          "name": "sweep_angle",
+          "type": "DWORD",
+          "description": "The sweep angle of the arc, in degrees."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function is successful, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiPolyDraw",
+      "description": "This function is used to draw complex shapes on a device context. It gets the device context pointer, updates it, and then calls the pPolyDraw function of the physical device. If the drawing is successful and the count is not zero, it updates the current position in the device context attributes to the last point in the points array. Finally, it releases the device context pointer and returns the result of the drawing operation.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "points",
+          "type": "const POINT*",
+          "description": "Pointer to an array of POINT structures that contains the vertices of the polygon to be drawn."
+        },
+        {
+          "name": "types",
+          "type": "const BYTE*",
+          "description": "Pointer to an array of BYTE that specifies the type of each point in the points array."
+        },
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "Specifies the total number of points."
+        }
+      ],
+      "return_type": "BOOL, represents whether the drawing operation was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "BezierCheck",
+      "description": "This function checks if the control points of a Bezier curve are between the start and end points, and whether the curve is a shallow or steep line. It returns a boolean value based on these checks.",
+      "parameters": [
+        {
+          "name": "level",
+          "type": "int",
+          "description": "This parameter is not used in the function."
+        },
+        {
+          "name": "Points",
+          "type": "POINT*",
+          "description": "This is a pointer to an array of POINT structures representing the points of a Bezier curve."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the control points are between the start and end points and the curve meets the conditions for being a shallow or steep line, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "GDI_InternalBezier",
+      "description": "This function is used to calculate the Bezier curve points and store them in an array. It uses recursion to divide the curve into smaller segments until a certain level of precision is reached.",
+      "parameters": [
+        {
+          "name": "Points",
+          "type": "POINT*",
+          "description": "This is the input array of points that define the Bezier curve."
+        },
+        {
+          "name": "PtsOut",
+          "type": "POINT**",
+          "description": "This is the output array where the calculated points of the Bezier curve will be stored."
+        },
+        {
+          "name": "dwOut",
+          "type": "INT*",
+          "description": "This is a pointer to an integer that specifies the current size of the PtsOut array."
+        },
+        {
+          "name": "nPtsOut",
+          "type": "INT*",
+          "description": "This is a pointer to an integer that specifies the current number of points in the PtsOut array."
+        },
+        {
+          "name": "level",
+          "type": "INT",
+          "description": "This is the level of precision for the Bezier curve calculation. The higher the level, the more precise the curve."
+        }
+      ],
+      "return_type": "void, as this function does not return any value but modifies the PtsOut array."
+    }
+  },
+  {
+    "function": {
+      "name": "GDI_Bezier",
+      "description": "This function calculates the Bezier curve points based on the input points and returns the calculated points.",
+      "parameters": [
+        {
+          "name": "Points",
+          "type": "const POINT*",
+          "description": "An array of points that define the Bezier curve."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "The number of points in the Points array."
+        },
+        {
+          "name": "nPtsOut",
+          "type": "INT*",
+          "description": "A pointer to an integer that receives the number of points calculated for the Bezier curve."
+        }
+      ],
+      "return_type": "POINT*, represents the array of points that make up the calculated Bezier curve."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGradientFill",
+      "description": "This function fills a rectangle or triangle with a gradient color. It checks for valid parameters, retrieves a device context, updates it, and calls a function to perform the gradient fill, then releases the device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "vert_array",
+          "type": "TRIVERTEX*",
+          "description": "Pointer to an array of TRIVERTEX structures that define the endpoints of the gradient."
+        },
+        {
+          "name": "nvert",
+          "type": "ULONG",
+          "description": "Number of TRIVERTEX structures in the vert_array array."
+        },
+        {
+          "name": "grad_array",
+          "type": "void*",
+          "description": "Pointer to an array of gradient fill structures."
+        },
+        {
+          "name": "ngrad",
+          "type": "ULONG",
+          "description": "Number of gradient fill structures in the grad_array array."
+        },
+        {
+          "name": "mode",
+          "type": "ULONG",
+          "description": "Specifies the mode of gradient fill. It can be either GRADIENT_FILL_RECT_H, GRADIENT_FILL_RECT_V, or GRADIENT_FILL_TRIANGLE."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds. If the function fails, it returns FALSE and sets the last error to ERROR_INVALID_PARAMETER if any parameter is invalid."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDrawStream",
+      "description": "This function is a stub and does not perform any operation. It simply returns FALSE.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "in",
+          "type": "ULONG",
+          "description": "An unsigned long integer input."
+        },
+        {
+          "name": "pvin",
+          "type": "void *",
+          "description": "A pointer to an unspecified type."
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the function. In this case, it always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserScrollDC",
+      "description": "This function scrolls the contents of the specified device context. The scroll direction is specified by the dx and dy parameters. It can also optionally clip the scrolling to a specified rectangle, update a specified rectangle, and return a region that represents the update region.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "dx",
+          "type": "INT",
+          "description": "Specifies the amount of horizontal scrolling."
+        },
+        {
+          "name": "dy",
+          "type": "INT",
+          "description": "Specifies the amount of vertical scrolling."
+        },
+        {
+          "name": "scroll",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that specifies the portion of the device context to be scrolled."
+        },
+        {
+          "name": "clip",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that specifies the clipping rectangle."
+        },
+        {
+          "name": "ret_update_rgn",
+          "type": "HRGN",
+          "description": "Handle to the region that will be updated after scrolling."
+        },
+        {
+          "name": "update_rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that will receive the bounding rectangle of the update region."
+        }
+      ],
+      "return_type": "BOOL. If the function succeeds, the return value is nonzero. If the function fails, the return value is zero."
+    }
+  }
+]

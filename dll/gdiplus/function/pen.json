@@ -1,0 +1,988 @@
+[
+  {
+    "function": {
+      "name": "gdip_to_gdi_dash",
+      "description": "This function converts GDI+ dash styles to GDI dash styles.",
+      "parameters": [
+        {
+          "name": "dash",
+          "type": "GpDashStyle",
+          "description": "This parameter represents the GDI+ dash style that needs to be converted."
+        }
+      ],
+      "return_type": "DWORD, representing the corresponding GDI dash style."
+    }
+  },
+  {
+    "function": {
+      "name": "gdip_to_gdi_join",
+      "description": "This function converts GDI+ line join styles to GDI line join styles.",
+      "parameters": [
+        {
+          "name": "join",
+          "type": "GpLineJoin",
+          "description": "This parameter represents the GDI+ line join style to be converted."
+        }
+      ],
+      "return_type": "DWORD, represents the GDI line join style."
+    }
+  },
+  {
+    "function": {
+      "name": "bt_to_pt",
+      "description": "This function converts a brush type to a corresponding pen type.",
+      "parameters": [
+        {
+          "name": "bt",
+          "type": "GpBrushType",
+          "description": "This parameter represents the brush type to be converted."
+        }
+      ],
+      "return_type": "GpPenType, which represents the corresponding pen type to the input brush type."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipClonePen",
+      "description": "This function clones a GpPen object and handles memory allocation and error checking for the new object.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "Pointer to the GpPen object to be cloned."
+        },
+        {
+          "name": "clonepen",
+          "type": "GpPen **",
+          "description": "Pointer to a pointer, where the address of the cloned GpPen object will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if the input parameters are null, or 'OutOfMemory' if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreatePen1",
+      "description": "This function creates a pen with a specified color, width, and unit, and assigns it to the provided pen pointer.",
+      "parameters": [
+        {
+          "name": "color",
+          "type": "ARGB",
+          "description": "This parameter specifies the color of the pen."
+        },
+        {
+          "name": "width",
+          "type": "REAL",
+          "description": "This parameter specifies the width of the pen."
+        },
+        {
+          "name": "unit",
+          "type": "GpUnit",
+          "description": "This parameter specifies the unit of measurement for the pen width."
+        },
+        {
+          "name": "pen",
+          "type": "GpPen **",
+          "description": "This is a pointer to a pointer to a GpPen object. The new pen is assigned to this pointer."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the function is successful, it returns Ok. If there is an error, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreatePen2",
+      "description": "This function creates a new pen object with specified attributes, such as brush, width, and unit. It also initializes the pen's properties to default values.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpBrush *",
+          "description": "Pointer to the brush object that specifies the characteristics of the pen"
+        },
+        {
+          "name": "width",
+          "type": "REAL",
+          "description": "Specifies the width of the pen"
+        },
+        {
+          "name": "unit",
+          "type": "GpUnit",
+          "description": "Specifies the unit of measure for the pen width"
+        },
+        {
+          "name": "pen",
+          "type": "GpPen **",
+          "description": "Pointer to a pointer that receives the newly created pen object"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'Ok' if the operation is successful, 'InvalidParameter' if any of the parameters is invalid, 'OutOfMemory' if memory allocation fails, or 'NotImplemented' if the specified unit is not supported"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipDeletePen",
+      "description": "This function deletes a pen object, freeing up the memory allocated to it and its associated properties.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "This is a pointer to the pen object that is to be deleted."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if the input parameter is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenBrushFill",
+      "description": "This function retrieves the brush fill of a pen object and clones it.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "This is a pointer to the pen object from which the brush fill is to be retrieved."
+        },
+        {
+          "name": "brush",
+          "type": "GpBrush **",
+          "description": "This is a pointer to a pointer to a brush object where the cloned brush fill will be stored."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns 'InvalidParameter' if any of the input parameters is NULL, otherwise it returns the status of the 'GdipCloneBrush' function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenColor",
+      "description": "This function retrieves the color of a specified pen object.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen*",
+          "description": "This is a pointer to the pen object from which the color is to be retrieved."
+        },
+        {
+          "name": "argb",
+          "type": "ARGB*",
+          "description": "This is a pointer to an ARGB structure that receives the color of the pen object."
+        }
+      ],
+      "return_type": "GpStatus, which indicates the status of the function call. It returns 'InvalidParameter' if the pen or argb is null, 'NotImplemented' if the brush type is not solid color, and the status of 'GdipGetSolidFillColor' function otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenCustomEndCap",
+      "description": "This function retrieves the custom end cap of a pen object. If the pen does not have a custom end cap, it sets the customCap pointer to NULL.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "A pointer to the pen object from which to retrieve the custom end cap."
+        },
+        {
+          "name": "customCap",
+          "type": "GpCustomLineCap **",
+          "description": "A pointer to a pointer that receives the custom end cap object."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns 'InvalidParameter' if the input parameters are NULL, 'Ok' if the operation is successful, and the result of 'GdipCloneCustomLineCap' function if the pen has a custom end cap."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenCustomStartCap",
+      "description": "This function retrieves the custom start cap of a pen object. If the pen does not have a custom start cap, it sets the customCap pointer to NULL and returns Ok.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "A pointer to the pen object from which to retrieve the custom start cap."
+        },
+        {
+          "name": "customCap",
+          "type": "GpCustomLineCap **",
+          "description": "A pointer to a pointer to a GpCustomLineCap object. This will be set to the custom start cap of the pen, or NULL if the pen does not have a custom start cap."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can return InvalidParameter if the pen or customCap is NULL, Ok if the operation is successful, or any error codes returned by GdipCloneCustomLineCap."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenDashArray",
+      "description": "This function retrieves the elements of the dash pattern array associated with the specified pen.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen*",
+          "description": "Pointer to the pen object."
+        },
+        {
+          "name": "dash",
+          "type": "REAL*",
+          "description": "Pointer to the array that receives the dash pattern."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of elements in the dash pattern array."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if the pen or dash is null or if count is greater than the number of dashes in the pen. It can return 'GenericError' if count is negative. If the operation is successful, it returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenDashCap197819",
+      "description": "This function retrieves the dash cap style associated with the specified pen.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "A pointer to the pen object from which the dash cap style is retrieved."
+        },
+        {
+          "name": "dashCap",
+          "type": "GpDashCap *",
+          "description": "A pointer to a variable that receives the dash cap style."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns 'Ok'. If any of the input parameters is NULL, it returns 'InvalidParameter'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenDashCount",
+      "description": "This function retrieves the number of dashes in the pen's dash pattern and stores it in the count variable.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen*",
+          "description": "A pointer to the pen object from which the dash count is retrieved."
+        },
+        {
+          "name": "count",
+          "type": "INT*",
+          "description": "A pointer to an integer variable where the dash count will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the pen or count is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenDashOffset",
+      "description": "This function retrieves the dash offset value of a specified pen.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen*",
+          "description": "A pointer to the pen object from which the dash offset value is to be retrieved."
+        },
+        {
+          "name": "offset",
+          "type": "REAL*",
+          "description": "A pointer to a variable that receives the dash offset value."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the input parameters are null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenDashStyle",
+      "description": "This function retrieves the dash style of a pen object.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "A pointer to the pen object from which the dash style is to be retrieved."
+        },
+        {
+          "name": "dash",
+          "type": "GpDashStyle *",
+          "description": "A pointer to a variable that receives the dash style of the pen object."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the input parameters are null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenEndCap",
+      "description": "This function retrieves the end cap style for a line drawn with the specified pen.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "A pointer to the pen object."
+        },
+        {
+          "name": "endCap",
+          "type": "GpLineCap *",
+          "description": "A pointer to a GpLineCap object that receives the end cap style."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the input parameters are null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenFillType",
+      "description": "This function retrieves the fill type of a pen object.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "A pointer to the pen object."
+        },
+        {
+          "name": "type",
+          "type": "GpPenType *",
+          "description": "A pointer to a variable that receives the fill type of the pen."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the input parameters are null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenLineJoin",
+      "description": "This function retrieves the line join style of the specified pen.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen*",
+          "description": "Pointer to the pen object."
+        },
+        {
+          "name": "lineJoin",
+          "type": "GpLineJoin*",
+          "description": "Pointer to the variable that receives the line join style."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenMode",
+      "description": "This function retrieves the alignment mode of a pen object.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "A pointer to the pen object whose alignment mode is to be retrieved."
+        },
+        {
+          "name": "mode",
+          "type": "GpPenAlignment *",
+          "description": "A pointer to a variable that receives the alignment mode of the pen."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenMiterLimit",
+      "description": "This function retrieves the miter limit of a pen object.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "A pointer to the pen object from which to retrieve the miter limit."
+        },
+        {
+          "name": "miterLimit",
+          "type": "REAL *",
+          "description": "A pointer to a variable that receives the miter limit."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the input parameters are null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenStartCap",
+      "description": "This function retrieves the starting cap style for a line drawn with the specified pen.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "Pointer to the pen object from which the starting cap style is to be retrieved."
+        },
+        {
+          "name": "startCap",
+          "type": "GpLineCap *",
+          "description": "Pointer to a GpLineCap object that will receive the starting cap style."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either of the parameters is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenUnit",
+      "description": "This function retrieves the unit of measurement for a specified pen.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen*",
+          "description": "A pointer to the pen object from which the unit of measurement is retrieved."
+        },
+        {
+          "name": "unit",
+          "type": "GpUnit*",
+          "description": "A pointer to a variable that receives the unit of measurement."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the input parameters are null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenWidth",
+      "description": "This function retrieves the width of a pen object.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "A pointer to the pen object."
+        },
+        {
+          "name": "width",
+          "type": "REAL *",
+          "description": "A pointer to a variable that receives the width of the pen."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the input parameters are null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipResetPenTransform",
+      "description": "This function resets the transformation applied to a pen object in the GDI+ library.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "A pointer to the pen object whose transformation is to be reset."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns 'InvalidParameter' if the pen parameter is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPenTransform",
+      "description": "This function sets the transformation matrix of a pen object. It checks if the matrix is invertible and if so, assigns it to the pen's transform. If the pen or matrix is null, or if the matrix is not invertible, it returns an 'InvalidParameter' status.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "A pointer to the pen object whose transformation matrix is to be set."
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "A pointer to the matrix to be set as the pen's transformation matrix."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if the pen or matrix is null or if the matrix is not invertible."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenTransform",
+      "description": "This function retrieves the transformation matrix of a pen object.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "A pointer to the pen object from which to retrieve the transformation matrix."
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "A pointer to a GpMatrix object that receives the transformation matrix."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either parameter is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipTranslatePenTransform",
+      "description": "This function translates the transformation matrix associated with a pen by the specified dimensions.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "Pointer to the pen whose transformation matrix is to be translated."
+        },
+        {
+          "name": "dx",
+          "type": "REAL",
+          "description": "The x-coordinate of the translation."
+        },
+        {
+          "name": "dy",
+          "type": "REAL",
+          "description": "The y-coordinate of the translation."
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "The order in which to apply the translation."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the pen pointer is null, otherwise returns the status of the GdipTranslateMatrix function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipScalePenTransform",
+      "description": "This function scales the transformation matrix associated with the pen by the specified values.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "Pointer to the pen whose transformation matrix is to be scaled."
+        },
+        {
+          "name": "sx",
+          "type": "REAL",
+          "description": "The value by which to scale the matrix in the x-axis."
+        },
+        {
+          "name": "sy",
+          "type": "REAL",
+          "description": "The value by which to scale the matrix in the y-axis."
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "The order in which to apply the scale operation."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the pen pointer is null, otherwise it returns the status of the 'GdipScaleMatrix' function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipRotatePenTransform",
+      "description": "This function rotates the transformation matrix of a pen object by a specified angle in a specified order.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "Pointer to the pen object whose transformation matrix is to be rotated."
+        },
+        {
+          "name": "angle",
+          "type": "REAL",
+          "description": "The angle by which the transformation matrix is to be rotated."
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "Specifies the order (pre-pend or append) in which the rotation is to be applied to the transformation matrix."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the pen pointer is null, otherwise it returns the status of the 'GdipRotateMatrix' function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipMultiplyPenTransform",
+      "description": "This function multiplies the transformation matrix of a pen object with a specified matrix in a specified order.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "Pointer to the pen object whose transformation matrix is to be multiplied."
+        },
+        {
+          "name": "matrix",
+          "type": "GDIPCONST GpMatrix *",
+          "description": "Pointer to the matrix with which to multiply the transformation matrix of the pen."
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "Order in which to multiply the matrices."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the pen pointer is null, otherwise it returns the result of the GdipMultiplyMatrix function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPenBrushFill",
+      "description": "This function sets the brush fill for a pen in the GDI+ graphics library. It first deletes the current brush associated with the pen, then clones the provided brush to the pen.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen*",
+          "description": "This is a pointer to the pen object where the brush fill will be set."
+        },
+        {
+          "name": "brush",
+          "type": "GpBrush*",
+          "description": "This is a pointer to the brush object that will be cloned to the pen."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns Ok. If either of the input pointers is NULL, it returns InvalidParameter."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPenColor",
+      "description": "This function sets the color of a pen object using the specified ARGB color value.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen*",
+          "description": "A pointer to the pen object whose color is to be set."
+        },
+        {
+          "name": "argb",
+          "type": "ARGB",
+          "description": "The ARGB color value to set the pen color to."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It returns InvalidParameter if the pen pointer is null, NotImplemented if the brush type is not solid color, and the status of GdipSetSolidFillColor function otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenCompoundArray",
+      "description": "This function retrieves the compound array of a pen object. If the pen has a compound array and the count is greater than 0, it copies the compound array into the provided array.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "Pointer to the pen object from which to retrieve the compound array."
+        },
+        {
+          "name": "compoundarray",
+          "type": "REAL *",
+          "description": "Pointer to an array where the compound array will be copied."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "The number of elements in the compound array to copy."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the pen or compound array is null or if the count is greater than the compound array size of the pen. Returns 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPenCompoundCount",
+      "description": "This function retrieves the number of elements in the compound array of a pen object.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "A pointer to the pen object."
+        },
+        {
+          "name": "count",
+          "type": "INT *",
+          "description": "A pointer to an integer that receives the number of elements in the compound array."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the pen or count is NULL, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPenCompoundArray",
+      "description": "This function sets the compound array for a pen object. It checks the validity of the parameters and if they are valid, it allocates memory for the compound array, frees any existing memory, and copies the new compound array into the pen object.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen*",
+          "description": "Pointer to the pen object to set the compound array for"
+        },
+        {
+          "name": "compoundarray",
+          "type": "GDIPCONST REAL*",
+          "description": "Pointer to the array of REAL numbers representing the compound array"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "The number of elements in the compound array"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the parameters are invalid, 'OutOfMemory' if memory allocation fails, and 'Ok' if the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPenCustomEndCap",
+      "description": "This function sets a custom end cap for a pen object. It first clones the custom cap, deletes the existing custom end cap of the pen, and then sets the cloned cap as the new custom end cap of the pen.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "This is a pointer to the pen object to which the custom end cap will be set."
+        },
+        {
+          "name": "customCap",
+          "type": "GpCustomLineCap *",
+          "description": "This is a pointer to the custom line cap object that will be cloned and set as the new custom end cap of the pen."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns 'Ok'. If the customCap parameter is NULL, it returns 'InvalidParameter'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPenCustomStartCap",
+      "description": "This function sets a custom starting cap for a pen in the GDI+ graphics library. It clones the custom cap, deletes the existing start cap of the pen, and sets the cloned cap as the new start cap.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "A pointer to the pen object to modify."
+        },
+        {
+          "name": "customCap",
+          "type": "GpCustomLineCap *",
+          "description": "A pointer to the custom line cap object to set as the pen's start cap."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the customCap is NULL, otherwise returns the status of the cloning operation."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPenDashArray",
+      "description": "This function sets the dash pattern of a pen object. It checks the validity of the parameters, frees any existing dash array in the pen, allocates memory for the new dash array, and copies the new dash array into the pen.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "Pointer to the pen object whose dash array is to be set"
+        },
+        {
+          "name": "dash",
+          "type": "GDIPCONST REAL *",
+          "description": "Pointer to the array of dash lengths"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of elements in the dash array"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if the pen or dash is NULL, or if any dash length is less than or equal to zero. It can return 'OutOfMemory' if memory allocation for the new dash array fails. It returns 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPenDashCap197819",
+      "description": "This function sets the dash cap style for a pen object in the GDI+ graphics library.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "A pointer to the pen object to modify."
+        },
+        {
+          "name": "dashCap",
+          "type": "GpDashCap",
+          "description": "The dash cap style to set for the pen."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the pen pointer is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPenDashOffset",
+      "description": "This function sets the dash offset property of a pen object.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen*",
+          "description": "This is a pointer to the pen object whose dash offset property is to be set."
+        },
+        {
+          "name": "offset",
+          "type": "REAL",
+          "description": "This is the new dash offset value to be set."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the pen object is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPenDashStyle",
+      "description": "This function sets the dash style of a pen object. If the dash style is not custom, it frees the dashes array in the pen object and sets the number of dashes to 0. It then sets the pen's dash style and updates the pen's style using a bitwise operation.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "This is a pointer to the pen object whose dash style is to be set."
+        },
+        {
+          "name": "dash",
+          "type": "GpDashStyle",
+          "description": "This is the dash style to be set for the pen object."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the pen pointer is NULL, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPenEndCap",
+      "description": "This function sets the end cap style for a pen object and deletes the old custom cap even if the new style is LineCapCustom.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "This is a pointer to the pen object whose end cap style is to be set."
+        },
+        {
+          "name": "cap",
+          "type": "GpLineCap",
+          "description": "This is the end cap style to be set for the pen object."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if the pen pointer is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPenLineCap197819",
+      "description": "This function sets the start, end, and dash cap styles for a pen object, and deletes any existing custom cap styles.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "Pointer to the pen object to modify"
+        },
+        {
+          "name": "start",
+          "type": "GpLineCap",
+          "description": "The line cap style for the start of lines drawn with this pen"
+        },
+        {
+          "name": "end",
+          "type": "GpLineCap",
+          "description": "The line cap style for the end of lines drawn with this pen"
+        },
+        {
+          "name": "dash",
+          "type": "GpDashCap",
+          "description": "The dash cap style for lines drawn with this pen"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the pen parameter is null"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPenLineJoin",
+      "description": "This function sets the line join style for the specified pen.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "This is a pointer to the pen object whose line join style is to be set."
+        },
+        {
+          "name": "join",
+          "type": "GpLineJoin",
+          "description": "This is the line join style to be set for the pen."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the pen pointer is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPenMiterLimit",
+      "description": "This function sets the miter limit of a pen in the GDI+ graphics library.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "A pointer to the pen object whose miter limit is to be set."
+        },
+        {
+          "name": "limit",
+          "type": "REAL",
+          "description": "The new miter limit for the pen."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the pen pointer is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPenStartCap",
+      "description": "This function sets the start cap style for a pen object and deletes any custom start cap style that was previously set.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen*",
+          "description": "A pointer to the pen object to modify."
+        },
+        {
+          "name": "cap",
+          "type": "GpLineCap",
+          "description": "The line cap style to set."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the pen is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPenWidth",
+      "description": "This function sets the width of a pen object.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "This is a pointer to the pen object whose width is to be set."
+        },
+        {
+          "name": "width",
+          "type": "REAL",
+          "description": "This is the new width to be set for the pen object."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if the pen pointer is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPenMode",
+      "description": "This function sets the alignment mode of a pen in the GDI+ graphics library.",
+      "parameters": [
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "This is a pointer to the pen object whose alignment mode is to be set."
+        },
+        {
+          "name": "mode",
+          "type": "GpPenAlignment",
+          "description": "This is the alignment mode to be set for the pen."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if the pen pointer is null."
+    }
+  }
+]

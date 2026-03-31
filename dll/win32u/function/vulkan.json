@@ -1,0 +1,30 @@
+[
+  {
+    "function": {
+      "name": "vulkan_init",
+      "description": "This function initializes the Vulkan handle. It ensures the initialization only happens once using the pthread_once function.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not accept any parameters"
+        }
+      ],
+      "return_type": "BOOL, returns a boolean value indicating the status of the Vulkan handle"
+    }
+  },
+  {
+    "function": {
+      "name": "__wine_get_vulkan_driver",
+      "description": "This function checks if the provided version matches the WINE_VULKAN_DRIVER_VERSION. If it does, it initializes the Vulkan and returns a pointer to vulkan_funcs. If not, it logs an error and returns NULL.",
+      "parameters": [
+        {
+          "name": "version",
+          "type": "UINT",
+          "description": "This parameter represents the version of the Vulkan driver."
+        }
+      ],
+      "return_type": "struct vulkan_funcs, represents the Vulkan functions if the version matches and Vulkan is initialized successfully, otherwise NULL."
+    }
+  }
+]

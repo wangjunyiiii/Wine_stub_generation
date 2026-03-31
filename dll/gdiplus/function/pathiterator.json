@@ -1,0 +1,348 @@
+[
+  {
+    "function": {
+      "name": "GdipCreatePathIter",
+      "description": "This function creates a path iterator and initializes it with the data from a given path. If the path is null, the iterator is initialized with null data.",
+      "parameters": [
+        {
+          "name": "iterator",
+          "type": "GpPathIterator **",
+          "description": "A pointer to a pointer to a GpPathIterator object. This function will allocate memory for a new GpPathIterator object and store the address in the location pointed to by this parameter."
+        },
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "A pointer to a GpPath object. The function will copy the data from this path into the new GpPathIterator object. If this parameter is null, the function will initialize the GpPathIterator object with null data."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It returns 'Ok' if the operation was successful, 'InvalidParameter' if the iterator parameter is null, and 'OutOfMemory' if memory allocation for the new GpPathIterator object fails."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipDeletePathIter",
+      "description": "This function deletes a path iterator by freeing the memory allocated for its types, points, and the iterator itself.",
+      "parameters": [
+        {
+          "name": "iter",
+          "type": "GpPathIterator *",
+          "description": "A pointer to the path iterator to be deleted."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the provided iterator is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipPathIterCopyData",
+      "description": "This function copies data from a path iterator to specified points and types arrays, starting from a given index and ending at another index. It also checks for invalid parameters and index boundaries.",
+      "parameters": [
+        {
+          "name": "iterator",
+          "type": "GpPathIterator*",
+          "description": "Pointer to the path iterator from which data is to be copied."
+        },
+        {
+          "name": "resultCount",
+          "type": "INT*",
+          "description": "Pointer to an integer where the function will store the count of copied elements."
+        },
+        {
+          "name": "points",
+          "type": "GpPointF*",
+          "description": "Pointer to an array where the function will store the copied points."
+        },
+        {
+          "name": "types",
+          "type": "BYTE*",
+          "description": "Pointer to an array where the function will store the copied types."
+        },
+        {
+          "name": "startIndex",
+          "type": "INT",
+          "description": "The starting index from where data is to be copied."
+        },
+        {
+          "name": "endIndex",
+          "type": "INT",
+          "description": "The ending index till where data is to be copied."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if any of the parameters is null or if the indices are out of bounds. Returns 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipPathIterHasCurve",
+      "description": "This function checks if a path iterator has a curve in its path data. It iterates through the path data and if it finds a Bezier curve, it sets the hasCurve parameter to TRUE and breaks the loop.",
+      "parameters": [
+        {
+          "name": "iterator",
+          "type": "GpPathIterator*",
+          "description": "This is a pointer to the path iterator to be checked."
+        },
+        {
+          "name": "hasCurve",
+          "type": "BOOL*",
+          "description": "This is a pointer to a boolean variable. The function sets this to TRUE if a curve is found, otherwise it remains FALSE."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the iterator is NULL, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipPathIterGetSubpathCount",
+      "description": "This function counts the number of subpaths in the path data of the given iterator and stores the count in the provided integer pointer.",
+      "parameters": [
+        {
+          "name": "iterator",
+          "type": "GpPathIterator*",
+          "description": "This is a pointer to the path iterator whose subpaths are to be counted."
+        },
+        {
+          "name": "count",
+          "type": "INT*",
+          "description": "This is a pointer to an integer where the count of subpaths will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either of the parameters is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipPathIterNextMarker",
+      "description": "This function iterates over the markers in a path, updating the start and end indices of the current marker and the result count.",
+      "parameters": [
+        {
+          "name": "iterator",
+          "type": "GpPathIterator*",
+          "description": "Pointer to the path iterator"
+        },
+        {
+          "name": "resultCount",
+          "type": "INT*",
+          "description": "Pointer to the result count"
+        },
+        {
+          "name": "startIndex",
+          "type": "INT*",
+          "description": "Pointer to the start index of the current marker"
+        },
+        {
+          "name": "endIndex",
+          "type": "INT*",
+          "description": "Pointer to the end index of the current marker"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if any of the parameters is NULL, otherwise returns 'Ok'"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipPathIterNextMarkerPath",
+      "description": "This function iterates over the markers in a path, resets the path, and then copies the points and types from the iterator to the path. If the result is greater than 0 and the path is not null, it lengthens the path to the result size. If it fails to lengthen the path, it returns an OutOfMemory status. Otherwise, it returns Ok.",
+      "parameters": [
+        {
+          "name": "iterator",
+          "type": "GpPathIterator*",
+          "description": "Pointer to the path iterator"
+        },
+        {
+          "name": "result",
+          "type": "INT*",
+          "description": "Pointer to the result integer"
+        },
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can be Ok, OutOfMemory, or InvalidParameter"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipPathIterNextSubpath",
+      "description": "This function iterates over the subpaths in a path, providing information about each subpath such as its start and end indices, whether it is closed, and the total count of points in the subpath.",
+      "parameters": [
+        {
+          "name": "iterator",
+          "type": "GpPathIterator*",
+          "description": "Pointer to the path iterator object"
+        },
+        {
+          "name": "resultCount",
+          "type": "INT*",
+          "description": "Pointer to an integer where the function will store the total count of points in the current subpath"
+        },
+        {
+          "name": "startIndex",
+          "type": "INT*",
+          "description": "Pointer to an integer where the function will store the start index of the current subpath"
+        },
+        {
+          "name": "endIndex",
+          "type": "INT*",
+          "description": "Pointer to an integer where the function will store the end index of the current subpath"
+        },
+        {
+          "name": "isClosed",
+          "type": "BOOL*",
+          "description": "Pointer to a boolean where the function will store whether the current subpath is closed or not"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation was successful, 'InvalidParameter' if any of the parameters are NULL, or if the iterator was created with a NULL path."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipPathIterRewind",
+      "description": "This function resets the positions of the subpath, marker, and pathtype of the given path iterator to zero.",
+      "parameters": [
+        {
+          "name": "iterator",
+          "type": "GpPathIterator *",
+          "description": "A pointer to the path iterator to be reset."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the iterator is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipPathIterGetCount",
+      "description": "This function retrieves the count of path data points in the iterator and assigns it to the count pointer.",
+      "parameters": [
+        {
+          "name": "iterator",
+          "type": "GpPathIterator*",
+          "description": "A pointer to the path iterator."
+        },
+        {
+          "name": "count",
+          "type": "INT*",
+          "description": "A pointer to an integer where the count of path data points will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either of the parameters is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipPathIterEnumerate",
+      "description": "This function enumerates through a path iterator, checks for valid parameters, and copies data from the path iterator.",
+      "parameters": [
+        {
+          "name": "iterator",
+          "type": "GpPathIterator*",
+          "description": "Pointer to the path iterator to enumerate."
+        },
+        {
+          "name": "resultCount",
+          "type": "INT*",
+          "description": "Pointer to an integer to store the result count."
+        },
+        {
+          "name": "points",
+          "type": "GpPointF*",
+          "description": "Pointer to the points in the path."
+        },
+        {
+          "name": "types",
+          "type": "BYTE*",
+          "description": "Pointer to the types of the points in the path."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "The number of points in the path."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if count is less than 0 or resultCount is NULL, 'Ok' if count is 0, otherwise it returns the status of the 'GdipPathIterCopyData' function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipPathIterIsValid",
+      "description": "This function checks if the iterator and valid parameters are not null, sets valid to TRUE, and returns Ok status.",
+      "parameters": [
+        {
+          "name": "iterator",
+          "type": "GpPathIterator*",
+          "description": "Pointer to the path iterator to be checked"
+        },
+        {
+          "name": "valid",
+          "type": "BOOL*",
+          "description": "Pointer to a BOOL variable where the result of the validation is stored"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns InvalidParameter if either parameter is null, otherwise returns Ok"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipPathIterNextPathType",
+      "description": "This function iterates over the path types in a path iterator, updates the iterator's position, and returns the next path type and its start and end positions.",
+      "parameters": [
+        {
+          "name": "iter",
+          "type": "GpPathIterator*",
+          "description": "Pointer to the path iterator"
+        },
+        {
+          "name": "result",
+          "type": "INT*",
+          "description": "Pointer to an integer where the function will store the number of path types found"
+        },
+        {
+          "name": "type",
+          "type": "BYTE*",
+          "description": "Pointer to a byte where the function will store the next path type"
+        },
+        {
+          "name": "start",
+          "type": "INT*",
+          "description": "Pointer to an integer where the function will store the start position of the next path type"
+        },
+        {
+          "name": "end",
+          "type": "INT*",
+          "description": "Pointer to an integer where the function will store the end position of the next path type"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns 'InvalidParameter' if any of the parameters is NULL, 'Ok' otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipPathIterNextSubpathPath",
+      "description": "This function iterates over the subpaths of a given path and copies the points and types of the current subpath into the provided path object. If the subpath is closed, the 'closed' parameter is set to TRUE.",
+      "parameters": [
+        {
+          "name": "iter",
+          "type": "GpPathIterator*",
+          "description": "An iterator for the path to be processed."
+        },
+        {
+          "name": "result",
+          "type": "INT*",
+          "description": "A pointer to an integer where the number of points in the subpath will be stored."
+        },
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "A pointer to a path object where the points and types of the subpath will be copied."
+        },
+        {
+          "name": "closed",
+          "type": "BOOL*",
+          "description": "A pointer to a boolean that will be set to TRUE if the subpath is closed, and FALSE otherwise."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It returns 'Ok' if the operation was successful, 'InvalidParameter' if any of the parameters is NULL, and 'OutOfMemory' if the path cannot be lengthened to accommodate the subpath."
+    }
+  }
+]

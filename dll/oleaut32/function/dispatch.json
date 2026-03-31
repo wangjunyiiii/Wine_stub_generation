@@ -1,0 +1,350 @@
+[
+  {
+    "function": {
+      "name": "DispInvoke",
+      "description": "This function invokes a method on a given object using the provided type information and method arguments, and returns the result, exception information, and bad argument if any.",
+      "parameters": [
+        {
+          "name": "_this",
+          "type": "VOID",
+          "description": "Object to call method on"
+        },
+        {
+          "name": "ptinfo",
+          "type": "ITypeInfo",
+          "description": "Object type info"
+        },
+        {
+          "name": "dispidMember",
+          "type": "DISPID",
+          "description": "DISPID of the member (e.g. from GetIDsOfNames())"
+        },
+        {
+          "name": "wFlags",
+          "type": "USHORT",
+          "description": "Kind of method call (DISPATCH_ flags from 'oaidl.h')"
+        },
+        {
+          "name": "pparams",
+          "type": "DISPPARAMS",
+          "description": "Array of method arguments"
+        },
+        {
+          "name": "pvarResult",
+          "type": "VARIANT",
+          "description": "Destination for the result of the call"
+        },
+        {
+          "name": "pexcepinfo",
+          "type": "EXCEPINFO",
+          "description": "Destination for exception information"
+        },
+        {
+          "name": "puArgErr",
+          "type": "UINT",
+          "description": "Destination for bad argument"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the method call, success or failure"
+    }
+  },
+  {
+    "function": {
+      "name": "DispGetIDsOfNames",
+      "description": "This function gets the DISPIDs for an array of names.",
+      "parameters": [
+        {
+          "name": "ptinfo",
+          "type": "ITypeInfo*",
+          "description": "Object's type info"
+        },
+        {
+          "name": "rgszNames",
+          "type": "OLECHAR**",
+          "description": "Array of names to get DISPIDs for"
+        },
+        {
+          "name": "cNames",
+          "type": "UINT",
+          "description": "Number of names in rgszNames"
+        },
+        {
+          "name": "rgdispid",
+          "type": "DISPID*",
+          "description": "Destination for converted DISPIDs"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the operation"
+    }
+  },
+  {
+    "function": {
+      "name": "DispGetParam",
+      "description": "This function is used to get a parameter from a list and coerce its type. The position of the parameter is counted backwards. If the parameter is not found or any error occurs, it returns an error code.",
+      "parameters": [
+        {
+          "name": "pdispparams",
+          "type": "DISPPARAMS*",
+          "description": "Parameter list"
+        },
+        {
+          "name": "position",
+          "type": "UINT",
+          "description": "Position of parameter to coerce in pdispparams"
+        },
+        {
+          "name": "vtTarg",
+          "type": "VARTYPE",
+          "description": "Type of value to coerce to"
+        },
+        {
+          "name": "pvarResult",
+          "type": "VARIANT*",
+          "description": "Destination for resulting variant"
+        },
+        {
+          "name": "puArgErr",
+          "type": "UINT*",
+          "description": "Destination for error code"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, it returns S_OK. If the operation fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IDispatch",
+      "description": "This function returns the containing record for the given interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDispatch*",
+          "description": "This is the interface from which the containing record is to be returned."
+        }
+      ],
+      "return_type": "StdDispatch* - This represents the containing record for the given interface."
+    }
+  },
+  {
+    "function": {
+      "name": "StdDispatch_QueryInterface",
+      "description": "This function checks if the requested interface (identified by riid) is supported. If it is, it increments the reference count and returns a pointer to that interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPDISPATCH",
+          "description": "Pointer to the interface that the caller is querying."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Identifier of the interface being requested."
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "If the interface is supported, upon return, contains the address of the pointer to that interface."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call. Returns S_OK if the interface is supported, E_NOINTERFACE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "StdDispatch_AddRef",
+      "description": "This function increments the reference count of the StdDispatch object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPDISPATCH",
+          "description": "This parameter is used to get the StdDispatch object from the IDispatch interface."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after incrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "StdDispatch_Release",
+      "description": "This function releases the interface and decrements the reference count. If the reference count is zero, it releases the type information and frees the memory.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPDISPATCH",
+          "description": "This is the interface to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after the decrement."
+    }
+  },
+  {
+    "function": {
+      "name": "StdDispatch_GetTypeInfoCount",
+      "description": "This function sets the value of the pointer pctinfo to 1 and returns a success status code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPDISPATCH",
+          "description": "This parameter is not used in the function."
+        },
+        {
+          "name": "pctinfo",
+          "type": "UINT *",
+          "description": "This is a pointer to a UINT. The function sets its value to 1."
+        }
+      ],
+      "return_type": "HRESULT, represents the status code of the function execution. In this case, it always returns S_OK indicating successful execution."
+    }
+  },
+  {
+    "function": {
+      "name": "StdDispatch_GetTypeInfo",
+      "description": "This function retrieves the type information for an object, which can be used to get the type information for an interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPDISPATCH",
+          "description": "Pointer to the interface that the client is to use to communicate with the object."
+        },
+        {
+          "name": "iTInfo",
+          "type": "UINT",
+          "description": "Specifies the type information to return. If this parameter is zero, the type information is retrieved for the object's class."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "The locale identifier for the type information."
+        },
+        {
+          "name": "ppTInfo",
+          "type": "ITypeInfo**",
+          "description": "Receives a pointer to the requested type information object."
+        }
+      ],
+      "return_type": "HRESULT and it represents the success or failure of the function. Returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "StdDispatch_GetIDsOfNames",
+      "description": "This function retrieves the IDs for a specified set of names.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPDISPATCH",
+          "description": "Pointer to the interface."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier."
+        },
+        {
+          "name": "rgszNames",
+          "type": "LPOLESTR *",
+          "description": "Pointer to an array of names."
+        },
+        {
+          "name": "cNames",
+          "type": "UINT",
+          "description": "Count of the names."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Locale identifier."
+        },
+        {
+          "name": "rgDispId",
+          "type": "DISPID *",
+          "description": "Pointer to the array where the function will store the IDs corresponding to the names."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns E_INVALIDARG if the riid is not equal to IID_NULL, otherwise it returns the result of DispGetIDsOfNames function."
+    }
+  },
+  {
+    "function": {
+      "name": "StdDispatch_Invoke",
+      "description": "This function invokes a method or property through IDispatch interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPDISPATCH",
+          "description": "Pointer to the interface."
+        },
+        {
+          "name": "dispIdMember",
+          "type": "DISPID",
+          "description": "Identifier of the member."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Locale context."
+        },
+        {
+          "name": "wFlags",
+          "type": "WORD",
+          "description": "Flags describing the context of the invoke call."
+        },
+        {
+          "name": "pDispParams",
+          "type": "DISPPARAMS *",
+          "description": "Pointer to a structure containing an array of arguments."
+        },
+        {
+          "name": "pVarResult",
+          "type": "VARIANT *",
+          "description": "Pointer to the location where the result is to be stored."
+        },
+        {
+          "name": "pExcepInfo",
+          "type": "EXCEPINFO *",
+          "description": "Pointer to a structure that contains exception information."
+        },
+        {
+          "name": "puArgErr",
+          "type": "UINT *",
+          "description": "If Invoke returns DISP_E_TYPEMISMATCH, this output parameter receives the index of the first argument that has an incorrect type."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns E_INVALIDARG if the riid is not IID_NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "CreateStdDispatch",
+      "description": "This function creates a standard dispatch object, allocating memory for it and setting its properties.",
+      "parameters": [
+        {
+          "name": "punkOuter",
+          "type": "IUnknown*",
+          "description": "Pointer to the outer unknown interface."
+        },
+        {
+          "name": "pvThis",
+          "type": "void*",
+          "description": "Pointer to the object."
+        },
+        {
+          "name": "ptinfo",
+          "type": "ITypeInfo*",
+          "description": "Pointer to the type information interface."
+        },
+        {
+          "name": "stddisp",
+          "type": "IUnknown**",
+          "description": "Double pointer to the unknown interface of the standard dispatch object."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if any of the arguments is invalid, or E_OUTOFMEMORY if memory allocation fails."
+    }
+  }
+]

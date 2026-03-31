@@ -1,0 +1,543 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IRecordInfo",
+      "description": "This function returns the containing record for the given interface pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo *",
+          "description": "This is the interface pointer for which the containing record is to be returned."
+        }
+      ],
+      "return_type": "IRecordInfoImpl pointer, which represents the containing record for the given interface pointer."
+    }
+  },
+  {
+    "function": {
+      "name": "copy_to_variant",
+      "description": "This function copies the value from the source to the VARIANT structure based on the specified VARENUM enumeration type.",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "void *",
+          "description": "This is the source from which the value is copied."
+        },
+        {
+          "name": "pvar",
+          "type": "VARIANT *",
+          "description": "This is the VARIANT structure to which the value is copied."
+        },
+        {
+          "name": "vt",
+          "type": "enum VARENUM",
+          "description": "This is the VARENUM enumeration type that specifies the type of the value to be copied."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, otherwise it returns E_NOTIMPL if the type is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "copy_from_variant",
+      "description": "This function copies data from a VARIANT type to a specified destination type. It uses the VariantChangeType function to convert the VARIANT type to the desired type, and then copies the data to the destination.",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "VARIANT *",
+          "description": "This is the source VARIANT from which data is to be copied."
+        },
+        {
+          "name": "dest",
+          "type": "void *",
+          "description": "This is the destination where the data from the source VARIANT is to be copied."
+        },
+        {
+          "name": "vt",
+          "type": "enum VARENUM",
+          "description": "This is the desired type to which the source VARIANT is to be converted before copying."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. It returns S_OK if the function succeeds, E_NOTIMPL if the type is not supported, and the error code if the VariantChangeType function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "IRecordInfoImpl_QueryInterface",
+      "description": "This function checks if the provided interface ID matches either IID_IUnknown or IID_IRecordInfo. If it matches, the function adds a reference to the interface and returns S_OK. If it doesn't match, the function returns E_NOINTERFACE.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo *",
+          "description": "Pointer to the interface to be checked"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Interface ID to be compared with the interface's ID"
+        },
+        {
+          "name": "ppvObject",
+          "type": "void **",
+          "description": "Pointer to the pointer to the interface, used to return the interface if the IDs match"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the interface ID matches either IID_IUnknown or IID_IRecordInfo, E_NOINTERFACE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "IRecordInfoImpl_AddRef",
+      "description": "This function increments the reference count of an IRecordInfo interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo *",
+          "description": "This is a pointer to the IRecordInfo interface whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after incrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "IRecordInfoImpl_Release",
+      "description": "This function releases the interface and frees the memory allocated for the fields and the name if the reference count is zero.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo *",
+          "description": "Pointer to the interface that needs to be released"
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count after the release operation"
+    }
+  },
+  {
+    "function": {
+      "name": "IRecordInfoImpl_RecordInit",
+      "description": "This function initializes a record by setting its memory to zero. If the provided pointer is null, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo *",
+          "description": "Pointer to an IRecordInfo interface"
+        },
+        {
+          "name": "pvNew",
+          "type": "PVOID",
+          "description": "Pointer to the record to be initialized"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful, E_INVALIDARG if the provided pointer is null"
+    }
+  },
+  {
+    "function": {
+      "name": "IRecordInfoImpl_RecordClear",
+      "description": "This function clears the record information. It checks if the provided record exists, then iterates through the fields of the record and clears or releases the memory based on the type of the field.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo *",
+          "description": "Pointer to the IRecordInfo interface which provides methods for managing record information."
+        },
+        {
+          "name": "pvExisting",
+          "type": "PVOID",
+          "description": "Pointer to the existing record that needs to be cleared."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful, and E_INVALIDARG if the provided record does not exist."
+    }
+  },
+  {
+    "function": {
+      "name": "IRecordInfoImpl_RecordCopy",
+      "description": "This function copies the content of a source record to a destination record. It also handles special cases for different types of fields in the record, such as strings, unknown types, dispatch types, and safe arrays.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo *",
+          "description": "Pointer to an interface that provides methods for managing records."
+        },
+        {
+          "name": "src_rec",
+          "type": "void *",
+          "description": "Pointer to the source record to be copied."
+        },
+        {
+          "name": "dest_rec",
+          "type": "void *",
+          "description": "Pointer to the destination record where the source record will be copied."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the source or destination record is NULL, E_OUTOFMEMORY if there is not enough memory to allocate for a string, or the result of SafeArrayCopy if a safe array is being copied."
+    }
+  },
+  {
+    "function": {
+      "name": "IRecordInfoImpl_GetGuid",
+      "description": "This function retrieves the GUID from the IRecordInfo interface implementation and assigns it to the provided GUID pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo *",
+          "description": "Pointer to the IRecordInfo interface."
+        },
+        {
+          "name": "pguid",
+          "type": "GUID *",
+          "description": "Pointer to a GUID variable where the GUID of the IRecordInfo interface will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "IRecordInfoImpl_GetName",
+      "description": "This function retrieves the name of the IRecordInfo interface implementation and assigns it to the BSTR pointer passed as a parameter.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo *",
+          "description": "Pointer to the IRecordInfo interface whose name is to be retrieved."
+        },
+        {
+          "name": "pbstrName",
+          "type": "BSTR *",
+          "description": "Pointer to a BSTR where the name of the IRecordInfo interface will be stored."
+        }
+      ],
+      "return_type": "HRESULT, where S_OK represents successful execution and E_INVALIDARG represents an invalid argument error."
+    }
+  },
+  {
+    "function": {
+      "name": "IRecordInfoImpl_GetSize",
+      "description": "This function retrieves the size of the record.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo *",
+          "description": "Pointer to an IRecordInfo interface"
+        },
+        {
+          "name": "pcbSize",
+          "type": "ULONG *",
+          "description": "Pointer to a ULONG variable where the size of the record will be stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, otherwise returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IRecordInfoImpl_GetTypeInfo",
+      "description": "This function retrieves the type information for an interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo *",
+          "description": "Pointer to an IRecordInfo interface."
+        },
+        {
+          "name": "ppTypeInfo",
+          "type": "ITypeInfo **",
+          "description": "Address of pointer variable that receives the ITypeInfo interface pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns S_OK if successful, or an error code if the function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "IRecordInfoImpl_GetField",
+      "description": "This function retrieves a field from a record using the field name. It checks the validity of the input parameters, searches for the field in the record, and if found, clears the variant and copies the field value to the variant.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo *",
+          "description": "Pointer to the IRecordInfo interface"
+        },
+        {
+          "name": "pvData",
+          "type": "PVOID",
+          "description": "Pointer to the data of the record"
+        },
+        {
+          "name": "szFieldName",
+          "type": "LPCOLESTR",
+          "description": "Name of the field to be retrieved"
+        },
+        {
+          "name": "pvarField",
+          "type": "VARIANT *",
+          "description": "Pointer to a VARIANT where the field value will be stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns E_INVALIDARG if any of the input parameters is NULL, TYPE_E_FIELDNOTFOUND if the field is not found in the record, or the result of the copy_to_variant function."
+    }
+  },
+  {
+    "function": {
+      "name": "IRecordInfoImpl_GetFieldNoCopy",
+      "description": "This function retrieves the value of a field from a record without making a copy of the field. It also checks for invalid arguments and whether the field is found.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo *",
+          "description": "Pointer to the IRecordInfo interface"
+        },
+        {
+          "name": "pvData",
+          "type": "PVOID",
+          "description": "Pointer to the data of the record"
+        },
+        {
+          "name": "szFieldName",
+          "type": "LPCOLESTR",
+          "description": "Name of the field to retrieve"
+        },
+        {
+          "name": "pvarField",
+          "type": "VARIANT *",
+          "description": "Pointer to the VARIANT that receives the field value"
+        },
+        {
+          "name": "ppvDataCArray",
+          "type": "PVOID *",
+          "description": "Pointer to the array that receives the field data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if successful, E_INVALIDARG if any argument is invalid, and TYPE_E_FIELDNOTFOUND if the field is not found."
+    }
+  },
+  {
+    "function": {
+      "name": "IRecordInfoImpl_PutField",
+      "description": "This function is used to put a field in the IRecordInfo interface implementation. It checks the validity of the parameters, handles the case when the wFlags parameter is INVOKE_PROPERTYPUTREF, and copies the variant from the pvarField to the field in the IRecordInfo interface implementation.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo *",
+          "description": "Pointer to the IRecordInfo interface"
+        },
+        {
+          "name": "wFlags",
+          "type": "ULONG",
+          "description": "Flag to indicate the type of operation"
+        },
+        {
+          "name": "pvData",
+          "type": "PVOID",
+          "description": "Pointer to the data"
+        },
+        {
+          "name": "szFieldName",
+          "type": "LPCOLESTR",
+          "description": "Name of the field"
+        },
+        {
+          "name": "pvarField",
+          "type": "VARIANT *",
+          "description": "Pointer to the variant to be copied to the field"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It can be E_INVALIDARG if the arguments are not valid, E_NOTIMPL if the wFlags is INVOKE_PROPERTYPUTREF, TYPE_E_FIELDNOTFOUND if the field is not found, or the result of the copy_from_variant function."
+    }
+  },
+  {
+    "function": {
+      "name": "IRecordInfoImpl_PutFieldNoCopy",
+      "description": "This function is used to put a field into a record without copying it. It checks the validity of the parameters and if the field exists in the record.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo *",
+          "description": "Interface pointer to the record info"
+        },
+        {
+          "name": "wFlags",
+          "type": "ULONG",
+          "description": "Flags to specify the type of property put"
+        },
+        {
+          "name": "pvData",
+          "type": "PVOID",
+          "description": "Pointer to the data to be put in the field"
+        },
+        {
+          "name": "szFieldName",
+          "type": "LPCOLESTR",
+          "description": "Name of the field where the data is to be put"
+        },
+        {
+          "name": "pvarField",
+          "type": "VARIANT *",
+          "description": "Pointer to the variant to be put in the field"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns E_INVALIDARG if the parameters are invalid, TYPE_E_FIELDNOTFOUND if the field does not exist in the record, and E_NOTIMPL if the function is not implemented yet."
+    }
+  },
+  {
+    "function": {
+      "name": "IRecordInfoImpl_GetFieldNames",
+      "description": "This function retrieves the names of the fields from a record. It checks the validity of the parameters, adjusts the count of names to be retrieved based on the input, and if the names array is provided, it populates it with the names of the fields.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo *",
+          "description": "Pointer to the IRecordInfo interface."
+        },
+        {
+          "name": "pcNames",
+          "type": "ULONG *",
+          "description": "Pointer to a ULONG variable that on input contains the number of names to be retrieved and on output contains the actual number of names retrieved."
+        },
+        {
+          "name": "rgBstrNames",
+          "type": "BSTR *",
+          "description": "Pointer to an array of BSTRs that receives the names of the fields. This parameter can be NULL."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK on success, and E_INVALIDARG if the pcNames parameter is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "IRecordInfoImpl_IsMatchingType",
+      "description": "This function checks if the GUID of the two IRecordInfo instances match.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo*",
+          "description": "First IRecordInfo instance."
+        },
+        {
+          "name": "info2",
+          "type": "IRecordInfo*",
+          "description": "Second IRecordInfo instance to compare with the first one."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the GUIDs of the two IRecordInfo instances match, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "IRecordInfoImpl_RecordCreate",
+      "description": "This function creates a record and initializes it using the IRecordInfo interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo *",
+          "description": "This is a pointer to the IRecordInfo interface used for record creation and initialization."
+        }
+      ],
+      "return_type": "PVOID, which represents the created record."
+    }
+  },
+  {
+    "function": {
+      "name": "IRecordInfoImpl_RecordCreateCopy",
+      "description": "This function creates a copy of a record using the provided source and destination pointers.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo *",
+          "description": "Interface pointer used for the record information implementation."
+        },
+        {
+          "name": "pvSource",
+          "type": "PVOID",
+          "description": "Pointer to the source from where the record is to be copied."
+        },
+        {
+          "name": "ppvDest",
+          "type": "PVOID *",
+          "description": "Pointer to the destination where the copied record will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns E_INVALIDARG if either source or destination pointer is NULL, otherwise returns the status of the record copy operation."
+    }
+  },
+  {
+    "function": {
+      "name": "IRecordInfoImpl_RecordDestroy",
+      "description": "This function clears the record and frees the memory allocated to it.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRecordInfo *",
+          "description": "Pointer to an IRecordInfo interface"
+        },
+        {
+          "name": "pvRecord",
+          "type": "PVOID",
+          "description": "Pointer to the record to be destroyed"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK if successful, error code if failed"
+    }
+  },
+  {
+    "function": {
+      "name": "GetRecordInfoFromGuids",
+      "description": "This function retrieves the record information from the given GUIDs.",
+      "parameters": [
+        {
+          "name": "rGuidTypeLib",
+          "type": "REFGUID",
+          "description": "The GUID of the type library"
+        },
+        {
+          "name": "uVerMajor",
+          "type": "ULONG",
+          "description": "The major version of the type library"
+        },
+        {
+          "name": "uVerMinor",
+          "type": "ULONG",
+          "description": "The minor version of the type library"
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "The locale identifier"
+        },
+        {
+          "name": "rGuidTypeInfo",
+          "type": "REFGUID",
+          "description": "The GUID of the type information"
+        },
+        {
+          "name": "ppRecInfo",
+          "type": "IRecordInfo**",
+          "description": "A pointer to a pointer to the IRecordInfo interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function"
+    }
+  },
+  {
+    "function": {
+      "name": "GetRecordInfoFromTypeInfo",
+      "description": "This function retrieves record information from a type information interface.",
+      "parameters": [
+        {
+          "name": "pTI",
+          "type": "ITypeInfo*",
+          "description": "Pointer to the type information interface."
+        },
+        {
+          "name": "ppRecInfo",
+          "type": "IRecordInfo**",
+          "description": "Pointer to a pointer to the record information interface."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK if the function succeeds; otherwise, it returns an error code."
+    }
+  }
+]

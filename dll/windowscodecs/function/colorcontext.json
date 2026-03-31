@@ -1,0 +1,235 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IWICColorContext",
+      "description": "This function returns the containing record of the given interface in the ColorContext structure.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorContext *",
+          "description": "Pointer to an IWICColorContext interface"
+        }
+      ],
+      "return_type": "ColorContext *; Pointer to the ColorContext structure that contains the given interface"
+    }
+  },
+  {
+    "function": {
+      "name": "ColorContext_QueryInterface",
+      "description": "This function is used to query an interface of a color context. If the requested interface is supported, it returns a pointer to that interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorContext*",
+          "description": "Pointer to an IWICColorContext interface"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested"
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Address of a pointer variable that receives the interface pointer requested in iid. Upon successful return, *ppv contains the requested interface pointer. If the object does not support the interface, *ppv is set to NULL."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. If the function is successful, it returns S_OK. If the function fails, it returns an error code. For example, if the ppv parameter is NULL, it returns E_INVALIDARG. If the requested interface is not supported, it returns E_NOINTERFACE."
+    }
+  },
+  {
+    "function": {
+      "name": "ColorContext_AddRef",
+      "description": "This function increments the reference count of a ColorContext object and returns the new reference count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorContext*",
+          "description": "This is a pointer to the IWICColorContext interface of the ColorContext object whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the ColorContext object."
+    }
+  },
+  {
+    "function": {
+      "name": "ColorContext_Release",
+      "description": "This function decrements the reference count of the ColorContext object. If the reference count becomes zero, it frees the memory allocated for the profile and the object itself.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorContext *",
+          "description": "This parameter is a pointer to the IWICColorContext interface of the ColorContext object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the ColorContext object after decrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "load_profile",
+      "description": "This function reads a file into a byte array and returns the length of the array. It handles file opening, reading, and error checking.",
+      "parameters": [
+        {
+          "name": "filename",
+          "type": "WCHAR *",
+          "description": "The name of the file to be read"
+        },
+        {
+          "name": "profile",
+          "type": "BYTE **",
+          "description": "A pointer to a byte array where the file content will be stored"
+        },
+        {
+          "name": "len",
+          "type": "UINT *",
+          "description": "A pointer to an unsigned integer where the length of the byte array will be stored"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_FAIL if the file is too large or if the read count doesn't match the file size, E_OUTOFMEMORY if memory allocation fails, or a system error code if any other operation fails"
+    }
+  },
+  {
+    "function": {
+      "name": "ColorContext_InitializeFromFilename",
+      "description": "This function initializes a color context from a given filename. It loads the profile, frees any existing profile, and sets the new profile and its length. It also sets the type to WICColorContextProfile.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorContext*",
+          "description": "Pointer to an IWICColorContext interface which is used to retrieve the color context implementation."
+        },
+        {
+          "name": "wzFilename",
+          "type": "LPCWSTR",
+          "description": "Pointer to a wide-character string that specifies the filename from which the color context is to be initialized."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If the color context is not in the uninitialized or profile state, it returns WINCODEC_ERR_WRONGSTATE. If the filename is null, it returns E_INVALIDARG. If the profile loading fails, it returns the error code from the failed operation."
+    }
+  },
+  {
+    "function": {
+      "name": "ColorContext_InitializeFromMemory",
+      "description": "This function initializes a color context from a memory buffer. It checks the current state of the color context, allocates memory for the new profile, copies the profile from the buffer to the newly allocated memory, frees the old profile, and updates the color context with the new profile.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorContext*",
+          "description": "Pointer to an IWICColorContext interface"
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE*",
+          "description": "Pointer to the buffer that contains the color profile"
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "Size of the buffer that contains the color profile"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, E_OUTOFMEMORY if memory allocation fails, and WINCODEC_ERR_WRONGSTATE if the color context is in an incorrect state."
+    }
+  },
+  {
+    "function": {
+      "name": "ColorContext_InitializeFromExifColorSpace",
+      "description": "This function initializes a color context from an Exif color space. If the color context is not uninitialized or not an Exif color space, it returns an error. Otherwise, it sets the Exif color space and type of the color context and returns a success code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorContext*",
+          "description": "A pointer to an IWICColorContext interface that represents the color context to be initialized."
+        },
+        {
+          "name": "value",
+          "type": "UINT",
+          "description": "An unsigned integer that represents the Exif color space value to be set."
+        }
+      ],
+      "return_type": "HRESULT, which represents a success or error code. It returns S_OK for success, and WINCODEC_ERR_WRONGSTATE if the color context is not uninitialized or not an Exif color space."
+    }
+  },
+  {
+    "function": {
+      "name": "ColorContext_GetType",
+      "description": "This function retrieves the type of a color context.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorContext*",
+          "description": "Pointer to an IWICColorContext interface"
+        },
+        {
+          "name": "pType",
+          "type": "WICColorContextType*",
+          "description": "Pointer to a WICColorContextType variable to receive the color context type"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error value otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "ColorContext_GetProfileBytes",
+      "description": "This function retrieves the color profile bytes from a ColorContext object. It checks if the color context is initialized and if the buffer is large enough to hold the profile. If so, it copies the profile into the buffer and sets the actual size of the profile.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorContext*",
+          "description": "Pointer to the ColorContext interface"
+        },
+        {
+          "name": "cbBuffer",
+          "type": "UINT",
+          "description": "Size of the buffer to hold the profile"
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE*",
+          "description": "Pointer to the buffer to hold the profile"
+        },
+        {
+          "name": "pcbActual",
+          "type": "UINT*",
+          "description": "Pointer to a variable that receives the actual size of the profile"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, WINCODEC_ERR_NOTINITIALIZED if the color context is not initialized, and E_INVALIDARG if the pcbActual pointer is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "ColorContext_GetExifColorSpace",
+      "description": "This function retrieves the Exif color space from a color context.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorContext *",
+          "description": "Pointer to an IWICColorContext interface that represents the color context."
+        },
+        {
+          "name": "pValue",
+          "type": "UINT *",
+          "description": "Pointer to a UINT value that receives the Exif color space."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "ColorContext_Create",
+      "description": "This function creates a new ColorContext object, initializes its properties and assigns it to the provided pointer.",
+      "parameters": [
+        {
+          "name": "colorcontext",
+          "type": "IWICColorContext**",
+          "description": "A pointer to a pointer to a IWICColorContext object. This function will assign a new ColorContext object to this pointer."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the provided argument is invalid, and E_OUTOFMEMORY if there is not enough memory to create the new object."
+    }
+  }
+]

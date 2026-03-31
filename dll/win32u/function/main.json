@@ -1,0 +1,26 @@
+[
+  {
+    "function": {
+      "name": "DllMain",
+      "description": "This function is an entry point to a DLL. It is called by the system when processes and threads are initialized and terminated, or upon calls to the LoadLibrary and FreeLibrary functions.",
+      "parameters": [
+        {
+          "name": "inst",
+          "type": "HINSTANCE",
+          "description": "A handle to the DLL module. The value is the base address of the DLL."
+        },
+        {
+          "name": "reason",
+          "type": "DWORD",
+          "description": "The reason code that indicates why the DLL entry-point function is being called."
+        },
+        {
+          "name": "reserved",
+          "type": "void*",
+          "description": "If the reason code is DLL_PROCESS_DETACH, reserved is NULL for dynamic unloads and nonnull for process termination."
+        }
+      ],
+      "return_type": "BOOL. If the function succeeds, the return value is TRUE; if it fails, the return value is FALSE."
+    }
+  }
+]

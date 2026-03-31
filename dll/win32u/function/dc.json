@@ -1,0 +1,867 @@
+[
+  {
+    "function": {
+      "name": "get_dc_obj",
+      "description": "This function retrieves a pointer to a DC object from a given HDC. It checks the type of the object and if it is not one of the expected types, it releases the object and sets an error flag.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the DC object to be retrieved"
+        }
+      ],
+      "return_type": "DC pointer. It represents the DC object retrieved. If the object is not of the expected type or if the object could not be retrieved, NULL is returned."
+    }
+  },
+  {
+    "function": {
+      "name": "alloc_dc_attr",
+      "description": "This function allocates memory for a DC_ATTR object. It locks the dc_attr_lock mutex to ensure thread safety. It then iterates over the dc_attr_buckets list to find a free bucket. If a free bucket is found, it is used to allocate the DC_ATTR object. If no free bucket is found, a new bucket is allocated using malloc and NtAllocateVirtualMemory. The function then initializes the DC_ATTR object to zero using memset. Finally, it unlocks the dc_attr_lock mutex and returns the allocated DC_ATTR object.",
+      "parameters": [],
+      "return_type": "DC_ATTR pointer. It represents the allocated DC_ATTR object. If the allocation fails, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "free_dc_attr",
+      "description": "This function frees a dc_attr object by adding it to the bucket's free list. It locks the dc_attr_lock mutex to ensure thread safety.",
+      "parameters": [
+        {
+          "name": "dc_attr",
+          "type": "DC_ATTR *",
+          "description": "Pointer to the dc_attr object to be freed"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "set_initial_dc_state",
+      "description": "This function initializes the attributes of a DC object to their default values.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "Pointer to the DC object to be initialized"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "alloc_dc_ptr",
+      "description": "This function allocates memory for a DC object, initializes its properties, and returns a pointer to it. If memory allocation fails at any point, it frees any allocated memory and returns NULL.",
+      "parameters": [
+        {
+          "name": "magic",
+          "type": "DWORD",
+          "description": "This parameter is used as an argument for the alloc_gdi_handle function, which is used to allocate a GDI handle for the DC object."
+        }
+      ],
+      "return_type": "DC pointer. It represents a pointer to the allocated and initialized DC object, or NULL if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "free_dc_state",
+      "description": "This function releases the resources associated with a DC object. It checks each field of the DC object and if it is not null, the corresponding release function is called. Finally, it frees the DC object itself.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This is a pointer to the DC object whose resources are to be released."
+        }
+      ],
+      "return_type": "void, as this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "free_dc_ptr",
+      "description": "This function frees a DC pointer, decreases the reference count of the associated GDI objects, and deletes the DC object.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This is a pointer to the DC object that needs to be freed."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "get_dc_ptr",
+      "description": "This function retrieves a pointer to a DC object associated with a given HDC. It also manages the reference count and thread ownership of the DC object.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context"
+        }
+      ],
+      "return_type": "DC pointer. It represents a pointer to a DC object. Returns NULL if the DC object is not found, if it is disabled, or if it is owned by a different thread."
+    }
+  },
+  {
+    "function": {
+      "name": "release_dc_ptr",
+      "description": "This function releases a pointer to a DC object, decrements the reference count, and asserts that the reference count is not negative. If the reference count is not zero after decrementing, it sets the thread ID of the DC object to the current thread ID.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This is a pointer to the DC object that is to be released."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "set_bk_color",
+      "description": "This function sets the background color of a device context.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC*",
+          "description": "This is a pointer to the device context whose background color is to be set."
+        },
+        {
+          "name": "color",
+          "type": "COLORREF",
+          "description": "This is the color reference that represents the new background color."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "set_text_color",
+      "description": "This function sets the text color in a device context.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC*",
+          "description": "This is a pointer to the device context where the text color will be set."
+        },
+        {
+          "name": "color",
+          "type": "COLORREF",
+          "description": "This is the color reference that specifies the new text color."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "DC_InitDC",
+      "description": "This function initializes a DC object, sets its text and background colors, selects its pen, brush, and font, updates its clipping, sets its virtual resolution, and sets its bounds rectangle.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC*",
+          "description": "This is a pointer to the DC object to be initialized."
+        }
+      ],
+      "return_type": "void, meaning it does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "DC_InvertXform",
+      "description": "This function inverts a given transformation matrix (xformSrc) and stores the result in another matrix (xformDest).",
+      "parameters": [
+        {
+          "name": "xformSrc",
+          "type": "XFORM*",
+          "description": "Pointer to the source transformation matrix that needs to be inverted."
+        },
+        {
+          "name": "xformDest",
+          "type": "XFORM*",
+          "description": "Pointer to the destination transformation matrix where the result of the inversion will be stored."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the inversion is successful, FALSE if the determinant of the source matrix is too close to zero (indicating that the matrix may not be invertible)."
+    }
+  },
+  {
+    "function": {
+      "name": "construct_window_to_viewport",
+      "description": "This function constructs a transformation matrix for converting window coordinates to viewport coordinates. It also handles the case where the layout is right-to-left.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC*",
+          "description": "This parameter is a pointer to a device context structure. It contains information about the window and viewport."
+        },
+        {
+          "name": "xform",
+          "type": "XFORM*",
+          "description": "This parameter is a pointer to a transformation matrix structure. The function fills this structure with the calculated transformation."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the xform parameter instead"
+    }
+  },
+  {
+    "function": {
+      "name": "linear_xform_cmp",
+      "description": "This function compares two XFORM structures using the memcmp function up to the offset of the eDx field.",
+      "parameters": [
+        {
+          "name": "a",
+          "type": "XFORM*",
+          "description": "Pointer to the first XFORM structure to be compared"
+        },
+        {
+          "name": "b",
+          "type": "XFORM*",
+          "description": "Pointer to the second XFORM structure to be compared"
+        }
+      ],
+      "return_type": "int, represents the result of the comparison. If the return value is less than 0, 'a' is less than 'b'. If it's 0, 'a' is equal to 'b'. If it's greater than 0, 'a' is greater than 'b'."
+    }
+  },
+  {
+    "function": {
+      "name": "DC_UpdateXforms",
+      "description": "This function updates transformations related to a DC object. It constructs a window-to-viewport transformation, combines it with the world transformation, creates an inverse of the world-to-viewport transformation, and reselects the font and pen back into the DC so that the size gets updated.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC*",
+          "description": "This is a pointer to the DC object that the transformations will be updated for."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "reset_dc_state",
+      "description": "This function resets the state of a device context (DC). It sets the initial state, background color, text color, brush, font, pen, virtual resolution, palette, bounds rectangle, and aborts the path. It also deletes the clipping and meta regions if they exist, updates the DC clipping, and releases the DC pointer.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This is a handle to the device context."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function executes successfully, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "DC_DeleteObject",
+      "description": "This function deletes a device context (DC) object if it is not in use. It checks the reference count of the DC, and if it is 1, the DC is deleted. If the DC is in use (refcount != 1), the function releases the DC and returns FALSE. If the DC has a DCE and it is not OK to delete it, the function releases the DC and returns TRUE. Otherwise, it resets the DC state, frees the DC, and returns TRUE.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "This is a handle to the device context (DC) object to be deleted."
+        }
+      ],
+      "return_type": "BOOL, represents whether the DC object was successfully deleted or not. Returns TRUE if the DC object was deleted, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSaveDC",
+      "description": "This function saves the current state of the specified device context (DC) to a new DC and returns a value indicating the save level.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        }
+      ],
+      "return_type": "INT, represents the save level of the device context. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiRestoreDC",
+      "description": "This function restores a device context (DC) to the specified state. The DC is restored by popping state information off a stack created by earlier calls to the SaveDC function.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "A handle to the DC."
+        },
+        {
+          "name": "level",
+          "type": "INT",
+          "description": "The saved state to be restored. If this parameter is positive, level specifies a specific instance of the state to be restored. If this parameter is negative, level specifies an instance relative to the current state. For example, -1 restores the most recently saved state."
+        }
+      ],
+      "return_type": "BOOL. If the function succeeds, the return value is nonzero. If the function fails, the return value is zero, indicating that the given DC or level does not exist."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiOpenDCW",
+      "description": "This function is used to open a device context in the GDI system. It initializes the device context, sets the visibility rectangle, and returns a handle to the device context.",
+      "parameters": [
+        {
+          "name": "device",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to a unicode string representing the device to be opened."
+        },
+        {
+          "name": "devmode",
+          "type": "DEVMODEW *",
+          "description": "Pointer to a DEVMODEW structure that contains information about the device mode."
+        },
+        {
+          "name": "output",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to a unicode string where the output will be stored."
+        },
+        {
+          "name": "type",
+          "type": "ULONG",
+          "description": "Type of the device context to be opened."
+        },
+        {
+          "name": "is_display",
+          "type": "BOOL",
+          "description": "Boolean value that indicates whether the device context is a display or not."
+        },
+        {
+          "name": "hspool",
+          "type": "HANDLE",
+          "description": "Handle to a spooler object."
+        },
+        {
+          "name": "driver_info",
+          "type": "DRIVER_INFO_2W *",
+          "description": "Pointer to a DRIVER_INFO_2W structure that contains information about the driver."
+        },
+        {
+          "name": "pdev",
+          "type": "void *",
+          "description": "Pointer to a device."
+        }
+      ],
+      "return_type": "HDC, which is a handle to the device context that was opened."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiCreateCompatibleDC",
+      "description": "This function creates a memory device context (DC) compatible with the specified device.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to an existing DC. If this parameter is NULL, the function creates a memory DC compatible with the application's current screen."
+        }
+      ],
+      "return_type": "HDC, represents the handle to the memory DC. It returns 0 if the creation of the DC failed."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiResetDC",
+      "description": "This function resets the device context (DC) to the default values. It also resets the visible region of the DC.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "devmode",
+          "type": "DEVMODEW*",
+          "description": "Pointer to a DEVMODE structure containing device-specific attributes."
+        },
+        {
+          "name": "banding",
+          "type": "BOOL*",
+          "description": "Pointer to a BOOL variable. Not used in the function."
+        },
+        {
+          "name": "driver_info",
+          "type": "DRIVER_INFO_2W*",
+          "description": "Pointer to a DRIVER_INFO_2W structure. Not used in the function."
+        },
+        {
+          "name": "dev",
+          "type": "void*",
+          "description": "Pointer to a device. Not used in the function."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully resets the DC, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetDeviceCaps",
+      "description": "This function retrieves the capabilities of a specified device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "cap",
+          "type": "INT",
+          "description": "Specifies the item to return the value for."
+        }
+      ],
+      "return_type": "INT, represents the value of the specified item or zero if the function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "set_graphics_mode",
+      "description": "This function sets the graphics mode for a given device context. If the mode is invalid or the same as the current mode, it returns FALSE or TRUE respectively. Otherwise, it sets the graphics mode, selects the font based on the new mode, and returns TRUE.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This is a pointer to the device context for which the graphics mode is to be set."
+        },
+        {
+          "name": "mode",
+          "type": "int",
+          "description": "This is the graphics mode to be set. It should be a positive integer and less than or equal to GM_LAST."
+        }
+      ],
+      "return_type": "BOOL, represents whether the graphics mode was successfully set or not. Returns TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "set_stretch_blt_mode",
+      "description": "This function sets the stretch mode in the device context, and returns the previous stretch mode.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "mode",
+          "type": "DWORD",
+          "description": "The stretch mode to be set."
+        }
+      ],
+      "return_type": "DWORD, represents the previous stretch mode."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetAndSetDCDword",
+      "description": "This function gets and sets the DWORD value of a specified method in a device context (DC). It also returns the previous DWORD value of the method.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "method",
+          "type": "UINT",
+          "description": "Specifies the method for which the DWORD value is to be set."
+        },
+        {
+          "name": "value",
+          "type": "DWORD",
+          "description": "Specifies the new DWORD value to be set for the method."
+        },
+        {
+          "name": "prev_value",
+          "type": "DWORD*",
+          "description": "Pointer to a variable that receives the previous DWORD value of the method."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function is successful; otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetDCDword",
+      "description": "This function retrieves a DWORD value from a DC object based on the specified method. The method determines which attribute of the DC object to retrieve.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the DC object."
+        },
+        {
+          "name": "method",
+          "type": "UINT",
+          "description": "Specifies the method to be used to retrieve the DWORD value."
+        },
+        {
+          "name": "result",
+          "type": "DWORD *",
+          "description": "Pointer to a DWORD variable that receives the retrieved value."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function succeeds, or FALSE if the function fails or if an unknown method is specified."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetDCPoint",
+      "description": "This function retrieves a point related to a device context based on the specified method.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "method",
+          "type": "UINT",
+          "description": "Specifies the method to retrieve the point. It can be NtGdiGetBrushOrgEx, NtGdiGetCurrentPosition, or NtGdiGetDCOrg."
+        },
+        {
+          "name": "result",
+          "type": "POINT*",
+          "description": "Pointer to the POINT structure that will receive the point coordinates."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function succeeds, or FALSE if the method is unknown or if it fails to get the device context."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSetBrushOrg",
+      "description": "This function sets the brush origin for a specified device context. If the oldorg parameter is not NULL, the function also retrieves the previous brush origin.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "Specifies the x-coordinate, in logical units, of the new brush origin."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "Specifies the y-coordinate, in logical units, of the new brush origin."
+        },
+        {
+          "name": "oldorg",
+          "type": "POINT*",
+          "description": "Pointer to a POINT structure that receives the previous brush origin, if this parameter is not NULL."
+        }
+      ],
+      "return_type": "BOOL. If the function succeeds, the return value is TRUE. If the function fails, the return value is FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetMiterLimit",
+      "description": "This function retrieves the miter limit for a device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "limit",
+          "type": "FLOAT*",
+          "description": "Pointer to a variable that receives the miter limit value."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds; otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSetMiterLimit",
+      "description": "This function sets the miter limit for the specified device context. If the old_limit parameter is not NULL, the function also retrieves the previous miter limit.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "limit",
+          "type": "DWORD",
+          "description": "Specifies the new miter limit."
+        },
+        {
+          "name": "old_limit",
+          "type": "FLOAT*",
+          "description": "Pointer to a variable that receives the previous miter limit. If this parameter is NULL, the function does not retrieve the previous limit."
+        }
+      ],
+      "return_type": "BOOL. If the function succeeds, the return value is TRUE. If the function fails, the return value is FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "offset_viewport_org",
+      "description": "This function offsets the viewport origin by the specified amounts in the x and y directions. If a POINT pointer is provided, it stores the original viewport origin before the offset.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The amount by which to offset the viewport origin in the x direction."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The amount by which to offset the viewport origin in the y direction."
+        },
+        {
+          "name": "point",
+          "type": "POINT*",
+          "description": "Pointer to a POINT structure that will receive the original viewport origin before the offset. This parameter can be NULL."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "set_viewport_org",
+      "description": "This function sets the viewport origin for a device context, and optionally returns the previous viewport origin.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The new x-coordinate of the viewport origin."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The new y-coordinate of the viewport origin."
+        },
+        {
+          "name": "point",
+          "type": "POINT*",
+          "description": "Pointer to a POINT structure that will receive the previous viewport origin, or NULL."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetTransform",
+      "description": "This function retrieves the transformation that is currently applied to the specified device context. It handles different cases based on the 'which' parameter value.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "which",
+          "type": "DWORD",
+          "description": "Specifies the transformation to be retrieved."
+        },
+        {
+          "name": "xform",
+          "type": "XFORM*",
+          "description": "Pointer to the XFORM structure that will receive the transformation data."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function succeeds, or FALSE if it fails or if an unknown code is passed in the 'which' parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "set_dc_dce",
+      "description": "This function sets the dce field of a DC object, retrieved using the get_dc_obj function. If the DC object is disabled, it releases the object and returns. If the dce parameter is not null, it sets the dirty field of the DC object to 1.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This parameter is used to get the DC object."
+        },
+        {
+          "name": "dce",
+          "type": "struct dce*",
+          "description": "This parameter is used to set the dce field of the DC object."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "get_dc_dce",
+      "description": "This function retrieves a pointer to a dce structure from a given device context (DC). If the DC is disabled, it returns NULL.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This is a handle to the device context."
+        }
+      ],
+      "return_type": "struct dce pointer, represents a pointer to a dce structure. If the DC is disabled, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "set_dce_flags",
+      "description": "This function sets flags for a device context (DC) object. It can invalidate or validate the visibility region, enable or disable the DC, and reset the DC state.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "flags",
+          "type": "WORD",
+          "description": "Flags to set for the device context."
+        }
+      ],
+      "return_type": "WORD, represents the result of the last operation performed in the function. 0 if the DC object is not found."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetDeviceGammaRamp",
+      "description": "This function retrieves the gamma ramp for a given device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "ptr",
+          "type": "void *",
+          "description": "Pointer to a buffer that receives the gamma ramp."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "check_gamma_ramps",
+      "description": "This function checks the gamma ramps of a given pointer. It performs various checks and computations to ensure the gamma is not inverted or flat, is reasonably uniform across the ramp, and is not too bright. If any of these conditions are not met, the function returns FALSE.",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "void*",
+          "description": "This is a pointer to the gamma ramps that need to be checked."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the gamma ramps passed all checks, and FALSE indicates that they did not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSetDeviceGammaRamp",
+      "description": "This function sets the gamma ramp on the device context specified. The gamma ramp is a series of values that map the level of a particular color component (red, green, blue) for all pixels in the client area to new, brighter, or darker values.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "ptr",
+          "type": "void *",
+          "description": "Pointer to the gamma ramp array."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in setting the gamma ramp. Returns TRUE if successful; otherwise, FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetBoundsRect",
+      "description": "This function retrieves the bounding rectangle of a device context, optionally resets the bounding rectangle, and checks if the bounding rectangle is empty.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that will receive the bounding rectangle."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies the function's behavior. If this parameter is DCB_RESET, the function resets the bounding rectangle after retrieving it."
+        }
+      ],
+      "return_type": "UINT. Returns one of the DCB (Device Context Bounds) constants that indicates the current state of the bounding rectangle. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSetBoundsRect",
+      "description": "This function sets the bounding rectangle for a device context, and it also controls whether the system tracks the bounding rectangle. The function can also reset the bounding rectangle to an empty rectangle.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that specifies the new bounding rectangle, in logical coordinates."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies a bounding rectangle and accumulation flags."
+        }
+      ],
+      "return_type": "UINT, represents the previous bounding rectangle and accumulation flags if the function succeeds, otherwise zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSetLayout",
+      "description": "This function sets the layout of a device context, updates the transformations if the layout has changed, and returns the old layout.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "wox",
+          "type": "LONG",
+          "description": "Unused in this function."
+        },
+        {
+          "name": "layout",
+          "type": "DWORD",
+          "description": "The new layout to be set."
+        }
+      ],
+      "return_type": "DWORD, represents the old layout before the change."
+    }
+  }
+]

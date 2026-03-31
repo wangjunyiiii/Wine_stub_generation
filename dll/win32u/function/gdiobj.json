@@ -1,0 +1,492 @@
+[
+  {
+    "function": {
+      "name": "entry_to_handle",
+      "description": "This function calculates the index of the entry in the gdi_shared->Handles array and returns a handle that is a combination of this index and a unique identifier shifted by NTGDI_HANDLE_TYPE_SHIFT.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "GDI_HANDLE_ENTRY *",
+          "description": "A pointer to the GDI_HANDLE_ENTRY structure that needs to be converted to a handle."
+        }
+      ],
+      "return_type": "HGDIOBJ, which represents a handle to the GDI object."
+    }
+  },
+  {
+    "function": {
+      "name": "handle_entry",
+      "description": "This function checks if the given handle is valid and if so, returns a pointer to the corresponding GDI_HANDLE_ENTRY. If the handle is invalid, it logs a warning and returns NULL.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "This is the handle that is to be checked for validity and used to access the corresponding GDI_HANDLE_ENTRY."
+        }
+      ],
+      "return_type": "GDI_HANDLE_ENTRY pointer. It represents the GDI_HANDLE_ENTRY corresponding to the given handle if it is valid, otherwise NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "entry_obj",
+      "description": "This function returns a pointer to a gdi_obj_header structure from a GDI_HANDLE_ENTRY structure.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "GDI_HANDLE_ENTRY *",
+          "description": "Pointer to a GDI_HANDLE_ENTRY structure from which the gdi_obj_header structure is obtained."
+        }
+      ],
+      "return_type": "struct gdi_obj_header * - Pointer to a gdi_obj_header structure."
+    }
+  },
+  {
+    "function": {
+      "name": "make_gdi_object_system",
+      "description": "This function sets the system attribute of a GDI object using its handle.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "This is the handle to the GDI object."
+        },
+        {
+          "name": "set",
+          "type": "BOOL",
+          "description": "This parameter determines whether to set the system attribute of the GDI object or not."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "get_default_fonts",
+      "description": "This function returns a pointer to the default font information. It checks the code page and character set, and iterates through an array of default fonts to find a match. If no match is found, it returns a pointer to the first element in the array of default fonts.",
+      "parameters": [],
+      "return_type": "struct DefaultFontInfo pointer, representing the default font information"
+    }
+  },
+  {
+    "function": {
+      "name": "GDI_get_ref_count",
+      "description": "This function retrieves the reference count of a GDI object",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "This is a handle to the GDI object whose reference count is to be retrieved"
+        }
+      ],
+      "return_type": "UINT, represents the reference count of the GDI object"
+    }
+  },
+  {
+    "function": {
+      "name": "GDI_inc_ref_count",
+      "description": "This function increases the reference count of a GDI object. It locks the GDI object to prevent other threads from accessing it simultaneously, then increments the reference count of the object if it exists, otherwise it sets the handle to 0. Finally, it unlocks the GDI object and returns the handle.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "This is the handle to the GDI object whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "HGDIOBJ, which represents the handle to the GDI object. If the object does not exist, the function returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "GDI_dec_ref_count",
+      "description": "This function decreases the reference count of a GDI object. If the reference count reaches zero and the object is marked as deleted, it executes a delayed DeleteObject operation.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "This is a handle to the GDI object whose reference count is to be decreased."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the DeleteObject operation is executed, otherwise returns whether the handle entry is not NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "create_font",
+      "description": "This function creates a font by copying the input LOGFONTW structure to an ENUMLOGFONTEXDVW structure, and then calls the NtGdiHfontCreate function to create the font.",
+      "parameters": [
+        {
+          "name": "deffont",
+          "type": "LOGFONTW *",
+          "description": "This is a pointer to a LOGFONTW structure that defines the characteristics of the font to be created."
+        }
+      ],
+      "return_type": "HFONT, which represents a handle to the newly created font."
+    }
+  },
+  {
+    "function": {
+      "name": "create_scaled_font",
+      "description": "This function creates a scaled font based on the provided default font and dpi.",
+      "parameters": [
+        {
+          "name": "deffont",
+          "type": "LOGFONTW*",
+          "description": "This parameter is a pointer to the default font."
+        },
+        {
+          "name": "dpi",
+          "type": "unsigned int",
+          "description": "This parameter represents the dpi for scaling the font."
+        }
+      ],
+      "return_type": "HFONT, which represents the handle to the scaled font."
+    }
+  },
+  {
+    "function": {
+      "name": "init_gdi_shared",
+      "description": "This function initializes the GDI shared memory. It allocates virtual memory for the GDI shared object and sets the GDI shared handle table in the PEB structure. In the case of a 64-bit system, it also sets the GDI shared handle table in the PEB64 structure.",
+      "parameters": [],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "GetStockObject",
+      "description": "This function retrieves a handle to one of the stock pens, brushes, fonts, or palettes, and modifies the object based on the system DPI.",
+      "parameters": [
+        {
+          "name": "obj",
+          "type": "INT",
+          "description": "This parameter represents the type of stock object to be retrieved and possibly modified."
+        }
+      ],
+      "return_type": "HGDIOBJ, which represents a handle to the GDI object."
+    }
+  },
+  {
+    "function": {
+      "name": "init_stock_objects",
+      "description": "This function initializes stock objects in a specific order, creates brushes, pens and fonts, initializes the palette, and sets the NOSYSTEM bit on all stock objects to TRUE.",
+      "parameters": [
+        {
+          "name": "dpi",
+          "type": "unsigned int",
+          "description": "This parameter is used for creating scaled fonts."
+        }
+      ],
+      "return_type": "void, as this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "gdi_obj_type",
+      "description": "This function returns the type of a GDI object as a string, based on the unsigned integer input.",
+      "parameters": [
+        {
+          "name": "type",
+          "type": "unsigned",
+          "description": "This parameter represents the type of the GDI object."
+        }
+      ],
+      "return_type": "char: This function returns a string representing the type of the GDI object."
+    }
+  },
+  {
+    "function": {
+      "name": "dump_gdi_objects",
+      "description": "This function locks the gdi_lock mutex, iterates over the GDI handle entries, and logs information about each entry. It then unlocks the mutex.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "alloc_gdi_handle",
+      "description": "This function allocates a GDI object handle, initializes it, and returns the handle. If there are no free handles, it logs an error and returns 0.",
+      "parameters": [
+        {
+          "name": "obj",
+          "type": "struct gdi_obj_header *",
+          "description": "Pointer to a GDI object header that needs a handle."
+        },
+        {
+          "name": "type",
+          "type": "DWORD",
+          "description": "Type of the GDI object. This is used to initialize the handle and must not be 0."
+        },
+        {
+          "name": "funcs",
+          "type": "struct gdi_obj_funcs *",
+          "description": "Pointer to a structure containing function pointers that operate on the GDI object."
+        }
+      ],
+      "return_type": "HGDIOBJ, which is a handle to the GDI object. If the function fails to allocate a handle, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "free_gdi_handle",
+      "description": "This function frees a GDI handle and returns the object associated with it. It locks the process with a mutex to ensure thread safety during the operation.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "This is the GDI handle that is to be freed."
+        }
+      ],
+      "return_type": "void pointer, represents the object associated with the freed GDI handle."
+    }
+  },
+  {
+    "function": {
+      "name": "get_gdi_object_type",
+      "description": "This function retrieves the type of a GDI object.",
+      "parameters": [
+        {
+          "name": "obj",
+          "type": "HGDIOBJ",
+          "description": "This parameter is a handle to the GDI object."
+        }
+      ],
+      "return_type": "DWORD, represents the type of the GDI object. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "set_gdi_client_ptr",
+      "description": "This function sets the UserPointer of a GDI_HANDLE_ENTRY object to a given pointer if the handle entry exists.",
+      "parameters": [
+        {
+          "name": "obj",
+          "type": "HGDIOBJ",
+          "description": "This parameter is a handle to a GDI object."
+        },
+        {
+          "name": "ptr",
+          "type": "void *",
+          "description": "This parameter is a pointer that is to be set as the UserPointer of the GDI_HANDLE_ENTRY object."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "get_any_obj_ptr",
+      "description": "This function retrieves a pointer to any object and its type. It locks the gdi_lock mutex before accessing the object and unlocks it if the object pointer is NULL.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "Handle to the GDI object"
+        },
+        {
+          "name": "type",
+          "type": "DWORD*",
+          "description": "Pointer to a DWORD to receive the object type"
+        }
+      ],
+      "return_type": "void* (Pointer to the object, or NULL if the object could not be retrieved)"
+    }
+  },
+  {
+    "function": {
+      "name": "GDI_GetObjPtr",
+      "description": "This function retrieves a pointer to a GDI object. If the retrieved object type does not match the expected type, it releases the object and returns NULL.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "Handle to the GDI object"
+        },
+        {
+          "name": "type",
+          "type": "DWORD",
+          "description": "Expected type of the GDI object"
+        }
+      ],
+      "return_type": "void pointer, represents a pointer to the GDI object if the types match, otherwise NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "GDI_ReleaseObj",
+      "description": "This function releases a GDI object by unlocking a mutex.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "This is a handle to the GDI object that needs to be released."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDeleteObjectApp",
+      "description": "This function deletes a GDI object if it is not a system object and not in use. If the object is in use, it is marked for deletion. If it is a system object, it is preserved.",
+      "parameters": [
+        {
+          "name": "obj",
+          "type": "HGDIOBJ",
+          "description": "This is the handle to the GDI object that is to be deleted."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the object is successfully deleted or marked for deletion, or if the object is a system object. Returns FALSE if the object does not exist."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiCreateClientObj",
+      "description": "This function creates a GDI object and returns a handle to it.",
+      "parameters": [
+        {
+          "name": "type",
+          "type": "ULONG",
+          "description": "This parameter specifies the type of GDI object to be created."
+        }
+      ],
+      "return_type": "HANDLE. It represents a handle to the newly created GDI object. If the function fails to create a GDI object, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDeleteClientObj",
+      "description": "This function deletes a GDI object associated with a given handle by freeing the memory allocated to it.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "This is a handle to the GDI object that is to be deleted."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the GDI object was successfully deleted, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiExtGetObjectW",
+      "description": "This function retrieves information for a specified graphics object.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "A handle to the graphics object."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "The number of bytes of information to be written to the buffer."
+        },
+        {
+          "name": "buffer",
+          "type": "void *",
+          "description": "A pointer to a buffer that receives the information about the specified graphics object."
+        }
+      ],
+      "return_type": "INT, represents the number of bytes written to the buffer. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetDCObject",
+      "description": "This function retrieves a handle to a specified graphics object from the device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "type",
+          "type": "UINT",
+          "description": "Specifies the type of the graphics object."
+        }
+      ],
+      "return_type": "HANDLE, represents a handle to the specified graphics object. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiUnrealizeObject",
+      "description": "This function is used to unrealize a GDI object. It locks the GDI object, retrieves its handle entry, and then calls the object's unrealize function if it exists.",
+      "parameters": [
+        {
+          "name": "obj",
+          "type": "HGDIOBJ",
+          "description": "This is the GDI object that is to be unrealized."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the GDI object's unrealize function is successfully called or if the object's function pointer is not NULL, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiFlush",
+      "description": "This function returns a boolean value. The current implementation always returns TRUE.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not accept any parameters."
+        }
+      ],
+      "return_type": "BOOL, represents a boolean value. In this case, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetColorAdjustment",
+      "description": "This function is currently a stub and does not perform any operation.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "ca",
+          "type": "COLORADJUSTMENT*",
+          "description": "Pointer to a COLORADJUSTMENT structure that receives color adjustment data."
+        }
+      ],
+      "return_type": "BOOL, returns FALSE as the function is a stub and does not perform any operation."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSetColorAdjustment",
+      "description": "This function is a stub and does not perform any operation.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "ca",
+          "type": "COLORADJUSTMENT *",
+          "description": "Pointer to a COLORADJUSTMENT structure that contains color adjustment values."
+        }
+      ],
+      "return_type": "BOOL, returns FALSE as the function is a stub and does not perform any operation."
+    }
+  },
+  {
+    "function": {
+      "name": "gdi_init",
+      "description": "This function initializes the GDI (Graphics Device Interface) by setting up the necessary attributes and mutexes, initializing shared GDI resources, and setting up font and stock objects based on the DPI (Dots Per Inch).",
+      "parameters": [],
+      "return_type": "void, this function does not return anything"
+    }
+  }
+]

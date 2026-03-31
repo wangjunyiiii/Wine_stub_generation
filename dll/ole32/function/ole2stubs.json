@@ -1,0 +1,157 @@
+[
+  {
+    "function": {
+      "name": "OleCreateLinkToFile",
+      "description": "This function is a stub for creating a link to a file in OLE (Object Linking and Embedding). Currently, it does not implement any functionality and returns an error code.",
+      "parameters": [
+        {
+          "name": "lpszFileName",
+          "type": "LPCOLESTR",
+          "description": "Pointer to a string that contains the name of the file to link to."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface that the caller is to use to communicate with the new object."
+        },
+        {
+          "name": "renderopt",
+          "type": "DWORD",
+          "description": "Specifies the drawing options."
+        },
+        {
+          "name": "lpFormatEtc",
+          "type": "LPFORMATETC",
+          "description": "Pointer to a FORMATETC structure that defines the format, medium, and target device to use for subsequent rendering or data transfer operations."
+        },
+        {
+          "name": "pClientSite",
+          "type": "LPOLECLIENTSITE",
+          "description": "Pointer to the location of the IOleClientSite interface on the container application."
+        },
+        {
+          "name": "pStg",
+          "type": "LPSTORAGE",
+          "description": "Pointer to the IStorage interface on the storage object."
+        },
+        {
+          "name": "ppvObj",
+          "type": "LPVOID*",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "OleCreateLink",
+      "description": "This function is a stub and not yet implemented. It is supposed to create a link object from a moniker.",
+      "parameters": [
+        {
+          "name": "pmkLinkSrc",
+          "type": "LPMONIKER",
+          "description": "Pointer to the IMoniker interface on the moniker that identifies the object to be linked to."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface the caller is to use to communicate with the resulting link object."
+        },
+        {
+          "name": "renderopt",
+          "type": "DWORD",
+          "description": "Specifies whether the presentation data for the object being created is to be drawn from the linked object or is to be updated and maintained in the link object."
+        },
+        {
+          "name": "lpFormatEtc",
+          "type": "LPFORMATETC",
+          "description": "Pointer to the FORMATETC structure that defines the presentation data to be used for the object being created."
+        },
+        {
+          "name": "pClientSite",
+          "type": "LPOLECLIENTSITE",
+          "description": "Pointer to the IOleClientSite interface on the client site object where the linked object is to be loaded."
+        },
+        {
+          "name": "pStg",
+          "type": "LPSTORAGE",
+          "description": "Pointer to the IStorage interface on the storage object to be used in the creation of the link object."
+        },
+        {
+          "name": "ppvObj",
+          "type": "LPVOID*",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "OleGetIconOfClass",
+      "description": "This function is a stub and does not perform any operation. It is intended to get the icon of a class.",
+      "parameters": [
+        {
+          "name": "rclsid",
+          "type": "REFCLSID",
+          "description": "This is a reference to the class identifier."
+        },
+        {
+          "name": "lpszLabel",
+          "type": "LPOLESTR",
+          "description": "This is a long pointer to an OLE string that represents the label."
+        },
+        {
+          "name": "fUseTypeAsLabel",
+          "type": "BOOL",
+          "description": "This is a boolean value that indicates whether to use the type as a label."
+        }
+      ],
+      "return_type": "HGLOBAL, represents a handle to a global memory block. However, in this function it always returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "OleGetIconOfFile",
+      "description": "This function is a stub and does not perform any operation. It is meant to get the icon of a file.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "LPOLESTR",
+          "description": "The path to the file whose icon is to be retrieved."
+        },
+        {
+          "name": "use_file_as_label",
+          "type": "BOOL",
+          "description": "A boolean value that specifies whether to use the file as a label or not."
+        }
+      ],
+      "return_type": "HGLOBAL, but currently returns NULL as the function is a stub."
+    }
+  },
+  {
+    "function": {
+      "name": "OleRegEnumFormatEtc",
+      "description": "This function is a stub, not yet implemented, used to enumerate the FORMATETC structures for a specified CLSID.",
+      "parameters": [
+        {
+          "name": "clsid",
+          "type": "REFCLSID",
+          "description": "This is a CLSID for which the FORMATETC enumeration is requested."
+        },
+        {
+          "name": "dwDirection",
+          "type": "DWORD",
+          "description": "This is the direction of the enumeration."
+        },
+        {
+          "name": "ppenumFormatetc",
+          "type": "LPENUMFORMATETC*",
+          "description": "This is a pointer to a pointer to an IEnumFORMATETC interface."
+        }
+      ],
+      "return_type": "DECLSPEC_HOTPATCH, represents the return type of the function. In this case, it returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  }
+]

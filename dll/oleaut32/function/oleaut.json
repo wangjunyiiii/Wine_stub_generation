@@ -1,0 +1,742 @@
+[
+  {
+    "function": {
+      "name": "bstr_alloc_size",
+      "description": "This function calculates the allocation size for a binary string (bstr) object.",
+      "parameters": [
+        {
+          "name": "size",
+          "type": "size_t",
+          "description": "The size of the binary string to be allocated."
+        }
+      ],
+      "return_type": "size_t, representing the allocation size for a binary string object."
+    }
+  },
+  {
+    "function": {
+      "name": "bstr_from_str",
+      "description": "This function returns a pointer to a bstr_t structure that contains the given BSTR string.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "BSTR",
+          "description": "This is the BSTR string that will be contained in the returned bstr_t structure."
+        }
+      ],
+      "return_type": "bstr_t pointer, it represents a pointer to a bstr_t structure that contains the given BSTR string."
+    }
+  },
+  {
+    "function": {
+      "name": "get_cache_entry_from_idx",
+      "description": "This function returns a pointer to a cache entry based on the provided index. If the cache is not enabled or the index is out of range, it returns NULL.",
+      "parameters": [
+        {
+          "name": "cache_idx",
+          "type": "unsigned",
+          "description": "This parameter represents the index of the cache entry to be retrieved."
+        }
+      ],
+      "return_type": "bstr_cache_entry_t pointer, representing a pointer to a cache entry or NULL if the cache is not enabled or the index is out of range."
+    }
+  },
+  {
+    "function": {
+      "name": "get_cache_entry",
+      "description": "This function calculates the cache index based on the size and retrieves the cache entry from that index.",
+      "parameters": [
+        {
+          "name": "size",
+          "type": "size_t",
+          "description": "The size used to calculate the cache index."
+        }
+      ],
+      "return_type": "bstr_cache_entry_t pointer, represents the cache entry retrieved from the calculated index."
+    }
+  },
+  {
+    "function": {
+      "name": "get_cache_entry_from_alloc_size",
+      "description": "This function calculates the cache index based on the allocation size, and returns the cache entry corresponding to that index. If the allocation size is smaller than the bucket size, it returns NULL.",
+      "parameters": [
+        {
+          "name": "alloc_size",
+          "type": "SIZE_T",
+          "description": "The size of the allocation for which a cache entry is to be retrieved."
+        }
+      ],
+      "return_type": "bstr_cache_entry_t pointer, represents the cache entry corresponding to the calculated index. If the allocation size is smaller than the bucket size, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "alloc_bstr",
+      "description": "This function allocates a binary string (bstr) of a given size. It first tries to get a cached entry of the required size. If no cached entry is available, it tries to get a larger cached entry. If still no cached entry is available, it allocates a new bstr using CoTaskMemAlloc. The size of the allocated bstr is then set to the requested size.",
+      "parameters": [
+        {
+          "name": "size",
+          "type": "size_t",
+          "description": "The size of the binary string to be allocated"
+        }
+      ],
+      "return_type": "bstr_t pointer, representing the allocated binary string. If the allocation fails, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "SysStringLen",
+      "description": "This function returns the length of a string.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "BSTR",
+          "description": "This parameter is the string whose length is to be calculated."
+        }
+      ],
+      "return_type": "UINT, represents the length of the string."
+    }
+  },
+  {
+    "function": {
+      "name": "SysStringByteLen",
+      "description": "This function returns the size of a BSTR string in bytes.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "BSTR",
+          "description": "The BSTR string whose size is to be determined."
+        }
+      ],
+      "return_type": "UINT representing the size of the string in bytes."
+    }
+  },
+  {
+    "function": {
+      "name": "SysAllocString",
+      "description": "This function allocates a new string and copies the input string into it. If the input string is null, it returns 0. The allocation and copying is delegated to the SysAllocStringLen32 method.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "LPCOLESTR",
+          "description": "This is the input string that will be copied into the newly allocated string."
+        }
+      ],
+      "return_type": "BSTR, which represents the newly allocated string that contains the copied input string. If the input string is null, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "get_malloc",
+      "description": "This function returns a pointer to an IMalloc interface. If the pointer is not already initialized, it calls CoGetMalloc to initialize it.",
+      "parameters": [],
+      "return_type": "IMalloc pointer, represents the interface to the memory allocator"
+    }
+  },
+  {
+    "function": {
+      "name": "SysFreeString",
+      "description": "This function frees a string from memory, and handles the case where the string is already in cache. It also manages memory allocation and deallocation.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "BSTR",
+          "description": "The string to be freed from memory."
+        }
+      ],
+      "return_type": "DECLSPEC_HOTPATCH, which is a macro used to specify that a function is a hotpatchable function. The function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "SysAllocStringLen",
+      "description": "This function allocates a new BSTR string that contains a specified number of characters from an input string and returns a pointer to this string. It also checks for integer overflow and returns NULL if an overflow is detected.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "OLECHAR *",
+          "description": "This is the input string from which a specified number of characters will be copied."
+        },
+        {
+          "name": "len",
+          "type": "unsigned int",
+          "description": "This specifies the number of characters to be copied from the input string."
+        }
+      ],
+      "return_type": "BSTR, which represents a pointer to the newly allocated string. If an integer overflow is detected or memory allocation fails, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "SysReAllocStringLen",
+      "description": "This function reallocates a string to a new length. If the string is NULL, it allocates a new string. It also checks for integer overflow.",
+      "parameters": [
+        {
+          "name": "old",
+          "type": "BSTR*",
+          "description": "Pointer to the old string"
+        },
+        {
+          "name": "str",
+          "type": "OLECHAR*",
+          "description": "Pointer to the new string"
+        },
+        {
+          "name": "len",
+          "type": "unsigned int",
+          "description": "The new length of the string"
+        }
+      ],
+      "return_type": "int, returns TRUE if successful, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "SysAllocStringByteLen",
+      "description": "This function allocates a new binary string with a specified length, copies the input string into it and returns a pointer to the new string. If the input string is NULL, it initializes the new string with zeros.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "LPCSTR",
+          "description": "This is the input string to be copied into the new binary string."
+        },
+        {
+          "name": "len",
+          "type": "UINT",
+          "description": "This is the length of the new binary string to be allocated."
+        }
+      ],
+      "return_type": "DECLSPEC_HOTPATCH. It represents a pointer to the new binary string. If the allocation fails or there is an integer overflow, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "SysReAllocString",
+      "description": "This function reallocates a string by freeing the old string and allocating a new one.",
+      "parameters": [
+        {
+          "name": "old",
+          "type": "LPBSTR",
+          "description": "Pointer to the old string to be reallocated"
+        },
+        {
+          "name": "str",
+          "type": "LPCOLESTR",
+          "description": "Pointer to the new string to be allocated"
+        }
+      ],
+      "return_type": "INT, returns 1 if the function executes successfully, and 0 if the old string pointer is NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "SetOaNoCache",
+      "description": "This function disables the bstr_cache.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "RegisterActiveObject",
+      "description": "This function registers an active object by creating a moniker for the object and registering it in the running object table. It also handles the release of the moniker and the running object table.",
+      "parameters": [
+        {
+          "name": "punk",
+          "type": "LPUNKNOWN",
+          "description": "Pointer to the IUnknown interface of the object that is being registered."
+        },
+        {
+          "name": "rcid",
+          "type": "REFCLSID",
+          "description": "Reference to the CLSID of the object."
+        },
+        {
+          "name": "dwFlags",
+          "type": "DWORD",
+          "description": "Flags that control the registration."
+        },
+        {
+          "name": "pdwRegister",
+          "type": "LPDWORD",
+          "description": "Pointer to the identifier of the active object registration."
+        }
+      ],
+      "return_type": "DECLSPEC_HOTPATCH, represents the status of the function execution. If the function succeeds, the return value is S_OK. If the function fails, it can return any error values from the underlying calls to CreateItemMoniker, GetRunningObjectTable, and IRunningObjectTable_Register."
+    }
+  },
+  {
+    "function": {
+      "name": "RevokeActiveObject",
+      "description": "This function revokes a previously registered active object from the running object table.",
+      "parameters": [
+        {
+          "name": "xregister",
+          "type": "DWORD",
+          "description": "The identifier of the active object to revoke."
+        },
+        {
+          "name": "reserved",
+          "type": "LPVOID",
+          "description": "This parameter is reserved and should be NULL."
+        }
+      ],
+      "return_type": "DECLSPEC_HOTPATCH. It represents the status of the operation. If the function succeeds, the return value is S_OK. If the function fails, the return value is a failure code."
+    }
+  },
+  {
+    "function": {
+      "name": "GetActiveObject",
+      "description": "This function retrieves a running object that has been registered with OLE and returns an interface pointer to that object. It does this by creating a moniker that identifies the object, getting the Running Object Table (ROT), and then getting the object from the ROT.",
+      "parameters": [
+        {
+          "name": "rcid",
+          "type": "REFCLSID",
+          "description": "This is the CLSID of the active object the function is trying to get."
+        },
+        {
+          "name": "preserved",
+          "type": "LPVOID",
+          "description": "This is a pointer to the interface requested in riid. It is set to NULL if the function fails."
+        },
+        {
+          "name": "ppunk",
+          "type": "LPUNKNOWN*",
+          "description": "This is the address of LPUNKNOWN pointer variable that receives the interface pointer to the running object. If the function fails, the reference is set to NULL."
+        }
+      ],
+      "return_type": "DECLSPEC_HOTPATCH, which represents the success status of the function. If the function succeeds, it returns S_OK. If the function fails, it returns a failure code."
+    }
+  },
+  {
+    "function": {
+      "name": "OaBuildVersion",
+      "description": "This function returns a version number based on the result of the GetVersion function masked with 0x8000ffff. It handles different cases for different Windows versions, and returns a long integer representing the version.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "ULONG, representing the version number of the Windows operating system."
+    }
+  },
+  {
+    "function": {
+      "name": "OleTranslateColor",
+      "description": "This function translates OLE color values to system color values.",
+      "parameters": [
+        {
+          "name": "clr",
+          "type": "OLE_COLOR",
+          "description": "This is the OLE color value that needs to be translated."
+        },
+        {
+          "name": "hpal",
+          "type": "HPALETTE",
+          "description": "This is the handle to the logical palette."
+        },
+        {
+          "name": "pColorRef",
+          "type": "COLORREF*",
+          "description": "This is a pointer to the COLORREF variable that receives the translated color value."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "actctx_get_typelib_module",
+      "description": "This function retrieves the module associated with a type library from the activation context.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "The interface identifier for the COM interface redirection."
+        },
+        {
+          "name": "module",
+          "type": "WCHAR*",
+          "description": "A pointer to a buffer that receives the module name."
+        },
+        {
+          "name": "len",
+          "type": "DWORD",
+          "description": "The length of the module buffer."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully retrieves the module; otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "reg_get_typelib_module",
+      "description": "This function retrieves the module of a type library associated with a specified interface identifier (IID). It uses the Windows Registry to find the type library.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "The interface identifier for which the type library module is to be retrieved."
+        },
+        {
+          "name": "module",
+          "type": "WCHAR*",
+          "description": "A pointer to a buffer that receives the module of the type library."
+        },
+        {
+          "name": "len",
+          "type": "DWORD",
+          "description": "The length of the buffer pointed to by the module parameter."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, the return value is S_OK. If the function fails, the return value is E_FAIL."
+    }
+  },
+  {
+    "function": {
+      "name": "get_typeinfo_for_iid",
+      "description": "This function retrieves the type information for a given interface identifier (IID). It first tries to get the type library module from the activation context. If that fails, it tries to get it from the registry. It then loads the type library and gets the type information for the IID.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "The interface identifier for which to get the type information."
+        },
+        {
+          "name": "typeinfo",
+          "type": "ITypeInfo**",
+          "description": "A pointer to a pointer to an ITypeInfo interface. On successful return, it contains the requested type information."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK if the function succeeds; otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "dispatch_typelib_ps_QueryInterface",
+      "description": "This function checks if the provided interface ID matches with the ID of IPSFactoryBuffer or IUnknown. If it matches, the function assigns the interface to the output pointer and returns S_OK. If it doesn't match, the function logs an error, assigns NULL to the output pointer, and returns E_NOINTERFACE.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPSFactoryBuffer *",
+          "description": "Pointer to the IPSFactoryBuffer interface"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Interface ID to be checked"
+        },
+        {
+          "name": "out",
+          "type": "void **",
+          "description": "Output pointer where the interface will be assigned if the interface ID matches"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the interface ID matches, E_NOINTERFACE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "dispatch_typelib_ps_AddRef",
+      "description": "This function returns a static value of 2.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPSFactoryBuffer *",
+          "description": "Pointer to an interface of IPSFactoryBuffer."
+        }
+      ],
+      "return_type": "ULONG, represents a static value of 2"
+    }
+  },
+  {
+    "function": {
+      "name": "dispatch_typelib_ps_Release",
+      "description": "This function returns a static value of 1.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPSFactoryBuffer *",
+          "description": "This parameter is a pointer to an IPSFactoryBuffer object."
+        }
+      ],
+      "return_type": "ULONG, represents a static value of 1"
+    }
+  },
+  {
+    "function": {
+      "name": "dispatch_create_proxy",
+      "description": "This function creates a proxy for a dispatch interface using a factory buffer.",
+      "parameters": [
+        {
+          "name": "outer",
+          "type": "IUnknown *",
+          "description": "Pointer to the controlling IUnknown interface of the aggregate."
+        },
+        {
+          "name": "proxy",
+          "type": "IRpcProxyBuffer **",
+          "description": "Address of IRpcProxyBuffer pointer variable that receives the interface pointer to the proxy."
+        },
+        {
+          "name": "out",
+          "type": "void **",
+          "description": "Address of a pointer variable that receives the interface pointer to the proxy."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. If the function succeeds, the return value is S_OK. If the function fails, the return value can be one of the error values."
+    }
+  },
+  {
+    "function": {
+      "name": "dispatch_typelib_ps_CreateProxy",
+      "description": "This function creates a proxy for a specified interface or dispatches the creation of a proxy if the interface is IDispatch. It also handles the release of type information and attributes.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPSFactoryBuffer *",
+          "description": "Pointer to an interface of a proxy/stub factory."
+        },
+        {
+          "name": "outer",
+          "type": "IUnknown *",
+          "description": "Pointer to the controlling IUnknown interface of the aggregate."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface for which the proxy is being created."
+        },
+        {
+          "name": "proxy",
+          "type": "IRpcProxyBuffer **",
+          "description": "Address of IRpcProxyBuffer pointer variable that receives the interface pointer to the proxy."
+        },
+        {
+          "name": "out",
+          "type": "void **",
+          "description": "Address of a pointer variable that receives the interface pointer to the proxy's implementation of the requested interface."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. It returns the result of the proxy creation or the error code in case of failure."
+    }
+  },
+  {
+    "function": {
+      "name": "dispatch_create_stub",
+      "description": "This function creates a stub for a server object and releases the factory buffer.",
+      "parameters": [
+        {
+          "name": "server",
+          "type": "IUnknown *",
+          "description": "Pointer to the server object for which the stub is to be created"
+        },
+        {
+          "name": "stub",
+          "type": "IRpcStubBuffer **",
+          "description": "Pointer to the stub buffer to be created"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, whether it was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IRpcStubBuffer",
+      "description": "This function retrieves the containing record for the given IRpcStubBuffer interface pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRpcStubBuffer *",
+          "description": "This is a pointer to an IRpcStubBuffer interface."
+        }
+      ],
+      "return_type": "struct dispinterface_stub, represents the containing record for the given IRpcStubBuffer interface pointer."
+    }
+  },
+  {
+    "function": {
+      "name": "dispinterface_stub_Release",
+      "description": "This function decreases the reference count of the stub. If the reference count reaches zero, it disconnects the stub buffer and frees the memory allocated to the stub.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRpcStubBuffer *",
+          "description": "This is a pointer to the interface of the RPC stub buffer."
+        }
+      ],
+      "return_type": "ULONG, which represents the updated reference count after decrement."
+    }
+  },
+  {
+    "function": {
+      "name": "find_idispatch_stub_vtbl",
+      "description": "This function iterates over the oleaut32_oaidl_ProxyFileInfo.pStubVtblList until it finds the CInterfaceStubVtbl that matches the IID_IDispatch. If it doesn't find a match, it asserts a failure and returns NULL.",
+      "parameters": [],
+      "return_type": "CInterfaceStubVtbl*. It represents a pointer to the found CInterfaceStubVtbl that matches the IID_IDispatch. If no match is found, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "dispinterface_create_stub",
+      "description": "This function creates a stub for a dispinterface. It queries the server for the interface, initializes the stub vtable, and sets up the stub buffer.",
+      "parameters": [
+        {
+          "name": "server",
+          "type": "IUnknown *",
+          "description": "Pointer to the server object"
+        },
+        {
+          "name": "iid",
+          "type": "GUID *",
+          "description": "Pointer to the interface identifier"
+        },
+        {
+          "name": "stub",
+          "type": "IRpcStubBuffer **",
+          "description": "Pointer to the stub buffer"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and an error code if it fails"
+    }
+  },
+  {
+    "function": {
+      "name": "dispatch_typelib_ps_CreateStub",
+      "description": "This function creates a stub for a type library. It first checks if the provided interface ID is equal to the ID of IDispatch. If it is, it creates a stub for the server. If not, it gets the type information for the interface ID. If it fails to get the type information, it returns the error. If it succeeds, it gets the type attributes. If it fails to get the type attributes, it releases the type information and returns the error. If it succeeds, it checks if the type kind is an interface or if the type flags indicate a dual interface. If either is true, it creates a stub from the type information. If not, it creates a stub for the dispinterface. If it fails to create a stub, it logs an error. Finally, it releases the type attributes and the type information, and returns the result.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPSFactoryBuffer *",
+          "description": "Pointer to the interface of the factory buffer"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier"
+        },
+        {
+          "name": "server",
+          "type": "IUnknown *",
+          "description": "Pointer to the server object"
+        },
+        {
+          "name": "stub",
+          "type": "IRpcStubBuffer **",
+          "description": "Pointer to the pointer of the RPC stub buffer"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function execution. It can indicate success or various types of errors"
+    }
+  },
+  {
+    "function": {
+      "name": "DllGetClassObject",
+      "description": "This function is used to get the class object from a DLL module. It checks if the provided class and interface IDs match with predefined ones and accordingly returns the class object.",
+      "parameters": [
+        {
+          "name": "rclsid",
+          "type": "REFCLSID",
+          "description": "The CLSID that will be compared with predefined CLSIDs"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "The IID that will be compared with predefined IIDs"
+        },
+        {
+          "name": "ppv",
+          "type": "LPVOID*",
+          "description": "Pointer to the interface pointer that receives the object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. S_OK if successful, error code otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "DllMain",
+      "description": "This function is the entry point for a DLL. It is called by the system when processes and threads are initialized and terminated, or upon call to the LoadLibrary and FreeLibrary functions. It also checks if a specific environment variable is set.",
+      "parameters": [
+        {
+          "name": "hInstDll",
+          "type": "HINSTANCE",
+          "description": "A handle to the DLL module. The value is the base address of the DLL."
+        },
+        {
+          "name": "fdwReason",
+          "type": "DWORD",
+          "description": "The reason the DLL entry-point function is being called. This parameter can be one of the following values: DLL_PROCESS_ATTACH, DLL_THREAD_ATTACH, DLL_THREAD_DETACH, DLL_PROCESS_DETACH."
+        },
+        {
+          "name": "lpvReserved",
+          "type": "LPVOID",
+          "description": "If fdwReason is DLL_PROCESS_ATTACH, lpvReserved is NULL for dynamic loads and non-NULL for static loads. If fdwReason is DLL_PROCESS_DETACH, lpvReserved is NULL if DllMain has been called by using FreeLibrary and non-NULL if DllMain has been called during process termination."
+        }
+      ],
+      "return_type": "BOOL. If the function succeeds, the return value is nonzero. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "DllRegisterServer",
+      "description": "This function calls the OLEAUTPS_DllRegisterServer function.",
+      "parameters": [],
+      "return_type": "HRESULT, represents the result of the function call to OLEAUTPS_DllRegisterServer"
+    }
+  },
+  {
+    "function": {
+      "name": "DllUnregisterServer",
+      "description": "This function unregisters a Component Object Model (COM) class from the Windows registry.",
+      "parameters": [],
+      "return_type": "HRESULT, which represents the success or failure of the function call"
+    }
+  },
+  {
+    "function": {
+      "name": "OleIconToCursor",
+      "description": "This function is partially implemented. It is intended to convert an HICON to an HCURSOR.",
+      "parameters": [
+        {
+          "name": "hinstExe",
+          "type": "HINSTANCE",
+          "description": "An instance handle to the executable file that contains the icon to be converted."
+        },
+        {
+          "name": "hIcon",
+          "type": "HICON",
+          "description": "A handle to the icon to be converted."
+        }
+      ],
+      "return_type": "HCURSOR, a handle to the cursor. The function returns a copy of the icon as a cursor."
+    }
+  },
+  {
+    "function": {
+      "name": "GetAltMonthNames",
+      "description": "This function returns the alternative month names in Arabic, Polish, or Russian based on the provided locale identifier (LCID). If the LCID does not match any of these languages, it returns NULL.",
+      "parameters": [
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "This is a locale identifier that determines the language of the alternative month names to be returned."
+        },
+        {
+          "name": "str",
+          "type": "LPOLESTR **",
+          "description": "This is a pointer to a pointer to a wide string. The function sets this to point to the array of alternative month names, or to NULL if the LCID does not match Arabic, Polish, or Russian."
+        }
+      ],
+      "return_type": "HRESULT, which indicates the success or failure of the function. It returns S_OK if the function executes successfully."
+    }
+  }
+]

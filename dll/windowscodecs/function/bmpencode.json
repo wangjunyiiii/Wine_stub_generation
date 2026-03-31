@@ -1,0 +1,606 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IWICBitmapFrameEncode",
+      "description": "This function returns a pointer to a BmpFrameEncode structure that contains the given IWICBitmapFrameEncode interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to an IWICBitmapFrameEncode interface"
+        }
+      ],
+      "return_type": "BmpFrameEncode *; Pointer to a BmpFrameEncode structure that contains the given IWICBitmapFrameEncode interface"
+    }
+  },
+  {
+    "function": {
+      "name": "BmpFrameEncode_QueryInterface",
+      "description": "This function is used to query the interfaces supported by the BmpFrameEncode object. It checks if the requested interface (identified by the iid parameter) is supported by the object. If it is, a pointer to that interface is returned through the ppv parameter.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to the IWICBitmapFrameEncode interface of the BmpFrameEncode object."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Identifier of the interface being queried."
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Address of a pointer variable that receives the interface pointer requested in iid. Upon successful return, *ppv contains the requested interface pointer. If the object does not support the interface, *ppv will contain NULL."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If the ppv parameter is NULL, it returns E_INVALIDARG. If the object does not support the requested interface, it returns E_NOINTERFACE."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpFrameEncode_AddRef",
+      "description": "This function increments the reference count of a BMP frame encode object and returns the updated count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is a pointer to the BMP frame encode interface object whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count of the BMP frame encode object."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpFrameEncode_Release",
+      "description": "This function releases the bitmap frame encode interface and frees up the memory used by it if the reference count is zero.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is a pointer to the bitmap frame encode interface that needs to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the reference count after decrementing. If the reference count is zero, the memory used by the interface is freed."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpFrameEncode_Initialize",
+      "description": "This function initializes a BMP frame for encoding. If the frame is already initialized, it returns an error. It also warns if encoder options are provided, as these are ignored.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is an interface to a bitmap frame that is to be encoded."
+        },
+        {
+          "name": "pIEncoderOptions",
+          "type": "IPropertyBag2 *",
+          "description": "This is a set of encoder options. However, this function ignores any provided encoder options."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and WINCODEC_ERR_WRONGSTATE if the frame is already initialized."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpFrameEncode_SetSize",
+      "description": "This function sets the width and height of a bitmap frame encode object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to an IWICBitmapFrameEncode interface"
+        },
+        {
+          "name": "uiWidth",
+          "type": "UINT",
+          "description": "The width to set for the bitmap frame"
+        },
+        {
+          "name": "uiHeight",
+          "type": "UINT",
+          "description": "The height to set for the bitmap frame"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, otherwise returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "BmpFrameEncode_SetResolution",
+      "description": "This function sets the resolution for a BMP frame encode object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "A pointer to the BMP frame encode interface."
+        },
+        {
+          "name": "dpiX",
+          "type": "double",
+          "description": "The horizontal resolution to set."
+        },
+        {
+          "name": "dpiY",
+          "type": "double",
+          "description": "The vertical resolution to set."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error code if not."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpFrameEncode_SetPixelFormat",
+      "description": "This function sets the pixel format for a bitmap frame encode object. It checks if the object is initialized and if it has bits. If not, it returns an error. It then checks the provided pixel format and modifies it if necessary. It then iterates over a list of formats until it finds a match for the provided pixel format. If no match is found, it defaults to the first format. It then sets the object's format to the matched format and copies the format's GUID to the provided pixel format.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "A pointer to the bitmap frame encode object."
+        },
+        {
+          "name": "pPixelFormat",
+          "type": "WICPixelFormatGUID *",
+          "description": "A pointer to the pixel format GUID. This will be modified by the function."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpFrameEncode_SetColorContexts",
+      "description": "This function is a stub and not yet implemented. It is intended to set color contexts for a bitmap frame encode interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to an IWICBitmapFrameEncode interface"
+        },
+        {
+          "name": "cCount",
+          "type": "UINT",
+          "description": "Count of color contexts"
+        },
+        {
+          "name": "ppIColorContext",
+          "type": "IWICColorContext **",
+          "description": "Pointer to a pointer to an IWICColorContext interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it returns E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpFrameEncode_SetPalette",
+      "description": "This function sets the palette for a BMP frame encode object. It checks if the palette is valid and if the object is initialized. It then gets the colors from the palette and sets them to the BMP frame encode object's palette. It also sets the alpha value for each color in the palette to 0xff000000 as BMP palette has no alpha.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is the BMP frame encode object."
+        },
+        {
+          "name": "palette",
+          "type": "IWICPalette *",
+          "description": "This is the palette to be set to the BMP frame encode object."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the palette is NULL, and WINCODEC_ERR_NOTINITIALIZED if the BMP frame encode object is not initialized."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpFrameEncode_SetThumbnail",
+      "description": "This function is a stub and currently does not support the operation of setting a thumbnail for a bitmap frame encode.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This parameter is an interface to a bitmap frame encode."
+        },
+        {
+          "name": "pIThumbnail",
+          "type": "IWICBitmapSource *",
+          "description": "This parameter is a pointer to the thumbnail bitmap source."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Currently, it returns WINCODEC_ERR_UNSUPPORTEDOPERATION indicating that the operation is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpFrameEncode_AllocateBits",
+      "description": "This function allocates memory for the bits in a BMP frame. It checks if the frame is initialized, has width, height and format. If not, it returns an error. If these conditions are met, it calculates the stride and allocates memory for the bits. If the memory allocation fails, it returns an out of memory error.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "BmpFrameEncode *",
+          "description": "This is a pointer to the BmpFrameEncode structure which contains the information about the BMP frame."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns WINCODEC_ERR_WRONGSTATE if the frame is not properly initialized or has no width, height or format. It returns E_OUTOFMEMORY if memory allocation for the bits fails. If the operation is successful, it returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpFrameEncode_WritePixels",
+      "description": "This function writes pixel data to a bitmap frame. It checks if the frame is initialized and has valid dimensions and format. It then allocates memory for the pixel data, validates the input parameters, and copies the pixel data to the frame. It also updates the number of lines written to the frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to the bitmap frame to write pixels to."
+        },
+        {
+          "name": "lineCount",
+          "type": "UINT",
+          "description": "Number of lines of pixels to write."
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "Number of bytes in a row of the source pixel data."
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "Size of the buffer that contains the source pixel data."
+        },
+        {
+          "name": "pbPixels",
+          "type": "BYTE *",
+          "description": "Pointer to the source pixel data."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It can be S_OK if the operation is successful, WINCODEC_ERR_WRONGSTATE if the frame is not initialized or has invalid dimensions or format, E_INVALIDARG if the input parameters are invalid, or other error codes if the operation fails for other reasons."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpFrameEncode_WriteSource",
+      "description": "This function is used to write the source of a bitmap frame encode. It checks if the bitmap frame encode is initialized, configures the write source and writes the source.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to the bitmap frame encode interface"
+        },
+        {
+          "name": "pIBitmapSource",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to the bitmap source"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to the rectangle structure that specifies the portion of the bitmap to write"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function execution. It returns S_OK if the function succeeds or an error code if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpFrameEncode_Commit",
+      "description": "This function commits a bitmap frame encode, writing the bitmap file header, bitmap info header, palette (if any), and bitmap data to the stream.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This parameter is an interface pointer to the bitmap frame that needs to be encoded."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK if the function is successful, WINCODEC_ERR_WRONGSTATE if the bitmap frame is in an incorrect state, E_FAIL if the written bytes do not match the expected size, or other error codes if the stream operations fail."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpFrameEncode_GetMetadataQueryWriter",
+      "description": "This function retrieves the metadata query writer from the BMP frame encoder interface. If the encoder is not initialized, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is the BMP frame encoder interface."
+        },
+        {
+          "name": "query_writer",
+          "type": "IWICMetadataQueryWriter **",
+          "description": "This is a pointer to the metadata query writer."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns WINCODEC_ERR_NOTINITIALIZED if the encoder is not initialized and WINCODEC_ERR_UNSUPPORTEDOPERATION otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IWICBitmapEncoder",
+      "description": "This function retrieves the BmpEncoder instance from the IWICBitmapEncoder interface pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is a pointer to the IWICBitmapEncoder interface."
+        }
+      ],
+      "return_type": "BmpEncoder *: A pointer to the BmpEncoder instance."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpEncoder_QueryInterface",
+      "description": "This function checks if the provided interface supports the specified interface ID (IID). If it does, it returns a pointer to that interface; otherwise, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to the IWICBitmapEncoder interface."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Identifier of the interface being queried for."
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Address of a pointer variable that receives the interface pointer requested in iid. Upon successful return, *ppv contains the requested interface pointer. If the object does not support the interface, *ppv is set to NULL."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If the interface is not supported, it returns E_NOINTERFACE. If ppv is NULL, it returns E_INVALIDARG."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpEncoder_AddRef",
+      "description": "This function increments the reference count of a BMP encoder object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is a pointer to the IWICBitmapEncoder interface of the BMP encoder object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after increment."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpEncoder_Release",
+      "description": "This function releases the resources of a BMP encoder. It decreases the reference count and if it reaches zero, it releases the stream and frame if they exist, and frees the memory allocated for the encoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder*",
+          "description": "This is a pointer to the interface of the bitmap encoder to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after the decrement operation."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpEncoder_Initialize",
+      "description": "This function initializes the BMP encoder with the provided interface, stream, and cache option.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder*",
+          "description": "This is the interface for the bitmap encoder."
+        },
+        {
+          "name": "pIStream",
+          "type": "IStream*",
+          "description": "This is the stream that the encoder will use."
+        },
+        {
+          "name": "cacheOption",
+          "type": "WICBitmapEncoderCacheOption",
+          "description": "This is the cache option for the encoder."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. S_OK indicates success."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpEncoder_GetContainerFormat",
+      "description": "This function gets the container format of a Bitmap Encoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder*",
+          "description": "This is a pointer to the Bitmap Encoder interface."
+        },
+        {
+          "name": "pguidContainerFormat",
+          "type": "GUID*",
+          "description": "This is a pointer to a GUID object where the container format will be copied."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, E_INVALIDARG if the pguidContainerFormat is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpEncoder_GetEncoderInfo",
+      "description": "This function retrieves the encoder information for a bitmap encoder interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is a pointer to the bitmap encoder interface."
+        },
+        {
+          "name": "info",
+          "type": "IWICBitmapEncoderInfo **",
+          "description": "This is a pointer to a pointer to the bitmap encoder information."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if successful, E_INVALIDARG if the info parameter is NULL, or an error code if the operation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpEncoder_SetColorContexts",
+      "description": "This function is a stub and currently not implemented. It is supposed to set color contexts for a BMP encoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to an IWICBitmapEncoder interface"
+        },
+        {
+          "name": "cCount",
+          "type": "UINT",
+          "description": "Unsigned integer representing the count of color contexts"
+        },
+        {
+          "name": "ppIColorContext",
+          "type": "IWICColorContext **",
+          "description": "Pointer to a pointer to an IWICColorContext interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpEncoder_SetPalette",
+      "description": "This function sets the palette for a Bitmap Encoder. It returns an error if the stream is not initialized or if the operation is unsupported.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is the interface to the Bitmap Encoder."
+        },
+        {
+          "name": "palette",
+          "type": "IWICPalette *",
+          "description": "This is the palette to be set for the Bitmap Encoder."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns WINCODEC_ERR_UNSUPPORTEDOPERATION if the operation is unsupported, or WINCODEC_ERR_NOTINITIALIZED if the stream is not initialized."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpEncoder_SetThumbnail",
+      "description": "This function sets the thumbnail for a Bitmap Encoder. However, it currently returns an error indicating that this operation is unsupported.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is an interface to the Bitmap Encoder."
+        },
+        {
+          "name": "pIThumbnail",
+          "type": "IWICBitmapSource *",
+          "description": "This is a pointer to the thumbnail source."
+        }
+      ],
+      "return_type": "HRESULT, which is a data type used in Windows programming to represent error conditions, and warning conditions. In this case, it returns WINCODEC_ERR_UNSUPPORTEDOPERATION indicating that the operation is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpEncoder_SetPreview",
+      "description": "This function is used to set the preview for a Bitmap Encoder. However, the operation is unsupported.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is an interface to the Bitmap Encoder."
+        },
+        {
+          "name": "pIPreview",
+          "type": "IWICBitmapSource *",
+          "description": "This is the preview image source."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns WINCODEC_ERR_UNSUPPORTEDOPERATION indicating the operation is unsupported."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpEncoder_CreateNewFrame",
+      "description": "This function creates a new frame for a Bitmap Encoder. It initializes the frame and sets up the encoder options.",
+      "parameters": [
+        {
+          "name": "IWICBitmapEncoder *iface",
+          "type": "pointer",
+          "description": "This is a pointer to the Bitmap Encoder interface."
+        },
+        {
+          "name": "IWICBitmapFrameEncode **ppIFrameEncode",
+          "type": "pointer",
+          "description": "This is a pointer to a pointer to the Bitmap Frame Encode interface. The function will create a new frame and store the pointer here."
+        },
+        {
+          "name": "IPropertyBag2 **ppIEncoderOptions",
+          "type": "pointer",
+          "description": "This is a pointer to a pointer to the Property Bag interface. The function will create a new property bag and store the pointer here."
+        }
+      ],
+      "return_type": "HRESULT. This is the return type of the function. It represents the status of the operation. If the function succeeds, it returns S_OK. If the function fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpEncoder_Commit",
+      "description": "This function commits the BMP encoder if the frame exists and is committed.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is an interface to the bitmap encoder."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, otherwise it returns WINCODEC_ERR_WRONGSTATE."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpEncoder_GetMetadataQueryWriter",
+      "description": "This function is a stub and not yet implemented. It is intended to get the metadata query writer from a bitmap encoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to an interface of a bitmap encoder"
+        },
+        {
+          "name": "ppIMetadataQueryWriter",
+          "type": "IWICMetadataQueryWriter **",
+          "description": "Double pointer to a metadata query writer interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "BmpEncoder_CreateInstance",
+      "description": "This function creates an instance of a BMP encoder, queries an interface and then releases the encoder.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "The reference to the interface identifier to be queried."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to the location of the queried interface pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If successful, it returns S_OK. If the encoder instance cannot be created, it returns E_OUTOFMEMORY."
+    }
+  }
+]

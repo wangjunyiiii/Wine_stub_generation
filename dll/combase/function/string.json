@@ -1,0 +1,421 @@
+[
+  {
+    "function": {
+      "name": "impl_from_HSTRING",
+      "description": "This function casts a given HSTRING to a hstring_private structure pointer.",
+      "parameters": [
+        {
+          "name": "string",
+          "type": "HSTRING",
+          "description": "This parameter is the HSTRING that needs to be cast to a hstring_private structure pointer."
+        }
+      ],
+      "return_type": "struct hstring_private pointer, representing the cast HSTRING."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_HSTRING_HEADER",
+      "description": "This function returns a pointer to a hstring_private structure that contains the given HSTRING_HEADER.",
+      "parameters": [
+        {
+          "name": "header",
+          "type": "HSTRING_HEADER *",
+          "description": "Pointer to a HSTRING_HEADER structure."
+        }
+      ],
+      "return_type": "struct hstring_private *; Represents a pointer to a hstring_private structure."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_HSTRING_BUFFER",
+      "description": "This function returns a pointer to the hstring_private structure that contains the given HSTRING_BUFFER.",
+      "parameters": [
+        {
+          "name": "buffer",
+          "type": "HSTRING_BUFFER",
+          "description": "This parameter is an HSTRING_BUFFER that is contained within a hstring_private structure."
+        }
+      ],
+      "return_type": "struct hstring_private pointer, which represents the hstring_private structure that contains the given HSTRING_BUFFER."
+    }
+  },
+  {
+    "function": {
+      "name": "alloc_string",
+      "description": "This function allocates memory for a string and initializes the string structure.",
+      "parameters": [
+        {
+          "name": "len",
+          "type": "UINT32",
+          "description": "The length of the string to be allocated."
+        },
+        {
+          "name": "out",
+          "type": "HSTRING*",
+          "description": "A pointer to the string structure to be initialized."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the memory allocation and initialization was successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "WindowsCreateString",
+      "description": "This function creates a new string and assigns it to the output pointer. It handles various edge cases such as null pointers and zero length.",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "LPCWSTR",
+          "description": "Pointer to the wide-character string."
+        },
+        {
+          "name": "len",
+          "type": "UINT32",
+          "description": "Length of the string to be created."
+        },
+        {
+          "name": "out",
+          "type": "HSTRING*",
+          "description": "Pointer to the output string."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the output pointer is null, E_POINTER if the input string pointer is null, and E_OUTOFMEMORY if the string allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "WindowsCreateStringReference",
+      "description": "This function creates a reference to a string. It checks for valid arguments and sets the string reference and its length in the header. If the length is zero, it sets the output to NULL. If the pointer to the string is NULL, it returns an error.",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "LPCWSTR",
+          "description": "Pointer to the string to reference"
+        },
+        {
+          "name": "len",
+          "type": "UINT32",
+          "description": "Length of the string to reference"
+        },
+        {
+          "name": "header",
+          "type": "HSTRING_HEADER *",
+          "description": "Pointer to the header where the string reference and its length will be set"
+        },
+        {
+          "name": "out",
+          "type": "HSTRING *",
+          "description": "Output parameter where the HSTRING reference will be set"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the arguments are invalid, and E_POINTER if the string pointer is NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "WindowsDeleteString",
+      "description": "This function deletes a Windows string by freeing the memory if the reference count is zero.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "HSTRING",
+          "description": "The Windows string to be deleted."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "WindowsDuplicateString",
+      "description": "This function duplicates a Windows string, handling reference counting and error conditions.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "HSTRING",
+          "description": "The original string to be duplicated."
+        },
+        {
+          "name": "out",
+          "type": "HSTRING*",
+          "description": "Pointer to the location where the duplicate string will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the 'out' parameter is NULL, and may also return other error codes from the WindowsCreateString function."
+    }
+  },
+  {
+    "function": {
+      "name": "WindowsPreallocateStringBuffer",
+      "description": "This function preallocates a string buffer for Windows. It checks for null pointers and zero length, handles memory allocation, and sets the output pointers.",
+      "parameters": [
+        {
+          "name": "len",
+          "type": "UINT32",
+          "description": "The length of the string to be allocated"
+        },
+        {
+          "name": "outptr",
+          "type": "WCHAR **",
+          "description": "Pointer to the output string buffer"
+        },
+        {
+          "name": "out",
+          "type": "HSTRING_BUFFER *",
+          "description": "Pointer to the output HSTRING buffer"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, E_POINTER if the pointers are null, and E_OUTOFMEMORY if the memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "WindowsDeleteStringBuffer",
+      "description": "This function deletes a string buffer in a Windows environment.",
+      "parameters": [
+        {
+          "name": "buf",
+          "type": "HSTRING_BUFFER",
+          "description": "This is the string buffer that is to be deleted."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation is successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "WindowsPromoteStringBuffer",
+      "description": "This function promotes a string buffer to a HSTRING. It checks for null pointers and invalid arguments before assigning the buffer to the output HSTRING.",
+      "parameters": [
+        {
+          "name": "buf",
+          "type": "HSTRING_BUFFER",
+          "description": "The string buffer to be promoted to a HSTRING."
+        },
+        {
+          "name": "out",
+          "type": "HSTRING*",
+          "description": "Pointer to a HSTRING where the promoted string buffer will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_POINTER if the 'out' parameter is null, and E_INVALIDARG if the buffer is invalid."
+    }
+  },
+  {
+    "function": {
+      "name": "WindowsGetStringLen",
+      "description": "This function returns the length of a Windows HSTRING.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "HSTRING",
+          "description": "This is the HSTRING whose length is to be determined."
+        }
+      ],
+      "return_type": "UINT32, represents the length of the input HSTRING. If the input is NULL, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "WindowsGetStringRawBuffer",
+      "description": "This function retrieves the raw string buffer from a Windows HSTRING and optionally returns its length.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "HSTRING",
+          "description": "The HSTRING from which to retrieve the raw string buffer."
+        },
+        {
+          "name": "len",
+          "type": "UINT32*",
+          "description": "Optional. If provided, this will be set to the length of the string."
+        }
+      ],
+      "return_type": "LPCWSTR. This is a pointer to the raw string buffer in the HSTRING. If the HSTRING is NULL, this will point to an empty string."
+    }
+  },
+  {
+    "function": {
+      "name": "WindowsStringHasEmbeddedNull",
+      "description": "This function checks if a Windows string (HSTRING) has an embedded null character. If it does, it sets the out parameter to TRUE, otherwise it sets it to FALSE.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "HSTRING",
+          "description": "The Windows string to check for an embedded null character."
+        },
+        {
+          "name": "out",
+          "type": "BOOL *",
+          "description": "A pointer to a BOOL variable. The function sets this to TRUE if the string has an embedded null character, and to FALSE otherwise."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If the out parameter is NULL, it returns E_INVALIDARG. If the str parameter is NULL, it sets out to FALSE and returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "WindowsSubstring",
+      "description": "This function creates a substring from a given string starting from a specified index.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "HSTRING",
+          "description": "The original string from which a substring is to be created."
+        },
+        {
+          "name": "start",
+          "type": "UINT32",
+          "description": "The starting index from where the substring is to be created."
+        },
+        {
+          "name": "out",
+          "type": "HSTRING*",
+          "description": "Pointer to the output substring."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the output pointer is NULL, and E_BOUNDS if the start index is greater than the length of the string."
+    }
+  },
+  {
+    "function": {
+      "name": "WindowsSubstringWithSpecifiedLength",
+      "description": "This function creates a substring of a specified length from a given start position of a Windows string.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "HSTRING",
+          "description": "The original Windows string from which the substring is to be created."
+        },
+        {
+          "name": "start",
+          "type": "UINT32",
+          "description": "The starting position in the string where the substring should begin."
+        },
+        {
+          "name": "len",
+          "type": "UINT32",
+          "description": "The length of the substring to be created."
+        },
+        {
+          "name": "out",
+          "type": "HSTRING*",
+          "description": "A pointer to the output variable where the created substring will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the output pointer is NULL, and E_BOUNDS if the start position and length result in a range outside the original string."
+    }
+  },
+  {
+    "function": {
+      "name": "WindowsConcatString",
+      "description": "This function concatenates two HSTRINGs and returns the result in a third HSTRING. If any of the input strings is NULL, it duplicates the other string. If both strings are empty, it returns NULL. If memory allocation fails, it returns an error.",
+      "parameters": [
+        {
+          "name": "str1",
+          "type": "HSTRING",
+          "description": "The first string to concatenate"
+        },
+        {
+          "name": "str2",
+          "type": "HSTRING",
+          "description": "The second string to concatenate"
+        },
+        {
+          "name": "out",
+          "type": "HSTRING*",
+          "description": "Pointer to the output string where the result of the concatenation is stored"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the output string pointer is NULL, E_OUTOFMEMORY if memory allocation fails, or the result of WindowsDuplicateString if one of the input strings is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "WindowsIsStringEmpty",
+      "description": "This function checks if a given string is empty or not.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "HSTRING",
+          "description": "The string to be checked for emptiness"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the string is empty, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "WindowsCompareStringOrdinal",
+      "description": "This function compares two HSTRINGs and returns the result in res. It returns a HRESULT indicating success or failure.",
+      "parameters": [
+        {
+          "name": "str1",
+          "type": "HSTRING",
+          "description": "The first string to compare"
+        },
+        {
+          "name": "str2",
+          "type": "HSTRING",
+          "description": "The second string to compare"
+        },
+        {
+          "name": "res",
+          "type": "INT32*",
+          "description": "Pointer to an integer where the result of the comparison is stored"
+        }
+      ],
+      "return_type": "HRESULT, where S_OK indicates success and E_INVALIDARG indicates that res is NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "WindowsTrimStringStart",
+      "description": "This function trims the start of the first string (str1) based on the characters present in the second string (str2) and stores the result in the output string (out).",
+      "parameters": [
+        {
+          "name": "str1",
+          "type": "HSTRING",
+          "description": "The original string to be trimmed."
+        },
+        {
+          "name": "str2",
+          "type": "HSTRING",
+          "description": "The string containing characters based on which str1 will be trimmed."
+        },
+        {
+          "name": "out",
+          "type": "HSTRING*",
+          "description": "Pointer to the output string where the result will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and E_INVALIDARG if the input arguments are not valid."
+    }
+  },
+  {
+    "function": {
+      "name": "WindowsTrimStringEnd",
+      "description": "This function trims the end of the first string (str1) by removing any characters that are present in the second string (str2). The result is stored in the output parameter (out).",
+      "parameters": [
+        {
+          "name": "str1",
+          "type": "HSTRING",
+          "description": "The string to be trimmed."
+        },
+        {
+          "name": "str2",
+          "type": "HSTRING",
+          "description": "The string containing characters to be removed from the end of str1."
+        },
+        {
+          "name": "out",
+          "type": "HSTRING*",
+          "description": "Pointer to the output parameter where the result will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if any of the input arguments is invalid, or other error codes as defined by the Windows API."
+    }
+  }
+]

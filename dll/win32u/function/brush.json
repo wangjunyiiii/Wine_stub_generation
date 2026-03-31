@@ -1,0 +1,280 @@
+[
+  {
+    "function": {
+      "name": "copy_bitmap",
+      "description": "This function copies a bitmap into a brush pattern. It also handles memory allocation and error checking for the operation.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "struct brush_pattern*",
+          "description": "Pointer to the brush pattern structure where the bitmap will be copied to."
+        },
+        {
+          "name": "bitmap",
+          "type": "HBITMAP",
+          "description": "Handle to the bitmap that will be copied."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the bitmap was successfully copied into the brush pattern, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "store_brush_pattern",
+      "description": "This function stores the pattern of a brush. It modifies the brush and pattern based on the brush's style and returns a boolean value indicating success or failure.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "LOGBRUSH*",
+          "description": "Pointer to a LOGBRUSH structure that specifies the style, color, and pattern of a logical brush."
+        },
+        {
+          "name": "pattern",
+          "type": "struct brush_pattern*",
+          "description": "Pointer to a brush_pattern structure that will be filled with the pattern information."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation was successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "free_brush_pattern",
+      "description": "This function frees the memory allocated for the brush pattern structure. It first checks if the 'free' function pointer in the 'bits' structure is not null, and if so, it calls this function. Then it frees the memory allocated for the 'info' field of the brush pattern structure.",
+      "parameters": [
+        {
+          "name": "pattern",
+          "type": "struct brush_pattern *",
+          "description": "This is a pointer to the brush pattern structure that needs to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiIcmBrushInfo",
+      "description": "This function retrieves information about a brush object and copies the brush's pattern data into the specified structures.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "handle",
+          "type": "HBRUSH",
+          "description": "Handle to the brush object."
+        },
+        {
+          "name": "info",
+          "type": "BITMAPINFO *",
+          "description": "Pointer to a BITMAPINFO structure that receives the brush's pattern data."
+        },
+        {
+          "name": "bits",
+          "type": "void *",
+          "description": "Pointer to a buffer that receives the brush's pattern bits."
+        },
+        {
+          "name": "bits_size",
+          "type": "ULONG *",
+          "description": "Pointer to a variable that receives the size of the brush's pattern bits."
+        },
+        {
+          "name": "usage",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the usage of the brush's pattern."
+        },
+        {
+          "name": "unk",
+          "type": "BOOL *",
+          "description": "Unknown parameter."
+        },
+        {
+          "name": "mode",
+          "type": "UINT",
+          "description": "Mode of operation. Currently, only mode 0 is supported."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "create_brush",
+      "description": "This function creates a brush object, stores its pattern, allocates a GDI handle for it and returns the handle. If any of these operations fail, it cleans up and returns 0.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "LOGBRUSH *",
+          "description": "Pointer to a LOGBRUSH structure that the function uses to create a brush object"
+        }
+      ],
+      "return_type": "HBRUSH, represents a handle to the brush object created. If the function fails to create a brush, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiCreateHatchBrushInternal",
+      "description": "This function creates a hatch brush with specified style and color, and returns a handle to the brush.",
+      "parameters": [
+        {
+          "name": "style",
+          "type": "INT",
+          "description": "This parameter defines the hatch style of the brush."
+        },
+        {
+          "name": "color",
+          "type": "COLORREF",
+          "description": "This parameter defines the color of the brush."
+        },
+        {
+          "name": "pen",
+          "type": "BOOL",
+          "description": "This parameter specifies whether the brush is a pen."
+        }
+      ],
+      "return_type": "HBRUSH, which represents a handle to the created brush."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiCreatePatternBrushInternal",
+      "description": "This function creates a pattern brush using the provided bitmap, pen, and is_8x8 parameters.",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "HBITMAP",
+          "description": "This is the bitmap used to create the pattern brush."
+        },
+        {
+          "name": "pen",
+          "type": "BOOL",
+          "description": "This parameter determines whether a pen is used in the creation of the pattern brush."
+        },
+        {
+          "name": "is_8x8",
+          "type": "BOOL",
+          "description": "This parameter determines whether the pattern brush is 8x8."
+        }
+      ],
+      "return_type": "HBRUSH, which represents the created pattern brush."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiCreateDIBBrush",
+      "description": "This function creates a brush with a pattern specified by a DIB (Device Independent Bitmap).",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "void*",
+          "description": "Pointer to a BITMAPINFO structure that contains information about the DIB."
+        },
+        {
+          "name": "coloruse",
+          "type": "UINT",
+          "description": "Specifies the color to use from the DIB."
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "Specifies the size of the DIB."
+        },
+        {
+          "name": "is_8x8",
+          "type": "BOOL",
+          "description": "Specifies whether the DIB is 8x8 pixels."
+        },
+        {
+          "name": "pen",
+          "type": "BOOL",
+          "description": "Specifies whether the brush is a pen."
+        },
+        {
+          "name": "client",
+          "type": "void*",
+          "description": "Pointer to the client that is using the brush."
+        }
+      ],
+      "return_type": "HBRUSH. It represents a handle to the brush if the function is successful. If the function fails, the return value is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiCreateSolidBrush",
+      "description": "This function creates a solid brush with a specified color.",
+      "parameters": [
+        {
+          "name": "color",
+          "type": "COLORREF",
+          "description": "This parameter specifies the color of the brush."
+        },
+        {
+          "name": "brush",
+          "type": "HBRUSH",
+          "description": "This parameter is not used in the function."
+        }
+      ],
+      "return_type": "HBRUSH, represents the handle to the brush created."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSelectBrush",
+      "description": "This function selects a brush object into the specified device context. It also releases and decreases the reference count of the previously selected brush if a new brush is successfully selected.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This is a handle to the device context."
+        },
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "This is a handle to the brush object."
+        }
+      ],
+      "return_type": "HGDIOBJ, represents the handle to the brush object that was selected previously. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "BRUSH_DeleteObject",
+      "description": "This function deletes a brush object by freeing the associated GDI handle, the brush pattern, and the brush itself.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "This is a handle to the GDI object that is associated with the brush to be deleted."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the brush object was successfully deleted, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "BRUSH_GetObject",
+      "description": "This function retrieves information about a brush object, copies it to a buffer, and returns the number of bytes copied.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "Handle to the GDI object"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of bytes to copy to the buffer"
+        },
+        {
+          "name": "buffer",
+          "type": "LPVOID",
+          "description": "Pointer to the buffer that receives the object information"
+        }
+      ],
+      "return_type": "INT, represents the number of bytes copied to the buffer"
+    }
+  }
+]

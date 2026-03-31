@@ -1,0 +1,236 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IWICColorTransform",
+      "description": "This function retrieves the containing record of the IWICColorTransform interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorTransform*",
+          "description": "Pointer to an IWICColorTransform interface."
+        }
+      ],
+      "return_type": "ColorTransform*; pointer to the containing record of the IWICColorTransform interface."
+    }
+  },
+  {
+    "function": {
+      "name": "ColorTransform_QueryInterface",
+      "description": "This function checks if the provided interface identifier (IID) matches any of the known IIDs (IUnknown, IWICBitmapSource, IWICColorTransform). If it does, it assigns the address of the IWICColorTransform interface to the provided pointer and increases the reference count. If it doesn't, it sets the pointer to NULL and returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorTransform*",
+          "description": "Pointer to the IWICColorTransform interface"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Interface identifier to be checked"
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to a pointer that receives the interface pointer requested in iid"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation was successful, E_INVALIDARG if ppv is NULL, and E_NOINTERFACE if the provided iid does not match any of the known IIDs"
+    }
+  },
+  {
+    "function": {
+      "name": "ColorTransform_AddRef",
+      "description": "This function increments the reference count of the ColorTransform object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorTransform*",
+          "description": "Pointer to an instance of IWICColorTransform interface."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after increment."
+    }
+  },
+  {
+    "function": {
+      "name": "ColorTransform_Release",
+      "description": "This function releases the color transform object and decreases its reference count. If the reference count is zero, it releases the bitmap source and frees the memory allocated to the object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorTransform*",
+          "description": "This is a pointer to the color transform interface object that is to be released."
+        }
+      ],
+      "return_type": "ULONG, which represents the updated reference count of the color transform object after it has been decremented."
+    }
+  },
+  {
+    "function": {
+      "name": "ColorTransform_GetSize",
+      "description": "This function retrieves the size of the color transform object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorTransform *",
+          "description": "Pointer to the color transform interface."
+        },
+        {
+          "name": "puiWidth",
+          "type": "UINT *",
+          "description": "Pointer to store the width of the color transform object."
+        },
+        {
+          "name": "puiHeight",
+          "type": "UINT *",
+          "description": "Pointer to store the height of the color transform object."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ColorTransform_GetPixelFormat",
+      "description": "This function retrieves the pixel format of the color transform.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorTransform*",
+          "description": "Pointer to an IWICColorTransform interface"
+        },
+        {
+          "name": "pPixelFormat",
+          "type": "WICPixelFormatGUID*",
+          "description": "Pointer to a WICPixelFormatGUID structure that receives the pixel format of the color transform"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "ColorTransform_GetResolution",
+      "description": "This function retrieves the resolution of the color transform object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorTransform*",
+          "description": "Pointer to the color transform interface."
+        },
+        {
+          "name": "pDpiX",
+          "type": "double*",
+          "description": "Pointer to store the horizontal resolution."
+        },
+        {
+          "name": "pDpiY",
+          "type": "double*",
+          "description": "Pointer to store the vertical resolution."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, the function returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "ColorTransform_CopyPalette",
+      "description": "This function copies the color palette from the destination bitmap source to the provided IWICPalette object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorTransform*",
+          "description": "Pointer to an IWICColorTransform interface"
+        },
+        {
+          "name": "pIPalette",
+          "type": "IWICPalette*",
+          "description": "Pointer to an IWICPalette interface where the color palette will be copied"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ColorTransform_CopyPixels",
+      "description": "This function is used to copy pixels from a source to a destination buffer using a color transform.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorTransform*",
+          "description": "Pointer to the color transform interface"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect*",
+          "description": "Pointer to the rectangle structure that specifies the portion of the bitmap to copy"
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "Specifies the stride, or pitch, of the bitmap"
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "Specifies the size of the buffer"
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE*",
+          "description": "Pointer to the buffer that receives the bitmap data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code"
+    }
+  },
+  {
+    "function": {
+      "name": "ColorTransform_Initialize",
+      "description": "This function initializes a color transformation, converting a bitmap source to a specified pixel format, ignoring color contexts.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorTransform *",
+          "description": "Pointer to the interface of the color transform object"
+        },
+        {
+          "name": "pIBitmapSource",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to the source bitmap to be transformed"
+        },
+        {
+          "name": "pIContextSource",
+          "type": "IWICColorContext *",
+          "description": "Pointer to the source color context, currently ignored"
+        },
+        {
+          "name": "pIContextDest",
+          "type": "IWICColorContext *",
+          "description": "Pointer to the destination color context, currently ignored"
+        },
+        {
+          "name": "pixelFmtDest",
+          "type": "REFWICPixelFormatGUID",
+          "description": "Reference to the GUID of the destination pixel format"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK if successful, error code otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "ColorTransform_Create",
+      "description": "This function creates a color transform object and initializes its properties.",
+      "parameters": [
+        {
+          "name": "colortransform",
+          "type": "IWICColorTransform**",
+          "description": "A pointer to a pointer to an IWICColorTransform interface. This parameter receives the interface pointer of the new color transform object."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If the function fails, it returns an error code, such as E_INVALIDARG (if the colortransform parameter is NULL) or E_OUTOFMEMORY (if the function cannot allocate enough memory)."
+    }
+  }
+]

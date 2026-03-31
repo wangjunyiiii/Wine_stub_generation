@@ -1,0 +1,1996 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IMultiQI",
+      "description": "This function returns a pointer to the containing structure of the given IMultiQI interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMultiQI*",
+          "description": "Pointer to an IMultiQI interface."
+        }
+      ],
+      "return_type": "struct proxy_manager*; Represents a pointer to the containing structure of the given IMultiQI interface."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IMarshal",
+      "description": "This function returns a pointer to the containing structure of the IMarshal interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal *",
+          "description": "Pointer to an IMarshal interface."
+        }
+      ],
+      "return_type": "struct proxy_manager * - Pointer to the containing structure of the IMarshal interface."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IClientSecurity",
+      "description": "This function returns a pointer to the containing structure of the IClientSecurity interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClientSecurity *",
+          "description": "Pointer to IClientSecurity interface"
+        }
+      ],
+      "return_type": "struct proxy_manager pointer, representing the containing structure of the IClientSecurity interface"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_ft_from_IUnknown",
+      "description": "This function returns a pointer to the ftmarshaler structure that contains the given IUnknown interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown *",
+          "description": "Pointer to an IUnknown interface"
+        }
+      ],
+      "return_type": "struct ftmarshaler* - Pointer to the ftmarshaler structure that contains the IUnknown interface"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_ft_from_IMarshal",
+      "description": "This function returns a pointer to a ftmarshaler structure from an IMarshal interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal *",
+          "description": "Pointer to an IMarshal interface"
+        }
+      ],
+      "return_type": "struct ftmarshaler*, a pointer to a ftmarshaler structure"
+    }
+  },
+  {
+    "function": {
+      "name": "CoMarshalHresult",
+      "description": "This function writes a HRESULT into a stream.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "This is the stream into which the HRESULT is written."
+        },
+        {
+          "name": "hresult",
+          "type": "HRESULT",
+          "description": "This is the HRESULT that is written into the stream."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure."
+    }
+  },
+  {
+    "function": {
+      "name": "CoUnmarshalHresult",
+      "description": "This function reads a HRESULT from a stream.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "The stream from which the HRESULT is read."
+        },
+        {
+          "name": "phresult",
+          "type": "HRESULT *",
+          "description": "Pointer to the HRESULT that will hold the result."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or the error code."
+    }
+  },
+  {
+    "function": {
+      "name": "CoGetInterfaceAndReleaseStream",
+      "description": "This function retrieves an interface pointer and releases a stream object.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the stream object."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface."
+        },
+        {
+          "name": "obj",
+          "type": "void **",
+          "description": "Address of pointer variable that receives the interface pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "CoMarshalInterThreadInterfaceInStream",
+      "description": "This function marshals an interface pointer from one thread to another within the same process.",
+      "parameters": [
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "The identifier of the interface to be marshaled."
+        },
+        {
+          "name": "unk",
+          "type": "IUnknown*",
+          "description": "Pointer to the interface to be marshaled."
+        },
+        {
+          "name": "stream",
+          "type": "IStream**",
+          "description": "Address of IStream pointer variable that receives the interface pointer's marshaled representation."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, the return value is S_OK. If the function fails, it can return any error values from the underlying RPC functions, particularly those related to COM."
+    }
+  },
+  {
+    "function": {
+      "name": "ftmarshaler_inner_QueryInterface",
+      "description": "This function is used to query an interface of a given object. If the requested interface is supported by the object, a pointer to that interface is returned.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown*",
+          "description": "Pointer to the interface of the object."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested."
+        },
+        {
+          "name": "obj",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *obj contains the requested interface pointer. If the object does not support the interface, *obj is set to NULL."
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function. Returns S_OK if the interface is supported, and E_NOINTERFACE if not."
+    }
+  },
+  {
+    "function": {
+      "name": "ftmarshaler_inner_AddRef",
+      "description": "This function increments the reference count of the ftmarshaler object and returns the updated count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown *",
+          "description": "This parameter is used to get the ftmarshaler object whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count of the ftmarshaler object."
+    }
+  },
+  {
+    "function": {
+      "name": "ftmarshaler_inner_Release",
+      "description": "This function decrements the reference count of the ftmarshaler object. If the reference count reaches zero, the object is freed from memory.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown *",
+          "description": "Pointer to the IUnknown interface of the ftmarshaler object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the ftmarshaler object after decrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "ftmarshaler_QueryInterface",
+      "description": "This function is used to query the interface of the ftmarshaler object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal *",
+          "description": "Pointer to the IMarshal interface."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier (IID) of the interface being requested."
+        },
+        {
+          "name": "obj",
+          "type": "void **",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *ppvObject contains the requested interface pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function call. If the function is successful, the return value is S_OK. If the interface is not supported, the return value is E_NOINTERFACE."
+    }
+  },
+  {
+    "function": {
+      "name": "ftmarshaler_AddRef",
+      "description": "This function adds a reference to the ftmarshaler object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal *",
+          "description": "Pointer to an IMarshal interface object"
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after the function call"
+    }
+  },
+  {
+    "function": {
+      "name": "ftmarshaler_Release",
+      "description": "This function releases the ftmarshaler object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal *",
+          "description": "Interface pointer to the ftmarshaler object"
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the object after the release operation"
+    }
+  },
+  {
+    "function": {
+      "name": "ftmarshaler_GetUnmarshalClass",
+      "description": "This function is used to get the class identifier for the unmarshaler. It checks the destination context and assigns the appropriate class identifier.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal *",
+          "description": "Pointer to the IMarshal interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface"
+        },
+        {
+          "name": "pv",
+          "type": "void *",
+          "description": "Pointer to the object to be unmarshaled"
+        },
+        {
+          "name": "dest_context",
+          "type": "DWORD",
+          "description": "The destination context in which the unmarshaling is to occur"
+        },
+        {
+          "name": "pvDestContext",
+          "type": "void *",
+          "description": "Pointer to the destination context"
+        },
+        {
+          "name": "mshlflags",
+          "type": "DWORD",
+          "description": "Indicates the marshaling flags"
+        },
+        {
+          "name": "clsid",
+          "type": "CLSID *",
+          "description": "Pointer to the class identifier for the unmarshaler"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns S_OK if the function succeeds"
+    }
+  },
+  {
+    "function": {
+      "name": "ftmarshaler_GetMarshalSizeMax",
+      "description": "This function calculates the maximum size of the marshaled packet. If the marshalling happens inside the same process, the interface pointer is copied between the apartments. For all other cases, the standard marshaller is used.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal *",
+          "description": "Pointer to the IMarshal interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface to be marshaled"
+        },
+        {
+          "name": "pv",
+          "type": "void *",
+          "description": "Pointer to the object to be marshaled"
+        },
+        {
+          "name": "dest_context",
+          "type": "DWORD",
+          "description": "Destination context for the marshaled data"
+        },
+        {
+          "name": "pvDestContext",
+          "type": "void *",
+          "description": "Pointer to the destination context"
+        },
+        {
+          "name": "mshlflags",
+          "type": "DWORD",
+          "description": "Marshalling flags"
+        },
+        {
+          "name": "size",
+          "type": "DWORD *",
+          "description": "Pointer to a DWORD variable that receives the maximum size of the marshaled data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation was successful, otherwise returns the error code"
+    }
+  },
+  {
+    "function": {
+      "name": "ftmarshaler_MarshalInterface",
+      "description": "This function is used to marshal interfaces. If the marshalling happens inside the same process, the interface pointer is copied between the apartments. In all other cases, the standard marshaler is used.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal *",
+          "description": "Pointer to the interface to be marshalled"
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the stream where the marshalled data will be written"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface to be marshalled"
+        },
+        {
+          "name": "pv",
+          "type": "void *",
+          "description": "Pointer to the object to be marshalled"
+        },
+        {
+          "name": "dest_context",
+          "type": "DWORD",
+          "description": "Destination context, used to determine how the data should be marshalled"
+        },
+        {
+          "name": "pvDestContext",
+          "type": "void *",
+          "description": "Pointer to the destination context"
+        },
+        {
+          "name": "mshlflags",
+          "type": "DWORD",
+          "description": "Flags controlling the marshalling process"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful, STG_E_MEDIUMFULL if the stream is full, or other error codes if the operation failed"
+    }
+  },
+  {
+    "function": {
+      "name": "ftmarshaler_UnmarshalInterface",
+      "description": "This function reads data from a stream, checks for any read faults, and then queries an interface based on the read data.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal *",
+          "description": "Pointer to the IMarshal interface"
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the IStream interface from which data is read"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface to be queried"
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Pointer to the pointer of the interface to be returned"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operations performed within the function. It returns S_OK if all operations are successful, otherwise it returns STG_E_READFAULT if any read operation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "ftmarshaler_ReleaseMarshalData",
+      "description": "This function reads data from a stream, releases an unknown object, and returns a status code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal*",
+          "description": "Interface for marshaling"
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "Stream from which data is read"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, otherwise it returns STG_E_READFAULT."
+    }
+  },
+  {
+    "function": {
+      "name": "ftmarshaler_DisconnectObject",
+      "description": "This function is used to disconnect an object, but it does nothing in its current implementation.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal *",
+          "description": "Interface pointer to the object to disconnect"
+        },
+        {
+          "name": "reserved",
+          "type": "DWORD",
+          "description": "Reserved for future use"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the operation. In this case, it always returns S_OK indicating a successful operation"
+    }
+  },
+  {
+    "function": {
+      "name": "CoCreateFreeThreadedMarshaler",
+      "description": "This function creates a free threaded marshaler, which is used to manage the marshaling of the interfaces on an object, in a thread-safe manner.",
+      "parameters": [
+        {
+          "name": "outer",
+          "type": "IUnknown *",
+          "description": "Pointer to the controlling IUnknown, if the object is part of an aggregate; otherwise, NULL."
+        },
+        {
+          "name": "marshaler",
+          "type": "IUnknown **",
+          "description": "Address of pointer variable that receives the interface pointer to the free threaded marshaler."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or E_OUTOFMEMORY if the operation failed due to insufficient memory."
+    }
+  },
+  {
+    "function": {
+      "name": "CoGetMarshalSizeMax",
+      "description": "This function retrieves the maximum size of the buffer that is required to marshal the specified interface pointer.",
+      "parameters": [
+        {
+          "name": "size",
+          "type": "ULONG *",
+          "description": "Pointer to the variable that receives the maximum size of the buffer required to marshal the interface pointer."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "The identifier of the interface to be marshaled."
+        },
+        {
+          "name": "unk",
+          "type": "IUnknown *",
+          "description": "Pointer to the interface to be marshaled."
+        },
+        {
+          "name": "dest_context",
+          "type": "DWORD",
+          "description": "The destination context where the specified interface is to be unmarshaled."
+        },
+        {
+          "name": "pvDestContext",
+          "type": "void *",
+          "description": "The pointer to the destination context."
+        },
+        {
+          "name": "mshlFlags",
+          "type": "DWORD",
+          "description": "The flag that specifies the type of marshaling."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "dump_mshflags",
+      "description": "This function checks the passed flags for certain conditions and traces corresponding messages.",
+      "parameters": [
+        {
+          "name": "flags",
+          "type": "MSHLFLAGS",
+          "description": "This parameter represents the flags that are checked within the function."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "CoMarshalInterface",
+      "description": "This function marshals a specified interface pointer and returns a stream that can be used to transfer the interface pointer to another process.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "Pointer to the stream used for marshalling."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface to be marshalled."
+        },
+        {
+          "name": "unk",
+          "type": "IUnknown*",
+          "description": "Pointer to the interface to be marshalled."
+        },
+        {
+          "name": "dest_context",
+          "type": "DWORD",
+          "description": "Destination context where the specified interface is to be unmarshalled."
+        },
+        {
+          "name": "pvDestContext",
+          "type": "void*",
+          "description": "Pointer to the destination context."
+        },
+        {
+          "name": "mshlFlags",
+          "type": "DWORD",
+          "description": "Indicates how connections are made to the remote object."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_unmarshaler_from_stream",
+      "description": "This function reads an OBJREF from a stream, performs sanity checks, and creates a marshaler based on the OBJREF type.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "The input stream from which the OBJREF is read."
+        },
+        {
+          "name": "marshal",
+          "type": "IMarshal **",
+          "description": "The output parameter where the created marshaler is stored."
+        },
+        {
+          "name": "iid",
+          "type": "IID *",
+          "description": "The output parameter where the interface identifier is stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, STG_E_READFAULT if there is a read error, RPC_E_INVALID_OBJREF if the OBJREF is invalid, and S_FALSE if standard unmarshaling is used."
+    }
+  },
+  {
+    "function": {
+      "name": "std_release_marshal_data",
+      "description": "This function is used to release the marshalled data of a stub manager. It reads from a stream, checks for errors, and releases resources accordingly.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "This is the stream from which the function reads data."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. It can return S_OK if the operation is successful, STG_E_READFAULT if there is a read error, E_NOTIMPL if the size of DUALSTRINGARRAY is unsupported, or RPC_E_INVALID_OBJREF if the OXID or OID cannot be mapped to an apartment object or stub manager respectively."
+    }
+  },
+  {
+    "function": {
+      "name": "CoReleaseMarshalData",
+      "description": "This function releases the marshaled data associated with a stream object.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "This is a pointer to the stream object that contains the marshaled data."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation was successful, it returns S_OK. If it failed, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "std_unmarshal_interface",
+      "description": "This function unmarshals an interface from a stream, possibly returning a pointer to a local object.",
+      "parameters": [
+        {
+          "name": "dest_context",
+          "type": "MSHCTX",
+          "description": "The destination context for the unmarshalling operation."
+        },
+        {
+          "name": "dest_context_data",
+          "type": "void *",
+          "description": "Pointer to the destination context data."
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the stream from which the interface is unmarshalled."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface to be unmarshalled."
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Pointer to the location where the interface pointer is returned."
+        },
+        {
+          "name": "dest_context_known",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether the destination context is known."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the unmarshalling operation."
+    }
+  },
+  {
+    "function": {
+      "name": "CoUnmarshalInterface",
+      "description": "This function unmarshals an interface pointer from a stream, possibly invoking a helper object to perform the unmarshalling.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the stream from which the interface pointer is to be unmarshalled."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface to be unmarshalled."
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Address of pointer variable that receives the interface pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if successful, error code otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_facbuf_for_iid",
+      "description": "This function retrieves the pointer to the IPSFactoryBuffer interface for a specified interface identifier.",
+      "parameters": [
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "This is the reference to the interface identifier."
+        },
+        {
+          "name": "facbuf",
+          "type": "IPSFactoryBuffer**",
+          "description": "This is a pointer to the IPSFactoryBuffer interface pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If the function fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "marshal_object",
+      "description": "This function marshals an object, creating a stub for the object if necessary and registering the interface. It also sets the object's reference flags and public references count based on the marshalling flags.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "Pointer to the apartment where the object resides"
+        },
+        {
+          "name": "stdobjref",
+          "type": "STDOBJREF *",
+          "description": "Pointer to the standard object reference"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier"
+        },
+        {
+          "name": "object",
+          "type": "IUnknown *",
+          "description": "Pointer to the object to be marshalled"
+        },
+        {
+          "name": "dest_context",
+          "type": "DWORD",
+          "description": "Destination context for the marshalled object"
+        },
+        {
+          "name": "dest_context_data",
+          "type": "void *",
+          "description": "Pointer to the destination context data"
+        },
+        {
+          "name": "mshlflags",
+          "type": "MSHLFLAGS",
+          "description": "Flags controlling the marshalling process"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful, an error code otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "ClientIdentity_QueryInterface",
+      "description": "This function queries multiple interfaces in a COM object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMultiQI *",
+          "description": "Pointer to the IMultiQI interface on the object."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested."
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. It can indicate success or failure, and carries information about the result of the function call."
+    }
+  },
+  {
+    "function": {
+      "name": "ClientIdentity_AddRef",
+      "description": "This function increments the reference count of the proxy manager object associated with the given interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMultiQI*",
+          "description": "This is a pointer to the interface for which the reference count is to be incremented."
+        }
+      ],
+      "return_type": "ULONG, which represents the new reference count after incrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "ClientIdentity_Release",
+      "description": "This function releases the client identity by decrementing the reference count. If the reference count reaches zero, it destroys the proxy manager.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMultiQI*",
+          "description": "This parameter is an interface used to get the proxy manager."
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count after decrement."
+    }
+  },
+  {
+    "function": {
+      "name": "ClientIdentity_QueryMultipleInterfaces",
+      "description": "This function queries multiple interfaces for a client identity. It first tries to get a local interface, and if not found, it queries the remote object for it. It then unmarshals each object returned and checks the success of the queries.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMultiQI*",
+          "description": "Pointer to the interface to be queried"
+        },
+        {
+          "name": "cMQIs",
+          "type": "ULONG",
+          "description": "Number of multiple Query Interface structures"
+        },
+        {
+          "name": "pMQIs",
+          "type": "MULTI_QI*",
+          "description": "Pointer to an array of Query Interface structures"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. S_OK if all requested interfaces are obtained, E_NOINTERFACE if no interfaces are obtained, and S_FALSE if only some interfaces are obtained"
+    }
+  },
+  {
+    "function": {
+      "name": "Proxy_QueryInterface",
+      "description": "This function is used to query an interface from a proxy manager.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal*",
+          "description": "Pointer to an IMarshal interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested"
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Pointer to the location that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. It can be a success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "Proxy_AddRef",
+      "description": "This function adds a reference to the proxy manager from the IMarshal interface and returns the reference count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal*",
+          "description": "This is a pointer to the IMarshal interface."
+        }
+      ],
+      "return_type": "ULONG, which represents the reference count after adding a reference."
+    }
+  },
+  {
+    "function": {
+      "name": "Proxy_Release",
+      "description": "This function releases the proxy manager interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal *",
+          "description": "Pointer to the interface to be released"
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count to the interface after the release operation"
+    }
+  },
+  {
+    "function": {
+      "name": "Proxy_GetUnmarshalClass",
+      "description": "This function assigns the value of CLSID_StdMarshal to the pointer pCid and returns S_OK.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal*",
+          "description": "Interface pointer"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface"
+        },
+        {
+          "name": "pv",
+          "type": "void*",
+          "description": "Pointer to the object"
+        },
+        {
+          "name": "dwDestContext",
+          "type": "DWORD",
+          "description": "Destination context"
+        },
+        {
+          "name": "pvDestContext",
+          "type": "void*",
+          "description": "Pointer to the destination context"
+        },
+        {
+          "name": "mshlflags",
+          "type": "DWORD",
+          "description": "Marshalling flags"
+        },
+        {
+          "name": "pCid",
+          "type": "CLSID*",
+          "description": "Pointer to the class identifier"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, returns S_OK if successful"
+    }
+  },
+  {
+    "function": {
+      "name": "Proxy_GetMarshalSizeMax",
+      "description": "This function sets the value of pSize to the offset of the aStringArray field in the u_standard field of the u_objref field of an OBJREF structure, and returns S_OK.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal*",
+          "description": "Pointer to the IMarshal interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface"
+        },
+        {
+          "name": "pv",
+          "type": "void*",
+          "description": "Pointer to the object to be marshaled"
+        },
+        {
+          "name": "dwDestContext",
+          "type": "DWORD",
+          "description": "Destination context for the marshaled data"
+        },
+        {
+          "name": "pvDestContext",
+          "type": "void*",
+          "description": "Pointer to the destination context"
+        },
+        {
+          "name": "mshlflags",
+          "type": "DWORD",
+          "description": "Flags that control the marshaling process"
+        },
+        {
+          "name": "pSize",
+          "type": "DWORD*",
+          "description": "Pointer to the variable that receives the size of the marshaled data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK if successful"
+    }
+  },
+  {
+    "function": {
+      "name": "fill_std_objref",
+      "description": "This function fills an OBJREF structure with a given GUID and STDOBJREF. If the STDOBJREF is not null, it is also set in the OBJREF. The saResAddr field of the OBJREF is zeroed out.",
+      "parameters": [
+        {
+          "name": "objref",
+          "type": "OBJREF*",
+          "description": "Pointer to the OBJREF structure to be filled"
+        },
+        {
+          "name": "iid",
+          "type": "GUID*",
+          "description": "Pointer to the GUID to be set in the OBJREF"
+        },
+        {
+          "name": "std",
+          "type": "STDOBJREF*",
+          "description": "Pointer to the STDOBJREF to be set in the OBJREF if not null"
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the OBJREF structure pointed to by the first parameter"
+    }
+  },
+  {
+    "function": {
+      "name": "Proxy_MarshalInterface",
+      "description": "This function marshals an interface pointer into a stream for transmission across a process or machine boundary.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPMARSHAL",
+          "description": "Pointer to the IMarshal interface."
+        },
+        {
+          "name": "pStm",
+          "type": "IStream *",
+          "description": "Pointer to the IStream interface on the stream used for marshaling."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface to be marshaled."
+        },
+        {
+          "name": "pv",
+          "type": "void *",
+          "description": "Pointer to the interface to be marshaled."
+        },
+        {
+          "name": "dwDestContext",
+          "type": "DWORD",
+          "description": "Destination context where the specified interface is to be unmarshaled."
+        },
+        {
+          "name": "pvDestContext",
+          "type": "void *",
+          "description": "Pointer to the destination context."
+        },
+        {
+          "name": "mshlflags",
+          "type": "DWORD",
+          "description": "Indicates how the data is to be marshaled."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns standard COM error codes as well as S_OK for successful marshaling."
+    }
+  },
+  {
+    "function": {
+      "name": "Proxy_UnmarshalInterface",
+      "description": "This function unmarshals an interface pointer from a stream, using the IMarshal interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal*",
+          "description": "Pointer to the IMarshal interface"
+        },
+        {
+          "name": "pStm",
+          "type": "IStream*",
+          "description": "Pointer to the IStream interface from which the interface pointer is to be unmarshaled"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface to be unmarshaled"
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "Proxy_ReleaseMarshalData",
+      "description": "This function releases the marshal data of a proxy manager.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal*",
+          "description": "Interface pointer to the proxy manager from which the implementation is derived."
+        },
+        {
+          "name": "pStm",
+          "type": "IStream*",
+          "description": "Pointer to the stream where the marshal data is stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "Proxy_DisconnectObject",
+      "description": "This function disconnects a proxy object from its remote counterpart.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal*",
+          "description": "Interface pointer to the proxy object"
+        },
+        {
+          "name": "dwReserved",
+          "type": "DWORD",
+          "description": "Reserved DWORD value"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or the error code"
+    }
+  },
+  {
+    "function": {
+      "name": "ProxyCliSec_QueryInterface",
+      "description": "This function queries an interface from a proxy manager object and returns the interface if it is available.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClientSecurity*",
+          "description": "Pointer to an IClientSecurity interface."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested."
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *ppvObject contains the requested interface pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function execution. If the function succeeds, it returns S_OK. If the interface is not available, it returns E_NOINTERFACE."
+    }
+  },
+  {
+    "function": {
+      "name": "ProxyCliSec_AddRef",
+      "description": "This function adds a reference to the Proxy Client Security interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClientSecurity *",
+          "description": "This is a pointer to the IClientSecurity interface."
+        }
+      ],
+      "return_type": "ULONG, represents the reference count after the addition."
+    }
+  },
+  {
+    "function": {
+      "name": "ProxyCliSec_Release",
+      "description": "This function releases the interface of the proxy manager.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClientSecurity *",
+          "description": "This parameter is used to represent the interface of the client security."
+        }
+      ],
+      "return_type": "ULONG, represents the status of the release operation."
+    }
+  },
+  {
+    "function": {
+      "name": "ProxyCliSec_QueryBlanket",
+      "description": "This function is a stub and currently does not implement any functionality. It initializes the parameters to their default values.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClientSecurity *",
+          "description": "Pointer to an interface"
+        },
+        {
+          "name": "pProxy",
+          "type": "IUnknown *",
+          "description": "Pointer to a proxy"
+        },
+        {
+          "name": "pAuthnSvc",
+          "type": "DWORD *",
+          "description": "Pointer to an authentication service"
+        },
+        {
+          "name": "pAuthzSvc",
+          "type": "DWORD *",
+          "description": "Pointer to an authorization service"
+        },
+        {
+          "name": "ppServerPrincName",
+          "type": "OLECHAR **",
+          "description": "Pointer to a server principal name"
+        },
+        {
+          "name": "pAuthnLevel",
+          "type": "DWORD *",
+          "description": "Pointer to an authentication level"
+        },
+        {
+          "name": "pImpLevel",
+          "type": "DWORD *",
+          "description": "Pointer to an impersonation level"
+        },
+        {
+          "name": "pAuthInfo",
+          "type": "void **",
+          "description": "Pointer to an authentication information"
+        },
+        {
+          "name": "pCapabilities",
+          "type": "DWORD *",
+          "description": "Pointer to capabilities"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function call, in this case always returns E_NOTIMPL indicating that the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "ProxyCliSec_SetBlanket",
+      "description": "This function is a stub and not yet implemented. It is intended to set the security settings for a proxy client.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClientSecurity *",
+          "description": "Pointer to the IClientSecurity interface"
+        },
+        {
+          "name": "pProxy",
+          "type": "IUnknown *",
+          "description": "Pointer to the proxy object"
+        },
+        {
+          "name": "AuthnSvc",
+          "type": "DWORD",
+          "description": "Specifies the authentication service"
+        },
+        {
+          "name": "AuthzSvc",
+          "type": "DWORD",
+          "description": "Specifies the authorization service"
+        },
+        {
+          "name": "pServerPrincName",
+          "type": "OLECHAR *",
+          "description": "Pointer to the server principal name"
+        },
+        {
+          "name": "AuthnLevel",
+          "type": "DWORD",
+          "description": "Specifies the authentication level"
+        },
+        {
+          "name": "ImpLevel",
+          "type": "DWORD",
+          "description": "Specifies the impersonation level"
+        },
+        {
+          "name": "pAuthInfo",
+          "type": "void *",
+          "description": "Pointer to the authentication information"
+        },
+        {
+          "name": "Capabilities",
+          "type": "DWORD",
+          "description": "Specifies the capabilities"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "ProxyCliSec_CopyProxy",
+      "description": "This function is a stub and currently not implemented. It is intended to copy a proxy.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClientSecurity *",
+          "description": "Interface for client security"
+        },
+        {
+          "name": "pProxy",
+          "type": "IUnknown *",
+          "description": "Pointer to the original proxy to be copied"
+        },
+        {
+          "name": "ppCopy",
+          "type": "IUnknown **",
+          "description": "Pointer to the copied proxy"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Currently always returns E_NOTIMPL indicating 'not implemented'"
+    }
+  },
+  {
+    "function": {
+      "name": "ifproxy_get_public_ref",
+      "description": "This function is used to get a public reference for a given ifproxy object. It waits for a mutex to be available, checks the reference count, and if it's zero, it gets a reference to the IRemUnknown interface, adds a reference, and updates the reference count. The mutex is then released.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct ifproxy *",
+          "description": "This is a pointer to the ifproxy object for which the public reference is to be obtained."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and an error code otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "ifproxy_release_public_refs",
+      "description": "This function releases public references of an interface proxy, and handles errors that may occur during the process.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct ifproxy *",
+          "description": "A pointer to the interface proxy whose public references are to be released."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_UNEXPECTED if the wait operation fails, RPC_E_DISCONNECTED if the object was disconnected, or an error code if IRemUnknown_RemRelease fails."
+    }
+  },
+  {
+    "function": {
+      "name": "ifproxy_disconnect",
+      "description": "This function releases public references of the given ifproxy object, disconnects the proxy if it exists, releases the channel buffer and sets it to NULL.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct ifproxy *",
+          "description": "The ifproxy object that needs to be disconnected."
+        }
+      ],
+      "return_type": "void, it does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "ifproxy_destroy",
+      "description": "This function releases public references to the object, removes the object from a list, releases any associated channel buffer and proxy buffer, and finally frees the memory allocated to the object.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct ifproxy *",
+          "description": "Pointer to the ifproxy structure to be destroyed"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "proxy_manager_construct",
+      "description": "This function constructs a proxy manager. It initializes the proxy manager's properties, handles error conditions, and sets the proxy manager's context.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "Pointer to the apartment structure where the object was unmarshaled into"
+        },
+        {
+          "name": "sorflags",
+          "type": "ULONG",
+          "description": "The STDOBJREF flags stored in the proxy manager"
+        },
+        {
+          "name": "oxid",
+          "type": "OXID",
+          "description": "The source apartment of the object"
+        },
+        {
+          "name": "oid",
+          "type": "OID",
+          "description": "The id of the object"
+        },
+        {
+          "name": "oxid_info",
+          "type": "OXID_INFO *",
+          "description": "Pointer to the OXID_INFO structure that contains the object's identity information"
+        },
+        {
+          "name": "proxy_manager",
+          "type": "struct proxy_manager **",
+          "description": "Double pointer to the proxy manager structure to be constructed"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. It returns S_OK if the function executes successfully, E_OUTOFMEMORY if memory allocation fails, or an error code obtained from HRESULT_FROM_WIN32(GetLastError()) if mutex creation fails"
+    }
+  },
+  {
+    "function": {
+      "name": "proxy_manager_set_context",
+      "description": "This function sets the context for a proxy manager. It uses an interlocked compare-exchange operation to ensure thread safety when updating the context. If the destination context data is not null, it also updates the destination context data using an interlocked exchange operation.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct proxy_manager *",
+          "description": "Pointer to the proxy manager whose context is to be set"
+        },
+        {
+          "name": "dest_context",
+          "type": "MSHCTX",
+          "description": "The new context to be set"
+        },
+        {
+          "name": "dest_context_data",
+          "type": "void *",
+          "description": "Pointer to the new context data to be set"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "proxy_manager_query_local_interface",
+      "description": "This function queries a local interface of a proxy manager. It checks if the requested interface ID matches any of the known interfaces (IUnknown, IMultiQI, IMarshal, IClientSecurity). If a match is found, it returns a pointer to the interface and increments the reference count. If no match is found, it tries to find the interface proxy. If the interface proxy is found, it returns a pointer to the interface and increments the reference count. If no interface or interface proxy is found, it returns E_NOINTERFACE.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct proxy_manager *",
+          "description": "Pointer to the proxy manager structure"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface ID to query"
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Pointer to the pointer that receives the interface pointer if the function is successful"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. It returns S_OK if the function is successful, otherwise it returns E_NOINTERFACE"
+    }
+  },
+  {
+    "function": {
+      "name": "proxy_manager_create_ifproxy",
+      "description": "This function creates an interface proxy for a given interface identifier, and associates it with a proxy manager and a channel buffer. If the interface identifier is not IUnknown, it also connects the proxy buffer to the channel.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct proxy_manager *",
+          "description": "Pointer to the proxy manager"
+        },
+        {
+          "name": "stdobjref",
+          "type": "STDOBJREF *",
+          "description": "Pointer to the standard object reference"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Interface identifier"
+        },
+        {
+          "name": "channel",
+          "type": "IRpcChannelBuffer *",
+          "description": "Pointer to the RPC channel buffer"
+        },
+        {
+          "name": "iif_out",
+          "type": "struct ifproxy **",
+          "description": "Pointer to the output interface proxy"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_OUTOFMEMORY if memory allocation fails, or other error codes if there are problems in creating the proxy or connecting the proxy buffer to the channel."
+    }
+  },
+  {
+    "function": {
+      "name": "proxy_manager_find_ifproxy",
+      "description": "This function searches for an interface proxy in the proxy manager's list of interfaces. If found, it assigns the interface proxy to the provided pointer and returns S_OK, otherwise it returns E_NOINTERFACE.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct proxy_manager *",
+          "description": "Pointer to the proxy manager structure"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Interface identifier to search for"
+        },
+        {
+          "name": "ifproxy_found",
+          "type": "struct ifproxy **",
+          "description": "Pointer to a pointer to receive the found interface proxy"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the interface proxy is found, otherwise returns E_NOINTERFACE"
+    }
+  },
+  {
+    "function": {
+      "name": "proxy_manager_disconnect",
+      "description": "This function disconnects a proxy manager. It enters a critical section, checks if the SORFP_NOLIFETIMEMGMT flag is not set, and if so, disconnects all interfaces. It then sets the parent to NULL and leaves the critical section.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct proxy_manager *",
+          "description": "Pointer to the proxy manager to be disconnected"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "proxy_manager_get_remunknown",
+      "description": "This function is used to get the IRemUnknown interface from the proxy manager. If the interface is not available, it attempts to unmarshal it.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct proxy_manager *",
+          "description": "Pointer to the proxy manager from which the IRemUnknown interface is to be retrieved."
+        },
+        {
+          "name": "remunk",
+          "type": "IRemUnknown **",
+          "description": "Pointer to a pointer to IRemUnknown. This function will set it to point to the IRemUnknown interface retrieved from the proxy manager."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, S_FALSE if the operation is not successful or if lifetime management is not required, and CO_E_NOTINITIALIZED if the apartment is not initialized."
+    }
+  },
+  {
+    "function": {
+      "name": "proxy_manager_addref_if_alive",
+      "description": "This function checks if the proxy manager is alive (not about to be destroyed) and if so, increments its reference count.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct proxy_manager *",
+          "description": "A pointer to the proxy manager whose reference count is to be incremented if it is alive."
+        }
+      ],
+      "return_type": "LONG, represents the new reference count if the proxy manager is alive, or 0 if it is about to be destroyed."
+    }
+  },
+  {
+    "function": {
+      "name": "proxy_manager_destroy",
+      "description": "This function is responsible for destroying a proxy manager. It removes the proxy manager from the list of proxy objects in the apartment, destroys all of the interface proxies, releases the IRemUnknown interface if it exists, frees the memory allocated for the OXID resolver, deletes the critical section, closes the remoting mutex handle, and finally frees the memory allocated for the proxy manager itself.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct proxy_manager *",
+          "description": "This is a pointer to the proxy manager to be destroyed."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "find_proxy_manager",
+      "description": "This function searches for a proxy manager in an apartment based on the provided OXID and OID. If found and the proxy manager is alive, it sets the found proxy manager to the proxy_found parameter and returns TRUE. Otherwise, it returns FALSE.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "Pointer to the apartment structure where the search is performed"
+        },
+        {
+          "name": "oxid",
+          "type": "OXID",
+          "description": "The OXID of the proxy manager to find"
+        },
+        {
+          "name": "oid",
+          "type": "OID",
+          "description": "The OID of the proxy manager to find"
+        },
+        {
+          "name": "proxy_found",
+          "type": "struct proxy_manager **",
+          "description": "Pointer to a pointer to a proxy manager structure. If a matching proxy manager is found and is alive, this parameter is set to point to it"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if a matching and alive proxy manager is found, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_disconnectproxies",
+      "description": "This function disconnects all proxies in the given apartment.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "This is a pointer to the apartment structure whose proxies are to be disconnected."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK if successful."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_StdMarshal",
+      "description": "This function returns a pointer to a stdmarshal structure that contains the given IMarshal interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal*",
+          "description": "Pointer to an IMarshal interface"
+        }
+      ],
+      "return_type": "struct stdmarshal* - Pointer to a stdmarshal structure that contains the given IMarshal interface"
+    }
+  },
+  {
+    "function": {
+      "name": "StdMarshalImpl_QueryInterface",
+      "description": "This function checks if the provided interface identifier matches either IID_IUnknown or IID_IMarshal. If it does, it assigns the interface pointer to the output parameter and increments the reference count. If it doesn't, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal*",
+          "description": "Pointer to the IMarshal interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier to be checked"
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to the output parameter that receives the interface pointer if the interface identifier matches"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the interface identifier matches, E_NOINTERFACE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "StdMarshalImpl_AddRef",
+      "description": "This function increments the reference count of the stdmarshal object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal*",
+          "description": "Pointer to the IMarshal interface object"
+        }
+      ],
+      "return_type": "ULONG, represents the incremented reference count of the stdmarshal object"
+    }
+  },
+  {
+    "function": {
+      "name": "StdMarshalImpl_Release",
+      "description": "This function releases the interface of the standard marshal implementation. It decrements the reference count and if the reference count reaches zero, it frees the memory allocated to the marshal.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal*",
+          "description": "This is the interface of the standard marshal implementation."
+        }
+      ],
+      "return_type": "ULONG, which represents the updated reference count after decrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "StdMarshalImpl_GetUnmarshalClass",
+      "description": "This function assigns the value of CLSID_StdMarshal to the pointer pCid and returns S_OK.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal *",
+          "description": "Pointer to an IMarshal interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface"
+        },
+        {
+          "name": "pv",
+          "type": "void *",
+          "description": "Pointer to the object to be marshaled"
+        },
+        {
+          "name": "dwDestContext",
+          "type": "DWORD",
+          "description": "Destination context for marshaling"
+        },
+        {
+          "name": "pvDestContext",
+          "type": "void *",
+          "description": "Pointer to the destination context"
+        },
+        {
+          "name": "mshlflags",
+          "type": "DWORD",
+          "description": "Flags for marshaling"
+        },
+        {
+          "name": "pCid",
+          "type": "CLSID *",
+          "description": "Pointer to the CLSID of the unmarshal class"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK if successful"
+    }
+  },
+  {
+    "function": {
+      "name": "StdMarshalImpl_GetMarshalSizeMax",
+      "description": "This function calculates the offset of a specific field in the OBJREF structure and assigns it to the pSize parameter, then returns S_OK.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal *",
+          "description": "Pointer to the IMarshal interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface"
+        },
+        {
+          "name": "pv",
+          "type": "void *",
+          "description": "Pointer to the object to be marshaled"
+        },
+        {
+          "name": "dwDestContext",
+          "type": "DWORD",
+          "description": "Destination context for the marshaled data"
+        },
+        {
+          "name": "pvDestContext",
+          "type": "void *",
+          "description": "Pointer to the destination context"
+        },
+        {
+          "name": "mshlflags",
+          "type": "DWORD",
+          "description": "Flags controlling the marshaling process"
+        },
+        {
+          "name": "pSize",
+          "type": "DWORD *",
+          "description": "Pointer to the variable that receives the size of the marshaled data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, returns S_OK if successful"
+    }
+  },
+  {
+    "function": {
+      "name": "StdMarshalImpl_MarshalInterface",
+      "description": "This function marshals interfaces for standard implementation. It initializes the apartment, starts remoting, fills the standard object reference, marshals the object, releases the apartment, and writes the stream.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal *",
+          "description": "Pointer to the IMarshal interface"
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the IStream interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface"
+        },
+        {
+          "name": "pv",
+          "type": "void *",
+          "description": "Pointer to the interface to be marshaled"
+        },
+        {
+          "name": "dest_context",
+          "type": "DWORD",
+          "description": "Destination context for the marshaled interface"
+        },
+        {
+          "name": "dest_context_data",
+          "type": "void *",
+          "description": "Pointer to the destination context data"
+        },
+        {
+          "name": "mshlflags",
+          "type": "DWORD",
+          "description": "Marshaling flags"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. It returns S_OK if successful, CO_E_NOTINITIALIZED if the apartment is not initialized, and other HRESULT values indicating the failure reason."
+    }
+  },
+  {
+    "function": {
+      "name": "unmarshal_object",
+      "description": "This function unmarshals an object by creating a new proxy manager if one doesn't already exist for the object, sets the context for the proxy manager, finds an interface proxy, and adds a reference to the object to keep it alive. It then releases the reference to the proxy manager.",
+      "parameters": [
+        {
+          "name": "stdobjref",
+          "type": "STDOBJREF *",
+          "description": "Pointer to the standard object reference"
+        },
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "Pointer to the apartment structure"
+        },
+        {
+          "name": "dest_context",
+          "type": "MSHCTX",
+          "description": "Destination context"
+        },
+        {
+          "name": "dest_context_data",
+          "type": "void *",
+          "description": "Pointer to the destination context data"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier"
+        },
+        {
+          "name": "oxid_info",
+          "type": "OXID_INFO *",
+          "description": "Pointer to the oxid information"
+        },
+        {
+          "name": "object",
+          "type": "void **",
+          "description": "Double pointer to the object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. S_OK if successful, an error code otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "StdMarshalImpl_UnmarshalInterface",
+      "description": "This function unmarshals an interface from a stream, checking the validity of the OBJREF and handling different flags.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal *",
+          "description": "Pointer to the IMarshal interface"
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the IStream interface from which the object is to be unmarshaled"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface to be unmarshaled"
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Address of pointer variable that receives the interface pointer"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the unmarshaling process. It can return various error codes if the process fails at different stages."
+    }
+  },
+  {
+    "function": {
+      "name": "StdMarshalImpl_ReleaseMarshalData",
+      "description": "This function reads an OBJREF from a stream, validates it, and if valid, releases the marshal data from the stream.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal *",
+          "description": "Pointer to the IMarshal interface"
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the IStream interface from which the OBJREF is read"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns STG_E_READFAULT if it fails to read the OBJREF, RPC_E_INVALID_OBJREF if the OBJREF signature is invalid, E_NOTIMPL if the OBJREF flags are not standard, and the result of std_release_marshal_data(stream) otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "StdMarshalImpl_DisconnectObject",
+      "description": "This function is a stub and currently does not perform any operation.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMarshal*",
+          "description": "Pointer to an IMarshal interface"
+        },
+        {
+          "name": "reserved",
+          "type": "DWORD",
+          "description": "A reserved DWORD value"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function call, currently always returns S_OK indicating success"
+    }
+  },
+  {
+    "function": {
+      "name": "StdMarshalImpl_Construct",
+      "description": "This function constructs a standard marshal object, queries an interface and releases the marshal interface.",
+      "parameters": [
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "The reference to the interface identifier."
+        },
+        {
+          "name": "dest_context",
+          "type": "DWORD",
+          "description": "The destination context."
+        },
+        {
+          "name": "dest_context_data",
+          "type": "void *",
+          "description": "The data for the destination context."
+        },
+        {
+          "name": "ppvObject",
+          "type": "void **",
+          "description": "A pointer to the location of the queried interface."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns E_OUTOFMEMORY if the memory allocation fails, otherwise it returns the result of the IMarshal_QueryInterface function."
+    }
+  },
+  {
+    "function": {
+      "name": "InternalCoStdMarshalObject",
+      "description": "This function is used to construct a standard marshal object.",
+      "parameters": [
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "This is the reference to the interface identifier."
+        },
+        {
+          "name": "dest_context",
+          "type": "DWORD",
+          "description": "This is the destination context."
+        },
+        {
+          "name": "dest_context_data",
+          "type": "void *",
+          "description": "This is the data for the destination context."
+        },
+        {
+          "name": "ppvObject",
+          "type": "void **",
+          "description": "This is a pointer to the location of the resulting marshaled interface pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "CoGetStandardMarshal",
+      "description": "This function is used to get the standard marshal. It checks if the IUnknown pointer is NULL, if so, it returns an error. Otherwise, it constructs a standard marshal implementation.",
+      "parameters": [
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "The interface identifier that the caller is going to use to communicate with the marshaled object."
+        },
+        {
+          "name": "pUnk",
+          "type": "IUnknown*",
+          "description": "Pointer to the object to be marshaled."
+        },
+        {
+          "name": "dwDestContext",
+          "type": "DWORD",
+          "description": "The destination context where the marshaled data will be used."
+        },
+        {
+          "name": "dest_context",
+          "type": "void*",
+          "description": "Pointer to the destination context."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Indicates whether the data being marshaled is to be transmitted back to the client process."
+        },
+        {
+          "name": "marshal",
+          "type": "IMarshal**",
+          "description": "Address of pointer variable that receives the interface pointer to the standard marshal."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. If the function succeeds, it returns S_OK. If the function fails, it returns an error code."
+    }
+  }
+]

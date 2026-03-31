@@ -1,0 +1,420 @@
+[
+  {
+    "function": {
+      "name": "is_valid_ColorAdjustType",
+      "description": "This function checks if the given ColorAdjustType is within the valid range.",
+      "parameters": [
+        {
+          "name": "type",
+          "type": "ColorAdjustType",
+          "description": "This parameter represents the type of color adjustment."
+        }
+      ],
+      "return_type": "int, returns 1 if the ColorAdjustType is within the valid range, otherwise returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCloneImageAttributes",
+      "description": "This function clones the image attributes from a source to a destination. It also handles memory allocation and error checking for the cloning process.",
+      "parameters": [
+        {
+          "name": "imageattr",
+          "type": "GDIPCONST GpImageAttributes *",
+          "description": "This is the source image attributes that will be cloned."
+        },
+        {
+          "name": "cloneImageattr",
+          "type": "GpImageAttributes **",
+          "description": "This is the destination where the cloned image attributes will be stored."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns 'Ok'. If the parameters are invalid, it returns 'InvalidParameter'. If there is a memory allocation error, it returns 'OutOfMemory'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateImageAttributes",
+      "description": "This function creates image attributes, sets the wrap mode to WrapModeClamp, and returns the status of the operation.",
+      "parameters": [
+        {
+          "name": "imageattr",
+          "type": "GpImageAttributes **",
+          "description": "A pointer to a pointer to a GpImageAttributes structure. This structure will be allocated and initialized within the function."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return InvalidParameter if the input parameter is null, OutOfMemory if memory allocation fails, or Ok if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipDisposeImageAttributes",
+      "description": "This function disposes of the resources associated with an image attributes object, including freeing the color map tables and the image attributes object itself.",
+      "parameters": [
+        {
+          "name": "imageattr",
+          "type": "GpImageAttributes *",
+          "description": "This is a pointer to the image attributes object to be disposed."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns 'InvalidParameter' if the input is null, otherwise it returns 'Ok' after successfully freeing the resources."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImageAttributesAdjustedPalette",
+      "description": "This function adjusts the palette of an image according to the specified image attributes and color adjustment type.",
+      "parameters": [
+        {
+          "name": "imageattr",
+          "type": "GpImageAttributes *",
+          "description": "Pointer to the image attributes to be applied."
+        },
+        {
+          "name": "palette",
+          "type": "ColorPalette *",
+          "description": "Pointer to the palette to be adjusted."
+        },
+        {
+          "name": "type",
+          "type": "ColorAdjustType",
+          "description": "The type of color adjustment to be applied."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters are invalid."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetImageAttributesColorKeys",
+      "description": "This function sets the color keys for an image attribute. It checks if the image attribute and color adjust type are valid, then sets the color keys accordingly.",
+      "parameters": [
+        {
+          "name": "imageattr",
+          "type": "GpImageAttributes *",
+          "description": "Pointer to the image attributes"
+        },
+        {
+          "name": "type",
+          "type": "ColorAdjustType",
+          "description": "Type of color adjustment"
+        },
+        {
+          "name": "enableFlag",
+          "type": "BOOL",
+          "description": "Flag to enable or disable the color keys"
+        },
+        {
+          "name": "colorLow",
+          "type": "ARGB",
+          "description": "Lower limit of the color key range"
+        },
+        {
+          "name": "colorHigh",
+          "type": "ARGB",
+          "description": "Upper limit of the color key range"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the parameters are not valid"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetImageAttributesColorMatrix",
+      "description": "This function sets the color and gray matrices for an image attribute object. If the enableFlag is true, it also sets the color matrix and flags for the specified type. If the flag is ColorMatrixFlagsAltGray, it also sets the gray matrix. Finally, it sets the enable flag for the specified type.",
+      "parameters": [
+        {
+          "name": "imageattr",
+          "type": "GpImageAttributes *",
+          "description": "A pointer to the image attribute object to be modified."
+        },
+        {
+          "name": "type",
+          "type": "ColorAdjustType",
+          "description": "The type of adjustment to be made."
+        },
+        {
+          "name": "enableFlag",
+          "type": "BOOL",
+          "description": "A flag indicating whether the color matrix should be enabled."
+        },
+        {
+          "name": "colorMatrix",
+          "type": "GDIPCONST *",
+          "description": "A pointer to the color matrix to be set."
+        },
+        {
+          "name": "grayMatrix",
+          "type": "GDIPCONST *",
+          "description": "A pointer to the gray matrix to be set if the flag is ColorMatrixFlagsAltGray."
+        },
+        {
+          "name": "flags",
+          "type": "ColorMatrixFlags",
+          "description": "Flags indicating the type of color matrix to be set."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any parameter is invalid."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetImageAttributesWrapMode",
+      "description": "This function sets the wrap mode, outside color, and clamp value of an image attribute.",
+      "parameters": [
+        {
+          "name": "imageAttr",
+          "type": "GpImageAttributes*",
+          "description": "Pointer to the image attribute to be modified."
+        },
+        {
+          "name": "wrap",
+          "type": "WrapMode",
+          "description": "The wrap mode to be set."
+        },
+        {
+          "name": "argb",
+          "type": "ARGB",
+          "description": "The outside color to be set."
+        },
+        {
+          "name": "clamp",
+          "type": "BOOL",
+          "description": "The clamp value to be set."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the parameters are not valid."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetImageAttributesCachedBackground",
+      "description": "This function is used to set image attributes for a cached background. However, it is currently not implemented.",
+      "parameters": [
+        {
+          "name": "imageAttr",
+          "type": "GpImageAttributes *",
+          "description": "This is a pointer to the image attributes to be set."
+        },
+        {
+          "name": "enableFlag",
+          "type": "BOOL",
+          "description": "This flag is used to enable or disable the setting of image attributes."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. Currently, it always returns 'NotImplemented'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetImageAttributesGamma",
+      "description": "This function sets the gamma value for an image attribute and enables or disables gamma correction.",
+      "parameters": [
+        {
+          "name": "imageAttr",
+          "type": "GpImageAttributes *",
+          "description": "Pointer to the image attribute object"
+        },
+        {
+          "name": "type",
+          "type": "ColorAdjustType",
+          "description": "Specifies the type of adjustment"
+        },
+        {
+          "name": "enableFlag",
+          "type": "BOOL",
+          "description": "Flag to enable or disable gamma correction"
+        },
+        {
+          "name": "gamma",
+          "type": "REAL",
+          "description": "The gamma value to be set"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if parameters are not valid"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetImageAttributesNoOp",
+      "description": "This function sets the no-operation status of an image attribute, based on the color adjust type and a boolean flag.",
+      "parameters": [
+        {
+          "name": "imageAttr",
+          "type": "GpImageAttributes*",
+          "description": "Pointer to the image attribute to be modified."
+        },
+        {
+          "name": "type",
+          "type": "ColorAdjustType",
+          "description": "The color adjust type to be checked and set."
+        },
+        {
+          "name": "enableFlag",
+          "type": "BOOL",
+          "description": "Flag to determine whether to set or clear the no-operation status."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns 'Ok' if successful, 'InvalidParameter' if the color adjust type is invalid."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetImageAttributesOutputChannel",
+      "description": "This function is used to set the output channel attributes of an image. However, it is not yet implemented.",
+      "parameters": [
+        {
+          "name": "imageAttr",
+          "type": "GpImageAttributes *",
+          "description": "Pointer to the image attributes"
+        },
+        {
+          "name": "type",
+          "type": "ColorAdjustType",
+          "description": "Type of color adjustment"
+        },
+        {
+          "name": "enableFlag",
+          "type": "BOOL",
+          "description": "Flag to enable or disable the function"
+        },
+        {
+          "name": "channelFlags",
+          "type": "ColorChannelFlags",
+          "description": "Flags for the color channels"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. In this case, it always returns 'NotImplemented'"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetImageAttributesOutputChannelColorProfile",
+      "description": "This function is used to set the output channel color profile for image attributes. However, it is currently not implemented.",
+      "parameters": [
+        {
+          "name": "imageAttr",
+          "type": "GpImageAttributes *",
+          "description": "Pointer to the image attributes"
+        },
+        {
+          "name": "type",
+          "type": "ColorAdjustType",
+          "description": "Type of color adjustment"
+        },
+        {
+          "name": "enableFlag",
+          "type": "BOOL",
+          "description": "Flag to enable or disable the color profile"
+        },
+        {
+          "name": "colorProfileFilename",
+          "type": "GDIPCONST *",
+          "description": "Filename of the color profile"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, but currently always returns 'NotImplemented'"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetImageAttributesRemapTable",
+      "description": "This function sets the color remap table for specified image attributes. If the enable flag is true, it creates a new color map with the specified size, copies the input map to the new map, and assigns it to the image attributes. If the enable flag is false, it frees the existing color map and sets it to NULL. The function also sets the enable flag in the image attributes.",
+      "parameters": [
+        {
+          "name": "imageAttr",
+          "type": "GpImageAttributes *",
+          "description": "Pointer to the image attributes to be modified."
+        },
+        {
+          "name": "type",
+          "type": "ColorAdjustType",
+          "description": "Specifies the type of adjustment to be made."
+        },
+        {
+          "name": "enableFlag",
+          "type": "BOOL",
+          "description": "Flag to enable or disable the color remap table."
+        },
+        {
+          "name": "mapSize",
+          "type": "UINT",
+          "description": "Size of the color map."
+        },
+        {
+          "name": "map",
+          "type": "GDIPCONST ColorMap *",
+          "description": "Pointer to the color map to be copied."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if input parameters are not valid, and 'OutOfMemory' if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetImageAttributesThreshold",
+      "description": "This function is used to set the threshold for image attributes. However, it is not yet implemented.",
+      "parameters": [
+        {
+          "name": "imageAttr",
+          "type": "GpImageAttributes *",
+          "description": "Pointer to the image attributes"
+        },
+        {
+          "name": "type",
+          "type": "ColorAdjustType",
+          "description": "Type of color adjustment"
+        },
+        {
+          "name": "enableFlag",
+          "type": "BOOL",
+          "description": "Flag to enable or disable the function"
+        },
+        {
+          "name": "threshold",
+          "type": "REAL",
+          "description": "Threshold value for the image attributes"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. In this case, it always returns 'NotImplemented'"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetImageAttributesToIdentity",
+      "description": "This function is used to set the image attributes to identity. However, it is not implemented yet.",
+      "parameters": [
+        {
+          "name": "imageAttr",
+          "type": "GpImageAttributes *",
+          "description": "This is a pointer to the image attributes that are to be set to identity."
+        },
+        {
+          "name": "type",
+          "type": "ColorAdjustType",
+          "description": "This parameter represents the type of color adjustment to be applied."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. However, since the function is not implemented, it always returns 'NotImplemented'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipResetImageAttributes",
+      "description": "This function resets the image attributes and sets the color keys, remap table, gamma, and noop for the specified color adjust type.",
+      "parameters": [
+        {
+          "name": "imageAttr",
+          "type": "GpImageAttributes *",
+          "description": "A pointer to the image attributes to be reset."
+        },
+        {
+          "name": "type",
+          "type": "ColorAdjustType",
+          "description": "The color adjust type for which the image attributes are to be reset."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the imageAttr pointer is null or the ColorAdjustType is invalid, otherwise returns 'Ok'."
+    }
+  }
+]

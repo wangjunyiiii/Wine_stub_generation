@@ -1,0 +1,1294 @@
+[
+  {
+    "function": {
+      "name": "get_rpc_endpoint",
+      "description": "This function is used to get the RPC endpoint. Currently, it is a placeholder that needs to be updated to get the endpoint from rpcss.",
+      "parameters": [
+        {
+          "name": "endpoint",
+          "type": "LPWSTR",
+          "description": "This is a pointer to a wide-character string that will receive the RPC endpoint."
+        },
+        {
+          "name": "oxid",
+          "type": "OXID*",
+          "description": "This is a pointer to an OXID object that will be used to generate the RPC endpoint string."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "MIDL_user_allocate",
+      "description": "This function allocates memory of a specified size.",
+      "parameters": [
+        {
+          "name": "size",
+          "type": "SIZE_T",
+          "description": "This parameter specifies the size of the memory to be allocated."
+        }
+      ],
+      "return_type": "void pointer, represents the starting address of the allocated memory."
+    }
+  },
+  {
+    "function": {
+      "name": "MIDL_user_free",
+      "description": "This function is used to deallocate the memory previously allocated by a call to calloc, malloc, or realloc.",
+      "parameters": [
+        {
+          "name": "p",
+          "type": "void*",
+          "description": "This is a pointer to a memory block previously allocated with malloc, calloc or realloc to be deallocated. If a null pointer is passed as argument, no action occurs."
+        }
+      ],
+      "return_type": "void, it does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "rpc_filter",
+      "description": "This function filters exceptions in RPC (Remote Procedure Call) by calling the I_RpcExceptionFilter function with the exception code from the provided EXCEPTION_POINTERS structure.",
+      "parameters": [
+        {
+          "name": "eptr",
+          "type": "EXCEPTION_POINTERS*",
+          "description": "A pointer to an EXCEPTION_POINTERS structure that contains information about the exception."
+        }
+      ],
+      "return_type": "LONG, represents the result of the I_RpcExceptionFilter function call which indicates whether the exception should be handled or not."
+    }
+  },
+  {
+    "function": {
+      "name": "start_rpcss",
+      "description": "This function is used to start the RpcSs service. It opens the service manager, opens the RpcSs service, starts the service, and checks the status of the service until it is running or a timeout occurs.",
+      "parameters": [],
+      "return_type": "BOOL, returns TRUE if the RpcSs service starts successfully, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "get_rpc_handle",
+      "description": "This function composes a string binding handle and converts it to a binding handle. If successful, it frees the string binding and returns the binding handle.",
+      "parameters": [
+        {
+          "name": "protseq",
+          "type": "unsigned short *",
+          "description": "This is the protocol sequence."
+        },
+        {
+          "name": "endpoint",
+          "type": "unsigned short *",
+          "description": "This is the network endpoint."
+        }
+      ],
+      "return_type": "RPC_BINDING_HANDLE, which represents the binding handle for the RPC connection."
+    }
+  },
+  {
+    "function": {
+      "name": "get_irpcss_handle",
+      "description": "This function checks if the irpcss_handle is null. If it is, it creates a new RPC handle using the IRPCSS_PROTSEQ and IRPCSS_ENDPOINT. If another thread has already created the handle, it frees the newly created handle. Finally, it returns the irpcss_handle.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters"
+        }
+      ],
+      "return_type": "RPC_BINDING_HANDLE, which represents the handle to the RPC binding"
+    }
+  },
+  {
+    "function": {
+      "name": "get_irot_handle",
+      "description": "This function checks if the irot_handle is null. If it is, it initializes the protseq and endpoint, gets a new RPC handle, and sets the irot_handle to the new handle if it hasn't been set by another thread. It then returns the irot_handle.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "RPC_BINDING_HANDLE, which represents the handle to the RPC binding."
+    }
+  },
+  {
+    "function": {
+      "name": "rpcss_get_next_seqid",
+      "description": "This function gets the next sequence id for the RPCSS call.",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "DWORD*",
+          "description": "Pointer to a DWORD variable where the next sequence id will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "InternalIrotRegister",
+      "description": "This function registers an object and its moniker in the ROT (Running Object Table) with the specified parameters.",
+      "parameters": [
+        {
+          "name": "moniker_data",
+          "type": "MonikerComparisonData *",
+          "description": "Pointer to the data used for moniker comparison"
+        },
+        {
+          "name": "object",
+          "type": "InterfaceData *",
+          "description": "Pointer to the object to be registered"
+        },
+        {
+          "name": "moniker",
+          "type": "InterfaceData *",
+          "description": "Pointer to the moniker of the object to be registered"
+        },
+        {
+          "name": "time",
+          "type": "FILETIME *",
+          "description": "Pointer to the file time"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags to control the behavior of the function"
+        },
+        {
+          "name": "cookie",
+          "type": "IrotCookie *",
+          "description": "Pointer to the cookie that will be used for further references"
+        },
+        {
+          "name": "ctxt_handle",
+          "type": "IrotContextHandle *",
+          "description": "Pointer to the context handle"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, success or the error code"
+    }
+  },
+  {
+    "function": {
+      "name": "InternalIrotIsRunning",
+      "description": "This function checks if the Irot is running by using the provided moniker data.",
+      "parameters": [
+        {
+          "name": "moniker_data",
+          "type": "MonikerComparisonData *",
+          "description": "This is a pointer to the moniker data used for the Irot check."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation was successful, it returns S_OK. If it failed, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "InternalIrotGetObject",
+      "description": "This function is used to get an object from the Irot using the provided moniker data, object interface data, and Irot cookie.",
+      "parameters": [
+        {
+          "name": "moniker_data",
+          "type": "MonikerComparisonData *",
+          "description": "This is the moniker data used for comparison."
+        },
+        {
+          "name": "obj",
+          "type": "PInterfaceData *",
+          "description": "This is the object interface data."
+        },
+        {
+          "name": "cookie",
+          "type": "IrotCookie *",
+          "description": "This is the Irot cookie."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation is successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "InternalIrotNoteChangeTime",
+      "description": "This function is used to note the change in time in the IrotCookie.",
+      "parameters": [
+        {
+          "name": "cookie",
+          "type": "IrotCookie",
+          "description": "This is the cookie that is used to track the change in time."
+        },
+        {
+          "name": "time",
+          "type": "FILETIME *",
+          "description": "This is a pointer to the time that has changed."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation was successful, it returns S_OK. If it failed, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "InternalIrotGetTimeOfLastChange",
+      "description": "This function is used to get the time of the last change of a moniker.",
+      "parameters": [
+        {
+          "name": "moniker_data",
+          "type": "MonikerComparisonData *",
+          "description": "This is a pointer to the moniker comparison data."
+        },
+        {
+          "name": "time",
+          "type": "FILETIME *",
+          "description": "This is a pointer to a FILETIME structure that receives the time of the last change."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation is successful, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "InternalIrotEnumRunning",
+      "description": "This function is used to enumerate running interfaces in the Interface Rotator (IRot).",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "PInterfaceList *",
+          "description": "A pointer to the list of interfaces to be enumerated."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "InternalIrotRevoke",
+      "description": "This function revokes an interface from the running object table (ROT).",
+      "parameters": [
+        {
+          "name": "cookie",
+          "type": "IrotCookie",
+          "description": "This is a unique identifier for the object in the ROT."
+        },
+        {
+          "name": "ctxt_handle",
+          "type": "IrotContextHandle*",
+          "description": "This is a pointer to the context handle of the object."
+        },
+        {
+          "name": "object",
+          "type": "PInterfaceData*",
+          "description": "This is a pointer to the object to be revoked from the ROT."
+        },
+        {
+          "name": "moniker",
+          "type": "PInterfaceData*",
+          "description": "This is a pointer to the moniker of the object."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "rpcss_server_register",
+      "description": "This function registers a server in the RPCSS service.",
+      "parameters": [
+        {
+          "name": "clsid",
+          "type": "REFCLSID",
+          "description": "The class identifier of the server to be registered."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags that control the behavior of the function."
+        },
+        {
+          "name": "obj",
+          "type": "MInterfacePointer*",
+          "description": "A pointer to the interface of the server."
+        },
+        {
+          "name": "cookie",
+          "type": "unsigned int*",
+          "description": "A pointer to a variable that receives a value used to identify the server in subsequent calls."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. It returns S_OK if the function succeeds; otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "rpc_revoke_local_server",
+      "description": "This function revokes the local server using the provided cookie.",
+      "parameters": [
+        {
+          "name": "cookie",
+          "type": "unsigned int",
+          "description": "This parameter is used as an identifier to revoke the local server."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation is successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "rpcss_get_class_object",
+      "description": "This function is used to get the class object from the RPCSS.",
+      "parameters": [
+        {
+          "name": "rclsid",
+          "type": "REFCLSID",
+          "description": "This is a reference to the class ID."
+        },
+        {
+          "name": "objref",
+          "type": "PMInterfacePointer*",
+          "description": "This is a pointer to the interface pointer of the object."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function call. It can be used to check if the function executed successfully or not."
+    }
+  },
+  {
+    "function": {
+      "name": "start_local_service",
+      "description": "This function starts a local service with the given name and parameters. It opens the service control manager, then opens the service and attempts to start it. If the service is already running, it treats this as a success. It returns an error code indicating the result of the operation.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "WCHAR *",
+          "description": "The name of the service to start."
+        },
+        {
+          "name": "num",
+          "type": "DWORD",
+          "description": "The number of parameters to pass to the service."
+        },
+        {
+          "name": "params",
+          "type": "LPCWSTR *",
+          "description": "The parameters to pass to the service."
+        }
+      ],
+      "return_type": "DWORD, represents the error code of the operation. ERROR_SUCCESS if the service was started successfully, otherwise an error code indicating what went wrong."
+    }
+  },
+  {
+    "function": {
+      "name": "create_local_service",
+      "description": "This function attempts to start a local service for a given class ID. It reads the LocalService and ServiceParameters values from the AppID key. If successful, it starts the local service. If unsuccessful, it returns an error.",
+      "parameters": [
+        {
+          "name": "rclsid",
+          "type": "REFCLSID",
+          "description": "This is a reference to the class ID for which the local service is to be started."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. If the function is successful, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "create_server",
+      "description": "This function attempts to create a server for a given class identifier (CLSID). It checks the architecture of the system and opens the registry key for the CLSID. If the key is not found, it tries to open the key for the opposite architecture. If the key is still not found, it returns an error. If the key is found, it queries the default value for the LocalServer32 key. It then starts the EXE server with the -Embedding switch. If the server fails to start, it returns an error. If the server starts successfully, it returns S_OK.",
+      "parameters": [
+        {
+          "name": "rclsid",
+          "type": "REFCLSID",
+          "description": "The class identifier for the server to be created."
+        },
+        {
+          "name": "process",
+          "type": "HANDLE*",
+          "description": "A pointer to a HANDLE variable that receives the process handle if the server is successfully created."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of server creation. It returns S_OK if the server is successfully created, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "create_surrogate_server",
+      "description": "This function attempts to create a surrogate server for a given class ID (CLSID). It opens the registry keys for the CLSID and the associated AppID, queries for the DllSurrogate value, and then attempts to create a new process running the surrogate server.",
+      "parameters": [
+        {
+          "name": "rclsid",
+          "type": "REFCLSID",
+          "description": "This is a reference to the class ID for which the surrogate server is to be created."
+        },
+        {
+          "name": "process",
+          "type": "HANDLE*",
+          "description": "This is a pointer to a HANDLE in which the function will store the process handle of the created surrogate server."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "rpc_get_local_class_object",
+      "description": "This function attempts to get a local class object, with a maximum of 30 tries. If unsuccessful, it creates a local service and a server. If still unsuccessful, it returns an error. If successful, it writes the object reference to a stream, unmarshals the local server, queries the service, and releases the local server.",
+      "parameters": [
+        {
+          "name": "rclsid",
+          "type": "REFCLSID",
+          "description": "A reference to the class identifier of the object"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "A reference to the interface identifier"
+        },
+        {
+          "name": "obj",
+          "type": "void **",
+          "description": "A pointer to the object"
+        }
+      ],
+      "return_type": "HRESULT, representing the status of the operation. It returns S_OK if successful, or an error code if the operation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "ChannelHooks_ClientGetSize",
+      "description": "This function calculates the total size of the data that needs to be sent over the wire for all registered channel hooks. It also counts the number of hooks and extensions.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "SChannelHookCallInfo *",
+          "description": "Pointer to the channel hook call information"
+        },
+        {
+          "name": "data",
+          "type": "struct channel_hook_buffer_data **",
+          "description": "Pointer to the buffer data for the channel hook"
+        },
+        {
+          "name": "hook_count",
+          "type": "unsigned int *",
+          "description": "Pointer to the variable that will hold the count of hooks"
+        },
+        {
+          "name": "extension_count",
+          "type": "ULONG *",
+          "description": "Pointer to the variable that will hold the count of extensions"
+        }
+      ],
+      "return_type": "ULONG, represents the total size of the data that needs to be sent over the wire for all registered channel hooks"
+    }
+  },
+  {
+    "function": {
+      "name": "ChannelHooks_ClientFillBuffer",
+      "description": "This function fills a buffer with data from a list of channel hooks. It iterates over each hook, checks if it matches with the data, and if it does, it fills the buffer with the extension size. If the extension size is not zero, it calls the IChannelHook_ClientFillBuffer function to fill the buffer. It also sets the conformance, size, and id of the wire_orpc_extent structure.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "SChannelHookCallInfo *",
+          "description": "Pointer to the channel hook call information"
+        },
+        {
+          "name": "buffer",
+          "type": "unsigned char *",
+          "description": "Pointer to the buffer to be filled"
+        },
+        {
+          "name": "data",
+          "type": "struct channel_hook_buffer_data *",
+          "description": "Pointer to the data to be matched with the channel hooks"
+        },
+        {
+          "name": "hook_count",
+          "type": "unsigned int",
+          "description": "Number of hooks to be processed"
+        }
+      ],
+      "return_type": "Returns a pointer to the buffer after it has been filled with the channel hook data"
+    }
+  },
+  {
+    "function": {
+      "name": "ChannelHooks_ServerNotify",
+      "description": "This function notifies the server about channel hooks. It enters a critical section, iterates over each entry in the channel hooks, checks if the GUIDs are equal, and then calls the IChannelHook_ServerNotify function. It leaves the critical section at the end.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "SChannelHookCallInfo *",
+          "description": "Pointer to the channel hook call information"
+        },
+        {
+          "name": "lDataRep",
+          "type": "DWORD",
+          "description": "Data representation"
+        },
+        {
+          "name": "first_wire_orpc_extent",
+          "type": "WIRE_ORPC_EXTENT *",
+          "description": "Pointer to the first wire ORPC extent"
+        },
+        {
+          "name": "extension_count",
+          "type": "ULONG",
+          "description": "Count of extensions"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "ChannelHooks_ServerGetSize",
+      "description": "This function calculates the total size of all extensions in the channel hooks list. It also counts the number of hooks and extensions, and allocates memory for the buffer data.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "SChannelHookCallInfo *",
+          "description": "Pointer to the channel hook call information"
+        },
+        {
+          "name": "data",
+          "type": "struct channel_hook_buffer_data **",
+          "description": "Pointer to the buffer data for the channel hooks"
+        },
+        {
+          "name": "hook_count",
+          "type": "unsigned int *",
+          "description": "Pointer to the variable that will hold the count of hooks"
+        },
+        {
+          "name": "extension_count",
+          "type": "ULONG *",
+          "description": "Pointer to the variable that will hold the count of extensions"
+        }
+      ],
+      "return_type": "ULONG, represents the total size of all extensions in the channel hooks list"
+    }
+  },
+  {
+    "function": {
+      "name": "ChannelHooks_ServerFillBuffer",
+      "description": "This function fills a buffer with data from a list of channel hooks. It iterates over each entry in the channel hooks list, checks if the hook's ID matches with any of the data IDs, and if so, it fills the buffer with the corresponding data. The function also handles critical sections to ensure thread safety.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "SChannelHookCallInfo *",
+          "description": "Pointer to the channel hook call information"
+        },
+        {
+          "name": "buffer",
+          "type": "unsigned char *",
+          "description": "Pointer to the buffer to be filled"
+        },
+        {
+          "name": "data",
+          "type": "struct channel_hook_buffer_data *",
+          "description": "Pointer to the data to be used for filling the buffer"
+        },
+        {
+          "name": "hook_count",
+          "type": "unsigned int",
+          "description": "Number of hooks to be processed"
+        }
+      ],
+      "return_type": "unsigned char *; Returns the updated buffer after filling it with the data"
+    }
+  },
+  {
+    "function": {
+      "name": "ChannelHooks_ClientNotify",
+      "description": "This function notifies the client about the channel hooks. It enters a critical section, iterates over each entry in the channel hooks, checks if the GUIDs are equal, and if not, sets the wire_orpc_extent to NULL. Then it calls the IChannelHook_ClientNotify function with the appropriate parameters. Finally, it leaves the critical section.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "SChannelHookCallInfo *",
+          "description": "Pointer to the channel hook call information"
+        },
+        {
+          "name": "lDataRep",
+          "type": "DWORD",
+          "description": "Data representation"
+        },
+        {
+          "name": "first_wire_orpc_extent",
+          "type": "WIRE_ORPC_EXTENT *",
+          "description": "Pointer to the first wire ORPC extent"
+        },
+        {
+          "name": "extension_count",
+          "type": "ULONG",
+          "description": "Count of extensions"
+        },
+        {
+          "name": "hrFault",
+          "type": "HRESULT",
+          "description": "Handle to the result of the fault"
+        }
+      ],
+      "return_type": "void, does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "rpc_register_channel_hook",
+      "description": "This function registers a channel hook in a thread-safe manner. It allocates memory for a new channel hook entry, assigns the provided GUID and hook to the new entry, increases the reference count of the hook, and adds the new entry to the tail of the channel hooks list.",
+      "parameters": [
+        {
+          "name": "rguid",
+          "type": "REFGUID",
+          "description": "This is the GUID that is assigned to the new channel hook entry."
+        },
+        {
+          "name": "hook",
+          "type": "IChannelHook *",
+          "description": "This is the hook that is assigned to the new channel hook entry and its reference count is increased."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns E_OUTOFMEMORY if memory allocation for the new entry fails, otherwise it returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "rpc_unregister_channel_hooks",
+      "description": "This function unregisters channel hooks. It first enters a critical section, then it iterates over each entry in the channel_hooks list, freeing the memory allocated to each. Finally, it leaves the critical section and deletes it, along with another critical section.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, meaning this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "RpcChannelBuffer_QueryInterface",
+      "description": "This function checks if the provided interface ID matches with the ID of IRpcChannelBuffer or IUnknown. If it matches, it increases the reference count of the interface and returns S_OK. If it doesn't match, it returns E_NOINTERFACE.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRpcChannelBuffer *",
+          "description": "Pointer to the IRpcChannelBuffer interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface ID to be checked"
+        },
+        {
+          "name": "ppv",
+          "type": "LPVOID *",
+          "description": "Pointer to the pointer that receives the interface pointer on success"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the interface ID matches, E_NOINTERFACE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "RpcChannelBuffer_AddRef",
+      "description": "This function increments the reference count of the RpcChannelBuffer object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPRPCCHANNELBUFFER",
+          "description": "This parameter is a pointer to the RpcChannelBuffer object whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after incrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "ServerRpcChannelBuffer_Release",
+      "description": "This function decrements the reference count of the RPC channel buffer object. If the reference count becomes zero, the object is freed from memory.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPRPCCHANNELBUFFER",
+          "description": "This is a pointer to the RPC channel buffer object."
+        }
+      ],
+      "return_type": "ULONG. This represents the new reference count of the object after decrement. If the object was freed, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "ClientRpcChannelBuffer_Release",
+      "description": "This function releases the RPC channel buffer, decrements the reference count, and if the reference count is zero, it frees the binding and the buffer itself.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPRPCCHANNELBUFFER",
+          "description": "This parameter is a pointer to the RPC channel buffer to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after decrement. If the count is zero, the function returns 0 after freeing the buffer."
+    }
+  },
+  {
+    "function": {
+      "name": "ServerRpcChannelBuffer_GetBuffer",
+      "description": "This function retrieves a buffer for a server RPC channel. It modifies the buffer length based on the extensions size and extension count. It also handles memory allocation for the buffer and frees up the channel hook data. It returns a status code converted to an HRESULT.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPRPCCHANNELBUFFER",
+          "description": "Interface for the RPC channel buffer"
+        },
+        {
+          "name": "olemsg",
+          "type": "RPCOLEMESSAGE*",
+          "description": "Pointer to the RPC OLE message"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It could be E_OUTOFMEMORY if memory allocation fails, or RPC_S_OK if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "ClientRpcChannelBuffer_GetEventHandle",
+      "description": "This function gets the event handle of a ClientRpcChannelBuffer object. If the event handle doesn't exist, it creates a new one.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ClientRpcChannelBuffer *",
+          "description": "Pointer to the ClientRpcChannelBuffer object whose event handle is to be retrieved or created."
+        }
+      ],
+      "return_type": "HANDLE, which represents the event handle of the ClientRpcChannelBuffer object."
+    }
+  },
+  {
+    "function": {
+      "name": "ClientRpcChannelBuffer_ReleaseEventHandle",
+      "description": "This function releases an event handle if it is already cached in the ClientRpcChannelBuffer object.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ClientRpcChannelBuffer*",
+          "description": "Pointer to the ClientRpcChannelBuffer object."
+        },
+        {
+          "name": "event",
+          "type": "HANDLE",
+          "description": "Handle to the event to be released."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "ClientRpcChannelBuffer_GetBuffer",
+      "description": "This function is used to get the buffer of a client RPC channel. It allocates and initializes various structures, checks for memory allocation errors, and sets up the message state for the RPC channel. It also handles the communication between the client and the server.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPRPCCHANNELBUFFER",
+          "description": "This is the interface of the RPC channel buffer."
+        },
+        {
+          "name": "olemsg",
+          "type": "RPCOLEMESSAGE*",
+          "description": "This is the RPC OLE message that is to be sent."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "This is the reference to the interface identifier."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function call. It returns S_OK if the function executes successfully, and an error code otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "ServerRpcChannelBuffer_SendReceive",
+      "description": "This function is a stub and not yet implemented.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPRPCCHANNELBUFFER",
+          "description": "Interface for the RPC channel buffer"
+        },
+        {
+          "name": "olemsg",
+          "type": "RPCOLEMESSAGE*",
+          "description": "Pointer to the OLE message"
+        },
+        {
+          "name": "pstatus",
+          "type": "ULONG*",
+          "description": "Pointer to the status"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "rpc_sendreceive_thread",
+      "description": "This function sends and receives data using RPC, sets the status of the operation, logs the status, and signals the completion of the operation by setting an event.",
+      "parameters": [
+        {
+          "name": "param",
+          "type": "LPVOID",
+          "description": "This parameter is a pointer to a dispatch_params structure, which contains the data to be sent and received, the message, the status of the operation, and a handle to an event."
+        }
+      ],
+      "return_type": "DWORD, which represents the status of the operation. In this function, it always returns 0, indicating successful execution."
+    }
+  },
+  {
+    "function": {
+      "name": "ClientRpcChannelBuffer_IsCorrectApartment",
+      "description": "This function checks if the given apartment matches the OXID of the ClientRpcChannelBuffer. If the apartment is null or the OXIDs do not match, it returns S_FALSE. Otherwise, it returns S_OK.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ClientRpcChannelBuffer *",
+          "description": "Pointer to the ClientRpcChannelBuffer whose OXID is to be checked"
+        },
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "Pointer to the apartment structure to be compared with the ClientRpcChannelBuffer's OXID"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function. S_OK if the OXIDs match, S_FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "ClientRpcChannelBuffer_SendReceive",
+      "description": "This function is responsible for sending and receiving messages over RPC (Remote Procedure Call) channel buffer. It checks the apartment state, manages thread safety, handles message states, and manages error conditions.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPRPCCHANNELBUFFER",
+          "description": "Interface to the RPC channel buffer"
+        },
+        {
+          "name": "olemsg",
+          "type": "RPCOLEMESSAGE*",
+          "description": "Pointer to the OLE message to be sent/received"
+        },
+        {
+          "name": "pstatus",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable where the status of the operation will be stored"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and an error code otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "ServerRpcChannelBuffer_FreeBuffer",
+      "description": "This function is used to free the buffer of a Server RPC Channel. It also restores the binding handle and the real start of data, and checks if the RPC runtime is bypassed or not.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPRPCCHANNELBUFFER",
+          "description": "Interface pointer to the RPC channel buffer"
+        },
+        {
+          "name": "olemsg",
+          "type": "RPCOLEMESSAGE*",
+          "description": "Pointer to the RPC OLE message"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns the result of the operation as a Windows HRESULT code."
+    }
+  },
+  {
+    "function": {
+      "name": "ClientRpcChannelBuffer_FreeBuffer",
+      "description": "This function frees the buffer of a RPC (Remote Procedure Call) channel and releases the associated resources.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPRPCCHANNELBUFFER",
+          "description": "Pointer to the RPC channel buffer interface."
+        },
+        {
+          "name": "olemsg",
+          "type": "RPCOLEMESSAGE*",
+          "description": "Pointer to the RPC message to be freed."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns a success code if the operation was successful, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ClientRpcChannelBuffer_GetDestCtx",
+      "description": "This function retrieves the destination context and destination context data from the ClientRpcChannelBuffer structure.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPRPCCHANNELBUFFER",
+          "description": "Pointer to the interface of the ClientRpcChannelBuffer structure."
+        },
+        {
+          "name": "pdwDestContext",
+          "type": "DWORD*",
+          "description": "Pointer to a DWORD variable that receives the destination context."
+        },
+        {
+          "name": "ppvDestContext",
+          "type": "void**",
+          "description": "Pointer to a void pointer that receives the destination context data."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "ServerRpcChannelBuffer_GetDestCtx",
+      "description": "This function retrieves the destination context and destination context data from the given RPC channel buffer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPRPCCHANNELBUFFER",
+          "description": "This is a pointer to the RPC channel buffer from which the destination context and data are to be retrieved."
+        },
+        {
+          "name": "dest_context",
+          "type": "DWORD*",
+          "description": "This is a pointer to a DWORD variable where the destination context will be stored."
+        },
+        {
+          "name": "dest_context_data",
+          "type": "void**",
+          "description": "This is a pointer to a void pointer where the destination context data will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "RpcChannelBuffer_IsConnected",
+      "description": "This function checks if the RPC channel buffer is connected. However, the native function does nothing.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPRPCCHANNELBUFFER",
+          "description": "This is the interface of the RPC channel buffer to be checked."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns S_OK indicating success."
+    }
+  },
+  {
+    "function": {
+      "name": "rpc_create_clientchannel",
+      "description": "This function creates a client channel for RPC (Remote Procedure Call). It connects to an endpoint, gets a binding for it, and initializes a new ClientRpcChannelBuffer structure.",
+      "parameters": [
+        {
+          "name": "oxid",
+          "type": "OXID *",
+          "description": "Pointer to the object exporter identifier."
+        },
+        {
+          "name": "ipid",
+          "type": "IPID *",
+          "description": "Pointer to the interface pointer identifier."
+        },
+        {
+          "name": "oxid_info",
+          "type": "OXID_INFO *",
+          "description": "Pointer to the object exporter information."
+        },
+        {
+          "name": "iid",
+          "type": "IID *",
+          "description": "Pointer to the interface identifier."
+        },
+        {
+          "name": "dest_context",
+          "type": "DWORD",
+          "description": "Destination context, used to indicate the context in which the channel buffer is to be used."
+        },
+        {
+          "name": "dest_context_data",
+          "type": "void *",
+          "description": "Pointer to the destination context data."
+        },
+        {
+          "name": "chan",
+          "type": "IRpcChannelBuffer **",
+          "description": "Pointer to a pointer to an IRpcChannelBuffer interface, which will be initialized by this function."
+        },
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "Pointer to the apartment structure, which represents a COM apartment."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful; otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "rpc_create_serverchannel",
+      "description": "This function creates a server channel for remote procedure call (RPC). It allocates memory for the channel, sets its properties, and returns a pointer to it.",
+      "parameters": [
+        {
+          "name": "dest_context",
+          "type": "DWORD",
+          "description": "Destination context for the RPC"
+        },
+        {
+          "name": "dest_context_data",
+          "type": "void *",
+          "description": "Data associated with the destination context"
+        },
+        {
+          "name": "chan",
+          "type": "IRpcChannelBuffer **",
+          "description": "Pointer to a pointer to an IRpcChannelBuffer interface, which will be set to the newly created channel"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns E_OUTOFMEMORY if memory allocation fails, and S_OK if the function succeeds"
+    }
+  },
+  {
+    "function": {
+      "name": "unmarshal_ORPC_EXTENT_ARRAY",
+      "description": "This function unmarshals an ORPC_EXTENT_ARRAY from a given RPC_MESSAGE. It also checks for valid bounds and headers, and handles errors accordingly.",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "RPC_MESSAGE *",
+          "description": "Pointer to the RPC message to unmarshal from."
+        },
+        {
+          "name": "end",
+          "type": "char *",
+          "description": "Pointer to the end of the message."
+        },
+        {
+          "name": "extensions",
+          "type": "ORPC_EXTENT_ARRAY *",
+          "description": "Pointer to the ORPC_EXTENT_ARRAY to unmarshal into."
+        },
+        {
+          "name": "first_wire_orpc_extent",
+          "type": "WIRE_ORPC_EXTENT **",
+          "description": "Pointer to the first WIRE_ORPC_EXTENT in the array."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and error codes like RPC_E_INVALID_HEADER or RPC_S_INVALID_BOUND if there are errors."
+    }
+  },
+  {
+    "function": {
+      "name": "unmarshal_ORPCTHIS",
+      "description": "This function unmarshals an ORPCTHIS structure from a buffer. It checks for buffer length, copies data from buffer to ORPCTHIS structure, checks for version mismatch and invalid flags, and returns appropriate HRESULT status.",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "RPC_MESSAGE *",
+          "description": "Pointer to the RPC_MESSAGE structure that contains the buffer to be unmarshaled."
+        },
+        {
+          "name": "orpcthis",
+          "type": "ORPCTHIS *",
+          "description": "Pointer to the ORPCTHIS structure to be filled with unmarshaled data."
+        },
+        {
+          "name": "orpc_ext_array",
+          "type": "ORPC_EXTENT_ARRAY *",
+          "description": "Pointer to the ORPC_EXTENT_ARRAY structure to be filled with unmarshaled data if extensions are present in the buffer."
+        },
+        {
+          "name": "first_wire_orpc_extent",
+          "type": "WIRE_ORPC_EXTENT **",
+          "description": "Pointer to the pointer to the first WIRE_ORPC_EXTENT structure if extensions are present in the buffer."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the unmarshaling process. It can be S_OK if the process is successful, or error codes like RPC_E_INVALID_HEADER or RPC_E_VERSION_MISMATCH in case of errors."
+    }
+  },
+  {
+    "function": {
+      "name": "unmarshal_ORPCTHAT",
+      "description": "This function is used to unmarshal the ORPCTHAT structure from the RPC message buffer. It also checks for buffer length and invalid flags.",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "RPC_MESSAGE *",
+          "description": "Pointer to the RPC message structure"
+        },
+        {
+          "name": "orpcthat",
+          "type": "ORPCTHAT *",
+          "description": "Pointer to the ORPCTHAT structure to be unmarshalled"
+        },
+        {
+          "name": "orpc_ext_array",
+          "type": "ORPC_EXTENT_ARRAY *",
+          "description": "Pointer to the ORPC_EXTENT_ARRAY structure"
+        },
+        {
+          "name": "first_wire_orpc_extent",
+          "type": "WIRE_ORPC_EXTENT **",
+          "description": "Pointer to the first WIRE_ORPC_EXTENT structure"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful, otherwise returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "rpc_execute_call",
+      "description": "This function executes a remote procedure call (RPC). It handles ORPCTHIS and server extensions, manages message state, calls message filter, invokes the method, and manages memory allocation and deallocation.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "struct dispatch_params *",
+          "description": "This parameter is a pointer to a dispatch_params structure that contains information needed for the RPC."
+        }
+      ],
+      "return_type": "void, meaning it does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "dispatch_rpc",
+      "description": "This function is used to dispatch an RPC message. It first inquires the object from the RPC message, then gets the dispatch parameters. If the apartment is not multi-threaded, it creates an event and posts a message to the apartment thread. If the apartment is multi-threaded, it executes the RPC call directly. After the call, it releases the resources and raises an exception if the call failed.",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "RPC_MESSAGE*",
+          "description": "This is the RPC message to be dispatched."
+        }
+      ],
+      "return_type": "void, this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "rpc_register_interface",
+      "description": "This function registers a new interface if it doesn't already exist in the list of registered interfaces. If the interface already exists, it increments the reference count. If the interface doesn't exist, it creates a new one and adds it to the list of registered interfaces.",
+      "parameters": [
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "This is the reference to the interface identifier that needs to be registered."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_OUTOFMEMORY if memory allocation fails, or the error code returned by RpcServerRegisterIfEx if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "rpc_unregister_interface",
+      "description": "This function unregisters an interface from the RPC server. It iterates over the list of registered interfaces, and if it finds a match with the provided interface ID, it decreases the reference count. If the reference count reaches zero, it unregisters the interface from the RPC server, removes it from the list, and frees the memory.",
+      "parameters": [
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "This is the reference to the Interface Identifier that needs to be unregistered."
+        },
+        {
+          "name": "wait",
+          "type": "BOOL",
+          "description": "This is a boolean value that indicates whether the function should wait until all calls to the interface have completed before returning."
+        }
+      ],
+      "return_type": "void, which means this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "rpc_resolve_oxid",
+      "description": "This function is used to resolve an OXID and set the OXID_INFO structure. It currently sets default values and copies the OXID to the IRemUnknown interface's IPID. The function is not yet complete and does not contact the machine's OXID resolver.",
+      "parameters": [
+        {
+          "name": "oxid",
+          "type": "OXID",
+          "description": "An OXID that needs to be resolved."
+        },
+        {
+          "name": "oxid_info",
+          "type": "OXID_INFO*",
+          "description": "A pointer to an OXID_INFO structure that will be set by this function."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the function executes successfully."
+    }
+  },
+  {
+    "function": {
+      "name": "rpc_start_remoting",
+      "description": "This function starts the remoting process in the given apartment if it has not already started. It registers an endpoint for the RPC server to use and starts the apartment's remote unknown.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment*",
+          "description": "This is a pointer to the apartment structure where the remoting process will be started."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "DllDebugObjectRPCHook",
+      "description": "This function is a stub and currently only logs its parameters and returns TRUE.",
+      "parameters": [
+        {
+          "name": "trace",
+          "type": "BOOL",
+          "description": "This parameter is used for tracing."
+        },
+        {
+          "name": "args",
+          "type": "void *",
+          "description": "This parameter is used to pass arguments."
+        }
+      ],
+      "return_type": "BOOL, represents a boolean value. In this case, the function always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "CoDecodeProxy",
+      "description": "This function is not implemented yet. It is expected to decode a proxy using the provided client process ID, proxy address, and server information.",
+      "parameters": [
+        {
+          "name": "client_pid",
+          "type": "DWORD",
+          "description": "The process ID of the client."
+        },
+        {
+          "name": "proxy_addr",
+          "type": "UINT64",
+          "description": "The address of the proxy."
+        },
+        {
+          "name": "server_info",
+          "type": "ServerInformation *",
+          "description": "A pointer to the server information structure."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating the function is not implemented."
+    }
+  }
+]

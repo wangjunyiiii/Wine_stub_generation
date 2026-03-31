@@ -1,0 +1,4614 @@
+[
+  {
+    "function": {
+      "name": "user_lock",
+      "description": "This function locks the user mutex and, if it's the first lock, assigns the current thread ID to the user lock thread.",
+      "parameters": [],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "user_unlock",
+      "description": "This function unlocks a user by decrementing the user_lock_rec and setting user_lock_thread to 0 if user_lock_rec reaches 0. It also unlocks a previously locked pthread_mutex.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "user_check_not_lock",
+      "description": "This function checks if the current thread is the user lock thread. If it is, it logs an error and asserts false.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not accept any parameters"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "get_display_device_init_mutex",
+      "description": "This function initializes a mutex for the display device. It creates a named mutex object, waits for the mutex to be signaled, and then returns the handle to the mutex.",
+      "parameters": [],
+      "return_type": "HANDLE, which represents a handle to the mutex object. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "release_display_device_init_mutex",
+      "description": "This function releases a mutex and then closes the handle to it.",
+      "parameters": [
+        {
+          "name": "mutex",
+          "type": "HANDLE",
+          "description": "This is a handle to the mutex that needs to be released and closed."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "gpu_acquire",
+      "description": "This function increments the reference count of the gpu structure and returns the same structure.",
+      "parameters": [
+        {
+          "name": "gpu",
+          "type": "struct gpu *",
+          "description": "This parameter is a pointer to the gpu structure whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "struct gpu *; It represents the same gpu structure passed as parameter after incrementing its reference count."
+    }
+  },
+  {
+    "function": {
+      "name": "gpu_release",
+      "description": "This function decreases the reference count of the gpu object. If the reference count reaches zero, it frees the memory allocated to the gpu object.",
+      "parameters": [
+        {
+          "name": "gpu",
+          "type": "struct gpu*",
+          "description": "This is a pointer to the gpu object whose reference count is to be decremented."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "source_acquire",
+      "description": "This function increments the reference count of the source object and returns the same source object.",
+      "parameters": [
+        {
+          "name": "source",
+          "type": "struct source *",
+          "description": "This is a pointer to the source object whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "struct source *; Returns the same source object after incrementing its reference count."
+    }
+  },
+  {
+    "function": {
+      "name": "source_release",
+      "description": "This function decreases the reference count of the source object. If the reference count reaches zero, it releases the resources associated with the source object.",
+      "parameters": [
+        {
+          "name": "source",
+          "type": "struct source *",
+          "description": "This is a pointer to the source object whose reference count is to be decreased and resources are to be released if the reference count reaches zero."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "monitor_release",
+      "description": "This function decreases the reference count of a monitor object. If the reference count reaches zero, it releases the source of the monitor and frees the memory allocated for the monitor.",
+      "parameters": [
+        {
+          "name": "monitor",
+          "type": "struct monitor *",
+          "description": "This is a pointer to the monitor object whose reference count is to be decremented."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "get_monitor_info_from_edid",
+      "description": "This function extracts monitor information from the Extended Display Identification Data (EDID) and stores it in the provided info structure.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "struct edid_monitor_info *",
+          "description": "A pointer to a structure where the extracted monitor information will be stored."
+        },
+        {
+          "name": "edid",
+          "type": "unsigned char *",
+          "description": "A pointer to the EDID data from which the monitor information will be extracted."
+        },
+        {
+          "name": "edid_len",
+          "type": "unsigned int",
+          "description": "The length of the EDID data."
+        }
+      ],
+      "return_type": "void, this function does not return a value but modifies the info structure passed as a parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "debugstr_devmodew",
+      "description": "This function generates a debug string for a DEVMODEW structure, providing information about the display mode settings.",
+      "parameters": [
+        {
+          "name": "devmode",
+          "type": "const DEVMODEW *",
+          "description": "Pointer to a DEVMODEW structure that contains information about the initialized display device."
+        }
+      ],
+      "return_type": "char: Returns a string that represents the debug information of the display mode settings."
+    }
+  },
+  {
+    "function": {
+      "name": "devmode_get",
+      "description": "This function retrieves the value of a specified field from a DEVMODEW structure.",
+      "parameters": [
+        {
+          "name": "mode",
+          "type": "DEVMODEW *",
+          "description": "Pointer to a DEVMODEW structure from which the function retrieves the value."
+        },
+        {
+          "name": "field",
+          "type": "UINT",
+          "description": "Specifies the field whose value is to be retrieved. This parameter can be one of the following values: DM_DISPLAYORIENTATION, DM_BITSPERPEL, DM_PELSWIDTH, DM_PELSHEIGHT, DM_DISPLAYFLAGS, DM_DISPLAYFREQUENCY, DM_DISPLAYFIXEDOUTPUT."
+        }
+      ],
+      "return_type": "UINT. The function returns the value of the specified field if it is set in the dmFields member of the DEVMODEW structure. If the specified field is not set in dmFields, the function returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "is_detached_mode",
+      "description": "This function checks if the given mode is in detached mode by checking certain properties of the mode.",
+      "parameters": [
+        {
+          "name": "mode",
+          "type": "DEVMODEW*",
+          "description": "This parameter represents the mode that is to be checked if it is in detached mode."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the mode is in detached mode, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "write_source_mode",
+      "description": "This function writes the source mode to the registry. It first checks the index and converts it to a string representation. Then it sets the registry value based on the mode.",
+      "parameters": [
+        {
+          "name": "hkey",
+          "type": "HKEY",
+          "description": "A handle to an open registry key."
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "An index that represents the source mode. It can be ENUM_CURRENT_SETTINGS, ENUM_REGISTRY_SETTINGS, or WINE_ENUM_PHYSICAL_SETTINGS."
+        },
+        {
+          "name": "mode",
+          "type": "DEVMODEW*",
+          "description": "A pointer to a DEVMODEW structure that contains information about the new settings for the source mode."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function successfully writes the source mode to the registry. Otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "read_source_mode",
+      "description": "This function reads the source mode from the registry, based on the provided index. It asserts that the index is one of the predefined constants, assigns a key based on the index, queries the registry for the key, and copies the result into the mode's dmFields.",
+      "parameters": [
+        {
+          "name": "hkey",
+          "type": "HKEY",
+          "description": "A handle to an open registry key."
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "An index that determines the source mode to be read. It should be one of the predefined constants: ENUM_CURRENT_SETTINGS, ENUM_REGISTRY_SETTINGS, or WINE_ENUM_PHYSICAL_SETTINGS."
+        },
+        {
+          "name": "mode",
+          "type": "DEVMODEW *",
+          "description": "A pointer to a DEVMODEW structure that will receive the source mode data."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully reads the source mode and copies it into the mode's dmFields. Otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "source_get_registry_settings",
+      "description": "This function retrieves the registry settings for a given source and mode. It uses a mutex to ensure thread safety during the operation.",
+      "parameters": [
+        {
+          "name": "source",
+          "type": "struct source *",
+          "description": "Pointer to the source structure from which registry settings are to be retrieved."
+        },
+        {
+          "name": "mode",
+          "type": "DEVMODEW *",
+          "description": "Pointer to the DEVMODEW structure where the retrieved registry settings will be stored."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation of retrieving registry settings was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "source_set_registry_settings",
+      "description": "This function sets the registry settings for a given source and mode. It first obtains a mutex for the display device initialization, then attempts to open a registry key with the source's path. If successful, it writes the source mode to the registry and closes the key. Finally, it releases the mutex and returns the result of the operation.",
+      "parameters": [
+        {
+          "name": "source",
+          "type": "struct source*",
+          "description": "Pointer to the source structure whose registry settings are to be set"
+        },
+        {
+          "name": "mode",
+          "type": "DEVMODEW*",
+          "description": "Pointer to the DEVMODEW structure that contains the new settings for the source"
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation of setting the registry settings was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "source_get_current_settings",
+      "description": "This function copies the current settings from a source structure to a DEVMODEW structure and sets the bits per pixel if the source depth is non-zero.",
+      "parameters": [
+        {
+          "name": "source",
+          "type": "struct source *",
+          "description": "Pointer to the source structure from which the current settings are copied"
+        },
+        {
+          "name": "mode",
+          "type": "DEVMODEW *",
+          "description": "Pointer to the DEVMODEW structure where the current settings are to be copied"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE indicating the operation was successful"
+    }
+  },
+  {
+    "function": {
+      "name": "source_set_current_settings",
+      "description": "This function sets the current settings for a given source using a specified mode. It uses a mutex to ensure thread safety and writes the mode to a registry key. If successful, it also sets a registry value.",
+      "parameters": [
+        {
+          "name": "source",
+          "type": "struct source *",
+          "description": "This is a pointer to the source structure for which the settings are to be set."
+        },
+        {
+          "name": "mode",
+          "type": "DEVMODEW *",
+          "description": "This is a pointer to the DEVMODEW structure that contains the mode settings to be set for the source."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in setting the current settings for the source. Returns TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "mode_compare",
+      "description": "This function compares two DEVMODEW structures, primarily used for sorting. It compares various fields in a specific order: depth, width, height, frequency, orientation, interlaced, and stretched.",
+      "parameters": [
+        {
+          "name": "p1",
+          "type": "void*",
+          "description": "Pointer to the first DEVMODEW structure to be compared."
+        },
+        {
+          "name": "p2",
+          "type": "void*",
+          "description": "Pointer to the second DEVMODEW structure to be compared."
+        }
+      ],
+      "return_type": "int, represents the result of the comparison. If the return value is less than 0, the first structure is less than the second structure. If the return value is 0, the structures are equal. If the return value is greater than 0, the first structure is greater than the second structure."
+    }
+  },
+  {
+    "function": {
+      "name": "query_reg_subkey_value",
+      "description": "This function queries a registry subkey value.",
+      "parameters": [
+        {
+          "name": "hkey",
+          "type": "HKEY",
+          "description": "Handle to an open registry key."
+        },
+        {
+          "name": "name",
+          "type": "char *",
+          "description": "Name of the subkey to query."
+        },
+        {
+          "name": "value",
+          "type": "KEY_VALUE_PARTIAL_INFORMATION *",
+          "description": "Pointer to a buffer that receives the key value information."
+        },
+        {
+          "name": "size",
+          "type": "unsigned int",
+          "description": "Size of the buffer pointed to by the value parameter."
+        }
+      ],
+      "return_type": "unsigned int representing the size of the registry value data. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "read_source_from_registry",
+      "description": "This function reads source information from the registry. It retrieves various properties of the source such as StateFlags, Dpi, Depth, ModeCount, Modes, current and physical display modes, and GPUID.",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "unsigned int",
+          "description": "Index of the video device"
+        },
+        {
+          "name": "source",
+          "type": "struct source *",
+          "description": "Pointer to the source structure to be filled with data from the registry"
+        },
+        {
+          "name": "gpu_path",
+          "type": "char *",
+          "description": "Pointer to a character array to be filled with the GPUID from the registry"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully reads the source information from the registry, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "read_monitor_from_registry",
+      "description": "This function reads monitor information from the registry. It retrieves the output ID, rc_work, and EDID of the monitor. If any of these operations fail, it returns FALSE. Otherwise, it returns TRUE.",
+      "parameters": [
+        {
+          "name": "monitor",
+          "type": "struct monitor *",
+          "description": "A pointer to a monitor structure where the retrieved information will be stored."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in reading the monitor information from the registry. Returns TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "read_source_monitor_path",
+      "description": "This function reads the source monitor path from the registry using the provided key and index, and stores it in the provided path buffer.",
+      "parameters": [
+        {
+          "name": "hkey",
+          "type": "HKEY",
+          "description": "The registry key to read from."
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "The index of the monitor to read the path for."
+        },
+        {
+          "name": "path",
+          "type": "char *",
+          "description": "The buffer to store the read path in."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the path was successfully read and stored, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "reg_empty_key",
+      "description": "This function is used to empty a registry key. It first enumerates all subkeys of the given key and deletes them. Then it enumerates all values of the key and deletes them. If the provided key is not the root, it closes the key handle.",
+      "parameters": [
+        {
+          "name": "root",
+          "type": "HKEY",
+          "description": "This is a handle to an open registry key. This handle is returned by the RegCreateKeyEx, RegOpenKeyEx, or RegConnectRegistry function. It can also be one of the following predefined keys: HKEY_CLASSES_ROOT, HKEY_CURRENT_USER, HKEY_LOCAL_MACHINE, HKEY_USERS, HKEY_CURRENT_CONFIG."
+        },
+        {
+          "name": "key_name",
+          "type": "char *",
+          "description": "This is the name of the subkey to be emptied. If this parameter is NULL, the function empties the key represented by the root parameter."
+        }
+      ],
+      "return_type": "void, meaning it does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "clear_display_devices",
+      "description": "This function clears all display devices by releasing all monitors, sources, and gpus from their respective lists.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "prepare_devices",
+      "description": "This function prepares devices by clearing display devices, deleting monitors and sources, cleaning GPUs, and marking GPU GUIDs as not present. It interacts with the registry to perform these operations.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters"
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "cleanup_devices",
+      "description": "This function cleans up devices by enumerating through the registry keys, checking if the device is present and deleting the registry tree if the device is not present.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "uuid_create",
+      "description": "This function generates a unique identifier (UUID) by querying system interrupt information and copying it into the provided GUID structure. It then modifies certain bits of the Data3 and Data4 fields to conform to the UUID specification.",
+      "parameters": [
+        {
+          "name": "uuid",
+          "type": "GUID*",
+          "description": "A pointer to a GUID structure where the generated UUID will be stored."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but instead modifies the GUID structure pointed to by the 'uuid' parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "format_date",
+      "description": "This function formats a given time into a date string (year-month-day) and stores it in a buffer.",
+      "parameters": [
+        {
+          "name": "bufferW",
+          "type": "WCHAR*",
+          "description": "A pointer to a wide character buffer where the formatted date string will be stored."
+        },
+        {
+          "name": "time",
+          "type": "LONGLONG",
+          "description": "The time value to be formatted into a date string."
+        }
+      ],
+      "return_type": "unsigned int, represents the length of the formatted date string stored in the buffer."
+    }
+  },
+  {
+    "function": {
+      "name": "link_device",
+      "description": "This function creates a link for a device in the registry. It first formats the class and instance into a buffer, then creates a registry key with this buffer. It sets the 'DeviceInstance' value of this key to the instance. It then creates a subkey and sets the 'SymbolicLink' value to a formatted string of the instance and class. If a 'Control' subkey can be created, it sets a 'linked' value to 1.",
+      "parameters": [
+        {
+          "name": "instance",
+          "type": "char *",
+          "description": "The instance of the device to be linked"
+        },
+        {
+          "name": "class",
+          "type": "char *",
+          "description": "The class of the device to be linked"
+        }
+      ],
+      "return_type": "void, as this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "read_gpu_from_registry",
+      "description": "This function reads GPU information from the system registry, including the GPU's index, name, LUID, GUID, and Vulkan UUID.",
+      "parameters": [
+        {
+          "name": "gpu",
+          "type": "struct gpu *",
+          "description": "A pointer to a GPU structure where the read information will be stored."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully reads the GPU information from the registry, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "driver_vendor_to_version",
+      "description": "This function returns the version number of the driver based on the vendor ID provided.",
+      "parameters": [
+        {
+          "name": "vendor",
+          "type": "UINT16",
+          "description": "This parameter represents the vendor ID of the driver."
+        }
+      ],
+      "return_type": "char, represents the version number of the driver as a string."
+    }
+  },
+  {
+    "function": {
+      "name": "driver_vendor_to_name",
+      "description": "This function takes a vendor ID as input and returns the corresponding vendor name as a string.",
+      "parameters": [
+        {
+          "name": "vendor",
+          "type": "UINT16",
+          "description": "This parameter is used to specify the vendor ID."
+        }
+      ],
+      "return_type": "char: This represents the name of the vendor corresponding to the input vendor ID."
+    }
+  },
+  {
+    "function": {
+      "name": "write_gpu_to_registry",
+      "description": "This function writes GPU information to the system registry.",
+      "parameters": [
+        {
+          "name": "gpu",
+          "type": "struct gpu *",
+          "description": "Pointer to a GPU structure that contains information about the GPU."
+        },
+        {
+          "name": "pci",
+          "type": "struct pci_id *",
+          "description": "Pointer to a PCI ID structure that contains information about the PCI device."
+        },
+        {
+          "name": "memory_size",
+          "type": "ULONGLONG",
+          "description": "The size of the GPU memory."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation is successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "find_vulkan_gpu_from_uuid",
+      "description": "This function searches for a Vulkan GPU using a given UUID in the device manager context. If the UUID is not found or is null, the function returns null.",
+      "parameters": [
+        {
+          "name": "ctx",
+          "type": "const struct device_manager_ctx *",
+          "description": "This is the device manager context where the function searches for the Vulkan GPU."
+        },
+        {
+          "name": "uuid",
+          "type": "const GUID *",
+          "description": "This is the UUID of the Vulkan GPU that the function is trying to find."
+        }
+      ],
+      "return_type": "struct vulkan_gpu * - This represents a pointer to the Vulkan GPU structure that matches the given UUID. If no match is found, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "find_vulkan_gpu_from_pci_id",
+      "description": "This function searches for a Vulkan GPU in the device manager context using a given PCI ID. It iterates over each entry in the list of Vulkan GPUs in the context. If it finds a GPU with a matching vendor and device ID, it returns that GPU. If no matching GPU is found, it returns NULL.",
+      "parameters": [
+        {
+          "name": "ctx",
+          "type": "const struct device_manager_ctx *",
+          "description": "This is the device manager context in which the function will search for the Vulkan GPU."
+        },
+        {
+          "name": "pci_id",
+          "type": "const struct pci_id *",
+          "description": "This is the PCI ID that the function will use to search for the matching Vulkan GPU."
+        }
+      ],
+      "return_type": "struct vulkan_gpu * - This is a pointer to the Vulkan GPU that matches the given PCI ID. If no matching GPU is found, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "add_gpu",
+      "description": "This function is used to add a GPU to the device manager context. It performs several operations such as creating keys in the registry, allocating memory for the GPU, and writing the GPU to the registry.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "char *",
+          "description": "The name of the GPU to be added."
+        },
+        {
+          "name": "pci_id",
+          "type": "struct pci_id *",
+          "description": "The PCI ID of the GPU to be added."
+        },
+        {
+          "name": "vulkan_uuid",
+          "type": "GUID *",
+          "description": "The Vulkan UUID of the GPU to be added."
+        },
+        {
+          "name": "param",
+          "type": "void *",
+          "description": "A pointer to the device manager context."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "write_source_to_registry",
+      "description": "This function writes the source information to the system registry. It creates registry keys and sets their values based on the source and gpu data. It also handles the creation of symbolic links in the registry.",
+      "parameters": [
+        {
+          "name": "source",
+          "type": "struct source *",
+          "description": "This parameter is a pointer to the source structure that contains the information to be written to the registry."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully writes the source information to the registry, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "add_source",
+      "description": "This function adds a source to a device manager context. It handles the allocation and initialization of the source structure, and writes the source to the registry. If the source is successfully written to the registry, it is added to the list of sources and the source count is incremented.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "char *",
+          "description": "The name of the source to be added."
+        },
+        {
+          "name": "state_flags",
+          "type": "UINT",
+          "description": "The state flags of the source."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "The dpi of the source."
+        },
+        {
+          "name": "param",
+          "type": "void *",
+          "description": "A pointer to the device manager context."
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "write_monitor_to_registry",
+      "description": "This function writes monitor information to the registry. It creates and sets values for various registry keys related to the monitor. If any operation fails, it returns FALSE, otherwise it returns TRUE.",
+      "parameters": [
+        {
+          "name": "monitor",
+          "type": "struct monitor *",
+          "description": "Pointer to a monitor structure containing monitor information"
+        },
+        {
+          "name": "edid",
+          "type": "BYTE *",
+          "description": "Pointer to a BYTE array representing the Extended Display Identification Data (EDID) of the monitor"
+        },
+        {
+          "name": "edid_len",
+          "type": "UINT",
+          "description": "Length of the EDID data"
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the function executed successfully and FALSE indicates that it failed"
+    }
+  },
+  {
+    "function": {
+      "name": "add_monitor",
+      "description": "This function adds a monitor to the device manager context. It initializes the monitor structure, gets monitor info from EDID, sets the registry value, and writes the monitor to the registry. If successful, it increments the monitor count in both the source and the context.",
+      "parameters": [
+        {
+          "name": "gdi_monitor",
+          "type": "const struct gdi_monitor *",
+          "description": "This is a pointer to a gdi_monitor structure that contains information about the monitor to be added."
+        },
+        {
+          "name": "param",
+          "type": "void *",
+          "description": "This is a pointer to the device manager context where the monitor will be added."
+        }
+      ],
+      "return_type": "void, meaning it does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "add_screen_size",
+      "description": "This function adds a new screen size to an array of sizes if it does not already exist in the array.",
+      "parameters": [
+        {
+          "name": "sizes",
+          "type": "SIZE*",
+          "description": "This is a pointer to an array of SIZE structures representing different screen sizes."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "This is the number of elements in the 'sizes' array."
+        },
+        {
+          "name": "size",
+          "type": "SIZE",
+          "description": "This is the new screen size to be added to the 'sizes' array."
+        }
+      ],
+      "return_type": "UINT, represents whether the new size was added to the array (1) or not (0)."
+    }
+  },
+  {
+    "function": {
+      "name": "add_virtual_mode",
+      "description": "This function adds a virtual mode to the modes array at the index specified by count.",
+      "parameters": [
+        {
+          "name": "modes",
+          "type": "DEVMODEW*",
+          "description": "Pointer to an array of DEVMODEW structures representing different modes."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "Index at which the new mode should be added in the modes array."
+        },
+        {
+          "name": "mode",
+          "type": "DEVMODEW*",
+          "description": "Pointer to the DEVMODEW structure representing the mode to be added."
+        }
+      ],
+      "return_type": "UINT, represents a success value. The function returns 1 after successfully adding the mode."
+    }
+  },
+  {
+    "function": {
+      "name": "get_screen_sizes",
+      "description": "This function is used to get the screen sizes. It calculates the maximum width and height, allocates memory for the sizes, and then adds the sizes to the allocated memory. It also checks if the sizes are within the maximum size. If not, it skips them. It returns the sizes.",
+      "parameters": [
+        {
+          "name": "maximum",
+          "type": "const DEVMODEW *",
+          "description": "Pointer to the maximum device mode"
+        },
+        {
+          "name": "modes",
+          "type": "const DEVMODEW *",
+          "description": "Pointer to the device modes"
+        },
+        {
+          "name": "modes_count",
+          "type": "UINT",
+          "description": "Count of the device modes"
+        },
+        {
+          "name": "sizes_count",
+          "type": "UINT *",
+          "description": "Pointer to the count of sizes"
+        }
+      ],
+      "return_type": "SIZE. It represents the sizes of the screens."
+    }
+  },
+  {
+    "function": {
+      "name": "get_virtual_modes",
+      "description": "This function generates a list of virtual display modes based on the initial, maximum and host modes provided. It checks the ratio of dmPelsWidth to dmPelsHeight to determine the orientation of the initial display mode. It then iterates over different depths and frequencies to generate the modes. The function also checks if the generated mode exceeds the maximum mode or matches the initial mode, in which case it skips adding the mode.",
+      "parameters": [
+        {
+          "name": "initial",
+          "type": "const DEVMODEW *",
+          "description": "Pointer to the initial display mode"
+        },
+        {
+          "name": "maximum",
+          "type": "const DEVMODEW *",
+          "description": "Pointer to the maximum display mode"
+        },
+        {
+          "name": "host_modes",
+          "type": "const DEVMODEW *",
+          "description": "Pointer to the host display modes"
+        },
+        {
+          "name": "host_modes_count",
+          "type": "UINT",
+          "description": "Count of the host display modes"
+        },
+        {
+          "name": "modes_count",
+          "type": "UINT32 *",
+          "description": "Pointer to store the count of generated virtual modes"
+        }
+      ],
+      "return_type": "DEVMODEW *, represents a pointer to the generated virtual display modes"
+    }
+  },
+  {
+    "function": {
+      "name": "add_modes",
+      "description": "This function manages device modes, handling different scenarios such as emulation, detachment, and registry settings. It also sets registry values and frees up memory.",
+      "parameters": [
+        {
+          "name": "current",
+          "type": "DEVMODEW *",
+          "description": "Pointer to the current device mode"
+        },
+        {
+          "name": "host_modes_count",
+          "type": "UINT",
+          "description": "Count of host modes"
+        },
+        {
+          "name": "host_modes",
+          "type": "DEVMODEW *",
+          "description": "Pointer to the host modes"
+        },
+        {
+          "name": "param",
+          "type": "void *",
+          "description": "Pointer to the device manager context"
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "release_display_manager_ctx",
+      "description": "This function releases the display manager context by releasing the mutex, cleaning up devices if there are any GPUs, and freeing up Vulkan GPUs if there are any in the list.",
+      "parameters": [
+        {
+          "name": "ctx",
+          "type": "struct device_manager_ctx *",
+          "description": "This is a pointer to the device manager context that needs to be released."
+        }
+      ],
+      "return_type": "void, meaning it does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "is_monitor_active",
+      "description": "This function checks if a monitor is active by checking its source and current settings.",
+      "parameters": [
+        {
+          "name": "monitor",
+          "type": "struct monitor *",
+          "description": "This is a pointer to the monitor structure that needs to be checked."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the monitor is active, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "is_monitor_primary",
+      "description": "This function checks if the given monitor is the primary device.",
+      "parameters": [
+        {
+          "name": "monitor",
+          "type": "struct monitor *",
+          "description": "Pointer to the monitor structure to be checked."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the monitor is the primary device, otherwise FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "monitor_virt_to_raw_ratio",
+      "description": "This function calculates the ratio between the virtual and raw dimensions of a monitor's source. The ratio is determined based on the comparison of the product of the physical width and current height with the product of the physical height and current width of the source. The results are stored in the parameters num and den.",
+      "parameters": [
+        {
+          "name": "monitor",
+          "type": "struct monitor*",
+          "description": "A pointer to the monitor structure whose source's dimensions are to be used for the ratio calculation"
+        },
+        {
+          "name": "num",
+          "type": "UINT*",
+          "description": "A pointer to an unsigned integer where the numerator of the ratio will be stored"
+        },
+        {
+          "name": "den",
+          "type": "UINT*",
+          "description": "A pointer to an unsigned integer where the denominator of the ratio will be stored"
+        }
+      ],
+      "return_type": "void, as this function does not return any value but modifies the values of the parameters passed to it"
+    }
+  },
+  {
+    "function": {
+      "name": "monitor_get_dpi",
+      "description": "This function calculates the DPI (dots per inch) for a given monitor and type, and updates the dpi_x and dpi_y values. It returns the minimum of dpi_x and dpi_y.",
+      "parameters": [
+        {
+          "name": "monitor",
+          "type": "struct monitor *",
+          "description": "Pointer to the monitor structure for which DPI is to be calculated"
+        },
+        {
+          "name": "type",
+          "type": "MONITOR_DPI_TYPE",
+          "description": "Type of DPI to be calculated"
+        },
+        {
+          "name": "dpi_x",
+          "type": "UINT *",
+          "description": "Pointer to store the calculated DPI in x direction"
+        },
+        {
+          "name": "dpi_y",
+          "type": "UINT *",
+          "description": "Pointer to store the calculated DPI in y direction"
+        }
+      ],
+      "return_type": "UINT, represents the minimum of dpi_x and dpi_y"
+    }
+  },
+  {
+    "function": {
+      "name": "map_monitor_rect",
+      "description": "This function maps a rectangle from one DPI type to another for a given monitor. If the monitor has a source, it calculates the mapping using the current and physical modes of the source. Otherwise, it uses the monitor's DPI for the given types.",
+      "parameters": [
+        {
+          "name": "monitor",
+          "type": "struct monitor *",
+          "description": "The monitor for which the rectangle is being mapped."
+        },
+        {
+          "name": "rect",
+          "type": "RECT",
+          "description": "The rectangle to be mapped."
+        },
+        {
+          "name": "dpi_from",
+          "type": "UINT",
+          "description": "The DPI type from which the rectangle is being mapped."
+        },
+        {
+          "name": "type_from",
+          "type": "MONITOR_DPI_TYPE",
+          "description": "The DPI type from which the rectangle is being mapped."
+        },
+        {
+          "name": "dpi_to",
+          "type": "UINT",
+          "description": "The DPI type to which the rectangle is being mapped."
+        },
+        {
+          "name": "type_to",
+          "type": "MONITOR_DPI_TYPE",
+          "description": "The DPI type to which the rectangle is being mapped."
+        }
+      ],
+      "return_type": "RECT, the mapped rectangle."
+    }
+  },
+  {
+    "function": {
+      "name": "monitor_get_rect",
+      "description": "This function retrieves the rectangle of a monitor based on the given DPI and DPI type. It also handles cases where the monitor is a virtual monitor or not attached to the desktop.",
+      "parameters": [
+        {
+          "name": "monitor",
+          "type": "struct monitor *",
+          "description": "A pointer to the monitor structure to get the rectangle from."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "The DPI (dots per inch) to use for the rectangle calculation."
+        },
+        {
+          "name": "type",
+          "type": "MONITOR_DPI_TYPE",
+          "description": "The type of DPI to use for the rectangle calculation."
+        }
+      ],
+      "return_type": "RECT, which represents the calculated rectangle of the monitor."
+    }
+  },
+  {
+    "function": {
+      "name": "monitor_get_info",
+      "description": "This function retrieves information about a specified monitor and updates a MONITORINFO structure or a MONITORINFOEX structure with data.",
+      "parameters": [
+        {
+          "name": "monitor",
+          "type": "struct monitor *",
+          "description": "Pointer to the monitor structure to get information from."
+        },
+        {
+          "name": "info",
+          "type": "MONITORINFO *",
+          "description": "Pointer to a MONITORINFO structure that receives information about the specified display monitor."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "The DPI setting for the monitor."
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "set_winstation_monitors",
+      "description": "This function sets the monitor information for a window station. It iterates over the list of monitors, checks their status and updates their information. It then sends this information to the server.",
+      "parameters": [
+        {
+          "name": "increment",
+          "type": "BOOL",
+          "description": "This parameter is used to increment the count of monitors in the server request."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "enum_device_keys",
+      "description": "This function enumerates device keys in the registry. It opens a root key, then iterates over its subkeys (devices). For each device, it iterates over its subkeys (instances), checks if the 'ClassGUID' value matches the provided class, and if so, it calls the callback with the instance path.",
+      "parameters": [
+        {
+          "name": "root",
+          "type": "const char *",
+          "description": "This is the root key path in the registry."
+        },
+        {
+          "name": "classW",
+          "type": "const WCHAR *",
+          "description": "This is the class GUID to match against."
+        },
+        {
+          "name": "class_size",
+          "type": "UINT",
+          "description": "This is the size of the class GUID."
+        },
+        {
+          "name": "callback",
+          "type": "void (*)(const char *)",
+          "description": "This is a callback function that is called with the path of each matching instance."
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "enum_gpus",
+      "description": "This function enumerates GPUs by allocating memory for a new GPU, setting its reference count to 1, copying the provided path into the GPU's path, and adding the GPU to the tail of a list of GPUs.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "char *",
+          "description": "This parameter is used to specify the path of the GPU."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "find_gpu_from_path",
+      "description": "This function searches for a GPU structure in a list of GPUs using a given path. If the GPU is found, it is acquired and returned. If not, an error message is printed and NULL is returned.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "const char *",
+          "description": "This is the path used to find the GPU in the list of GPUs."
+        }
+      ],
+      "return_type": "struct gpu *; this represents the GPU found at the given path. If no GPU is found, NULL is returned."
+    }
+  },
+  {
+    "function": {
+      "name": "enum_monitors",
+      "description": "This function allocates memory for a new monitor structure, sets its refcount to 1, copies the provided path into the monitor's path, and adds the monitor to the end of a list of monitors.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "const char *",
+          "description": "This parameter is used to specify the path that will be copied into the monitor's path."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "find_monitor_from_path",
+      "description": "This function searches for a monitor in a list of monitors using a given path. If the monitor is not found, it logs an error and returns NULL.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "const char *",
+          "description": "This is the path used to find the monitor in the list of monitors."
+        }
+      ],
+      "return_type": "struct monitor *; This represents the monitor found at the given path. If no monitor is found, NULL is returned."
+    }
+  },
+  {
+    "function": {
+      "name": "update_display_cache_from_registry",
+      "description": "This function updates the display cache from the registry. It queries the registry for video key and enum key, checks if the last write time is less than or equal to the last query display time, and if not, it updates the display devices, enumerates device keys, reads GPU and monitor from the registry, reads source from the registry, and sets the winstation monitors.",
+      "parameters": [
+        {
+          "name": "serial",
+          "type": "UINT64",
+          "description": "This parameter is used to update the monitor update serial if the last write time is less than or equal to the last query display time."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in updating the display cache from the registry or not."
+    }
+  },
+  {
+    "function": {
+      "name": "default_update_display_devices",
+      "description": "This function exposes an adapter and a monitor with a few standard modes, and reads/writes current display settings from/to the registry.",
+      "parameters": [
+        {
+          "name": "ctx",
+          "type": "struct device_manager_ctx *",
+          "description": "This parameter is used to manage the devices."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the function execution. Returns STATUS_SUCCESS if the function executes successfully."
+    }
+  },
+  {
+    "function": {
+      "name": "parse_size",
+      "description": "This function parses the size from a string in the format 'widthxheight' and stores the width and height into two DWORD pointers.",
+      "parameters": [
+        {
+          "name": "size",
+          "type": "WCHAR *",
+          "description": "A string representing the size in the format 'widthxheight'."
+        },
+        {
+          "name": "width",
+          "type": "DWORD *",
+          "description": "A pointer to a DWORD where the parsed width will be stored."
+        },
+        {
+          "name": "height",
+          "type": "DWORD *",
+          "description": "A pointer to a DWORD where the parsed height will be stored."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the size was successfully parsed and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_default_desktop_size",
+      "description": "This function retrieves the default desktop size from the Wine registry key. It opens the registry key, queries for the 'Default' value, and parses the size.",
+      "parameters": [
+        {
+          "name": "width",
+          "type": "DWORD*",
+          "description": "A pointer to a DWORD variable where the width of the desktop will be stored"
+        },
+        {
+          "name": "height",
+          "type": "DWORD*",
+          "description": "A pointer to a DWORD variable where the height of the desktop will be stored"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully retrieves and parses the desktop size, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "add_virtual_source",
+      "description": "This function adds a virtual source to the device manager context. It initializes various structures, checks conditions, and performs operations such as writing the source to the registry, adding the source to the list, and setting up the monitor and modes. It returns a status indicating the success or failure of the operation.",
+      "parameters": [
+        {
+          "name": "ctx",
+          "type": "struct device_manager_ctx *",
+          "description": "This is a pointer to the device manager context where the virtual source will be added."
+        }
+      ],
+      "return_type": "BOOL, represents the status of the operation. It returns STATUS_SUCCESS if the operation is successful, STATUS_NO_MEMORY if memory allocation fails, and STATUS_UNSUCCESSFUL if writing the source to the registry fails."
+    }
+  },
+  {
+    "function": {
+      "name": "update_display_devices",
+      "description": "This function updates the display devices. It first checks if the user driver can update the display devices. If it can't, it checks if there are any source counts and if the desktop is virtual. If both conditions are true, it adds a virtual source. If the status is not implemented, it defaults to updating the display devices. Otherwise, it returns the status.",
+      "parameters": [
+        {
+          "name": "ctx",
+          "type": "struct device_manager_ctx *",
+          "description": "This is a pointer to the device manager context, which is used to manage the devices."
+        }
+      ],
+      "return_type": "UINT, represents the status of the update operation. It could be a success, not implemented, or any other status code."
+    }
+  },
+  {
+    "function": {
+      "name": "commit_display_devices",
+      "description": "This function commits the display devices by adding vulkan-only gpu and setting winstation monitors.",
+      "parameters": [
+        {
+          "name": "ctx",
+          "type": "struct device_manager_ctx *",
+          "description": "This parameter is used for accessing the vulkan gpus and other relevant information for the device manager context."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "get_monitor_update_serial",
+      "description": "This function gets the update serial of the monitor. It initializes an object lock, declares a pointer to a desktop_shm_t structure and a UINT64 variable serial. It then enters a loop where it tries to get a shared desktop. If the status is pending, it updates the serial with the monitor serial from the shared desktop. The function returns 0 if there is a status error, otherwise it returns the serial.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters"
+        }
+      ],
+      "return_type": "UINT64, represents the update serial of the monitor or 0 in case of an error"
+    }
+  },
+  {
+    "function": {
+      "name": "reset_monitor_update_serial",
+      "description": "This function resets the monitor update serial number to 0 in a thread-safe manner.",
+      "parameters": [],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "lock_display_devices",
+      "description": "This function locks the display devices, loads the display driver, checks the monitor update serial, and updates the display cache from the registry. It also handles the case where the services do not have any adapters, only a virtual monitor.",
+      "parameters": [
+        {
+          "name": "force",
+          "type": "BOOL",
+          "description": "This parameter is used to force the update of the display cache from the registry."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "unlock_display_devices",
+      "description": "This function unlocks the display devices by unlocking the mutex.",
+      "parameters": [],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "update_display_cache",
+      "description": "This function updates the display cache. It first locks the display devices. If the locking is not successful, it returns FALSE. If the locking is successful, it unlocks the display devices and returns TRUE.",
+      "parameters": [
+        {
+          "name": "force",
+          "type": "BOOL",
+          "description": "This parameter is used to force the locking of display devices."
+        }
+      ],
+      "return_type": "BOOL, represents whether the display cache was successfully updated or not."
+    }
+  },
+  {
+    "function": {
+      "name": "get_display_dc",
+      "description": "This function is used to get the display device context (DC). If the display DC does not exist, it opens a new one and assigns it to the display DC. If the display DC already exists, it deletes the newly opened DC.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "HDC - Returns the display device context."
+    }
+  },
+  {
+    "function": {
+      "name": "get_display_bitmap",
+      "description": "This function gets the display bitmap. It locks the display context, checks if the old virtual rectangle is equal to the new one, deletes the old bitmap if it exists, creates a new one with the dimensions of the virtual rectangle, and then unlocks the display context.",
+      "parameters": [],
+      "return_type": "HBITMAP, which represents the handle to the bitmap of the display."
+    }
+  },
+  {
+    "function": {
+      "name": "release_display_dc",
+      "description": "This function releases the display device context by unlocking the mutex.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This parameter is a handle to the device context."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "get_monitor_from_rect",
+      "description": "This function retrieves a monitor structure based on the given rectangle, flags, dpi, and monitor dpi type. It checks for the largest intersecting area, minimum distance, and primary monitor based on the flags.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "RECT",
+          "description": "The rectangle to check for monitor intersection"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to determine the behavior of the function"
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "The dpi to use when getting the monitor rectangle"
+        },
+        {
+          "name": "type",
+          "type": "MONITOR_DPI_TYPE",
+          "description": "The monitor dpi type to use when getting the monitor rectangle"
+        }
+      ],
+      "return_type": "struct monitor pointer. It represents the monitor that intersects the most with the given rectangle, is nearest to the rectangle, or is the primary monitor, based on the flags."
+    }
+  },
+  {
+    "function": {
+      "name": "get_monitor_from_handle",
+      "description": "This function iterates through the list of monitors and returns the monitor that matches the provided handle and is active.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMONITOR",
+          "description": "This parameter is used to match with the handle of the monitor."
+        }
+      ],
+      "return_type": "Returns a pointer to a 'struct monitor' that matches the provided handle and is active. If no such monitor is found, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "monitors_get_union_rect",
+      "description": "This function gets the union rectangle of all active and non-clone monitors.",
+      "parameters": [
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "This parameter represents the dots per inch (DPI) of the monitor."
+        },
+        {
+          "name": "type",
+          "type": "MONITOR_DPI_TYPE",
+          "description": "This parameter represents the DPI type of the monitor."
+        }
+      ],
+      "return_type": "RECT, which represents the union rectangle of all active and non-clone monitors."
+    }
+  },
+  {
+    "function": {
+      "name": "map_rect_raw_to_virt",
+      "description": "This function maps a raw rectangle to a virtual one based on a given DPI, using monitor details. It locks the display devices, gets the monitor from the rectangle, maps the monitor rectangle, and then unlocks the display devices.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "RECT",
+          "description": "The raw rectangle to be mapped to a virtual one"
+        },
+        {
+          "name": "dpi_to",
+          "type": "UINT",
+          "description": "The DPI to which the raw rectangle should be mapped"
+        }
+      ],
+      "return_type": "RECT, which represents the mapped virtual rectangle"
+    }
+  },
+  {
+    "function": {
+      "name": "map_rect_virt_to_raw",
+      "description": "This function maps a virtual rectangle to a raw rectangle using a specified DPI. It locks the display devices, gets the monitor from the rectangle, maps the monitor rectangle, and then unlocks the display devices.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "RECT",
+          "description": "The rectangle to be mapped from virtual to raw"
+        },
+        {
+          "name": "dpi_from",
+          "type": "UINT",
+          "description": "The DPI to be used for the mapping"
+        }
+      ],
+      "return_type": "RECT, which represents the mapped rectangle"
+    }
+  },
+  {
+    "function": {
+      "name": "map_window_rects_virt_to_raw",
+      "description": "This function maps the virtual window rectangles to raw rectangles. It also checks if the visible rectangle is fullscreen and if so, makes it cover the full raw monitor, regardless of the aspect ratio.",
+      "parameters": [
+        {
+          "name": "rects",
+          "type": "struct window_rects",
+          "description": "This parameter represents the window rectangles that need to be mapped."
+        },
+        {
+          "name": "dpi_from",
+          "type": "UINT",
+          "description": "This parameter represents the DPI from which the mapping will be done."
+        }
+      ],
+      "return_type": "struct window_rects, which represents the mapped window rectangles."
+    }
+  },
+  {
+    "function": {
+      "name": "get_monitor_dpi",
+      "description": "This function retrieves the DPI (Dots Per Inch) of a monitor identified by a given handle. It locks the display devices, gets the monitor from the handle, gets the DPI of the monitor, unlocks the display devices, and returns the DPI.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMONITOR",
+          "description": "Handle to the monitor for which the DPI is to be retrieved"
+        },
+        {
+          "name": "type",
+          "type": "UINT",
+          "description": "Type of the monitor"
+        },
+        {
+          "name": "x",
+          "type": "UINT*",
+          "description": "Pointer to a variable that receives the horizontal DPI"
+        },
+        {
+          "name": "y",
+          "type": "UINT*",
+          "description": "Pointer to a variable that receives the vertical DPI"
+        }
+      ],
+      "return_type": "UINT, represents the DPI of the monitor. If the function fails, it returns 0"
+    }
+  },
+  {
+    "function": {
+      "name": "get_win_monitor_dpi",
+      "description": "This function retrieves the DPI (dots per inch) of the monitor for a given window handle. It also handles various window types and conditions, including desktop, other processes, and iconic windows.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window for which the DPI is to be retrieved."
+        },
+        {
+          "name": "raw_dpi",
+          "type": "UINT*",
+          "description": "A pointer to a UINT where the raw DPI value will be stored."
+        }
+      ],
+      "return_type": "UINT, represents the DPI of the monitor associated with the provided window handle. Returns 0 in case of an error or invalid window handle."
+    }
+  },
+  {
+    "function": {
+      "name": "is_valid_dpi_awareness_context",
+      "description": "This function checks if the given DPI awareness context and DPI are valid based on certain conditions.",
+      "parameters": [
+        {
+          "name": "context",
+          "type": "UINT",
+          "description": "This is the DPI awareness context that needs to be validated."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "This is the DPI that needs to be validated."
+        }
+      ],
+      "return_type": "BOOL, represents whether the given DPI awareness context and DPI are valid or not."
+    }
+  },
+  {
+    "function": {
+      "name": "get_thread_dpi_awareness_context",
+      "description": "This function retrieves the DPI (Dots Per Inch) awareness context of the current thread. It first tries to get the context from the thread's information structure. If it's not available there, it reads it from a global variable. If it's still not available, it defaults to a constant representing 'unaware' DPI context.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "UINT, represents the DPI awareness context of the current thread."
+    }
+  },
+  {
+    "function": {
+      "name": "get_process_layout",
+      "description": "This function returns the process layout if it's not equal to ~0u, otherwise it returns 0.",
+      "parameters": [],
+      "return_type": "DWORD, representing the process layout or 0 if the process layout equals to ~0u"
+    }
+  },
+  {
+    "function": {
+      "name": "get_thread_dpi",
+      "description": "This function gets the DPI awareness context of the current thread and returns the DPI value based on the awareness context.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "UINT, represents the DPI value of the current thread based on its DPI awareness context."
+    }
+  },
+  {
+    "function": {
+      "name": "get_system_dpi",
+      "description": "This function retrieves the system's DPI (dots per inch) awareness context, checks if it is DPI unaware, and returns the default screen DPI if it is. Otherwise, it returns the system's DPI.",
+      "parameters": [],
+      "return_type": "UINT, represents the system's DPI if the system is DPI aware, otherwise returns the default screen DPI"
+    }
+  },
+  {
+    "function": {
+      "name": "set_thread_dpi_awareness_context",
+      "description": "This function sets the DPI awareness context for the current thread. It first checks if the provided context is valid. If not, it sets the last Win32 error to ERROR_INVALID_PARAMETER and returns 0. If the context is valid, it sets the DPI context of the thread to the provided context, or to 0 if the NTUSER_DPI_CONTEXT_FLAG_PROCESS flag is set in the context. The function returns the previous DPI context of the thread.",
+      "parameters": [
+        {
+          "name": "context",
+          "type": "UINT",
+          "description": "The DPI awareness context to set for the current thread."
+        }
+      ],
+      "return_type": "UINT, represents the previous DPI context of the thread."
+    }
+  },
+  {
+    "function": {
+      "name": "map_dpi_rect",
+      "description": "This function maps a rectangle from one DPI (dots per inch) setting to another. If the source and target DPIs are different, it scales the rectangle's dimensions accordingly.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "RECT",
+          "description": "The rectangle to be mapped."
+        },
+        {
+          "name": "dpi_from",
+          "type": "UINT",
+          "description": "The source DPI setting."
+        },
+        {
+          "name": "dpi_to",
+          "type": "UINT",
+          "description": "The target DPI setting."
+        }
+      ],
+      "return_type": "RECT, representing the mapped rectangle."
+    }
+  },
+  {
+    "function": {
+      "name": "map_dpi_region",
+      "description": "This function maps a region from one DPI to another. It gets the region data, checks if the DPIs are different and if they are, it maps each rectangle in the region to the new DPI. Finally, it creates a new region with the mapped data and returns it.",
+      "parameters": [
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "The handle to the region to be mapped."
+        },
+        {
+          "name": "dpi_from",
+          "type": "UINT",
+          "description": "The DPI of the original region."
+        },
+        {
+          "name": "dpi_to",
+          "type": "UINT",
+          "description": "The DPI to which the region should be mapped."
+        }
+      ],
+      "return_type": "HRGN, which represents the handle to the newly created region with the mapped data."
+    }
+  },
+  {
+    "function": {
+      "name": "map_dpi_window_rects",
+      "description": "This function maps DPI values from one scale to another for each rectangle in a window_rects structure.",
+      "parameters": [
+        {
+          "name": "rects",
+          "type": "struct window_rects",
+          "description": "The structure containing the window rectangles to be mapped."
+        },
+        {
+          "name": "dpi_from",
+          "type": "UINT",
+          "description": "The DPI scale from which the mapping is done."
+        },
+        {
+          "name": "dpi_to",
+          "type": "UINT",
+          "description": "The DPI scale to which the mapping is done."
+        }
+      ],
+      "return_type": "struct window_rects, representing the mapped window rectangles."
+    }
+  },
+  {
+    "function": {
+      "name": "map_dpi_point",
+      "description": "This function maps a point from one DPI (dots per inch) to another. If the 'from' and 'to' DPI are different and non-zero, it scales the x and y coordinates of the point accordingly.",
+      "parameters": [
+        {
+          "name": "pt",
+          "type": "POINT",
+          "description": "The point to be mapped."
+        },
+        {
+          "name": "dpi_from",
+          "type": "UINT",
+          "description": "The original DPI of the point."
+        },
+        {
+          "name": "dpi_to",
+          "type": "UINT",
+          "description": "The DPI to which the point should be mapped."
+        }
+      ],
+      "return_type": "POINT, representing the mapped point."
+    }
+  },
+  {
+    "function": {
+      "name": "point_win_to_phys_dpi",
+      "description": "This function maps a point from window coordinates to physical DPI coordinates.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that defines the coordinate system."
+        },
+        {
+          "name": "pt",
+          "type": "POINT",
+          "description": "The point in window coordinates that will be mapped to physical DPI coordinates."
+        }
+      ],
+      "return_type": "POINT, representing the mapped point in physical DPI coordinates."
+    }
+  },
+  {
+    "function": {
+      "name": "point_phys_to_win_dpi",
+      "description": "This function converts a physical point to window DPI.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the DPI is to be retrieved."
+        },
+        {
+          "name": "pt",
+          "type": "POINT",
+          "description": "A physical point that needs to be converted to window DPI."
+        }
+      ],
+      "return_type": "POINT, representing the converted point in window DPI."
+    }
+  },
+  {
+    "function": {
+      "name": "point_thread_to_win_dpi",
+      "description": "This function maps a point from thread DPI to window DPI.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the DPI is to be retrieved."
+        },
+        {
+          "name": "pt",
+          "type": "POINT",
+          "description": "The point to be mapped."
+        }
+      ],
+      "return_type": "POINT, represents the mapped point in the window DPI."
+    }
+  },
+  {
+    "function": {
+      "name": "rect_thread_to_win_dpi",
+      "description": "This function gets the DPI of the thread and the window, and maps the rectangle from thread DPI to window DPI.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the DPI is to be retrieved"
+        },
+        {
+          "name": "rect",
+          "type": "RECT",
+          "description": "The rectangle to be mapped from thread DPI to window DPI"
+        }
+      ],
+      "return_type": "RECT, representing the rectangle mapped from thread DPI to window DPI"
+    }
+  },
+  {
+    "function": {
+      "name": "map_from_system_dpi",
+      "description": "This function maps a value from the system DPI to the user default screen DPI.",
+      "parameters": [
+        {
+          "name": "val",
+          "type": "int",
+          "description": "This parameter represents the value to be mapped from the system DPI."
+        }
+      ],
+      "return_type": "int, represents the mapped value in terms of the user default screen DPI."
+    }
+  },
+  {
+    "function": {
+      "name": "map_to_dpi",
+      "description": "This function maps a given value to a specific dpi. If no dpi is provided, it uses the system's default dpi.",
+      "parameters": [
+        {
+          "name": "val",
+          "type": "int",
+          "description": "The value to be mapped to the dpi."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "The dpi to which the value is to be mapped. If not provided, the system's default dpi is used."
+        }
+      ],
+      "return_type": "int, represents the result of the mapping of the value to the dpi."
+    }
+  },
+  {
+    "function": {
+      "name": "get_virtual_screen_rect",
+      "description": "This function gets the union rectangle of all monitors based on the given dpi and type, after locking the display devices. If the display devices cannot be locked, it returns an empty rectangle.",
+      "parameters": [
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "This parameter represents the dots per inch (dpi) for the monitors."
+        },
+        {
+          "name": "type",
+          "type": "MONITOR_DPI_TYPE",
+          "description": "This parameter represents the type of dpi for the monitors."
+        }
+      ],
+      "return_type": "RECT, representing the union rectangle of all monitors. If the display devices cannot be locked, an empty rectangle is returned."
+    }
+  },
+  {
+    "function": {
+      "name": "is_window_rect_full_screen",
+      "description": "This function checks if a window rectangle covers the entire screen.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "This is a pointer to the rectangle structure that represents the window."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "This is the dots per inch (dpi) setting for the monitor."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the window rectangle covers the entire screen, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "get_display_index",
+      "description": "This function retrieves the display index from a given UNICODE_STRING name.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "UNICODE_STRING *",
+          "description": "This is a pointer to the UNICODE_STRING structure that contains the name from which the display index is to be retrieved."
+        }
+      ],
+      "return_type": "UINT, represents the display index retrieved from the given name. If the name does not match the displayW array or if the index is 0 or not a number, the function returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "get_display_rect",
+      "description": "This function retrieves the rectangle of the display area for a given display device.",
+      "parameters": [
+        {
+          "name": "display",
+          "type": "WCHAR *",
+          "description": "This is a pointer to a wide-character string that specifies the name of the display device."
+        }
+      ],
+      "return_type": "RECT, which represents the rectangle of the display area for the specified display device."
+    }
+  },
+  {
+    "function": {
+      "name": "get_primary_monitor_rect",
+      "description": "This function retrieves the rectangle of the primary monitor based on the given DPI.",
+      "parameters": [
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "This parameter represents the DPI (Dots Per Inch) to be used when getting the rectangle of the primary monitor."
+        }
+      ],
+      "return_type": "RECT, which represents the rectangle of the primary monitor."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetDisplayConfigBufferSizes",
+      "description": "This function retrieves the sizes of the buffers that are required to call the QueryDisplayConfig function.",
+      "parameters": [
+        {
+          "name": "flags",
+          "type": "UINT32",
+          "description": "This parameter is used to specify the type of paths to be enumerated."
+        },
+        {
+          "name": "num_path_info",
+          "type": "UINT32*",
+          "description": "This parameter is used to receive the number of elements in a path information array."
+        },
+        {
+          "name": "num_mode_info",
+          "type": "UINT32*",
+          "description": "This parameter is used to receive the number of elements in a mode information array."
+        }
+      ],
+      "return_type": "LONG. It represents the status of the function execution. It returns ERROR_SUCCESS if the function succeeds, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "get_dc_rotation",
+      "description": "This function checks if the display orientation field is set in the devmode structure. If it is set, it returns the display orientation incremented by 1. If it is not set, it returns a default display configuration rotation identity.",
+      "parameters": [
+        {
+          "name": "devmode",
+          "type": "DEVMODEW*",
+          "description": "Pointer to a DEVMODEW structure that contains information about the initialization and environment of a device."
+        }
+      ],
+      "return_type": "DISPLAYCONFIG_ROTATION, represents the orientation of the display. It can be the incremented display orientation or a default display configuration rotation identity."
+    }
+  },
+  {
+    "function": {
+      "name": "get_dc_scanline_ordering",
+      "description": "This function checks the display mode flags and returns the corresponding scanline ordering.",
+      "parameters": [
+        {
+          "name": "devmode",
+          "type": "DEVMODEW *",
+          "description": "Pointer to a DEVMODEW structure that contains information about the new graphics mode."
+        }
+      ],
+      "return_type": "DISPLAYCONFIG_SCANLINE_ORDERING, represents the scanline ordering for the display mode."
+    }
+  },
+  {
+    "function": {
+      "name": "get_dc_pixelformat",
+      "description": "This function determines the pixel format based on the number of bits per pixel.",
+      "parameters": [
+        {
+          "name": "dmBitsPerPel",
+          "type": "DWORD",
+          "description": "This parameter represents the number of bits per pixel."
+        }
+      ],
+      "return_type": "DISPLAYCONFIG_PIXELFORMAT, which represents the pixel format. If the number of bits per pixel is 8, 16, 24, or 32, it returns the number of bits per pixel divided by 8. Otherwise, it returns DISPLAYCONFIG_PIXELFORMAT_NONGDI."
+    }
+  },
+  {
+    "function": {
+      "name": "set_mode_target_info",
+      "description": "This function sets the mode target information for a display configuration.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "DISPLAYCONFIG_MODE_INFO *",
+          "description": "Pointer to a DISPLAYCONFIG_MODE_INFO structure that receives the mode information."
+        },
+        {
+          "name": "gpu_luid",
+          "type": "LUID *",
+          "description": "Pointer to a LUID structure that identifies the GPU."
+        },
+        {
+          "name": "target_id",
+          "type": "UINT32",
+          "description": "Identifier for the target display."
+        },
+        {
+          "name": "flags",
+          "type": "UINT32",
+          "description": "Flags that determine how the function works."
+        },
+        {
+          "name": "devmode",
+          "type": "DEVMODEW *",
+          "description": "Pointer to a DEVMODEW structure that contains information about the new graphics mode."
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "set_path_target_info",
+      "description": "This function sets the path target information for a display configuration.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "DISPLAYCONFIG_PATH_TARGET_INFO *",
+          "description": "Pointer to the path target information structure to be set."
+        },
+        {
+          "name": "gpu_luid",
+          "type": "LUID *",
+          "description": "Pointer to the locally unique identifier for the GPU."
+        },
+        {
+          "name": "target_id",
+          "type": "UINT32",
+          "description": "The target ID for the display configuration."
+        },
+        {
+          "name": "mode_index",
+          "type": "UINT32",
+          "description": "The mode index for the display configuration."
+        },
+        {
+          "name": "desktop_mode_index",
+          "type": "UINT32",
+          "description": "The desktop mode index for the display configuration."
+        },
+        {
+          "name": "flags",
+          "type": "UINT32",
+          "description": "The flags for the display configuration."
+        },
+        {
+          "name": "devmode",
+          "type": "DEVMODEW *",
+          "description": "Pointer to the device mode structure."
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "set_mode_source_info",
+      "description": "This function sets the mode source information for a display configuration.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "DISPLAYCONFIG_MODE_INFO *",
+          "description": "Pointer to a DISPLAYCONFIG_MODE_INFO structure that receives the mode information."
+        },
+        {
+          "name": "gpu_luid",
+          "type": "LUID *",
+          "description": "Pointer to a LUID structure that identifies the adapter."
+        },
+        {
+          "name": "source_id",
+          "type": "UINT32",
+          "description": "Identifier of the source."
+        },
+        {
+          "name": "devmode",
+          "type": "DEVMODEW *",
+          "description": "Pointer to a DEVMODEW structure that contains information about the new graphics mode."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "set_mode_desktop_info",
+      "description": "This function sets the mode information for a desktop display, including the adapter ID, target ID, and source mode.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "DISPLAYCONFIG_MODE_INFO *",
+          "description": "Pointer to the structure to store the mode information"
+        },
+        {
+          "name": "gpu_luid",
+          "type": "LUID *",
+          "description": "Pointer to the Logical Unit Identifier for the GPU"
+        },
+        {
+          "name": "target_id",
+          "type": "UINT32",
+          "description": "The target ID for the display"
+        },
+        {
+          "name": "source_mode",
+          "type": "DISPLAYCONFIG_SOURCE_MODE *",
+          "description": "Pointer to the source mode structure"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "set_path_source_info",
+      "description": "This function sets the path source information for a display configuration.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "DISPLAYCONFIG_PATH_SOURCE_INFO *",
+          "description": "Pointer to the path source information structure to be set"
+        },
+        {
+          "name": "gpu_luid",
+          "type": "LUID *",
+          "description": "Pointer to the LUID of the GPU"
+        },
+        {
+          "name": "source_id",
+          "type": "UINT32",
+          "description": "Identifier for the source"
+        },
+        {
+          "name": "mode_index",
+          "type": "UINT32",
+          "description": "Index of the mode to be set"
+        },
+        {
+          "name": "flags",
+          "type": "UINT32",
+          "description": "Flags to determine the mode of operation"
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "source_mode_exists",
+      "description": "This function checks if a specific source mode exists in the provided modes array by comparing the source_id with the id of each mode. If the source mode is found, the index of the mode in the array is stored in found_mode_index and the function returns TRUE, otherwise it returns FALSE.",
+      "parameters": [
+        {
+          "name": "modes",
+          "type": "DISPLAYCONFIG_MODE_INFO *",
+          "description": "Pointer to an array of DISPLAYCONFIG_MODE_INFO structures that represent the modes to be checked."
+        },
+        {
+          "name": "modes_count",
+          "type": "UINT32",
+          "description": "The number of modes in the modes array."
+        },
+        {
+          "name": "source_id",
+          "type": "UINT32",
+          "description": "The id of the source mode to be found."
+        },
+        {
+          "name": "found_mode_index",
+          "type": "UINT32 *",
+          "description": "Pointer to a UINT32 that will store the index of the found mode in the modes array."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the source mode is found in the modes array, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserQueryDisplayConfig",
+      "description": "This function retrieves information about the display configuration.",
+      "parameters": [
+        {
+          "name": "flags",
+          "type": "UINT32",
+          "description": "Flags that specify the type of display paths to retrieve."
+        },
+        {
+          "name": "paths_count",
+          "type": "UINT32*",
+          "description": "Pointer to a variable that receives the number of elements in the paths array."
+        },
+        {
+          "name": "paths",
+          "type": "DISPLAYCONFIG_PATH_INFO*",
+          "description": "Pointer to an array of DISPLAYCONFIG_PATH_INFO structures that receives the display path information."
+        },
+        {
+          "name": "modes_count",
+          "type": "UINT32*",
+          "description": "Pointer to a variable that receives the number of elements in the modes array."
+        },
+        {
+          "name": "modes",
+          "type": "DISPLAYCONFIG_MODE_INFO*",
+          "description": "Pointer to an array of DISPLAYCONFIG_MODE_INFO structures that receives the display mode information."
+        },
+        {
+          "name": "topology_id",
+          "type": "DISPLAYCONFIG_TOPOLOGY_ID*",
+          "description": "Pointer to a variable that receives the identifier of the display topology."
+        }
+      ],
+      "return_type": "LONG. If the function succeeds, the return value is ERROR_SUCCESS. If the function fails, the return value is one of the error codes defined in WinError.h."
+    }
+  },
+  {
+    "function": {
+      "name": "find_monitor_by_index",
+      "description": "This function searches for a monitor in the list of monitors by its source and id. If the monitor is not found, it logs a warning and returns NULL.",
+      "parameters": [
+        {
+          "name": "source",
+          "type": "struct source *",
+          "description": "The source to which the monitor is connected."
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "The id of the monitor to be found."
+        }
+      ],
+      "return_type": "struct monitor * - A pointer to the found monitor or NULL if the monitor is not found."
+    }
+  },
+  {
+    "function": {
+      "name": "find_source_by_index",
+      "description": "This function searches for a source structure in a list of sources by its index. If it doesn't find the source, it warns and returns NULL.",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "The index of the source to be found"
+        }
+      ],
+      "return_type": "struct source pointer. It represents the source found by its index. If no source is found, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "find_primary_source",
+      "description": "This function iterates over a list of sources and returns the primary source. If no primary source is found, it logs a warning and returns NULL.",
+      "parameters": [],
+      "return_type": "struct source pointer, representing the primary source. If no primary source is found, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "find_source_by_name",
+      "description": "This function searches for a source in a list of sources by its name. If the source is found, it is returned; otherwise, a warning is logged and NULL is returned.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "UNICODE_STRING *",
+          "description": "The name of the source to be found."
+        }
+      ],
+      "return_type": "struct source *; a pointer to the found source, or NULL if the source is not found."
+    }
+  },
+  {
+    "function": {
+      "name": "find_source",
+      "description": "This function is used to find a source based on a given name. If no name is provided, it finds the primary source. It also handles the locking and unlocking of display devices.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "UNICODE_STRING *",
+          "description": "This parameter represents the name of the source to be found."
+        }
+      ],
+      "return_type": "struct source *; It represents the found source or NULL if no source is found or if the display devices cannot be locked."
+    }
+  },
+  {
+    "function": {
+      "name": "monitor_get_interface_name",
+      "description": "This function generates the interface name for a given monitor.",
+      "parameters": [
+        {
+          "name": "monitor",
+          "type": "struct monitor *",
+          "description": "A pointer to the monitor structure for which the interface name is to be generated."
+        },
+        {
+          "name": "interface_name",
+          "type": "WCHAR *",
+          "description": "A pointer to a wide character string where the generated interface name will be stored."
+        }
+      ],
+      "return_type": "void, this function does not return a value but modifies the interface_name parameter to hold the generated interface name."
+    }
+  },
+  {
+    "function": {
+      "name": "d3dkmt_open_adapter_from_gdi_display_name",
+      "description": "This function opens an adapter from a GDI display name. It initializes a unicode string with the device name, finds the source of the device, and if successful, updates the adapter and LUID in the descriptor. It also releases the source before returning the status.",
+      "parameters": [
+        {
+          "name": "desc",
+          "type": "D3DKMT_OPENADAPTERFROMGDIDISPLAYNAME *",
+          "description": "This is a pointer to a descriptor that contains the GDI display name. It is used to open the adapter and retrieve the LUID. The function also updates this descriptor with the adapter handle, LUID, and VidPnSourceId."
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the status of the operation. If successful, the function returns STATUS_SUCCESS. If the device name is not found or the source of the device cannot be found, the function returns STATUS_UNSUCCESSFUL."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserEnumDisplayDevices",
+      "description": "This function enumerates display devices in the system, providing information about each device.",
+      "parameters": [
+        {
+          "name": "device",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to a UNICODE_STRING that specifies the device name."
+        },
+        {
+          "name": "index",
+          "type": "DWORD",
+          "description": "Specifies the index of the device in the array of devices."
+        },
+        {
+          "name": "info",
+          "type": "DISPLAY_DEVICEW *",
+          "description": "Pointer to a DISPLAY_DEVICEW structure that receives information about the display device."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Specifies flags that modify the function's behavior."
+        }
+      ],
+      "return_type": "NTSTATUS - Returns STATUS_SUCCESS if the function successfully found the display device, otherwise returns STATUS_UNSUCCESSFUL."
+    }
+  },
+  {
+    "function": {
+      "name": "_CDS_flags",
+      "description": "This function generates a string representation of the flags set in the 'fields' parameter. It uses a buffer to store the string and returns a pointer to this string.",
+      "parameters": [
+        {
+          "name": "fields",
+          "type": "DWORD",
+          "description": "This parameter represents the flags that need to be converted to a string."
+        }
+      ],
+      "return_type": "char: This is a pointer to the string representation of the flags."
+    }
+  },
+  {
+    "function": {
+      "name": "_DM_fields",
+      "description": "This function generates a string representation of various display settings fields. It uses a buffer to concatenate the fields and returns the final string.",
+      "parameters": [],
+      "return_type": "char: Returns a string representation of the display settings fields"
+    }
+  },
+  {
+    "function": {
+      "name": "trace_devmode",
+      "description": "This function traces the properties of a DEVMODEW structure, such as dmFields, dmBitsPerPel, dmPelsWidth, dmPelsHeight, dmDisplayFrequency, dmPosition, dmDisplayFlags, and dmDisplayOrientation.",
+      "parameters": [
+        {
+          "name": "devmode",
+          "type": "DEVMODEW *",
+          "description": "A pointer to a DEVMODEW structure whose properties are to be traced."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "find_display_mode",
+      "description": "This function iterates over a list of display modes and returns the one that matches the provided devmode. If no matching mode is found, it returns NULL. If the devmode is in detached mode, the function returns the devmode itself.",
+      "parameters": [
+        {
+          "name": "modes",
+          "type": "const DEVMODEW *",
+          "description": "Pointer to the first element in the list of display modes to search."
+        },
+        {
+          "name": "devmode",
+          "type": "DEVMODEW *",
+          "description": "Pointer to the display mode that the function is trying to find in the list."
+        }
+      ],
+      "return_type": "DEVMODEW *. It represents the display mode that matches the provided devmode. If no matching mode is found, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "source_get_full_mode",
+      "description": "This function gets the full mode of a source. It checks the devmode and if it's valid, it copies it to full_mode. If it's not valid, it retrieves the settings from the registry. It also checks if the resolution is specified and if not, it gets the current settings. Finally, it finds the display mode and if it's different from the full_mode, it updates the full_mode with the display mode.",
+      "parameters": [
+        {
+          "name": "source",
+          "type": "struct source *",
+          "description": "Pointer to the source structure"
+        },
+        {
+          "name": "devmode",
+          "type": "DEVMODEW *",
+          "description": "Pointer to the DEVMODEW structure that represents the device mode"
+        },
+        {
+          "name": "full_mode",
+          "type": "DEVMODEW *",
+          "description": "Pointer to the DEVMODEW structure that will hold the full mode"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the source mode is found, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "get_display_settings",
+      "description": "This function retrieves the display settings for a given source. If a DEVMODEW structure is provided, it copies the display settings from it. Otherwise, it retrieves the settings from the registry or the current settings of the source. The function returns a pointer to an array of DEVMODEW structures, each representing the display settings of a source.",
+      "parameters": [
+        {
+          "name": "target",
+          "type": "struct source*",
+          "description": "The target source for which the display settings are to be retrieved."
+        },
+        {
+          "name": "devmode",
+          "type": "const DEVMODEW*",
+          "description": "A pointer to a DEVMODEW structure from which to copy the display settings. If this parameter is NULL, the function retrieves the settings from the registry or the current settings of the source."
+        }
+      ],
+      "return_type": "DEVMODEW*. Returns a pointer to an array of DEVMODEW structures, each representing the display settings of a source. If the function fails to allocate memory for the array, or if it fails to retrieve the settings, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "offset_length",
+      "description": "Calculates the square of the x and y coordinates of the given point and returns their sum",
+      "parameters": [
+        {
+          "name": "offset",
+          "type": "POINT",
+          "description": "A point in 2D space"
+        }
+      ],
+      "return_type": "INT, represents the sum of the squares of the x and y coordinates of the given point"
+    }
+  },
+  {
+    "function": {
+      "name": "set_rect_from_devmode",
+      "description": "This function sets the values of a rectangle using the position and dimensions from a DEVMODEW structure.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "This is a pointer to a RECT structure that will be set based on the mode parameter."
+        },
+        {
+          "name": "mode",
+          "type": "DEVMODEW*",
+          "description": "This is a pointer to a DEVMODEW structure that contains the position and dimensions to set the rect parameter."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "overlap_placed_displays",
+      "description": "This function checks if any of the displays overlap with the given rectangle.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "This parameter is a pointer to a RECT structure that represents the rectangle to check for overlap."
+        },
+        {
+          "name": "displays",
+          "type": "DEVMODEW *",
+          "description": "This parameter is a pointer to a DEVMODEW structure that represents the display settings."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if any of the displays overlap with the given rectangle, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "get_placement_offset",
+      "description": "This function calculates the minimum offset needed to place a display in a multi-display setup without overlapping other displays.",
+      "parameters": [
+        {
+          "name": "displays",
+          "type": "DEVMODEW *",
+          "description": "Pointer to the first element of an array of DEVMODEW structures representing the current display settings."
+        },
+        {
+          "name": "placing",
+          "type": "DEVMODEW *",
+          "description": "Pointer to a DEVMODEW structure representing the display settings of the display to be placed."
+        }
+      ],
+      "return_type": "POINT structure representing the minimum offset needed to place the display without overlap."
+    }
+  },
+  {
+    "function": {
+      "name": "place_all_displays",
+      "description": "This function adjusts the positions of all displays to ensure there is no extra space between them and no overlapping. It also sets the primary display based on the provided name.",
+      "parameters": [
+        {
+          "name": "displays",
+          "type": "DEVMODEW*",
+          "description": "A pointer to the DEVMODEW structure that represents the display settings."
+        },
+        {
+          "name": "primary_name",
+          "type": "WCHAR*",
+          "description": "A pointer to the wide-character string that represents the name of the primary display."
+        }
+      ],
+      "return_type": "void, as this function does not return anything but modifies the display settings in place."
+    }
+  },
+  {
+    "function": {
+      "name": "all_detached_settings",
+      "description": "This function checks if all display settings are detached by iterating through each DEVMODEW structure in the 'displays' pointer until it encounters a structure with a dmSize of zero. If it finds a display setting that is not detached, it returns FALSE. If all display settings are detached, it returns TRUE.",
+      "parameters": [
+        {
+          "name": "displays",
+          "type": "DEVMODEW *",
+          "description": "This is a pointer to a DEVMODEW structure that represents the display settings."
+        }
+      ],
+      "return_type": "BOOL, represents whether all display settings are detached (TRUE) or not (FALSE)"
+    }
+  },
+  {
+    "function": {
+      "name": "get_primary_source_mode",
+      "description": "This function gets the current settings of the primary source and releases the source after getting the settings.",
+      "parameters": [
+        {
+          "name": "mode",
+          "type": "DEVMODEW*",
+          "description": "Pointer to a DEVMODEW structure that will receive the current settings of the primary source."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the current settings of the primary source were successfully retrieved, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "display_mode_changed",
+      "description": "This function updates the display cache, gets the primary source current display settings, and sends a message or broadcasts a message depending on the 'broadcast' parameter. If an application changed the display settings, it also posts a clip_fullscreen_window request to the foreground window.",
+      "parameters": [
+        {
+          "name": "broadcast",
+          "type": "BOOL",
+          "description": "This parameter determines whether the function should send a message to a single window or broadcast a message to all windows."
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "apply_display_settings",
+      "description": "This function applies the display settings to a target source. It locks the display devices, gets the display settings, checks if all settings are detached, finds the primary source, places all displays, changes the display settings, unlocks the display devices, frees the displays, and returns the result.",
+      "parameters": [
+        {
+          "name": "target",
+          "type": "struct source *",
+          "description": "The target source to which the display settings are applied."
+        },
+        {
+          "name": "devmode",
+          "type": "DEVMODEW *",
+          "description": "The device mode to be used."
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the display settings are applied."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "The options for changing the display settings."
+        },
+        {
+          "name": "lparam",
+          "type": "void *",
+          "description": "Additional data for the function."
+        }
+      ],
+      "return_type": "LONG, represents the result of applying the display settings. It can be DISP_CHANGE_SUCCESSFUL, DISP_CHANGE_FAILED, or other values."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserChangeDisplaySettings",
+      "description": "This function is used to change the display settings of a device. It checks the validity of the parameters, retrieves the full mode of the source, updates the registry settings if necessary, applies the display settings, and releases the source.",
+      "parameters": [
+        {
+          "name": "devname",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to the name of the device whose display settings are to be changed."
+        },
+        {
+          "name": "devmode",
+          "type": "DEVMODEW *",
+          "description": "Pointer to a DEVMODEW structure that contains the new graphics mode."
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that will be updated after the display settings change."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Indicates how the graphics mode should be changed."
+        },
+        {
+          "name": "lparam",
+          "type": "void *",
+          "description": "Additional parameters for the function."
+        }
+      ],
+      "return_type": "LONG. Returns DISP_CHANGE_SUCCESSFUL if the function succeeds. Otherwise, it returns an error code such as DISP_CHANGE_BADPARAM, DISP_CHANGE_BADMODE, DISP_CHANGE_NOTUPDATED."
+    }
+  },
+  {
+    "function": {
+      "name": "source_enum_display_settings",
+      "description": "This function enumerates the display settings of a given source. It checks for specific flags and modes and copies the display settings to the devmode parameter if the conditions are met.",
+      "parameters": [
+        {
+          "name": "source",
+          "type": "struct source *",
+          "description": "Pointer to the source structure whose display settings are to be enumerated."
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "Index of the display setting to be enumerated."
+        },
+        {
+          "name": "devmode",
+          "type": "DEVMODEW *",
+          "description": "Pointer to a DEVMODEW structure that will receive the display settings."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags that determine the behavior of the function."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function successfully enumerates the display settings. Returns FALSE if it fails to do so."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserEnumDisplaySettings",
+      "description": "This function is used to enumerate the display settings.",
+      "parameters": [
+        {
+          "name": "device",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to a unicode string representing the device."
+        },
+        {
+          "name": "index",
+          "type": "DWORD",
+          "description": "Index of the display setting to be enumerated."
+        },
+        {
+          "name": "devmode",
+          "type": "DEVMODEW *",
+          "description": "Pointer to a DEVMODEW structure that will receive the display settings."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags to be used for the enumeration."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully enumerates the display settings, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "active_unique_monitor_count",
+      "description": "This function counts the number of unique active monitors that are not clones.",
+      "parameters": [],
+      "return_type": "unsigned int representing the count of unique active monitors"
+    }
+  },
+  {
+    "function": {
+      "name": "get_display_depth",
+      "description": "This function retrieves the display depth of a given source. If the source is not found or cannot be locked, it defaults to a depth of 32.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "UNICODE_STRING *",
+          "description": "This is a pointer to a UNICODE_STRING that represents the name of the source to find."
+        }
+      ],
+      "return_type": "INT, represents the display depth of the source. If the source is not found or cannot be locked, it returns 32."
+    }
+  },
+  {
+    "function": {
+      "name": "should_enumerate_monitor",
+      "description": "This function checks if a monitor should be enumerated based on its activity status, whether it is a clone, and its position relative to a given origin and limit. It also modifies the provided rectangle to represent the monitor's rectangle offset by the given origin.",
+      "parameters": [
+        {
+          "name": "monitor",
+          "type": "struct monitor*",
+          "description": "Pointer to the monitor to check."
+        },
+        {
+          "name": "origin",
+          "type": "POINT*",
+          "description": "Pointer to the origin point used for offsetting the monitor's rectangle."
+        },
+        {
+          "name": "limit",
+          "type": "RECT*",
+          "description": "Pointer to the rectangle representing the limit for enumeration."
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "Pointer to a rectangle that will be set to represent the monitor's rectangle offset by the origin."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the monitor should be enumerated, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserEnumDisplayMonitors",
+      "description": "This function enumerates display monitors. It first enumerates primary monitors, then non-primary monitors. It also handles the locking and unlocking of display devices.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that specifies a clipping rectangle."
+        },
+        {
+          "name": "proc",
+          "type": "MONITORENUMPROC",
+          "description": "A pointer to a callback function that is called for each display monitor."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "An application-defined data passed to the callback function."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function successfully enumerates the display monitors, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_monitor_info",
+      "description": "This function retrieves information about a display monitor. It checks the size of the MONITORINFO structure, locks the display devices, gets the monitor from the handle, retrieves the monitor information, unlocks the display devices, and sets the last Win32 error if the handle is invalid.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMONITOR",
+          "description": "Handle to the display monitor."
+        },
+        {
+          "name": "info",
+          "type": "MONITORINFO *",
+          "description": "Pointer to a MONITORINFO structure that receives information about the specified display monitor."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "Dots per inch."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "monitor_from_rect",
+      "description": "This function retrieves a handle to the display monitor that has the largest area of intersection with a specified rectangle, based on certain flags and dpi.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "A pointer to the rectangle of interest."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags that determine the function's behavior."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "The DPI setting for the monitor."
+        }
+      ],
+      "return_type": "HMONITOR, which represents a handle to the display monitor. Returns 0 if the function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "monitor_info_from_rect",
+      "description": "This function retrieves monitor information for a given rectangle and DPI, locks the display devices, gets the monitor from the rectangle, retrieves the monitor information, and then unlocks the display devices.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "RECT",
+          "description": "This parameter represents the rectangle for which the monitor information is to be retrieved."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "This parameter represents the DPI (Dots Per Inch) for the monitor."
+        }
+      ],
+      "return_type": "MONITORINFO, which represents the information about the monitor."
+    }
+  },
+  {
+    "function": {
+      "name": "monitor_dpi_from_rect",
+      "description": "This function retrieves the DPI (dots per inch) of a monitor based on a given rectangle. It also updates the raw DPI value.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "RECT",
+          "description": "The rectangle based on which the monitor is identified"
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "The DPI value"
+        },
+        {
+          "name": "raw_dpi",
+          "type": "UINT*",
+          "description": "Pointer to a UINT to store the raw DPI value"
+        }
+      ],
+      "return_type": "UINT, represents the DPI of the monitor associated with the given rectangle"
+    }
+  },
+  {
+    "function": {
+      "name": "monitor_from_window",
+      "description": "This function retrieves a handle to the display monitor that has the largest area of intersection with the bounding rectangle of a specified window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Determines the function's return value if the window does not intersect any display monitor."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "The DPI value for the window."
+        }
+      ],
+      "return_type": "HMONITOR, a handle to the display monitor. If the window does not intersect any display monitor and the function was not able to retrieve a monitor handle, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "monitor_info_from_window",
+      "description": "This function retrieves monitor information for a specific window based on the provided flags.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which monitor information is to be retrieved."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags that determine the function's behavior."
+        }
+      ],
+      "return_type": "MONITORINFO structure that contains information about the display monitor."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetSystemDpiForProcess",
+      "description": "This function returns the system DPI for the specified process. If the process is not the current one, it returns 0.",
+      "parameters": [
+        {
+          "name": "process",
+          "type": "HANDLE",
+          "description": "This parameter represents the handle to the process for which the system DPI is to be obtained."
+        }
+      ],
+      "return_type": "ULONG. It represents the system DPI for the specified process. If the process is not the current one, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetDpiForMonitor",
+      "description": "This function retrieves the dots per inch (dpi) value for a specified monitor based on the type of dpi awareness the current process is running under. It also handles error cases and sets appropriate error codes.",
+      "parameters": [
+        {
+          "name": "monitor",
+          "type": "HMONITOR",
+          "description": "Handle to the monitor for which the dpi value is to be retrieved."
+        },
+        {
+          "name": "type",
+          "type": "UINT",
+          "description": "Specifies the type of dpi awareness context."
+        },
+        {
+          "name": "x",
+          "type": "UINT*",
+          "description": "Pointer to a variable that receives the horizontal dpi value for the specified monitor."
+        },
+        {
+          "name": "y",
+          "type": "UINT*",
+          "description": "Pointer to a variable that receives the vertical dpi value for the specified monitor."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully retrieves the dpi value for the specified monitor, otherwise returns FALSE and sets an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserLogicalToPerMonitorDPIPhysicalPoint",
+      "description": "This function converts a logical point to a physical point based on the DPI of the monitor the window is currently displayed on. It also checks whether the point is within the window rectangle.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that the point is relative to."
+        },
+        {
+          "name": "pt",
+          "type": "POINT*",
+          "description": "Pointer to the POINT structure that specifies the logical coordinates to be converted."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully converts the point and the point is within the window rectangle. Otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserPerMonitorDPIPhysicalToLogicalPoint",
+      "description": "This function converts a point from physical coordinates to logical coordinates based on the DPI of the monitor the window is on.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that the point is in."
+        },
+        {
+          "name": "pt",
+          "type": "POINT*",
+          "description": "Pointer to the POINT structure that specifies the physical coordinates to be converted."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the conversion is successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "set_server_keyboard_repeat",
+      "description": "This function is used to set the keyboard repeat rate on the server side.",
+      "parameters": [
+        {
+          "name": "enable",
+          "type": "int",
+          "description": "This parameter is used to enable or disable the keyboard repeat feature."
+        },
+        {
+          "name": "delay",
+          "type": "int",
+          "description": "This parameter is used to set the delay before the keyboard repeat starts."
+        },
+        {
+          "name": "speed",
+          "type": "int",
+          "description": "This parameter is used to set the speed of the keyboard repeat."
+        }
+      ],
+      "return_type": "BOOL, represents whether the keyboard repeat setting was successfully updated or not."
+    }
+  },
+  {
+    "function": {
+      "name": "get_base_keys",
+      "description": "This function retrieves or creates base and volatile keys in the registry based on the provided index. If the keys do not exist, they are created using the reg_create_ascii_key function. The keys are then stored in static arrays for future use.",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "enum parameter_key",
+          "description": "This parameter is used to specify the index of the key in the base_keys and volatile_keys arrays."
+        },
+        {
+          "name": "base_key",
+          "type": "HKEY*",
+          "description": "This is a pointer to a HKEY variable where the function will store the base key retrieved or created."
+        },
+        {
+          "name": "volatile_key",
+          "type": "HKEY*",
+          "description": "This is a pointer to a HKEY variable where the function will store the volatile key retrieved or created."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully retrieves or creates the keys, and FALSE if it fails to create the keys."
+    }
+  },
+  {
+    "function": {
+      "name": "load_entry",
+      "description": "This function loads an entry from the system registry into a provided buffer, ensuring that the data is null-terminated if it is a string. It also sets the 'loaded' flag on the entry to TRUE.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "struct sysparam_entry *",
+          "description": "Pointer to the system parameter entry to be loaded"
+        },
+        {
+          "name": "data",
+          "type": "void *",
+          "description": "Pointer to the buffer where the loaded data will be stored"
+        },
+        {
+          "name": "size",
+          "type": "DWORD",
+          "description": "The size of the buffer pointed to by 'data'"
+        }
+      ],
+      "return_type": "DWORD, represents the number of bytes loaded into the buffer. If the function fails, it returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "save_entry",
+      "description": "This function saves an entry into the system registry. It converts the entry name to unicode, gets the base keys, sets the registry value, and deletes the volatile key. If the entry has a mirror, it also sets the mirror value. If the SPIF_UPDATEINIFILE flag is not set, it only sets the volatile key value.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "struct sysparam_entry *",
+          "description": "Pointer to the system parameter entry to be saved"
+        },
+        {
+          "name": "data",
+          "type": "void *",
+          "description": "Pointer to the data to be saved"
+        },
+        {
+          "name": "size",
+          "type": "DWORD",
+          "description": "Size of the data to be saved"
+        },
+        {
+          "name": "type",
+          "type": "DWORD",
+          "description": "Type of the data to be saved"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to control the save operation"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation is successful, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "save_entry_string",
+      "description": "This function saves an entry string into the system parameter entry.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "struct sysparam_entry *",
+          "description": "Pointer to the system parameter entry"
+        },
+        {
+          "name": "str",
+          "type": "WCHAR *",
+          "description": "String to be saved"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to control the save operation"
+        }
+      ],
+      "return_type": "BOOL, represents whether the save operation was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "init_entry",
+      "description": "This function initializes a system parameter entry by querying its value key, setting its registry value, and marking it as loaded. It also handles mirror keys if present.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "struct sysparam_entry*",
+          "description": "A pointer to the system parameter entry to be initialized"
+        },
+        {
+          "name": "data",
+          "type": "void*",
+          "description": "A pointer to the data to be set in the registry value"
+        },
+        {
+          "name": "size",
+          "type": "DWORD",
+          "description": "The size of the data to be set in the registry value"
+        },
+        {
+          "name": "type",
+          "type": "DWORD",
+          "description": "The type of the data to be set in the registry value"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the initialization is successful, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "init_entry_string",
+      "description": "Initializes a system parameter entry with a string value",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "struct sysparam_entry *",
+          "description": "Pointer to the system parameter entry to be initialized"
+        },
+        {
+          "name": "str",
+          "type": "WCHAR *",
+          "description": "String to be used for initialization"
+        }
+      ],
+      "return_type": "BOOL, represents whether the initialization was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "set_int_entry",
+      "description": "This function converts an integer parameter to a string, converts that string to unicode, saves the unicode string into an entry, sets the integer parameter as the value of the entry, and marks the entry as loaded.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry*",
+          "description": "Pointer to the entry where the integer parameter and its string representation will be stored"
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "Integer parameter to be converted to string and stored in the entry"
+        },
+        {
+          "name": "ptr_param",
+          "type": "void*",
+          "description": "Pointer parameter, not used in the function"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to be passed when saving the string into the entry"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the string is successfully saved into the entry and the entry is marked as loaded, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "init_int_entry",
+      "description": "This function initializes an integer entry by converting it to a string and then to a unicode string, and finally initializes the entry string with the unicode string.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry *",
+          "description": "This parameter is a pointer to a union of system parameters. The function uses the integer value from this union."
+        }
+      ],
+      "return_type": "BOOL, represents whether the initialization of the entry string was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "get_uint_entry",
+      "description": "This function loads an entry if it's not loaded, converts it to a long integer, and assigns it to a pointer. If the pointer is null, it returns false.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry*",
+          "description": "pointer to the entry to get"
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "an unsigned integer parameter"
+        },
+        {
+          "name": "ptr_param",
+          "type": "void*",
+          "description": "pointer to assign the entry value to"
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "an unsigned integer parameter"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation is successful, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "set_uint_entry",
+      "description": "This function sets a UINT entry in a system parameter union. It converts the integer parameter to a string, converts that string to unicode, saves the unicode string into the entry header, and sets the UINT value in the entry. It also sets the loaded flag in the entry header to TRUE.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry *",
+          "description": "Pointer to the system parameter entry to be set"
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "Integer value to be set in the entry"
+        },
+        {
+          "name": "ptr_param",
+          "type": "void *",
+          "description": "Pointer parameter, not used in this function"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to be used when saving the entry string"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the entry string was saved successfully and the UINT value was set in the entry, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "init_uint_entry",
+      "description": "This function initializes a union sysparam_all_entry with a unsigned integer value, converts it to a string and stores it in the entry.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry*",
+          "description": "This is a pointer to the union sysparam_all_entry that is to be initialized."
+        }
+      ],
+      "return_type": "BOOL, represents whether the initialization was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "get_twips_entry",
+      "description": "This function retrieves the value of an entry in a system parameter structure, converts it from twips to pixels if it's negative, or maps it to the current DPI if it's positive, and stores the result in a provided pointer.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry*",
+          "description": "Pointer to the system parameter entry to retrieve the value from."
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "An unsigned integer parameter, not used in the function."
+        },
+        {
+          "name": "ptr_param",
+          "type": "void*",
+          "description": "Pointer to an integer where the result will be stored."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "The current DPI (dots per inch) setting, used for conversion if the value is positive."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation is successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "set_twips_entry",
+      "description": "This function sets the value of an entry after mapping it from system dpi if it's greater than 0, then calls the function set_int_entry with the processed value and other parameters.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry *",
+          "description": "Pointer to the entry to be set"
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "Integer parameter to be processed and set to the entry"
+        },
+        {
+          "name": "ptr_param",
+          "type": "void *",
+          "description": "Pointer parameter to be passed to the function set_int_entry"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to be passed to the function set_int_entry"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function set_int_entry executed successfully or not"
+    }
+  },
+  {
+    "function": {
+      "name": "get_bool_entry",
+      "description": "This function loads a boolean entry from a system parameter, if it's not already loaded, and stores the value in a provided pointer.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry *",
+          "description": "Pointer to the system parameter entry."
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "An unsigned integer parameter. However, it's not used in the function."
+        },
+        {
+          "name": "ptr_param",
+          "type": "void *",
+          "description": "Pointer where the boolean value of the entry will be stored."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "An unsigned integer parameter. However, it's not used in the function."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation is successful, FALSE if the ptr_param is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "set_bool_entry",
+      "description": "This function sets a boolean entry in a system parameter union. It also saves the entry string and sets the loaded flag to true.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry*",
+          "description": "Pointer to a system parameter union where the boolean entry will be set."
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "Integer parameter that will be used to set the boolean value and the entry string."
+        },
+        {
+          "name": "ptr_param",
+          "type": "void*",
+          "description": "Pointer parameter that is not used in this function."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags that will be passed to the save_entry_string function."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the entry string is successfully saved and the boolean value is set, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "init_bool_entry",
+      "description": "This function initializes a boolean entry by converting the boolean value to a string and then initializing the entry string with this value.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry *",
+          "description": "This is a pointer to the union sysparam_all_entry structure that needs to be initialized."
+        }
+      ],
+      "return_type": "BOOL, represents whether the initialization of the entry string was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "get_yesno_entry",
+      "description": "This function loads an entry if it's not loaded, checks the value and sets it to the boolean value of the entry. If the pointer parameter is null, it returns false, otherwise it returns true.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry*",
+          "description": "Pointer to the entry to get"
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "An unsigned integer parameter"
+        },
+        {
+          "name": "ptr_param",
+          "type": "void*",
+          "description": "Pointer parameter to be checked and set"
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "An unsigned integer parameter"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function executes successfully, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "set_yesno_entry",
+      "description": "This function sets a yes/no entry in a system parameter structure. It also sets the 'loaded' flag of the header to TRUE.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry *",
+          "description": "Pointer to the system parameter entry to be set"
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "Integer parameter used to determine the string to be saved in the entry"
+        },
+        {
+          "name": "ptr_param",
+          "type": "void *",
+          "description": "Unused parameter in the function"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags used when saving the string to the entry"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the string is successfully saved and the boolean value and 'loaded' flag are set, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "init_yesno_entry",
+      "description": "Initializes a yes/no entry by calling the init_entry_string function with the appropriate parameters.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry *",
+          "description": "Pointer to the entry to be initialized."
+        }
+      ],
+      "return_type": "BOOL, represents whether the initialization was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "get_dword_entry",
+      "description": "This function retrieves a DWORD entry from a system parameter union. If the entry is not loaded, it attempts to load it. The retrieved value is then stored in the memory location pointed to by ptr_param.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry*",
+          "description": "Pointer to the system parameter union from which to retrieve the DWORD entry"
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "An unsigned integer parameter. However, it is not used in the function body."
+        },
+        {
+          "name": "ptr_param",
+          "type": "void*",
+          "description": "Pointer to a memory location where the retrieved DWORD value will be stored"
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "An unsigned integer parameter. However, it is not used in the function body."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function executes successfully, and FALSE if ptr_param is NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "set_dword_entry",
+      "description": "This function sets a DWORD entry in the system parameters. It first converts a pointer parameter to a DWORD value, then saves this value into the entry. If the save operation is successful, it sets the value and loaded flag in the entry and returns TRUE. Otherwise, it returns FALSE.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry*",
+          "description": "A pointer to the system parameter entry to be set"
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "An integer parameter, but not used in this function"
+        },
+        {
+          "name": "ptr_param",
+          "type": "void*",
+          "description": "A pointer parameter, which is converted to a DWORD value and saved into the entry"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags for the save operation"
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation is successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "init_dword_entry",
+      "description": "This function initializes a DWORD entry in the system parameters.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry*",
+          "description": "This is a pointer to the system parameter entry to be initialized."
+        }
+      ],
+      "return_type": "BOOL, represents whether the initialization of the entry was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "get_rgb_entry",
+      "description": "This function loads an entry, parses the RGB values from it, and assigns the parsed value to the pointer parameter. If any parameter is null or the RGB values are invalid, it returns FALSE. Otherwise, it returns TRUE.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry *",
+          "description": "Pointer to the entry to be loaded"
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "An unsigned integer parameter, not used in the function"
+        },
+        {
+          "name": "ptr_param",
+          "type": "void *",
+          "description": "Pointer parameter to which the parsed RGB value is assigned"
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "An unsigned integer parameter, not used in the function"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully parses the RGB values and assigns them to the pointer parameter, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "set_rgb_entry",
+      "description": "This function sets the RGB entry of a system parameter. It also handles the deletion of GDI objects associated with the entry.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry *",
+          "description": "Pointer to the system parameter entry to be set."
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "Integer parameter representing the RGB value to be set."
+        },
+        {
+          "name": "ptr_param",
+          "type": "void *",
+          "description": "Pointer parameter, not used in this function."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to be used when saving the entry string."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function executes successfully, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "init_rgb_entry",
+      "description": "This function initializes an RGB entry by converting the RGB values to a string, converting that string to unicode, and then initializing the entry string with the unicode string.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry*",
+          "description": "This is a pointer to the entry that will be initialized with the RGB values."
+        }
+      ],
+      "return_type": "BOOL, represents whether the entry string was successfully initialized or not."
+    }
+  },
+  {
+    "function": {
+      "name": "get_path_entry",
+      "description": "This function loads an entry if it's not loaded, copies the path into the entry, and then copies the path from the entry into a provided pointer. If the pointer is null, the function returns false.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry*",
+          "description": "Pointer to the entry to be loaded and manipulated"
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "Size of the path to be copied"
+        },
+        {
+          "name": "ptr_param",
+          "type": "void*",
+          "description": "Pointer to the location where the path will be copied"
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "Unused in the function, but included in the parameters for potential future use"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function executed successfully or not"
+    }
+  },
+  {
+    "function": {
+      "name": "set_path_entry",
+      "description": "This function sets a path entry by copying a string from a pointer parameter into a buffer, saving the entry string, and if successful, copying the buffer into the path and setting the loaded flag to TRUE.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry*",
+          "description": "Pointer to the system parameter entry to be set"
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "An unsigned integer parameter, not used in this function"
+        },
+        {
+          "name": "ptr_param",
+          "type": "void*",
+          "description": "Pointer to the string to be copied into the path entry"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to be passed when saving the entry string"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the entry string was successfully saved and the path was set, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "init_path_entry",
+      "description": "This function initializes a path entry by calling the function 'init_entry_string' with the header of the entry and the path of the entry as arguments.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry *",
+          "description": "This is a pointer to the entry that needs to be initialized."
+        }
+      ],
+      "return_type": "BOOL, represents whether the initialization of the path entry was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "get_binary_entry",
+      "description": "This function retrieves a binary entry from a system parameter. If the entry is not loaded, it loads the entry into a buffer, copies it into the binary entry, and then clears the rest of the binary entry. It then copies the binary entry into a provided pointer parameter.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry*",
+          "description": "Pointer to the system parameter entry to retrieve"
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "Size of the binary data to be copied"
+        },
+        {
+          "name": "ptr_param",
+          "type": "void*",
+          "description": "Pointer to a buffer where the binary data will be copied"
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "Unused in the function, its purpose is not clear from the provided context"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function executes successfully, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "set_binary_entry",
+      "description": "This function sets a binary entry by allocating memory, copying data, saving the entry, and then freeing the memory.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry *",
+          "description": "Pointer to the entry to be set"
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "Integer parameter used to determine the minimum size for memory copy"
+        },
+        {
+          "name": "ptr_param",
+          "type": "void *",
+          "description": "Pointer parameter used as a source in memory copy"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags used in the save_entry function"
+        }
+      ],
+      "return_type": "BOOL, represents whether the entry was successfully saved or not"
+    }
+  },
+  {
+    "function": {
+      "name": "init_binary_entry",
+      "description": "This function initializes a binary entry by calling the init_entry function with specific parameters.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry *",
+          "description": "This is a pointer to the entry that needs to be initialized."
+        }
+      ],
+      "return_type": "BOOL, represents whether the initialization of the binary entry was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "logfont16to32",
+      "description": "This function converts a LOGFONT16 structure to a LPLOGFONTW structure.",
+      "parameters": [
+        {
+          "name": "font16",
+          "type": "LOGFONT16*",
+          "description": "Pointer to the LOGFONT16 structure that needs to be converted."
+        },
+        {
+          "name": "font32",
+          "type": "LPLOGFONTW",
+          "description": "Pointer to the LPLOGFONTW structure where the converted data will be stored."
+        }
+      ],
+      "return_type": "void, as this function does not return anything but modifies the font32 parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "get_real_fontname",
+      "description": "This function retrieves the real name of a font by using the LOGFONTW structure and the font name. It uses the NtGdiEnumFonts function to enumerate the fonts and copies the full name of the font to the fullname parameter.",
+      "parameters": [
+        {
+          "name": "lf",
+          "type": "LOGFONTW*",
+          "description": "Pointer to a LOGFONTW structure that contains information about the logical attributes of a font."
+        },
+        {
+          "name": "fullname",
+          "type": "WCHAR[LF_FACESIZE]",
+          "description": "Array of WCHAR that receives the full name of the font."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "get_char_dimensions",
+      "description": "This function calculates the average width and height of a set of characters in the current font of a device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "metric",
+          "type": "TEXTMETRICW*",
+          "description": "Pointer to a TEXTMETRICW structure that receives the text metrics."
+        },
+        {
+          "name": "height",
+          "type": "int*",
+          "description": "Pointer to an integer that receives the height of the characters."
+        }
+      ],
+      "return_type": "LONG, represents the average width of the characters."
+    }
+  },
+  {
+    "function": {
+      "name": "get_text_metr_size",
+      "description": "This function is used to get the size of the text metric. It creates a font, selects it into the device context, gets the character dimensions, and then cleans up the created and selected objects.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "lf",
+          "type": "LOGFONTW*",
+          "description": "Pointer to a LOGFONT structure that defines the characteristics of the logical font."
+        },
+        {
+          "name": "metric",
+          "type": "TEXTMETRICW*",
+          "description": "Pointer to a TEXTMETRIC structure that receives the text metrics."
+        },
+        {
+          "name": "psz",
+          "type": "UINT*",
+          "description": "Pointer to a UINT that receives the size."
+        }
+      ],
+      "return_type": "void, does not return a value but modifies the input parameters."
+    }
+  },
+  {
+    "function": {
+      "name": "get_dialog_base_units",
+      "description": "This function retrieves the base units of a dialog box, which are the average width and height of characters in the system font. It uses the NtUserGetDC function to get the device context of the screen, and then uses the get_char_dimensions function to get the dimensions of a character. The dimensions are then adjusted according to the system's DPI, using the muldiv function.",
+      "parameters": [],
+      "return_type": "DWORD, represents the base units of a dialog box in the form of a long integer. The low-order word contains the horizontal base unit, and the high-order word contains the vertical base unit."
+    }
+  },
+  {
+    "function": {
+      "name": "normalize_nonclientmetrics",
+      "description": "This function normalizes the non-client metrics of a window. It sets minimum values for border width, caption width, scroll width, and scroll height. It also adjusts the heights of the menu, caption, and small caption to correspond to their respective font sizes.",
+      "parameters": [
+        {
+          "name": "pncm",
+          "type": "NONCLIENTMETRICSW*",
+          "description": "Pointer to a NONCLIENTMETRICSW structure that contains the non-client metrics to be normalized."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "get_font_entry",
+      "description": "This function retrieves a font entry from a given system parameter entry. It handles different font formats and adjusts the font height based on the given DPI. It also sets the font's character set to the default character set.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry *",
+          "description": "Pointer to a system parameter entry from which the font entry is retrieved."
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "An unsigned integer parameter. However, it is not used in the function."
+        },
+        {
+          "name": "ptr_param",
+          "type": "void *",
+          "description": "Pointer parameter where the retrieved font entry is stored."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "The DPI (Dots Per Inch) used to adjust the font height."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully retrieves and stores the font entry, and FALSE if the ptr_param is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "set_font_entry",
+      "description": "This function sets a font entry. It first copies the font from the pointer parameter, then it ensures that the font name is zero-padded to avoid saving uninitialized data. If the font height is negative, it is mapped from the system DPI. The function then saves the entry and updates the font value and name in the entry. Finally, it sets the entry as loaded and returns true.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry *",
+          "description": "Pointer to the system parameter entry to be set"
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "An unsigned integer parameter"
+        },
+        {
+          "name": "ptr_param",
+          "type": "void *",
+          "description": "Pointer parameter from which the font is copied"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to be used when saving the entry"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the font entry is successfully set, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "init_font_entry",
+      "description": "This function initializes a font entry by setting its values, getting the real font name and initializing the entry.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry *",
+          "description": "This parameter is a pointer to a union of system parameter entries. It is used to access and modify the font entry within the union."
+        }
+      ],
+      "return_type": "BOOL, represents whether the entry was successfully initialized or not"
+    }
+  },
+  {
+    "function": {
+      "name": "get_userpref_entry",
+      "description": "This function retrieves a user preference entry from a system parameter entry. It checks if the pointer parameter is not null and if the parent entry can get the preference. If both conditions are met, it sets the pointer parameter to the result of a bitwise operation on the preference offset and mask. Returns TRUE if successful, FALSE otherwise.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry *",
+          "description": "Pointer to the system parameter entry from which to retrieve the user preference entry."
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "An integer parameter. Not used in the function body, may be for future use or for compatibility with function pointers."
+        },
+        {
+          "name": "ptr_param",
+          "type": "void *",
+          "description": "Pointer to a variable where the result of the bitwise operation on the preference offset and mask will be stored."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "An integer parameter passed to the get method of the parent entry. Its exact purpose depends on the implementation of that method."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was able to retrieve the user preference entry and perform the bitwise operation successfully. Returns TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "set_userpref_entry",
+      "description": "This function sets a user preference entry by updating the preference array based on the given parameters and returns the status of the operation.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "union sysparam_all_entry *",
+          "description": "Pointer to the user preference entry to be set."
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "An integer parameter used in the function but its specific use is not clear from the provided context."
+        },
+        {
+          "name": "ptr_param",
+          "type": "void *",
+          "description": "A pointer parameter. If it points to a non-zero value, the function sets the corresponding bit in the preference array."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags used in the set operation of the parent entry."
+        }
+      ],
+      "return_type": "BOOL, represents the status of the operation. Returns FALSE if the get operation on the parent entry fails, otherwise returns the result of the set operation on the parent entry."
+    }
+  },
+  {
+    "function": {
+      "name": "get_entry_dpi",
+      "description": "This function retrieves the dpi entry from a system parameter union.",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "void *",
+          "description": "Pointer to the system parameter union"
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "Integer parameter used in the get method of the system parameter union"
+        },
+        {
+          "name": "ptr_param",
+          "type": "void *",
+          "description": "Pointer parameter used in the get method of the system parameter union"
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "Dpi value to be retrieved from the system parameter union"
+        }
+      ],
+      "return_type": "BOOL, represents whether the dpi entry was successfully retrieved or not"
+    }
+  },
+  {
+    "function": {
+      "name": "get_entry",
+      "description": "This function calls the get_entry_dpi function with an additional parameter, the system dpi, and returns the result.",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "void *",
+          "description": "This is a pointer parameter."
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "This is an unsigned integer parameter."
+        },
+        {
+          "name": "ptr_param",
+          "type": "void *",
+          "description": "This is another pointer parameter."
+        }
+      ],
+      "return_type": "BOOL, represents the boolean result of the get_entry_dpi function call"
+    }
+  },
+  {
+    "function": {
+      "name": "set_entry",
+      "description": "This function sets the entry of a system parameter.",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "void *",
+          "description": "Pointer to the system parameter entry"
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "Integer parameter to set in the entry"
+        },
+        {
+          "name": "ptr_param",
+          "type": "void *",
+          "description": "Pointer parameter to set in the entry"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to control the setting of the entry"
+        }
+      ],
+      "return_type": "BOOL, represents whether the entry was successfully set or not"
+    }
+  },
+  {
+    "function": {
+      "name": "UINT_ENTRY",
+      "description": "This function is a macro used to define a number of static entries with various properties.",
+      "parameters": [],
+      "return_type": "UINT_ENTRY, it does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "get_app_compat_flags",
+      "description": "This function retrieves the application compatibility flags from the Windows registry for a given application name.",
+      "parameters": [
+        {
+          "name": "appname",
+          "type": "const WCHAR *",
+          "description": "This is the name of the application for which the compatibility flags are to be retrieved."
+        }
+      ],
+      "return_type": "char *; Returns a pointer to the compatibility flags if successful, otherwise returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "sysparams_init",
+      "description": "This function initializes system parameters, sets up registry keys, and configures application compatibility flags and settings related to DPI, keyboard layout, and X11 driver. It also handles mutex initialization and error handling for registry key creation.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "update_desktop_wallpaper",
+      "description": "This function is used to update the desktop wallpaper. The implementation needs to be moved from user32. It sets the loaded status of DESKWALLPAPER and DESKPATTERN to FALSE and returns TRUE.",
+      "parameters": [],
+      "return_type": "BOOL, represents the success status of the function. Returns TRUE indicating the function executed successfully."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSystemParametersInfoForDpi",
+      "description": "This function retrieves or sets the value of one of the system-wide parameters, taking into account the provided DPI value. It handles different actions based on the 'action' parameter value.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "UINT",
+          "description": "The system-wide parameter to be queried or set."
+        },
+        {
+          "name": "val",
+          "type": "UINT",
+          "description": "Parameter used in some actions to define the behavior of the function."
+        },
+        {
+          "name": "ptr",
+          "type": "PVOID",
+          "description": "Pointer to a parameter specific structure or variable."
+        },
+        {
+          "name": "winini",
+          "type": "UINT",
+          "description": "Specifies how the system should update the user profile."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "The DPI value that should be used in the function."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "get_system_metrics",
+      "description": "This function retrieves various system metrics and system configuration settings. The particular system metric or configuration setting to be retrieved is specified by the 'index' parameter.",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "int",
+          "description": "This parameter specifies the system metric or configuration setting to be retrieved."
+        }
+      ],
+      "return_type": "int, represents the requested system metric or configuration setting value."
+    }
+  },
+  {
+    "function": {
+      "name": "get_system_metrics_for_dpi",
+      "description": "This function retrieves system metrics or system configuration settings for a specific DPI.",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "int",
+          "description": "This parameter is used to specify the system metric or configuration setting to be retrieved."
+        },
+        {
+          "name": "dpi",
+          "type": "unsigned int",
+          "description": "This parameter is used to specify the DPI for which the system metrics or configuration settings are to be retrieved."
+        }
+      ],
+      "return_type": "int, represents the requested system metric or configuration setting for the specified DPI."
+    }
+  },
+  {
+    "function": {
+      "name": "get_sys_color",
+      "description": "This function retrieves the system color based on the provided index.",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "int",
+          "description": "This parameter is used to specify the index of the system color to retrieve."
+        }
+      ],
+      "return_type": "COLORREF, which represents the color reference of the system color at the specified index."
+    }
+  },
+  {
+    "function": {
+      "name": "get_55aa_brush",
+      "description": "This function creates a pattern brush with a specific pattern if it doesn't exist already, and returns the brush.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "HBRUSH, which represents the handle to the brush that is created or retrieved by this function."
+    }
+  },
+  {
+    "function": {
+      "name": "get_sys_color_brush",
+      "description": "This function retrieves a system color brush based on the provided index. If the brush does not exist, it creates a new one using the system color at the given index.",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "unsigned int",
+          "description": "This parameter is used to specify the index of the system color brush to retrieve."
+        }
+      ],
+      "return_type": "HBRUSH. This represents the handle to the system color brush retrieved or created based on the provided index."
+    }
+  },
+  {
+    "function": {
+      "name": "get_sys_color_pen",
+      "description": "This function retrieves a system color pen object based on the provided index. If the pen object does not exist, it creates one using the system color at the given index.",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "unsigned int",
+          "description": "This parameter is used to specify the index of the system color to retrieve or create a pen for."
+        }
+      ],
+      "return_type": "HPEN, which represents a handle to the pen object associated with the specified system color. If the index is out of range, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetDoubleClickTime",
+      "description": "This function retrieves the current double-click time for the mouse. A double-click is a series of two clicks of the mouse button, the second occurring within a specified time after the first. The double-click time is the maximum number of milliseconds that may occur between the first and second click of a double-click. The default double-click time is 500 milliseconds.",
+      "parameters": [],
+      "return_type": "UINT, represents the current double-click time in milliseconds"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetSysColors",
+      "description": "This function sets the system colors according to the given arrays of color indices and COLORREF values. It also sends a system color change message to all windows and repaints affected portions of all visible windows.",
+      "parameters": [
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "The number of elements in the colors and values arrays."
+        },
+        {
+          "name": "colors",
+          "type": "INT*",
+          "description": "An array of color indices to be set."
+        },
+        {
+          "name": "values",
+          "type": "COLORREF*",
+          "description": "An array of COLORREF values corresponding to the color indices in the colors array."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function executes successfully, and FALSE if an invalid color index is passed."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetProcessDpiAwarenessContext",
+      "description": "This function sets the DPI awareness context for a process. It first checks if the context is valid. If not, it sets the last error to ERROR_INVALID_PARAMETER and returns FALSE. If the context is valid, it attempts to exchange the current DPI context with the new one. If the exchange is successful, it returns TRUE. If not, it sets the last error to ERROR_ACCESS_DENIED and returns FALSE.",
+      "parameters": [
+        {
+          "name": "context",
+          "type": "ULONG",
+          "description": "The DPI awareness context to be set for the process"
+        },
+        {
+          "name": "unknown",
+          "type": "ULONG",
+          "description": "This parameter is not used in the function and its purpose is unknown"
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the DPI awareness context is successfully set. Returns FALSE otherwise, and the last error is set to either ERROR_INVALID_PARAMETER or ERROR_ACCESS_DENIED."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetProcessDpiAwarenessContext",
+      "description": "This function retrieves the DPI awareness context of the current process. If the process is not the current one, it returns a default value indicating that the process is DPI unaware.",
+      "parameters": [
+        {
+          "name": "process",
+          "type": "HANDLE",
+          "description": "This is a handle to the process whose DPI awareness context is to be retrieved."
+        }
+      ],
+      "return_type": "ULONG. This represents the DPI awareness context of the process. If the process is not the current one, or if the context could not be read, it returns a default value indicating that the process is DPI unaware."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetProcessDefaultLayout",
+      "description": "This function retrieves the default layout of the process. If the layout pointer is null, it sets the last Win32 error to ERROR_NOACCESS and returns FALSE. Otherwise, it sets the value pointed by the layout pointer to the process layout and returns TRUE.",
+      "parameters": [
+        {
+          "name": "layout",
+          "type": "ULONG *",
+          "description": "This is a pointer to a ULONG variable where the function will store the process layout."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was able to successfully retrieve the process layout. Returns TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetProcessDefaultLayout",
+      "description": "This function sets the default layout for the process.",
+      "parameters": [
+        {
+          "name": "layout",
+          "type": "ULONG",
+          "description": "This parameter represents the layout to be set as default for the process."
+        }
+      ],
+      "return_type": "BOOL, represents whether the default layout for the process was successfully set or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserMessageBeep",
+      "description": "This function checks if the system beep is active. If it is, it calls the user driver's beep function.",
+      "parameters": [
+        {
+          "name": "type",
+          "type": "UINT",
+          "description": "This parameter is not used in the function."
+        }
+      ],
+      "return_type": "BOOL, always returns TRUE regardless of the system beep status"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetAdditionalForegroundBoostProcesses",
+      "description": "This function is currently not implemented. It is a placeholder for a function that sets additional foreground boost processes.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "The number of additional foreground boost processes to set."
+        },
+        {
+          "name": "handles",
+          "type": "HANDLE*",
+          "description": "A pointer to the handles of the processes to boost."
+        }
+      ],
+      "return_type": "BOOL, returns FALSE because the function is not yet implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "is_exiting_thread",
+      "description": "This function checks if the given thread id is the exiting thread id",
+      "parameters": [
+        {
+          "name": "tid",
+          "type": "DWORD",
+          "description": "This is the thread id to check"
+        }
+      ],
+      "return_type": "BOOL, returns true if the given thread id is the exiting thread id, false otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "thread_detach",
+      "description": "This function detaches a thread, cleans up its resources and closes its handles.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "set_keyboard_auto_repeat",
+      "description": "This function sets the keyboard auto repeat feature with specific delay and speed.",
+      "parameters": [
+        {
+          "name": "enable",
+          "type": "BOOL",
+          "description": "This parameter is used to enable or disable the keyboard auto repeat feature."
+        }
+      ],
+      "return_type": "BOOL, represents whether the server keyboard repeat was successfully set or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserCallNoParam",
+      "description": "This function handles different cases based on the provided code. It performs different operations such as getting the desktop window, dialog base units, last input time, progman window, shell window, taskman window, changing the display mode, exiting thread, and detaching thread.",
+      "parameters": [
+        {
+          "name": "code",
+          "type": "ULONG",
+          "description": "This parameter is used to determine the case to be executed in the function."
+        }
+      ],
+      "return_type": "ULONG_PTR, it represents the return value of the function which varies based on the case executed. It could be a handle to a window, a time value, a boolean value, or zero in case of an invalid code or after thread operations."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserCallOneParam",
+      "description": "This function performs different operations based on the provided code. It can create a cursor icon, enable DC, set thunk lock callback, get icon parameter, get menu item count, get system color, get primary monitor rectangle, get system color brush, get system color pen, get system metrics, set keyboard auto repeat, set thread DPI awareness context, open adapter from GDI display name, get async keyboard state, and get desk pattern.",
+      "parameters": [
+        {
+          "name": "arg",
+          "type": "ULONG_PTR",
+          "description": "This parameter is used as an argument for the operation specified by the code."
+        },
+        {
+          "name": "code",
+          "type": "ULONG",
+          "description": "This parameter specifies the operation to be performed."
+        }
+      ],
+      "return_type": "ULONG_PTR, represents different values based on the operation performed. It can be a handle to a cursor icon, a flag indicating if DC is enabled, a thunk lock callback, an icon parameter, a menu item count, a system color, a rectangle of the primary monitor, a system color brush, a system color pen, system metrics, a flag indicating if keyboard auto repeat is set, a thread DPI awareness context, an adapter from GDI display name, an async keyboard state, a desk pattern, or 0 in case of an invalid code or when setting the thunk lock callback."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserCallTwoParam",
+      "description": "This function is a switch case function that performs different operations based on the value of the 'code' parameter. It handles various system-level tasks such as getting dialog proc, menu info, monitor info, system metrics for dpi, etc.",
+      "parameters": [
+        {
+          "name": "arg1",
+          "type": "ULONG_PTR",
+          "description": "This parameter is used as an argument in the various case functions. Its usage varies depending on the 'code' parameter."
+        },
+        {
+          "name": "arg2",
+          "type": "ULONG_PTR",
+          "description": "This parameter is also used as an argument in the various case functions. Its usage varies depending on the 'code' parameter."
+        },
+        {
+          "name": "code",
+          "type": "ULONG",
+          "description": "This parameter determines which case function will be executed. It represents the operation to be performed."
+        }
+      ],
+      "return_type": "ULONG_PTR. The return value depends on the 'code' parameter. It could be a pointer to a dialog proc, menu info, monitor info, etc., or a boolean value indicating success or failure of an operation."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserDisplayConfigGetDeviceInfo",
+      "description": "This function retrieves information about the display configuration device.",
+      "parameters": [
+        {
+          "name": "packet",
+          "type": "DISPLAYCONFIG_DEVICE_INFO_HEADER *",
+          "description": "This is a pointer to a DISPLAYCONFIG_DEVICE_INFO_HEADER structure that identifies the request type and contains a hardware ID for the device of interest."
+        }
+      ],
+      "return_type": "NTSTATUS - The function returns an NTSTATUS code that indicates the success or failure of the function."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIEnumAdapters2",
+      "description": "This function enumerates graphics adapters, opens an adapter from a locally unique identifier (LUID), and handles potential errors.",
+      "parameters": [
+        {
+          "name": "desc",
+          "type": "D3DKMT_ENUMADAPTERS2 *",
+          "description": "A pointer to a D3DKMT_ENUMADAPTERS2 structure that describes the adapters to enumerate."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the completion status of the operation. Returns STATUS_SUCCESS if the operation is successful, STATUS_INVALID_PARAMETER if the input parameter is invalid, STATUS_UNSUCCESSFUL if the operation fails, or STATUS_BUFFER_TOO_SMALL if the buffer size is insufficient."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIEnumAdapters",
+      "description": "This function enumerates the graphics adapters available on the system and copies the information into the provided structure.",
+      "parameters": [
+        {
+          "name": "desc",
+          "type": "D3DKMT_ENUMADAPTERS*",
+          "description": "A pointer to a D3DKMT_ENUMADAPTERS structure that receives the adapter information."
+        }
+      ],
+      "return_type": "NTSTATUS, where the return value is the status of the operation. If the function succeeds, the return value is STATUS_SUCCESS. If the function fails, the return value can be STATUS_INVALID_PARAMETER, STATUS_NO_MEMORY, or an error code returned by NtGdiDdDDIEnumAdapters2."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIOpenAdapterFromDeviceName",
+      "description": "This function opens an adapter from a device name. It checks the validity of the device name, converts it to uppercase, and compares it with the display device arrival GUID. If a match is found, it opens the adapter from the LUID of the GPU that matches the path of the device name.",
+      "parameters": [
+        {
+          "name": "desc",
+          "type": "D3DKMT_OPENADAPTERFROMDEVICENAME *",
+          "description": "Pointer to a D3DKMT_OPENADAPTERFROMDEVICENAME structure that describes the display adapter to open."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. Returns STATUS_INVALID_PARAMETER if the input parameter is invalid, STATUS_NO_MEMORY if memory allocation fails, STATUS_UNSUCCESSFUL if the display devices cannot be locked, or the status of the NtGdiDdDDIOpenAdapterFromLuid function call."
+    }
+  },
+  {
+    "function": {
+      "name": "get_vulkan_uuid_from_luid",
+      "description": "This function retrieves the Vulkan UUID associated with a given LUID. It iterates over a list of GPUs, comparing the LUID of each with the provided LUID. If a match is found, the function sets the provided UUID pointer to the Vulkan UUID of the matching GPU and returns TRUE. If no match is found, the function returns FALSE.",
+      "parameters": [
+        {
+          "name": "luid",
+          "type": "LUID*",
+          "description": "A pointer to the LUID for which the Vulkan UUID is to be retrieved."
+        },
+        {
+          "name": "uuid",
+          "type": "GUID*",
+          "description": "A pointer to a GUID variable where the Vulkan UUID will be stored if a matching LUID is found."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if a matching LUID is found and the Vulkan UUID is successfully retrieved, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "get_luid_from_vulkan_uuid",
+      "description": "This function attempts to find a GPU that matches the provided UUID, and if found, sets the LUID and node mask for that GPU.",
+      "parameters": [
+        {
+          "name": "uuid",
+          "type": "GUID*",
+          "description": "A pointer to the UUID of the GPU to find."
+        },
+        {
+          "name": "luid",
+          "type": "LUID*",
+          "description": "A pointer to a LUID variable where the LUID of the found GPU will be stored."
+        },
+        {
+          "name": "node_mask",
+          "type": "UINT32*",
+          "description": "A pointer to a UINT32 variable where the node mask of the found GPU will be stored."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if a GPU with the provided UUID was found, otherwise FALSE."
+    }
+  }
+]

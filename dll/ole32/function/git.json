@@ -1,0 +1,207 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IGlobalInterfaceTable",
+      "description": "This function returns the containing record for the given interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IGlobalInterfaceTable*",
+          "description": "This parameter is used to specify the interface for which the containing record is to be returned."
+        }
+      ],
+      "return_type": "StdGlobalInterfaceTableImpl pointer, represents the containing record for the given interface."
+    }
+  },
+  {
+    "function": {
+      "name": "StdGlobalInterfaceTable_FindEntry",
+      "description": "This function searches for an entry in the global interface table using a given cookie.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "StdGlobalInterfaceTableImpl*",
+          "description": "Pointer to the instance of the global interface table implementation."
+        },
+        {
+          "name": "cookie",
+          "type": "DWORD",
+          "description": "The cookie that identifies the entry to be found in the global interface table."
+        }
+      ],
+      "return_type": "StdGITEntry*, represents the entry found in the global interface table. If no entry is found, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "StdGlobalInterfaceTable_QueryInterface",
+      "description": "This function checks if the provided interface is implemented. If it is, it increments the reference count and returns S_OK. If the interface is not implemented, it returns E_NOINTERFACE. If the ppvObject pointer is null, it returns E_INVALIDARG.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IGlobalInterfaceTable*",
+          "description": "The interface to check."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "The identifier of the interface."
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "A pointer to the location where the interface pointer will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It can be S_OK if the operation was successful, E_NOINTERFACE if the interface is not implemented, or E_INVALIDARG if the ppvObject pointer is null."
+    }
+  },
+  {
+    "function": {
+      "name": "StdGlobalInterfaceTable_AddRef",
+      "description": "This function is used to add a reference to the global interface table.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IGlobalInterfaceTable*",
+          "description": "This is a pointer to the global interface table."
+        }
+      ],
+      "return_type": "ULONG, represents the reference count after adding a reference."
+    }
+  },
+  {
+    "function": {
+      "name": "StdGlobalInterfaceTable_Release",
+      "description": "This function is a stub that simply returns 1.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IGlobalInterfaceTable*",
+          "description": "Pointer to an IGlobalInterfaceTable interface"
+        }
+      ],
+      "return_type": "ULONG, represents a 32-bit unsigned integer. In this function, it always returns 1."
+    }
+  },
+  {
+    "function": {
+      "name": "StdGlobalInterfaceTable_RegisterInterfaceInGlobal",
+      "description": "This function registers an interface in a global interface table. It marshals the interface, creates a new entry in the table, and returns a cookie that can be used to retrieve the interface later.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IGlobalInterfaceTable*",
+          "description": "Pointer to the global interface table in which the interface is to be registered."
+        },
+        {
+          "name": "pUnk",
+          "type": "IUnknown*",
+          "description": "Pointer to the interface to be registered."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface to be registered."
+        },
+        {
+          "name": "pdwCookie",
+          "type": "DWORD*",
+          "description": "Pointer to a variable that receives the cookie for the registered interface."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If the interface is not valid, it returns E_INVALIDARG. If the function fails to allocate memory for the new entry, it returns E_OUTOFMEMORY."
+    }
+  },
+  {
+    "function": {
+      "name": "StdGlobalInterfaceTable_RevokeInterfaceFromGlobal",
+      "description": "This function revokes an interface from the global interface table. It finds the entry in the table using the provided cookie, removes it from the list, releases the marshal data and the stream, and finally frees the entry.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IGlobalInterfaceTable*",
+          "description": "Pointer to the interface that needs to be revoked from the global interface table"
+        },
+        {
+          "name": "dwCookie",
+          "type": "DWORD",
+          "description": "A unique identifier that represents the interface in the global interface table"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful, E_INVALIDARG if the entry is not found, or other HRESULT values if releasing the marshal data fails"
+    }
+  },
+  {
+    "function": {
+      "name": "StdGlobalInterfaceTable_GetInterfaceFromGlobal",
+      "description": "This function retrieves an interface pointer from the global interface table using a cookie. It also handles critical sections and error checking.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IGlobalInterfaceTable*",
+          "description": "Pointer to an interface in the global interface table."
+        },
+        {
+          "name": "dwCookie",
+          "type": "DWORD",
+          "description": "Cookie associated with the interface pointer."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface to be retrieved."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Address of the pointer variable that receives the interface pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. S_OK if successful, error code otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "GlobalInterfaceTable_CreateInstance",
+      "description": "This function creates an instance of the Global Interface Table (GIT). If the GIT does not exist, it initializes it and assigns it to the 'std_git' pointer. It then calls the 'IGlobalInterfaceTable_QueryInterface' function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClassFactory *",
+          "description": "Pointer to the class factory interface"
+        },
+        {
+          "name": "outer",
+          "type": "IUnknown *",
+          "description": "Pointer to the controlling unknown, if any"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested"
+        },
+        {
+          "name": "obj",
+          "type": "void **",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns E_OUTOFMEMORY if memory allocation fails, otherwise it returns the result of the 'IGlobalInterfaceTable_QueryInterface' function call."
+    }
+  },
+  {
+    "function": {
+      "name": "release_std_git",
+      "description": "This function releases the standard GIT (Global Interface Table) by removing entries from the list, releasing the marshal data and the stream, and finally freeing the memory allocated to the GIT and its entries.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, meaning this function does not return any value."
+    }
+  }
+]

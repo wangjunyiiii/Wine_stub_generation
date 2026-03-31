@@ -1,0 +1,3954 @@
+[
+  {
+    "function": {
+      "name": "nulldrv_AbortDoc",
+      "description": "This function aborts the document in a null driver.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device."
+        }
+      ],
+      "return_type": "INT, represents a status code where 0 indicates successful abortion of the document."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_Arc",
+      "description": "This function does not perform any operation and always returns TRUE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "Left coordinate of the bounding rectangle"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "Top coordinate of the bounding rectangle"
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "Right coordinate of the bounding rectangle"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "Bottom coordinate of the bounding rectangle"
+        },
+        {
+          "name": "xstart",
+          "type": "INT",
+          "description": "Starting x-coordinate of the arc"
+        },
+        {
+          "name": "ystart",
+          "type": "INT",
+          "description": "Starting y-coordinate of the arc"
+        },
+        {
+          "name": "xend",
+          "type": "INT",
+          "description": "Ending x-coordinate of the arc"
+        },
+        {
+          "name": "yend",
+          "type": "INT",
+          "description": "Ending y-coordinate of the arc"
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the function. In this case, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_Chord",
+      "description": "This function does not perform any operation and always returns TRUE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "Left coordinate of the rectangle"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "Top coordinate of the rectangle"
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "Right coordinate of the rectangle"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "Bottom coordinate of the rectangle"
+        },
+        {
+          "name": "xstart",
+          "type": "INT",
+          "description": "X coordinate of the start point of the line segment"
+        },
+        {
+          "name": "ystart",
+          "type": "INT",
+          "description": "Y coordinate of the start point of the line segment"
+        },
+        {
+          "name": "xend",
+          "type": "INT",
+          "description": "X coordinate of the end point of the line segment"
+        },
+        {
+          "name": "yend",
+          "type": "INT",
+          "description": "Y coordinate of the end point of the line segment"
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the function. In this case, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_CreateCompatibleDC",
+      "description": "This function checks if the 'pCreateCompatibleDC' function pointer is NULL. If it is, it returns TRUE. Otherwise, it calls the 'pCreateCompatibleDC' function with NULL and 'pdev' as arguments.",
+      "parameters": [
+        {
+          "name": "orig",
+          "type": "PHYSDEV",
+          "description": "This is the original physical device."
+        },
+        {
+          "name": "pdev",
+          "type": "PHYSDEV*",
+          "description": "This is a pointer to the physical device that is compatible."
+        }
+      ],
+      "return_type": "BOOL, represents whether the 'pCreateCompatibleDC' function pointer is NULL or not. Returns TRUE if it is NULL, otherwise returns the result of the 'pCreateCompatibleDC' function call."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_CreateDC",
+      "description": "This function asserts a condition that should never be true and returns a boolean value.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV*",
+          "description": "Pointer to a PHYSDEV structure"
+        },
+        {
+          "name": "device",
+          "type": "LPCWSTR",
+          "description": "Wide string representing the device"
+        },
+        {
+          "name": "output",
+          "type": "LPCWSTR",
+          "description": "Wide string representing the output"
+        },
+        {
+          "name": "devmode",
+          "type": "DEVMODEW*",
+          "description": "Pointer to a DEVMODEW structure"
+        }
+      ],
+      "return_type": "BOOL, represents a boolean value. In this function, it always returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_DeleteDC",
+      "description": "This function asserts a condition that should never be true and returns a boolean value.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is not used within the function."
+        }
+      ],
+      "return_type": "BOOL, represents a boolean value. In this function, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_DeleteObject",
+      "description": "This function always returns TRUE, indicating a successful deletion of an object, regardless of the input parameters.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context that the function operates on"
+        },
+        {
+          "name": "obj",
+          "type": "HGDIOBJ",
+          "description": "Handle to the graphical device interface object to be deleted"
+        }
+      ],
+      "return_type": "BOOL, represents whether the object was successfully deleted or not"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_Ellipse",
+      "description": "This function always returns TRUE, it doesn't perform any operation.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "Left coordinate of the ellipse"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "Top coordinate of the ellipse"
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "Right coordinate of the ellipse"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "Bottom coordinate of the ellipse"
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the function. In this case, always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_EndDoc",
+      "description": "This function ends a document in a null driver.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device where the document is located."
+        }
+      ],
+      "return_type": "INT, represents the status of the operation. In this case, it always returns 0, indicating a successful operation."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_EndPage",
+      "description": "This function ends a page in a null driver.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device."
+        }
+      ],
+      "return_type": "INT, represents the status of the operation, in this case always returns 0 indicating success."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_EnumFonts",
+      "description": "This function is a placeholder that always returns TRUE. It doesn't perform any operation.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "logfont",
+          "type": "LOGFONTW*",
+          "description": "Pointer to a LOGFONTW structure"
+        },
+        {
+          "name": "proc",
+          "type": "font_enum_proc",
+          "description": "Callback function"
+        },
+        {
+          "name": "lParam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information"
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the function. In this case, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_ExtEscape",
+      "description": "This function is a null driver escape method that always returns 0, regardless of the input parameters.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Physical device to be used"
+        },
+        {
+          "name": "escape",
+          "type": "INT",
+          "description": "Escape code"
+        },
+        {
+          "name": "in_size",
+          "type": "INT",
+          "description": "Size of the input data"
+        },
+        {
+          "name": "in_data",
+          "type": "void *",
+          "description": "Pointer to the input data"
+        },
+        {
+          "name": "out_size",
+          "type": "INT",
+          "description": "Size of the output data"
+        },
+        {
+          "name": "out_data",
+          "type": "void *",
+          "description": "Pointer to the output data"
+        }
+      ],
+      "return_type": "INT, represents the return status of the function, always 0 in this case"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_ExtFloodFill",
+      "description": "This function doesn't perform any operation and always returns TRUE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to be used"
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the start point for the flood fill"
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the start point for the flood fill"
+        },
+        {
+          "name": "color",
+          "type": "COLORREF",
+          "description": "The color to fill"
+        },
+        {
+          "name": "type",
+          "type": "UINT",
+          "description": "The type of fill operation"
+        }
+      ],
+      "return_type": "BOOL, always returns TRUE in this function"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_FontIsLinked",
+      "description": "This function checks if a font is linked in a null device context.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device context."
+        }
+      ],
+      "return_type": "BOOL, represents whether the font is linked or not. In this case, it always returns FALSE indicating the font is not linked."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetBoundsRect",
+      "description": "This function returns the constant DCB_RESET.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to get bounds rectangle from"
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that will receive the bounding rectangle"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to modify the behavior of the function"
+        }
+      ],
+      "return_type": "UINT, represents the constant DCB_RESET"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetCharABCWidths",
+      "description": "This function is a placeholder that currently always returns FALSE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "first",
+          "type": "UINT",
+          "description": "The first character to get the width of"
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of characters to get the width of"
+        },
+        {
+          "name": "chars",
+          "type": "WCHAR*",
+          "description": "Pointer to the characters to get the width of"
+        },
+        {
+          "name": "abc",
+          "type": "ABC*",
+          "description": "Pointer to the ABC structure to receive the character widths"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetCharABCWidthsI",
+      "description": "This function is a stub and does not perform any operation. It always returns FALSE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "first",
+          "type": "UINT",
+          "description": "The first character to get the width of"
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of characters to get the width of"
+        },
+        {
+          "name": "indices",
+          "type": "WORD*",
+          "description": "Pointer to the indices of the characters"
+        },
+        {
+          "name": "abc",
+          "type": "LPABC",
+          "description": "Pointer to the ABC structure to receive the widths"
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetCharWidth",
+      "description": "This function is a placeholder that does not perform any operation and always returns FALSE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "first",
+          "type": "UINT",
+          "description": "The first character in the range of characters"
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of characters in the range"
+        },
+        {
+          "name": "chars",
+          "type": "WCHAR *",
+          "description": "Pointer to the array of characters"
+        },
+        {
+          "name": "buffer",
+          "type": "INT *",
+          "description": "Pointer to the buffer that receives the widths"
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not. In this case, it always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetCharWidthInfo",
+      "description": "This function does not perform any operation and always returns FALSE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is not used in the function."
+        },
+        {
+          "name": "info",
+          "type": "void *",
+          "description": "This parameter is not used in the function."
+        }
+      ],
+      "return_type": "BOOL, always returns FALSE in this function."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetDeviceCaps",
+      "description": "This function retrieves the capabilities of a device based on the specified capability index.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the physical device whose capabilities are to be retrieved."
+        },
+        {
+          "name": "cap",
+          "type": "INT",
+          "description": "This is the capability index. It specifies the device capability to be retrieved."
+        }
+      ],
+      "return_type": "INT. This function returns the value of the specified device capability. If the capability is not supported by the device, the function returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetDeviceGammaRamp",
+      "description": "This function sets the last error to ERROR_INVALID_PARAMETER and returns FALSE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device for which the gamma ramp is to be retrieved."
+        },
+        {
+          "name": "ramp",
+          "type": "void *",
+          "description": "Pointer to the gamma ramp."
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the function. In this case, it always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetFontData",
+      "description": "This function is used to get font data but always returns FALSE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "table",
+          "type": "DWORD",
+          "description": "Table of font data"
+        },
+        {
+          "name": "offset",
+          "type": "DWORD",
+          "description": "Offset into the font data table"
+        },
+        {
+          "name": "buffer",
+          "type": "LPVOID",
+          "description": "Buffer to receive the font data"
+        },
+        {
+          "name": "length",
+          "type": "DWORD",
+          "description": "Length of the data to retrieve"
+        }
+      ],
+      "return_type": "DWORD, represents a boolean value indicating success or failure, but always returns FALSE in this case"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetFontRealizationInfo",
+      "description": "This function is expected to get the font realization information, but currently it always returns FALSE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device for which font realization information is to be obtained"
+        },
+        {
+          "name": "info",
+          "type": "void*",
+          "description": "Pointer to the structure to receive the font realization information"
+        }
+      ],
+      "return_type": "BOOL indicating success or failure of the operation. In this case, it always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetFontUnicodeRanges",
+      "description": "This function is a stub, it does not perform any operation and always returns 0.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is a device context."
+        },
+        {
+          "name": "glyphs",
+          "type": "LPGLYPHSET",
+          "description": "This parameter is a pointer to a GLYPHSET structure."
+        }
+      ],
+      "return_type": "DWORD, represents the return value of the function. In this case, it always returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetGlyphIndices",
+      "description": "This function is used to get the glyph indices.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is used to specify the device."
+        },
+        {
+          "name": "str",
+          "type": "LPCWSTR",
+          "description": "This parameter is used to specify the string."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "This parameter is used to specify the count."
+        },
+        {
+          "name": "indices",
+          "type": "LPWORD",
+          "description": "This parameter is used to specify the indices."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "This parameter is used to specify the flags."
+        }
+      ],
+      "return_type": "DWORD, represents the status of the operation. In this case, it always returns GDI_ERROR."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetGlyphOutline",
+      "description": "This function is used to get the outline of a glyph. However, in this implementation it always returns an error.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "ch",
+          "type": "UINT",
+          "description": "Character to get the glyph of"
+        },
+        {
+          "name": "format",
+          "type": "UINT",
+          "description": "Format of the glyph"
+        },
+        {
+          "name": "metrics",
+          "type": "LPGLYPHMETRICS",
+          "description": "Metrics of the glyph"
+        },
+        {
+          "name": "size",
+          "type": "DWORD",
+          "description": "Size of the glyph"
+        },
+        {
+          "name": "buffer",
+          "type": "LPVOID",
+          "description": "Buffer to store the glyph"
+        },
+        {
+          "name": "mat",
+          "type": "MAT2 *",
+          "description": "Transformation to be applied to the glyph"
+        }
+      ],
+      "return_type": "DWORD, represents an error code. In this case, it always returns GDI_ERROR."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetImage",
+      "description": "This function is intended to get an image but it is not supported and always returns an error.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "info",
+          "type": "BITMAPINFO*",
+          "description": "Information about the image"
+        },
+        {
+          "name": "bits",
+          "type": "struct gdi_image_bits*",
+          "description": "Bits of the image"
+        },
+        {
+          "name": "src",
+          "type": "struct bitblt_coords*",
+          "description": "Coordinates of the source image"
+        }
+      ],
+      "return_type": "DWORD, represents an error code indicating that the operation is not supported"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetKerningPairs",
+      "description": "This function is a placeholder that currently does not perform any operation.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "Number of kerning pairs"
+        },
+        {
+          "name": "pairs",
+          "type": "LPKERNINGPAIR",
+          "description": "Pointer to an array of kerning pairs"
+        }
+      ],
+      "return_type": "DWORD, represents the number of kerning pairs retrieved. Currently, it always returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetOutlineTextMetrics",
+      "description": "This function is a stub and does not perform any operation. It always returns 0.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "Size of the output buffer"
+        },
+        {
+          "name": "otm",
+          "type": "LPOUTLINETEXTMETRICW",
+          "description": "Pointer to the output buffer"
+        }
+      ],
+      "return_type": "UINT, represents the number of bytes needed to store the metrics, always 0 in this case"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetTextCharsetInfo",
+      "description": "This function returns the default character set.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "fs",
+          "type": "LPFONTSIGNATURE",
+          "description": "Pointer to a font signature structure"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags to specify the character set"
+        }
+      ],
+      "return_type": "UINT representing the default character set"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetTextExtentExPoint",
+      "description": "This function is a stub and does not perform any operation. It always returns FALSE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "str",
+          "type": "LPCWSTR",
+          "description": "Pointer to the string to measure"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of characters in the string"
+        },
+        {
+          "name": "dx",
+          "type": "INT*",
+          "description": "Pointer to an array that receives the width of each character"
+        }
+      ],
+      "return_type": "BOOL, always returns FALSE in this implementation"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetTextExtentExPointI",
+      "description": "This function always returns FALSE. It does not perform any operation.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "indices",
+          "type": "const WORD*",
+          "description": "Array of word indices"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of elements in the indices array"
+        },
+        {
+          "name": "dx",
+          "type": "INT*",
+          "description": "Pointer to an integer"
+        }
+      ],
+      "return_type": "BOOL, always returns FALSE in this implementation"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetTextFace",
+      "description": "This function retrieves the typeface name of the font that is selected into the specified device context, copying the name to the buffer pointed to by 'name'.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the device context."
+        },
+        {
+          "name": "size",
+          "type": "INT",
+          "description": "This is the length of the 'name' buffer."
+        },
+        {
+          "name": "name",
+          "type": "LPWSTR",
+          "description": "This is a pointer to the buffer that receives the typeface name."
+        }
+      ],
+      "return_type": "INT, represents the length of the typeface name, in characters, or zero if the function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetTextMetrics",
+      "description": "This function is a placeholder that does not perform any operation and always returns FALSE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is a device context."
+        },
+        {
+          "name": "metrics",
+          "type": "TEXTMETRICW*",
+          "description": "This parameter is a pointer to a TEXTMETRICW structure that will receive the text metrics."
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the function. In this case, it always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_LineTo",
+      "description": "This function is intended to draw a line to a specified point in the device context associated with the specified device, but in this case it always returns TRUE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is a handle to the device context."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "This parameter specifies the x-coordinate, in logical units, of the end point of the line."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "This parameter specifies the y-coordinate, in logical units, of the end point of the line."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function succeeded or not. In this case, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_MoveTo",
+      "description": "This function is designed to move to a specified position, but it doesn't actually perform any action and always returns TRUE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device to be moved."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "This parameter represents the x-coordinate to move to."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "This parameter represents the y-coordinate to move to."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not. In this case, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_PaintRgn",
+      "description": "This function always returns TRUE, indicating a successful operation.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device."
+        },
+        {
+          "name": "rgn",
+          "type": "HRGN",
+          "description": "This parameter represents the region."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_PatBlt",
+      "description": "This function returns a boolean value.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to be used"
+        },
+        {
+          "name": "dst",
+          "type": "struct bitblt_coords*",
+          "description": "Destination coordinates for the bit block transfer"
+        },
+        {
+          "name": "rop",
+          "type": "DWORD",
+          "description": "Raster-operation code"
+        }
+      ],
+      "return_type": "BOOL, represents a boolean value. In this case, it always returns TRUE"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_Pie",
+      "description": "This function does not perform any operation, it simply returns TRUE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "Left coordinate of the pie"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "Top coordinate of the pie"
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "Right coordinate of the pie"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "Bottom coordinate of the pie"
+        },
+        {
+          "name": "xstart",
+          "type": "INT",
+          "description": "Starting x-coordinate of the pie"
+        },
+        {
+          "name": "ystart",
+          "type": "INT",
+          "description": "Starting y-coordinate of the pie"
+        },
+        {
+          "name": "xend",
+          "type": "INT",
+          "description": "Ending x-coordinate of the pie"
+        },
+        {
+          "name": "yend",
+          "type": "INT",
+          "description": "Ending y-coordinate of the pie"
+        }
+      ],
+      "return_type": "BOOL, represents a boolean value. In this case, the function always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_PolyPolygon",
+      "description": "This function doesn't perform any operation and always returns TRUE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "points",
+          "type": "const POINT *",
+          "description": "Pointer to an array of POINT structures"
+        },
+        {
+          "name": "counts",
+          "type": "const INT *",
+          "description": "Pointer to an array that contains the count of points in each polygon"
+        },
+        {
+          "name": "polygons",
+          "type": "UINT",
+          "description": "Number of polygons"
+        }
+      ],
+      "return_type": "BOOL, always returns TRUE in this function"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_PolyPolyline",
+      "description": "This function is a stub and does not perform any operation. It always returns TRUE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "points",
+          "type": "const POINT*",
+          "description": "Array of points"
+        },
+        {
+          "name": "counts",
+          "type": "const DWORD*",
+          "description": "Array of polyline vertex counts"
+        },
+        {
+          "name": "lines",
+          "type": "DWORD",
+          "description": "Number of polylines"
+        }
+      ],
+      "return_type": "BOOL, always returns TRUE in this implementation"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_PutImage",
+      "description": "This function is a placeholder that always returns a success status.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to which the image is drawn"
+        },
+        {
+          "name": "clip",
+          "type": "HRGN",
+          "description": "Clipping region"
+        },
+        {
+          "name": "info",
+          "type": "BITMAPINFO*",
+          "description": "Information about the image"
+        },
+        {
+          "name": "bits",
+          "type": "struct gdi_image_bits*",
+          "description": "The image bits"
+        },
+        {
+          "name": "src",
+          "type": "struct bitblt_coords*",
+          "description": "Source coordinates for the image"
+        },
+        {
+          "name": "dst",
+          "type": "struct bitblt_coords*",
+          "description": "Destination coordinates for the image"
+        },
+        {
+          "name": "rop",
+          "type": "DWORD",
+          "description": "Raster operation code"
+        }
+      ],
+      "return_type": "DWORD representing the status of the operation. In this case, it always returns ERROR_SUCCESS"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_RealizeDefaultPalette",
+      "description": "This function returns a static value of 0.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is not used in the function."
+        }
+      ],
+      "return_type": "UINT, represents a static value of 0 in this context."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_RealizePalette",
+      "description": "This function is a stub and does not perform any operation. It always returns 0.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to realize the palette on"
+        },
+        {
+          "name": "palette",
+          "type": "HPALETTE",
+          "description": "Handle to the logical palette to be realized"
+        },
+        {
+          "name": "primary",
+          "type": "BOOL",
+          "description": "Specifies whether the palette is the primary palette"
+        }
+      ],
+      "return_type": "UINT, represents the number of entries in the logical palette mapped to the system palette. In this case, it always returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_Rectangle",
+      "description": "This function always returns TRUE, it doesn't perform any operation.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "Left coordinate of the rectangle"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "Top coordinate of the rectangle"
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "Right coordinate of the rectangle"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "Bottom coordinate of the rectangle"
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the function. In this case, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_ResetDC",
+      "description": "This function is intended to reset a device context, but it currently always returns FALSE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the physical device to be reset."
+        },
+        {
+          "name": "devmode",
+          "type": "DEVMODEW*",
+          "description": "This is the device mode to be applied."
+        }
+      ],
+      "return_type": "BOOL, represents whether the device context was successfully reset. Currently always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_RoundRect",
+      "description": "This function is a placeholder that always returns true. It does not perform any operation.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "Left coordinate of the rectangle"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "Top coordinate of the rectangle"
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "Right coordinate of the rectangle"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "Bottom coordinate of the rectangle"
+        },
+        {
+          "name": "ell_width",
+          "type": "INT",
+          "description": "Width of the ellipse used to create the rounded corners"
+        },
+        {
+          "name": "ell_height",
+          "type": "INT",
+          "description": "Height of the ellipse used to create the rounded corners"
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the function. In this case, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SelectBitmap",
+      "description": "This function returns the input bitmap.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device."
+        },
+        {
+          "name": "bitmap",
+          "type": "HBITMAP",
+          "description": "This parameter represents the bitmap to be selected."
+        }
+      ],
+      "return_type": "HBITMAP, which represents the selected bitmap."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SelectBrush",
+      "description": "This function returns the brush passed to it as a parameter.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "brush",
+          "type": "HBRUSH",
+          "description": "Handle to the brush"
+        },
+        {
+          "name": "pattern",
+          "type": "struct brush_pattern",
+          "description": "Pointer to the brush pattern structure"
+        }
+      ],
+      "return_type": "HBRUSH, represents the handle to the brush"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SelectFont",
+      "description": "This function returns the font passed to it without making any changes.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to select the font into"
+        },
+        {
+          "name": "font",
+          "type": "HFONT",
+          "description": "Font to be selected"
+        },
+        {
+          "name": "aa_flags",
+          "type": "UINT*",
+          "description": "Pointer to the anti-aliasing flags"
+        }
+      ],
+      "return_type": "HFONT, represents the font that was passed to the function"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SelectPen",
+      "description": "This function returns the pen that was passed as a parameter.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "pen",
+          "type": "HPEN",
+          "description": "Handle to the pen"
+        },
+        {
+          "name": "pattern",
+          "type": "struct brush_pattern",
+          "description": "Pattern for the brush"
+        }
+      ],
+      "return_type": "HPEN, represents the handle to the pen that was passed as a parameter"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetBkColor",
+      "description": "This function returns the input color.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device."
+        },
+        {
+          "name": "color",
+          "type": "COLORREF",
+          "description": "This parameter represents the color reference."
+        }
+      ],
+      "return_type": "COLORREF, represents the color reference that is returned by the function."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetBoundsRect",
+      "description": "This function sets the bounds rectangle for a null device.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the physical device for which the bounds rectangle is to be set."
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "This is a pointer to the rectangle that defines the bounds."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "These are the flags that define the behavior of the function."
+        }
+      ],
+      "return_type": "UINT, represents the status of the operation, in this case DCB_RESET."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetDCBrushColor",
+      "description": "This function returns the color that is passed to it.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is a device context to which the function is applied."
+        },
+        {
+          "name": "color",
+          "type": "COLORREF",
+          "description": "This parameter is the color that the function returns."
+        }
+      ],
+      "return_type": "COLORREF, which represents the color that was passed to the function."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetDCPenColor",
+      "description": "This function returns the color passed to it without making any changes.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device."
+        },
+        {
+          "name": "color",
+          "type": "COLORREF",
+          "description": "This parameter represents the color reference."
+        }
+      ],
+      "return_type": "COLORREF, represents the color reference that was passed to the function."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetDeviceClipping",
+      "description": "This function is a placeholder with no implemented functionality.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is a device context to which the function applies."
+        },
+        {
+          "name": "rgn",
+          "type": "HRGN",
+          "description": "This parameter is a handle to a region."
+        }
+      ],
+      "return_type": "void, meaning this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetDeviceGammaRamp",
+      "description": "This function sets the last win32 error to ERROR_INVALID_PARAMETER and returns FALSE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device."
+        },
+        {
+          "name": "ramp",
+          "type": "void *",
+          "description": "This parameter is a pointer to the gamma ramp."
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the function. In this case, it always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetPixel",
+      "description": "This function sets a pixel at a given position with a specified color, but in this case, it simply returns the color without any operation.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the physical device where the pixel is to be set."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "This is the x-coordinate of the pixel."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "This is the y-coordinate of the pixel."
+        },
+        {
+          "name": "color",
+          "type": "COLORREF",
+          "description": "This is the color to set the pixel to."
+        }
+      ],
+      "return_type": "COLORREF, which represents the color that was supposed to be set for the pixel."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetTextColor",
+      "description": "This function returns the color passed to it without making any changes.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device."
+        },
+        {
+          "name": "color",
+          "type": "COLORREF",
+          "description": "This parameter represents the color reference."
+        }
+      ],
+      "return_type": "COLORREF, represents the color reference that was passed to the function"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_StartDoc",
+      "description": "This function is a stub and does not perform any operation. It always returns 0.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to start the document on"
+        },
+        {
+          "name": "info",
+          "type": "DOCINFOW *",
+          "description": "Pointer to a DOCINFOW structure that contains the properties of the document"
+        }
+      ],
+      "return_type": "INT, represents the status of the operation. In this case, it always returns 0 indicating success"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_StartPage",
+      "description": "This function returns the integer 1, it doesn't perform any operations on the input parameter.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is not used in the function."
+        }
+      ],
+      "return_type": "INT, represents a constant value of 1"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_UnrealizePalette",
+      "description": "This function unrealizes a palette but always returns FALSE, implying it does not perform any operation.",
+      "parameters": [
+        {
+          "name": "palette",
+          "type": "HPALETTE",
+          "description": "This parameter represents the handle to the palette to be unrealized."
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the operation. In this case, it always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_ActivateKeyboardLayout",
+      "description": "This function is used to activate a keyboard layout.",
+      "parameters": [
+        {
+          "name": "layout",
+          "type": "HKL",
+          "description": "This parameter represents the keyboard layout to be activated."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "This parameter represents the flags to be used during the activation of the keyboard layout."
+        }
+      ],
+      "return_type": "BOOL, represents whether the keyboard layout was successfully activated or not. In this case, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_Beep",
+      "description": "This function does not perform any operation. It is a null driver beep function.",
+      "parameters": [],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetKeyboardLayoutList",
+      "description": "This function returns the default implementation of the keyboard layout list.",
+      "parameters": [
+        {
+          "name": "size",
+          "type": "INT",
+          "description": "This parameter represents the size of the keyboard layout list."
+        },
+        {
+          "name": "layouts",
+          "type": "HKL*",
+          "description": "This is a pointer to the keyboard layout list."
+        }
+      ],
+      "return_type": "UINT, represents the default implementation of the keyboard layout list"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetKeyNameText",
+      "description": "This function returns -1 to use the default implementation.",
+      "parameters": [
+        {
+          "name": "lparam",
+          "type": "LONG",
+          "description": "This parameter is not used in the function."
+        },
+        {
+          "name": "buffer",
+          "type": "LPWSTR",
+          "description": "This parameter is not used in the function."
+        },
+        {
+          "name": "size",
+          "type": "INT",
+          "description": "This parameter is not used in the function."
+        }
+      ],
+      "return_type": "INT, represents the default implementation indicator."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_MapVirtualKeyEx",
+      "description": "This function returns -1 to use the default implementation.",
+      "parameters": [
+        {
+          "name": "code",
+          "type": "UINT",
+          "description": "This parameter is used to pass the code."
+        },
+        {
+          "name": "type",
+          "type": "UINT",
+          "description": "This parameter is used to pass the type."
+        },
+        {
+          "name": "layout",
+          "type": "HKL",
+          "description": "This parameter is used to pass the layout."
+        }
+      ],
+      "return_type": "UINT, represents the return value of the function, in this case -1 indicating to use the default implementation."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_RegisterHotKey",
+      "description": "This function is used to register a hot key with the system.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that will receive WM_HOTKEY messages generated by the hot key."
+        },
+        {
+          "name": "modifiers",
+          "type": "UINT",
+          "description": "The keys that must be pressed in combination with the key specified by the 'vk' parameter in order to generate the WM_HOTKEY message."
+        },
+        {
+          "name": "vk",
+          "type": "UINT",
+          "description": "The virtual-key code of the hot key."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function succeeded or not. In this case, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_ToUnicodeEx",
+      "description": "This function returns -2 to use the default implementation.",
+      "parameters": [
+        {
+          "name": "virt",
+          "type": "UINT",
+          "description": "Virtual-key code of the key."
+        },
+        {
+          "name": "scan",
+          "type": "UINT",
+          "description": "Hardware scan code of the key."
+        },
+        {
+          "name": "state",
+          "type": "const BYTE*",
+          "description": "Pointer to a 256-byte array of keyboard key states."
+        },
+        {
+          "name": "str",
+          "type": "LPWSTR",
+          "description": "Pointer to the buffer that receives the translated characters."
+        },
+        {
+          "name": "size",
+          "type": "int",
+          "description": "Size of the buffer pointed to by the str parameter."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies various aspects of function operation. This parameter can be one or more of the following values."
+        },
+        {
+          "name": "layout",
+          "type": "HKL",
+          "description": "Input locale identifier to use for the translation."
+        }
+      ],
+      "return_type": "INT, represents the function's return value. In this case, it always returns -2 to use the default implementation."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_UnregisterHotKey",
+      "description": "This function is a placeholder with no functionality.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to a window"
+        },
+        {
+          "name": "modifiers",
+          "type": "UINT",
+          "description": "Key modifier options"
+        },
+        {
+          "name": "vk",
+          "type": "UINT",
+          "description": "Virtual-key code of the hot key"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_VkKeyScanEx",
+      "description": "This function returns a default implementation value.",
+      "parameters": [
+        {
+          "name": "ch",
+          "type": "WCHAR",
+          "description": "This parameter is not used in the function."
+        },
+        {
+          "name": "layout",
+          "type": "HKL",
+          "description": "This parameter is not used in the function."
+        }
+      ],
+      "return_type": "SHORT, represents a default implementation value of -256"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_KbdLayerDescriptor",
+      "description": "This function returns NULL.",
+      "parameters": [
+        {
+          "name": "layout",
+          "type": "HKL",
+          "description": "This parameter is not used in the function."
+        }
+      ],
+      "return_type": "KBDTABLES, but it always returns NULL in this function."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_ReleaseKbdTables",
+      "description": "This function does not perform any operation. It seems to be a placeholder or stub function.",
+      "parameters": [
+        {
+          "name": "tables",
+          "type": "const KBDTABLES *",
+          "description": "A pointer to KBDTABLES structure. In this function, it is not used."
+        }
+      ],
+      "return_type": "void, meaning this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_ImeProcessKey",
+      "description": "This function does not perform any operation and always returns 0.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context"
+        },
+        {
+          "name": "wparam",
+          "type": "UINT",
+          "description": "Unsigned integer parameter"
+        },
+        {
+          "name": "lparam",
+          "type": "UINT",
+          "description": "Unsigned integer parameter"
+        },
+        {
+          "name": "state",
+          "type": "const BYTE *",
+          "description": "Pointer to a byte"
+        }
+      ],
+      "return_type": "UINT, represents an unsigned integer. In this case, it always returns 0"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_NotifyIMEStatus",
+      "description": "This function doesn't perform any operation. It seems to be a placeholder or stub function.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to a window"
+        },
+        {
+          "name": "status",
+          "type": "UINT",
+          "description": "An unsigned integer representing status"
+        }
+      ],
+      "return_type": "void, meaning this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetIMECompositionRect",
+      "description": "This function is a stub that does not perform any operation and always returns FALSE.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to a window."
+        },
+        {
+          "name": "rect",
+          "type": "RECT",
+          "description": "A RECT structure that specifies the new dimensions of the window."
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the function. In this case, it always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_DesktopWindowProc",
+      "description": "This function is a driver for desktop window processing, returning the default window procedure with specific parameters.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message for the window."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "LRESULT, which represents the result of the message processing and depends on the message sent."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_DestroyCursorIcon",
+      "description": "This function doesn't perform any operation. It's a placeholder meant to be overridden by specific implementations.",
+      "parameters": [
+        {
+          "name": "cursor",
+          "type": "HCURSOR",
+          "description": "Handle to the cursor or icon to be destroyed"
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetCursor",
+      "description": "This function does not perform any operation. It is a placeholder or 'null driver' function.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to a window."
+        },
+        {
+          "name": "cursor",
+          "type": "HCURSOR",
+          "description": "A handle to a cursor."
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetCursorPos",
+      "description": "This function returns a boolean value indicating the status of the cursor position.",
+      "parameters": [
+        {
+          "name": "pt",
+          "type": "LPPOINT",
+          "description": "This parameter is a pointer to a POINT structure that receives the screen coordinates of the cursor."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function successfully got the cursor position or not. In this case, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetCursorPos",
+      "description": "This function is intended to set the cursor position but always returns true.",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate for the cursor position"
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate for the cursor position"
+        }
+      ],
+      "return_type": "BOOL, represents whether the cursor position was successfully set or not. In this case, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_ClipCursor",
+      "description": "This function doesn't perform any operation and always returns TRUE.",
+      "parameters": [
+        {
+          "name": "clip",
+          "type": "const RECT *",
+          "description": "This parameter is not used in the function."
+        },
+        {
+          "name": "reset",
+          "type": "BOOL",
+          "description": "This parameter is not used in the function."
+        }
+      ],
+      "return_type": "BOOL, represents the success of the function, always returns TRUE in this case."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_NotifyIcon",
+      "description": "This function returns a static value of -1, it doesn't perform any operation.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to a window"
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "Message for the window"
+        },
+        {
+          "name": "data",
+          "type": "NOTIFYICONDATAW*",
+          "description": "Pointer to a NOTIFYICONDATAW structure"
+        }
+      ],
+      "return_type": "LRESULT, represents the result of a message processing and may be a value recommended by a control or specified by an application"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_CleanupIcons",
+      "description": "This function is currently empty and does not perform any operation.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to a window."
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SystrayDockInit",
+      "description": "This function does not perform any operation. It's a placeholder or stub function.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to a window. In this function, it is not used."
+        }
+      ],
+      "return_type": "void, meaning this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SystrayDockInsert",
+      "description": "This function is intended to insert a system tray dock but always returns FALSE, indicating that the operation was unsuccessful.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "cx",
+          "type": "UINT",
+          "description": "The x-coordinate of the upper-left corner of the rectangle"
+        },
+        {
+          "name": "cy",
+          "type": "UINT",
+          "description": "The y-coordinate of the upper-left corner of the rectangle"
+        },
+        {
+          "name": "icon",
+          "type": "void *",
+          "description": "Pointer to the icon to be inserted"
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not. In this case, it always returns FALSE, indicating failure."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SystrayDockClear",
+      "description": "This function does not perform any operation. It is a placeholder or stub function.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to a window. In this function, it is not used."
+        }
+      ],
+      "return_type": "void, meaning this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SystrayDockRemove",
+      "description": "This function is used to remove the system tray dock but it always returns FALSE indicating the operation was not successful.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        }
+      ],
+      "return_type": "BOOL, represents whether the system tray dock was successfully removed or not."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_UpdateClipboard",
+      "description": "This function does not perform any operation as it is empty.",
+      "parameters": [],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_ChangeDisplaySettings",
+      "description": "This function is used to change the display settings.",
+      "parameters": [
+        {
+          "name": "displays",
+          "type": "LPDEVMODEW",
+          "description": "Pointer to a DEVMODE structure that describes the new graphics mode."
+        },
+        {
+          "name": "primary_name",
+          "type": "LPCWSTR",
+          "description": "Pointer to a constant, null-terminated string that specifies the display device."
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose area is affected by the function."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Indicates how the graphics mode should be changed."
+        },
+        {
+          "name": "lparam",
+          "type": "LPVOID",
+          "description": "Additional data associated with the graphics mode."
+        }
+      ],
+      "return_type": "LONG, represents the status of the function call. In this case, it always returns DISP_CHANGE_SUCCESSFUL indicating the successful change of display settings."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_UpdateDisplayDevices",
+      "description": "This function is not implemented and returns a status indicating that.",
+      "parameters": [
+        {
+          "name": "manager",
+          "type": "struct gdi_device_manager *",
+          "description": "A pointer to a gdi_device_manager structure"
+        },
+        {
+          "name": "param",
+          "type": "void *",
+          "description": "A generic pointer for passing additional parameters"
+        }
+      ],
+      "return_type": "UINT, represents the status of the function call, in this case STATUS_NOT_IMPLEMENTED"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_CreateDesktop",
+      "description": "This function is used to create a desktop with a given name, width, and height. However, it does not perform any operation and always returns TRUE.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "WCHAR",
+          "description": "This is the name of the desktop to be created"
+        },
+        {
+          "name": "width",
+          "type": "UINT",
+          "description": "This is the width of the desktop"
+        },
+        {
+          "name": "height",
+          "type": "UINT",
+          "description": "This is the height of the desktop"
+        }
+      ],
+      "return_type": "BOOL, represents whether the desktop was successfully created or not. However, in this function, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "nodrv_CreateWindow",
+      "description": "This function checks if a window can be created without a graphics driver. If the window is a HWND_MESSAGE window or if a warning has been issued before, it returns TRUE or FALSE respectively. If no driver could be loaded, it logs an error message and returns FALSE.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that is to be created"
+        }
+      ],
+      "return_type": "BOOL, represents whether the window can be created without a graphics driver or not"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_CreateWindow",
+      "description": "This function always returns TRUE, indicating a successful window creation.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be created."
+        }
+      ],
+      "return_type": "BOOL, represents whether the window was successfully created or not."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_DestroyWindow",
+      "description": "This function is intended to destroy a window, but the body of the function is empty, so it does not perform any action.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be destroyed"
+        }
+      ],
+      "return_type": "void, which means this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_FlashWindowEx",
+      "description": "This function does not perform any operation. It's a placeholder or 'null driver' function.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "FLASHWINFO*",
+          "description": "Pointer to a FLASHWINFO structure that contains the flash status for a window or taskbar button."
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetDC",
+      "description": "This function does not have a body, so it does not perform any operation.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to a window."
+        },
+        {
+          "name": "top_win",
+          "type": "HWND",
+          "description": "Handle to the top window."
+        },
+        {
+          "name": "win_rect",
+          "type": "const RECT *",
+          "description": "Pointer to a RECT structure that specifies the window rectangle."
+        },
+        {
+          "name": "top_rect",
+          "type": "const RECT *",
+          "description": "Pointer to a RECT structure that specifies the top window rectangle."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "A set of bit flags that determine the behavior of the function."
+        }
+      ],
+      "return_type": "void, which means this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_ProcessEvents",
+      "description": "This function processes events based on a given mask, but in this case, it always returns FALSE.",
+      "parameters": [
+        {
+          "name": "mask",
+          "type": "DWORD",
+          "description": "This parameter is used to determine which events to process."
+        }
+      ],
+      "return_type": "BOOL, represents whether the events were successfully processed or not. In this case, it always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_ReleaseDC",
+      "description": "This function does not perform any operation. It is a placeholder or null driver in the system.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to a window."
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_ScrollDC",
+      "description": "This function scrolls the contents of the specified device context. The scroll is done by copying the bits from the source area to the destination area and setting the remaining bits to zero.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "dx",
+          "type": "INT",
+          "description": "Specifies the amount of horizontal scrolling."
+        },
+        {
+          "name": "dy",
+          "type": "INT",
+          "description": "Specifies the amount of vertical scrolling."
+        },
+        {
+          "name": "update",
+          "type": "HRGN",
+          "description": "Handle to the region that is modified to indicate the area not updated."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetCapture",
+      "description": "This function is a placeholder with no implemented functionality.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to a window"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Unsigned integer representing flags"
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetDesktopWindow",
+      "description": "This function does not perform any operation. It's a placeholder or 'null driver' function, typically used when the function pointer should not be null but there is no meaningful function to point to.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to a window. This parameter is not used in the function."
+        }
+      ],
+      "return_type": "void, meaning this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_ActivateWindow",
+      "description": "This function does not perform any operation. It's a placeholder or null driver function.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be activated"
+        },
+        {
+          "name": "previous",
+          "type": "HWND",
+          "description": "Handle to the previously active window"
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetLayeredWindowAttributes",
+      "description": "This function is a placeholder with no functionality.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "key",
+          "type": "COLORREF",
+          "description": "Specifies the color key"
+        },
+        {
+          "name": "alpha",
+          "type": "BYTE",
+          "description": "Specifies the alpha value"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Specifies the flags"
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetParent",
+      "description": "This function does not perform any operation. It is a placeholder or null driver function.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "parent",
+          "type": "HWND",
+          "description": "Handle to the parent window"
+        },
+        {
+          "name": "old_parent",
+          "type": "HWND",
+          "description": "Handle to the old parent window"
+        }
+      ],
+      "return_type": "void, which means this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetWindowRgn",
+      "description": "This function appears to be a placeholder or stub function, as it currently does not perform any operations.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to a window"
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "Handle to a region"
+        },
+        {
+          "name": "redraw",
+          "type": "BOOL",
+          "description": "Boolean value that indicates whether the window is to be redrawn"
+        }
+      ],
+      "return_type": "void, meaning this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetWindowIcons",
+      "description": "This function is a placeholder with no functionality.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window."
+        },
+        {
+          "name": "icon",
+          "type": "HICON",
+          "description": "Handle to the icon."
+        },
+        {
+          "name": "ii",
+          "type": "ICONINFO *",
+          "description": "Pointer to an ICONINFO structure that receives information about the icon."
+        },
+        {
+          "name": "icon_small",
+          "type": "HICON",
+          "description": "Handle to the small icon."
+        },
+        {
+          "name": "ii_small",
+          "type": "ICONINFO *",
+          "description": "Pointer to an ICONINFO structure that receives information about the small icon."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetWindowStyle",
+      "description": "This function does not perform any operation. It appears to be a placeholder or stub function.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to a window"
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "An integer offset"
+        },
+        {
+          "name": "style",
+          "type": "STYLESTRUCT *",
+          "description": "Pointer to a style structure"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetWindowText",
+      "description": "This function does not perform any operation. It is a placeholder or 'null driver' function.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose text is to be set"
+        },
+        {
+          "name": "text",
+          "type": "LPCWSTR",
+          "description": "Pointer to a null-terminated string that is the window text"
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_ShowWindow",
+      "description": "This function returns the default implementation.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window."
+        },
+        {
+          "name": "cmd",
+          "type": "INT",
+          "description": "Command to be executed."
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that specifies the new position and size of the window."
+        },
+        {
+          "name": "swp",
+          "type": "UINT",
+          "description": "Specifies the window's new position."
+        }
+      ],
+      "return_type": "UINT, represents the default implementation."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SysCommand",
+      "description": "This function returns a static value of -1, regardless of the parameters passed to it.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to a window"
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "pos",
+          "type": "const POINT *",
+          "description": "Pointer to a POINT structure that specifies the new position of the cursor"
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the system command, in this case always returns -1"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_UpdateLayeredWindow",
+      "description": "This function is currently empty and does not perform any operations.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to a window"
+        },
+        {
+          "name": "alpha",
+          "type": "BYTE",
+          "description": "Alpha channel for the window"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to control window behavior"
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_WindowMessage",
+      "description": "This function handles window messages but does not perform any action and always returns 0.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing and always returns 0 in this function."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_WindowPosChanging",
+      "description": "This function always returns TRUE, indicating that the window position is changing.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose position is changing"
+        },
+        {
+          "name": "swp_flags",
+          "type": "UINT",
+          "description": "Flags that control the size and position of the window"
+        },
+        {
+          "name": "shaped",
+          "type": "BOOL",
+          "description": "Indicates whether the window is shaped"
+        },
+        {
+          "name": "rects",
+          "type": "struct window_rects",
+          "description": "Pointer to a structure that contains the new window rectangles"
+        }
+      ],
+      "return_type": "BOOL, represents whether the window position is changing or not"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetWindowStyleMasks",
+      "description": "This function is intended to get the window style masks but currently always returns FALSE.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "style",
+          "type": "UINT",
+          "description": "The style of the window"
+        },
+        {
+          "name": "ex_style",
+          "type": "UINT",
+          "description": "The extended style of the window"
+        },
+        {
+          "name": "style_mask",
+          "type": "UINT*",
+          "description": "Pointer to the style mask"
+        },
+        {
+          "name": "ex_style_mask",
+          "type": "UINT*",
+          "description": "Pointer to the extended style mask"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in getting the window style masks. Currently always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetWindowStateUpdates",
+      "description": "This function is used to get window state updates but currently it always returns FALSE.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "state_cmd",
+          "type": "UINT*",
+          "description": "Pointer to the state command"
+        },
+        {
+          "name": "swp_flags",
+          "type": "UINT*",
+          "description": "Pointer to the window position flags"
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "Pointer to the structure with the coordinates of the window"
+        },
+        {
+          "name": "foreground",
+          "type": "HWND*",
+          "description": "Pointer to the handle to the foreground window"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful or not, but currently always returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_CreateWindowSurface",
+      "description": "This function is designed to create a window surface, but currently it always returns FALSE, indicating failure.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the surface is to be created."
+        },
+        {
+          "name": "layered",
+          "type": "BOOL",
+          "description": "Boolean value that indicates whether the window is layered."
+        },
+        {
+          "name": "surface_rect",
+          "type": "const RECT *",
+          "description": "Pointer to a RECT structure that specifies the dimensions of the surface."
+        },
+        {
+          "name": "surface",
+          "type": "struct window_surface **",
+          "description": "Pointer to a pointer to a window_surface structure. This is where the function would normally store the created surface."
+        }
+      ],
+      "return_type": "BOOL, where TRUE would indicate success and FALSE would indicate failure. In this case, the function always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_MoveWindowBits",
+      "description": "This function is a placeholder with no implementation, intended to be overridden in a derived class or replaced by a more specific implementation in a future version.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window."
+        },
+        {
+          "name": "old_rects",
+          "type": "struct window_rects*",
+          "description": "Pointer to the structure containing the old window rectangles."
+        },
+        {
+          "name": "new_rects",
+          "type": "struct window_rects*",
+          "description": "Pointer to the structure containing the new window rectangles."
+        },
+        {
+          "name": "valid_rects",
+          "type": "RECT*",
+          "description": "Pointer to the structure containing the valid window rectangles."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_WindowPosChanged",
+      "description": "This function is a placeholder with no functionality. It is typically used as a stub for a function that will be developed in the future.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "insert_after",
+          "type": "HWND",
+          "description": "Handle to the window to insert after"
+        },
+        {
+          "name": "owner_hint",
+          "type": "HWND",
+          "description": "Handle to the owner window"
+        },
+        {
+          "name": "swp_flags",
+          "type": "UINT",
+          "description": "Window positioning and sizing flags"
+        },
+        {
+          "name": "fullscreen",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether the window is fullscreen"
+        },
+        {
+          "name": "new_rects",
+          "type": "struct window_rects *",
+          "description": "Pointer to a structure containing the new window rectangles"
+        },
+        {
+          "name": "surface",
+          "type": "struct window_surface *",
+          "description": "Pointer to a structure representing the window surface"
+        }
+      ],
+      "return_type": "void, meaning it does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SystemParametersInfo",
+      "description": "This function does not perform any operation and always returns FALSE.",
+      "parameters": [
+        {
+          "name": "action",
+          "type": "UINT",
+          "description": "An action to be performed by the function"
+        },
+        {
+          "name": "int_param",
+          "type": "UINT",
+          "description": "An integer parameter for the function"
+        },
+        {
+          "name": "ptr_param",
+          "type": "void *",
+          "description": "A pointer parameter for the function"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to modify the function's behavior"
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the function. In this case, it always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_VulkanInit",
+      "description": "This function is a placeholder for initializing a Vulkan driver, but it's not implemented yet.",
+      "parameters": [
+        {
+          "name": "version",
+          "type": "UINT",
+          "description": "The version number of the Vulkan driver to be initialized"
+        },
+        {
+          "name": "vulkan_handle",
+          "type": "void *",
+          "description": "A handle to the Vulkan driver instance"
+        },
+        {
+          "name": "driver_funcs",
+          "type": "struct vulkan_driver_funcs **",
+          "description": "A pointer to a structure containing the driver functions"
+        }
+      ],
+      "return_type": "UINT, represents the status of the function execution. In this case, it always returns STATUS_NOT_IMPLEMENTED indicating the function is not implemented yet."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_OpenGLInit",
+      "description": "This function is a placeholder for initializing an OpenGL driver, but it's not implemented yet.",
+      "parameters": [
+        {
+          "name": "version",
+          "type": "UINT",
+          "description": "The version of the OpenGL driver to initialize"
+        },
+        {
+          "name": "opengl_funcs",
+          "type": "struct opengl_funcs *",
+          "description": "Pointer to a structure containing OpenGL functions"
+        },
+        {
+          "name": "driver_funcs",
+          "type": "struct opengl_driver_funcs **",
+          "description": "Pointer to a pointer to a structure containing OpenGL driver functions"
+        }
+      ],
+      "return_type": "UINT, represents the status of the function. In this case, it always returns STATUS_NOT_IMPLEMENTED"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_ThreadDetach",
+      "description": "This function does not perform any operation. It is a placeholder that can be used where a function is required, but no action needs to be taken.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not accept any parameters."
+        }
+      ],
+      "return_type": "void, meaning this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "load_desktop_driver",
+      "description": "This function loads the desktop driver. It checks for the graphics driver readiness, queries the registry for GraphicsDriver and DriverError values, and sets the user driver if necessary.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window for which the desktop driver is to be loaded."
+        }
+      ],
+      "return_type": "BOOL, represents whether the desktop driver was successfully loaded or not."
+    }
+  },
+  {
+    "function": {
+      "name": "load_display_driver",
+      "description": "This function is used to load the display driver. If the process is a service process or the desktop driver is not loaded or the user driver is the lazy load driver, it gets the process window station and checks if it is visible. If it is, it sets the pCreateWindow function of the null user driver to nodrv_CreateWindow. Finally, it sets the user driver to the null user driver.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "load_driver",
+      "description": "This function loads the display driver, updates the display cache and returns the user driver.",
+      "parameters": [],
+      "return_type": "struct user_driver_funcs, represents the user driver functions"
+    }
+  },
+  {
+    "function": {
+      "name": "init_display_driver",
+      "description": "This function initializes the display driver. If the user_driver is the lazy_load_driver, it loads the display driver.",
+      "parameters": [],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "get_display_driver",
+      "description": "This function checks if the user_driver is the lazy_load_driver. If it is, it loads the driver. Then it returns the dc_funcs from the user_driver.",
+      "parameters": [],
+      "return_type": "struct gdi_dc_funcs, which represents the display driver functions"
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_ActivateKeyboardLayout",
+      "description": "This function activates a keyboard layout using the specified layout and flags.",
+      "parameters": [
+        {
+          "name": "layout",
+          "type": "HKL",
+          "description": "This is the layout to be activated."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "These are the flags to be used when activating the layout."
+        }
+      ],
+      "return_type": "BOOL, returns a boolean value indicating the success or failure of the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_Beep",
+      "description": "This function loads the driver and calls the pBeep function.",
+      "parameters": [],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_GetKeyNameText",
+      "description": "This function loads a driver and gets the key name text.",
+      "parameters": [
+        {
+          "name": "lparam",
+          "type": "LONG",
+          "description": "This parameter is used to specify the key code."
+        },
+        {
+          "name": "buffer",
+          "type": "LPWSTR",
+          "description": "This is a pointer to the buffer that receives the key name text."
+        },
+        {
+          "name": "size",
+          "type": "INT",
+          "description": "This parameter specifies the maximum size of the buffer."
+        }
+      ],
+      "return_type": "INT, represents the number of characters copied to the buffer, not including the terminating null character. If the function fails, a negative value is returned."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_GetKeyboardLayoutList",
+      "description": "This function is used to load the driver and get the keyboard layout list.",
+      "parameters": [
+        {
+          "name": "size",
+          "type": "INT",
+          "description": "This parameter represents the size of the keyboard layout list."
+        },
+        {
+          "name": "layouts",
+          "type": "HKL*",
+          "description": "This is a pointer to the keyboard layout list."
+        }
+      ],
+      "return_type": "UINT, represents the number of elements in the list of keyboard layout identifiers."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_MapVirtualKeyEx",
+      "description": "This function loads a driver and maps a virtual key code into a scan code, a virtual-key code, or a character value, depending on the value of the 'type' parameter.",
+      "parameters": [
+        {
+          "name": "code",
+          "type": "UINT",
+          "description": "The virtual key code to be mapped."
+        },
+        {
+          "name": "type",
+          "type": "UINT",
+          "description": "The mapping type. It can be a scan code, a virtual-key code, or a character value."
+        },
+        {
+          "name": "layout",
+          "type": "HKL",
+          "description": "The input locale identifier used to interpret the virtual-key code."
+        }
+      ],
+      "return_type": "UINT, represents the result of the mapping. It can be a scan code, a virtual-key code, or a character value, depending on the 'type' parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_ToUnicodeEx",
+      "description": "This function loads a driver and calls its pToUnicodeEx method with the provided parameters.",
+      "parameters": [
+        {
+          "name": "virt",
+          "type": "UINT",
+          "description": "Virtual-key code of the key."
+        },
+        {
+          "name": "scan",
+          "type": "UINT",
+          "description": "Hardware scan code of the key."
+        },
+        {
+          "name": "state",
+          "type": "const BYTE*",
+          "description": "Pointer to a 256-byte array of keyboard key states."
+        },
+        {
+          "name": "str",
+          "type": "LPWSTR",
+          "description": "Pointer to the buffer that receives the translated characters."
+        },
+        {
+          "name": "size",
+          "type": "int",
+          "description": "Size of the buffer pointed to by the str parameter."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies various aspects of function operation. This parameter can be one or more of the following values."
+        },
+        {
+          "name": "layout",
+          "type": "HKL",
+          "description": "Input locale identifier to use for the translation."
+        }
+      ],
+      "return_type": "INT, represents the number of characters written to the buffer pointed to by str."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_RegisterHotKey",
+      "description": "This function registers a hot key with the system associated with the specified window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window associated with the hot key"
+        },
+        {
+          "name": "modifiers",
+          "type": "UINT",
+          "description": "The keys that must be pressed in combination with the key specified by the 'vk' parameter in order to generate the WM_HOTKEY message"
+        },
+        {
+          "name": "vk",
+          "type": "UINT",
+          "description": "The virtual-key code of the hot key"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in registering the hot key or not"
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_UnregisterHotKey",
+      "description": "This function unregisters a hot key previously registered by the calling thread.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window associated with the hot key to be unregistered"
+        },
+        {
+          "name": "modifiers",
+          "type": "UINT",
+          "description": "A set of key modifiers that were to be pressed along with the key to generate the WM_HOTKEY message"
+        },
+        {
+          "name": "vk",
+          "type": "UINT",
+          "description": "The virtual-key code of the hot key to be unregistered"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_VkKeyScanEx",
+      "description": "This function loads a driver and calls the pVkKeyScanEx function with the given parameters.",
+      "parameters": [
+        {
+          "name": "ch",
+          "type": "WCHAR",
+          "description": "This parameter represents a wide character to be passed to the pVkKeyScanEx function."
+        },
+        {
+          "name": "layout",
+          "type": "HKL",
+          "description": "This parameter represents a handle to the input locale identifier to be passed to the pVkKeyScanEx function."
+        }
+      ],
+      "return_type": "SHORT, represents the return value from the pVkKeyScanEx function call."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_KbdLayerDescriptor",
+      "description": "This function loads a keyboard layer descriptor from a driver.",
+      "parameters": [
+        {
+          "name": "layout",
+          "type": "HKL",
+          "description": "This parameter represents the keyboard layout."
+        }
+      ],
+      "return_type": "KBDTABLES, which represents the keyboard tables loaded from the driver."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_ReleaseKbdTables",
+      "description": "This function releases keyboard tables using the load_driver function.",
+      "parameters": [
+        {
+          "name": "tables",
+          "type": "const KBDTABLES *",
+          "description": "This is a pointer to the keyboard tables to be released."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_ImeProcessKey",
+      "description": "This function loads a driver and processes a key using the loaded driver's ImeProcessKey method.",
+      "parameters": [
+        {
+          "name": "himc",
+          "type": "HIMC",
+          "description": "Handle to the input context"
+        },
+        {
+          "name": "wparam",
+          "type": "UINT",
+          "description": "First message parameter"
+        },
+        {
+          "name": "lparam",
+          "type": "UINT",
+          "description": "Second message parameter"
+        },
+        {
+          "name": "state",
+          "type": "BYTE*",
+          "description": "Pointer to the state of the key"
+        }
+      ],
+      "return_type": "UINT, represents the return value from the driver's ImeProcessKey method"
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_NotifyIMEStatus",
+      "description": "This function loads the driver and notifies the IME status.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "status",
+          "type": "UINT",
+          "description": "The status to be notified."
+        }
+      ],
+      "return_type": "void, it does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_SetIMECompositionRect",
+      "description": "This function sets the IME composition rectangle by loading the driver and calling the pSetIMECompositionRect function.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the IME composition rectangle is to be set."
+        },
+        {
+          "name": "rect",
+          "type": "RECT",
+          "description": "The new rectangle for the IME composition."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully sets the IME composition rectangle, otherwise FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_ChangeDisplaySettings",
+      "description": "This function loads the driver and changes the display settings.",
+      "parameters": [
+        {
+          "name": "displays",
+          "type": "LPDEVMODEW",
+          "description": "Pointer to a structure that defines the new display settings"
+        },
+        {
+          "name": "primary_name",
+          "type": "LPCWSTR",
+          "description": "Pointer to a constant string that specifies the name of the primary display device"
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose display settings will be changed"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Indicates how the graphics mode should be changed"
+        },
+        {
+          "name": "lparam",
+          "type": "LPVOID",
+          "description": "Pointer to a variable to be used by the function"
+        }
+      ],
+      "return_type": "LONG, represents the result of the operation. If the function succeeds, the return value is the previous mode. If the function fails, the return value is less than zero."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_SetCursor",
+      "description": "This function sets the cursor using the load_driver's pSetCursor method.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window where the cursor is set."
+        },
+        {
+          "name": "cursor",
+          "type": "HCURSOR",
+          "description": "A handle to the cursor to be set."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_GetCursorPos",
+      "description": "This function gets the cursor position using a load driver",
+      "parameters": [
+        {
+          "name": "pt",
+          "type": "POINT *",
+          "description": "This is a pointer to a POINT structure that receives the screen coordinates of the cursor"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in getting the cursor position or not"
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_SetCursorPos",
+      "description": "This function sets the cursor position using the load_driver function.",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate for the cursor position."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate for the cursor position."
+        }
+      ],
+      "return_type": "BOOL, represents whether the cursor position was successfully set or not."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_ClipCursor",
+      "description": "This function loads a driver and clips the cursor based on the provided rectangle and reset flag.",
+      "parameters": [
+        {
+          "name": "clip",
+          "type": "const RECT *",
+          "description": "This is a pointer to a rectangle structure that specifies the new clipping rectangle."
+        },
+        {
+          "name": "reset",
+          "type": "BOOL",
+          "description": "This is a boolean flag that indicates whether to reset the clipping rectangle or not."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation of clipping the cursor was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_NotifyIcon",
+      "description": "This function loads the driver and calls the pNotifyIcon function with given parameters.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be sent."
+        },
+        {
+          "name": "data",
+          "type": "NOTIFYICONDATAW *",
+          "description": "A pointer to the NOTIFYICONDATAW structure that receives the icon data."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing and depends on the message sent."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_CleanupIcons",
+      "description": "This function cleans up the icons loaded by the driver.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window where the icons are displayed."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_SystrayDockInit",
+      "description": "This function initializes the system tray dock by loading the driver and calling the pSystrayDockInit function with the given window handle.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window that is used for the system tray dock initialization."
+        }
+      ],
+      "return_type": "void, which means it does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_SystrayDockInsert",
+      "description": "This function loads a driver and inserts an icon into the system tray dock.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "cx",
+          "type": "UINT",
+          "description": "The width of the icon."
+        },
+        {
+          "name": "cy",
+          "type": "UINT",
+          "description": "The height of the icon."
+        },
+        {
+          "name": "icon",
+          "type": "void *",
+          "description": "A pointer to the icon to be inserted."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully inserts the icon, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_SystrayDockClear",
+      "description": "This function clears the system tray dock by calling the pSystrayDockClear function from the load_driver object.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that the system tray dock belongs to."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_SystrayDockRemove",
+      "description": "This function removes the system tray dock using the load driver.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that represents the system tray dock to be removed."
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the removal operation."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_ClipboardWindowProc",
+      "description": "This function is a placeholder that does not perform any operation and always returns 0.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing and may be ignored."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_UpdateClipboard",
+      "description": "This function updates the clipboard using the load_driver function.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_UpdateDisplayDevices",
+      "description": "This function updates the display devices using the specified driver.",
+      "parameters": [
+        {
+          "name": "manager",
+          "type": "struct gdi_device_manager *",
+          "description": "This is a pointer to the device manager structure."
+        },
+        {
+          "name": "param",
+          "type": "void *",
+          "description": "This is a generic pointer that can be used to pass any type of data."
+        }
+      ],
+      "return_type": "UINT, represents the status of the update operation."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_CreateDesktop",
+      "description": "This function creates a desktop with a specific name, width, and height by calling the pCreateDesktop method from the load_driver object.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "WCHAR",
+          "description": "This is the name of the desktop to be created."
+        },
+        {
+          "name": "width",
+          "type": "UINT",
+          "description": "This is the width of the desktop to be created."
+        },
+        {
+          "name": "height",
+          "type": "UINT",
+          "description": "This is the height of the desktop to be created."
+        }
+      ],
+      "return_type": "BOOL, represents whether the desktop was successfully created or not."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_CreateWindow",
+      "description": "This function loads a driver and creates a window with the given HWND.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window to be created."
+        }
+      ],
+      "return_type": "BOOL, represents whether the window was successfully created or not."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_GetDC",
+      "description": "This function loads the driver and gets the device context (DC) for the specified window and rectangle parameters.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window."
+        },
+        {
+          "name": "top_win",
+          "type": "HWND",
+          "description": "Handle to the top-level window."
+        },
+        {
+          "name": "win_rect",
+          "type": "const RECT *",
+          "description": "Pointer to a RECT structure that specifies the window rectangle."
+        },
+        {
+          "name": "top_rect",
+          "type": "const RECT *",
+          "description": "Pointer to a RECT structure that specifies the top-level window rectangle."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Specifies the function options."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_FlashWindowEx",
+      "description": "This function loads a driver and calls the pFlashWindowEx method with the provided info parameter.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "FLASHWINFO*",
+          "description": "Pointer to a FLASHWINFO structure that contains the flash status information."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_SetDesktopWindow",
+      "description": "This function sets the desktop window for the loader driver.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window that is to be set as the desktop window."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_SetLayeredWindowAttributes",
+      "description": "This function loads the driver and sets the layered window attributes.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "key",
+          "type": "COLORREF",
+          "description": "Specifies the color key"
+        },
+        {
+          "name": "alpha",
+          "type": "BYTE",
+          "description": "Specifies the alpha value"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Specifies the flags"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_SetWindowRgn",
+      "description": "This function loads the driver and sets the window region.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose window region is to be set."
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "Handle to the region."
+        },
+        {
+          "name": "redraw",
+          "type": "BOOL",
+          "description": "Specifies whether the system redraws the window after setting the window region."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_UpdateLayeredWindow",
+      "description": "This function updates a layered window with the specified parameters by calling the pUpdateLayeredWindow function from the load_driver object.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be updated"
+        },
+        {
+          "name": "alpha",
+          "type": "BYTE",
+          "description": "The alpha value to be used for the update"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to be used for the update"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "loaderdrv_VulkanInit",
+      "description": "This function initializes the Vulkan driver.",
+      "parameters": [
+        {
+          "name": "version",
+          "type": "UINT",
+          "description": "The version of the Vulkan driver to be initialized."
+        },
+        {
+          "name": "vulkan_handle",
+          "type": "void *",
+          "description": "The handle to the Vulkan driver."
+        },
+        {
+          "name": "driver_funcs",
+          "type": "struct vulkan_driver_funcs **",
+          "description": "A pointer to the driver functions for the Vulkan driver."
+        }
+      ],
+      "return_type": "UINT, represents the status of the driver initialization process."
+    }
+  },
+  {
+    "function": {
+      "name": "__wine_set_user_driver",
+      "description": "This function sets the user driver in the Wine software. It checks the version, handles memory allocation, sets user functions, and manages potential conflicts between threads.",
+      "parameters": [
+        {
+          "name": "funcs",
+          "type": "const struct user_driver_funcs *",
+          "description": "Pointer to the user driver functions structure"
+        },
+        {
+          "name": "version",
+          "type": "UINT",
+          "description": "Version number of the driver"
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiExtEscape",
+      "description": "This function is used to send special escape sequences to a specified device driver.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "driver",
+          "type": "WCHAR *",
+          "description": "Pointer to the driver."
+        },
+        {
+          "name": "driver_id",
+          "type": "int",
+          "description": "Identifier for the driver."
+        },
+        {
+          "name": "escape",
+          "type": "INT",
+          "description": "Specifies the escape function to be performed."
+        },
+        {
+          "name": "input_size",
+          "type": "INT",
+          "description": "Specifies the number of bytes pointed to by the input parameter."
+        },
+        {
+          "name": "input",
+          "type": "char *",
+          "description": "Pointer to the input structure required for the specified escape."
+        },
+        {
+          "name": "output_size",
+          "type": "INT",
+          "description": "Specifies the number of bytes pointed to by the output parameter."
+        },
+        {
+          "name": "output",
+          "type": "char *",
+          "description": "Pointer to the structure that receives output from this escape."
+        }
+      ],
+      "return_type": "INT. If the function succeeds, the return value is greater than zero. If the function fails, the return value is less than or equal to zero."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_surface_destroy",
+      "description": "This function does not perform any operation. It's a placeholder or 'null' function.",
+      "parameters": [
+        {
+          "name": "client",
+          "type": "struct client_surface *",
+          "description": "Pointer to a client_surface structure"
+        }
+      ],
+      "return_type": "void, meaning this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_surface_detach",
+      "description": "This function currently does not perform any operation. It is a placeholder that may be used to detach a client from a surface in the future.",
+      "parameters": [
+        {
+          "name": "client",
+          "type": "struct client_surface *",
+          "description": "This is a pointer to the client_surface structure that needs to be detached."
+        }
+      ],
+      "return_type": "void, meaning this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_surface_update",
+      "description": "This function currently does not perform any operations.",
+      "parameters": [
+        {
+          "name": "client",
+          "type": "struct client_surface *",
+          "description": "Pointer to a client_surface structure"
+        }
+      ],
+      "return_type": "void, meaning this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_surface_present",
+      "description": "This function currently does not perform any operation.",
+      "parameters": [
+        {
+          "name": "client",
+          "type": "struct client_surface *",
+          "description": "Pointer to a client_surface structure"
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context"
+        }
+      ],
+      "return_type": "void, meaning this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_client_surface_create",
+      "description": "This function creates a client surface using the provided window handle.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window for which the client surface is being created."
+        }
+      ],
+      "return_type": "struct client_surface, which represents the created client surface."
+    }
+  }
+]

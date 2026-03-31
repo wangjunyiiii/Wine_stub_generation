@@ -1,0 +1,145 @@
+[
+  {
+    "function": {
+      "name": "dictionary_create",
+      "description": "This function creates a new dictionary structure and initializes its members. It allocates memory for the dictionary and assigns the provided compare function, destroy function, and extra data to the corresponding members of the dictionary. If the compare function is not provided, the function returns NULL.",
+      "parameters": [
+        {
+          "name": "c",
+          "type": "comparefunc",
+          "description": "This is a function pointer used for comparing dictionary entries."
+        },
+        {
+          "name": "d",
+          "type": "destroyfunc",
+          "description": "This is a function pointer used for destroying dictionary entries."
+        },
+        {
+          "name": "extra",
+          "type": "void *",
+          "description": "This is a pointer to extra data that can be used for any purpose."
+        }
+      ],
+      "return_type": "struct dictionary*, represents a pointer to the newly created dictionary. If the compare function is not provided, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "dictionary_destroy",
+      "description": "This function destroys a dictionary, freeing up the memory allocated to it and its entries. It also calls a destroy function on each entry if one is defined.",
+      "parameters": [
+        {
+          "name": "d",
+          "type": "struct dictionary*",
+          "description": "The dictionary to be destroyed."
+        }
+      ],
+      "return_type": "void, as it does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "dictionary_num_entries",
+      "description": "This function returns the number of entries in the given dictionary.",
+      "parameters": [
+        {
+          "name": "d",
+          "type": "struct dictionary *",
+          "description": "This is a pointer to the dictionary whose number of entries is to be returned."
+        }
+      ],
+      "return_type": "UINT, represents the number of entries in the dictionary."
+    }
+  },
+  {
+    "function": {
+      "name": "dictionary_insert",
+      "description": "This function inserts a key-value pair into a dictionary. If the key already exists, it updates the value. If the key does not exist, it creates a new dictionary entry. If the dictionary has a destroy function, it will be called on the old key-value pair before the update.",
+      "parameters": [
+        {
+          "name": "d",
+          "type": "struct dictionary *",
+          "description": "Pointer to the dictionary where the key-value pair will be inserted"
+        },
+        {
+          "name": "k",
+          "type": "void *",
+          "description": "Pointer to the key of the key-value pair to be inserted"
+        },
+        {
+          "name": "v",
+          "type": "void *",
+          "description": "Pointer to the value of the key-value pair to be inserted"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "dictionary_find",
+      "description": "This function searches for a key in the dictionary and returns the corresponding value if the key is found.",
+      "parameters": [
+        {
+          "name": "d",
+          "type": "struct dictionary *",
+          "description": "Pointer to the dictionary to search in."
+        },
+        {
+          "name": "k",
+          "type": "void *",
+          "description": "Pointer to the key to search for."
+        },
+        {
+          "name": "value",
+          "type": "void **",
+          "description": "Pointer to a pointer. If the key is found, this location is updated to point to the corresponding value."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the key is found, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "dictionary_remove",
+      "description": "This function removes an entry from a dictionary. If a destroy function is provided when the dictionary was created, it will be called on the key and value of the removed entry.",
+      "parameters": [
+        {
+          "name": "d",
+          "type": "struct dictionary *",
+          "description": "This is a pointer to the dictionary from which an entry is to be removed."
+        },
+        {
+          "name": "k",
+          "type": "void *",
+          "description": "This is a pointer to the key of the entry to be removed."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "dictionary_enumerate",
+      "description": "This function iterates over each entry in the dictionary and applies the function 'e' to it. If 'e' returns false, the iteration stops.",
+      "parameters": [
+        {
+          "name": "d",
+          "type": "struct dictionary *",
+          "description": "Pointer to the dictionary to be enumerated"
+        },
+        {
+          "name": "e",
+          "type": "enumeratefunc",
+          "description": "Function to be applied to each entry in the dictionary"
+        },
+        {
+          "name": "closure",
+          "type": "void *",
+          "description": "Pointer to a closure that is passed to the function 'e'"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  }
+]

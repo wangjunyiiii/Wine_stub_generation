@@ -1,0 +1,563 @@
+[
+  {
+    "function": {
+      "name": "error_exit_fn",
+      "description": "This function handles errors in the jpeg library. It formats the error message and then jumps to the recovery point saved in the client_data of the cinfo structure.",
+      "parameters": [
+        {
+          "name": "cinfo",
+          "type": "j_common_ptr",
+          "description": "This is a pointer to a common jpeg structure. It is used to access the error handler and client data."
+        }
+      ],
+      "return_type": "void, as this function does not return a value. It uses longjmp to transfer control to a different part of the program."
+    }
+  },
+  {
+    "function": {
+      "name": "emit_message_fn",
+      "description": "This function formats and emits a message based on the provided message level. If the message level is less than 0, it treats it as an error. If it's 0, it treats it as a warning. If it's greater than 0, it treats it as a trace message.",
+      "parameters": [
+        {
+          "name": "cinfo",
+          "type": "j_common_ptr",
+          "description": "This is a pointer to a common JPEG structure. It's used to format the message."
+        },
+        {
+          "name": "msg_level",
+          "type": "int",
+          "description": "This parameter determines the level of the message. If it's less than 0, it's an error. If it's 0, it's a warning. If it's greater than 0, it's a trace message."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_decoder",
+      "description": "This function returns a pointer to a jpeg_decoder structure that contains the given decoder structure.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder*",
+          "description": "Pointer to a decoder structure."
+        }
+      ],
+      "return_type": "struct jpeg_decoder*, represents a pointer to a jpeg_decoder structure that contains the given decoder structure."
+    }
+  },
+  {
+    "function": {
+      "name": "decoder_from_decompress",
+      "description": "This function retrieves the jpeg_decoder from the decompress pointer.",
+      "parameters": [
+        {
+          "name": "decompress",
+          "type": "j_decompress_ptr",
+          "description": "This is a pointer to the decompress structure."
+        }
+      ],
+      "return_type": "struct jpeg_decoder, which represents the jpeg decoder retrieved from the decompress pointer."
+    }
+  },
+  {
+    "function": {
+      "name": "jpeg_decoder_destroy",
+      "description": "This function destroys a jpeg decoder, freeing up the memory it was using.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder*",
+          "description": "This is a pointer to the decoder structure that is to be destroyed."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "source_mgr_init_source",
+      "description": "This function is currently empty and does not perform any operation.",
+      "parameters": [
+        {
+          "name": "cinfo",
+          "type": "j_decompress_ptr",
+          "description": "This parameter is not used in the function."
+        }
+      ],
+      "return_type": "void, meaning this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "source_mgr_fill_input_buffer",
+      "description": "This function reads from a stream into a buffer, updates the source manager's next input byte and bytes in buffer, and returns a boolean value based on the success of the read operation.",
+      "parameters": [
+        {
+          "name": "cinfo",
+          "type": "j_decompress_ptr",
+          "description": "This parameter is a pointer to a decompression structure, which is used to retrieve the jpeg decoder and its associated source manager and buffer."
+        }
+      ],
+      "return_type": "boolean, where TRUE indicates that the read operation was successful and the source manager's fields were updated, and FALSE indicates that the read operation failed or no bytes were read."
+    }
+  },
+  {
+    "function": {
+      "name": "source_mgr_skip_input_data",
+      "description": "This function skips a certain amount of input data in the source manager of a JPEG decoder.",
+      "parameters": [
+        {
+          "name": "cinfo",
+          "type": "j_decompress_ptr",
+          "description": "A pointer to the JPEG decompression object."
+        },
+        {
+          "name": "num_bytes",
+          "type": "long",
+          "description": "The number of bytes to skip in the input data."
+        }
+      ],
+      "return_type": "void, this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "source_mgr_term_source",
+      "description": "This function does not perform any operation. It is a placeholder that may be used to add functionality in the future.",
+      "parameters": [
+        {
+          "name": "cinfo",
+          "type": "j_decompress_ptr",
+          "description": "Pointer to the decompression structure"
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "jpeg_decoder_initialize",
+      "description": "This function initializes a JPEG decoder, sets up the error handling, reads the JPEG header, determines the color space, starts the decompression, allocates memory for the image data, reads the scanlines, adjusts the color data if necessary, and sets the decoder statistics.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder*",
+          "description": "Pointer to the decoder structure"
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "Pointer to the input stream from which the JPEG data is read"
+        },
+        {
+          "name": "st",
+          "type": "struct decoder_stat*",
+          "description": "Pointer to the decoder statistics structure, which is updated by this function"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. It returns S_OK if the function executes successfully, otherwise it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "jpeg_decoder_get_frame_info",
+      "description": "This function gets the frame information from a jpeg decoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder *",
+          "description": "Interface for the decoder"
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "Frame number to get information for"
+        },
+        {
+          "name": "info",
+          "type": "struct decoder_frame *",
+          "description": "Pointer to a structure to store the frame information"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK if successful"
+    }
+  },
+  {
+    "function": {
+      "name": "jpeg_decoder_get_decoder_palette",
+      "description": "This function is used to get the decoder palette of a jpeg decoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder *",
+          "description": "This is the interface of the decoder."
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "This represents the frame for which the palette is to be obtained."
+        },
+        {
+          "name": "colors",
+          "type": "WICColor *",
+          "description": "This is the array of colors in the palette."
+        },
+        {
+          "name": "num_colors",
+          "type": "UINT *",
+          "description": "This is the number of colors in the palette."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns WINCODEC_ERR_PALETTEUNAVAILABLE indicating that the palette is unavailable."
+    }
+  },
+  {
+    "function": {
+      "name": "jpeg_decoder_copy_pixels",
+      "description": "This function copies pixels from a JPEG decoder's image data to a buffer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder*",
+          "description": "Interface to the decoder structure"
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "Frame number to be decoded"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect*",
+          "description": "Pointer to a rectangle structure that specifies the portion of the image to copy"
+        },
+        {
+          "name": "stride",
+          "type": "UINT",
+          "description": "The byte offset between the beginning of one scan line and the next. This is also known as the pitch of the bitmap."
+        },
+        {
+          "name": "buffersize",
+          "type": "UINT",
+          "description": "The size of the buffer"
+        },
+        {
+          "name": "buffer",
+          "type": "BYTE*",
+          "description": "Pointer to the buffer where the pixels will be copied"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "jpeg_decoder_get_metadata_blocks",
+      "description": "This function reads metadata blocks from a JPEG decoder stream, skipping the SOI marker and handling APP1 markers. It also manages memory for the results and handles errors.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder*",
+          "description": "Interface to the decoder"
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "Frame number to get metadata from"
+        },
+        {
+          "name": "count",
+          "type": "UINT*",
+          "description": "Pointer to store the count of metadata blocks"
+        },
+        {
+          "name": "blocks",
+          "type": "struct decoder_block**",
+          "description": "Pointer to store the array of metadata blocks"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK if successful, error code otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "jpeg_decoder_get_color_context",
+      "description": "This function is currently not implemented and should never be called because it reports 0 color contexts and the unsupported flag.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct decoder *",
+          "description": "Pointer to the decoder structure"
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "Frame number"
+        },
+        {
+          "name": "num",
+          "type": "UINT",
+          "description": "Number of color contexts"
+        },
+        {
+          "name": "data",
+          "type": "BYTE **",
+          "description": "Pointer to the data"
+        },
+        {
+          "name": "datasize",
+          "type": "DWORD *",
+          "description": "Size of the data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, in this case it always returns E_NOTIMPL indicating the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "jpeg_decoder_create",
+      "description": "This function creates a JPEG decoder, initializes its properties, and assigns it to the result parameter. It also sets the container format, block format, and class ID of the decoder info structure.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "struct decoder_info *",
+          "description": "A pointer to a decoder_info structure. This function sets its container_format, block_format, and clsid properties."
+        },
+        {
+          "name": "result",
+          "type": "struct decoder **",
+          "description": "A pointer to a pointer to a decoder structure. This function assigns a newly created jpeg_decoder to this pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. Returns E_OUTOFMEMORY if memory allocation fails, otherwise returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_encoder",
+      "description": "This function returns a pointer to the jpeg_encoder structure that contains the given encoder structure.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct encoder*",
+          "description": "Pointer to an encoder structure"
+        }
+      ],
+      "return_type": "struct jpeg_encoder*, represents a pointer to the jpeg_encoder structure that contains the given encoder structure"
+    }
+  },
+  {
+    "function": {
+      "name": "encoder_from_compress",
+      "description": "This function returns a pointer to a jpeg_encoder structure from a given compress pointer",
+      "parameters": [
+        {
+          "name": "compress",
+          "type": "j_compress_ptr",
+          "description": "A pointer to a compression structure"
+        }
+      ],
+      "return_type": "struct jpeg_encoder pointer, representing the jpeg encoder associated with the given compression structure"
+    }
+  },
+  {
+    "function": {
+      "name": "dest_mgr_init_destination",
+      "description": "This function initializes the destination manager of a jpeg encoder by setting the next output byte to the destination buffer and the free space in the buffer to the size of the destination buffer.",
+      "parameters": [
+        {
+          "name": "cinfo",
+          "type": "j_compress_ptr",
+          "description": "A pointer to the jpeg compression object"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "dest_mgr_empty_output_buffer",
+      "description": "This function writes the contents of the destination buffer to a stream. If the write operation is successful, it resets the next output byte and free space in the buffer, and returns TRUE. If the write operation fails, it returns FALSE.",
+      "parameters": [
+        {
+          "name": "cinfo",
+          "type": "j_compress_ptr",
+          "description": "A pointer to the compression information structure."
+        }
+      ],
+      "return_type": "boolean, represents whether the write operation was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "dest_mgr_term_destination",
+      "description": "This function writes the remaining data in the destination buffer to the stream, if any, and logs an error if the write operation fails.",
+      "parameters": [
+        {
+          "name": "cinfo",
+          "type": "j_compress_ptr",
+          "description": "Pointer to the compression information structure"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "jpeg_encoder_initialize",
+      "description": "This function initializes the JPEG encoder. It sets up the error handling, creates the JPEG compression object, sets the output byte stream, initializes the destination manager, and sets the initialization flag to TRUE.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct encoder*",
+          "description": "A pointer to the encoder interface that is to be initialized"
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "A pointer to the stream where the output will be written"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. Returns S_OK if the function executes successfully, otherwise returns E_FAIL"
+    }
+  },
+  {
+    "function": {
+      "name": "jpeg_encoder_get_supported_format",
+      "description": "This function checks the supported format for the JPEG encoder. It iterates through the compress_formats array until it finds a matching GUID. If no match is found, it defaults to the first format. The function then updates the pixel_format, bpp, and indexed parameters with the corresponding values from the found format. The indexed parameter is always set to FALSE.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct encoder*",
+          "description": "Pointer to the encoder interface"
+        },
+        {
+          "name": "pixel_format",
+          "type": "GUID*",
+          "description": "Pointer to the GUID of the pixel format to be checked and updated"
+        },
+        {
+          "name": "bpp",
+          "type": "DWORD*",
+          "description": "Pointer to the DWORD to be updated with the bits per pixel of the found format"
+        },
+        {
+          "name": "indexed",
+          "type": "BOOL*",
+          "description": "Pointer to the BOOL to be set to FALSE"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. The function always returns S_OK, indicating success"
+    }
+  },
+  {
+    "function": {
+      "name": "jpeg_encoder_create_frame",
+      "description": "This function is used to create a frame for a JPEG encoder. It sets the encoder frame, checks for errors, sets the image properties and starts the compression process.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct encoder*",
+          "description": "This parameter is a pointer to the encoder interface."
+        },
+        {
+          "name": "frame",
+          "type": "struct encoder_frame*",
+          "description": "This parameter is a pointer to the encoder frame structure."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function execution. It returns S_OK if the function executes successfully, and E_FAIL if an error occurs."
+    }
+  },
+  {
+    "function": {
+      "name": "jpeg_encoder_write_lines",
+      "description": "This function encodes lines of an image into JPEG format. It handles RGB swapping if necessary and writes the encoded data into the JPEG structure. If an error occurs during the process, it frees the allocated memory and returns an error code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct encoder*",
+          "description": "Pointer to the encoder structure which contains the necessary information for encoding"
+        },
+        {
+          "name": "data",
+          "type": "BYTE*",
+          "description": "Pointer to the image data to be encoded"
+        },
+        {
+          "name": "line_count",
+          "type": "DWORD",
+          "description": "The number of lines in the image data to be encoded"
+        },
+        {
+          "name": "stride",
+          "type": "DWORD",
+          "description": "The stride size of the image data, which is the number of bytes from the start of one line of image data to the start of the next line"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function execution. It returns S_OK if the function executes successfully, E_FAIL if an error occurs during the process, and E_OUTOFMEMORY if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "jpeg_encoder_commit_frame",
+      "description": "This function commits a frame to the JPEG encoder. It sets up a jump buffer for error handling, assigns the buffer to the encoder's client data, and then finishes the compression process.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct encoder*",
+          "description": "This is a pointer to the encoder structure that is being used for the JPEG encoding process."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and E_FAIL if an error occurs during the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "jpeg_encoder_commit_file",
+      "description": "This function commits a jpeg encoder file.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct encoder*",
+          "description": "This is an interface for the encoder structure."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK indicates success."
+    }
+  },
+  {
+    "function": {
+      "name": "jpeg_encoder_destroy",
+      "description": "This function destroys a JPEG encoder, freeing up the memory it was using.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct encoder*",
+          "description": "This is a pointer to the encoder structure that is to be destroyed."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "jpeg_encoder_create",
+      "description": "This function creates a JPEG encoder, initializes its properties and assigns it to the result pointer. It also sets various encoder options in the encoder_info structure.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "struct encoder_info *",
+          "description": "A pointer to an encoder_info structure where the function sets various encoder options."
+        },
+        {
+          "name": "result",
+          "type": "struct encoder **",
+          "description": "A pointer to a pointer to an encoder structure. The function assigns the created JPEG encoder to this pointer."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function execution. It returns E_OUTOFMEMORY if memory allocation fails, otherwise it returns S_OK."
+    }
+  }
+]

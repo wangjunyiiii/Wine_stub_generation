@@ -1,0 +1,464 @@
+[
+  {
+    "function": {
+      "name": "PALETTE_Init",
+      "description": "This function initializes a palette with 20 default system colors.",
+      "parameters": [],
+      "return_type": "HPALETTE, which represents the handle to the newly created palette"
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiCreatePaletteInternal",
+      "description": "This function creates a palette object and returns a handle to it. It allocates memory for the palette object and its entries, copies the entries from the input palette, and assigns the handle to the palette object.",
+      "parameters": [
+        {
+          "name": "palette",
+          "type": "LOGPALETTE *",
+          "description": "Pointer to a LOGPALETTE structure that contains information about the colors in the logical palette."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "Number of entries in the logical palette."
+        }
+      ],
+      "return_type": "HPALETTE. It represents a handle to the newly created palette object. If the function fails, the return value is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiCreateHalftonePalette",
+      "description": "This function creates a halftone palette using the default color table and returns a handle to the palette.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        }
+      ],
+      "return_type": "HPALETTE, a handle to the created halftone palette."
+    }
+  },
+  {
+    "function": {
+      "name": "get_palette_entries",
+      "description": "This function retrieves a specified range of palette entries from a given palette object.",
+      "parameters": [
+        {
+          "name": "hpalette",
+          "type": "HPALETTE",
+          "description": "Handle to the palette object."
+        },
+        {
+          "name": "start",
+          "type": "UINT",
+          "description": "The first entry in the palette to be retrieved."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of palette entries to be retrieved."
+        },
+        {
+          "name": "entries",
+          "type": "PALETTEENTRY *",
+          "description": "Pointer to an array of PALETTEENTRY structures to receive the palette entries."
+        }
+      ],
+      "return_type": "UINT, represents the number of entries retrieved from the palette."
+    }
+  },
+  {
+    "function": {
+      "name": "set_palette_entries",
+      "description": "This function sets the color palette entries for a given palette. It returns the number of entries that were successfully set.",
+      "parameters": [
+        {
+          "name": "hpalette",
+          "type": "HPALETTE",
+          "description": "Handle to the palette to be modified."
+        },
+        {
+          "name": "start",
+          "type": "UINT",
+          "description": "The starting index where the setting of palette entries should begin."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of palette entries to be set."
+        },
+        {
+          "name": "entries",
+          "type": "PALETTEENTRY *",
+          "description": "Pointer to an array of PALETTEENTRY structures that contain the color data to set."
+        }
+      ],
+      "return_type": "UINT, represents the number of palette entries that were successfully set."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiResizePalette",
+      "description": "This function resizes a palette by reallocating memory for the palette entries and updating the count of entries. If the new count is greater than the previous count, the additional entries are initialized to zero.",
+      "parameters": [
+        {
+          "name": "hPal",
+          "type": "HPALETTE",
+          "description": "Handle to the palette to be resized."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "New count of entries in the palette."
+        }
+      ],
+      "return_type": "BOOL, represents whether the palette was successfully resized. Returns TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "animate_palette",
+      "description": "This function animates a palette by changing its colors. It only animates colors that are marked as PC_RESERVED. If the palette is the default one, no animation is performed.",
+      "parameters": [
+        {
+          "name": "hPal",
+          "type": "HPALETTE",
+          "description": "Handle to the logical palette to animate."
+        },
+        {
+          "name": "StartIndex",
+          "type": "UINT",
+          "description": "The starting index of the entries in the logical palette to animate."
+        },
+        {
+          "name": "NumEntries",
+          "type": "UINT",
+          "description": "The number of entries in the logical palette to animate."
+        },
+        {
+          "name": "PaletteColors",
+          "type": "PALETTEENTRY *",
+          "description": "Pointer to an array of PALETTEENTRY structures that contains the new color data for the palette."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the palette was successfully animated, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSetSystemPaletteUse",
+      "description": "This function sets the system palette use and returns the previous system palette use. If the device doesn't support colour palettes, it returns an error.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "use",
+          "type": "UINT",
+          "description": "Specifies how the system palette is to be used."
+        }
+      ],
+      "return_type": "UINT, represents the previous system palette use. If the device doesn't support colour palettes, it returns SYSPAL_ERROR."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetSystemPaletteUse",
+      "description": "This function is used to get the system palette use.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This parameter is a handle to the device context."
+        }
+      ],
+      "return_type": "UINT, represents the current system palette use."
+    }
+  },
+  {
+    "function": {
+      "name": "get_system_palette_entries",
+      "description": "This function retrieves the system palette entries from the specified device context and stores them in the provided entries array.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "start",
+          "type": "UINT",
+          "description": "The first entry in the system palette table to be retrieved."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of palette entries to be retrieved."
+        },
+        {
+          "name": "entries",
+          "type": "PALETTEENTRY*",
+          "description": "Pointer to an array of PALETTEENTRY structures to receive the palette entries."
+        }
+      ],
+      "return_type": "UINT, represents the number of entries in the logical palette."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetSystemPaletteEntries",
+      "description": "This function is designed to get the system palette entries but currently it returns 0 and does nothing.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "start",
+          "type": "UINT",
+          "description": "The first entry to be retrieved"
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of entries to be retrieved"
+        },
+        {
+          "name": "entries",
+          "type": "PALETTEENTRY *",
+          "description": "Pointer to a buffer that receives the palette entries"
+        }
+      ],
+      "return_type": "UINT, represents the number of entries retrieved, but currently always returns 0"
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetNearestPaletteIndex",
+      "description": "This function retrieves the index of the entry in the logical palette most closely matching a specified color value.",
+      "parameters": [
+        {
+          "name": "hpalette",
+          "type": "HPALETTE",
+          "description": "Handle to the logical palette."
+        },
+        {
+          "name": "color",
+          "type": "COLORREF",
+          "description": "Specifies the color to be matched."
+        }
+      ],
+      "return_type": "UINT, represents the index of the entry in the logical palette that most closely matches the specified color value."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetNearestColor",
+      "description": "This function retrieves the nearest color from the specified device context's current logical palette to the specified color reference. If the device context is not using a palette, the function returns the specified color.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the device context."
+        },
+        {
+          "name": "color",
+          "type": "COLORREF",
+          "description": "This is the color reference for which the function finds the nearest color."
+        }
+      ],
+      "return_type": "COLORREF, which represents the nearest color in the logical palette to the specified color. If the device context is not using a palette, the function returns the specified color."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetNearestColor",
+      "description": "This function retrieves the color in the current logical palette that most closely matches a specified color.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "color",
+          "type": "COLORREF",
+          "description": "Specifies the color to be matched."
+        }
+      ],
+      "return_type": "COLORREF, represents the RGB color value that is closest to the specified color."
+    }
+  },
+  {
+    "function": {
+      "name": "PALETTE_GetObject",
+      "description": "This function retrieves the count of palette entries and copies it to the buffer if it exists. If the buffer doesn't exist, it sets the count to the size of WORD. It then releases the handle to the GDI object.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "Handle to the GDI object"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of palette entries"
+        },
+        {
+          "name": "buffer",
+          "type": "LPVOID",
+          "description": "Pointer to the buffer where the count will be copied"
+        }
+      ],
+      "return_type": "INT, represents the count of palette entries"
+    }
+  },
+  {
+    "function": {
+      "name": "PALETTE_UnrealizeObject",
+      "description": "This function unrealizes a palette object and releases the handle to it.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "This is a handle to the GDI object."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE indicating the function has successfully executed."
+    }
+  },
+  {
+    "function": {
+      "name": "PALETTE_DeleteObject",
+      "description": "This function deletes a palette object, freeing the associated memory.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "This is a handle to the palette object to be deleted."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the object was successfully deleted, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSelectPalette",
+      "description": "This function selects a palette into the specified device context and updates the colors in the device context to match the colors in the selected palette.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "hpal",
+          "type": "HPALETTE",
+          "description": "Handle to the logical palette to be selected."
+        },
+        {
+          "name": "bkg",
+          "type": "WORD",
+          "description": "Specifies whether the palette is background or foreground. If this parameter is zero, the palette is in the foreground."
+        }
+      ],
+      "return_type": "HPALETTE. Returns the previous logical palette if the function is successful. Otherwise, it returns zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserRealizePalette",
+      "description": "This function realizes a logical palette, which means it maps the colors in the logical palette to the system palette. It also sends a palette change notification if colors were changed.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "A handle to the device context."
+        }
+      ],
+      "return_type": "UINT, represents the number of entries in the logical palette that were mapped to the system palette."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiUpdateColors",
+      "description": "This function updates the colors of a device context. It first gets the size of the device's color palette, then retrieves the window associated with the device context. If the size is non-zero and the window exists, it invalidates the window's current colors, causing them to be redrawn.",
+      "parameters": [
+        {
+          "name": "hDC",
+          "type": "HDC",
+          "description": "This is a handle to the device context whose colors are to be updated."
+        }
+      ],
+      "return_type": "BOOL. This function returns TRUE if the colors were successfully updated, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSetMagicColors",
+      "description": "This function is a stub and does not perform any operation. It always returns TRUE.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "magic",
+          "type": "DWORD",
+          "description": "A 32-bit unsigned integer, usage not defined in the stub function."
+        },
+        {
+          "name": "index",
+          "type": "ULONG",
+          "description": "A 32-bit unsigned integer, usage not defined in the stub function."
+        }
+      ],
+      "return_type": "BOOL, always returns TRUE in this stub function."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDoPalette",
+      "description": "This function performs various operations on a palette based on the 'func' parameter. It can animate, set, get palette entries, get system palette entries, set and get DIB color table.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "Handle to the GDI object"
+        },
+        {
+          "name": "start",
+          "type": "WORD",
+          "description": "The starting index for the operation"
+        },
+        {
+          "name": "count",
+          "type": "WORD",
+          "description": "The number of entries to be processed"
+        },
+        {
+          "name": "entries",
+          "type": "void *",
+          "description": "Pointer to the entries to be processed"
+        },
+        {
+          "name": "func",
+          "type": "DWORD",
+          "description": "Determines the operation to be performed on the palette"
+        },
+        {
+          "name": "inbound",
+          "type": "BOOL",
+          "description": "Indicates whether the operation is inbound or not"
+        }
+      ],
+      "return_type": "LONG, represents the status of the operation. Returns 0 in case of an invalid 'func' parameter"
+    }
+  }
+]

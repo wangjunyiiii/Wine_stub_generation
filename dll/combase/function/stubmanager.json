@@ -1,0 +1,691 @@
+[
+  {
+    "function": {
+      "name": "generate_ipid",
+      "description": "This function generates an IPID (Interface Pointer Identifier) for a stub manager. It first tries to create a UUID for the IPID. If it fails, it creates a nil UUID and returns the error. If successful, it increments the IPID counter in the apartment, sets the Data1 field of the IPID to the incremented value, sets the Data2 field to the thread ID if the apartment is not multi-threaded, or 0 if it is, and sets the Data3 field to the current process ID.",
+      "parameters": [
+        {
+          "name": "m",
+          "type": "struct stub_manager*",
+          "description": "This is a pointer to the stub manager for which the IPID is being generated."
+        },
+        {
+          "name": "ipid",
+          "type": "IPID*",
+          "description": "This is a pointer to the IPID that is being generated."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails to create a UUID for the IPID, it returns the error code from the failed UuidCreate call."
+    }
+  },
+  {
+    "function": {
+      "name": "stub_manager_new_ifstub",
+      "description": "This function creates a new interface stub, initializes it, and adds it to the list of interface stubs in the stub manager.",
+      "parameters": [
+        {
+          "name": "m",
+          "type": "struct stub_manager *",
+          "description": "Pointer to the stub manager"
+        },
+        {
+          "name": "sb",
+          "type": "IRpcStubBuffer *",
+          "description": "Pointer to the RPC stub buffer"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Interface Identifier (IID) of the interface for the stub"
+        },
+        {
+          "name": "dest_context",
+          "type": "DWORD",
+          "description": "Destination context, used to create the server channel"
+        },
+        {
+          "name": "dest_context_data",
+          "type": "void *",
+          "description": "Pointer to the destination context data, used to create the server channel"
+        },
+        {
+          "name": "flags",
+          "type": "MSHLFLAGS",
+          "description": "Flags that specify the type of marshaling"
+        }
+      ],
+      "return_type": "struct ifstub * - Returns a pointer to the newly created interface stub, or NULL if the creation failed"
+    }
+  },
+  {
+    "function": {
+      "name": "stub_manager_delete_ifstub",
+      "description": "This function deletes an interface stub from the stub manager. It removes the stub from the list, unregisters the interface if the manager is not disconnected, releases the stub buffer, interface, and channel buffer if they exist, and finally frees the memory allocated for the stub.",
+      "parameters": [
+        {
+          "name": "m",
+          "type": "struct stub_manager*",
+          "description": "Pointer to the stub manager from which the interface stub is to be deleted."
+        },
+        {
+          "name": "ifstub",
+          "type": "struct ifstub*",
+          "description": "Pointer to the interface stub to be deleted."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "stub_manager_ipid_to_ifstub",
+      "description": "This function searches for an ifstub in the stub manager's list that matches the provided IPID. It locks the list during the search to prevent concurrent modification.",
+      "parameters": [
+        {
+          "name": "m",
+          "type": "struct stub_manager *",
+          "description": "Pointer to the stub manager which contains the list of ifstubs"
+        },
+        {
+          "name": "ipid",
+          "type": "const IPID *",
+          "description": "Pointer to the IPID to search for in the list of ifstubs"
+        }
+      ],
+      "return_type": "struct ifstub *; Pointer to the found ifstub that matches the provided IPID, or NULL if no match is found"
+    }
+  },
+  {
+    "function": {
+      "name": "stub_manager_find_ifstub",
+      "description": "This function searches for an interface stub in the stub manager that matches the provided interface identifier and marshalling flags.",
+      "parameters": [
+        {
+          "name": "m",
+          "type": "struct stub_manager*",
+          "description": "Pointer to the stub manager where the interface stub is to be searched."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Interface identifier to match with the interface stub."
+        },
+        {
+          "name": "flags",
+          "type": "MSHLFLAGS",
+          "description": "Marshalling flags to match with the interface stub."
+        }
+      ],
+      "return_type": "struct ifstub* - Pointer to the found interface stub. If no matching stub is found, returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "new_stub_manager",
+      "description": "This function creates a new stub manager, initializes its properties, and adds it to the apartment's list of stub managers.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "Pointer to the apartment structure where the new stub manager will be added."
+        },
+        {
+          "name": "object",
+          "type": "IUnknown *",
+          "description": "Pointer to the IUnknown interface of the object for which the stub manager is being created."
+        }
+      ],
+      "return_type": "Returns a pointer to the newly created struct stub_manager. If memory allocation for the new stub manager fails, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "stub_manager_disconnect",
+      "description": "This function disconnects a stub manager by unregistering its interfaces and setting its disconnected status to TRUE.",
+      "parameters": [
+        {
+          "name": "m",
+          "type": "struct stub_manager*",
+          "description": "This is a pointer to the stub manager to be disconnected."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "stub_manager_delete",
+      "description": "This function is responsible for deleting a stub manager. It releases every ifstub, releases the external connection if it exists, frees the memory allocated for the oxid_info.psa, releases the unknown object, and finally deletes the critical section and frees the memory allocated for the stub manager.",
+      "parameters": [
+        {
+          "name": "m",
+          "type": "struct stub_manager *",
+          "description": "This is a pointer to the stub manager that is to be deleted."
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "stub_manager_int_addref",
+      "description": "This function increments the reference count of a stub manager object and returns the updated count. It ensures thread-safety by using critical sections.",
+      "parameters": [
+        {
+          "name": "m",
+          "type": "struct stub_manager *",
+          "description": "This is a pointer to the stub manager object whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "ULONG, representing the updated reference count of the stub manager object."
+    }
+  },
+  {
+    "function": {
+      "name": "stub_manager_int_release",
+      "description": "This function releases the stub manager, removes it from the apartment if no other thread can access it, and deletes it if necessary.",
+      "parameters": [
+        {
+          "name": "m",
+          "type": "struct stub_manager*",
+          "description": "Pointer to the stub manager to be released"
+        }
+      ],
+      "return_type": "ULONG, represents the number of references to the stub manager after it has been released"
+    }
+  },
+  {
+    "function": {
+      "name": "get_stub_manager_from_object",
+      "description": "This function retrieves a stub manager from a given object. If the stub manager is not found and the alloc parameter is true, a new stub manager is created.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "Pointer to an apartment structure"
+        },
+        {
+          "name": "obj",
+          "type": "IUnknown *",
+          "description": "Pointer to an unknown object"
+        },
+        {
+          "name": "alloc",
+          "type": "BOOL",
+          "description": "Boolean value that determines whether a new stub manager should be created if not found"
+        }
+      ],
+      "return_type": "struct stub_manager *; Returns a pointer to the stub manager associated with the given object. If the stub manager is not found and alloc is true, a new stub manager is created and its pointer is returned. If the stub manager is not found and alloc is false, NULL is returned."
+    }
+  },
+  {
+    "function": {
+      "name": "get_stub_manager",
+      "description": "This function retrieves a stub manager from an apartment based on the provided OID. If the stub manager is found, its reference count is increased and it is returned. If not found, NULL is returned.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "Pointer to the apartment structure from which to retrieve the stub manager"
+        },
+        {
+          "name": "oid",
+          "type": "OID",
+          "description": "The OID of the stub manager to retrieve"
+        }
+      ],
+      "return_type": "struct stub_manager *; Pointer to the retrieved stub manager if found, otherwise NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "stub_manager_ext_addref",
+      "description": "This function adds references to the stub manager. It also handles the case where the references are tableweak and adjusts the reference count accordingly. It ensures that the extrefs do not overflow. If the first external reference is found and an external connection exists, it adds a strong connection.",
+      "parameters": [
+        {
+          "name": "m",
+          "type": "struct stub_manager *",
+          "description": "Pointer to the stub manager structure"
+        },
+        {
+          "name": "refs",
+          "type": "ULONG",
+          "description": "The number of references to be added"
+        },
+        {
+          "name": "tableweak",
+          "type": "BOOL",
+          "description": "A flag indicating whether the references are weak or not"
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count after adding the new references"
+    }
+  },
+  {
+    "function": {
+      "name": "stub_manager_ext_release",
+      "description": "This function releases a specified number of external references from a stub manager, adjusts the count of weak references based on the parameters, and releases the external connection if certain conditions are met.",
+      "parameters": [
+        {
+          "name": "m",
+          "type": "struct stub_manager*",
+          "description": "Pointer to the stub manager from which the references will be released"
+        },
+        {
+          "name": "refs",
+          "type": "ULONG",
+          "description": "The number of external references to be released"
+        },
+        {
+          "name": "tableweak",
+          "type": "BOOL",
+          "description": "If true, the count of weak references in the stub manager is decremented"
+        },
+        {
+          "name": "last_unlock_releases",
+          "type": "BOOL",
+          "description": "If false, the return value is incremented by the number of weak references in the stub manager"
+        }
+      ],
+      "return_type": "ULONG, represents the number of remaining external references in the stub manager after the operation"
+    }
+  },
+  {
+    "function": {
+      "name": "get_stub_manager_from_ipid",
+      "description": "This function retrieves a stub manager from an IPID. It traverses the list of stub managers in the apartment until it finds a match. If a match is found, it increments the reference count and breaks the loop. If no match is found, it logs an error message.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "This is the apartment where the stub manager is located."
+        },
+        {
+          "name": "ipid",
+          "type": "const IPID *",
+          "description": "This is the IPID of the stub manager to be retrieved."
+        },
+        {
+          "name": "ifstub",
+          "type": "struct ifstub **",
+          "description": "This is a pointer to a pointer of the ifstub structure. It is used to store the result of the stub_manager_ipid_to_ifstub function."
+        }
+      ],
+      "return_type": "struct stub_manager *. This represents the stub manager that matches the given IPID. If no match is found, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "ipid_to_ifstub",
+      "description": "This function is used to find the apartment and stub manager from the given IPID and return the HRESULT status. It also handles the case of IRemUnknown.",
+      "parameters": [
+        {
+          "name": "ipid",
+          "type": "const IPID *",
+          "description": "Pointer to the Interface Pointer Identifier."
+        },
+        {
+          "name": "stub_apt",
+          "type": "struct apartment **",
+          "description": "Double pointer to the apartment structure. Used to return the apartment found from the given IPID."
+        },
+        {
+          "name": "stubmgr_ret",
+          "type": "struct stub_manager **",
+          "description": "Double pointer to the stub manager structure. Used to return the stub manager found from the given IPID."
+        },
+        {
+          "name": "ifstub",
+          "type": "struct ifstub **",
+          "description": "Double pointer to the interface stub structure. Used in the process of finding the stub manager."
+        }
+      ],
+      "return_type": "HRESULT. It returns S_OK if the function successfully finds the apartment and stub manager. If it fails to find the apartment or stub manager, it returns RPC_E_INVALID_OBJECT."
+    }
+  },
+  {
+    "function": {
+      "name": "ipid_to_stub_manager",
+      "description": "This function is used to convert an IPID to a stub manager.",
+      "parameters": [
+        {
+          "name": "ipid",
+          "type": "IPID *",
+          "description": "Pointer to an IPID that is to be converted."
+        },
+        {
+          "name": "stub_apt",
+          "type": "struct apartment **",
+          "description": "Double pointer to an apartment structure where the result is stored."
+        },
+        {
+          "name": "stub",
+          "type": "struct stub_manager **",
+          "description": "Double pointer to a stub_manager structure where the result is stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, the return value is S_OK. If the function fails, the return value is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ipid_get_dispatch_params",
+      "description": "This function retrieves dispatch parameters for a given IPID. It also manages references to stub buffer and channel buffer, and handles the stub manager.",
+      "parameters": [
+        {
+          "name": "ipid",
+          "type": "const IPID *",
+          "description": "Pointer to the Interface Pointer Identifier."
+        },
+        {
+          "name": "stub_apt",
+          "type": "struct apartment **",
+          "description": "Double pointer to the apartment structure."
+        },
+        {
+          "name": "manager",
+          "type": "struct stub_manager **",
+          "description": "Double pointer to the stub manager structure."
+        },
+        {
+          "name": "stub",
+          "type": "IRpcStubBuffer **",
+          "description": "Double pointer to the RPC stub buffer."
+        },
+        {
+          "name": "chan",
+          "type": "IRpcChannelBuffer **",
+          "description": "Double pointer to the RPC channel buffer."
+        },
+        {
+          "name": "iid",
+          "type": "IID *",
+          "description": "Pointer to the Interface Identifier."
+        },
+        {
+          "name": "iface",
+          "type": "IUnknown **",
+          "description": "Double pointer to the unknown interface."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. Returns S_OK if the function executes successfully, otherwise returns RPC_E_DISCONNECTED."
+    }
+  },
+  {
+    "function": {
+      "name": "ipid_get_dest_context",
+      "description": "This function retrieves the destination context and data for a given IPID. It first converts the IPID to an interface stub, then gets the destination context and data from the channel buffer of the interface stub. If any of these operations fail, it releases the stub manager and apartment and returns an error.",
+      "parameters": [
+        {
+          "name": "ipid",
+          "type": "const IPID*",
+          "description": "Pointer to the IPID for which the destination context and data are to be retrieved"
+        },
+        {
+          "name": "dest_context",
+          "type": "MSHCTX*",
+          "description": "Pointer to a variable that receives the destination context"
+        },
+        {
+          "name": "dest_context_data",
+          "type": "void**",
+          "description": "Pointer to a variable that receives the destination context data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operations performed in the function. It returns S_OK if all operations are successful, otherwise it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "stub_manager_notify_unmarshal",
+      "description": "This function attempts to unmarshal an IPID. If the IPID is unknown or if an invalid normal unmarshal is attempted, the function returns FALSE. Otherwise, it returns TRUE.",
+      "parameters": [
+        {
+          "name": "m",
+          "type": "struct stub_manager*",
+          "description": "A pointer to the stub manager structure that is used to manage the stubs."
+        },
+        {
+          "name": "ipid",
+          "type": "IPID*",
+          "description": "A pointer to the IPID that is to be unmarshaled."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the unmarshal operation is successful, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "stub_manager_release_marshal_data",
+      "description": "This function releases marshal data from the stub manager. It first retrieves the interface stub from the stub manager using the IPID. Depending on the flags set on the interface stub, it sets the reference count to 0 or 1. Finally, it calls the stub_manager_ext_release function with the updated reference count.",
+      "parameters": [
+        {
+          "name": "m",
+          "type": "struct stub_manager *",
+          "description": "Pointer to the stub manager from which to release marshal data"
+        },
+        {
+          "name": "refs",
+          "type": "ULONG",
+          "description": "Reference count for the marshal data"
+        },
+        {
+          "name": "ipid",
+          "type": "IPID *",
+          "description": "Pointer to the IPID of the interface stub to retrieve from the stub manager"
+        },
+        {
+          "name": "tableweak",
+          "type": "BOOL",
+          "description": "Flag indicating whether the table is weak"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "stub_manager_is_table_marshaled",
+      "description": "This function checks if a table is marshaled by getting the ifstub from the stub manager using the IPID and checking the flags for MSHLFLAGS_TABLESTRONG or MSHLFLAGS_TABLEWEAK.",
+      "parameters": [
+        {
+          "name": "m",
+          "type": "struct stub_manager*",
+          "description": "Pointer to the stub manager structure"
+        },
+        {
+          "name": "ipid",
+          "type": "IPID*",
+          "description": "Pointer to the Interface Pointer Identifier"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the table is marshaled, otherwise FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IRemUnknown",
+      "description": "This function returns the containing record of the given IRemUnknown interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRemUnknown *",
+          "description": "Pointer to IRemUnknown interface whose containing record is to be returned."
+        }
+      ],
+      "return_type": "RemUnknown *: Pointer to the containing record of the given IRemUnknown interface."
+    }
+  },
+  {
+    "function": {
+      "name": "RemUnknown_Construct",
+      "description": "This function allocates memory for a new RemUnknown object, initializes it, and assigns the address of the IRemUnknown interface to the input parameter.",
+      "parameters": [
+        {
+          "name": "ppRemUnknown",
+          "type": "IRemUnknown**",
+          "description": "A pointer to a pointer to an IRemUnknown interface. This will be set to the address of the newly created object's IRemUnknown interface."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails to allocate memory, it returns E_OUTOFMEMORY."
+    }
+  },
+  {
+    "function": {
+      "name": "RemUnknown_QueryInterface",
+      "description": "This function checks if the provided interface ID matches with the known interfaces (IID_IUnknown, IID_IRemUnknown, IID_IExternalConnection). If it matches, it increases the reference count of the interface and returns S_OK. If it doesn't match, it returns E_NOINTERFACE.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRemUnknown*",
+          "description": "Pointer to the interface whose ID is being checked"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "The interface ID to be checked"
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to the pointer where the interface pointer will be stored if the interface ID matches"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the interface ID matches, E_NOINTERFACE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "RemUnknown_AddRef",
+      "description": "This function increments the reference count of the given IRemUnknown interface and returns the updated count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRemUnknown *",
+          "description": "This is a pointer to the IRemUnknown interface whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "ULONG, which represents the updated reference count after incrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "RemUnknown_Release",
+      "description": "This function decrements the reference count of the 'RemUnknown' object. If the reference count becomes zero, the object is freed.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRemUnknown *",
+          "description": "A pointer to the 'IRemUnknown' interface of the 'RemUnknown' object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the 'RemUnknown' object after it has been decremented."
+    }
+  },
+  {
+    "function": {
+      "name": "RemUnknown_RemQueryInterface",
+      "description": "This function is used to query an interface and marshal the results. It also manages the memory allocation for the results and handles different return scenarios based on the success of the interface queries.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRemUnknown *",
+          "description": "Pointer to the interface to be queried"
+        },
+        {
+          "name": "ripid",
+          "type": "REFIPID",
+          "description": "Reference to the identifier of the interface"
+        },
+        {
+          "name": "cRefs",
+          "type": "ULONG",
+          "description": "Number of references"
+        },
+        {
+          "name": "cIids",
+          "type": "USHORT",
+          "description": "Count of interface identifiers"
+        },
+        {
+          "name": "iids",
+          "type": "IID *",
+          "description": "Array of interface identifiers"
+        },
+        {
+          "name": "ppQIResults",
+          "type": "REMQIRESULT **",
+          "description": "Pointer to the result of the query interface"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function call. It returns S_OK if all requested interfaces are obtained, E_NOINTERFACE if no interfaces are obtained, and S_FALSE if some interfaces are obtained."
+    }
+  },
+  {
+    "function": {
+      "name": "RemUnknown_RemAddRef",
+      "description": "This function adds references to the remote interface and manages the stubs for the interface references. It also handles errors and releases resources appropriately.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRemUnknown *",
+          "description": "Pointer to the IRemUnknown interface"
+        },
+        {
+          "name": "cInterfaceRefs",
+          "type": "USHORT",
+          "description": "Count of interface references"
+        },
+        {
+          "name": "InterfaceRefs",
+          "type": "REMINTERFACEREF *",
+          "description": "Array of REMINTERFACEREF structures, each representing an interface reference"
+        },
+        {
+          "name": "pResults",
+          "type": "HRESULT *",
+          "description": "Pointer to an array of HRESULT values, each representing the result of adding a reference to the corresponding interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the overall success or failure of the function"
+    }
+  },
+  {
+    "function": {
+      "name": "RemUnknown_RemRelease",
+      "description": "This function releases a specified number of interface references. It iterates over the interface references, retrieves the stub manager for each one, and releases the public and internal references. If the function encounters an error while retrieving a stub manager, it returns an error code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IRemUnknown *",
+          "description": "Pointer to the IRemUnknown interface"
+        },
+        {
+          "name": "cInterfaceRefs",
+          "type": "USHORT",
+          "description": "The number of interface references to be released"
+        },
+        {
+          "name": "InterfaceRefs",
+          "type": "REMINTERFACEREF *",
+          "description": "Pointer to an array of REMINTERFACEREF structures that contain the interface identifiers (IIDs) of the interfaces to be released"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails to retrieve a stub manager, it returns E_INVALIDARG."
+    }
+  },
+  {
+    "function": {
+      "name": "start_apartment_remote_unknown",
+      "description": "This function starts a remote unknown apartment. It creates an IRemUnknown object, registers it with the stub manager, and manages the life cycle of the object.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "This parameter is a pointer to the apartment structure that is to be started."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK if the function successfully starts the apartment, otherwise it returns an error code."
+    }
+  }
+]

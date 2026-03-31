@@ -1,0 +1,226 @@
+[
+  {
+    "function": {
+      "name": "register_decoders",
+      "description": "This function registers decoders by creating and setting values in the Windows registry. It iterates through a list of decoders, creating keys and setting values for each one. If any operation fails, it cleans up by closing any open keys and returns an error.",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "struct regsvr_decoder const *",
+          "description": "This is a pointer to a constant list of decoders to be registered. Each decoder in the list has several properties, including clsid, author, friendlyname, vendor, container_format, version, mimetypes, extensions, formats, and patterns."
+        }
+      ],
+      "return_type": "HRESULT, which is a data type used in Windows programming to represent error conditions, and status codes. If the function succeeds, it returns S_OK. If it fails, it returns an error code obtained from the HRESULT_FROM_WIN32 macro with the value of 'res'."
+    }
+  },
+  {
+    "function": {
+      "name": "unregister_decoders",
+      "description": "This function unregisters decoders by manipulating the Windows registry. It opens the registry key for the decoder, checks for errors, and if successful, it iterates through the list of decoders, deleting each one from the registry. If any errors occur during this process, it closes the registry keys and returns an error code.",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "struct regsvr_decoder const *",
+          "description": "This is a pointer to a list of decoders that are to be unregistered."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function. It returns S_OK if the function successfully unregisters the decoders, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "register_encoders",
+      "description": "This function registers encoders by creating and setting values in the Windows Registry. It iterates over a list of encoders, creating keys and setting values for each encoder's properties such as author, friendly name, vendor, container format, version, mime types, extensions and formats.",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "struct regsvr_encoder *",
+          "description": "A pointer to a list of encoders to be registered"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, otherwise it returns an error code obtained from the Win32 error code."
+    }
+  },
+  {
+    "function": {
+      "name": "unregister_encoders",
+      "description": "This function unregisters encoders by deleting the corresponding registry keys. It opens the registry key for the class identifier (CLSID), creates keys for the bitmap encoders and the instance, and then iterates through the list of encoders, deleting each one from the registry.",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "struct regsvr_encoder *",
+          "description": "A pointer to a list of encoders to be unregistered."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "register_converters",
+      "description": "This function registers a list of converters in the Windows registry. It creates registry keys for each converter and sets values for the converter's CLSID, author, friendly name, vendor, version, and supported pixel formats.",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "struct regsvr_converter const *",
+          "description": "A pointer to a list of converters to be registered."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful, otherwise returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "unregister_converters",
+      "description": "This function unregisters converters by deleting the relevant keys from the Windows registry. It iterates over a list of converters, deleting each one from the registry. If a converter is not found, it is considered a success. Any other error will stop the process and the function will return an error code.",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "struct regsvr_converter const *",
+          "description": "A pointer to a list of converters to be unregistered."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "register_metadatareaders",
+      "description": "This function registers metadata readers in the system registry. It creates registry keys and sets values for various properties of the metadata reader such as author, friendly name, vendor, metadata format, version, spec version, requires full stream, supports padding, requires fixed size, and containers. It handles errors by closing the relevant keys and returning an HRESULT indicating the status of the operation.",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "struct regsvr_metadatareader const *",
+          "description": "This is a pointer to a list of metadata readers to be registered."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code obtained from the Win32 function HRESULT_FROM_WIN32."
+    }
+  },
+  {
+    "function": {
+      "name": "unregister_metadatareaders",
+      "description": "This function unregisters metadata readers by manipulating the Windows registry. It opens the registry key for the class, creates keys for the metadata reader and its instance, and then iterates over a list of metadata readers, deleting each from the registry.",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "struct regsvr_metadatareader const *",
+          "description": "A pointer to a list of metadata readers to be unregistered"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, otherwise it returns an error code obtained from the HRESULT_FROM_WIN32 macro."
+    }
+  },
+  {
+    "function": {
+      "name": "register_metadatawriters",
+      "description": "This function registers metadata writers in the system registry.",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "struct regsvr_metadatawriter const *",
+          "description": "A pointer to a list of metadata writers to be registered."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful, otherwise returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "unregister_metadatawriters",
+      "description": "This function unregisters metadata writers by deleting the corresponding registry keys.",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "struct regsvr_metadatawriter *",
+          "description": "A pointer to a list of metadata writers to be unregistered."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "register_pixelformats",
+      "description": "This function registers pixel formats by creating and setting values in the Windows registry. It iterates over a list of pixel formats, creating keys for each one and setting values for various properties such as author, friendly name, vendor, version, bits per pixel, channel count, numeric representation, supports alpha, and channel masks.",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "struct regsvr_pixelformat *",
+          "description": "A pointer to a list of pixel formats to be registered."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. It returns S_OK if the operation is successful, otherwise it returns an error code obtained from the HRESULT_FROM_WIN32 macro."
+    }
+  },
+  {
+    "function": {
+      "name": "unregister_pixelformats",
+      "description": "This function unregisters pixel formats by deleting the corresponding keys from the registry. It handles errors and returns appropriate status codes.",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "struct regsvr_pixelformat *",
+          "description": "This is a pointer to a list of pixel formats to be unregistered."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status code of the operation. It returns S_OK if the operation is successful, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "register_categories",
+      "description": "This function registers categories in the Windows registry. It creates keys for the class, categories, and instances. If any key creation fails, it closes all open keys and returns an error. If all keys are successfully created, it sets the value for the instance class ID key and closes all keys. The function returns a success status if all operations are successful.",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "struct regsvr_category*",
+          "description": "This parameter is a pointer to a list of categories to be registered."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operations. It returns S_OK for success, or an error code for failure."
+    }
+  },
+  {
+    "function": {
+      "name": "unregister_categories",
+      "description": "This function unregisters categories from the registry. It opens the registry keys, checks for errors, and if no errors are found, it deletes the registry tree for each category in the list.",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "struct regsvr_category *",
+          "description": "This is a pointer to a list of categories to be unregistered."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function. It returns S_OK if the function is successful, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DllRegisterServer",
+      "description": "This function registers various components such as categories, decoders, encoders, converters, metadata readers, metadata writers, and pixel formats. It uses the Windows Imaging Component (WIC) to register the server.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters"
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function execution. It returns S_OK if all components are registered successfully, otherwise it returns a failure code."
+    }
+  },
+  {
+    "function": {
+      "name": "DllUnregisterServer",
+      "description": "This function unregisters various components such as categories, decoders, encoders, converters, metadata readers, metadata writers, and pixel formats. It uses the SUCCEEDED macro to check the success of each unregister operation.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operations. If all operations are successful, it returns the result of the last operation."
+    }
+  }
+]

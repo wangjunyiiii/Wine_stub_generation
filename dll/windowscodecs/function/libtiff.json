@@ -1,0 +1,767 @@
+[
+  {
+    "function": {
+      "name": "tiff_error_handler",
+      "description": "This function handles errors for TIFF files. If an error is detected, it logs the error message and outputs a newline character.",
+      "parameters": [
+        {
+          "name": "module",
+          "type": "const char *",
+          "description": "The name of the module where the error occurred."
+        },
+        {
+          "name": "format",
+          "type": "const char *",
+          "description": "The format of the error message to be logged."
+        },
+        {
+          "name": "args",
+          "type": "va_list",
+          "description": "A list of arguments to be included in the error message."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_warning_handler",
+      "description": "This function handles warnings for TIFF files. If warnings are enabled, it logs the warning message and outputs a newline character.",
+      "parameters": [
+        {
+          "name": "module",
+          "type": "const char *",
+          "description": "The name of the module where the warning occurred."
+        },
+        {
+          "name": "format",
+          "type": "const char *",
+          "description": "The format of the warning message."
+        },
+        {
+          "name": "args",
+          "type": "va_list",
+          "description": "A list of arguments to be used in the warning message."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_stream_read",
+      "description": "This function reads data from a stream into a buffer",
+      "parameters": [
+        {
+          "name": "client_data",
+          "type": "thandle_t",
+          "description": "Handle to the client data"
+        },
+        {
+          "name": "data",
+          "type": "tdata_t",
+          "description": "Buffer to store the read data"
+        },
+        {
+          "name": "size",
+          "type": "tsize_t",
+          "description": "Number of bytes to read from the stream"
+        }
+      ],
+      "return_type": "tsize_t, represents the number of bytes actually read from the stream"
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_stream_write",
+      "description": "This function writes data to a stream. It returns the number of bytes written. If the write operation fails, it returns 0.",
+      "parameters": [
+        {
+          "name": "client_data",
+          "type": "thandle_t",
+          "description": "Handle to the client data, which is cast to a stream"
+        },
+        {
+          "name": "data",
+          "type": "tdata_t",
+          "description": "The data to be written to the stream"
+        },
+        {
+          "name": "size",
+          "type": "tsize_t",
+          "description": "The size of the data to be written"
+        }
+      ],
+      "return_type": "tsize_t, represents the number of bytes written to the stream"
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_stream_seek",
+      "description": "This function seeks to a specific position in a TIFF stream.",
+      "parameters": [
+        {
+          "name": "client_data",
+          "type": "thandle_t",
+          "description": "This is a handle to the client data."
+        },
+        {
+          "name": "offset",
+          "type": "toff_t",
+          "description": "This is the offset from the origin."
+        },
+        {
+          "name": "whence",
+          "type": "int",
+          "description": "This parameter specifies the origin from where to start seeking."
+        }
+      ],
+      "return_type": "toff_t, represents the new position in the stream after seeking. If the operation fails, it returns -1."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_stream_close",
+      "description": "This function is used to close a TIFF stream. The caller is responsible for releasing the stream object.",
+      "parameters": [
+        {
+          "name": "client_data",
+          "type": "thandle_t",
+          "description": "This parameter is used to handle the TIFF stream."
+        }
+      ],
+      "return_type": "int, represents the status of the operation. In this case, it always returns 0 indicating successful execution."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_stream_size",
+      "description": "This function retrieves the size of a TIFF stream.",
+      "parameters": [
+        {
+          "name": "client_data",
+          "type": "thandle_t",
+          "description": "This parameter is a handle to the TIFF stream."
+        }
+      ],
+      "return_type": "toff_t, represents the size of the TIFF stream. Returns -1 if the operation is unsuccessful."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_stream_map",
+      "description": "This function is used to map a stream but it cannot mmap streams, so it always returns 0.",
+      "parameters": [
+        {
+          "name": "client_data",
+          "type": "thandle_t",
+          "description": "Handle to the client data"
+        },
+        {
+          "name": "addr",
+          "type": "tdata_t*",
+          "description": "Address to map the stream to"
+        },
+        {
+          "name": "size",
+          "type": "toff_t*",
+          "description": "Size of the stream to map"
+        }
+      ],
+      "return_type": "int, always returns 0 because it cannot mmap streams"
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_stream_unmap",
+      "description": "This function doesn't perform any operation, as it can't map things.",
+      "parameters": [
+        {
+          "name": "client_data",
+          "type": "thandle_t",
+          "description": "Client data handle"
+        },
+        {
+          "name": "addr",
+          "type": "tdata_t",
+          "description": "Address to unmap"
+        },
+        {
+          "name": "size",
+          "type": "toff_t",
+          "description": "Size of the data to unmap"
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_open_stream",
+      "description": "This function opens a TIFF stream with a specified mode, using the provided IStream object.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "The IStream object to be used for opening the TIFF stream."
+        },
+        {
+          "name": "mode",
+          "type": "char*",
+          "description": "The mode in which the TIFF stream is to be opened."
+        }
+      ],
+      "return_type": "TIFF*, represents the opened TIFF stream."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_decoder",
+      "description": "This function returns a pointer to the tiff_decoder structure that contains the given decoder structure.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder*",
+          "description": "A pointer to the decoder structure."
+        }
+      ],
+      "return_type": "struct tiff_decoder*, a pointer to the tiff_decoder structure that contains the given decoder structure."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_get_decode_info",
+      "description": "This function retrieves decoding information from a TIFF image file and stores it in a tiff_decode_info structure.",
+      "parameters": [
+        {
+          "name": "tiff",
+          "type": "TIFF *",
+          "description": "A pointer to the TIFF image file from which to retrieve decoding information."
+        },
+        {
+          "name": "decode_info",
+          "type": "tiff_decode_info *",
+          "description": "A pointer to a tiff_decode_info structure in which to store the retrieved decoding information."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. S_OK indicates success, while other values indicate various types of failure."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_decoder_should_skip_directory",
+      "description": "This function checks if a directory in a TIFF file should be skipped based on its subfile type.",
+      "parameters": [
+        {
+          "name": "tiff",
+          "type": "TIFF *",
+          "description": "A pointer to the TIFF file being checked."
+        }
+      ],
+      "return_type": "bool, returns true if the directory should be skipped, false otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_decoder_collect_frames",
+      "description": "This function collects frames from a TIFF decoder. It counts the number of directories in the TIFF file, allocates memory for a map of frames, and iterates over each directory. If a directory should be skipped, it continues to the next one. If not, it adds the directory to the frame map. If no frames are found, it frees the memory and returns an error. If frames are found, it sets the first useful directory and assigns the frame count and map to the decoder.",
+      "parameters": [
+        {
+          "name": "decoder",
+          "type": "struct tiff_decoder *",
+          "description": "This is a pointer to the TIFF decoder from which frames are to be collected."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_OUTOFMEMORY if memory allocation fails, E_FAIL if setting a directory fails, and WINCODEC_ERR_BADIMAGE if no frames are found."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_decoder_initialize",
+      "description": "This function initializes a TIFF decoder. It opens a TIFF stream, collects frames, gets decode info, and sets the frame count and flags in the decoder_stat structure. If any operation fails, it closes the TIFF stream and returns the error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder*",
+          "description": "Pointer to the decoder structure"
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "Pointer to the stream to be decoded"
+        },
+        {
+          "name": "st",
+          "type": "struct decoder_stat*",
+          "description": "Pointer to the decoder_stat structure where the function sets the frame count and flags"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. It returns S_OK if the function executes successfully, otherwise it returns the error code."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_decoder_select_frame",
+      "description": "This function selects a specific frame in a TIFF file for decoding. If the frame is already cached, it returns immediately. Otherwise, it sets the directory to the desired frame, gets the decode info, and updates the cached frame and tile.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct tiff_decoder*",
+          "description": "A pointer to the TIFF decoder structure which contains information about the TIFF file and the current decoding state."
+        },
+        {
+          "name": "frame",
+          "type": "DWORD",
+          "description": "The frame number to select for decoding."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It can be S_OK if the operation is successful, E_INVALIDARG if the frame number is invalid or if there is a failure in setting the directory, or other error codes indicating specific failures in the decoding process."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_decoder_get_frame_info",
+      "description": "This function selects a frame in a TIFF decoder and if successful, assigns the frame information to the provided info parameter.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder*",
+          "description": "An interface to the decoder structure."
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "The frame number to be selected in the decoder."
+        },
+        {
+          "name": "info",
+          "type": "struct decoder_frame*",
+          "description": "A pointer to a decoder_frame structure where the frame information will be stored if the frame selection is successful."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the frame selection operation. If successful, the frame information is stored in the 'info' parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_decoder_get_decoder_palette",
+      "description": "This function is used to get the decoder palette of a TIFF image.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder *",
+          "description": "Pointer to the decoder interface"
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "The frame number"
+        },
+        {
+          "name": "colors",
+          "type": "WICColor *",
+          "description": "Pointer to the color palette"
+        },
+        {
+          "name": "num_colors",
+          "type": "UINT *",
+          "description": "Pointer to the number of colors"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns WINCODEC_ERR_PALETTEUNAVAILABLE indicating that the palette is unavailable."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_read_tile",
+      "description": "This function reads a tile from a TIFF image, either from a tiled image or a stripped image. It calculates the index of the tile or strip to read, reads it into the provided buffer, and sets the output length to the number of bytes read.",
+      "parameters": [
+        {
+          "name": "decoder",
+          "type": "struct tiff_decoder *",
+          "description": "Pointer to the TIFF decoder structure"
+        },
+        {
+          "name": "tile_x",
+          "type": "UINT",
+          "description": "The x-coordinate of the tile to read"
+        },
+        {
+          "name": "tile_y",
+          "type": "UINT",
+          "description": "The y-coordinate of the tile to read"
+        },
+        {
+          "name": "s",
+          "type": "UINT",
+          "description": "The sample number to read"
+        },
+        {
+          "name": "buffer",
+          "type": "void *",
+          "description": "Pointer to the buffer where the read data will be stored"
+        },
+        {
+          "name": "size",
+          "type": "size_t",
+          "description": "The size of the buffer"
+        },
+        {
+          "name": "out_length",
+          "type": "size_t *",
+          "description": "Pointer to a variable where the function will store the number of bytes read"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK on success and E_FAIL if the read operation fails"
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_decoder_copy_planes",
+      "description": "This function is used to copy the planes of a TIFF decoder. It calculates the sample size and width in bytes, then loops through each tile in the height and width, copying the data from the source to the destination. It supports different bits per sample sizes.",
+      "parameters": [
+        {
+          "name": "decoder",
+          "type": "struct tiff_decoder *",
+          "description": "This is a pointer to the TIFF decoder structure which contains the information about the TIFF image being decoded."
+        },
+        {
+          "name": "srcdata",
+          "type": "uint8_t *",
+          "description": "This is a pointer to the source data that is to be copied."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. It returns S_OK if the function executes successfully, and E_NOTIMPL if the bits per sample is not a multiple of 8."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_decoder_read_tile",
+      "description": "This function reads a tile from a TIFF image, decodes it and stores it in a cache. It handles different color depths and configurations, including planar and contiguous, and different color formats, including RGB and RGBA. It also handles grayscale images and can invert them if needed.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct tiff_decoder *",
+          "description": "Pointer to the tiff_decoder structure which contains information about the TIFF image and the current decoding state."
+        },
+        {
+          "name": "tile_x",
+          "type": "UINT",
+          "description": "The x-coordinate of the tile to be read."
+        },
+        {
+          "name": "tile_y",
+          "type": "UINT",
+          "description": "The y-coordinate of the tile to be read."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. S_OK is returned on success, and an error code is returned on failure."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_decoder_copy_pixels",
+      "description": "This function copies pixels from a TIFF image frame to a buffer, taking into account the image's tile structure. It also handles memory allocation for the tile cache and error checking for the frame selection and pixel copying processes.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder*",
+          "description": "Pointer to the decoder structure"
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "The frame number to be decoded"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect*",
+          "description": "Pointer to a WICRect structure that specifies the portion of the image to copy"
+        },
+        {
+          "name": "stride",
+          "type": "UINT",
+          "description": "The stride, or pitch, of the bitmap. This is the number of bytes from one row of pixels in memory to the next row of pixels in memory"
+        },
+        {
+          "name": "buffersize",
+          "type": "UINT",
+          "description": "The size of the buffer"
+        },
+        {
+          "name": "buffer",
+          "type": "BYTE*",
+          "description": "Pointer to the buffer where the pixels will be copied"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_decoder_get_color_context",
+      "description": "This function selects a frame in a TIFF image, retrieves its color profile, and copies it into a dynamically allocated buffer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder*",
+          "description": "Pointer to the decoder interface"
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "The frame to select in the TIFF image"
+        },
+        {
+          "name": "num",
+          "type": "UINT",
+          "description": "Unused parameter in the function"
+        },
+        {
+          "name": "data",
+          "type": "BYTE**",
+          "description": "Pointer to a buffer where the color profile data will be copied"
+        },
+        {
+          "name": "datasize",
+          "type": "DWORD*",
+          "description": "Pointer to a variable where the size of the color profile data will be stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, E_UNEXPECTED if the TIFF image does not have a color profile, and E_OUTOFMEMORY if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_decoder_get_metadata_blocks",
+      "description": "This function selects a frame from a TIFF decoder, sets the count to 1, and assigns metadata to a decoder block. It then allocates memory for the block and assigns the result to it.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder *",
+          "description": "Interface for the decoder"
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "Frame to be selected from the TIFF decoder"
+        },
+        {
+          "name": "count",
+          "type": "UINT *",
+          "description": "Pointer to hold the count of metadata blocks"
+        },
+        {
+          "name": "blocks",
+          "type": "struct decoder_block **",
+          "description": "Pointer to hold the allocated memory for the decoder block"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. If the function fails to select the frame, it returns the error code. If it succeeds, it returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_decoder_destroy",
+      "description": "This function is used to free up the memory allocated to the TIFF decoder. It closes the TIFF file if it's open, and then frees the memory allocated to the cached tile, frame map, and the decoder itself.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct decoder*",
+          "description": "This parameter is a pointer to the decoder structure that needs to be destroyed."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_decoder_create",
+      "description": "This function creates a TIFF decoder, sets the decoder's vtable to the tiff_decoder_vtable, sets the cached tile x to -1, and assigns the address of the decoder to the result. It also sets the container format, block format, and clsid of the info structure. Finally, it sets the error and warning handlers for the TIFF.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "struct decoder_info *",
+          "description": "A pointer to a decoder_info structure. This structure is used to set the container format, block format, and clsid."
+        },
+        {
+          "name": "result",
+          "type": "struct decoder **",
+          "description": "A pointer to a pointer to a decoder structure. The address of the decoder is assigned to this pointer."
+        }
+      ],
+      "return_type": "HRESULT. It returns S_OK if the function executes successfully. If memory allocation for the TIFF decoder fails, it returns E_OUTOFMEMORY."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_encoder",
+      "description": "This function returns a pointer to the tiff_encoder structure that contains the given encoder structure.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct encoder*",
+          "description": "Pointer to an encoder structure."
+        }
+      ],
+      "return_type": "struct tiff_encoder*, represents a pointer to the tiff_encoder structure that contains the given encoder structure."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_encoder_initialize",
+      "description": "This function initializes a TIFF encoder with a given stream.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct encoder*",
+          "description": "This parameter is used to represent the interface of the encoder."
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "This parameter is used to provide the stream to which the TIFF encoder will write."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. It returns S_OK if the function executes successfully, otherwise it returns E_FAIL."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_encoder_get_supported_format",
+      "description": "This function checks the compatibility of the provided pixel format with the supported formats. If the format is not supported, it defaults to the first format in the list. It then updates the pixel format, bits per pixel (bpp), and indexed status according to the matched or default format.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct encoder*",
+          "description": "Pointer to the encoder interface"
+        },
+        {
+          "name": "pixel_format",
+          "type": "GUID*",
+          "description": "Pointer to the GUID representing the pixel format to be checked"
+        },
+        {
+          "name": "bpp",
+          "type": "DWORD*",
+          "description": "Pointer to the DWORD representing the bits per pixel of the format"
+        },
+        {
+          "name": "indexed",
+          "type": "BOOL*",
+          "description": "Pointer to the BOOL indicating whether the format is indexed or not"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_encoder_create_frame",
+      "description": "This function creates a frame for a TIFF encoder. It sets various fields for the TIFF file such as photometric interpretation, planar configuration, bits per sample, samples per pixel, image width and height, resolution, and color map if applicable.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct encoder*",
+          "description": "This is the encoder interface used for the TIFF encoder."
+        },
+        {
+          "name": "frame",
+          "type": "const struct encoder_frame*",
+          "description": "This is the frame to be encoded into the TIFF file."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. Returns S_OK if the function executes successfully."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_encoder_write_lines",
+      "description": "This function writes lines to a TIFF encoder. It also handles the case where the format requires reversing BGR and the bits per sample is 8.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct encoder*",
+          "description": "Interface for the encoder"
+        },
+        {
+          "name": "data",
+          "type": "BYTE*",
+          "description": "Data to be written"
+        },
+        {
+          "name": "line_count",
+          "type": "DWORD",
+          "description": "Number of lines to be written"
+        },
+        {
+          "name": "stride",
+          "type": "DWORD",
+          "description": "Stride of the data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, E_OUTOFMEMORY if memory allocation fails"
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_encoder_commit_frame",
+      "description": "This function commits a frame to a TIFF encoder",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct encoder*",
+          "description": "This parameter is a pointer to the encoder structure"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK indicates success"
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_encoder_commit_file",
+      "description": "This function commits a TIFF file by closing it and setting its reference to NULL.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct encoder*",
+          "description": "This is a pointer to the encoder structure."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_encoder_destroy",
+      "description": "This function closes the TIFF file associated with the given encoder and frees the memory allocated for the encoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "struct encoder*",
+          "description": "This is a pointer to the encoder structure that is associated with the TIFF file to be closed."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "tiff_encoder_create",
+      "description": "This function creates a TIFF encoder, sets its properties, and assigns it to the result pointer. It also sets the error and warning handlers for the TIFF encoder.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "struct encoder_info*",
+          "description": "A pointer to an encoder_info structure where the function sets the encoder's properties."
+        },
+        {
+          "name": "result",
+          "type": "struct encoder**",
+          "description": "A pointer to a pointer to an encoder structure where the function assigns the created TIFF encoder."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function execution. It returns E_OUTOFMEMORY if memory allocation fails, and S_OK if the function executes successfully."
+    }
+  }
+]

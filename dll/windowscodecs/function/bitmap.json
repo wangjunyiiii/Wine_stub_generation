@@ -1,0 +1,1151 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IWICBitmap",
+      "description": "This function returns the BitmapImpl structure that contains the given IWICBitmap interface pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmap *",
+          "description": "This is a pointer to an IWICBitmap interface."
+        }
+      ],
+      "return_type": "BitmapImpl pointer, which represents the BitmapImpl structure that contains the given IWICBitmap interface pointer."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IMILBitmap",
+      "description": "This function returns the BitmapImpl from the given IMILBitmap interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILBitmap *",
+          "description": "This is the IMILBitmap interface from which the BitmapImpl is to be obtained."
+        }
+      ],
+      "return_type": "BitmapImpl *; it represents a pointer to the BitmapImpl obtained from the IMILBitmap interface."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IMILUnknown1",
+      "description": "This function returns a pointer to a BitmapImpl structure that contains the given IMILUnknown1 interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILUnknown1 *",
+          "description": "Pointer to an IMILUnknown1 interface"
+        }
+      ],
+      "return_type": "BitmapImpl pointer, representing a BitmapImpl structure that contains the given IMILUnknown1 interface"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IWICBitmapLock",
+      "description": "This function returns the containing record of the given interface pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapLock *",
+          "description": "This is a pointer to an IWICBitmapLock interface."
+        }
+      ],
+      "return_type": "BitmapLockImpl pointer, which represents the containing record of the given interface pointer."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapImpl_AcquireLock",
+      "description": "This function acquires a lock on a BitmapImpl object. If the 'write' parameter is true, it tries to set the lock to -1. If the 'write' parameter is false, it enters a loop where it tries to increment the lock value until it succeeds.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "BitmapImpl*",
+          "description": "The BitmapImpl object on which to acquire the lock."
+        },
+        {
+          "name": "write",
+          "type": "int",
+          "description": "A flag indicating whether to write to the object. If true, the function tries to set the lock to -1. If false, the function tries to increment the lock value."
+        }
+      ],
+      "return_type": "BOOL, represents whether the lock was successfully acquired. Returns TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapImpl_ReleaseLock",
+      "description": "This function releases a lock on a BitmapImpl object by decrementing the lock value until it can be successfully updated to a new value.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "BitmapImpl*",
+          "description": "This is a pointer to the BitmapImpl object whose lock is to be released."
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapLockImpl_QueryInterface",
+      "description": "This function is used to query the interface of a Bitmap Lock object. It checks if the provided interface identifier (IID) matches the IUnknown interface or the IWICBitmapLock interface. If it does, it assigns the address of the IWICBitmapLock interface to the provided void pointer. If it doesn't, it sets the void pointer to NULL and returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapLock*",
+          "description": "Pointer to the Bitmap Lock object."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Interface identifier to be checked against."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to a void pointer where the address of the interface will be stored if the IID matches."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the ppv parameter is NULL, and E_NOINTERFACE if the provided IID does not match any known interfaces."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapLockImpl_AddRef",
+      "description": "This function increments the reference count of the BitmapLockImpl object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapLock*",
+          "description": "This is a pointer to the IWICBitmapLock interface of the BitmapLockImpl object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after increment."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapLockImpl_Release",
+      "description": "This function releases the lock on a bitmap, decrements the reference count, and if the reference count is zero, it releases the parent bitmap and frees the memory allocated to the BitmapLockImpl object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapLock *",
+          "description": "This parameter is a pointer to the interface of the bitmap lock."
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count after the decrement operation."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapLockImpl_GetSize",
+      "description": "This function retrieves the width and height of a bitmap.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapLock*",
+          "description": "Interface pointer to the bitmap lock."
+        },
+        {
+          "name": "puiWidth",
+          "type": "UINT*",
+          "description": "Pointer to store the width of the bitmap."
+        },
+        {
+          "name": "puiHeight",
+          "type": "UINT*",
+          "description": "Pointer to store the height of the bitmap."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapLockImpl_GetStride",
+      "description": "This function retrieves the stride of the bitmap.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapLock*",
+          "description": "Interface pointer to the bitmap lock object."
+        },
+        {
+          "name": "pcbStride",
+          "type": "UINT*",
+          "description": "Pointer to a variable that receives the stride of the bitmap."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapLockImpl_GetDataPointer",
+      "description": "This function retrieves the data pointer and the buffer size from a BitmapLockImpl object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapLock *",
+          "description": "Pointer to an IWICBitmapLock interface"
+        },
+        {
+          "name": "pcbBufferSize",
+          "type": "UINT *",
+          "description": "Pointer to a UINT to receive the size of the buffer"
+        },
+        {
+          "name": "ppbData",
+          "type": "BYTE **",
+          "description": "Pointer to a BYTE pointer to receive the data pointer"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error value otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapLockImpl_GetPixelFormat",
+      "description": "This function retrieves the pixel format of a bitmap.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapLock*",
+          "description": "Interface pointer to the bitmap lock."
+        },
+        {
+          "name": "pPixelFormat",
+          "type": "WICPixelFormatGUID*",
+          "description": "Pointer to a GUID variable that receives the pixel format of the bitmap."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function. It returns standard codes like S_OK for success and E_FAIL for failure."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapImpl_QueryInterface",
+      "description": "This function checks if the provided interface identifier (IID) matches any of the known IIDs. If it does, it assigns the corresponding interface to the output parameter. If it doesn't, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmap*",
+          "description": "Pointer to the IWICBitmap interface"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Interface identifier to query for"
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to the location where the interface pointer will be stored if the function succeeds"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. It returns S_OK if the function succeeds, E_NOINTERFACE if the IID is not recognized, and E_INVALIDARG if the ppv argument is NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapImpl_AddRef",
+      "description": "This function increments the reference count of a BitmapImpl object and returns the updated count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmap*",
+          "description": "Pointer to the IWICBitmap interface of the BitmapImpl object whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count of the BitmapImpl object."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapImpl_Release",
+      "description": "This function releases the bitmap implementation, decrements the reference count, and if the reference count is zero, it releases the palette, deletes the critical section, unmaps the view of the file if it exists, and frees the data and the BitmapImpl object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmap*",
+          "description": "Pointer to the interface of the bitmap to be released"
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count after the release operation"
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapImpl_GetSize",
+      "description": "This function retrieves the width and height of a bitmap.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmap*",
+          "description": "Pointer to an IWICBitmap interface."
+        },
+        {
+          "name": "puiWidth",
+          "type": "UINT*",
+          "description": "Pointer to a UINT that receives the width of the bitmap."
+        },
+        {
+          "name": "puiHeight",
+          "type": "UINT*",
+          "description": "Pointer to a UINT that receives the height of the bitmap."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapImpl_GetPixelFormat",
+      "description": "This function retrieves the pixel format of a bitmap.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmap*",
+          "description": "This is an interface pointer to the bitmap."
+        },
+        {
+          "name": "pPixelFormat",
+          "type": "WICPixelFormatGUID*",
+          "description": "This is a pointer to a GUID variable that receives the pixel format of the bitmap."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if successful, or an error code if not."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapImpl_GetResolution",
+      "description": "This function retrieves the resolution of a bitmap image.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmap *",
+          "description": "Pointer to an IWICBitmap interface that represents the bitmap image."
+        },
+        {
+          "name": "pDpiX",
+          "type": "double *",
+          "description": "Pointer to a double that receives the horizontal resolution, in dots per inch."
+        },
+        {
+          "name": "pDpiY",
+          "type": "double *",
+          "description": "Pointer to a double that receives the vertical resolution, in dots per inch."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapImpl_CopyPalette",
+      "description": "This function copies the palette from the BitmapImpl object to the IWICPalette object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmap*",
+          "description": "Pointer to the BitmapImpl object from which the palette is to be copied."
+        },
+        {
+          "name": "pIPalette",
+          "type": "IWICPalette*",
+          "description": "Pointer to the IWICPalette object to which the palette is to be copied."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns WINCODEC_ERR_PALETTEUNAVAILABLE if the palette is not set in the BitmapImpl object, otherwise returns the status of the IWICPalette_InitializeFromPalette function."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapImpl_CopyPixels",
+      "description": "This function copies pixels from a bitmap using the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmap *",
+          "description": "Pointer to the bitmap interface"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to the rectangle structure that specifies the portion of the bitmap to copy"
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "Specifies the stride, or pitch, of the bitmap"
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "Specifies the size of the buffer"
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer that receives the bitmap data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure codes"
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapImpl_Lock",
+      "description": "This function locks a portion of a bitmap for exclusive write access, or shared read access. It validates the flags and parameters, and if they are valid, it allocates memory for a new BitmapLockImpl object, acquires the lock, and sets the properties of the BitmapLockImpl object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmap*",
+          "description": "Pointer to the IWICBitmap interface of the bitmap to be locked"
+        },
+        {
+          "name": "prcLock",
+          "type": "WICRect*",
+          "description": "Pointer to a WICRect structure that specifies the portion of the bitmap to lock"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Specifies the access level for the lock, either read, write, or both"
+        },
+        {
+          "name": "ppILock",
+          "type": "IWICBitmapLock**",
+          "description": "Pointer to a pointer to an IWICBitmapLock interface that receives the interface pointer of the new lock"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the arguments are not valid, E_OUTOFMEMORY if the memory allocation fails, E_FAIL if the lock cannot be acquired at an X coordinate not at a full byte, and WINCODEC_ERR_ALREADYLOCKED if the bitmap is already locked"
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapImpl_SetPalette",
+      "description": "This function sets the palette for a bitmap. If the bitmap does not have a palette, it creates one. It also initializes the palette from another palette.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmap*",
+          "description": "Pointer to the bitmap interface for which the palette is to be set."
+        },
+        {
+          "name": "pIPalette",
+          "type": "IWICPalette*",
+          "description": "Pointer to the palette from which the bitmap's palette is to be initialized."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapImpl_SetResolution",
+      "description": "This function sets the resolution of a bitmap by updating its dpiX and dpiY values.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmap*",
+          "description": "Pointer to the bitmap interface"
+        },
+        {
+          "name": "dpiX",
+          "type": "double",
+          "description": "The horizontal resolution to set for the bitmap"
+        },
+        {
+          "name": "dpiY",
+          "type": "double",
+          "description": "The vertical resolution to set for the bitmap"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILBitmapImpl_QueryInterface",
+      "description": "This function is used to get the interface for a BitmapImpl object. It is a method of the IMILBitmap interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILBitmap*",
+          "description": "Pointer to the IMILBitmap interface."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier (IID) of the interface being queried for."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in iid. Upon successful return, *ppv contains the requested interface pointer. If the object does not support the interface, *ppv will contain NULL."
+        }
+      ],
+      "return_type": "HRESULT, which is the result of the operation. If the operation was successful, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILBitmapImpl_AddRef",
+      "description": "This function adds a reference to an IMILBitmap object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILBitmap*",
+          "description": "This is the interface of the IMILBitmap object that the reference is being added to."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the IMILBitmap object after the reference has been added."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILBitmapImpl_Release",
+      "description": "This function releases the IMILBitmap interface and returns the status of the operation.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILBitmap*",
+          "description": "This is a pointer to the IMILBitmap interface that needs to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the status of the operation after releasing the IMILBitmap interface."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILBitmapImpl_GetSize",
+      "description": "This function retrieves the size of a bitmap.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILBitmap*",
+          "description": "Interface pointer to the bitmap object."
+        },
+        {
+          "name": "width",
+          "type": "UINT*",
+          "description": "Pointer to store the width of the bitmap."
+        },
+        {
+          "name": "height",
+          "type": "UINT*",
+          "description": "Pointer to store the height of the bitmap."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILBitmapImpl_GetPixelFormat",
+      "description": "This function retrieves the pixel format of a given bitmap.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILBitmap*",
+          "description": "This is an interface pointer to the bitmap whose pixel format is to be retrieved."
+        },
+        {
+          "name": "format",
+          "type": "int*",
+          "description": "This is a pointer to an integer where the function will store the retrieved pixel format."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK on success and E_INVALIDARG if the format pointer is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILBitmapImpl_GetResolution",
+      "description": "This function retrieves the resolution of a bitmap.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILBitmap*",
+          "description": "Interface pointer to the bitmap object"
+        },
+        {
+          "name": "dpix",
+          "type": "double*",
+          "description": "Pointer to store the horizontal resolution (dpi)"
+        },
+        {
+          "name": "dpiy",
+          "type": "double*",
+          "description": "Pointer to store the vertical resolution (dpi)"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IMILBitmapImpl_CopyPalette",
+      "description": "This function copies the color palette from the specified interface to the current bitmap.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILBitmap*",
+          "description": "The interface from which the color palette is to be copied."
+        },
+        {
+          "name": "palette",
+          "type": "IWICPalette*",
+          "description": "The color palette that is to be copied."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILBitmapImpl_CopyPixels",
+      "description": "This function is used to copy pixels from a bitmap.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILBitmap*",
+          "description": "Interface to the bitmap."
+        },
+        {
+          "name": "rc",
+          "type": "WICRect*",
+          "description": "Rectangle structure that specifies the portion of the bitmap to copy."
+        },
+        {
+          "name": "stride",
+          "type": "UINT",
+          "description": "The stride, or pitch, of the bitmap. This is the number of bytes from one row of pixels in memory to the next row."
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "The size of the buffer."
+        },
+        {
+          "name": "buffer",
+          "type": "BYTE*",
+          "description": "Buffer that receives the pixel data."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILBitmapImpl_unknown1",
+      "description": "This function retrieves the IMILUnknown1 interface from the BitmapImpl object, without incrementing the reference count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILBitmap*",
+          "description": "Pointer to the IMILBitmap interface of the BitmapImpl object."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Address of a pointer that receives the IMILUnknown1 interface pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error code if the operation fails (for example, E_INVALIDARG if ppv is NULL)."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILBitmapImpl_Lock",
+      "description": "This function locks a portion of the bitmap for writing.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILBitmap*",
+          "description": "Pointer to the interface of the bitmap to be locked."
+        },
+        {
+          "name": "rc",
+          "type": "WICRect*",
+          "description": "Pointer to the rectangle that defines the portion of the bitmap to lock."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags that specify the access level requested for the lock."
+        },
+        {
+          "name": "lock",
+          "type": "IWICBitmapLock**",
+          "description": "Pointer to a pointer to an IWICBitmapLock interface that receives the interface pointer to the lock."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILBitmapImpl_Unlock",
+      "description": "This function releases a lock on a bitmap object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILBitmap*",
+          "description": "This is a pointer to the bitmap object that is to be unlocked."
+        },
+        {
+          "name": "lock",
+          "type": "IWICBitmapLock*",
+          "description": "This is a pointer to the lock object that is to be released."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation is successful, it returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILBitmapImpl_SetPalette",
+      "description": "This function sets the palette for a given bitmap interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILBitmap*",
+          "description": "This is the bitmap interface for which the palette is to be set."
+        },
+        {
+          "name": "palette",
+          "type": "IWICPalette*",
+          "description": "This is the palette that is to be set for the bitmap interface."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of setting the palette. If the function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILBitmapImpl_SetResolution",
+      "description": "This function sets the resolution for a bitmap image.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILBitmap*",
+          "description": "Interface pointer to a bitmap image"
+        },
+        {
+          "name": "dpix",
+          "type": "double",
+          "description": "The horizontal resolution to set for the bitmap image"
+        },
+        {
+          "name": "dpiy",
+          "type": "double",
+          "description": "The vertical resolution to set for the bitmap image"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation is successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILBitmapImpl_AddDirtyRect",
+      "description": "This function is a stub and not yet implemented. It is supposed to add a dirty rectangle to the IMILBitmap interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILBitmap*",
+          "description": "Pointer to the IMILBitmap interface"
+        },
+        {
+          "name": "rc",
+          "type": "WICRect*",
+          "description": "Pointer to the WICRect structure representing the dirty rectangle"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, in this case it always returns E_NOTIMPL indicating the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "IMILUnknown1Impl_QueryInterface",
+      "description": "This function is a stub and it's not clear what interface should be returned here. It currently returns E_NOINTERFACE.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILUnknown1 *",
+          "description": "Pointer to an IMILUnknown1 interface"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested"
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Pointer to a pointer that, on successful return, points to the requested interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call. In this case, it always returns E_NOINTERFACE indicating the requested interface is not available"
+    }
+  },
+  {
+    "function": {
+      "name": "IMILUnknown1Impl_AddRef",
+      "description": "This function adds a reference to an IMILUnknown1 interface object and returns the new reference count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILUnknown1*",
+          "description": "This is a pointer to the IMILUnknown1 interface object to which a reference is being added."
+        }
+      ],
+      "return_type": "ULONG, which represents the new reference count after the addition."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILUnknown1Impl_Release",
+      "description": "This function releases the IMILUnknown1 interface and returns the result of the IWICBitmap_Release function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILUnknown1*",
+          "description": "This is a pointer to the IMILUnknown1 interface that is to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the result of the IWICBitmap_Release function."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILUnknown1Impl_unknown1",
+      "description": "This function is a stub, meaning it is a placeholder for a function that has not been implemented yet. It logs the input parameters and does nothing else.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILUnknown1*",
+          "description": "This is a pointer to an IMILUnknown1 interface object."
+        },
+        {
+          "name": "arg",
+          "type": "void*",
+          "description": "This is a generic pointer to any type of object."
+        }
+      ],
+      "return_type": "void, meaning this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "IMILUnknown1Impl_unknown2",
+      "description": "This function is a stub and not yet implemented. It currently returns an 'E_NOTIMPL' error code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILUnknown1*",
+          "description": "Interface pointer"
+        },
+        {
+          "name": "arg1",
+          "type": "void*",
+          "description": "First argument, its usage is currently unknown"
+        },
+        {
+          "name": "arg2",
+          "type": "void*",
+          "description": "Second argument, its usage is currently unknown"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, currently always returns 'E_NOTIMPL' indicating that the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "IMILUnknown1Impl_unknown3",
+      "description": "This function is a stub, not yet implemented.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILUnknown1*",
+          "description": "Interface pointer"
+        },
+        {
+          "name": "arg",
+          "type": "void*",
+          "description": "Argument pointer"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, in this case E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILUnknown1Impl_unknown4",
+      "description": "This function is a stub, not yet implemented.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILUnknown1*",
+          "description": "Pointer to an IMILUnknown1 interface"
+        },
+        {
+          "name": "arg",
+          "type": "void*",
+          "description": "Pointer to an argument of unknown type"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, in this case E_NOTIMPL indicating that the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "IMILUnknown1Impl_unknown5",
+      "description": "This function is a stub, not yet implemented. It logs the input parameters and returns a 'not implemented' status.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILUnknown1*",
+          "description": "Pointer to an IMILUnknown1 interface"
+        },
+        {
+          "name": "arg",
+          "type": "void*",
+          "description": "Generic pointer argument"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, in this case E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILUnknown1Impl_unknown6",
+      "description": "This function is a stub, not yet implemented. It logs a debug message with the parameters it received.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILUnknown1*",
+          "description": "Pointer to an IMILUnknown1 interface"
+        },
+        {
+          "name": "arg",
+          "type": "DWORD64",
+          "description": "A 64-bit unsigned integer argument"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILUnknown1Impl_unknown7",
+      "description": "This function is a stub, not yet implemented. It logs the input parameters and returns a 'not implemented' error code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILUnknown1*",
+          "description": "Pointer to an IMILUnknown1 interface"
+        },
+        {
+          "name": "arg",
+          "type": "void*",
+          "description": "Generic pointer argument"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILUnknown1Impl_unknown8",
+      "description": "This function is a stub, currently not implemented.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILUnknown1*",
+          "description": "Pointer to an IMILUnknown1 interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, in this case E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILUnknown2Impl_QueryInterface",
+      "description": "This function is a stub that currently does not provide any implementation. It is used to query an interface of a COM object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILUnknown2*",
+          "description": "Pointer to the interface that is being queried."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being queried."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to the pointer that, if the interface is found, will point to the requested interface."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOINTERFACE indicating that the requested interface is not available."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILUnknown2Impl_AddRef",
+      "description": "This function is a stub, it doesn't perform any operation yet.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILUnknown2 *",
+          "description": "Pointer to an IMILUnknown2 interface"
+        }
+      ],
+      "return_type": "ULONG, currently it returns 0 as it is a stub function"
+    }
+  },
+  {
+    "function": {
+      "name": "IMILUnknown2Impl_Release",
+      "description": "This function is a stub, meaning it is intended to be replaced by a full function definition in the future. Currently, it simply returns 0.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILUnknown2 *",
+          "description": "Pointer to an IMILUnknown2 interface"
+        }
+      ],
+      "return_type": "ULONG, represents a 32-bit unsigned integer. In this stub function, it always returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILUnknown2Impl_unknown1",
+      "description": "This function is a stub, it logs the input parameters and sets the value of the third parameter to NULL if it is not NULL.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILUnknown2*",
+          "description": "Pointer to an IMILUnknown2 interface"
+        },
+        {
+          "name": "arg1",
+          "type": "void*",
+          "description": "Arbitrary argument"
+        },
+        {
+          "name": "arg2",
+          "type": "void**",
+          "description": "Pointer to a pointer. This function sets the pointed value to NULL if it is not NULL."
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function. It always returns E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IMILUnknown2Impl_unknown2",
+      "description": "This function is a stub and not yet implemented. It logs the input parameters and returns an error code indicating that the function is not implemented.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILUnknown2*",
+          "description": "Pointer to an IMILUnknown2 interface"
+        },
+        {
+          "name": "arg1",
+          "type": "void*",
+          "description": "First argument, purpose not specified"
+        },
+        {
+          "name": "arg2",
+          "type": "void*",
+          "description": "Second argument, purpose not specified"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, in this case always returns E_NOTIMPL indicating that the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "IMILUnknown2Impl_unknown3",
+      "description": "This function is a stub, not yet implemented. It logs the input parameters and returns an error code indicating that the function is not implemented.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMILUnknown2*",
+          "description": "Pointer to an IMILUnknown2 interface"
+        },
+        {
+          "name": "arg1",
+          "type": "void*",
+          "description": "Generic pointer argument"
+        }
+      ],
+      "return_type": "HRESULT, which is a data type used in Windows operating systems, and the many subsystems of Windows, to represent error conditions, and warning conditions. In this case, it returns E_NOTIMPL indicating 'not implemented' error."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapImpl_Create",
+      "description": "This function creates a bitmap with specified parameters, initializes its properties and returns a pointer to the created bitmap.",
+      "parameters": [
+        {
+          "name": "uiWidth",
+          "type": "UINT",
+          "description": "The width of the bitmap."
+        },
+        {
+          "name": "uiHeight",
+          "type": "UINT",
+          "description": "The height of the bitmap."
+        },
+        {
+          "name": "stride",
+          "type": "UINT",
+          "description": "The stride of the bitmap."
+        },
+        {
+          "name": "datasize",
+          "type": "UINT",
+          "description": "The size of the data for the bitmap."
+        },
+        {
+          "name": "view",
+          "type": "void *",
+          "description": "A pointer to the view of the bitmap."
+        },
+        {
+          "name": "offset",
+          "type": "UINT",
+          "description": "The offset of the bitmap."
+        },
+        {
+          "name": "pixelFormat",
+          "type": "REFWICPixelFormatGUID",
+          "description": "The pixel format of the bitmap."
+        },
+        {
+          "name": "option",
+          "type": "WICBitmapCreateCacheOption",
+          "description": "The cache option for creating the bitmap."
+        },
+        {
+          "name": "ppIBitmap",
+          "type": "IWICBitmap **",
+          "description": "A pointer to a pointer to the created bitmap."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. It returns S_OK if the function executes successfully, otherwise it returns an error code."
+    }
+  }
+]

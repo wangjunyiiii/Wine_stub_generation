@@ -1,0 +1,2923 @@
+[
+  {
+    "function": {
+      "name": "debugstr_user_flags",
+      "description": "This function returns a string representation of user flags. It checks the low word of the flags and assigns a corresponding string. If the high word of the flags is equal to NDR_LOCAL_DATA_REPRESENTATION, it returns a string with the low word and NDR_LOCAL_DATA_REPRESENTATION. Otherwise, it returns a string with the low word and the high word of the flags.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "This is a pointer to the user flags to be checked and converted to a string."
+        }
+      ],
+      "return_type": "char: This represents the string representation of the user flags."
+    }
+  },
+  {
+    "function": {
+      "name": "HMETAFILE_UserSize",
+      "description": "This function calculates the size of a metafile object, including any necessary alignment and extra information based on the provided flags.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to flags that determine how the size is calculated."
+        },
+        {
+          "name": "StartingSize",
+          "type": "ULONG",
+          "description": "The initial size to start calculations from."
+        },
+        {
+          "name": "phmf",
+          "type": "HMETAFILE*",
+          "description": "Pointer to the metafile whose size is to be calculated."
+        }
+      ],
+      "return_type": "ULONG, representing the calculated size of the metafile object."
+    }
+  },
+  {
+    "function": {
+      "name": "HMETAFILE_UserMarshal",
+      "description": "This function marshals a HMETAFILE object for a remote procedure call.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to flags that determine the context of the marshalling operation."
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char*",
+          "description": "Pointer to the buffer where the marshalled data is stored."
+        },
+        {
+          "name": "phmf",
+          "type": "HMETAFILE*",
+          "description": "Pointer to the HMETAFILE object that is to be marshalled."
+        }
+      ],
+      "return_type": "unsigned char* representing the pointer to the buffer where the marshalled data is stored."
+    }
+  },
+  {
+    "function": {
+      "name": "HMETAFILE_UserUnmarshal",
+      "description": "This function unmarshals a user HMETAFILE object from a buffer. It performs various checks and operations based on the context flag and handle values, and raises exceptions for invalid data or tags.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to the flags that determine the context of the call"
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char*",
+          "description": "Pointer to the buffer from which the HMETAFILE object is unmarshaled"
+        },
+        {
+          "name": "phmf",
+          "type": "HMETAFILE*",
+          "description": "Pointer to the HMETAFILE object that is unmarshaled"
+        }
+      ],
+      "return_type": "unsigned char* representing the updated position in the buffer after unmarshaling"
+    }
+  },
+  {
+    "function": {
+      "name": "HMETAFILE_UserFree",
+      "description": "This function deletes a metafile if the lower word of the flag is not MSHCTX_INPROC.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a flag that determines whether the metafile should be deleted."
+        },
+        {
+          "name": "phmf",
+          "type": "HMETAFILE*",
+          "description": "Pointer to the metafile to be deleted."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "HENHMETAFILE_UserSize",
+      "description": "This function calculates the buffer size required to marshal an enhanced metafile handle. It adjusts the size based on the flags and the presence of an enhanced metafile.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to flags that control the function's behavior"
+        },
+        {
+          "name": "size",
+          "type": "ULONG",
+          "description": "Initial size to be adjusted"
+        },
+        {
+          "name": "phEmf",
+          "type": "HENHMETAFILE *",
+          "description": "Pointer to an enhanced metafile handle"
+        }
+      ],
+      "return_type": "ULONG, represents the calculated size required to marshal an enhanced metafile handle"
+    }
+  },
+  {
+    "function": {
+      "name": "HENHMETAFILE_UserMarshal",
+      "description": "This function marshals the enhanced metafile for the user. It aligns the pointer and checks the flags. Depending on the flag, it sets the buffer and returns the pointer to the buffer.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to the flags used for checking the metafile context"
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char *",
+          "description": "Pointer to the buffer where the metafile data is stored"
+        },
+        {
+          "name": "phEmf",
+          "type": "HENHMETAFILE *",
+          "description": "Pointer to the enhanced metafile"
+        }
+      ],
+      "return_type": "unsigned char *; Returns the pointer to the buffer where the metafile data is stored"
+    }
+  },
+  {
+    "function": {
+      "name": "HENHMETAFILE_UserUnmarshal",
+      "description": "This function unmarshals a user-enhanced metafile. It checks the context of the call and accordingly processes the buffer to extract the metafile. If the context is invalid, it raises an exception.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to user flags"
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char *",
+          "description": "Pointer to the buffer that contains the metafile data"
+        },
+        {
+          "name": "phEmf",
+          "type": "HENHMETAFILE *",
+          "description": "Pointer to the enhanced metafile"
+        }
+      ],
+      "return_type": "unsigned char *; returns the updated buffer pointer after processing"
+    }
+  },
+  {
+    "function": {
+      "name": "HENHMETAFILE_UserFree",
+      "description": "This function frees the enhanced metafile object if it's not used in the same process.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a flag that indicates the context in which the metafile is used."
+        },
+        {
+          "name": "phEmf",
+          "type": "HENHMETAFILE*",
+          "description": "Pointer to the enhanced metafile object to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "HMETAFILEPICT_UserSize",
+      "description": "This function calculates the buffer size necessary to marshall an HMETAFILEPICT object.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to flags that specify the context of the call."
+        },
+        {
+          "name": "size",
+          "type": "ULONG",
+          "description": "The initial size of the buffer."
+        },
+        {
+          "name": "phMfp",
+          "type": "HMETAFILEPICT *",
+          "description": "Pointer to the HMETAFILEPICT object that needs to be marshalled."
+        }
+      ],
+      "return_type": "ULONG, represents the size of the buffer required to marshall the HMETAFILEPICT object."
+    }
+  },
+  {
+    "function": {
+      "name": "HMETAFILEPICT_UserMarshal",
+      "description": "This function marshals a HMETAFILEPICT object from the client's address space to the server's address space or vice versa.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to a flag that specifies the context of the marshalling operation."
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char *",
+          "description": "Pointer to the buffer that receives the marshalled data."
+        },
+        {
+          "name": "phMfp",
+          "type": "HMETAFILEPICT *",
+          "description": "Pointer to the HMETAFILEPICT object to be marshalled."
+        }
+      ],
+      "return_type": "unsigned char *; Returns a pointer to the buffer that receives the marshalled data."
+    }
+  },
+  {
+    "function": {
+      "name": "HMETAFILEPICT_UserUnmarshal",
+      "description": "This function unmarshals a metafile picture object from a buffer.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to flags that control the unmarshalling process."
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char*",
+          "description": "Pointer to the buffer from which the object is unmarshalled."
+        },
+        {
+          "name": "phMfp",
+          "type": "HMETAFILEPICT*",
+          "description": "Pointer to the metafile picture object that is unmarshalled."
+        }
+      ],
+      "return_type": "unsigned char*. It represents the position in the buffer after the unmarshalling process."
+    }
+  },
+  {
+    "function": {
+      "name": "HMETAFILEPICT_UserFree",
+      "description": "This function frees a metafile picture (HMETAFILEPICT) object. It checks if the object is not in-process and if it exists, then it locks the object, frees the metafile within it, unlocks the object, and finally frees the object itself.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a flag that indicates the context in which the metafile picture object is being used."
+        },
+        {
+          "name": "phMfp",
+          "type": "HMETAFILEPICT*",
+          "description": "Pointer to the metafile picture object that is to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "STGMEDIUM_UserSize",
+      "description": "This function calculates the buffer size necessary to marshal an STGMEDIUM structure.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to flags that control the operation."
+        },
+        {
+          "name": "StartingSize",
+          "type": "ULONG",
+          "description": "The initial size of the buffer."
+        },
+        {
+          "name": "pStgMedium",
+          "type": "STGMEDIUM *",
+          "description": "Pointer to the STGMEDIUM structure to be sized."
+        }
+      ],
+      "return_type": "ULONG, represents the size of the buffer required to marshal the STGMEDIUM structure."
+    }
+  },
+  {
+    "function": {
+      "name": "STGMEDIUM_UserMarshal",
+      "description": "This function marshals the STGMEDIUM structure from the process address space into a buffer. It is used in the process of transferring data across process boundaries.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a variable that receives flags describing the marshaled data."
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char*",
+          "description": "Pointer to the buffer into which the function marshals the STGMEDIUM structure."
+        },
+        {
+          "name": "pStgMedium",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to the STGMEDIUM structure to be marshaled."
+        }
+      ],
+      "return_type": "unsigned char*, represents the pointer to the buffer where the marshaled data is stored."
+    }
+  },
+  {
+    "function": {
+      "name": "STGMEDIUM_UserUnmarshal",
+      "description": "This function unmarshals a STGMEDIUM structure from a buffer.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to the flags that control the unmarshalling process."
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char*",
+          "description": "Pointer to the buffer from which the STGMEDIUM structure is unmarshalled."
+        },
+        {
+          "name": "pStgMedium",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to the STGMEDIUM structure to be unmarshalled."
+        }
+      ],
+      "return_type": "unsigned char*. Returns a pointer to the buffer position after the last byte unmarshalled."
+    }
+  },
+  {
+    "function": {
+      "name": "STGMEDIUM_UserFree",
+      "description": "This function releases a STGMEDIUM structure based on the type of the medium. It also handles exceptions for unsupported medium types.",
+      "parameters": [
+        {
+          "name": "flags",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG that specifies the flags for the function."
+        },
+        {
+          "name": "med",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to a STGMEDIUM structure that represents the medium to be released."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "ASYNC_STGMEDIUM_UserSize",
+      "description": "This function is used to determine the buffer size required to marshal an ASYNC_STGMEDIUM object.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to a ULONG variable that receives the flags associated with the ASYNC_STGMEDIUM object."
+        },
+        {
+          "name": "StartingSize",
+          "type": "ULONG",
+          "description": "Specifies the starting size of the buffer."
+        },
+        {
+          "name": "pStgMedium",
+          "type": "ASYNC_STGMEDIUM *",
+          "description": "Pointer to the ASYNC_STGMEDIUM object to be sized."
+        }
+      ],
+      "return_type": "ULONG, represents the size of the buffer required to marshal the ASYNC_STGMEDIUM object."
+    }
+  },
+  {
+    "function": {
+      "name": "ASYNC_STGMEDIUM_UserMarshal",
+      "description": "This function is used to marshal the ASYNC_STGMEDIUM structure.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable that specifies the flags."
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char*",
+          "description": "Pointer to the buffer that receives the marshaled data."
+        },
+        {
+          "name": "pStgMedium",
+          "type": "ASYNC_STGMEDIUM*",
+          "description": "Pointer to the ASYNC_STGMEDIUM structure to be marshaled."
+        }
+      ],
+      "return_type": "unsigned char* representing the pointer to the buffer that receives the marshaled data."
+    }
+  },
+  {
+    "function": {
+      "name": "ASYNC_STGMEDIUM_UserUnmarshal",
+      "description": "This function is used to unmarshal the storage medium asynchronously.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to a ULONG that specifies the flags."
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char *",
+          "description": "Pointer to a buffer that receives the unmarshaled data."
+        },
+        {
+          "name": "pStgMedium",
+          "type": "ASYNC_STGMEDIUM *",
+          "description": "Pointer to an ASYNC_STGMEDIUM structure that receives the unmarshaled data."
+        }
+      ],
+      "return_type": "unsigned char *: Returns a pointer to the unmarshaled storage medium."
+    }
+  },
+  {
+    "function": {
+      "name": "ASYNC_STGMEDIUM_UserFree",
+      "description": "This function is used to free the storage medium asynchronously.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable that holds flags"
+        },
+        {
+          "name": "pStgMedium",
+          "type": "ASYNC_STGMEDIUM*",
+          "description": "Pointer to an ASYNC_STGMEDIUM structure that needs to be freed"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "FLAG_STGMEDIUM_UserSize",
+      "description": "This function is currently a stub, and simply returns the value of the StartingSize parameter.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to a ULONG that represents flags"
+        },
+        {
+          "name": "StartingSize",
+          "type": "ULONG",
+          "description": "Represents the starting size"
+        },
+        {
+          "name": "pStgMedium",
+          "type": "FLAG_STGMEDIUM *",
+          "description": "Pointer to a FLAG_STGMEDIUM structure"
+        }
+      ],
+      "return_type": "ULONG, represents the starting size"
+    }
+  },
+  {
+    "function": {
+      "name": "FLAG_STGMEDIUM_UserMarshal",
+      "description": "This function is a stub, meant to be filled in with functionality later. Currently, it simply returns the second parameter it was called with.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to a ULONG, not used in the current implementation."
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char *",
+          "description": "Pointer to a buffer, which is returned as is."
+        },
+        {
+          "name": "pStgMedium",
+          "type": "FLAG_STGMEDIUM *",
+          "description": "Pointer to a FLAG_STGMEDIUM, not used in the current implementation."
+        }
+      ],
+      "return_type": "unsigned char *: Pointer to a buffer, returned as is."
+    }
+  },
+  {
+    "function": {
+      "name": "FLAG_STGMEDIUM_UserUnmarshal",
+      "description": "This function is currently a stub and returns the input buffer.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable"
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char*",
+          "description": "Pointer to a buffer"
+        },
+        {
+          "name": "pStgMedium",
+          "type": "FLAG_STGMEDIUM*",
+          "description": "Pointer to a FLAG_STGMEDIUM structure"
+        }
+      ],
+      "return_type": "unsigned char*; Returns the input buffer"
+    }
+  },
+  {
+    "function": {
+      "name": "FLAG_STGMEDIUM_UserFree",
+      "description": "This function is a stub, meaning it is intended to be replaced by a full function definition in the future.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable"
+        },
+        {
+          "name": "pStgMedium",
+          "type": "FLAG_STGMEDIUM*",
+          "description": "Pointer to a FLAG_STGMEDIUM variable"
+        }
+      ],
+      "return_type": "void, meaning it does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "SNB_UserSize",
+      "description": "This function calculates the size of the SNB structure, including the size of the data it points to.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to flags that may affect the size calculation."
+        },
+        {
+          "name": "StartingSize",
+          "type": "ULONG",
+          "description": "The initial size to which the size of the SNB structure and its data is added."
+        },
+        {
+          "name": "pSnb",
+          "type": "SNB *",
+          "description": "Pointer to the SNB structure whose size is to be calculated."
+        }
+      ],
+      "return_type": "ULONG, represents the total size of the SNB structure and its data."
+    }
+  },
+  {
+    "function": {
+      "name": "SNB_UserMarshal",
+      "description": "This function marshals the SNB structure into a buffer and returns the pointer to the buffer after the marshalled data.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to the flags used in the function"
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char*",
+          "description": "Pointer to the buffer where the marshalled data will be stored"
+        },
+        {
+          "name": "pSnb",
+          "type": "SNB*",
+          "description": "Pointer to the SNB structure that will be marshalled"
+        }
+      ],
+      "return_type": "unsigned char*, represents the pointer to the buffer after the marshalled data"
+    }
+  },
+  {
+    "function": {
+      "name": "SNB_UserUnmarshal",
+      "description": "This function unmarshals user data from a buffer into a SNB structure. It also handles memory allocation and deallocation for the SNB structure.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to user marshal control block"
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char*",
+          "description": "Pointer to the buffer from which user data is unmarshaled"
+        },
+        {
+          "name": "pSnb",
+          "type": "SNB*",
+          "description": "Pointer to the SNB structure into which data is unmarshaled"
+        }
+      ],
+      "return_type": "unsigned char*; Returns a pointer to the position in the buffer immediately following the unmarshaled data"
+    }
+  },
+  {
+    "function": {
+      "name": "SNB_UserFree",
+      "description": "This function frees the memory allocated for the SNB object pointed by pSnb using the pfnFree function pointer in the pStubMsg structure of the USER_MARSHAL_CB object pointed by pFlags.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a USER_MARSHAL_CB object casted to ULONG*. Used to access the pfnFree function pointer."
+        },
+        {
+          "name": "pSnb",
+          "type": "SNB*",
+          "description": "Pointer to the SNB object that needs to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "IClassFactory_CreateInstance_Proxy",
+      "description": "This function creates an instance of a class object. It checks if the outer object is not null and if so, returns an error. Otherwise, it calls the IClassFactory_RemoteCreateInstance_Proxy function to create the instance.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IClassFactory*",
+          "description": "Pointer to the class factory object"
+        },
+        {
+          "name": "pUnkOuter",
+          "type": "IUnknown*",
+          "description": "Pointer to the controlling unknown of the outer object"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface"
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation was successful, it returns S_OK. If the outer object is not null, it returns CLASS_E_NOAGGREGATION."
+    }
+  },
+  {
+    "function": {
+      "name": "IClassFactory_CreateInstance_Stub",
+      "description": "This function is a stub for creating an instance of a class factory. It calls the actual IClassFactory_CreateInstance function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IClassFactory*",
+          "description": "Pointer to the IClassFactory interface."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface that the caller is to use to communicate with the object."
+        },
+        {
+          "name": "ppvObject",
+          "type": "IUnknown**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. It can provide detailed error information if the function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "IClassFactory_LockServer_Proxy",
+      "description": "This function is a stub and not yet implemented. It is supposed to lock or unlock the class factory server.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IClassFactory*",
+          "description": "Pointer to the class factory instance."
+        },
+        {
+          "name": "fLock",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether to lock (TRUE) or unlock (FALSE) the server."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IClassFactory_LockServer_Stub",
+      "description": "This function is a stub, not yet implemented, for locking or unlocking a class factory server.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IClassFactory*",
+          "description": "Pointer to the IClassFactory interface."
+        },
+        {
+          "name": "fLock",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether to lock (TRUE) or unlock (FALSE) the server."
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumUnknown_Next_Proxy",
+      "description": "This function is a proxy for the IEnumUnknown_RemoteNext_Proxy function. It checks if the pceltFetched pointer is null, and if so, assigns it to the address of the local variable 'fetched'. Then it calls the IEnumUnknown_RemoteNext_Proxy function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumUnknown*",
+          "description": "Pointer to the IEnumUnknown interface"
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "Number of elements in the enumeration sequence"
+        },
+        {
+          "name": "rgelt",
+          "type": "IUnknown**",
+          "description": "Pointer to the IUnknown interface"
+        },
+        {
+          "name": "pceltFetched",
+          "type": "ULONG*",
+          "description": "Pointer to the variable that receives the number of elements fetched"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the IEnumUnknown_RemoteNext_Proxy function"
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumUnknown_Next_Stub",
+      "description": "This function is a stub for the IEnumUnknown_Next function. It initializes the fetched elements count to 0, calls the IEnumUnknown_Next function, and if the call is successful, it sets the fetched elements count to the number of elements requested.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumUnknown*",
+          "description": "Pointer to the IEnumUnknown interface"
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "Number of elements in the enumeration sequence to return"
+        },
+        {
+          "name": "rgelt",
+          "type": "IUnknown**",
+          "description": "Pointer to the location where the elements are returned"
+        },
+        {
+          "name": "pceltFetched",
+          "type": "ULONG*",
+          "description": "Pointer to the location where the count of fetched elements is returned"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function call. If the function call is successful, it returns S_OK, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IBindCtx_SetBindOptions_Proxy",
+      "description": "This function is currently a stub and not implemented. It is supposed to set bind options for a given IBindCtx instance.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IBindCtx*",
+          "description": "Pointer to an IBindCtx instance."
+        },
+        {
+          "name": "pbindopts",
+          "type": "BIND_OPTS*",
+          "description": "Pointer to bind options to be set."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Currently, it always returns E_NOTIMPL indicating 'not implemented'."
+    }
+  },
+  {
+    "function": {
+      "name": "IBindCtx_SetBindOptions_Stub",
+      "description": "This function is a stub, not yet implemented, for setting bind options in an IBindCtx interface.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IBindCtx*",
+          "description": "Pointer to the IBindCtx interface where the bind options are to be set."
+        },
+        {
+          "name": "pbindopts",
+          "type": "BIND_OPTS2*",
+          "description": "Pointer to the bind options to be set."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IBindCtx_GetBindOptions_Proxy",
+      "description": "This function is a stub, it is not yet implemented.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IBindCtx*",
+          "description": "Pointer to an IBindCtx interface"
+        },
+        {
+          "name": "pbindopts",
+          "type": "BIND_OPTS*",
+          "description": "Pointer to a BIND_OPTS structure"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function call, in this case it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IBindCtx_GetBindOptions_Stub",
+      "description": "This function is a stub and not yet implemented. It is expected to get binding options for a given context.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IBindCtx*",
+          "description": "A pointer to the IBindCtx interface."
+        },
+        {
+          "name": "pbindopts",
+          "type": "BIND_OPTS2*",
+          "description": "A pointer to a BIND_OPTS2 structure that receives the current binding options."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumMoniker_Next_Proxy",
+      "description": "This function is a proxy for the 'Next' method of the 'IEnumMoniker' interface. It retrieves a specified number of items in the enumeration sequence.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumMoniker*",
+          "description": "Pointer to the IEnumMoniker interface."
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "The number of monikers to return."
+        },
+        {
+          "name": "rgelt",
+          "type": "IMoniker**",
+          "description": "Address of IMoniker pointer variable that receives the interface pointers."
+        },
+        {
+          "name": "pceltFetched",
+          "type": "ULONG*",
+          "description": "Pointer to a location that receives the actual number of monikers returned."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. It returns S_OK if the function was successful, S_FALSE if the end of the enumeration was reached, or an error code if the function failed."
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumMoniker_Next_Stub",
+      "description": "This function is a stub for the IEnumMoniker_Next function. It initializes the fetched elements count to 0, calls the IEnumMoniker_Next function, and if the call is successful, it sets the fetched elements count to the number of elements requested.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumMoniker*",
+          "description": "Pointer to the IEnumMoniker interface."
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "Number of elements to be fetched."
+        },
+        {
+          "name": "rgelt",
+          "type": "IMoniker**",
+          "description": "Pointer to the location where the fetched elements are returned."
+        },
+        {
+          "name": "pceltFetched",
+          "type": "ULONG*",
+          "description": "Pointer to the location where the count of fetched elements is returned."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function call. If the function call is successful, it returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "IRunnableObject_IsRunning_Proxy",
+      "description": "This function is a proxy to check if the IRunnableObject is running. Currently, it is a stub and does not perform any meaningful operation.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IRunnableObject*",
+          "description": "Pointer to the IRunnableObject instance"
+        }
+      ],
+      "return_type": "BOOL, represents whether the IRunnableObject is running or not"
+    }
+  },
+  {
+    "function": {
+      "name": "IRunnableObject_IsRunning_Stub",
+      "description": "This is a stub function for the IRunnableObject interface's IsRunning method. Currently, it does not implement any functionality.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IRunnableObject*",
+          "description": "Pointer to the IRunnableObject interface instance."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Currently, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IMoniker_BindToObject_Proxy",
+      "description": "This function is a stub, not yet implemented, for binding an object to a moniker.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface"
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to the IBindCtx interface"
+        },
+        {
+          "name": "pmkToLeft",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface to bind to the left"
+        },
+        {
+          "name": "riidResult",
+          "type": "REFIID",
+          "description": "Identifier of the interface to be used"
+        },
+        {
+          "name": "ppvResult",
+          "type": "void**",
+          "description": "Pointer to the location of the result"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, in this case E_NOTIMPL indicating that the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "IMoniker_BindToObject_Stub",
+      "description": "This function is a stub for the method that binds an object to a moniker.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface"
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to the IBindCtx interface"
+        },
+        {
+          "name": "pmkToLeft",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface to the left of this moniker"
+        },
+        {
+          "name": "riidResult",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface that the caller wants to get"
+        },
+        {
+          "name": "ppvResult",
+          "type": "IUnknown**",
+          "description": "Address of the pointer variable that receives the interface pointer requested in riidResult"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this stub function, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IMoniker_BindToStorage_Proxy",
+      "description": "This function is a proxy that binds an object to a storage moniker, which can then be used to access the object.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface"
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to the IBindCtx interface"
+        },
+        {
+          "name": "pmkToLeft",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface that represents the moniker to the left of this moniker"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface that the caller is to use to communicate with the object"
+        },
+        {
+          "name": "ppvObj",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. If the function succeeds, the return value is S_OK. Otherwise, it is an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IMoniker_BindToStorage_Stub",
+      "description": "This function is a stub for the IMoniker_BindToStorage method. It traces the input parameters and then calls the actual method.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface."
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to the IBindCtx interface."
+        },
+        {
+          "name": "pmkToLeft",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface to the left of the moniker that is being bound to storage."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface that the caller is to use to communicate with the object that the method returns."
+        },
+        {
+          "name": "ppvObj",
+          "type": "IUnknown**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the actual IMoniker_BindToStorage method."
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumString_Next_Proxy",
+      "description": "This function is a proxy for the IEnumString_RemoteNext_Proxy function. It checks if the pceltFetched pointer is null, and if so, assigns it to the address of a local variable. Then it calls the IEnumString_RemoteNext_Proxy function with the given parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumString*",
+          "description": "Pointer to the IEnumString interface."
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "The number of elements to be fetched."
+        },
+        {
+          "name": "rgelt",
+          "type": "LPOLESTR*",
+          "description": "Pointer to the location where the fetched strings will be returned."
+        },
+        {
+          "name": "pceltFetched",
+          "type": "ULONG*",
+          "description": "Pointer to the location where the number of fetched elements will be returned. If this is null, a local variable is used instead."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function call."
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumString_Next_Stub",
+      "description": "This function is a stub for the IEnumString_Next method. It initializes the fetched elements count to 0, calls the IEnumString_Next method, and if the call is successful, sets the fetched elements count to the number of elements requested.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumString*",
+          "description": "Pointer to the IEnumString interface."
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "The number of elements to be fetched."
+        },
+        {
+          "name": "rgelt",
+          "type": "LPOLESTR*",
+          "description": "Pointer to the location where the fetched elements are to be returned."
+        },
+        {
+          "name": "pceltFetched",
+          "type": "ULONG*",
+          "description": "Pointer to the location where the count of fetched elements is to be returned."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, the return value is S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "ISequentialStream_Read_Proxy",
+      "description": "This function reads a specified number of bytes from the stream object into memory, starting at the current seek pointer.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ISequentialStream*",
+          "description": "Pointer to the ISequentialStream interface."
+        },
+        {
+          "name": "pv",
+          "type": "void*",
+          "description": "Pointer to the buffer which the stream data is read into."
+        },
+        {
+          "name": "cb",
+          "type": "ULONG",
+          "description": "Specifies the number of bytes to read from the stream object."
+        },
+        {
+          "name": "pcbRead",
+          "type": "ULONG*",
+          "description": "Pointer to a location that contains the actual number of bytes read from the stream object."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "ISequentialStream_Read_Stub",
+      "description": "This function is a stub for reading a sequential stream. It logs the parameters and then calls the actual ISequentialStream_Read function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ISequentialStream*",
+          "description": "Pointer to the ISequentialStream interface"
+        },
+        {
+          "name": "pv",
+          "type": "byte*",
+          "description": "Pointer to the buffer which the stream is read into"
+        },
+        {
+          "name": "cb",
+          "type": "ULONG",
+          "description": "Number of bytes to read from the stream"
+        },
+        {
+          "name": "pcbRead",
+          "type": "ULONG*",
+          "description": "Pointer to the location where the count of read bytes is returned"
+        }
+      ],
+      "return_type": "HRESULT, which is a code used in Windows to represent whether the function succeeded or failed"
+    }
+  },
+  {
+    "function": {
+      "name": "ISequentialStream_Write_Proxy",
+      "description": "This function writes a specified number of bytes into the sequential stream object from the memory area pointed to by pv. The number of bytes actually written is returned in pcbWritten.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ISequentialStream*",
+          "description": "Pointer to the ISequentialStream interface."
+        },
+        {
+          "name": "pv",
+          "type": "void*",
+          "description": "Pointer to the buffer which the stream data is read from."
+        },
+        {
+          "name": "cb",
+          "type": "ULONG",
+          "description": "The number of bytes to read from the stream object."
+        },
+        {
+          "name": "pcbWritten",
+          "type": "ULONG*",
+          "description": "Pointer to a location where this function writes the actual number of bytes written to the stream object."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "ISequentialStream_Write_Stub",
+      "description": "This function is a stub for writing to a sequential stream.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ISequentialStream*",
+          "description": "Pointer to the ISequentialStream interface."
+        },
+        {
+          "name": "pv",
+          "type": "byte*",
+          "description": "Pointer to the buffer from which the data is to be written."
+        },
+        {
+          "name": "cb",
+          "type": "ULONG",
+          "description": "The number of bytes to write to the stream."
+        },
+        {
+          "name": "pcbWritten",
+          "type": "ULONG*",
+          "description": "Pointer to a location where this function writes the actual number of bytes written to the stream."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "IStream_Seek_Proxy",
+      "description": "This function is used to change the seek pointer to a new location relative to the beginning of the stream, the end of the stream, or the current seek pointer.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IStream*",
+          "description": "Pointer to the IStream interface"
+        },
+        {
+          "name": "dlibMove",
+          "type": "LARGE_INTEGER",
+          "description": "Specifies the displacement to be added to the location indicated by the dwOrigin parameter"
+        },
+        {
+          "name": "dwOrigin",
+          "type": "DWORD",
+          "description": "Specifies the origin of the seek"
+        },
+        {
+          "name": "plibNewPosition",
+          "type": "ULARGE_INTEGER*",
+          "description": "Pointer to location where this method writes the value of the new seek pointer from the beginning of the stream"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK. Otherwise, it is an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IStream_Seek_Stub",
+      "description": "This function is a stub for the IStream_Seek function. It logs the function call and then calls the actual IStream_Seek function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IStream*",
+          "description": "Pointer to the IStream object"
+        },
+        {
+          "name": "dlibMove",
+          "type": "LARGE_INTEGER",
+          "description": "Specifies the offset in bytes from the origin"
+        },
+        {
+          "name": "dwOrigin",
+          "type": "DWORD",
+          "description": "Specifies the origin of the offset"
+        },
+        {
+          "name": "plibNewPosition",
+          "type": "ULARGE_INTEGER*",
+          "description": "Pointer to location where the new seek pointer is returned"
+        }
+      ],
+      "return_type": "HRESULT, represents the status code of the operation"
+    }
+  },
+  {
+    "function": {
+      "name": "IStream_CopyTo_Proxy",
+      "description": "This function copies a specified number of bytes from the current seek pointer in the stream to another stream.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IStream*",
+          "description": "Pointer to the stream to be copied."
+        },
+        {
+          "name": "pstm",
+          "type": "IStream*",
+          "description": "Pointer to the destination stream."
+        },
+        {
+          "name": "cb",
+          "type": "ULARGE_INTEGER",
+          "description": "The number of bytes to copy from the source stream."
+        },
+        {
+          "name": "pcbRead",
+          "type": "ULARGE_INTEGER*",
+          "description": "Pointer to the location where this function writes the actual number of bytes read from the source."
+        },
+        {
+          "name": "pcbWritten",
+          "type": "ULARGE_INTEGER*",
+          "description": "Pointer to the location where this function writes the actual number of bytes written to the destination."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "IStream_CopyTo_Stub",
+      "description": "This function is a stub that calls the IStream_CopyTo function, copying a specified number of bytes from the current seek pointer in the stream to another stream.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IStream*",
+          "description": "Pointer to the IStream interface"
+        },
+        {
+          "name": "pstm",
+          "type": "IStream*",
+          "description": "Pointer to the destination stream"
+        },
+        {
+          "name": "cb",
+          "type": "ULARGE_INTEGER",
+          "description": "The number of bytes to copy from the source stream to the destination stream"
+        },
+        {
+          "name": "pcbRead",
+          "type": "ULARGE_INTEGER*",
+          "description": "Pointer to the location where this function writes the actual number of bytes read from the source"
+        },
+        {
+          "name": "pcbWritten",
+          "type": "ULARGE_INTEGER*",
+          "description": "Pointer to the location where this function writes the actual number of bytes written to the destination"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the method succeeds, it returns S_OK. If it fails, it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumSTATSTG_Next_Proxy",
+      "description": "This function is a proxy for the IEnumSTATSTG_RemoteNext_Proxy function. It checks if the pceltFetched pointer is null, and if so, assigns it to the address of a local variable. Then it calls the IEnumSTATSTG_RemoteNext_Proxy function with the given parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumSTATSTG*",
+          "description": "Pointer to the IEnumSTATSTG instance"
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "Number of STATSTG structures to be retrieved"
+        },
+        {
+          "name": "rgelt",
+          "type": "STATSTG*",
+          "description": "Pointer to the STATSTG structure where the retrieved structures are returned"
+        },
+        {
+          "name": "pceltFetched",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable that receives the actual number of structures retrieved"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure"
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumSTATSTG_Next_Stub",
+      "description": "This function is a stub for the IEnumSTATSTG_Next method. It initializes the fetched elements count to 0, calls the IEnumSTATSTG_Next method, and if the call is successful, it sets the fetched elements count to the number of elements requested.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumSTATSTG*",
+          "description": "Pointer to the IEnumSTATSTG interface"
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "Number of STATSTG structures to be fetched"
+        },
+        {
+          "name": "rgelt",
+          "type": "STATSTG*",
+          "description": "Pointer to the fetched STATSTG structures"
+        },
+        {
+          "name": "pceltFetched",
+          "type": "ULONG*",
+          "description": "Pointer to a variable that receives the actual number of elements fetched"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful, error code otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "IStorage_OpenStream_Proxy",
+      "description": "This function opens a stream object within the storage object to access data.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IStorage*",
+          "description": "Pointer to the IStorage interface."
+        },
+        {
+          "name": "pwcsName",
+          "type": "LPCOLESTR",
+          "description": "Pointer to a wide character null-terminated Unicode string that contains the name of the stream to open."
+        },
+        {
+          "name": "reserved1",
+          "type": "void*",
+          "description": "Reserved for future use. Must be NULL."
+        },
+        {
+          "name": "grfMode",
+          "type": "DWORD",
+          "description": "Specifies the access mode to open the stream."
+        },
+        {
+          "name": "reserved2",
+          "type": "DWORD",
+          "description": "Reserved for future use. Must be zero."
+        },
+        {
+          "name": "ppstm",
+          "type": "IStream**",
+          "description": "Address of IStream pointer variable that receives the interface pointer to the new stream object."
+        }
+      ],
+      "return_type": "HRESULT. If the method succeeds, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IStorage_OpenStream_Stub",
+      "description": "This function is a stub for opening a stream in a storage object. It checks for reserved parameters and warns if they are used, then calls the actual IStorage_OpenStream function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IStorage*",
+          "description": "Pointer to the IStorage interface"
+        },
+        {
+          "name": "pwcsName",
+          "type": "LPCOLESTR",
+          "description": "Pointer to the wide character string that contains the name of the stream to open"
+        },
+        {
+          "name": "cbReserved1",
+          "type": "ULONG",
+          "description": "Reserved, must be zero"
+        },
+        {
+          "name": "reserved1",
+          "type": "byte*",
+          "description": "Reserved, must be NULL"
+        },
+        {
+          "name": "grfMode",
+          "type": "DWORD",
+          "description": "Specifies the access mode to open the stream"
+        },
+        {
+          "name": "reserved2",
+          "type": "DWORD",
+          "description": "Reserved, must be zero"
+        },
+        {
+          "name": "ppstm",
+          "type": "IStream**",
+          "description": "Address of IStream pointer variable that receives the interface pointer to the new stream object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or the error occurred"
+    }
+  },
+  {
+    "function": {
+      "name": "IStorage_EnumElements_Proxy",
+      "description": "This function is a proxy for enumerating elements in IStorage. It checks if the reserved2 parameter is not null and warns if it is. Then it calls the IStorage_RemoteEnumElements_Proxy function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IStorage*",
+          "description": "Pointer to the IStorage instance."
+        },
+        {
+          "name": "reserved1",
+          "type": "DWORD",
+          "description": "Reserved for future use."
+        },
+        {
+          "name": "reserved2",
+          "type": "void*",
+          "description": "Reserved for future use. The function warns if this parameter is not null."
+        },
+        {
+          "name": "reserved3",
+          "type": "DWORD",
+          "description": "Reserved for future use."
+        },
+        {
+          "name": "ppenum",
+          "type": "IEnumSTATSTG**",
+          "description": "Pointer to the pointer of IEnumSTATSTG instance."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IStorage_EnumElements_Stub",
+      "description": "This function is a stub for enumerating elements in IStorage. It checks for reserved values and calls the IStorage_EnumElements function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IStorage*",
+          "description": "Pointer to the IStorage interface"
+        },
+        {
+          "name": "reserved1",
+          "type": "DWORD",
+          "description": "Reserved for future use"
+        },
+        {
+          "name": "cbReserved2",
+          "type": "ULONG",
+          "description": "Size of reserved2 buffer"
+        },
+        {
+          "name": "reserved2",
+          "type": "byte*",
+          "description": "Pointer to a buffer reserved for future use"
+        },
+        {
+          "name": "reserved3",
+          "type": "DWORD",
+          "description": "Reserved for future use"
+        },
+        {
+          "name": "ppenum",
+          "type": "IEnumSTATSTG**",
+          "description": "Pointer to a pointer to the IEnumSTATSTG interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if successful, an error code otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "ILockBytes_ReadAt_Proxy",
+      "description": "This function reads a specified number of bytes from a specified location in the ILockBytes object and writes them into a provided buffer.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ILockBytes*",
+          "description": "Pointer to the ILockBytes object."
+        },
+        {
+          "name": "ulOffset",
+          "type": "ULARGE_INTEGER",
+          "description": "The offset at which to start reading."
+        },
+        {
+          "name": "pv",
+          "type": "void*",
+          "description": "Pointer to the buffer where the read data is written."
+        },
+        {
+          "name": "cb",
+          "type": "ULONG",
+          "description": "The number of bytes to read."
+        },
+        {
+          "name": "pcbRead",
+          "type": "ULONG*",
+          "description": "Pointer to a variable where the number of bytes actually read will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. If the function succeeds, the return value is S_OK. If the function fails, the return value is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ILockBytes_ReadAt_Stub",
+      "description": "This function is a stub that traces the input parameters and then calls the ILockBytes_ReadAt function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ILockBytes*",
+          "description": "Pointer to the ILockBytes interface"
+        },
+        {
+          "name": "ulOffset",
+          "type": "ULARGE_INTEGER",
+          "description": "The offset at which to start reading"
+        },
+        {
+          "name": "pv",
+          "type": "byte*",
+          "description": "Pointer to the buffer into which the data is read"
+        },
+        {
+          "name": "cb",
+          "type": "ULONG",
+          "description": "The number of bytes to read from the stream object"
+        },
+        {
+          "name": "pcbRead",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable that receives the actual number of bytes read from the stream object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "ILockBytes_WriteAt_Proxy",
+      "description": "This function writes a specified number of bytes at a specified location in a byte array.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ILockBytes*",
+          "description": "Pointer to the ILockBytes interface"
+        },
+        {
+          "name": "ulOffset",
+          "type": "ULARGE_INTEGER",
+          "description": "The offset at which to start writing"
+        },
+        {
+          "name": "pv",
+          "type": "void*",
+          "description": "Pointer to the buffer to write from"
+        },
+        {
+          "name": "cb",
+          "type": "ULONG",
+          "description": "The number of bytes to write"
+        },
+        {
+          "name": "pcbWritten",
+          "type": "ULONG*",
+          "description": "Pointer to a location where the number of bytes written will be returned"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function"
+    }
+  },
+  {
+    "function": {
+      "name": "ILockBytes_WriteAt_Stub",
+      "description": "This function is a stub that traces the input parameters and then calls the ILockBytes_WriteAt function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ILockBytes*",
+          "description": "Pointer to the ILockBytes interface."
+        },
+        {
+          "name": "ulOffset",
+          "type": "ULARGE_INTEGER",
+          "description": "The offset at which to start the write operation."
+        },
+        {
+          "name": "pv",
+          "type": "byte*",
+          "description": "Pointer to the buffer to write from."
+        },
+        {
+          "name": "cb",
+          "type": "ULONG",
+          "description": "The number of bytes to write."
+        },
+        {
+          "name": "pcbWritten",
+          "type": "ULONG*",
+          "description": "Pointer to the location where this function writes the actual number of bytes written."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "IFillLockBytes_FillAppend_Proxy",
+      "description": "This function appends data to a byte array and updates the number of bytes written.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IFillLockBytes*",
+          "description": "Pointer to the IFillLockBytes interface."
+        },
+        {
+          "name": "pv",
+          "type": "void*",
+          "description": "Pointer to the data to be written."
+        },
+        {
+          "name": "cb",
+          "type": "ULONG",
+          "description": "The number of bytes to be written."
+        },
+        {
+          "name": "pcbWritten",
+          "type": "ULONG*",
+          "description": "Pointer to a variable that receives the actual number of bytes written."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "IFillLockBytes_FillAppend_Stub",
+      "description": "This function is a stub that calls the IFillLockBytes_FillAppend function, passing along the parameters it received.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IFillLockBytes*",
+          "description": "Pointer to the IFillLockBytes interface."
+        },
+        {
+          "name": "pv",
+          "type": "byte*",
+          "description": "Pointer to the data to be appended."
+        },
+        {
+          "name": "cb",
+          "type": "ULONG",
+          "description": "Size of the data to be appended."
+        },
+        {
+          "name": "pcbWritten",
+          "type": "ULONG*",
+          "description": "Pointer to a variable that receives the actual number of bytes written."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK on success, and an error code on failure."
+    }
+  },
+  {
+    "function": {
+      "name": "IFillLockBytes_FillAt_Proxy",
+      "description": "This function is a proxy that fills bytes at a specified location in a byte array.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IFillLockBytes *",
+          "description": "Pointer to the IFillLockBytes interface."
+        },
+        {
+          "name": "ulOffset",
+          "type": "ULARGE_INTEGER",
+          "description": "The offset at which to start filling bytes."
+        },
+        {
+          "name": "pv",
+          "type": "void *",
+          "description": "Pointer to the buffer that contains the data to write to the byte array."
+        },
+        {
+          "name": "cb",
+          "type": "ULONG",
+          "description": "The number of bytes to write."
+        },
+        {
+          "name": "pcbWritten",
+          "type": "ULONG *",
+          "description": "Pointer to a location where the actual number of bytes written is returned."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns standard COM error codes."
+    }
+  },
+  {
+    "function": {
+      "name": "IFillLockBytes_FillAt_Stub",
+      "description": "This function is a stub that calls the IFillLockBytes_FillAt function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IFillLockBytes*",
+          "description": "Pointer to the IFillLockBytes interface."
+        },
+        {
+          "name": "ulOffset",
+          "type": "ULARGE_INTEGER",
+          "description": "The offset at which to start filling."
+        },
+        {
+          "name": "pv",
+          "type": "byte*",
+          "description": "Pointer to the buffer that contains the data to write to the stream."
+        },
+        {
+          "name": "cb",
+          "type": "ULONG",
+          "description": "The number of bytes to write to the stream."
+        },
+        {
+          "name": "pcbWritten",
+          "type": "ULONG*",
+          "description": "Pointer to a location where this function writes the actual number of bytes written to the stream."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumFORMATETC_Next_Proxy",
+      "description": "This function is a proxy for the IEnumFORMATETC_RemoteNext_Proxy function. It checks if the pceltFetched pointer is null, and if so, assigns it to the address of a local variable. Then it calls the IEnumFORMATETC_RemoteNext_Proxy function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumFORMATETC*",
+          "description": "Pointer to the IEnumFORMATETC interface"
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "Number of elements in the enumeration sequence"
+        },
+        {
+          "name": "rgelt",
+          "type": "FORMATETC*",
+          "description": "Pointer to the FORMATETC structure"
+        },
+        {
+          "name": "pceltFetched",
+          "type": "ULONG*",
+          "description": "Pointer to the fetched elements count"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, success or failure"
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumFORMATETC_Next_Stub",
+      "description": "This function is a stub for the IEnumFORMATETC_Next method. It initializes the fetched elements count to 0, calls the IEnumFORMATETC_Next method, and if the call is successful, it sets the fetched elements count to the number of elements requested.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumFORMATETC*",
+          "description": "Pointer to the IEnumFORMATETC interface"
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "Number of elements to be fetched"
+        },
+        {
+          "name": "rgelt",
+          "type": "FORMATETC*",
+          "description": "Pointer to the FORMATETC structure where the fetched elements are returned"
+        },
+        {
+          "name": "pceltFetched",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG that receives the actual number of elements fetched"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function call"
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumSTATDATA_Next_Proxy",
+      "description": "This function is a proxy that calls the IEnumSTATDATA_RemoteNext_Proxy function. It checks if the pceltFetched pointer is null, and if so, assigns it to the address of the fetched variable.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumSTATDATA*",
+          "description": "Pointer to the IEnumSTATDATA interface"
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "Number of STATDATA structures to be fetched"
+        },
+        {
+          "name": "rgelt",
+          "type": "STATDATA*",
+          "description": "Pointer to the fetched STATDATA structures"
+        },
+        {
+          "name": "pceltFetched",
+          "type": "ULONG*",
+          "description": "Pointer to the actual number of STATDATA structures fetched"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function call"
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumSTATDATA_Next_Stub",
+      "description": "This function is a stub for the IEnumSTATDATA_Next method. It initializes the fetched elements count to zero, calls the IEnumSTATDATA_Next method, and if the call is successful, it sets the fetched elements count to the number of elements requested.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumSTATDATA*",
+          "description": "Pointer to the IEnumSTATDATA interface."
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "The count of elements to be fetched."
+        },
+        {
+          "name": "rgelt",
+          "type": "STATDATA*",
+          "description": "Pointer to the STATDATA structure where the fetched elements are returned."
+        },
+        {
+          "name": "pceltFetched",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable that receives the actual number of elements fetched."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "IAdviseSink_OnDataChange_Proxy",
+      "description": "This function is a callback that triggers the remote data change proxy for the IAdviseSink interface.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IAdviseSink*",
+          "description": "Pointer to the IAdviseSink interface instance"
+        },
+        {
+          "name": "pFormatetc",
+          "type": "FORMATETC*",
+          "description": "Pointer to the FORMATETC structure"
+        },
+        {
+          "name": "pStgmed",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to the STGMEDIUM structure"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "IAdviseSink_OnDataChange_Stub",
+      "description": "This function is a stub for the IAdviseSink_OnDataChange function. It calls the IAdviseSink_OnDataChange function with the given parameters and returns S_OK.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IAdviseSink*",
+          "description": "Pointer to the IAdviseSink interface"
+        },
+        {
+          "name": "pFormatetc",
+          "type": "FORMATETC*",
+          "description": "Pointer to the FORMATETC structure"
+        },
+        {
+          "name": "pStgmed",
+          "type": "ASYNC_STGMEDIUM*",
+          "description": "Pointer to the ASYNC_STGMEDIUM structure"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, returns S_OK on success"
+    }
+  },
+  {
+    "function": {
+      "name": "IAdviseSink_OnViewChange_Proxy",
+      "description": "This function logs the parameters and then calls the function IAdviseSink_RemoteOnViewChange_Proxy with the same parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IAdviseSink*",
+          "description": "Pointer to the IAdviseSink interface"
+        },
+        {
+          "name": "dwAspect",
+          "type": "DWORD",
+          "description": "Specifies the aspect of the object that has changed"
+        },
+        {
+          "name": "lindex",
+          "type": "LONG",
+          "description": "Specifies the portion of the object that has changed"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "IAdviseSink_OnViewChange_Stub",
+      "description": "This function is a stub for the IAdviseSink_OnViewChange function. It logs the parameters and then calls the actual function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IAdviseSink*",
+          "description": "Pointer to the IAdviseSink interface"
+        },
+        {
+          "name": "dwAspect",
+          "type": "DWORD",
+          "description": "Specifies the aspect of the object that has changed"
+        },
+        {
+          "name": "lindex",
+          "type": "LONG",
+          "description": "Specifies the portion of the object that has changed"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, with S_OK indicating success"
+    }
+  },
+  {
+    "function": {
+      "name": "IAdviseSink_OnRename_Proxy",
+      "description": "This function calls the IAdviseSink_RemoteOnRename_Proxy function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IAdviseSink*",
+          "description": "Pointer to the IAdviseSink interface."
+        },
+        {
+          "name": "pmk",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "IAdviseSink_OnRename_Stub",
+      "description": "This function is a stub for the IAdviseSink_OnRename method. It logs the parameters and then calls the actual method.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IAdviseSink*",
+          "description": "Pointer to the IAdviseSink interface"
+        },
+        {
+          "name": "pmk",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK indicates success."
+    }
+  },
+  {
+    "function": {
+      "name": "IAdviseSink_OnSave_Proxy",
+      "description": "This function calls the IAdviseSink_RemoteOnSave_Proxy function with the given IAdviseSink pointer.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IAdviseSink*",
+          "description": "Pointer to an IAdviseSink object"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "IAdviseSink_OnSave_Stub",
+      "description": "This function is a stub for the IAdviseSink_OnSave function. It traces the 'This' pointer, calls the IAdviseSink_OnSave function with 'This' as the argument, and then returns S_OK.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IAdviseSink*",
+          "description": "This parameter is a pointer to an IAdviseSink object."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK indicates success."
+    }
+  },
+  {
+    "function": {
+      "name": "IAdviseSink_OnClose_Proxy",
+      "description": "This function is a proxy that calls the IAdviseSink_RemoteOnClose_Proxy function with the given IAdviseSink pointer.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IAdviseSink*",
+          "description": "A pointer to an IAdviseSink object that is passed to the IAdviseSink_RemoteOnClose_Proxy function."
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "IAdviseSink_OnClose_Stub",
+      "description": "This function calls the IAdviseSink_OnClose function and returns S_OK.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IAdviseSink*",
+          "description": "Pointer to an IAdviseSink object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK if successful"
+    }
+  },
+  {
+    "function": {
+      "name": "IAdviseSink2_OnLinkSrcChange_Proxy",
+      "description": "This function is a proxy that calls the remote function IAdviseSink2_RemoteOnLinkSrcChange_Proxy with the provided parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IAdviseSink2*",
+          "description": "Pointer to the IAdviseSink2 interface instance."
+        },
+        {
+          "name": "pmk",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface instance."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "IAdviseSink2_OnLinkSrcChange_Stub",
+      "description": "This function is a stub for the IAdviseSink2_OnLinkSrcChange method. It logs the parameters and then calls the actual method.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IAdviseSink2*",
+          "description": "Pointer to the IAdviseSink2 interface."
+        },
+        {
+          "name": "pmk",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation was successful."
+    }
+  },
+  {
+    "function": {
+      "name": "IDataObject_GetData_Proxy",
+      "description": "This function is a proxy that calls the IDataObject_RemoteGetData_Proxy function with the given parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IDataObject*",
+          "description": "Pointer to the IDataObject instance."
+        },
+        {
+          "name": "pformatetcIn",
+          "type": "FORMATETC*",
+          "description": "Pointer to the FORMATETC structure."
+        },
+        {
+          "name": "pmedium",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to the STGMEDIUM structure."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation performed by IDataObject_RemoteGetData_Proxy function."
+    }
+  },
+  {
+    "function": {
+      "name": "IDataObject_GetData_Stub",
+      "description": "This function is a stub for getting data from an IDataObject. It calls the IDataObject_GetData function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IDataObject*",
+          "description": "Pointer to the IDataObject instance."
+        },
+        {
+          "name": "pformatetcIn",
+          "type": "FORMATETC*",
+          "description": "Pointer to the FORMATETC structure that defines the format, medium, and target device to use for the data object."
+        },
+        {
+          "name": "pRemoteMedium",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to the STGMEDIUM structure that defines the storage medium to use for the data object."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns the result of the IDataObject_GetData function."
+    }
+  },
+  {
+    "function": {
+      "name": "IDataObject_GetDataHere_Proxy",
+      "description": "This function is a proxy to get data from an IDataObject interface. It checks the type of the medium, manages the reference count of the storage, and calls the remote GetDataHere function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject *",
+          "description": "Pointer to the IDataObject interface from which data is to be retrieved."
+        },
+        {
+          "name": "fmt",
+          "type": "FORMATETC *",
+          "description": "Pointer to a FORMATETC structure that defines the format, medium, and target device to use when passing the data."
+        },
+        {
+          "name": "med",
+          "type": "STGMEDIUM *",
+          "description": "Pointer to a STGMEDIUM structure that defines the storage medium to use when transferring the data."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns DV_E_TYMED if the medium type is not supported or does not match the format type."
+    }
+  },
+  {
+    "function": {
+      "name": "IDataObject_GetDataHere_Stub",
+      "description": "This function is a stub for IDataObject_GetDataHere. It traces the input parameters and then calls the actual function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IDataObject*",
+          "description": "Pointer to the IDataObject instance."
+        },
+        {
+          "name": "pformatetc",
+          "type": "FORMATETC*",
+          "description": "Pointer to the FORMATETC structure."
+        },
+        {
+          "name": "pRemoteMedium",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to the STGMEDIUM structure."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IDataObject_SetData_Proxy",
+      "description": "This is a stub function and not yet implemented. It is supposed to set data on an IDataObject interface.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IDataObject*",
+          "description": "Pointer to an IDataObject interface"
+        },
+        {
+          "name": "pformatetc",
+          "type": "FORMATETC*",
+          "description": "Pointer to a FORMATETC structure"
+        },
+        {
+          "name": "pmedium",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to a STGMEDIUM structure"
+        },
+        {
+          "name": "fRelease",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether to release the data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IDataObject_SetData_Stub",
+      "description": "This function is a stub and not yet implemented. It is expected to set data on an IDataObject interface.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IDataObject*",
+          "description": "Pointer to the IDataObject interface"
+        },
+        {
+          "name": "pformatetc",
+          "type": "FORMATETC*",
+          "description": "Pointer to a FORMATETC structure"
+        },
+        {
+          "name": "pmedium",
+          "type": "FLAG_STGMEDIUM*",
+          "description": "Pointer to a FLAG_STGMEDIUM structure"
+        },
+        {
+          "name": "fRelease",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether to release the data object after setting the data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "IOleInPlaceActiveObject_TranslateAccelerator_Proxy",
+      "description": "This function is a proxy that calls the RemoteTranslateAccelerator_Proxy method of the IOleInPlaceActiveObject interface.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IOleInPlaceActiveObject*",
+          "description": "Pointer to an instance of IOleInPlaceActiveObject."
+        },
+        {
+          "name": "lpmsg",
+          "type": "LPMSG",
+          "description": "Pointer to a MSG structure that contains message information."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function call."
+    }
+  },
+  {
+    "function": {
+      "name": "IOleInPlaceActiveObject_TranslateAccelerator_Stub",
+      "description": "This function is a stub for the IOleInPlaceActiveObject_TranslateAccelerator method. It simply returns S_FALSE, indicating that it does not handle the accelerator.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IOleInPlaceActiveObject*",
+          "description": "Pointer to the IOleInPlaceActiveObject interface."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns S_FALSE, indicating that the function does not handle the accelerator."
+    }
+  },
+  {
+    "function": {
+      "name": "IOleInPlaceActiveObject_ResizeBorder_Proxy",
+      "description": "This function is a stub and not yet implemented. It is supposed to handle the resizing of the border of an in-place active object.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IOleInPlaceActiveObject*",
+          "description": "Pointer to the in-place active object whose border is to be resized."
+        },
+        {
+          "name": "prcBorder",
+          "type": "LPCRECT",
+          "description": "Pointer to a structure that contains the new outer rectangle for the in-place object."
+        },
+        {
+          "name": "pUIWindow",
+          "type": "IOleInPlaceUIWindow*",
+          "description": "Pointer to the interface for the window in which the object is being in-place activated."
+        },
+        {
+          "name": "fFrameWindow",
+          "type": "BOOL",
+          "description": "Indicates whether the frame window, or an object's document window, is being resized."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IOleInPlaceActiveObject_ResizeBorder_Stub",
+      "description": "This function is a stub for the method that resizes the border of an in-place active object. Currently, it does not implement any functionality.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IOleInPlaceActiveObject*",
+          "description": "Pointer to the in-place active object whose border is to be resized."
+        },
+        {
+          "name": "prcBorder",
+          "type": "LPCRECT",
+          "description": "Pointer to a structure containing the new dimensions for the object's border."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface that the caller is to use to communicate with the object."
+        },
+        {
+          "name": "pUIWindow",
+          "type": "IOleInPlaceUIWindow*",
+          "description": "Pointer to the interface for the window in which the object is being in-place activated."
+        },
+        {
+          "name": "fFrameWindow",
+          "type": "BOOL",
+          "description": "Indicates whether the frame window, or an object's document window, is being resized."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Currently, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IOleCache2_UpdateCache_Proxy",
+      "description": "This function is used to update the cache. It calls the IOleCache2_RemoteUpdateCache_Proxy function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IOleCache2*",
+          "description": "Pointer to the IOleCache2 interface"
+        },
+        {
+          "name": "pDataObject",
+          "type": "LPDATAOBJECT",
+          "description": "Pointer to the data object"
+        },
+        {
+          "name": "grfUpdf",
+          "type": "DWORD",
+          "description": "Flags that specify how the cache is to be updated"
+        },
+        {
+          "name": "pReserved",
+          "type": "LPVOID",
+          "description": "Reserved for future use"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, it returns S_OK. Otherwise, it returns a failure code."
+    }
+  },
+  {
+    "function": {
+      "name": "IOleCache2_UpdateCache_Stub",
+      "description": "This function is a stub for the IOleCache2_UpdateCache function. It logs the parameters and then calls the actual function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IOleCache2*",
+          "description": "Pointer to the IOleCache2 object."
+        },
+        {
+          "name": "pDataObject",
+          "type": "LPDATAOBJECT",
+          "description": "Pointer to the data object."
+        },
+        {
+          "name": "grfUpdf",
+          "type": "DWORD",
+          "description": "Flag to update the cache."
+        },
+        {
+          "name": "pReserved",
+          "type": "LONG_PTR",
+          "description": "Reserved for future use."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status code of the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumOLEVERB_Next_Proxy",
+      "description": "This function is a proxy for the IEnumOLEVERB_RemoteNext_Proxy function. It checks if the pceltFetched pointer is null, and if so, assigns it to the address of a local variable. Then it calls the IEnumOLEVERB_RemoteNext_Proxy function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumOLEVERB*",
+          "description": "Pointer to the IEnumOLEVERB interface"
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "Number of elements in the enumeration sequence"
+        },
+        {
+          "name": "rgelt",
+          "type": "LPOLEVERB",
+          "description": "Pointer to the OLEVERB structure"
+        },
+        {
+          "name": "pceltFetched",
+          "type": "ULONG*",
+          "description": "Pointer to the variable that receives the number of elements fetched"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the IEnumOLEVERB_RemoteNext_Proxy function"
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumOLEVERB_Next_Stub",
+      "description": "This function is a stub for the IEnumOLEVERB_Next method. It initializes the fetched elements count to 0, calls the IEnumOLEVERB_Next method, and if the result is S_OK, it sets the fetched elements count to the number of elements requested.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumOLEVERB*",
+          "description": "Pointer to the IEnumOLEVERB interface."
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "The number of elements to be fetched."
+        },
+        {
+          "name": "rgelt",
+          "type": "LPOLEVERB",
+          "description": "Pointer to the location where the fetched elements are returned."
+        },
+        {
+          "name": "pceltFetched",
+          "type": "ULONG*",
+          "description": "Pointer to the location where the count of fetched elements is returned."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "IViewObject_Draw_Proxy",
+      "description": "This function is a proxy for drawing an IViewObject. Currently, it is not implemented and only returns an error code.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IViewObject*",
+          "description": "Pointer to the IViewObject to be drawn"
+        },
+        {
+          "name": "dwDrawAspect",
+          "type": "DWORD",
+          "description": "Specifies the aspect to be used for drawing"
+        },
+        {
+          "name": "lindex",
+          "type": "LONG",
+          "description": "Specifies the part of the object to be drawn"
+        },
+        {
+          "name": "pvAspect",
+          "type": "void*",
+          "description": "Pointer to further information about the draw aspect"
+        },
+        {
+          "name": "ptd",
+          "type": "DVTARGETDEVICE*",
+          "description": "Pointer to the target device for drawing"
+        },
+        {
+          "name": "hdcTargetDev",
+          "type": "HDC",
+          "description": "Handle to the target device context"
+        },
+        {
+          "name": "hdcDraw",
+          "type": "HDC",
+          "description": "Handle to the drawing device context"
+        },
+        {
+          "name": "lprcBounds",
+          "type": "LPCRECTL",
+          "description": "Pointer to the rectangle in which the object should be drawn"
+        },
+        {
+          "name": "lprcWBounds",
+          "type": "LPCRECTL",
+          "description": "Pointer to the rectangle for windowed objects"
+        },
+        {
+          "name": "pfnContinue",
+          "type": "BOOL (STDMETHODCALLTYPE *)(ULONG_PTR)",
+          "description": "Callback function to check if drawing should continue"
+        },
+        {
+          "name": "dwContinue",
+          "type": "ULONG_PTR",
+          "description": "Parameter for the callback function"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Currently always returns E_NOTIMPL, indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IViewObject_Draw_Stub",
+      "description": "This is a stub function for the IViewObject_Draw method. It currently does not implement any functionality.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IViewObject*",
+          "description": "Pointer to the IViewObject interface."
+        },
+        {
+          "name": "dwDrawAspect",
+          "type": "DWORD",
+          "description": "Specifies the aspect to be drawn."
+        },
+        {
+          "name": "lindex",
+          "type": "LONG",
+          "description": "Part of the object to draw."
+        },
+        {
+          "name": "pvAspect",
+          "type": "ULONG_PTR",
+          "description": "Pointer to additional information about the view of the object specified in dwDrawAspect."
+        },
+        {
+          "name": "ptd",
+          "type": "DVTARGETDEVICE*",
+          "description": "Pointer to the DVTARGETDEVICE structure that describes the device for which the drawing is to be done."
+        },
+        {
+          "name": "hdcTargetDev",
+          "type": "ULONG_PTR",
+          "description": "Information context for the target device indicated by the ptd parameter from which the object can extract device metrics and test the device's capabilities."
+        },
+        {
+          "name": "hdcDraw",
+          "type": "ULONG_PTR",
+          "description": "Device context on which to draw."
+        },
+        {
+          "name": "lprcBounds",
+          "type": "LPCRECTL",
+          "description": "Pointer to a RECTL structure specifying the bounding rectangle in the client area within which the object is to be drawn."
+        },
+        {
+          "name": "lprcWBounds",
+          "type": "LPCRECTL",
+          "description": "If dwDrawAspect is DVASPECT_DOCPRINT, lprcWBounds is a pointer to a RECTL structure specifying the bounding rectangle in the target device's coordinate system."
+        },
+        {
+          "name": "pContinue",
+          "type": "IContinue*",
+          "description": "Pointer to the IContinue interface, which can be used to stop the drawing operation."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. In this case, it always returns E_NOTIMPL, indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IViewObject_GetColorSet_Proxy",
+      "description": "This function is a stub and not yet implemented. It is supposed to get the color set of an IViewObject.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IViewObject*",
+          "description": "Pointer to the IViewObject instance"
+        },
+        {
+          "name": "dwDrawAspect",
+          "type": "DWORD",
+          "description": "Specifies the aspect to be used for rendering the object"
+        },
+        {
+          "name": "lindex",
+          "type": "LONG",
+          "description": "Part of the object that is of interest for the view"
+        },
+        {
+          "name": "pvAspect",
+          "type": "void*",
+          "description": "Pointer to further information about the view of the object"
+        },
+        {
+          "name": "ptd",
+          "type": "DVTARGETDEVICE*",
+          "description": "Pointer to the target device for which the object is to be rendered"
+        },
+        {
+          "name": "hicTargetDev",
+          "type": "HDC",
+          "description": "Information context for the target device"
+        },
+        {
+          "name": "ppColorSet",
+          "type": "LOGPALETTE**",
+          "description": "Pointer to the location at which to return the palette to be used with the view object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, in this case E_NOTIMPL indicating that the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "IViewObject_GetColorSet_Stub",
+      "description": "This is a stub function for the IViewObject interface's GetColorSet method. Currently, it does not implement any functionality.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IViewObject*",
+          "description": "Pointer to the IViewObject interface."
+        },
+        {
+          "name": "dwDrawAspect",
+          "type": "DWORD",
+          "description": "Specifies the aspect to be used for rendering the object."
+        },
+        {
+          "name": "lindex",
+          "type": "LONG",
+          "description": "Part of the object to be drawn."
+        },
+        {
+          "name": "pvAspect",
+          "type": "ULONG_PTR",
+          "description": "Pointer to additional information about the view of the object specified in dwDrawAspect."
+        },
+        {
+          "name": "ptd",
+          "type": "DVTARGETDEVICE*",
+          "description": "Pointer to the DVTARGETDEVICE structure that describes the device for which the object is to be rendered."
+        },
+        {
+          "name": "hicTargetDev",
+          "type": "ULONG_PTR",
+          "description": "Information context for the target device."
+        },
+        {
+          "name": "ppColorSet",
+          "type": "LOGPALETTE**",
+          "description": "Pointer to where the palette to be used for rendering the object is returned."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Currently, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IViewObject_Freeze_Proxy",
+      "description": "This function is a stub and not yet implemented. It is expected to freeze a view object.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IViewObject*",
+          "description": "Pointer to the IViewObject interface"
+        },
+        {
+          "name": "dwDrawAspect",
+          "type": "DWORD",
+          "description": "Specifies the aspect to be drawn"
+        },
+        {
+          "name": "lindex",
+          "type": "LONG",
+          "description": "Part of the object to be drawn"
+        },
+        {
+          "name": "pvAspect",
+          "type": "void*",
+          "description": "Information for drawing a specified aspect"
+        },
+        {
+          "name": "pdwFreeze",
+          "type": "DWORD*",
+          "description": "Pointer to where the freeze identifier is returned"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IViewObject_Freeze_Stub",
+      "description": "This is a stub function for the 'Freeze' method of the 'IViewObject' interface. Currently, it does not implement any functionality and returns 'E_NOTIMPL'.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IViewObject*",
+          "description": "Pointer to the IViewObject interface."
+        },
+        {
+          "name": "dwDrawAspect",
+          "type": "DWORD",
+          "description": "Specifies the aspect to be drawn."
+        },
+        {
+          "name": "lindex",
+          "type": "LONG",
+          "description": "Part of the object to be drawn."
+        },
+        {
+          "name": "pvAspect",
+          "type": "ULONG_PTR",
+          "description": "Pointer to further information about the dwDrawAspect."
+        },
+        {
+          "name": "pdwFreeze",
+          "type": "DWORD*",
+          "description": "Pointer to the identifier of the freeze drawing."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. In this case, it always returns 'E_NOTIMPL', indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IViewObject_GetAdvise_Proxy",
+      "description": "This function is a stub and not yet implemented. It is supposed to get the advisory interfaces and the advisory flags from an object.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IViewObject*",
+          "description": "Pointer to the IViewObject interface."
+        },
+        {
+          "name": "pAspects",
+          "type": "DWORD*",
+          "description": "Pointer to a variable that receives the advised aspects."
+        },
+        {
+          "name": "pAdvf",
+          "type": "DWORD*",
+          "description": "Pointer to a variable that receives the advised flags."
+        },
+        {
+          "name": "ppAdvSink",
+          "type": "IAdviseSink**",
+          "description": "Address of IAdviseSink pointer variable that receives the interface pointer to the advisory sink."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IViewObject_GetAdvise_Stub",
+      "description": "This function is a stub and not yet implemented. It is expected to get the advisory interfaces and the aspects of interest.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IViewObject*",
+          "description": "Pointer to the IViewObject interface"
+        },
+        {
+          "name": "pAspects",
+          "type": "DWORD*",
+          "description": "Pointer to the aspects of interest"
+        },
+        {
+          "name": "pAdvf",
+          "type": "DWORD*",
+          "description": "Pointer to the advised flags"
+        },
+        {
+          "name": "ppAdvSink",
+          "type": "IAdviseSink**",
+          "description": "Pointer to the IAdviseSink interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  }
+]

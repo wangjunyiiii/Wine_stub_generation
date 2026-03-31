@@ -1,0 +1,304 @@
+[
+  {
+    "function": {
+      "name": "mallocspy_grow",
+      "description": "This function allocates or reallocates memory for the 'blocks' member of the 'allocator' object. The size of the allocated memory is determined by the 'length' parameter. If the allocation is successful, the function updates the 'blocks' and 'blocks_length' members of the 'allocator' object.",
+      "parameters": [
+        {
+          "name": "length",
+          "type": "DWORD",
+          "description": "This parameter determines the size of the memory to be allocated or reallocated for the 'blocks' member of the 'allocator' object."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the memory allocation or reallocation is successful, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "mallocspy_add_mem",
+      "description": "This function adds a memory block to the allocator. It finds a free location in the allocator's blocks, grows the blocks if necessary, and increments the count of spied allocations.",
+      "parameters": [
+        {
+          "name": "mem",
+          "type": "void*",
+          "description": "This is the memory block to be added to the allocator."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "mallocspy_remove_spyed_memory",
+      "description": "This function removes a memory block from the list of spyed allocations. It checks if the memory block is spyed and if so, it decrements the count of spyed allocations and sets the pointer to the memory block to NULL.",
+      "parameters": [
+        {
+          "name": "mem",
+          "type": "void *",
+          "description": "This is a pointer to the memory block that should be removed from the list of spyed allocations."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the memory block was successfully removed from the list of spyed allocations, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "allocator_QueryInterface",
+      "description": "This function checks if the provided interface identifier matches either IID_IUnknown or IID_IMalloc. If it does, it assigns the address of allocator.IMalloc_iface to the provided object pointer and returns S_OK. If it doesn't, it returns E_NOINTERFACE.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMalloc*",
+          "description": "Pointer to the IMalloc interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier"
+        },
+        {
+          "name": "obj",
+          "type": "void**",
+          "description": "Pointer to the object where the interface pointer will be stored if the interface is supported"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the interface is supported, E_NOINTERFACE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "allocator_AddRef",
+      "description": "This function returns a static value of 2",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMalloc *",
+          "description": "Pointer to an IMalloc interface"
+        }
+      ],
+      "return_type": "ULONG, represents a static value of 2"
+    }
+  },
+  {
+    "function": {
+      "name": "allocator_Release",
+      "description": "This function releases an allocated memory block.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMalloc*",
+          "description": "Pointer to the memory block to be released"
+        }
+      ],
+      "return_type": "ULONG, represents the status of the operation, 1 indicates success"
+    }
+  },
+  {
+    "function": {
+      "name": "allocator_Alloc",
+      "description": "This function allocates memory of size 'cb' and returns the address of the allocated memory. If the allocator spy is active, it also interacts with the IMallocSpy interface before and after the allocation.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMalloc*",
+          "description": "Pointer to an IMalloc interface which is used for memory allocation"
+        },
+        {
+          "name": "cb",
+          "type": "SIZE_T",
+          "description": "The size of the memory to be allocated"
+        }
+      ],
+      "return_type": "void*: Represents the address of the allocated memory. Returns NULL if the allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "allocator_Realloc",
+      "description": "This function reallocates a memory block according to the size specified, with additional functionality for memory spying. If the allocator.spy is active, it removes the spied memory, performs pre-reallocation operations, and checks if the spy can be released. If the size is zero, it frees the memory. It also handles post-reallocation operations if the spy is active.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMalloc*",
+          "description": "Pointer to the IMalloc interface"
+        },
+        {
+          "name": "pv",
+          "type": "void*",
+          "description": "Pointer to the memory block that needs to be reallocated"
+        },
+        {
+          "name": "cb",
+          "type": "SIZE_T",
+          "description": "The new size for the memory block"
+        }
+      ],
+      "return_type": "void*; Returns a pointer to the reallocated memory block, or NULL if the function fails to allocate the requested block of memory or if the size is zero"
+    }
+  },
+  {
+    "function": {
+      "name": "allocator_Free",
+      "description": "This function frees a memory block in the heap. If the memory block is being spied on, it removes the spy before freeing the memory and performs necessary cleanup after freeing.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMalloc*",
+          "description": "Pointer to the IMalloc interface which provides methods for allocation and deallocation"
+        },
+        {
+          "name": "mem",
+          "type": "void*",
+          "description": "Pointer to the memory block that needs to be freed"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "allocator_GetSize",
+      "description": "This function gets the size of a memory block allocated from a specific heap. It also handles the case when the memory block is being spied on.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMalloc*",
+          "description": "Pointer to an IMalloc interface which is used for memory allocation operations."
+        },
+        {
+          "name": "mem",
+          "type": "void*",
+          "description": "Pointer to the memory block whose size is to be determined."
+        }
+      ],
+      "return_type": "SIZE_T, represents the size of the memory block. Returns -1 if the memory block pointer is null."
+    }
+  },
+  {
+    "function": {
+      "name": "allocator_DidAlloc",
+      "description": "This function checks if a memory block was allocated by the allocator. It also handles the case when a spy is active, adjusting the allocation status accordingly.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMalloc*",
+          "description": "Interface for memory allocation"
+        },
+        {
+          "name": "mem",
+          "type": "void*",
+          "description": "Pointer to the memory block to be checked"
+        }
+      ],
+      "return_type": "INT, represents whether the memory block was allocated by the allocator (-1 if the memory block is NULL, otherwise the result of HeapValidate or IMallocSpy_PostDidAlloc)"
+    }
+  },
+  {
+    "function": {
+      "name": "allocator_HeapMinimize",
+      "description": "This function minimizes the heap memory allocation. If the spy is active, it calls the pre-heap minimize and post-heap minimize functions of the IMallocSpy interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMalloc*",
+          "description": "Pointer to an IMalloc interface which is used for memory allocation operations."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "CoGetMalloc",
+      "description": "This function checks if the context is equal to MEMCTX_TASK. If it is, it assigns the address of allocator.IMalloc_iface to the pointer to pointer imalloc and returns S_OK. If it is not, it assigns NULL to imalloc and returns E_INVALIDARG.",
+      "parameters": [
+        {
+          "name": "context",
+          "type": "DWORD",
+          "description": "This parameter represents the context which is checked against MEMCTX_TASK."
+        },
+        {
+          "name": "imalloc",
+          "type": "IMalloc **",
+          "description": "This is a pointer to pointer to IMalloc. The function assigns the address of allocator.IMalloc_iface or NULL to this parameter."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation was successful, and E_INVALIDARG if the context is not equal to MEMCTX_TASK."
+    }
+  },
+  {
+    "function": {
+      "name": "CoTaskMemAlloc",
+      "description": "This function allocates a block of memory of a specified size.",
+      "parameters": [
+        {
+          "name": "size",
+          "type": "SIZE_T",
+          "description": "This parameter specifies the size of the memory block to be allocated."
+        }
+      ],
+      "return_type": "void pointer, represents the starting address of the allocated memory block."
+    }
+  },
+  {
+    "function": {
+      "name": "CoTaskMemFree",
+      "description": "This function is used to free a memory block that was allocated with CoTaskMemAlloc or CoTaskMemRealloc.",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "void*",
+          "description": "This is a pointer to the memory block that needs to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "CoTaskMemRealloc",
+      "description": "This function reallocates a block of memory. The size can be either greater or less than the original size.",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "void *",
+          "description": "This is a pointer to the memory block that was previously allocated with CoTaskMemAlloc or CoTaskMemRealloc."
+        },
+        {
+          "name": "size",
+          "type": "SIZE_T",
+          "description": "This is the new size for the memory block, in bytes."
+        }
+      ],
+      "return_type": "void *: This is a pointer to the reallocated memory block. If the function fails to allocate the requested block of memory, a null pointer is returned."
+    }
+  },
+  {
+    "function": {
+      "name": "CoRegisterMallocSpy",
+      "description": "This function registers a MallocSpy object. It checks if the object is already registered or if the object is null. If not, it registers the object and returns a success HRESULT, otherwise it returns an error HRESULT.",
+      "parameters": [
+        {
+          "name": "spy",
+          "type": "IMallocSpy *",
+          "description": "This is the MallocSpy object that is to be registered."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK if the object is successfully registered, CO_E_OBJISREG if the object is already registered, and E_INVALIDARG if the object is null."
+    }
+  },
+  {
+    "function": {
+      "name": "CoRevokeMallocSpy",
+      "description": "This function revokes a previously registered IMallocSpy object. It handles the process of deregistering the spy, releasing it, and handling any errors that may occur during this process.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "HRESULT, which is a type used in Windows programming to represent error conditions, and status codes. If the function succeeds, it returns S_OK. If the spy object is not registered, it returns CO_E_OBJNOTREG. If there are allocations being spied upon, it returns E_ACCESSDENIED."
+    }
+  }
+]

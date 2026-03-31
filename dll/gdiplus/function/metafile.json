@@ -1,0 +1,2734 @@
+[
+  {
+    "function": {
+      "name": "metafile_free_object_table_entry",
+      "description": "This function frees an object table entry in a metafile based on the object type.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile that contains the object table entry to be freed."
+        },
+        {
+          "name": "id",
+          "type": "BYTE",
+          "description": "ID of the object in the object table entry to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_Free",
+      "description": "This function frees the memory allocated for a GpMetafile object, deletes the enhanced metafile, releases the record stream, and frees the object table entries.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "A pointer to the GpMetafile object to be freed."
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_AddObjectId",
+      "description": "This function increments the next_object_id of the given metafile and returns the remainder of the division of the incremented value by EmfPlusObjectTableSize.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the GpMetafile structure whose next_object_id is to be incremented."
+        }
+      ],
+      "return_type": "DWORD, represents the remainder of the division of the incremented next_object_id by EmfPlusObjectTableSize."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_AllocateRecord",
+      "description": "This function allocates memory for a new record in the metafile, sets the record's header, and updates the metafile's comment data.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile where the record will be stored"
+        },
+        {
+          "name": "record_type",
+          "type": "EmfPlusRecordType",
+          "description": "Type of the record to be created"
+        },
+        {
+          "name": "size",
+          "type": "DWORD",
+          "description": "Size of the record to be created"
+        },
+        {
+          "name": "result",
+          "type": "void**",
+          "description": "Pointer to the location where the address of the newly allocated record will be stored"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'OutOfMemory' if memory allocation fails"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_RemoveLastRecord",
+      "description": "This function removes the last record from a metafile by adjusting the length of the comment data in the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "This is a pointer to the metafile from which the last record is to be removed."
+        },
+        {
+          "name": "record",
+          "type": "EmfPlusRecordHeader*",
+          "description": "This is a pointer to the record header of the record to be removed."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_WriteRecords",
+      "description": "This function writes records to a metafile if the comment data length is greater than 4. It then resets the comment data length to 4.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "This is a pointer to the metafile where the records will be written."
+        }
+      ],
+      "return_type": "void, meaning it does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_WriteHeader",
+      "description": "This function writes the header of a metafile. If the metafile type is either EmfPlusOnly or EmfPlusDual, it allocates a record for the header, sets the header flags and version, determines the EmfPlusFlags based on the device capabilities, sets the logical DPI, and writes the records of the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "A pointer to the metafile whose header is to be written."
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "A handle to the device context."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_WriteEndOfFile",
+      "description": "This function writes the end of a file for a given metafile. If the metafile type is either EmfPlusOnly or EmfPlusDual, it allocates a record and writes records to the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "This is a pointer to the metafile that the end of file is to be written for."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipRecordMetafile",
+      "description": "This function records a metafile by calling the GdipRecordMetafileFileName function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "type",
+          "type": "EmfType",
+          "description": "Specifies the type of metafile to be used."
+        },
+        {
+          "name": "frameRect",
+          "type": "GDIPCONST GpRectF *",
+          "description": "Pointer to a structure that specifies the rectangle (in logical units) used to frame the picture."
+        },
+        {
+          "name": "frameUnit",
+          "type": "MetafileFrameUnit",
+          "description": "Specifies the unit of measure used to create the rectangle."
+        },
+        {
+          "name": "desc",
+          "type": "GDIPCONST WCHAR *",
+          "description": "Pointer to a string that specifies the description of the metafile."
+        },
+        {
+          "name": "metafile",
+          "type": "GpMetafile **",
+          "description": "Pointer to a pointer to a GpMetafile object. This object receives the metafile that this method creates."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of this operation. If the operation is successful, the return value is Ok."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipRecordMetafileI",
+      "description": "This function records a metafile in a specified frame and returns the status of the operation.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "type",
+          "type": "EmfType",
+          "description": "Specifies the type of metafile to be recorded."
+        },
+        {
+          "name": "frameRect",
+          "type": "GDIPCONST GpRect *",
+          "description": "Pointer to a structure that specifies the rectangle in which the metafile is recorded."
+        },
+        {
+          "name": "frameUnit",
+          "type": "MetafileFrameUnit",
+          "description": "Specifies the unit of measure used to interpret the coordinates of the rectangle specified by frameRect."
+        },
+        {
+          "name": "desc",
+          "type": "GDIPCONST WCHAR *",
+          "description": "Pointer to a string that specifies a description of the metafile."
+        },
+        {
+          "name": "metafile",
+          "type": "GpMetafile **",
+          "description": "Pointer to a pointer to a GpMetafile object. This object receives the metafile that is recorded."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the function succeeds, it returns Ok, which is an element of the GpStatus enumeration. If the function fails, it returns one of the other elements of the GpStatus enumeration."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipRecordMetafileStreamI",
+      "description": "This function records a metafile stream. It sets the rectangle frame if it exists and then calls the GdipRecordMetafileStream function.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the stream to record"
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context"
+        },
+        {
+          "name": "type",
+          "type": "EmfType",
+          "description": "Type of enhanced metafile"
+        },
+        {
+          "name": "frameRect",
+          "type": "GDIPCONST GpRect *",
+          "description": "Pointer to the rectangle frame"
+        },
+        {
+          "name": "frameUnit",
+          "type": "MetafileFrameUnit",
+          "description": "Units of measure for the rectangle frame"
+        },
+        {
+          "name": "desc",
+          "type": "GDIPCONST WCHAR *",
+          "description": "Pointer to the description"
+        },
+        {
+          "name": "metafile",
+          "type": "GpMetafile **",
+          "description": "Pointer to the pointer of the metafile"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipRecordMetafileStream",
+      "description": "This function records a metafile stream. It checks if the stream is valid, records the metafile, and if successful, assigns the stream to the metafile and increments the stream's reference count.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "The input stream to record."
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "type",
+          "type": "EmfType",
+          "description": "Specifies the type of metafile to be used."
+        },
+        {
+          "name": "frameRect",
+          "type": "GDIPCONST GpRectF *",
+          "description": "Pointer to the rectangle structure that bounds the metafile."
+        },
+        {
+          "name": "frameUnit",
+          "type": "MetafileFrameUnit",
+          "description": "Specifies the unit of measure used to create the rectangle."
+        },
+        {
+          "name": "desc",
+          "type": "GDIPCONST WCHAR *",
+          "description": "Pointer to a description string."
+        },
+        {
+          "name": "metafile",
+          "type": "GpMetafile **",
+          "description": "Pointer to a pointer to a GpMetafile object where the metafile will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the stream is null, otherwise returns the status of the GdipRecordMetafile function."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_AdjustFrame",
+      "description": "This function adjusts the frame of a metafile based on the given points. It checks if the auto_frame of the metafile is set and if there are any points. If these conditions are met, it adjusts the frame's minimum and maximum X and Y coordinates based on the given points.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "The metafile whose frame is to be adjusted."
+        },
+        {
+          "name": "points",
+          "type": "GpPointF*",
+          "description": "The points used to adjust the frame of the metafile."
+        },
+        {
+          "name": "num_points",
+          "type": "UINT",
+          "description": "The number of points."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_GetGraphicsContext",
+      "description": "This function gets the graphics context from a metafile. It checks if the metafile has a record_dc and not a record_graphics. If so, it gets the graphics from the image and assigns it to the result. It also sets the xres, yres, and printer_display properties of the record_graphics to the corresponding properties of the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "A pointer to the metafile from which the graphics context is to be obtained."
+        },
+        {
+          "name": "result",
+          "type": "GpGraphics**",
+          "description": "A pointer to a pointer to a GpGraphics object. This is where the result (the graphics context obtained from the metafile) will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns 'Ok'. If the metafile does not have a record_dc or already has a record_graphics, it returns 'InvalidParameter'."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_GetDC",
+      "description": "This function checks the type of the metafile and if it matches certain types, it allocates a record for it and writes records. It then assigns the record_dc of the metafile to the hdc pointer.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile whose DC is to be gotten"
+        },
+        {
+          "name": "hdc",
+          "type": "HDC*",
+          "description": "Pointer to a device context handle where the record_dc of the metafile will be stored"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns Ok if the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_GraphicsClear",
+      "description": "This function clears the graphics of a metafile with a specified color. If the metafile type is either MetafileTypeEmfPlusOnly or MetafileTypeEmfPlusDual, it allocates a record for the clear operation, sets the color, and writes the records to the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "A pointer to the metafile to be cleared"
+        },
+        {
+          "name": "color",
+          "type": "ARGB",
+          "description": "The color to be used for clearing the metafile"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, otherwise returns the error status"
+    }
+  },
+  {
+    "function": {
+      "name": "is_integer_rect",
+      "description": "This function checks if the dimensions of a given rectangle are integers.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "GpRectF *",
+          "description": "This is a pointer to the rectangle structure that needs to be checked."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the dimensions of the rectangle are integers and FALSE indicates that they are not."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_PrepareBrushData",
+      "description": "This function prepares brush data based on the brush type and calculates the size of the brush data.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GDIPCONST GpBrush *",
+          "description": "This is a pointer to the brush object for which the data is being prepared."
+        },
+        {
+          "name": "size",
+          "type": "DWORD *",
+          "description": "This is a pointer to a DWORD where the calculated size of the brush data will be stored."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns 'Ok' if the operation is successful, and 'NotImplemented' if the brush type is unsupported."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_FillBrushData",
+      "description": "This function fills the brush data into the EmfPlusBrush data structure based on the brush type.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GDIPCONST GpBrush*",
+          "description": "This is the input brush from which data is to be extracted."
+        },
+        {
+          "name": "data",
+          "type": "EmfPlusBrush*",
+          "description": "This is the output data structure where the brush data is to be filled."
+        }
+      ],
+      "return_type": "void, as this function does not return any value but modifies the data parameter passed to it."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_PrepareCustomLineCapData",
+      "description": "This function prepares the custom line cap data for a metafile. It calculates the sizes of various components of the custom line cap and assigns them to the provided pointers.",
+      "parameters": [
+        {
+          "name": "cap",
+          "type": "GDIPCONST GpCustomLineCap *",
+          "description": "Pointer to the custom line cap whose data is to be prepared."
+        },
+        {
+          "name": "ret_cap_size",
+          "type": "DWORD *",
+          "description": "Pointer to a DWORD where the function will store the calculated size of the cap."
+        },
+        {
+          "name": "ret_cap_data_size",
+          "type": "DWORD *",
+          "description": "Pointer to a DWORD where the function will store the calculated size of the cap data."
+        },
+        {
+          "name": "ret_path_size",
+          "type": "DWORD *",
+          "description": "Pointer to a DWORD where the function will store the calculated size of the path."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but instead modifies the values pointed to by the parameters."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_FillCustomLineCapData",
+      "description": "This function fills the custom line cap data for a metafile. It handles different types of caps, including adjustable arrow and others. It also handles different cap data flags and sets various properties of the cap.",
+      "parameters": [
+        {
+          "name": "cap",
+          "type": "GDIPCONST GpCustomLineCap *",
+          "description": "Pointer to the custom line cap object"
+        },
+        {
+          "name": "ptr",
+          "type": "BYTE *",
+          "description": "Pointer to the byte data"
+        },
+        {
+          "name": "line_miter_limit",
+          "type": "REAL",
+          "description": "The miter limit for the line"
+        },
+        {
+          "name": "data_size",
+          "type": "DWORD",
+          "description": "The size of the data"
+        },
+        {
+          "name": "path_size",
+          "type": "DWORD",
+          "description": "The size of the path"
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_AddBrushObject",
+      "description": "This function adds a brush object to a metafile. It prepares the brush data, allocates a record for the object in the metafile, assigns an ID to the object, sets the object's header flags, and fills the brush data.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "Pointer to the metafile where the brush object will be added."
+        },
+        {
+          "name": "brush",
+          "type": "GDIPCONST GpBrush *",
+          "description": "Pointer to the brush object to be added to the metafile."
+        },
+        {
+          "name": "id",
+          "type": "DWORD *",
+          "description": "Pointer to a DWORD where the ID of the added object will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_FillRectangles",
+      "description": "This function fills rectangles in a metafile using a specified brush. It checks the type of the metafile and the brush, and then fills the rectangles accordingly. If the metafile has auto frame enabled, it also adjusts the frame.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile where rectangles are to be filled."
+        },
+        {
+          "name": "brush",
+          "type": "GpBrush*",
+          "description": "Pointer to the brush used to fill the rectangles."
+        },
+        {
+          "name": "rects",
+          "type": "GDIPCONST GpRectF*",
+          "description": "Pointer to the rectangles to be filled."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of rectangles to be filled."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_SetClipRect",
+      "description": "This function sets the clipping rectangle for a metafile. It checks the type of the metafile and if it is either EmfPlusOnly or EmfPlusDual, it allocates a record for the rectangle, sets the rectangle's dimensions and mode, and writes the records to the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile to set the clipping rectangle for."
+        },
+        {
+          "name": "x",
+          "type": "REAL",
+          "description": "The x-coordinate of the top-left corner of the rectangle."
+        },
+        {
+          "name": "y",
+          "type": "REAL",
+          "description": "The y-coordinate of the top-left corner of the rectangle."
+        },
+        {
+          "name": "width",
+          "type": "REAL",
+          "description": "The width of the rectangle."
+        },
+        {
+          "name": "height",
+          "type": "REAL",
+          "description": "The height of the rectangle."
+        },
+        {
+          "name": "mode",
+          "type": "CombineMode",
+          "description": "The mode to set for the rectangle."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_AddRegionObject",
+      "description": "This function adds a region object to a metafile and assigns it an ID. It first checks the type of the metafile, then writes the region data and allocates a record for the object. If successful, it adds an object ID and sets the header flags for the object record.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile to which the region object is to be added"
+        },
+        {
+          "name": "region",
+          "type": "GpRegion*",
+          "description": "Pointer to the region object to be added to the metafile"
+        },
+        {
+          "name": "id",
+          "type": "DWORD*",
+          "description": "Pointer to a DWORD where the ID of the added object will be stored"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_SetClipRegion",
+      "description": "This function sets the clip region for a metafile. It first checks the type of the metafile, and if it's not of type 'MetafileTypeEmf', it adds the region object to the metafile and allocates a record for it. The function then writes the records to the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile where the clip region is to be set"
+        },
+        {
+          "name": "region",
+          "type": "GpRegion*",
+          "description": "Pointer to the region that is to be set as the clip region in the metafile"
+        },
+        {
+          "name": "mode",
+          "type": "CombineMode",
+          "description": "The mode in which the region is to be combined with the existing clip region"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'NotImplemented' if the metafile type is 'MetafileTypeEmf', and the status of the failed operation otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_SetPageTransform",
+      "description": "This function sets the page transform for a metafile. It checks the type of the metafile and if it's either EmfPlusOnly or EmfPlusDual, it allocates a record, sets the unit and scale, and writes the records.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile where the page transform will be set"
+        },
+        {
+          "name": "unit",
+          "type": "GpUnit",
+          "description": "The unit of measure to be used"
+        },
+        {
+          "name": "scale",
+          "type": "REAL",
+          "description": "The scale factor for the page transform"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns 'Ok' if the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_SetWorldTransform",
+      "description": "This function sets the world transform for a metafile. It checks the type of the metafile and if it is either EmfPlusOnly or EmfPlusDual, it allocates a record for the transformation, copies the transformation matrix data, and writes the records to the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "This is a pointer to the metafile where the world transform will be set."
+        },
+        {
+          "name": "transform",
+          "type": "GDIPCONST GpMatrix*",
+          "description": "This is a constant pointer to the transformation matrix that will be set to the metafile."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns 'Ok'. If the record allocation fails, it returns the status of the failed operation."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_ScaleWorldTransform",
+      "description": "This function scales the world transform for a metafile. It checks the type of the metafile and if it is either EmfPlusOnly or EmfPlusDual, it allocates a record for the transformation, sets the order of the transformation, and writes the records to the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile to be transformed"
+        },
+        {
+          "name": "sx",
+          "type": "REAL",
+          "description": "The scale factor in the x-direction"
+        },
+        {
+          "name": "sy",
+          "type": "REAL",
+          "description": "The scale factor in the y-direction"
+        },
+        {
+          "name": "order",
+          "type": "MatrixOrder",
+          "description": "The order of the transformation"
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns 'Ok'. If not, it returns the error status."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_MultiplyWorldTransform",
+      "description": "This function multiplies the world transform of a metafile with a given matrix and order.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile whose world transform is to be multiplied."
+        },
+        {
+          "name": "matrix",
+          "type": "GDIPCONST GpMatrix*",
+          "description": "Pointer to the matrix with which the world transform is to be multiplied."
+        },
+        {
+          "name": "order",
+          "type": "MatrixOrder",
+          "description": "Specifies the order (prepend or append) in which the multiplication should occur."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_RotateWorldTransform",
+      "description": "This function rotates the world transform for a metafile. It checks the type of the metafile and if it is either EmfPlusOnly or EmfPlusDual, it allocates a record for the rotation transformation, sets the order and angle for the rotation, and writes the records to the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile to be transformed"
+        },
+        {
+          "name": "angle",
+          "type": "REAL",
+          "description": "The angle of rotation"
+        },
+        {
+          "name": "order",
+          "type": "MatrixOrder",
+          "description": "The order in which the rotation is applied"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns 'Ok' if the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_TranslateWorldTransform",
+      "description": "This function translates the world transform of a metafile. If the metafile type is either EmfPlusOnly or EmfPlusDual, it allocates a record for the transformation, sets the order of transformation, and writes the records to the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile to be transformed"
+        },
+        {
+          "name": "dx",
+          "type": "REAL",
+          "description": "The distance by which to translate the metafile along the x-axis"
+        },
+        {
+          "name": "dy",
+          "type": "REAL",
+          "description": "The distance by which to translate the metafile along the y-axis"
+        },
+        {
+          "name": "order",
+          "type": "MatrixOrder",
+          "description": "The order in which to apply the transformation"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, otherwise returns the error status"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_ResetWorldTransform",
+      "description": "This function resets the world transform for a given metafile if the metafile type is either EmfPlusOnly or EmfPlusDual. It allocates a record for the reset operation and writes it to the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "This is a pointer to the metafile for which the world transform is to be reset."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, otherwise it returns the error status."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_BeginContainer",
+      "description": "This function begins a new container in a metafile. It checks the type of the metafile and if it's either EmfPlusOnly or EmfPlusDual, it allocates a record for the new container, sets its properties, and writes the records to the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile where the new container will be created."
+        },
+        {
+          "name": "dstrect",
+          "type": "GDIPCONST GpRectF*",
+          "description": "Pointer to the destination rectangle."
+        },
+        {
+          "name": "srcrect",
+          "type": "GDIPCONST GpRectF*",
+          "description": "Pointer to the source rectangle."
+        },
+        {
+          "name": "unit",
+          "type": "GpUnit",
+          "description": "Units of measure used for the container."
+        },
+        {
+          "name": "StackIndex",
+          "type": "DWORD",
+          "description": "Index of the stack where the container will be placed."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation was successful."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_BeginContainerNoParams",
+      "description": "This function begins a container with no parameters in a metafile. It checks the type of the metafile and if it's either EmfPlusOnly or EmfPlusDual, it allocates a record for the container and writes it to the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile where the container will be started"
+        },
+        {
+          "name": "StackIndex",
+          "type": "DWORD",
+          "description": "Index of the stack where the container record will be stored"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, otherwise returns the error status"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_EndContainer",
+      "description": "This function ends a container in a metafile. It checks the type of the metafile and if it's either EmfPlusOnly or EmfPlusDual, it allocates a record, checks the status, assigns the StackIndex to the record, and writes the records to the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile where the container is to be ended"
+        },
+        {
+          "name": "StackIndex",
+          "type": "DWORD",
+          "description": "Index of the stack where the container is located"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_SaveGraphics",
+      "description": "This function saves the graphics of a metafile. If the metafile type is either MetafileTypeEmfPlusOnly or MetafileTypeEmfPlusDual, it allocates a record for the metafile and writes the records of the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "A pointer to the metafile whose graphics are to be saved."
+        },
+        {
+          "name": "StackIndex",
+          "type": "DWORD",
+          "description": "The index of the stack where the record of the metafile is to be saved."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_RestoreGraphics",
+      "description": "This function restores the graphics of a metafile. If the metafile type is either EmfPlusOnly or EmfPlusDual, it allocates a record for the metafile, sets the StackIndex of the record, and writes the records of the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "A pointer to the metafile whose graphics are to be restored"
+        },
+        {
+          "name": "StackIndex",
+          "type": "DWORD",
+          "description": "The index of the stack where the record is to be stored"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, otherwise returns the error status"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_ReleaseDC",
+      "description": "This function checks if the provided device context matches the one recorded in the metafile. If not, it returns an error; otherwise, it returns OK.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile object"
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the provided device context doesn't match the one recorded in the metafile, otherwise returns 'Ok'"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_GraphicsDeleted",
+      "description": "This function deletes the graphics of a metafile, writes the end of the file, closes the enhanced metafile, frees the comment data, and releases the record stream. It also handles the auto frame and updates the bounds of the metafile based on the header information. If any memory allocation fails, it returns an OutOfMemory status.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "This is a pointer to the metafile whose graphics are to be deleted."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns Ok. If a memory allocation fails, it returns OutOfMemory."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetHemfFromMetafile",
+      "description": "This function retrieves a handle to an enhanced metafile from a GpMetafile object. If the parameters are invalid or the metafile does not contain a handle, it returns an error.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "A pointer to a GpMetafile object from which to retrieve the enhanced metafile handle."
+        },
+        {
+          "name": "hEmf",
+          "type": "HENHMETAFILE *",
+          "description": "A pointer to a variable that receives the handle to the enhanced metafile."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the parameters are invalid or the metafile does not contain a handle."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_PlaybackGetDC",
+      "description": "This function retrieves the device context for the playback of a metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "Pointer to the metafile object for which the device context is to be retrieved."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns 'Ok' if successful."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_PlaybackReleaseDC",
+      "description": "This function releases a device context associated with a metafile's playback graphics, if it exists, and sets it to NULL.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile whose device context is to be released."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_PlaybackUpdateClip",
+      "description": "This function updates the clip region of the playback graphics in the given metafile by first replacing it with the base clip region, and then intersecting it with the clip region of the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "Pointer to the metafile whose playback graphics' clip region is to be updated."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_PlaybackUpdateWorldTransform",
+      "description": "This function updates the world transform of a metafile by creating a matrix, scaling it, multiplying it with the world transform of the metafile, and then setting it as the world transform of the metafile's playback graphics.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "This is a pointer to the metafile whose world transform is to be updated."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns 'Ok'. If not, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "metafile_set_object_table_entry",
+      "description": "This function sets an entry in the object table of a metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile whose object table entry is to be set."
+        },
+        {
+          "name": "id",
+          "type": "BYTE",
+          "description": "The id of the object table entry to be set."
+        },
+        {
+          "name": "type",
+          "type": "BYTE",
+          "description": "The type of the object to be set in the object table entry."
+        },
+        {
+          "name": "object",
+          "type": "void*",
+          "description": "Pointer to the object to be set in the object table entry."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "metafile_deserialize_image",
+      "description": "This function deserializes an image from a metafile. It handles different types of images such as Bitmap and Metafile. It also handles different types of Bitmaps such as Pixel and Compressed. For Metafile, it handles types like Emf, EmfPlusOnly, and EmfPlusDual.",
+      "parameters": [
+        {
+          "name": "record_data",
+          "type": "const BYTE *",
+          "description": "This is the raw data of the image to be deserialized."
+        },
+        {
+          "name": "data_size",
+          "type": "UINT",
+          "description": "This is the size of the raw data."
+        },
+        {
+          "name": "image",
+          "type": "GpImage **",
+          "description": "This is a pointer to a pointer to a GpImage object. The deserialized image will be stored here."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the function is successful, it returns Ok. If the parameters are invalid, it returns InvalidParameter. If the operation fails, it returns GenericError. If the image type is not supported, it returns NotImplemented."
+    }
+  },
+  {
+    "function": {
+      "name": "metafile_deserialize_path",
+      "description": "This function deserializes a path from a metafile, handling different types of path points and creating a new path object.",
+      "parameters": [
+        {
+          "name": "record_data",
+          "type": "const BYTE *",
+          "description": "Pointer to the record data to be deserialized."
+        },
+        {
+          "name": "data_size",
+          "type": "UINT",
+          "description": "Size of the data to be deserialized."
+        },
+        {
+          "name": "path",
+          "type": "GpPath **",
+          "description": "Double pointer to a GpPath object where the deserialized path will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return Ok if the operation is successful, InvalidParameter if the parameters are not valid, NotImplemented if the path data is RLE encoded, or the status of the GdipCreatePath or GdipCreatePath2 function."
+    }
+  },
+  {
+    "function": {
+      "name": "metafile_read_region_node",
+      "description": "This function reads a region node from a memory buffer and updates the region and count accordingly. It handles different types of region data and performs different operations based on the type.",
+      "parameters": [
+        {
+          "name": "mbuf",
+          "type": "struct memory_buffer *",
+          "description": "Pointer to the memory buffer from which the region node is to be read."
+        },
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "Pointer to the region which is to be updated based on the read data."
+        },
+        {
+          "name": "node",
+          "type": "region_element *",
+          "description": "Pointer to the region element that is to be updated based on the read data."
+        },
+        {
+          "name": "count",
+          "type": "UINT *",
+          "description": "Pointer to a count variable that is to be updated based on the read data."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return Ok if the operation is successful, OutOfMemory if memory allocation fails, InvalidParameter if the parameters are not valid, or other status codes based on the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "metafile_deserialize_region",
+      "description": "This function deserializes a region from a metafile. It reads the region data from the provided buffer, creates a new region object, and populates it with the read data. If any error occurs during this process, it cleans up the created region and returns the error status.",
+      "parameters": [
+        {
+          "name": "record_data",
+          "type": "const BYTE *",
+          "description": "A pointer to the buffer containing the region data to deserialize."
+        },
+        {
+          "name": "data_size",
+          "type": "UINT",
+          "description": "The size of the data in the buffer."
+        },
+        {
+          "name": "region",
+          "type": "GpRegion **",
+          "description": "A pointer to a pointer to a GpRegion object. This function will create a new GpRegion object, and the pointer to it will be stored in the location pointed to by this parameter."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the function succeeds, it returns Ok. If the function fails, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "metafile_deserialize_brush",
+      "description": "This function deserializes a brush from a metafile record.",
+      "parameters": [
+        {
+          "name": "record_data",
+          "type": "BYTE *",
+          "description": "Pointer to the metafile record data."
+        },
+        {
+          "name": "data_size",
+          "type": "UINT",
+          "description": "Size of the metafile record data."
+        },
+        {
+          "name": "brush",
+          "type": "GpBrush **",
+          "description": "Pointer to a pointer to a GpBrush object to be filled with the deserialized brush."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If successful, the function returns Ok, otherwise it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "metafile_deserialize_custom_line_cap",
+      "description": "This function deserializes a metafile custom line cap from a byte array and returns the status of the operation.",
+      "parameters": [
+        {
+          "name": "record_data",
+          "type": "const BYTE *",
+          "description": "Pointer to the byte array that contains the serialized custom line cap."
+        },
+        {
+          "name": "data_size",
+          "type": "UINT",
+          "description": "Size of the data in the byte array."
+        },
+        {
+          "name": "cap",
+          "type": "GpCustomLineCap **",
+          "description": "Pointer to a pointer to a GpCustomLineCap object. This function will allocate a new GpCustomLineCap object and assign its address to *cap."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the function succeeds, it returns Ok. If the function fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "metafile_get_pen_brush_data_offset",
+      "description": "This function calculates the offset of the pen brush data in a metafile.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "EmfPlusPen *",
+          "description": "Pointer to the pen data."
+        },
+        {
+          "name": "data_size",
+          "type": "UINT",
+          "description": "Size of the pen data."
+        },
+        {
+          "name": "ret",
+          "type": "DWORD *",
+          "description": "Pointer to store the calculated offset."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the data size is less than the calculated offset."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_PlaybackObject",
+      "description": "This function plays back an object from a metafile. It first determines the type and id of the object, then depending on the type, it deserializes the object and sets it in the object table of the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "Pointer to the metafile that contains the object to be played back."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags that contain the type and id of the object in the high and low byte respectively."
+        },
+        {
+          "name": "data_size",
+          "type": "UINT",
+          "description": "Size of the record data."
+        },
+        {
+          "name": "record_data",
+          "type": "BYTE *",
+          "description": "Pointer to the record data that contains the object to be played back."
+        }
+      ],
+      "return_type": "GpStatus. It represents the status of the operation. If the operation is successful, it returns Ok. If the type or id of the object is invalid, it returns InvalidParameter. If the object type is not implemented, it returns NotImplemented. If there is an error during the operation, it returns the corresponding error status."
+    }
+  },
+  {
+    "function": {
+      "name": "metafile_set_clip_region",
+      "description": "This function sets the clip region for a metafile, transforms the region, combines it with the existing clip region of the metafile, and updates the clip region of the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile where the clip region is to be set"
+        },
+        {
+          "name": "region",
+          "type": "GpRegion*",
+          "description": "Pointer to the region that is to be set as the clip region"
+        },
+        {
+          "name": "mode",
+          "type": "CombineMode",
+          "description": "The mode to be used when combining the new region with the existing clip region"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, whether it was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "enum_metafile_proc",
+      "description": "This function processes Enhanced Metafile Records (EMFR) and calls a callback function for each record. It also checks for EMF+ records and processes them accordingly.",
+      "parameters": [
+        {
+          "name": "hDC",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "lpHTable",
+          "type": "HANDLETABLE*",
+          "description": "Pointer to a HANDLETABLE structure that contains an array of handles to GDI objects."
+        },
+        {
+          "name": "lpEMFR",
+          "type": "ENHMETARECORD*",
+          "description": "Pointer to an ENHMETARECORD structure that contains the enhanced-metafile record."
+        },
+        {
+          "name": "nObj",
+          "type": "int",
+          "description": "Specifies the number of objects in the handle table."
+        },
+        {
+          "name": "lpData",
+          "type": "LPARAM",
+          "description": "Pointer to a structure that contains enumeration data."
+        }
+      ],
+      "return_type": "int, returns 1 if the function successfully processes all records, and 0 if the callback function returns false."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipEnumerateMetafileSrcRectDestPoints",
+      "description": "This function enumerates the records of a metafile by drawing the metafile to a specified rectangle and applying a specified callback method to each record of the metafile.",
+      "parameters": [
+        {
+          "name": "graphics",
+          "type": "GpGraphics *",
+          "description": "Pointer to the graphics object"
+        },
+        {
+          "name": "metafile",
+          "type": "GDIPCONST GpMetafile *",
+          "description": "Pointer to the metafile"
+        },
+        {
+          "name": "destPoints",
+          "type": "GDIPCONST GpPointF *",
+          "description": "Pointer to the destination points"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of destination points"
+        },
+        {
+          "name": "srcRect",
+          "type": "GDIPCONST GpRectF *",
+          "description": "Pointer to the source rectangle"
+        },
+        {
+          "name": "srcUnit",
+          "type": "Unit",
+          "description": "Unit of measure used by the source rectangle"
+        },
+        {
+          "name": "callback",
+          "type": "EnumerateMetafileProc",
+          "description": "Callback method applied to each record of the metafile"
+        },
+        {
+          "name": "callbackData",
+          "type": "VOID *",
+          "description": "Pointer to the callback data"
+        },
+        {
+          "name": "imageAttributes",
+          "type": "GDIPCONST GpImageAttributes *",
+          "description": "Pointer to the image attributes"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns 'Ok'. If not, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipEnumerateMetafileSrcRectDestRect",
+      "description": "This function enumerates a metafile in a source rectangle and draws it in a destination rectangle. It checks if the graphics, metafile, or destination parameters are null, and if they are, it returns an InvalidParameter status. Otherwise, it calls the GdipEnumerateMetafileSrcRectDestPoints function.",
+      "parameters": [
+        {
+          "name": "graphics",
+          "type": "GpGraphics *",
+          "description": "Pointer to the graphics object."
+        },
+        {
+          "name": "metafile",
+          "type": "GDIPCONST GpMetafile *",
+          "description": "Pointer to the metafile."
+        },
+        {
+          "name": "dest",
+          "type": "GDIPCONST GpRectF *",
+          "description": "Pointer to the destination rectangle."
+        },
+        {
+          "name": "src",
+          "type": "GDIPCONST GpRectF *",
+          "description": "Pointer to the source rectangle."
+        },
+        {
+          "name": "srcUnit",
+          "type": "Unit",
+          "description": "The unit of measure for the source rectangle."
+        },
+        {
+          "name": "callback",
+          "type": "EnumerateMetafileProc",
+          "description": "A callback function that is called for each record in the metafile."
+        },
+        {
+          "name": "cb_data",
+          "type": "VOID *",
+          "description": "Pointer to the callback data."
+        },
+        {
+          "name": "attrs",
+          "type": "GDIPCONST GpImageAttributes *",
+          "description": "Pointer to the image attributes."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the graphics, metafile, or destination parameters are null, it returns InvalidParameter. Otherwise, it returns the status of the GdipEnumerateMetafileSrcRectDestPoints function call."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipEnumerateMetafileSrcRectDestRectI",
+      "description": "This function enumerates the metafile source rectangle to the destination rectangle.",
+      "parameters": [
+        {
+          "name": "graphics",
+          "type": "GpGraphics *",
+          "description": "Pointer to the graphics object"
+        },
+        {
+          "name": "metafile",
+          "type": "GDIPCONST GpMetafile *",
+          "description": "Pointer to the metafile object"
+        },
+        {
+          "name": "destRect",
+          "type": "GDIPCONST Rect *",
+          "description": "Pointer to the destination rectangle object"
+        },
+        {
+          "name": "srcRect",
+          "type": "GDIPCONST Rect *",
+          "description": "Pointer to the source rectangle object"
+        },
+        {
+          "name": "srcUnit",
+          "type": "Unit",
+          "description": "The unit of measure for the source rectangle"
+        },
+        {
+          "name": "callback",
+          "type": "EnumerateMetafileProc",
+          "description": "Callback function for the enumeration"
+        },
+        {
+          "name": "cb_data",
+          "type": "VOID *",
+          "description": "Pointer to the callback data"
+        },
+        {
+          "name": "attrs",
+          "type": "GDIPCONST GpImageAttributes *",
+          "description": "Pointer to the image attributes object"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipEnumerateMetafileDestRect",
+      "description": "This function enumerates the metafile destination rectangle by setting up points based on the destination rectangle's dimensions and then calling another function to enumerate the source rectangle destination points.",
+      "parameters": [
+        {
+          "name": "graphics",
+          "type": "GpGraphics *",
+          "description": "Pointer to the graphics object"
+        },
+        {
+          "name": "metafile",
+          "type": "GDIPCONST GpMetafile *",
+          "description": "Pointer to the metafile object"
+        },
+        {
+          "name": "dest",
+          "type": "GDIPCONST GpRectF *",
+          "description": "Pointer to the destination rectangle object"
+        },
+        {
+          "name": "callback",
+          "type": "EnumerateMetafileProc",
+          "description": "Callback function for the enumeration"
+        },
+        {
+          "name": "cb_data",
+          "type": "VOID *",
+          "description": "Pointer to the callback data"
+        },
+        {
+          "name": "attrs",
+          "type": "GDIPCONST GpImageAttributes *",
+          "description": "Pointer to the image attributes object"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns InvalidParameter if any of the required parameters are null"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipEnumerateMetafileDestRectI",
+      "description": "This function enumerates the metafile destination rectangle in integer coordinates.",
+      "parameters": [
+        {
+          "name": "graphics",
+          "type": "GpGraphics *",
+          "description": "Pointer to the graphics object"
+        },
+        {
+          "name": "metafile",
+          "type": "GDIPCONST GpMetafile *",
+          "description": "Pointer to the metafile object"
+        },
+        {
+          "name": "dest",
+          "type": "GDIPCONST GpRect *",
+          "description": "Pointer to the destination rectangle object"
+        },
+        {
+          "name": "callback",
+          "type": "EnumerateMetafileProc",
+          "description": "Callback function for enumeration"
+        },
+        {
+          "name": "cb_data",
+          "type": "VOID *",
+          "description": "Pointer to callback data"
+        },
+        {
+          "name": "attrs",
+          "type": "GDIPCONST GpImageAttributes *",
+          "description": "Pointer to image attributes object"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns InvalidParameter if any of the parameters is null"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipEnumerateMetafileDestPoint",
+      "description": "This function enumerates the metafile at the destination point, converting the units to pixels and then calls the GdipEnumerateMetafileDestRect function.",
+      "parameters": [
+        {
+          "name": "graphics",
+          "type": "GpGraphics *",
+          "description": "Pointer to the graphics object"
+        },
+        {
+          "name": "metafile",
+          "type": "GDIPCONST GpMetafile *",
+          "description": "Pointer to the metafile object"
+        },
+        {
+          "name": "dest",
+          "type": "GDIPCONST GpPointF *",
+          "description": "Pointer to the destination point object"
+        },
+        {
+          "name": "callback",
+          "type": "EnumerateMetafileProc",
+          "description": "Callback function for the enumeration"
+        },
+        {
+          "name": "cb_data",
+          "type": "VOID *",
+          "description": "Pointer to the callback data"
+        },
+        {
+          "name": "attrs",
+          "type": "GDIPCONST GpImageAttributes *",
+          "description": "Pointer to the image attributes object"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns InvalidParameter if any of the parameters are null"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipEnumerateMetafileDestPointI",
+      "description": "This function enumerates the metafile at a specified destination point. If any of the parameters are null, it returns an invalid parameter error.",
+      "parameters": [
+        {
+          "name": "graphics",
+          "type": "GpGraphics *",
+          "description": "Pointer to the graphics object"
+        },
+        {
+          "name": "metafile",
+          "type": "GDIPCONST GpMetafile *",
+          "description": "Pointer to the metafile object"
+        },
+        {
+          "name": "dest",
+          "type": "GDIPCONST GpPoint *",
+          "description": "Pointer to the destination point object"
+        },
+        {
+          "name": "callback",
+          "type": "EnumerateMetafileProc",
+          "description": "Callback function for the enumeration"
+        },
+        {
+          "name": "cb_data",
+          "type": "VOID *",
+          "description": "Pointer to the callback data"
+        },
+        {
+          "name": "attrs",
+          "type": "GDIPCONST GpImageAttributes *",
+          "description": "Pointer to the image attributes object"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns InvalidParameter if any of the parameters are null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetMetafileHeaderFromMetafile",
+      "description": "This function retrieves the metafile header from a given metafile and stores it in the provided header structure. If the metafile has an enhanced metafile, it retrieves the header from it. If not, it initializes the header with default values.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "Pointer to the metafile from which the header is to be retrieved."
+        },
+        {
+          "name": "header",
+          "type": "MetafileHeader *",
+          "description": "Pointer to the MetafileHeader structure where the retrieved header will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if the input parameters are null, or other status codes indicating different error conditions."
+    }
+  },
+  {
+    "function": {
+      "name": "get_emfplus_header_proc",
+      "description": "This function processes the EMF+ header, if it exists, from the given EMF record and copies it to the destination header. If the record type is EMR_HEADER, it returns TRUE. Otherwise, it returns FALSE.",
+      "parameters": [
+        {
+          "name": "hDC",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "lpHTable",
+          "type": "HANDLETABLE*",
+          "description": "Pointer to a HANDLETABLE structure."
+        },
+        {
+          "name": "lpEMFR",
+          "type": "const ENHMETARECORD*",
+          "description": "Pointer to an ENHMETARECORD structure."
+        },
+        {
+          "name": "nObj",
+          "type": "int",
+          "description": "Number of objects in the handle table."
+        },
+        {
+          "name": "lpData",
+          "type": "LPARAM",
+          "description": "Pointer to the destination header."
+        }
+      ],
+      "return_type": "int, represents a boolean value. Returns TRUE if the record type is EMR_HEADER, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetMetafileHeaderFromEmf",
+      "description": "This function retrieves the metafile header from an enhanced metafile (EMF). It checks the validity of the parameters, gets the header of the metafile, determines the type of the metafile, and assigns the values to the header.",
+      "parameters": [
+        {
+          "name": "hemf",
+          "type": "HENHMETAFILE",
+          "description": "Handle to the enhanced metafile."
+        },
+        {
+          "name": "header",
+          "type": "MetafileHeader *",
+          "description": "Pointer to a MetafileHeader structure that receives the metafile header."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if the parameters are not valid, 'GenericError' if the operation fails, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetMetafileHeaderFromWmf",
+      "description": "This function retrieves the metafile header from a Windows Metafile Format (WMF) file.",
+      "parameters": [
+        {
+          "name": "hwmf",
+          "type": "HMETAFILE",
+          "description": "Handle to the WMF."
+        },
+        {
+          "name": "placeable",
+          "type": "GDIPCONST WmfPlaceableFileHeader*",
+          "description": "Pointer to a WmfPlaceableFileHeader structure that contains WMF placeable file header information."
+        },
+        {
+          "name": "header",
+          "type": "MetafileHeader*",
+          "description": "Pointer to a MetafileHeader structure that receives the metafile header."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, the status is Ok."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetMetafileHeaderFromFile",
+      "description": "This function retrieves the metafile header from a file, creates a metafile from the file, gets the metafile header from the metafile, and disposes the image of the metafile.",
+      "parameters": [
+        {
+          "name": "filename",
+          "type": "GDIPCONST WCHAR *",
+          "description": "The name of the file from which the metafile header is to be retrieved."
+        },
+        {
+          "name": "header",
+          "type": "MetafileHeader *",
+          "description": "A pointer to the MetafileHeader structure that receives the metafile header."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns 'Ok'. If either the filename or header is null, it returns 'InvalidParameter'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetMetafileHeaderFromStream",
+      "description": "This function retrieves the metafile header from a stream and disposes the image if the status is OK.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "This is the input stream from which the metafile header is to be retrieved."
+        },
+        {
+          "name": "header",
+          "type": "MetafileHeader *",
+          "description": "This is the pointer to the metafile header that is to be filled with the retrieved data."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns 'Ok'. If either of the input parameters is null, it returns 'InvalidParameter'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateMetafileFromEmf",
+      "description": "This function creates a metafile from an enhanced metafile (EMF) and assigns it to the provided GpMetafile pointer. It also provides the option to delete the original EMF.",
+      "parameters": [
+        {
+          "name": "hemf",
+          "type": "HENHMETAFILE",
+          "description": "Handle to the enhanced metafile."
+        },
+        {
+          "name": "delete",
+          "type": "BOOL",
+          "description": "Flag indicating whether to delete the original enhanced metafile."
+        },
+        {
+          "name": "metafile",
+          "type": "GpMetafile **",
+          "description": "Pointer to a GpMetafile pointer where the created metafile will be assigned."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It returns 'Ok' if the operation is successful, 'InvalidParameter' if any of the parameters is invalid, or 'OutOfMemory' if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateMetafileFromWmf",
+      "description": "This function creates a metafile from a Windows Metafile Format (WMF) file, with the option to delete the original WMF file and place the new metafile in a specified location.",
+      "parameters": [
+        {
+          "name": "hwmf",
+          "type": "HMETAFILE",
+          "description": "Handle to the WMF file."
+        },
+        {
+          "name": "delete",
+          "type": "BOOL",
+          "description": "Boolean value that specifies whether to delete the original WMF file after creating the metafile."
+        },
+        {
+          "name": "placeable",
+          "type": "GDIPCONST WmfPlaceableFileHeader *",
+          "description": "Pointer to a structure that specifies the location and dimensions of the metafile."
+        },
+        {
+          "name": "metafile",
+          "type": "GpMetafile **",
+          "description": "Pointer to a pointer to a GpMetafile object where the new metafile will be stored."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the function succeeds, it returns 'Ok'. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateMetafileFromWmfFile",
+      "description": "This function creates a metafile from a WMF file. It first tries to get a metafile handle using GetMetaFileW. If successful, it creates the metafile from the WMF. If not, it tries to get an enhanced metafile handle using GetEnhMetaFileW and creates the metafile from the EMF. If both attempts fail, it returns a generic error.",
+      "parameters": [
+        {
+          "name": "file",
+          "type": "GDIPCONST WCHAR",
+          "description": "This is the file path to the WMF file."
+        },
+        {
+          "name": "placeable",
+          "type": "GDIPCONST WmfPlaceableFileHeader",
+          "description": "This is a pointer to a placeable metafile header. It is used when creating the metafile from the WMF."
+        },
+        {
+          "name": "metafile",
+          "type": "GpMetafile",
+          "description": "This is a pointer to a pointer to a GpMetafile object. If the function is successful, this parameter will point to the created metafile."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns Ok. If it fails, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateMetafileFromFile",
+      "description": "This function creates a metafile from a file, using a stream to read the file data.",
+      "parameters": [
+        {
+          "name": "file",
+          "type": "GDIPCONST WCHAR *",
+          "description": "This is a pointer to the file from which the metafile is to be created."
+        },
+        {
+          "name": "metafile",
+          "type": "GpMetafile **",
+          "description": "This is a pointer to a pointer to a GpMetafile object. The function will create a new GpMetafile object from the file and store the pointer to it in this parameter."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the function succeeds, it returns Ok. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateMetafileFromStream",
+      "description": "This function creates a metafile from a stream. It loads an image from the stream into the metafile. If the image type is not a metafile, it disposes the image and sets the metafile to NULL.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "This is the input stream from which the image is loaded."
+        },
+        {
+          "name": "metafile",
+          "type": "GpMetafile **",
+          "description": "This is a pointer to a pointer to a GpMetafile object. The function loads an image from the stream into this metafile."
+        }
+      ],
+      "return_type": "GpStatus. This represents the status of the operation. It returns 'Ok' if the operation is successful. If the image loaded from the stream is not a metafile, it returns 'GenericError'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetMetafileDownLevelRasterizationLimit",
+      "description": "This function retrieves the down-level rasterization limit of a metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GDIPCONST GpMetafile*",
+          "description": "Pointer to the metafile object."
+        },
+        {
+          "name": "limitDpi",
+          "type": "UINT*",
+          "description": "Pointer to a variable that receives the down-level rasterization limit."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It returns 'Ok' if the operation is successful, 'InvalidParameter' if any of the parameters is null, and 'WrongState' if the metafile does not have a record device context."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetMetafileDownLevelRasterizationLimit",
+      "description": "This function sets the down-level rasterization limit for a metafile. If the limitDpi is 0, it is set to 96. If the metafile is null or limitDpi is less than 10, it returns an InvalidParameter. If the metafile's record_dc is null, it returns WrongState. Otherwise, it sets the metafile's limit_dpi to limitDpi and returns Ok.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "This is a pointer to the metafile for which the down-level rasterization limit is to be set."
+        },
+        {
+          "name": "limitDpi",
+          "type": "UINT",
+          "description": "This is the down-level rasterization limit to be set. If it is 0, it will be set to 96."
+        }
+      ],
+      "return_type": "GpStatus. This represents the status of the operation. It can return InvalidParameter if the metafile is null or limitDpi is less than 10, WrongState if the metafile's record_dc is null, or Ok if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipConvertToEmfPlus",
+      "description": "This function is intended to convert a GpMetafile to EmfPlus format, but it is not yet implemented.",
+      "parameters": [
+        {
+          "name": "ref",
+          "type": "GpGraphics*",
+          "description": "Pointer to the GpGraphics object"
+        },
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the GpMetafile object to be converted"
+        },
+        {
+          "name": "succ",
+          "type": "BOOL*",
+          "description": "Pointer to a BOOL variable where the success status will be stored"
+        },
+        {
+          "name": "emfType",
+          "type": "EmfType",
+          "description": "The type of Enhanced Metafile Format (EMF) to be used for the conversion"
+        },
+        {
+          "name": "description",
+          "type": "WCHAR*",
+          "description": "Pointer to a string that describes the metafile"
+        },
+        {
+          "name": "out_metafile",
+          "type": "GpMetafile**",
+          "description": "Pointer to a pointer to a GpMetafile object where the result will be stored"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns InvalidParameter if any of the parameters is invalid, NotImplemented if the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipEmfToWmfBits",
+      "description": "This function is a stub and not yet implemented. It is supposed to convert a enhanced metafile to a windows metafile.",
+      "parameters": [
+        {
+          "name": "hemf",
+          "type": "HENHMETAFILE",
+          "description": "Handle to the enhanced metafile"
+        },
+        {
+          "name": "cbData16",
+          "type": "UINT",
+          "description": "Size of the data to be converted"
+        },
+        {
+          "name": "pData16",
+          "type": "LPBYTE",
+          "description": "Pointer to the data to be converted"
+        },
+        {
+          "name": "iMapMode",
+          "type": "INT",
+          "description": "Mapping mode to be used"
+        },
+        {
+          "name": "eFlags",
+          "type": "INT",
+          "description": "Flags for the conversion"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, in this case it returns NotImplemented"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipRecordMetafileFileName",
+      "description": "This function records a metafile with a specified file name, device context, type, frame rectangle, frame unit, description, and metafile pointer.",
+      "parameters": [
+        {
+          "name": "fileName",
+          "type": "GDIPCONST WCHAR*",
+          "description": "The name of the file to record."
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "The device context."
+        },
+        {
+          "name": "type",
+          "type": "EmfType",
+          "description": "The type of the metafile."
+        },
+        {
+          "name": "pFrameRect",
+          "type": "GDIPCONST GpRectF*",
+          "description": "The frame rectangle."
+        },
+        {
+          "name": "frameUnit",
+          "type": "MetafileFrameUnit",
+          "description": "The unit of measurement for the frame rectangle."
+        },
+        {
+          "name": "desc",
+          "type": "GDIPCONST WCHAR*",
+          "description": "The description of the metafile."
+        },
+        {
+          "name": "metafile",
+          "type": "GpMetafile**",
+          "description": "The pointer to the metafile."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if any parameter is invalid, 'GenericError' if the metafile could not be created, 'OutOfMemory' if there is not enough memory to complete the operation, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipRecordMetafileFileNameI",
+      "description": "This function is a stub and not implemented yet. It is intended to record a metafile with a specific file name.",
+      "parameters": [
+        {
+          "name": "fileName",
+          "type": "GDIPCONST WCHAR*",
+          "description": "The name of the file to record the metafile."
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "type",
+          "type": "EmfType",
+          "description": "Specifies the type of metafile to be used."
+        },
+        {
+          "name": "pFrameRect",
+          "type": "GDIPCONST GpRect*",
+          "description": "Pointer to the rectangle frame."
+        },
+        {
+          "name": "frameUnit",
+          "type": "MetafileFrameUnit",
+          "description": "Units of measure for the frame rectangle."
+        },
+        {
+          "name": "desc",
+          "type": "GDIPCONST WCHAR*",
+          "description": "Description of the metafile."
+        },
+        {
+          "name": "metafile",
+          "type": "GpMetafile**",
+          "description": "Pointer to the resulting metafile."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. In this case, it always returns 'NotImplemented'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipConvertToEmfPlusToFile",
+      "description": "This function is a stub and not yet implemented. It is intended to convert a GDI+ metafile to an EMF+ metafile and save it to a file.",
+      "parameters": [
+        {
+          "name": "refGraphics",
+          "type": "const GpGraphics*",
+          "description": "Reference to the GDI+ graphics object"
+        },
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the GDI+ metafile to be converted"
+        },
+        {
+          "name": "conversionSuccess",
+          "type": "BOOL*",
+          "description": "Pointer to a boolean that will indicate whether the conversion was successful"
+        },
+        {
+          "name": "filename",
+          "type": "const WCHAR*",
+          "description": "Name of the file where the converted metafile will be saved"
+        },
+        {
+          "name": "emfType",
+          "type": "EmfType",
+          "description": "Specifies the type of EMF to create"
+        },
+        {
+          "name": "description",
+          "type": "const WCHAR*",
+          "description": "Description of the metafile"
+        },
+        {
+          "name": "out_metafile",
+          "type": "GpMetafile**",
+          "description": "Pointer to a pointer that will receive the converted metafile"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, in this case it always returns NotImplemented"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_CreateCompressedImageStream",
+      "description": "This function creates a compressed image stream of a given image in PNG format. It initializes the stream, encodes the image, gets the stream statistics, sets the size, and resets the stream pointer to the beginning.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image to be compressed"
+        },
+        {
+          "name": "stream",
+          "type": "IStream **",
+          "description": "Double pointer to the stream where the compressed image will be stored"
+        },
+        {
+          "name": "size",
+          "type": "DWORD *",
+          "description": "Pointer to a DWORD where the size of the compressed image stream will be stored"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, otherwise returns the error status"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_FillEmfPlusBitmap",
+      "description": "This function initializes a bitmap object, reads data from a stream into the bitmap, and returns the status of these operations.",
+      "parameters": [
+        {
+          "name": "record",
+          "type": "EmfPlusBitmap*",
+          "description": "Pointer to the bitmap object to be filled"
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "Stream from which the bitmap data is read"
+        },
+        {
+          "name": "size",
+          "type": "DWORD",
+          "description": "Size of the data to be read from the stream"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the bitmap filling operation. Returns 'Ok' if the operation is successful, otherwise it returns the error status."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_AddImageObject",
+      "description": "This function adds an image object to a metafile. It supports both bitmap and metafile image types. If the image type is not supported, it returns a 'NotImplemented' status.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile where the image object will be added."
+        },
+        {
+          "name": "image",
+          "type": "GpImage*",
+          "description": "Pointer to the image object that will be added to the metafile."
+        },
+        {
+          "name": "id",
+          "type": "DWORD*",
+          "description": "Pointer to a DWORD where the function will store the ID of the added image object."
+        }
+      ],
+      "return_type": "GpStatus. It represents the status of the operation. It can return 'Ok' if the operation was successful, 'InvalidParameter' if the metafile image is null, 'GenericError' if there was an error getting the metafile bits, or 'NotImplemented' if the image type is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_AddImageAttributesObject",
+      "description": "This function adds an image attributes object to a metafile. It first checks the metafile type, then if the attributes are not null, it allocates a record for the object. If successful, it adds an object id, sets the header flags, and sets the attributes record fields.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile to which the image attributes object is to be added"
+        },
+        {
+          "name": "attrs",
+          "type": "GpImageAttributes*",
+          "description": "Pointer to the image attributes to be added to the metafile"
+        },
+        {
+          "name": "id",
+          "type": "DWORD*",
+          "description": "Pointer to a DWORD where the id of the added object will be stored"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns Ok if successful"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_DrawImagePointsRect",
+      "description": "This function is used to draw an image on a metafile. It checks the type of the metafile and the image, creates a bitmap if necessary, and then adds the image and its attributes to the metafile. It also sets the source rectangle and point data for the image.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "Pointer to the metafile where the image will be drawn"
+        },
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image to be drawn"
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPointF *",
+          "description": "Pointer to the points where the image will be drawn"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of points. Must be 3"
+        },
+        {
+          "name": "srcx",
+          "type": "REAL",
+          "description": "X-coordinate of the source rectangle"
+        },
+        {
+          "name": "srcy",
+          "type": "REAL",
+          "description": "Y-coordinate of the source rectangle"
+        },
+        {
+          "name": "srcwidth",
+          "type": "REAL",
+          "description": "Width of the source rectangle"
+        },
+        {
+          "name": "srcheight",
+          "type": "REAL",
+          "description": "Height of the source rectangle"
+        },
+        {
+          "name": "srcUnit",
+          "type": "GpUnit",
+          "description": "Units of the source rectangle"
+        },
+        {
+          "name": "imageAttributes",
+          "type": "GDIPCONST GpImageAttributes*",
+          "description": "Pointer to the image attributes"
+        },
+        {
+          "name": "callback",
+          "type": "DrawImageAbort",
+          "description": "Callback function for drawing the image"
+        },
+        {
+          "name": "callbackData",
+          "type": "VOID *",
+          "description": "Data for the callback function"
+        }
+      ],
+      "return_type": "GpStatus. Represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if count is not 3, 'NotImplemented' if the metafile type is not supported or if image attributes are not supported for the given image type, and the status of various operations otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_AddSimpleProperty",
+      "description": "This function adds a simple property to a metafile. It first checks the type of the metafile, then allocates a record for the property, sets the value of the record, writes the records to the metafile, and finally returns the status.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "Pointer to the metafile to which the property is to be added"
+        },
+        {
+          "name": "prop",
+          "type": "SHORT",
+          "description": "The property to be added to the metafile"
+        },
+        {
+          "name": "val",
+          "type": "SHORT",
+          "description": "The value of the property to be added"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_AddPathObject",
+      "description": "This function adds a path object to a metafile and assigns it an ID. It first checks the type of the metafile, writes the path data, allocates a record for the object, assigns an ID to the object, sets the header flags for the object, and writes the path data again.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "Pointer to the metafile to which the path object is to be added"
+        },
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path object to be added to the metafile"
+        },
+        {
+          "name": "id",
+          "type": "DWORD *",
+          "description": "Pointer to a DWORD variable where the ID of the added path object will be stored"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_AddPenObject",
+      "description": "This function adds a pen object to a metafile. It prepares the pen data, allocates a record for the pen in the metafile, and fills the record with the pen data.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "Pointer to the metafile where the pen object will be added."
+        },
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "Pointer to the pen object to be added to the metafile."
+        },
+        {
+          "name": "id",
+          "type": "DWORD *",
+          "description": "Pointer to a DWORD where the function will store the ID of the added pen object."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_DrawPath",
+      "description": "This function is used to draw a path in a metafile using a specified pen. It handles the addition of pen and path objects, allocation of the draw path record, and writing the records to the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "Pointer to the metafile where the path will be drawn."
+        },
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "Pointer to the pen that will be used to draw the path."
+        },
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path that will be drawn."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the function execution. Returns 'Ok' if the function executes successfully, otherwise returns the error status."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_DrawEllipse",
+      "description": "This function is used to draw an ellipse on a metafile. It first checks the type of the metafile, adds a pen object to the metafile, checks if the rectangle is an integer rectangle, allocates a record for the ellipse, sets the header type and flags of the record, copies the rectangle data to the record, writes the records to the metafile, and finally returns the status.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "This is the metafile on which the ellipse will be drawn."
+        },
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "This is the pen that will be used to draw the ellipse."
+        },
+        {
+          "name": "rect",
+          "type": "GpRectF *",
+          "description": "This is the rectangle that defines the boundary of the ellipse."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the function execution. It returns 'Ok' if the function executes successfully, 'NotImplemented' if the metafile type is MetafileTypeEmf, and the status of the failed operation otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_FillPath",
+      "description": "This function fills a path in a metafile using a specified brush. If the brush type is solid color, it sets the color directly, otherwise it adds the brush object to the metafile and uses its ID. The function also adds the path object to the metafile and allocates a record for the fill path operation.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile where the path will be filled"
+        },
+        {
+          "name": "brush",
+          "type": "GpBrush*",
+          "description": "Pointer to the brush used to fill the path"
+        },
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path to be filled"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns 'Ok'. If not, it returns the error status."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_FillEllipse",
+      "description": "This function fills an ellipse in a metafile using a specified brush. It handles different types of brushes and rectangle formats.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "Pointer to the metafile where the ellipse will be filled."
+        },
+        {
+          "name": "brush",
+          "type": "GpBrush *",
+          "description": "Pointer to the brush that will be used to fill the ellipse."
+        },
+        {
+          "name": "rect",
+          "type": "GpRectF *",
+          "description": "Pointer to the rectangle that defines the boundary of the ellipse."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, otherwise returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_FillPie",
+      "description": "This function fills a pie section defined within a rectangle in a metafile using a specified brush. It also handles different types of brushes and rectangles (integer or floating point based).",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "Pointer to the metafile where the pie section will be filled."
+        },
+        {
+          "name": "brush",
+          "type": "GpBrush *",
+          "description": "Pointer to the brush used to fill the pie section."
+        },
+        {
+          "name": "rect",
+          "type": "GpRectF *",
+          "description": "Pointer to the rectangle within which the pie section is defined."
+        },
+        {
+          "name": "startAngle",
+          "type": "REAL",
+          "description": "Starting angle of the pie section, in degrees."
+        },
+        {
+          "name": "sweepAngle",
+          "type": "REAL",
+          "description": "Sweep angle of the pie section, in degrees."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, otherwise returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_AddFontObject",
+      "description": "This function adds a font object to a metafile. It first checks if the metafile type is either MetafileTypeEmfPlusOnly or MetafileTypeEmfPlusDual. If not, it returns Ok. It then gets the font style and allocates a record for the font object in the metafile. If any of these operations fail, it returns the status of the failed operation. If all operations are successful, it adds an object ID for the font, sets the font attributes in the object record, and copies the font family name to the font record.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "Pointer to the metafile where the font object will be added."
+        },
+        {
+          "name": "font",
+          "type": "GDIPCONST GpFont *",
+          "description": "Pointer to the font object to be added to the metafile."
+        },
+        {
+          "name": "id",
+          "type": "DWORD *",
+          "description": "Pointer to a DWORD where the function will store the ID of the added font object."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns Ok if the function successfully adds the font object to the metafile, otherwise it returns the status of the failed operation."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_DrawDriverString",
+      "description": "This function is used to draw a string in a metafile using the specified font, format, and brush. It also allows for positioning and transformation of the string using flags and a matrix.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "Pointer to the metafile where the string will be drawn"
+        },
+        {
+          "name": "text",
+          "type": "GDIPCONST UINT16 *",
+          "description": "Pointer to the string to be drawn"
+        },
+        {
+          "name": "length",
+          "type": "INT",
+          "description": "Length of the string to be drawn"
+        },
+        {
+          "name": "font",
+          "type": "GDIPCONST GpFont *",
+          "description": "Pointer to the font to be used for drawing the string"
+        },
+        {
+          "name": "format",
+          "type": "GDIPCONST GpStringFormat *",
+          "description": "Pointer to the string format to be used for drawing the string"
+        },
+        {
+          "name": "brush",
+          "type": "GDIPCONST GpBrush *",
+          "description": "Pointer to the brush to be used for drawing the string"
+        },
+        {
+          "name": "positions",
+          "type": "GDIPCONST PointF *",
+          "description": "Pointer to the positions where the string will be drawn"
+        },
+        {
+          "name": "flags",
+          "type": "INT",
+          "description": "Flags for controlling the drawing of the string"
+        },
+        {
+          "name": "matrix",
+          "type": "GDIPCONST GpMatrix *",
+          "description": "Pointer to the matrix for transforming the string"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, whether it was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_FillRegion",
+      "description": "This function fills a region in a metafile with a specified brush. It supports only EmfPlusOnly and EmfPlusDual metafile types and handles both inline color and brush object scenarios.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile where the region will be filled"
+        },
+        {
+          "name": "brush",
+          "type": "GpBrush*",
+          "description": "Pointer to the brush that will be used to fill the region"
+        },
+        {
+          "name": "region",
+          "type": "GpRegion*",
+          "description": "Pointer to the region that will be filled"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'NotImplemented' if the metafile type is not supported, or other status codes if errors occur during the operation"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_DrawRectangles",
+      "description": "This function draws rectangles on a metafile using a specified pen. It checks if the rectangles are integer rectangles and allocates record for them. It then writes the records to the metafile.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "Pointer to the metafile where rectangles will be drawn"
+        },
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "Pointer to the pen used to draw rectangles"
+        },
+        {
+          "name": "rects",
+          "type": "GpRectF *",
+          "description": "Pointer to the rectangles that will be drawn"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of rectangles to be drawn"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, otherwise returns the error status"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_DrawArc",
+      "description": "This function is used to draw an arc in a metafile. It checks the type of the metafile, adds a pen object, checks if the rectangle is an integer, allocates a record, sets the header flags, start angle, sweep angle, and rectangle data, writes the records, and returns the status.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "Pointer to the metafile where the arc is to be drawn"
+        },
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "Pointer to the pen object used to draw the arc"
+        },
+        {
+          "name": "rect",
+          "type": "GpRectF *",
+          "description": "Pointer to the rectangle that defines the ellipse from which the arc is drawn"
+        },
+        {
+          "name": "startAngle",
+          "type": "REAL",
+          "description": "The starting angle of the arc"
+        },
+        {
+          "name": "sweepAngle",
+          "type": "REAL",
+          "description": "The sweep angle of the arc"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, whether it was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_OffsetClip",
+      "description": "This function offsets the clip region in a metafile by a specified amount.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "Pointer to the metafile where the clip region is to be offset."
+        },
+        {
+          "name": "dx",
+          "type": "REAL",
+          "description": "The amount to offset the clip region in the x-direction."
+        },
+        {
+          "name": "dy",
+          "type": "REAL",
+          "description": "The amount to offset the clip region in the y-direction."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'NotImplemented' if the metafile type is MetafileTypeEmf, and the status of the record allocation if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_ResetClip",
+      "description": "This function is used to reset the clip of a metafile. If the metafile type is Emf, it returns NotImplemented. Otherwise, it allocates a record for the metafile, writes the records, and returns Ok.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "This is a pointer to the metafile that the clip is to be reset for."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can return Ok if the operation is successful, NotImplemented if the metafile type is Emf, or other status codes if there are errors."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_SetClipPath",
+      "description": "This function sets the clipping path for a metafile. If the metafile type is MetafileTypeEmf, it returns NotImplemented. Otherwise, it adds a path object to the metafile, allocates a record for the path, sets the record's flags, writes the records to the metafile, and returns Ok.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile *",
+          "description": "Pointer to the metafile where the clipping path will be set"
+        },
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path to be set as the clipping path"
+        },
+        {
+          "name": "mode",
+          "type": "CombineMode",
+          "description": "Mode to be used when combining the new path with the existing one"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can be Ok if the operation is successful, NotImplemented if the metafile type is MetafileTypeEmf, or any error status if an error occurs."
+    }
+  },
+  {
+    "function": {
+      "name": "METAFILE_SetRenderingOrigin",
+      "description": "This function sets the rendering origin for a given metafile. If the metafile type is MetafileTypeEmf, it returns NotImplemented. Otherwise, it allocates a record for the metafile, sets the x and y coordinates, writes the records, and returns Ok.",
+      "parameters": [
+        {
+          "name": "metafile",
+          "type": "GpMetafile*",
+          "description": "Pointer to the metafile whose rendering origin is to be set"
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the new rendering origin"
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the new rendering origin"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns NotImplemented if the metafile type is MetafileTypeEmf, otherwise returns Ok if the operation is successful or an error status if it fails"
+    }
+  }
+]

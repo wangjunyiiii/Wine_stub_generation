@@ -1,0 +1,1826 @@
+[
+  {
+    "function": {
+      "name": "rgb565_to_argb",
+      "description": "This function converts a RGB565 color value to an ARGB color value.",
+      "parameters": [
+        {
+          "name": "color",
+          "type": "WORD",
+          "description": "This parameter represents the RGB565 color value."
+        },
+        {
+          "name": "alpha",
+          "type": "BYTE",
+          "description": "This parameter represents the alpha value for the ARGB color."
+        }
+      ],
+      "return_type": "DWORD, represents the ARGB color value."
+    }
+  },
+  {
+    "function": {
+      "name": "has_extended_header",
+      "description": "This function checks if the given header has an extended header by checking the flags and fourCC of the header.",
+      "parameters": [
+        {
+          "name": "header",
+          "type": "DDS_HEADER *",
+          "description": "This is a pointer to the DDS_HEADER structure that is to be checked for an extended header."
+        }
+      ],
+      "return_type": "BOOL, returns true if the header has an extended header, otherwise false."
+    }
+  },
+  {
+    "function": {
+      "name": "get_dimension",
+      "description": "This function determines the dimension of a DDS texture based on the provided headers. It checks the flags and resource dimensions in the headers to return the appropriate WICDdsDimension value.",
+      "parameters": [
+        {
+          "name": "header",
+          "type": "DDS_HEADER*",
+          "description": "Pointer to a DDS_HEADER structure. This parameter is used to check the caps2 flags if the header_dxt10 parameter is null."
+        },
+        {
+          "name": "header_dxt10",
+          "type": "DDS_HEADER_DXT10*",
+          "description": "Pointer to a DDS_HEADER_DXT10 structure. This parameter is used to check the miscFlag and resourceDimension if it is not null."
+        }
+      ],
+      "return_type": "WICDdsDimension. This represents the dimension of the DDS texture, which can be a 1D, 2D, 3D texture, or a texture cube."
+    }
+  },
+  {
+    "function": {
+      "name": "get_dds_format",
+      "description": "This function iterates over the 'dds_format_table' array and returns the pointer to the element that matches the given 'pixel_format'. If no match is found, it returns the pointer to the last element in the 'dds_format_table'.",
+      "parameters": [
+        {
+          "name": "pixel_format",
+          "type": "DDS_PIXELFORMAT *",
+          "description": "Pointer to a DDS_PIXELFORMAT structure that contains the pixel format to be matched."
+        }
+      ],
+      "return_type": "struct dds_format *; Represents a pointer to a 'dds_format' structure in the 'dds_format_table' that matches the given 'pixel_format'. If no match is found, it points to the last element in the 'dds_format_table'."
+    }
+  },
+  {
+    "function": {
+      "name": "get_alpha_mode_from_fourcc",
+      "description": "This function returns the alpha mode based on the fourcc code provided. It uses a switch case to determine the alpha mode.",
+      "parameters": [
+        {
+          "name": "fourcc",
+          "type": "DWORD",
+          "description": "This parameter represents the fourcc code used to determine the alpha mode."
+        }
+      ],
+      "return_type": "WICDdsAlphaMode, which represents the alpha mode determined by the fourcc code."
+    }
+  },
+  {
+    "function": {
+      "name": "get_bytes_per_block_from_format",
+      "description": "This function returns the number of bytes per pixel for a given DXGI_FORMAT format. It uses a switch statement to determine the number of bytes based on the format type.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "DXGI_FORMAT",
+          "description": "This parameter represents the DXGI_FORMAT format for which the number of bytes per pixel is to be determined."
+        }
+      ],
+      "return_type": "UINT, represents the number of bytes per pixel for the given DXGI_FORMAT format."
+    }
+  },
+  {
+    "function": {
+      "name": "get_frame_count",
+      "description": "This function calculates the frame count based on the depth, mip_levels, array_size, and dimension.",
+      "parameters": [
+        {
+          "name": "depth",
+          "type": "UINT",
+          "description": "Represents the depth of the frame."
+        },
+        {
+          "name": "mip_levels",
+          "type": "UINT",
+          "description": "Represents the mip levels of the frame."
+        },
+        {
+          "name": "array_size",
+          "type": "UINT",
+          "description": "Represents the size of the array."
+        },
+        {
+          "name": "dimension",
+          "type": "WICDdsDimension",
+          "description": "Represents the dimension of the frame."
+        }
+      ],
+      "return_type": "UINT, represents the calculated frame count."
+    }
+  },
+  {
+    "function": {
+      "name": "get_frame_dds_index",
+      "description": "This function calculates the array index, mip level, and slice index for a given frame in a DDS texture.",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "The index of the frame in the DDS texture."
+        },
+        {
+          "name": "info",
+          "type": "dds_info*",
+          "description": "A pointer to a structure containing information about the DDS texture."
+        },
+        {
+          "name": "array_index",
+          "type": "UINT*",
+          "description": "A pointer to a variable where the function will store the calculated array index."
+        },
+        {
+          "name": "mip_level",
+          "type": "UINT*",
+          "description": "A pointer to a variable where the function will store the calculated mip level."
+        },
+        {
+          "name": "slice_index",
+          "type": "UINT*",
+          "description": "A pointer to a variable where the function will store the calculated slice index."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but instead modifies the variables pointed to by the array_index, mip_level, and slice_index parameters."
+    }
+  },
+  {
+    "function": {
+      "name": "dxgi_format_to_wic_format",
+      "description": "This function converts a DXGI format to a WIC format by iterating over a predefined format table until it finds a match, and returns the corresponding WIC format. If no match is found, it returns an undefined WIC pixel format.",
+      "parameters": [
+        {
+          "name": "dxgi_format",
+          "type": "DXGI_FORMAT",
+          "description": "The DXGI format to be converted to a WIC format."
+        }
+      ],
+      "return_type": "GUID, represents the WIC format corresponding to the input DXGI format, or an undefined WIC pixel format if no match is found."
+    }
+  },
+  {
+    "function": {
+      "name": "is_compressed",
+      "description": "This function checks if the given format is in the list of compressed formats.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "DXGI_FORMAT",
+          "description": "This parameter represents the format to be checked."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the format is in the list of compressed formats, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "get_dds_info",
+      "description": "This function populates the dds_info structure with information extracted from the DDS_HEADER and DDS_HEADER_DXT10 structures. It handles different scenarios based on whether the header has an extended header or not, and sets the appropriate values for format, dimension, alpha mode, data offset, pixel format, pixel format bpp, bytes per block, and frame count.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "dds_info*",
+          "description": "Pointer to the dds_info structure to be populated with the extracted information"
+        },
+        {
+          "name": "header",
+          "type": "DDS_HEADER*",
+          "description": "Pointer to the DDS_HEADER structure from which information is to be extracted"
+        },
+        {
+          "name": "header_dxt10",
+          "type": "DDS_HEADER_DXT10*",
+          "description": "Pointer to the DDS_HEADER_DXT10 structure from which information is to be extracted if the header has an extended header"
+        }
+      ],
+      "return_type": "void, as this function does not return any value but modifies the dds_info structure passed as a parameter"
+    }
+  },
+  {
+    "function": {
+      "name": "decode_block",
+      "description": "This function decodes a block of data based on the specified format, width, and height, and stores the result in a buffer.",
+      "parameters": [
+        {
+          "name": "block_data",
+          "type": "BYTE *",
+          "description": "Pointer to the block of data to be decoded."
+        },
+        {
+          "name": "block_count",
+          "type": "UINT",
+          "description": "The number of blocks to be decoded."
+        },
+        {
+          "name": "format",
+          "type": "DXGI_FORMAT",
+          "description": "The format of the data to be decoded."
+        },
+        {
+          "name": "width",
+          "type": "UINT",
+          "description": "The width of the block of data."
+        },
+        {
+          "name": "height",
+          "type": "UINT",
+          "description": "The height of the block of data."
+        },
+        {
+          "name": "buffer",
+          "type": "DWORD *",
+          "description": "Pointer to the buffer where the decoded data will be stored."
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IWICBitmapDecoder",
+      "description": "This function returns a pointer to a DdsDecoder structure that contains the given IWICBitmapDecoder interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to an IWICBitmapDecoder interface"
+        }
+      ],
+      "return_type": "DdsDecoder *: Pointer to a DdsDecoder structure that contains the given IWICBitmapDecoder interface"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IWICDdsDecoder",
+      "description": "This function returns a pointer to a DdsDecoder structure that contains the given IWICDdsDecoder interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsDecoder *",
+          "description": "Pointer to an IWICDdsDecoder interface"
+        }
+      ],
+      "return_type": "DdsDecoder *; Pointer to a DdsDecoder structure"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IWICBitmapFrameDecode",
+      "description": "This function returns a pointer to a DdsFrameDecode structure that contains the given IWICBitmapFrameDecode interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Pointer to an IWICBitmapFrameDecode interface"
+        }
+      ],
+      "return_type": "DdsFrameDecode *: Pointer to a DdsFrameDecode structure that contains the given IWICBitmapFrameDecode interface"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IWICDdsFrameDecode",
+      "description": "This function returns a pointer to a DdsFrameDecode structure that contains the given IWICDdsFrameDecode interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsFrameDecode*",
+          "description": "Pointer to an IWICDdsFrameDecode interface"
+        }
+      ],
+      "return_type": "DdsFrameDecode* - Pointer to a DdsFrameDecode structure that contains the given IWICDdsFrameDecode interface"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IWICBitmapEncoder",
+      "description": "This function returns a pointer to a DdsEncoder structure that contains the specified IWICBitmapEncoder interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to an IWICBitmapEncoder interface"
+        }
+      ],
+      "return_type": "DdsEncoder * - Pointer to a DdsEncoder structure that contains the IWICBitmapEncoder interface"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IWICDdsEncoder",
+      "description": "This function returns a pointer to a DdsEncoder structure that contains the given IWICDdsEncoder interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsEncoder *",
+          "description": "Pointer to an IWICDdsEncoder interface"
+        }
+      ],
+      "return_type": "DdsEncoder *, a pointer to a DdsEncoder structure"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IWICBitmapFrameEncode",
+      "description": "This function returns a pointer to a DdsFrameEncode structure that contains the given IWICBitmapFrameEncode interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to an IWICBitmapFrameEncode interface"
+        }
+      ],
+      "return_type": "DdsFrameEncode *; Represents a pointer to a DdsFrameEncode structure that contains the given IWICBitmapFrameEncode interface"
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameDecode_QueryInterface",
+      "description": "This function checks if the provided interface supports the requested interface ID (IID). If it does, it returns a pointer to that interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Pointer to the interface that is being queried."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "The identifier of the interface being requested."
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Pointer to the location where the interface pointer will be stored if the requested interface is supported."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the interface is supported, E_NOINTERFACE if it is not, and E_INVALIDARG if the ppv parameter is null."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameDecode_AddRef",
+      "description": "This function increments the reference count of a DdsFrameDecode object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "This parameter is a pointer to an IWICBitmapFrameDecode interface."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after incrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameDecode_Release",
+      "description": "This function releases the resources associated with a DdsFrameDecode object when its reference count reaches zero.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Pointer to the IWICBitmapFrameDecode interface of the DdsFrameDecode object to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the DdsFrameDecode object after it has been decremented."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameDecode_GetSize",
+      "description": "This function retrieves the width and height of a DDS frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Pointer to the IWICBitmapFrameDecode interface"
+        },
+        {
+          "name": "puiWidth",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the width of the DDS frame"
+        },
+        {
+          "name": "puiHeight",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the height of the DDS frame"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error value otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameDecode_GetPixelFormat",
+      "description": "This function retrieves the pixel format of a DDS frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Pointer to an interface for decoding bitmap frames."
+        },
+        {
+          "name": "pPixelFormat",
+          "type": "WICPixelFormatGUID *",
+          "description": "Pointer to a GUID variable that receives the pixel format of the DDS frame."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error code if not."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameDecode_GetResolution",
+      "description": "This function is a stub and not yet implemented. It is expected to get the resolution of a DDS frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Interface pointer to a bitmap frame decode object"
+        },
+        {
+          "name": "pDpiX",
+          "type": "double *",
+          "description": "Pointer to a double for the horizontal resolution (DPI)"
+        },
+        {
+          "name": "pDpiY",
+          "type": "double *",
+          "description": "Pointer to a double for the vertical resolution (DPI)"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameDecode_CopyPalette",
+      "description": "This function is a stub and not yet implemented. It is intended to copy a palette from a bitmap frame decode interface to a given palette interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "This is a pointer to a bitmap frame decode interface from which the palette is to be copied."
+        },
+        {
+          "name": "pIPalette",
+          "type": "IWICPalette *",
+          "description": "This is a pointer to a palette interface where the palette is to be copied."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameDecode_CopyPixels",
+      "description": "This function decodes and copies pixels from a DDS frame. It performs error checking on the input parameters, calculates the frame stride and size, and then copies the pixel data into the provided buffer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Pointer to the interface of the bitmap frame to decode."
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to the rectangle structure that specifies the portion of the bitmap to copy."
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "The stride, or pitch, of the bitmap. This is the number of bytes from one row of pixels in memory to the next row of pixels in memory."
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "The size of the buffer to hold the copied pixels."
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer that will receive the copied pixels."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns standard error codes like E_INVALIDARG, WINCODEC_ERR_UNSUPPORTEDPIXELFORMAT, WINCODEC_ERR_INSUFFICIENTBUFFER, and E_OUTOFMEMORY."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameDecode_GetMetadataQueryReader",
+      "description": "This function is a stub and not yet implemented. It is intended to get the metadata query reader from a DDS frame decode interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Pointer to an instance of a DDS frame decode interface."
+        },
+        {
+          "name": "ppIMetadataQueryReader",
+          "type": "IWICMetadataQueryReader **",
+          "description": "Double pointer to a metadata query reader interface."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameDecode_GetColorContexts",
+      "description": "This function is a stub, intended to be implemented in the future. It currently returns an error code indicating that the function is not implemented.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Interface pointer to a bitmap frame decode object"
+        },
+        {
+          "name": "cCount",
+          "type": "UINT",
+          "description": "Count of color contexts"
+        },
+        {
+          "name": "ppIColorContexts",
+          "type": "IWICColorContext **",
+          "description": "Pointer to an array of color context interfaces"
+        },
+        {
+          "name": "pcActualCount",
+          "type": "UINT *",
+          "description": "Pointer to the actual count of color contexts"
+        }
+      ],
+      "return_type": "HRESULT, which is a data type used in Windows to represent error conditions, and warning, informational, or success messages. In this case, it returns E_NOTIMPL, indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameDecode_GetThumbnail",
+      "description": "This function is a stub, intended to be implemented in the future. Currently, it does not perform any operation.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Pointer to an interface used for decoding bitmap frames."
+        },
+        {
+          "name": "ppIThumbnail",
+          "type": "IWICBitmapSource **",
+          "description": "Double pointer to a bitmap source interface, intended to be used for thumbnail generation."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Currently, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameDecode_Dds_QueryInterface",
+      "description": "This function is used to decode a DDS frame and query the interface of the decoded frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsFrameDecode *",
+          "description": "This is an interface pointer to the DDS frame to be decoded."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "This is the reference to the interface identifier to be queried."
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "This is a pointer to the pointer of the interface to be queried."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation is successful, it will return S_OK. Otherwise, it will return an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameDecode_Dds_AddRef",
+      "description": "This function is used to increase the reference count of a DdsFrameDecode object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsFrameDecode *",
+          "description": "This is a pointer to the interface of the DdsFrameDecode object whose reference count is to be increased."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the DdsFrameDecode object."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameDecode_Dds_Release",
+      "description": "This function releases the DdsFrameDecode object and returns the result of the release operation.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsFrameDecode *",
+          "description": "This is an interface pointer to the DdsFrameDecode object."
+        }
+      ],
+      "return_type": "ULONG, represents the result of the release operation."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameDecode_Dds_GetSizeInBlocks",
+      "description": "This function retrieves the width and height in blocks of a DDS frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsFrameDecode *",
+          "description": "Interface pointer to a DDS frame decode object."
+        },
+        {
+          "name": "widthInBlocks",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the width in blocks of the DDS frame."
+        },
+        {
+          "name": "heightInBlocks",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the height in blocks of the DDS frame."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK on success, or an error code on failure."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameDecode_Dds_GetFormatInfo",
+      "description": "This function retrieves the format information from a DDS frame decode interface and assigns it to a WICDdsFormatInfo structure.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsFrameDecode *",
+          "description": "Pointer to the DDS frame decode interface from which the format information is retrieved."
+        },
+        {
+          "name": "formatInfo",
+          "type": "WICDdsFormatInfo *",
+          "description": "Pointer to the WICDdsFormatInfo structure where the retrieved format information is stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, otherwise returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameDecode_Dds_CopyBlocks",
+      "description": "This function decodes DDS frames and copies blocks of data from the source buffer to the destination buffer. It checks for valid arguments and then calls the copy_pixels function to perform the actual copying.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsFrameDecode *",
+          "description": "Interface pointer to the DDS frame decoder"
+        },
+        {
+          "name": "boundsInBlocks",
+          "type": "WICRect *",
+          "description": "Pointer to a structure that specifies the rectangular area of the block to copy"
+        },
+        {
+          "name": "stride",
+          "type": "UINT",
+          "description": "The stride, or pitch, of the destination bitmap"
+        },
+        {
+          "name": "bufferSize",
+          "type": "UINT",
+          "description": "The size of the buffer that receives the block data"
+        },
+        {
+          "name": "buffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer that receives the block data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If the function fails, it returns an error code, such as E_INVALIDARG if an argument is not valid."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameDecode_CreateInstance",
+      "description": "This function creates an instance of DdsFrameDecode, initializes it, and assigns it to the provided pointer.",
+      "parameters": [
+        {
+          "name": "frame_decode",
+          "type": "DdsFrameDecode**",
+          "description": "A pointer to a pointer to a DdsFrameDecode object. The function will allocate memory for a new DdsFrameDecode object and assign the address to this pointer."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and E_OUTOFMEMORY if the memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_QueryInterface",
+      "description": "This function is used to query the interfaces supported by the DdsDecoder. If the requested interface is supported, the function will return a pointer to that interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder*",
+          "description": "Pointer to the IWICBitmapDecoder interface of the DdsDecoder"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being queried"
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to a pointer that receives the interface pointer requested in iid. If the DdsDecoder does not support the interface, ppv will be set to NULL."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the interface is supported, E_NOINTERFACE if not supported, and E_INVALIDARG if ppv is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_AddRef",
+      "description": "This function increments the reference count of the DdsDecoder object and returns the updated reference count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "This is a pointer to the IWICBitmapDecoder interface of the DdsDecoder object."
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count of the DdsDecoder object."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_Release",
+      "description": "This function releases the DdsDecoder object and decrements its reference count. If the reference count reaches zero, it deletes the critical section, releases the stream if it exists, and frees the memory allocated to the DdsDecoder object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "This parameter is a pointer to the IWICBitmapDecoder interface of the DdsDecoder object."
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count of the DdsDecoder object after decrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_QueryCapability",
+      "description": "This function is a stub and not yet implemented. It is expected to query the capability of a DDS decoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder*",
+          "description": "Pointer to an interface of a Windows Imaging Component (WIC) bitmap decoder."
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "Pointer to the stream from which the image is to be decoded."
+        },
+        {
+          "name": "capability",
+          "type": "DWORD*",
+          "description": "Pointer to a variable that receives the capabilities of the decoder."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_Initialize",
+      "description": "This function initializes a DDS decoder with a given stream and cache options. It reads the stream to validate and extract the DDS header information, and sets up the decoder accordingly.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder*",
+          "description": "Pointer to the interface of the bitmap decoder to be initialized"
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "Pointer to the stream that contains the DDS image data"
+        },
+        {
+          "name": "cacheOptions",
+          "type": "WICDecodeOptions",
+          "description": "Options for how the image data should be cached during decoding"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK on success, and an error code on failure"
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_GetContainerFormat",
+      "description": "This function copies the GUID of the DDS container format to the provided GUID pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to an IWICBitmapDecoder interface."
+        },
+        {
+          "name": "pguidContainerFormat",
+          "type": "GUID *",
+          "description": "Pointer to a GUID variable where the container format GUID will be copied."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_GetDecoderInfo",
+      "description": "This function retrieves information about the DDS decoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to the IWICBitmapDecoder interface."
+        },
+        {
+          "name": "ppIDecoderInfo",
+          "type": "IWICBitmapDecoderInfo **",
+          "description": "Address of a pointer to receive the IWICBitmapDecoderInfo interface."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, it returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_CopyPalette",
+      "description": "This function is used to copy the palette but it always returns an error indicating that the palette is unavailable.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "This is a pointer to an interface of a bitmap decoder."
+        },
+        {
+          "name": "pIPalette",
+          "type": "IWICPalette *",
+          "description": "This is a pointer to the palette that is to be copied."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. In this case, it always returns WINCODEC_ERR_PALETTEUNAVAILABLE indicating that the palette is unavailable."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_GetMetadataQueryReader",
+      "description": "This function is used to get the metadata query reader from a DDS decoder. Currently, it is not implemented and returns an error if the metadata query reader pointer is null.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "This is a pointer to the DDS decoder interface."
+        },
+        {
+          "name": "ppIMetadataQueryReader",
+          "type": "IWICMetadataQueryReader **",
+          "description": "This is a pointer to a pointer to the metadata query reader. The function will fill this with the metadata query reader if it is successful."
+        }
+      ],
+      "return_type": "HRESULT, which is a type used to represent error codes. It will return E_INVALIDARG if the metadata query reader pointer is null, and E_NOTIMPL since the function is not yet implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_GetPreview",
+      "description": "This function is used to get a preview of a DDS Decoder. However, it currently returns an unsupported operation error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "This is an interface to the bitmap decoder."
+        },
+        {
+          "name": "ppIBitmapSource",
+          "type": "IWICBitmapSource **",
+          "description": "This is a pointer to a pointer to a bitmap source."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. In this case, it always returns WINCODEC_ERR_UNSUPPORTEDOPERATION, indicating that the operation is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_GetColorContexts",
+      "description": "This function is used to get color contexts from a DDS decoder. However, it is not implemented and always returns an error code indicating unsupported operation.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to an interface of a bitmap decoder"
+        },
+        {
+          "name": "cCount",
+          "type": "UINT",
+          "description": "The count of color contexts to get"
+        },
+        {
+          "name": "ppDdslorContexts",
+          "type": "IWICColorContext **",
+          "description": "Pointer to a pointer to a color context"
+        },
+        {
+          "name": "pcActualCount",
+          "type": "UINT *",
+          "description": "Pointer to the actual count of color contexts"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns WINCODEC_ERR_UNSUPPORTEDOPERATION indicating that the operation is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_GetThumbnail",
+      "description": "This function is used to get the thumbnail from a DDS decoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "This is an interface pointer to the bitmap decoder."
+        },
+        {
+          "name": "ppIThumbnail",
+          "type": "IWICBitmapSource **",
+          "description": "This is a pointer to a pointer to the bitmap source for the thumbnail."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it returns WINCODEC_ERR_CODECNOTHUMBNAIL indicating that the codec does not support thumbnail generation."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_GetFrameCount",
+      "description": "This function retrieves the frame count from a DDS decoder.",
+      "parameters": [
+        {
+          "name": "IWICBitmapDecoder *iface",
+          "type": "pointer",
+          "description": "This is a pointer to the interface of the Bitmap Decoder."
+        },
+        {
+          "name": "UINT *pCount",
+          "type": "pointer",
+          "description": "This is a pointer to an unsigned integer where the frame count will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation was successful, E_INVALIDARG if the pCount is NULL, and WINCODEC_ERR_WRONGSTATE if the decoder is not initialized."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_GetFrame",
+      "description": "This function retrieves a specific frame from a DDS decoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to an IWICBitmapDecoder interface."
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "The index of the frame to retrieve."
+        },
+        {
+          "name": "ppIBitmapFrame",
+          "type": "IWICBitmapFrameDecode **",
+          "description": "Pointer to a pointer to an IWICBitmapFrameDecode interface, which receives the requested frame."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, it returns S_OK. If the ppIBitmapFrame parameter is NULL, it returns E_INVALIDARG. If the decoder is not initialized, it returns WINCODEC_ERR_WRONGSTATE."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_Dds_QueryInterface",
+      "description": "This function queries the interface of a DDS decoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsDecoder*",
+          "description": "Pointer to the DDS decoder interface"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier"
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to the pointer of the interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_Dds_AddRef",
+      "description": "This function adds a reference to a DdsDecoder object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsDecoder *",
+          "description": "This is a pointer to an IWICDdsDecoder interface."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the DdsDecoder object."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_Dds_Release",
+      "description": "This function releases the DdsDecoder object and returns the status of the operation.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsDecoder *",
+          "description": "This is a pointer to the IWICDdsDecoder interface."
+        }
+      ],
+      "return_type": "ULONG, represents the status of the release operation."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_Dds_GetParameters",
+      "description": "This function retrieves the parameters of a DDS decoder. It checks if the decoder is initialized and if the parameters pointer is not null. If these conditions are met, it assigns the decoder's parameters to the provided parameters structure and returns S_OK. If not, it returns an error code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsDecoder*",
+          "description": "Pointer to the interface of the DDS decoder."
+        },
+        {
+          "name": "parameters",
+          "type": "WICDdsParameters*",
+          "description": "Pointer to the structure where the parameters of the DDS decoder will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, WINCODEC_ERR_WRONGSTATE if the decoder is not initialized, or E_INVALIDARG if the parameters pointer is null."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_Dds_GetFrame",
+      "description": "This function retrieves a specific frame from a DDS texture. It checks the validity of the input parameters, calculates the dimensions and size of the frame, creates a new frame instance, reads the frame data from the stream, and returns the frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsDecoder *",
+          "description": "Pointer to the DDS decoder interface"
+        },
+        {
+          "name": "arrayIndex",
+          "type": "UINT",
+          "description": "Index of the array element to retrieve"
+        },
+        {
+          "name": "mipLevel",
+          "type": "UINT",
+          "description": "Mipmap level to retrieve"
+        },
+        {
+          "name": "sliceIndex",
+          "type": "UINT",
+          "description": "Index of the slice to retrieve"
+        },
+        {
+          "name": "bitmapFrame",
+          "type": "IWICBitmapFrameDecode **",
+          "description": "Pointer to a pointer to receive the bitmap frame decode interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the input parameters are invalid, WINCODEC_ERR_WRONGSTATE if the decoder is not initialized, or WINCODEC_ERR_STREAMREAD if there is an error reading from the stream"
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameEncode_QueryInterface",
+      "description": "This function checks if the provided interface supports the specified interface ID (IID). If it does, it returns a pointer to that interface; otherwise, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to the interface to be queried"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Identifier of the interface being queried"
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Pointer to the location where the interface pointer will be stored if the interface is supported"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the interface is supported, E_NOINTERFACE if it is not, and E_INVALIDARG if the ppv argument is NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameEncode_AddRef",
+      "description": "This function increments the reference count of a DdsFrameEncode object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This parameter is a pointer to an IWICBitmapFrameEncode interface."
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count of the DdsFrameEncode object."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameEncode_Release",
+      "description": "This function releases the DdsFrameEncode object and decrements the reference count. If the reference count is zero, it releases the associated IWICBitmapEncoder object and frees the memory allocated for the DdsFrameEncode object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to an IWICBitmapFrameEncode interface that is used to access the DdsFrameEncode object."
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count of the DdsFrameEncode object."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameEncode_Initialize",
+      "description": "This function initializes a DDS frame for encoding. It checks if the frame is already initialized, if not, it sets the initialized flag to TRUE and returns S_OK. If the frame is already initialized, it returns an error code WINCODEC_ERR_WRONGSTATE. It also checks if encoder options are provided, if so, it logs a message that encoder options are not supported for DDS.",
+      "parameters": [
+        {
+          "name": "IWICBitmapFrameEncode *iface",
+          "type": "pointer",
+          "description": "This parameter is a pointer to the interface for the bitmap frame that is to be encoded."
+        },
+        {
+          "name": "IPropertyBag2 *encoderOptions",
+          "type": "pointer",
+          "description": "This parameter is a pointer to the encoder options. However, note that encoder options are not supported for DDS."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the frame was successfully initialized, and WINCODEC_ERR_WRONGSTATE if the frame was already initialized."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameEncode_SetSize",
+      "description": "This function sets the width and height of a DDS frame. It first checks if the frame is initialized and not created. If these conditions are met, it sets the width and height and returns S_OK. Otherwise, it returns an error code.",
+      "parameters": [
+        {
+          "name": "IWICBitmapFrameEncode *iface",
+          "type": "pointer",
+          "description": "Pointer to the interface of the bitmap frame to be encoded"
+        },
+        {
+          "name": "UINT width",
+          "type": "unsigned integer",
+          "description": "The width to set for the DDS frame"
+        },
+        {
+          "name": "UINT height",
+          "type": "unsigned integer",
+          "description": "The height to set for the DDS frame"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameEncode_SetResolution",
+      "description": "This function sets the resolution for a DDS frame encode object. It first checks if the object is initialized and if the frame is created. If not, it returns an error. Otherwise, it sets the dpi_x and dpi_y properties of the object and returns a success status.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to the DDS frame encode object"
+        },
+        {
+          "name": "dpiX",
+          "type": "double",
+          "description": "The horizontal resolution to set"
+        },
+        {
+          "name": "dpiY",
+          "type": "double",
+          "description": "The vertical resolution to set"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK on success and WINCODEC_ERR_WRONGSTATE if the object is not in the correct state for the operation"
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameEncode_SetPixelFormat",
+      "description": "This function sets the pixel format for a DDS frame. It first checks if the frame is initialized and not created. If these conditions are met, it sets the pixel format to GUID_WICPixelFormat32bppBGRA and returns S_OK. Otherwise, it returns an error code.",
+      "parameters": [
+        {
+          "name": "IWICBitmapFrameEncode *iface",
+          "type": "pointer",
+          "description": "This is an interface pointer to the bitmap frame that needs to be encoded."
+        },
+        {
+          "name": "WICPixelFormatGUID *pixelFormat",
+          "type": "pointer",
+          "description": "This is a pointer to the GUID of the pixel format to be set."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, WINCODEC_ERR_NOTINITIALIZED if the frame is not initialized, and WINCODEC_ERR_WRONGSTATE if the frame is already created."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameEncode_SetColorContexts",
+      "description": "This function is a stub and not yet implemented. It is intended to set color contexts for a DDS frame encode.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to an interface for bitmap frame encoding"
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of color contexts to set"
+        },
+        {
+          "name": "colorContext",
+          "type": "IWICColorContext **",
+          "description": "Pointer to the color context to set"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. In this case, it always returns E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameEncode_SetPalette",
+      "description": "This function is a stub and not yet implemented. It is intended to set the palette for a bitmap frame encode interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is a pointer to a bitmap frame encode interface."
+        },
+        {
+          "name": "palette",
+          "type": "IWICPalette *",
+          "description": "This is a pointer to a palette."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameEncode_SetThumbnail",
+      "description": "This function sets the thumbnail for a DDS frame encode interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is the DDS frame encode interface."
+        },
+        {
+          "name": "thumbnail",
+          "type": "IWICBitmapSource *",
+          "description": "This is the thumbnail to be set."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns WINCODEC_ERR_UNSUPPORTEDOPERATION indicating the operation is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameEncode_WritePixels",
+      "description": "This function is a stub and not yet implemented. It is intended to write pixels into a DDS frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "An interface pointer to the bitmap frame encode object"
+        },
+        {
+          "name": "lineCount",
+          "type": "UINT",
+          "description": "The number of lines to write"
+        },
+        {
+          "name": "stride",
+          "type": "UINT",
+          "description": "The stride of the bitmap"
+        },
+        {
+          "name": "bufferSize",
+          "type": "UINT",
+          "description": "The size of the buffer"
+        },
+        {
+          "name": "pixels",
+          "type": "BYTE *",
+          "description": "A pointer to the pixel data to write"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameEncode_WriteSource",
+      "description": "This function is a stub and not yet implemented. It is intended to write a source frame to a DDS file.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Interface used for encoding a bitmap frame"
+        },
+        {
+          "name": "bitmapSource",
+          "type": "IWICBitmapSource *",
+          "description": "The bitmap source to be written"
+        },
+        {
+          "name": "rc",
+          "type": "WICRect *",
+          "description": "A rectangle structure that specifies the portion of the bitmap to write"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameEncode_Commit",
+      "description": "This function is a stub and not yet implemented. It is intended to commit a frame for encoding.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is an interface for a bitmap frame that is to be encoded."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function call. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsFrameEncode_GetMetadataQueryWriter",
+      "description": "This function is a stub and not yet implemented. It is intended to get the metadata query writer from a DDS frame encode interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to the interface of a bitmap frame encode."
+        },
+        {
+          "name": "metadataQueryWriter",
+          "type": "IWICMetadataQueryWriter **",
+          "description": "Double pointer to a metadata query writer."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsDecoder_CreateInstance",
+      "description": "This function creates an instance of a DdsDecoder object, initializes it and queries an interface based on the provided IID.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "The interface identifier to be queried."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to the pointer to the interface that will be returned if the function is successful."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function is successful, it returns S_OK. If the function fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_Dds_QueryInterface",
+      "description": "This function is used to query the interface of a DDS encoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsEncoder*",
+          "description": "Pointer to the DDS encoder interface"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier"
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to the interface pointer to receive the object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_Dds_AddRef",
+      "description": "This function adds a reference to the DdsEncoder object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsEncoder*",
+          "description": "Pointer to the IWICDdsEncoder interface"
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the DdsEncoder object"
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_Dds_Release",
+      "description": "This function releases the DdsEncoder interface and returns the status of the operation.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsEncoder *",
+          "description": "Pointer to the DdsEncoder interface to be released"
+        }
+      ],
+      "return_type": "ULONG, represents the status of the release operation"
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_Dds_SetParameters",
+      "description": "This function sets the parameters for a DDS encoder. It checks if the parameters are valid, enters a critical section, and then updates the encoder's information with the provided parameters. It also calculates the bytes per block and frame count based on the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsEncoder*",
+          "description": "Pointer to the interface of the DDS encoder"
+        },
+        {
+          "name": "parameters",
+          "type": "WICDdsParameters*",
+          "description": "Pointer to the parameters to be set for the DDS encoder"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the parameters are null, and WINCODEC_ERR_WRONGSTATE if the encoder's stream is not initialized."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_Dds_GetParameters",
+      "description": "This function retrieves the parameters of a DDS encoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsEncoder*",
+          "description": "Pointer to an interface of a DDS encoder."
+        },
+        {
+          "name": "parameters",
+          "type": "WICDdsParameters*",
+          "description": "Pointer to a structure to receive the parameters of the DDS encoder."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, an error code otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_Dds_CreateNewFrame",
+      "description": "This function creates a new frame for a DDS encoder. It handles memory allocation, state checking, and index retrieval for the new frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICDdsEncoder*",
+          "description": "Pointer to the DDS encoder interface"
+        },
+        {
+          "name": "frameEncode",
+          "type": "IWICBitmapFrameEncode**",
+          "description": "Pointer to a pointer to a bitmap frame encode interface"
+        },
+        {
+          "name": "arrayIndex",
+          "type": "UINT*",
+          "description": "Pointer to an unsigned integer for the array index"
+        },
+        {
+          "name": "mipLevel",
+          "type": "UINT*",
+          "description": "Pointer to an unsigned integer for the mip level"
+        },
+        {
+          "name": "sliceIndex",
+          "type": "UINT*",
+          "description": "Pointer to an unsigned integer for the slice index"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It can indicate success, failure, or specific error conditions."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_QueryInterface",
+      "description": "This function is used to query the interfaces supported by the DdsEncoder. If the requested interface is supported, the function returns a pointer to that interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to the IWICBitmapEncoder interface of the DdsEncoder."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Identifier of the interface being queried."
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "If the function is successful, this pointer is set to the requested interface."
+        }
+      ],
+      "return_type": "HRESULT, where S_OK indicates success, E_NOINTERFACE indicates that the requested interface is not supported, and E_INVALIDARG indicates that the 'ppv' parameter is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_AddRef",
+      "description": "This function increments the reference count of a DdsEncoder object and returns the new count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is a pointer to the IWICBitmapEncoder interface of the DdsEncoder object."
+        }
+      ],
+      "return_type": "ULONG, which represents the new reference count of the DdsEncoder object."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_Release",
+      "description": "This function releases the DdsEncoder object and decrements the reference count. If the reference count reaches zero, it deletes the critical section, releases the stream if it exists, and frees the memory allocated to the DdsEncoder object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to an IWICBitmapEncoder interface that is used to access the DdsEncoder object"
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after it has been decremented"
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_Initialize",
+      "description": "This function initializes a DDS encoder with a given interface, stream, and cache option. It sets default values for the encoder's properties, checks for invalid arguments and unsupported cache options, and handles potential errors in the encoder's state.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to the interface of the bitmap encoder"
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the stream where the encoded data will be written"
+        },
+        {
+          "name": "cacheOption",
+          "type": "WICBitmapEncoderCacheOption",
+          "description": "Specifies the cache option for the bitmap encoder"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It can return S_OK if the operation is successful, E_INVALIDARG if the stream is null, or WINCODEC_ERR_WRONGSTATE if the encoder's state is incorrect"
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_GetContainerFormat",
+      "description": "This function gets the container format of a DDS encoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to an IWICBitmapEncoder interface"
+        },
+        {
+          "name": "format",
+          "type": "GUID *",
+          "description": "Pointer to a GUID variable where the container format will be copied"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error value otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_GetEncoderInfo",
+      "description": "This function retrieves the encoder information for a DirectDraw Surface (DDS) encoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to an IWICBitmapEncoder interface that represents the encoder."
+        },
+        {
+          "name": "info",
+          "type": "IWICBitmapEncoderInfo **",
+          "description": "Pointer to a pointer to an IWICBitmapEncoderInfo interface that receives the encoder information."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_SetColorContexts",
+      "description": "This function is a stub and not yet implemented. It is expected to set color contexts for a DDS encoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to an interface for a bitmap encoder"
+        },
+        {
+          "name": "cCount",
+          "type": "UINT",
+          "description": "Unsigned integer representing the count of color contexts"
+        },
+        {
+          "name": "ppIColorContext",
+          "type": "IWICColorContext **",
+          "description": "Pointer to a pointer of a color context interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it returns E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_SetPalette",
+      "description": "This function sets the palette for a DDS encoder. It locks the encoder, checks if the stream is initialized, and returns an error code based on the stream's status.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "A pointer to the IWICBitmapEncoder interface that represents the DDS encoder."
+        },
+        {
+          "name": "palette",
+          "type": "IWICPalette *",
+          "description": "A pointer to the IWICPalette interface that represents the palette to be set."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns WINCODEC_ERR_UNSUPPORTEDOPERATION if the stream is initialized, otherwise it returns WINCODEC_ERR_NOTINITIALIZED."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_SetThumbnail",
+      "description": "This function is used to set the thumbnail for a DDS Encoder. However, the operation is unsupported and will always return an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is an interface to the bitmap encoder."
+        },
+        {
+          "name": "pIThumbnail",
+          "type": "IWICBitmapSource *",
+          "description": "This is a pointer to the bitmap source for the thumbnail."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. In this case, it always returns WINCODEC_ERR_UNSUPPORTEDOPERATION indicating that the operation is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_SetPreview",
+      "description": "This function sets the preview for a DDS Encoder. However, the operation is unsupported and will always return an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is an interface to the bitmap encoder."
+        },
+        {
+          "name": "pIPreview",
+          "type": "IWICBitmapSource *",
+          "description": "This is a pointer to the bitmap source for the preview."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. In this case, it always returns WINCODEC_ERR_UNSUPPORTEDOPERATION indicating that the operation is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_CreateNewFrame",
+      "description": "This function creates a new frame for a DirectDraw Surface (DDS) encoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to an interface for a bitmap encoder."
+        },
+        {
+          "name": "frameEncode",
+          "type": "IWICBitmapFrameEncode **",
+          "description": "Pointer to a pointer to an interface for a bitmap frame encoder."
+        },
+        {
+          "name": "encoderOptions",
+          "type": "IPropertyBag2 **",
+          "description": "Pointer to a pointer to a property bag containing encoder options."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_Commit",
+      "description": "This function is a stub and not yet implemented. It is intended to commit the IWICBitmapEncoder interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is a pointer to an IWICBitmapEncoder interface."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_GetMetadataQueryWriter",
+      "description": "This function is currently not implemented and returns an error code indicating this.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to an interface for a bitmap encoder."
+        },
+        {
+          "name": "ppIMetadataQueryWriter",
+          "type": "IWICMetadataQueryWriter **",
+          "description": "Double pointer to an interface for a metadata query writer."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "DdsEncoder_CreateInstance",
+      "description": "This function creates an instance of a DdsEncoder, initializes its properties, and queries an interface based on the provided IID.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "The interface identifier to be queried."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to the location where the queried interface pointer will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If the function fails, it returns an error code."
+    }
+  }
+]

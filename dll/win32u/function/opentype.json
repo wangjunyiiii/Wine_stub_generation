@@ -1,0 +1,355 @@
+[
+  {
+    "function": {
+      "name": "opentype_get_table_ptr",
+      "description": "This function retrieves a pointer to a specific table within a TrueType Collection (TTC) or SFNT font, given the table tag. It also retrieves the size of the table.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "void *",
+          "description": "Pointer to the font data."
+        },
+        {
+          "name": "size",
+          "type": "size_t",
+          "description": "Size of the font data."
+        },
+        {
+          "name": "ttc_sfnt_v1",
+          "type": "struct ttc_sfnt_v1 *",
+          "description": "Pointer to the TTC or SFNT structure."
+        },
+        {
+          "name": "table_tag",
+          "type": "UINT32",
+          "description": "Tag of the table to retrieve."
+        },
+        {
+          "name": "table_ptr",
+          "type": "void **",
+          "description": "Pointer to a variable that receives the pointer to the table."
+        },
+        {
+          "name": "table_size",
+          "type": "UINT32 *",
+          "description": "Pointer to a variable that receives the size of the table."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the table was found and the pointers were set. Returns FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "opentype_get_tt_os2_v1",
+      "description": "This function retrieves a pointer to the 'OS/2' table in a TrueType or OpenType font, and returns whether the operation was successful or not.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "void *",
+          "description": "Pointer to the font data."
+        },
+        {
+          "name": "size",
+          "type": "size_t",
+          "description": "Size of the font data."
+        },
+        {
+          "name": "ttc_sfnt_v1",
+          "type": "struct ttc_sfnt_v1 *",
+          "description": "Pointer to the 'sfnt' structure that describes the font."
+        },
+        {
+          "name": "tt_os2_v1",
+          "type": "struct tt_os2_v1 **",
+          "description": "Pointer to a pointer that will be set to the location of the 'OS/2' table."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation was successful, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "opentype_get_tt_head",
+      "description": "This function gets the TrueType font header from the OpenType font data.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "void *",
+          "description": "Pointer to the OpenType font data."
+        },
+        {
+          "name": "size",
+          "type": "size_t",
+          "description": "Size of the OpenType font data."
+        },
+        {
+          "name": "ttc_sfnt_v1",
+          "type": "struct ttc_sfnt_v1 *",
+          "description": "Pointer to the TTC_SFNT_V1 structure that contains information about the font."
+        },
+        {
+          "name": "tt_head",
+          "type": "struct tt_head **",
+          "description": "Pointer to a pointer to a TT_HEAD structure that receives the TrueType font header."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully gets the TrueType font header, otherwise FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "get_name_record_codepage",
+      "description": "This function returns the codepage based on the platform and encoding provided. It uses switch cases to determine the appropriate codepage.",
+      "parameters": [
+        {
+          "name": "platform",
+          "type": "enum OPENTYPE_PLATFORM_ID",
+          "description": "This parameter represents the platform for which the codepage is needed."
+        },
+        {
+          "name": "encoding",
+          "type": "USHORT",
+          "description": "This parameter represents the encoding for which the codepage is needed."
+        }
+      ],
+      "return_type": "UINT, represents the codepage corresponding to the provided platform and encoding."
+    }
+  },
+  {
+    "function": {
+      "name": "get_name_record_langid",
+      "description": "This function returns the language identifier (LANGID) for a given platform, encoding, and language. It handles different platforms and encodings, and provides warnings for invalid or unknown inputs.",
+      "parameters": [
+        {
+          "name": "platform",
+          "type": "enum OPENTYPE_PLATFORM_ID",
+          "description": "The platform for which the LANGID is to be obtained"
+        },
+        {
+          "name": "encoding",
+          "type": "USHORT",
+          "description": "The encoding used on the platform"
+        },
+        {
+          "name": "language",
+          "type": "USHORT",
+          "description": "The language for which the LANGID is to be obtained"
+        }
+      ],
+      "return_type": "LANGID, which represents the language identifier for the given platform, encoding, and language"
+    }
+  },
+  {
+    "function": {
+      "name": "opentype_enum_font_names",
+      "description": "This function enumerates the font names in the OpenType format. It handles different name formats and calls a callback function for each valid name record.",
+      "parameters": [
+        {
+          "name": "header",
+          "type": "struct tt_name_v0 *",
+          "description": "Pointer to the header structure of the OpenType font."
+        },
+        {
+          "name": "platform",
+          "type": "enum OPENTYPE_PLATFORM_ID",
+          "description": "The platform ID for which the font names are to be enumerated."
+        },
+        {
+          "name": "name",
+          "type": "enum OPENTYPE_NAME_ID",
+          "description": "The name ID for which the font names are to be enumerated."
+        },
+        {
+          "name": "callback",
+          "type": "opentype_enum_names_cb",
+          "description": "Callback function that is called for each valid name record."
+        },
+        {
+          "name": "user",
+          "type": "void *",
+          "description": "Pointer to user-defined data that is passed to the callback function."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the enumeration was successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "opentype_get_ttc_sfnt_v1",
+      "description": "This function checks the validity of a font file, verifies its format, and retrieves specific font information.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "void *",
+          "description": "Pointer to the font data."
+        },
+        {
+          "name": "size",
+          "type": "size_t",
+          "description": "Size of the font data."
+        },
+        {
+          "name": "index",
+          "type": "DWORD",
+          "description": "Index of the font to be retrieved."
+        },
+        {
+          "name": "count",
+          "type": "DWORD *",
+          "description": "Pointer to a variable where the number of fonts will be stored."
+        },
+        {
+          "name": "ttc_sfnt_v1",
+          "type": "struct ttc_sfnt_v1 **",
+          "description": "Pointer to a pointer where the retrieved font information will be stored."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation is successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "opentype_get_tt_name_v0",
+      "description": "This function retrieves the pointer to the table of a TrueType font file.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "void *",
+          "description": "Pointer to the data to be processed."
+        },
+        {
+          "name": "size",
+          "type": "size_t",
+          "description": "Size of the data to be processed."
+        },
+        {
+          "name": "ttc_sfnt_v1",
+          "type": "struct ttc_sfnt_v1 *",
+          "description": "Pointer to the structure representing the TrueType Collection (TTC) font file."
+        },
+        {
+          "name": "tt_name_v0",
+          "type": "struct tt_name_v0 **",
+          "description": "Pointer to the pointer of the structure representing the name table of the TrueType font file."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation is successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "opentype_enum_family_names",
+      "description": "This function enumerates font family names for different platforms and returns a boolean value indicating whether the operation was successful or not.",
+      "parameters": [
+        {
+          "name": "header",
+          "type": "struct tt_name_v0 *",
+          "description": "Pointer to the header structure of the font."
+        },
+        {
+          "name": "callback",
+          "type": "opentype_enum_names_cb",
+          "description": "Callback function to be invoked for each enumerated name."
+        },
+        {
+          "name": "user",
+          "type": "void *",
+          "description": "Pointer to user-defined data."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the font family names were successfully enumerated for any platform, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "opentype_enum_style_names",
+      "description": "This function enumerates the style names of a font from different platforms (Windows, Mac, Unicode). If it finds a style name, it returns TRUE, otherwise it returns FALSE.",
+      "parameters": [
+        {
+          "name": "header",
+          "type": "struct tt_name_v0 *",
+          "description": "Pointer to the header structure of the font"
+        },
+        {
+          "name": "callback",
+          "type": "opentype_enum_names_cb",
+          "description": "Callback function to be invoked for each style name found"
+        },
+        {
+          "name": "user",
+          "type": "void *",
+          "description": "Pointer to user-defined data to be passed to the callback function"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if a style name is found, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "opentype_enum_full_names",
+      "description": "This function enumerates full names of the font for different platforms (Windows, Mac, Unicode). If it finds the full name for any platform, it returns TRUE, otherwise FALSE.",
+      "parameters": [
+        {
+          "name": "header",
+          "type": "struct tt_name_v0 *",
+          "description": "Pointer to the header structure of the font"
+        },
+        {
+          "name": "callback",
+          "type": "opentype_enum_names_cb",
+          "description": "Callback function to handle the enumerated names"
+        },
+        {
+          "name": "user",
+          "type": "void *",
+          "description": "Pointer to user data that may be used in the callback function"
+        }
+      ],
+      "return_type": "BOOL, represents whether the full name of the font was found for any platform or not"
+    }
+  },
+  {
+    "function": {
+      "name": "opentype_get_properties",
+      "description": "This function retrieves the properties of an OpenType font.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "void *",
+          "description": "Pointer to the data of the OpenType font."
+        },
+        {
+          "name": "size",
+          "type": "size_t",
+          "description": "Size of the data."
+        },
+        {
+          "name": "ttc_sfnt_v1",
+          "type": "struct ttc_sfnt_v1 *",
+          "description": "Pointer to the TTC_SFNT_V1 structure that contains information about the font."
+        },
+        {
+          "name": "version",
+          "type": "DWORD *",
+          "description": "Pointer to a DWORD that receives the version of the font."
+        },
+        {
+          "name": "fs",
+          "type": "FONTSIGNATURE *",
+          "description": "Pointer to a FONTSIGNATURE structure that receives the font signature."
+        },
+        {
+          "name": "ntm_flags",
+          "type": "DWORD *",
+          "description": "Pointer to a DWORD that receives the flags that indicate the font's characteristics."
+        },
+        {
+          "name": "weight",
+          "type": "UINT *",
+          "description": "Pointer to a UINT that receives the font's weight."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully retrieves the properties of the font, or FALSE otherwise."
+    }
+  }
+]

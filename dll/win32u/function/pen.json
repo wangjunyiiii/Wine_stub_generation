@@ -1,0 +1,176 @@
+[
+  {
+    "function": {
+      "name": "create_pen",
+      "description": "This function creates a pen object with specified style, width, and color. It allocates memory for the pen object, sets its properties, and returns a handle to the pen.",
+      "parameters": [
+        {
+          "name": "style",
+          "type": "INT",
+          "description": "This parameter defines the style of the pen. It can be solid, dash, dot, dashdot, dashdotdot, insideframe or null."
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "This parameter defines the width of the pen. If the style is null, the width is set to 1."
+        },
+        {
+          "name": "color",
+          "type": "COLORREF",
+          "description": "This parameter defines the color of the pen. If the style is null, the color is set to 0."
+        }
+      ],
+      "return_type": "HPEN. It represents a handle to the created pen object. If the pen object cannot be created, the function returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiCreatePen",
+      "description": "This function creates a logical pen that has the specified style, width, and color. If the function is called with a brush, it will output a warning as brushes are not supported.",
+      "parameters": [
+        {
+          "name": "style",
+          "type": "INT",
+          "description": "Defines the style of the pen"
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "Defines the width of the pen"
+        },
+        {
+          "name": "color",
+          "type": "COLORREF",
+          "description": "Defines the color of the pen"
+        },
+        {
+          "name": "brush",
+          "type": "HBRUSH",
+          "description": "Not supported, will output a warning if not NULL"
+        }
+      ],
+      "return_type": "HPEN, represents a handle to the logical pen created by the function"
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiExtCreatePen",
+      "description": "This function is used to create a logical pen that has the specified style, width, and brush attributes. The pen can subsequently be selected into a device context, to draw lines and curves.",
+      "parameters": [
+        {
+          "name": "style",
+          "type": "DWORD",
+          "description": "The pen style"
+        },
+        {
+          "name": "width",
+          "type": "DWORD",
+          "description": "The width of the pen"
+        },
+        {
+          "name": "brush_style",
+          "type": "ULONG",
+          "description": "The brush style"
+        },
+        {
+          "name": "color",
+          "type": "ULONG",
+          "description": "The color of the pen"
+        },
+        {
+          "name": "client_hatch",
+          "type": "ULONG_PTR",
+          "description": "The hatch of the client"
+        },
+        {
+          "name": "hatch",
+          "type": "ULONG_PTR",
+          "description": "The hatch of the pen"
+        },
+        {
+          "name": "style_count",
+          "type": "DWORD",
+          "description": "The count of the style bits"
+        },
+        {
+          "name": "style_bits",
+          "type": "DWORD *",
+          "description": "The style bits"
+        },
+        {
+          "name": "dib_size",
+          "type": "ULONG",
+          "description": "The size of the device-independent bitmap"
+        },
+        {
+          "name": "old_style",
+          "type": "BOOL",
+          "description": "A flag indicating whether to use the old style or not"
+        },
+        {
+          "name": "brush",
+          "type": "HBRUSH",
+          "description": "A handle to the brush"
+        }
+      ],
+      "return_type": "HPEN, a handle to the logical pen if the function is successful. If the function fails, the return value is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSelectPen",
+      "description": "This function selects a pen object into the specified device context. The new pen replaces the previous pen.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "A handle to the device context."
+        },
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "A handle to the pen object."
+        }
+      ],
+      "return_type": "HGDIOBJ, represents the handle to the pen object that was replaced in the device context."
+    }
+  },
+  {
+    "function": {
+      "name": "PEN_DeleteObject",
+      "description": "This function deletes a pen object, freeing the associated GDI handle and brush pattern before freeing the pen itself.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "This is a handle to the GDI object to be deleted."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the pen object was successfully deleted, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "PEN_GetObject",
+      "description": "This function retrieves information for the specified graphics object.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "Handle to the graphics object"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Specifies the number of bytes of information to be written to the buffer"
+        },
+        {
+          "name": "buffer",
+          "type": "LPVOID",
+          "description": "Pointer to a buffer that receives the information about the specified graphics object"
+        }
+      ],
+      "return_type": "INT, represents the number of bytes stored into the buffer"
+    }
+  }
+]

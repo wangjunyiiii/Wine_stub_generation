@@ -1,0 +1,1003 @@
+[
+  {
+    "function": {
+      "name": "get_emf_physdev",
+      "description": "This function returns the containing record of the given PHYSDEV device in the form of an EMFDRV_PDEVICE pointer.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "The PHYSDEV device for which the containing record is to be returned."
+        }
+      ],
+      "return_type": "EMFDRV_PDEVICE pointer, representing the containing record of the given PHYSDEV device."
+    }
+  },
+  {
+    "function": {
+      "name": "emfdrv_update_bounds",
+      "description": "This function updates the bounds of a given rectangle based on the device context. It handles potential mirroring of the coordinate systems.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "Device context which contains the attributes and bounds to be updated"
+        },
+        {
+          "name": "rect",
+          "type": "RECTL *",
+          "description": "Rectangle whose bounds are to be updated"
+        }
+      ],
+      "return_type": "void, does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_LineTo",
+      "description": "This function updates the bounds of a device context based on the given x and y coordinates, and always returns TRUE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the device context."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "This is the x-coordinate."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "This is the y-coordinate."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function executed successfully. Always returns TRUE in this case."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_RoundRect",
+      "description": "This function updates the bounds of a rectangle in a device context, if the rectangle's sides are not equal. It also adjusts the bounds if the graphics mode is GM_COMPATIBLE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "The device context"
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "The left coordinate of the rectangle"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "The top coordinate of the rectangle"
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "The right coordinate of the rectangle"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "The bottom coordinate of the rectangle"
+        },
+        {
+          "name": "ell_width",
+          "type": "INT",
+          "description": "The width of the ellipse used to round off the corners of the rectangle"
+        },
+        {
+          "name": "ell_height",
+          "type": "INT",
+          "description": "The height of the ellipse used to round off the corners of the rectangle"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the bounds were successfully updated, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_ArcChordPie",
+      "description": "This function draws an arc, chord, or pie shape in a device context. It calculates the bounding box for the shape, updates the bounds, and returns a boolean value.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to draw in"
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "Left coordinate of the bounding rectangle"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "Top coordinate of the bounding rectangle"
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "Right coordinate of the bounding rectangle"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "Bottom coordinate of the bounding rectangle"
+        },
+        {
+          "name": "xstart",
+          "type": "INT",
+          "description": "X coordinate of the start point of the arc"
+        },
+        {
+          "name": "ystart",
+          "type": "INT",
+          "description": "Y coordinate of the start point of the arc"
+        },
+        {
+          "name": "xend",
+          "type": "INT",
+          "description": "X coordinate of the end point of the arc"
+        },
+        {
+          "name": "yend",
+          "type": "INT",
+          "description": "Y coordinate of the end point of the arc"
+        },
+        {
+          "name": "type",
+          "type": "DWORD",
+          "description": "Type of shape to draw (arc, chord, or pie)"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully draws the shape, and FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_Arc",
+      "description": "This function is used to draw an arc in a device context. It calls the EMFDRV_ArcChordPie function with the EMR_ARC parameter.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the device context where the arc will be drawn."
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the bounding rectangle for the arc."
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the bounding rectangle for the arc."
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "The x-coordinate of the lower-right corner of the bounding rectangle for the arc."
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "The y-coordinate of the lower-right corner of the bounding rectangle for the arc."
+        },
+        {
+          "name": "xstart",
+          "type": "INT",
+          "description": "The x-coordinate of the first radial ending point of the arc."
+        },
+        {
+          "name": "ystart",
+          "type": "INT",
+          "description": "The y-coordinate of the first radial ending point of the arc."
+        },
+        {
+          "name": "xend",
+          "type": "INT",
+          "description": "The x-coordinate of the second radial ending point of the arc."
+        },
+        {
+          "name": "yend",
+          "type": "INT",
+          "description": "The y-coordinate of the second radial ending point of the arc."
+        }
+      ],
+      "return_type": "BOOL, represents whether the arc was successfully drawn or not."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_ArcTo",
+      "description": "This function is used to draw an arc in a specified rectangle from the start point to the end point.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to draw on"
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the rectangle"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the rectangle"
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "The x-coordinate of the lower-right corner of the rectangle"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "The y-coordinate of the lower-right corner of the rectangle"
+        },
+        {
+          "name": "xstart",
+          "type": "INT",
+          "description": "The x-coordinate of the start point of the arc"
+        },
+        {
+          "name": "ystart",
+          "type": "INT",
+          "description": "The y-coordinate of the start point of the arc"
+        },
+        {
+          "name": "xend",
+          "type": "INT",
+          "description": "The x-coordinate of the end point of the arc"
+        },
+        {
+          "name": "yend",
+          "type": "INT",
+          "description": "The y-coordinate of the end point of the arc"
+        }
+      ],
+      "return_type": "BOOL, represents whether the arc was successfully drawn or not"
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_Pie",
+      "description": "This function is used to draw a pie shape on a device context.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the device context where the pie shape will be drawn."
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the bounding rectangle."
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the bounding rectangle."
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "The x-coordinate of the lower-right corner of the bounding rectangle."
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "The y-coordinate of the lower-right corner of the bounding rectangle."
+        },
+        {
+          "name": "xstart",
+          "type": "INT",
+          "description": "The x-coordinate of the first point of the radial line defining the starting point of the pie."
+        },
+        {
+          "name": "ystart",
+          "type": "INT",
+          "description": "The y-coordinate of the first point of the radial line defining the starting point of the pie."
+        },
+        {
+          "name": "xend",
+          "type": "INT",
+          "description": "The x-coordinate of the second point of the radial line defining the ending point of the pie."
+        },
+        {
+          "name": "yend",
+          "type": "INT",
+          "description": "The y-coordinate of the second point of the radial line defining the ending point of the pie."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function is successful, otherwise it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_Chord",
+      "description": "This function is used to draw a chord in a device context. It uses the EMFDRV_ArcChordPie function to do so.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the device context where the chord will be drawn."
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the bounding rectangle."
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the bounding rectangle."
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "The x-coordinate of the lower-right corner of the bounding rectangle."
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "The y-coordinate of the lower-right corner of the bounding rectangle."
+        },
+        {
+          "name": "xstart",
+          "type": "INT",
+          "description": "The x-coordinate of the starting point of the chord."
+        },
+        {
+          "name": "ystart",
+          "type": "INT",
+          "description": "The y-coordinate of the starting point of the chord."
+        },
+        {
+          "name": "xend",
+          "type": "INT",
+          "description": "The x-coordinate of the ending point of the chord."
+        },
+        {
+          "name": "yend",
+          "type": "INT",
+          "description": "The y-coordinate of the ending point of the chord."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_Ellipse",
+      "description": "This function draws an ellipse on a device context. It calculates the bounds of the ellipse, updates them if the graphics mode is GM_COMPATIBLE, and updates the bounds in the device context.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "The device context on which the ellipse is to be drawn"
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the bounding rectangle"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the bounding rectangle"
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "The x-coordinate of the lower-right corner of the bounding rectangle"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "The y-coordinate of the lower-right corner of the bounding rectangle"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the ellipse was successfully drawn, and FALSE if the specified bounding rectangle is invalid"
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_Rectangle",
+      "description": "This function checks if the rectangle parameters are valid, adjusts the rectangle bounds based on the graphics mode, updates the bounds, and returns a boolean value indicating the success of the operation.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device."
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "This parameter represents the left coordinate of the rectangle."
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "This parameter represents the top coordinate of the rectangle."
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "This parameter represents the right coordinate of the rectangle."
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "This parameter represents the bottom coordinate of the rectangle."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the rectangle parameters are valid and the bounds are successfully updated, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_SetPixel",
+      "description": "This function sets the pixel at a specific position with a specified color in a device context.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the device context where the pixel will be set."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "This is the x-coordinate of the pixel."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "This is the y-coordinate of the pixel."
+        },
+        {
+          "name": "color",
+          "type": "COLORREF",
+          "description": "This is the color that the pixel will be set to."
+        }
+      ],
+      "return_type": "COLORREF, represents the color of the pixel. In this function, it always returns CLR_INVALID indicating the operation was not successful."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_PolylineTo",
+      "description": "This function is currently a placeholder with a return value of TRUE. It is intended to update the bounding rectangle, but this functionality is not yet implemented.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is a device context that the function will operate on."
+        },
+        {
+          "name": "pt",
+          "type": "const POINT *",
+          "description": "This parameter is a pointer to a POINT structure that contains the new position."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "This parameter represents the number of points in the polyline."
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the function. Currently always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_PolyBezier",
+      "description": "This function is currently a placeholder with a return value of TRUE. It is intended to update the bounding rectangle, but this functionality is not yet implemented.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is a physical device."
+        },
+        {
+          "name": "pts",
+          "type": "const POINT*",
+          "description": "This parameter is a pointer to a POINT structure that specifies the points of the bezier curve."
+        },
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "This parameter represents the number of points in the bezier curve."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function executed successfully. Currently always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_PolyBezierTo",
+      "description": "This function is currently a placeholder with a return value of TRUE. It is intended to update the bounding rectangle, but this functionality is not yet implemented.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device."
+        },
+        {
+          "name": "pts",
+          "type": "const POINT *",
+          "description": "This parameter represents the points for the Bezier curve."
+        },
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "This parameter represents the count of points."
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the function. Currently always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_PolyPolyline",
+      "description": "This function is currently a placeholder with a return value of TRUE. The comment indicates a future requirement to update a bounding rectangle.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "pt",
+          "type": "const POINT*",
+          "description": "Pointer to an array of POINT structures"
+        },
+        {
+          "name": "counts",
+          "type": "const DWORD*",
+          "description": "Pointer to an array of DWORD integers"
+        },
+        {
+          "name": "polys",
+          "type": "DWORD",
+          "description": "Number of polylines"
+        }
+      ],
+      "return_type": "BOOL, represents a boolean return type. Currently always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_PolyPolygon",
+      "description": "This function is currently under development, it is intended to update bounding rectangle but the functionality is not implemented yet.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "pt",
+          "type": "const POINT *",
+          "description": "Pointer to an array of POINT structures"
+        },
+        {
+          "name": "counts",
+          "type": "const INT *",
+          "description": "Pointer to an array that specifies the number of points in each polygon"
+        },
+        {
+          "name": "polys",
+          "type": "UINT",
+          "description": "Specifies the number of polygons"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE as a placeholder until functionality is implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_PolyDraw",
+      "description": "This function is currently a placeholder with a return value of TRUE. It is intended to be used for drawing polygons, but the functionality is not yet implemented.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to be used for drawing"
+        },
+        {
+          "name": "pts",
+          "type": "const POINT*",
+          "description": "Points defining the polygon to be drawn"
+        },
+        {
+          "name": "types",
+          "type": "const BYTE*",
+          "description": "Types of the points"
+        },
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "Number of points in the polygon"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function executed successfully or not"
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_FillRgn",
+      "description": "This function is currently a placeholder with a return value of TRUE. The comment indicates a future need to update a bounding rectangle.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to be used"
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "Handle to a region"
+        },
+        {
+          "name": "hbrush",
+          "type": "HBRUSH",
+          "description": "Handle to a brush"
+        }
+      ],
+      "return_type": "BOOL, which represents a boolean return type. Currently always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_FrameRgn",
+      "description": "This function is currently a placeholder with a return value of TRUE. The bounding rectangle update is yet to be implemented.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "Handle to a region"
+        },
+        {
+          "name": "hbrush",
+          "type": "HBRUSH",
+          "description": "Handle to a brush"
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "The width of the region"
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "The height of the region"
+        }
+      ],
+      "return_type": "BOOL, represents a boolean return value. In this case, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_InvertRgn",
+      "description": "This function is currently a placeholder with a return value of TRUE. The bounding rectangle update is yet to be implemented.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is used to represent the physical device."
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "This parameter is used to represent the handle to a region."
+        }
+      ],
+      "return_type": "BOOL, represents a boolean value. In this case, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_ExtTextOut",
+      "description": "This function is currently a placeholder with no functionality, intended for future implementation of extended text output.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Physical device context"
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "X-coordinate of the point"
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "Y-coordinate of the point"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Options for the function"
+        },
+        {
+          "name": "lprect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that specifies the dimensions of the rectangle"
+        },
+        {
+          "name": "str",
+          "type": "LPCWSTR",
+          "description": "Pointer to the string to be output"
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "Length of the string"
+        },
+        {
+          "name": "lpDx",
+          "type": "INT*",
+          "description": "Pointer to an array of values that indicate the distance between origins of adjacent character cells"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE indicating successful execution"
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_GradientFill",
+      "description": "This function is currently a placeholder with no functionality. It is intended to update the bounding rectangle, but this feature is not yet implemented.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context"
+        },
+        {
+          "name": "vert_array",
+          "type": "TRIVERTEX*",
+          "description": "Pointer to an array of vertices"
+        },
+        {
+          "name": "nvert",
+          "type": "ULONG",
+          "description": "Number of vertices"
+        },
+        {
+          "name": "grad_array",
+          "type": "void*",
+          "description": "Pointer to an array of gradients"
+        },
+        {
+          "name": "ngrad",
+          "type": "ULONG",
+          "description": "Number of gradients"
+        },
+        {
+          "name": "mode",
+          "type": "ULONG",
+          "description": "Mode of operation"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function executed successfully. Currently always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_FillPath",
+      "description": "This function is currently a placeholder with a return value of TRUE. The comment indicates a future implementation to update bound rect.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is likely used to represent a physical device in the future implementation."
+        }
+      ],
+      "return_type": "BOOL, represents a boolean return type. Currently always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_StrokeAndFillPath",
+      "description": "This function is currently under development (as indicated by the 'FIXME' comment). Its intended purpose is to stroke and fill a path on a given device, but it currently only returns TRUE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device where the path will be stroked and filled."
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the function. Currently, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_StrokePath",
+      "description": "This function is currently a placeholder with a return value of TRUE. It is intended to update bound rect in the future.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is a physical device object that the function is expected to operate on."
+        }
+      ],
+      "return_type": "BOOL, represents a boolean return type. Currently, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_AlphaBlend",
+      "description": "This function is currently a placeholder with a return value of TRUE. It is intended to handle alpha blending, but the functionality is not yet implemented.",
+      "parameters": [
+        {
+          "name": "dev_dst",
+          "type": "PHYSDEV",
+          "description": "Destination device"
+        },
+        {
+          "name": "dst",
+          "type": "struct bitblt_coords*",
+          "description": "Pointer to destination coordinates"
+        },
+        {
+          "name": "dev_src",
+          "type": "PHYSDEV",
+          "description": "Source device"
+        },
+        {
+          "name": "src",
+          "type": "struct bitblt_coords*",
+          "description": "Pointer to source coordinates"
+        },
+        {
+          "name": "func",
+          "type": "BLENDFUNCTION",
+          "description": "Blend function"
+        }
+      ],
+      "return_type": "BOOL, represents a boolean return type. In this case, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_PatBlt",
+      "description": "This function is currently under development (as indicated by the 'FIXME' comment). It is intended to update the bound rectangle but currently always returns TRUE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is used to represent the physical device."
+        },
+        {
+          "name": "dst",
+          "type": "struct bitblt_coords*",
+          "description": "This parameter is used to represent the destination bit block transfer coordinates."
+        },
+        {
+          "name": "rop",
+          "type": "DWORD",
+          "description": "This parameter is used to represent the raster operation code."
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the function. Currently, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_SelectBitmap",
+      "description": "This function is a placeholder for selecting a bitmap in the Enhanced Metafile Driver. Currently, it does not perform any operation and always returns 0.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device."
+        },
+        {
+          "name": "hbitmap",
+          "type": "HBITMAP",
+          "description": "This parameter represents the handle to the bitmap to be selected."
+        }
+      ],
+      "return_type": "HBITMAP, which represents the handle to the bitmap. In this function, it always returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_SelectFont",
+      "description": "This function selects a font for a device context, disables anti-aliasing on metafiles and returns the selected font.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the device context for which the font is being selected."
+        },
+        {
+          "name": "font",
+          "type": "HFONT",
+          "description": "This is the font that is to be selected."
+        },
+        {
+          "name": "aa_flags",
+          "type": "UINT*",
+          "description": "This is a pointer to a flag that indicates whether or not to use anti-aliasing. In this function, it is set to GGO_BITMAP, disabling anti-aliasing."
+        }
+      ],
+      "return_type": "HFONT, which represents the selected font for the device context."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_GetDeviceCaps",
+      "description": "This function retrieves the capabilities of the specified device.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the physical device whose capabilities are to be retrieved."
+        },
+        {
+          "name": "cap",
+          "type": "INT",
+          "description": "This represents the index of the capability to be retrieved from the device."
+        }
+      ],
+      "return_type": "INT, represents the capability of the device at the specified index. If the index is out of range, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "EMFDRV_DeleteDC",
+      "description": "This function deletes a device context by freeing the memory allocated to the physical device associated with it.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device associated with the device context to be deleted."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not. Always returns TRUE in this implementation."
+    }
+  },
+  {
+    "function": {
+      "name": "devcap_is_valid",
+      "description": "This function checks if a given capability is valid based on a set of predefined conditions and values.",
+      "parameters": [
+        {
+          "name": "cap",
+          "type": "int",
+          "description": "This parameter represents the capability to be checked."
+        }
+      ],
+      "return_type": "BOOL, represents whether the given capability is valid or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiCreateMetafileDC",
+      "description": "This function creates a metafile device context (DC), which is used to record a sequence of GDI function calls. The recorded sequence can later be played back to reproduce the original drawing operations.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This parameter is a handle to an existing device context. If this parameter is NULL, the function uses the current display device for reference."
+        }
+      ],
+      "return_type": "HDC. It returns a handle to the metafile device context if the function is successful. If it fails, the return value is zero."
+    }
+  }
+]

@@ -1,0 +1,2197 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IDataObject",
+      "description": "This function returns the containing record for the given IDataObject interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Pointer to IDataObject interface"
+        }
+      ],
+      "return_type": "DataCache* - Pointer to the containing record of type DataCache"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IUnknown",
+      "description": "This function returns the containing record for a given interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown *",
+          "description": "This is the interface from which the containing record is to be retrieved."
+        }
+      ],
+      "return_type": "DataCache, which represents the containing record for the given interface."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IPersistStorage",
+      "description": "This function returns the containing record for the given IPersistStorage interface pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "Pointer to IPersistStorage interface."
+        }
+      ],
+      "return_type": "DataCache pointer, representing the containing record for the given IPersistStorage interface pointer."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IViewObject2",
+      "description": "This function returns the containing record for the given interface, specifically the DataCache record that contains the IViewObject2 interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IViewObject2 *",
+          "description": "Pointer to the IViewObject2 interface"
+        }
+      ],
+      "return_type": "DataCache pointer, representing the containing record for the given interface"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IOleCache2",
+      "description": "This function returns a pointer to a DataCache structure that contains the given IOleCache2 interface pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleCache2 *",
+          "description": "This is a pointer to an IOleCache2 interface."
+        }
+      ],
+      "return_type": "DataCache pointer, which represents the DataCache structure that contains the given IOleCache2 interface pointer."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IOleCacheControl",
+      "description": "This function returns the DataCache object that contains the IOleCacheControl interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleCacheControl *",
+          "description": "Pointer to the IOleCacheControl interface"
+        }
+      ],
+      "return_type": "DataCache *: Pointer to the DataCache object that contains the IOleCacheControl interface"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IAdviseSink",
+      "description": "This function returns a pointer to the DataCache structure that contains the given IAdviseSink interface pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAdviseSink *",
+          "description": "Pointer to IAdviseSink interface"
+        }
+      ],
+      "return_type": "DataCache pointer, represents the DataCache structure that contains the IAdviseSink interface pointer"
+    }
+  },
+  {
+    "function": {
+      "name": "debugstr_formatetc",
+      "description": "This function returns a formatted string representing the contents of a FORMATETC structure.",
+      "parameters": [
+        {
+          "name": "formatetc",
+          "type": "const FORMATETC *",
+          "description": "This is a pointer to a FORMATETC structure that needs to be represented as a string."
+        }
+      ],
+      "return_type": "char: This function returns a pointer to a string that represents the contents of the FORMATETC structure."
+    }
+  },
+  {
+    "function": {
+      "name": "bitmap_info_size",
+      "description": "This function calculates the size of a bitmap information structure, taking into account the color usage and the type of bitmap header.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "BITMAPINFO *",
+          "description": "Pointer to a BITMAPINFO structure that contains information about the bitmap."
+        },
+        {
+          "name": "coloruse",
+          "type": "WORD",
+          "description": "Specifies the type of color indexes used by the bitmap. This can be either DIB_RGB_COLORS or DIB_PAL_COLORS."
+        }
+      ],
+      "return_type": "int, represents the size of the bitmap information structure in bytes."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCacheEntry_Destroy",
+      "description": "This function removes a cache entry from the list, frees the memory allocated for the format etc. pointer, releases the storage medium, and if the sink_id is not null, unadvises the running object. Finally, it frees the memory allocated for the cache entry.",
+      "parameters": [
+        {
+          "name": "cache",
+          "type": "DataCache*",
+          "description": "Pointer to the data cache from which the entry is to be removed."
+        },
+        {
+          "name": "cache_entry",
+          "type": "DataCacheEntry*",
+          "description": "Pointer to the cache entry that is to be destroyed."
+        }
+      ],
+      "return_type": "void, as this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_Destroy",
+      "description": "This function releases the sink interface and presentation storage if they are not null, destroys the data cache entries and finally frees the data cache pointer.",
+      "parameters": [
+        {
+          "name": "ptrToDestroy",
+          "type": "DataCache*",
+          "description": "Pointer to the data cache to be destroyed"
+        }
+      ],
+      "return_type": "void, does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_GetEntryForFormatEtc",
+      "description": "This function searches for a cache entry that matches the specified format in the data cache. If the format is a bitmap, it changes the format to DIB and sets the tymed to TYMED_HGLOBAL. It then iterates over the cache list and returns the first entry that matches the format, aspect, lindex, and tymed of the specified format.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "DataCache *",
+          "description": "Pointer to the DataCache object where the function will search for the entry."
+        },
+        {
+          "name": "formatetc",
+          "type": "const FORMATETC *",
+          "description": "Pointer to the FORMATETC structure that specifies the format, medium, and target device that the function uses when searching for the entry."
+        }
+      ],
+      "return_type": "DataCacheEntry pointer. It represents the first cache entry that matches the specified format. If no such entry is found, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "get_static_entry",
+      "description": "This function retrieves a static entry from a data cache. If the first entry in the cache has an id of 1, it is returned and the function returns S_OK. Otherwise, the function returns E_FAIL.",
+      "parameters": [
+        {
+          "name": "cache",
+          "type": "DataCache *",
+          "description": "A pointer to the data cache from which to retrieve the entry."
+        },
+        {
+          "name": "cache_entry",
+          "type": "DataCacheEntry **",
+          "description": "A pointer to a pointer to a data cache entry. This is where the function will store the retrieved entry."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the first entry in the cache has an id of 1, otherwise returns E_FAIL."
+    }
+  },
+  {
+    "function": {
+      "name": "check_valid_formatetc",
+      "description": "This function checks if the provided FORMATETC structure is valid or not.",
+      "parameters": [
+        {
+          "name": "fmt",
+          "type": "FORMATETC *",
+          "description": "Pointer to the FORMATETC structure to be checked."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It can return S_OK if the format is valid, DV_E_FORMATETC if the dwAspect is DVASPECT_ICON and cfFormat is not CF_METAFILEPICT, CACHE_S_FORMATETC_NOTSUPPORTED if tymed is TYMED_HGLOBAL, or DV_E_TYMED if the clipformat/tymed combination is invalid."
+    }
+  },
+  {
+    "function": {
+      "name": "init_cache_entry",
+      "description": "This function initializes a cache entry by copying the format, setting the storage medium, id, dirty flag, load and save stream numbers, sink id, and advise flags.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "DataCacheEntry *",
+          "description": "Pointer to the cache entry to be initialized"
+        },
+        {
+          "name": "fmt",
+          "type": "FORMATETC *",
+          "description": "Pointer to the format to be copied to the cache entry"
+        },
+        {
+          "name": "advf",
+          "type": "DWORD",
+          "description": "Advise flags to be set in the cache entry"
+        },
+        {
+          "name": "id",
+          "type": "DWORD",
+          "description": "Id to be set in the cache entry"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the cache entry is successfully initialized, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_CreateEntry",
+      "description": "This function creates a new entry in the data cache. It first checks if the formatetc is valid, then allocates memory for a new entry and initializes it. If the automatic flag is set, the new entry is added to the head of the cache list, otherwise it is added to the tail. If the cache_entry pointer is not null, it is set to the new entry. If any step fails, it frees the allocated memory and returns an error.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "DataCache *",
+          "description": "Pointer to the DataCache structure where the new entry will be created"
+        },
+        {
+          "name": "formatetc",
+          "type": "FORMATETC *",
+          "description": "Pointer to the FORMATETC structure that describes the format, medium, and target device for notification"
+        },
+        {
+          "name": "advf",
+          "type": "DWORD",
+          "description": "Specifies a group of flags for controlling the caching"
+        },
+        {
+          "name": "automatic",
+          "type": "BOOL",
+          "description": "Flag that determines whether the new entry is added to the head (if TRUE) or tail (if FALSE) of the cache list"
+        },
+        {
+          "name": "cache_entry",
+          "type": "DataCacheEntry **",
+          "description": "Pointer to a pointer that will be set to the new entry, if it is not null"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. It can be a success code, an error code or a specific result code depending on the function's execution"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_FireOnViewChange",
+      "description": "This function sends notifications to a sink when the sink's filter matches the aspect. If the sink's advise flag is set to ADVF_ONLYONCE, the sink is unregistered after the first notification.",
+      "parameters": [
+        {
+          "name": "this",
+          "type": "DataCache*",
+          "description": "Pointer to the DataCache object"
+        },
+        {
+          "name": "aspect",
+          "type": "DWORD",
+          "description": "Aspect to be matched with the sink's filter"
+        },
+        {
+          "name": "lindex",
+          "type": "LONG",
+          "description": "Index used in the IAdviseSink_OnViewChange function"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "read_clipformat",
+      "description": "This function reads a clipboard format from a stream. If the length of the clipboard format is -1, it reads a DWORD from the stream. If the length is not -1, it reads a string from the stream and registers it as a clipboard format.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "The stream from which the clipboard format is read."
+        },
+        {
+          "name": "clipformat",
+          "type": "CLIPFORMAT *",
+          "description": "The clipboard format that is read from the stream."
+        }
+      ],
+      "return_type": "HRESULT. It represents the status of the operation. It returns S_OK if the operation is successful, DV_E_CLIPFORMAT if the read operation fails or the read length does not match the expected length, and E_OUTOFMEMORY if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "write_clipformat",
+      "description": "This function writes the clipboard format to a stream. If the clipboard format is less than 0xc000, it writes the format directly. Otherwise, it retrieves the clipboard format name and writes it to the stream.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "The stream where the clipboard format is to be written."
+        },
+        {
+          "name": "clipformat",
+          "type": "CLIPFORMAT",
+          "description": "The clipboard format that is to be written to the stream."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "open_pres_stream",
+      "description": "This function opens a presentation stream in a given storage object and returns a pointer to the stream interface.",
+      "parameters": [
+        {
+          "name": "stg",
+          "type": "IStorage*",
+          "description": "Pointer to the storage object where the stream is located."
+        },
+        {
+          "name": "stream_number",
+          "type": "int",
+          "description": "The number of the stream to be opened."
+        },
+        {
+          "name": "stm",
+          "type": "IStream**",
+          "description": "Pointer to a pointer to a stream interface. This will be filled with the opened stream."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If the stream number is not set or is set to contents, it returns E_FAIL. Otherwise, it returns the result of the IStorage_OpenStream function."
+    }
+  },
+  {
+    "function": {
+      "name": "synthesize_emf",
+      "description": "This function synthesizes an enhanced metafile from a given metafile picture and stores it in a storage medium.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "HMETAFILEPICT",
+          "description": "This is the input metafile picture that needs to be synthesized."
+        },
+        {
+          "name": "med",
+          "type": "STGMEDIUM*",
+          "description": "This is a pointer to the storage medium where the synthesized enhanced metafile will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, otherwise it returns E_FAIL."
+    }
+  },
+  {
+    "function": {
+      "name": "load_mf_pict",
+      "description": "This function loads a metafile picture from a stream into a cache entry. It reads the stream, allocates memory for the picture, and sets the picture's properties. If the operation is successful, it stores the picture in the cache entry. If it fails, it cleans up any allocated resources.",
+      "parameters": [
+        {
+          "name": "cache_entry",
+          "type": "DataCacheEntry *",
+          "description": "A pointer to a cache entry where the loaded metafile picture will be stored."
+        },
+        {
+          "name": "stm",
+          "type": "IStream *",
+          "description": "A pointer to a stream from which the metafile picture will be read."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. It returns S_OK if the operation is successful, E_OUTOFMEMORY if memory allocation fails, or E_FAIL if setting the metafile bits fails."
+    }
+  },
+  {
+    "function": {
+      "name": "load_dib",
+      "description": "This function loads a device-independent bitmap (DIB) from a stream into a cache entry. It reads the bitmap information header, allocates memory for the bitmap, reads the bitmap data from the stream into the allocated memory, and updates the cache entry with the loaded bitmap.",
+      "parameters": [
+        {
+          "name": "cache_entry",
+          "type": "DataCacheEntry *",
+          "description": "A pointer to the cache entry where the loaded bitmap will be stored."
+        },
+        {
+          "name": "stm",
+          "type": "IStream *",
+          "description": "A pointer to the stream from which the bitmap will be read."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "load_emf",
+      "description": "This function loads an Enhanced Metafile (EMF) into a cache entry from a given stream. It handles two different scenarios based on the stream number in the cache entry.",
+      "parameters": [
+        {
+          "name": "cache_entry",
+          "type": "DataCacheEntry *",
+          "description": "Pointer to a DataCacheEntry structure where the EMF will be loaded."
+        },
+        {
+          "name": "stm",
+          "type": "IStream *",
+          "description": "Pointer to an IStream interface from which the EMF will be read."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It can be a success code, an error code or a warning code."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCacheEntry_LoadData",
+      "description": "This function loads data from a storage into a cache entry. It opens a stream from the storage, checks the format of the cache entry, and loads the data accordingly. It releases the stream after loading the data.",
+      "parameters": [
+        {
+          "name": "cache_entry",
+          "type": "DataCacheEntry *",
+          "description": "Pointer to the cache entry where the data will be loaded"
+        },
+        {
+          "name": "stg",
+          "type": "IStorage *",
+          "description": "Pointer to the storage from where the data will be loaded"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns specific error codes in case of failure, otherwise a success code."
+    }
+  },
+  {
+    "function": {
+      "name": "init_stream_header",
+      "description": "This function initializes the stream header by setting its properties based on the given data cache entry and presentation data header.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "DataCacheEntry *",
+          "description": "This is a pointer to the data cache entry from which values are retrieved to set the properties of the stream header."
+        },
+        {
+          "name": "header",
+          "type": "PresentationDataHeader *",
+          "description": "This is a pointer to the presentation data header that is being initialized."
+        }
+      ],
+      "return_type": "void, as this function does not return any value but modifies the given presentation data header."
+    }
+  },
+  {
+    "function": {
+      "name": "save_dib",
+      "description": "This function saves a device-independent bitmap (DIB) into a stream. It first checks if the storage medium type is not NULL, then it calculates the size of the data and locks it. If the contents flag is false, it writes the clip format and the header into the stream. If the contents flag is true, it writes the bitmap file header and the data into the stream. Finally, it unlocks the global memory block.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "DataCacheEntry *",
+          "description": "Pointer to the data cache entry that contains the bitmap information."
+        },
+        {
+          "name": "contents",
+          "type": "BOOL",
+          "description": "Flag that indicates whether to write the contents or not."
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the stream where the bitmap will be saved."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "save_mfpict",
+      "description": "This function saves a metafile picture (MFPict) to a stream. If the 'contents' parameter is false, it writes the clip format and presentation header to the stream. If 'contents' is true, it writes a metafile to the stream.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "DataCacheEntry *",
+          "description": "Pointer to the data cache entry that contains the metafile picture to be saved."
+        },
+        {
+          "name": "contents",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether to write the metafile to the stream (true) or the clip format and presentation header (false)."
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the stream where the metafile picture or its header will be written."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK if the function succeeds, DV_E_STGMEDIUM if it fails to lock the metafile picture, or E_OUTOFMEMORY if it fails to allocate memory for the data."
+    }
+  },
+  {
+    "function": {
+      "name": "save_emf",
+      "description": "This function saves an Enhanced Metafile (EMF) to a stream. It handles two scenarios: when contents are not required, it writes the clip format to the stream and retrieves the metafile bits, allocating memory as needed. If contents are required and the storage medium type is not NULL, it retrieves the enhanced metafile bits, allocates memory, and writes the data to the stream.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "DataCacheEntry *",
+          "description": "Pointer to the data cache entry which contains the metafile to be saved"
+        },
+        {
+          "name": "contents",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether the contents are required or not"
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the stream where the metafile will be saved"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. S_OK if the operation was successful, E_OUTOFMEMORY if memory allocation failed, or other error codes depending on the failure"
+    }
+  },
+  {
+    "function": {
+      "name": "save_view_cache",
+      "description": "This function initializes a stream header, writes the clip format to the stream, and then writes the header to the stream.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "DataCacheEntry *",
+          "description": "Pointer to the data cache entry to be saved"
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the stream where the data cache entry will be written"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure"
+    }
+  },
+  {
+    "function": {
+      "name": "create_stream",
+      "description": "This function creates a stream with a specific name in a given storage. The name of the stream is either 'CONTENTS' or a string derived from the save_stream_num of the cache_entry, depending on the value of the contents parameter.",
+      "parameters": [
+        {
+          "name": "cache_entry",
+          "type": "DataCacheEntry *",
+          "description": "Pointer to a DataCacheEntry structure. It is used to derive the name of the stream when contents is FALSE."
+        },
+        {
+          "name": "storage",
+          "type": "IStorage *",
+          "description": "Pointer to an IStorage interface. The stream is created in this storage."
+        },
+        {
+          "name": "contents",
+          "type": "BOOL",
+          "description": "Boolean value that determines the name of the stream. If TRUE, the stream name is 'CONTENTS'. If FALSE, the stream name is derived from the save_stream_num of the cache_entry."
+        },
+        {
+          "name": "stream",
+          "type": "IStream **",
+          "description": "Pointer to a pointer to an IStream interface. The created stream is returned in this parameter."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCacheEntry_Save",
+      "description": "This function saves the data cache entry to a stream. It creates a stream, checks the format of the cache entry, and calls the appropriate save function based on the format. It releases the stream and returns the HRESULT.",
+      "parameters": [
+        {
+          "name": "cache_entry",
+          "type": "DataCacheEntry *",
+          "description": "Pointer to the data cache entry to be saved"
+        },
+        {
+          "name": "storage",
+          "type": "IStorage *",
+          "description": "Pointer to the storage where the stream will be created"
+        },
+        {
+          "name": "same_as_load",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether the save operation is the same as the load operation"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "copy_stg_medium",
+      "description": "This function copies a STGMEDIUM structure. If the structure contains a metafile picture, it duplicates the metafile picture handle. If the structure contains other data, it duplicates the data using the OLE function OleDuplicateData.",
+      "parameters": [
+        {
+          "name": "cf",
+          "type": "CLIPFORMAT",
+          "description": "The clipboard format used for the data."
+        },
+        {
+          "name": "dest_stgm",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to the destination STGMEDIUM structure."
+        },
+        {
+          "name": "src_stgm",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to the source STGMEDIUM structure."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, DV_E_STGMEDIUM if the source STGMEDIUM structure does not contain a valid metafile picture, or E_OUTOFMEMORY if there is insufficient memory to complete the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "synthesize_dib",
+      "description": "This function synthesizes a device-independent bitmap (DIB) from a given bitmap and stores it in a STGMEDIUM structure.",
+      "parameters": [
+        {
+          "name": "bm",
+          "type": "HBITMAP",
+          "description": "Handle to the bitmap to be synthesized into a DIB."
+        },
+        {
+          "name": "med",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to a STGMEDIUM structure where the synthesized DIB will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns S_OK if the function succeeds and E_FAIL if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "synthesize_bitmap",
+      "description": "This function synthesizes a bitmap using a device-independent bitmap (DIB) and a storage medium (STGMEDIUM). It locks the DIB, creates a bitmap with the DIB and bitmap information, unlocks the DIB, and sets the type of the storage medium to TYMED_GDI. If successful, it returns S_OK; otherwise, it returns E_FAIL.",
+      "parameters": [
+        {
+          "name": "dib",
+          "type": "HGLOBAL",
+          "description": "Handle to a global memory object. It is used to create a device-independent bitmap."
+        },
+        {
+          "name": "med",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to a STGMEDIUM structure. It is used to provide a generalized means of transferring data."
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function. If the function succeeds, the return value is S_OK. If the function fails, the return value is E_FAIL."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCacheEntry_SetData",
+      "description": "This function sets the data for a cache entry, handling different formats and storage mediums. It also handles the release of storage medium if necessary.",
+      "parameters": [
+        {
+          "name": "cache_entry",
+          "type": "DataCacheEntry *",
+          "description": "Pointer to the cache entry to set data for"
+        },
+        {
+          "name": "formatetc",
+          "type": "FORMATETC *",
+          "description": "Pointer to the format descriptor for the data"
+        },
+        {
+          "name": "stgmedium",
+          "type": "STGMEDIUM *",
+          "description": "Pointer to the storage medium structure"
+        },
+        {
+          "name": "fRelease",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether to release the storage medium"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK if successful, DV_E_FORMATETC if the format descriptor is invalid, or the result of the copy_stg_medium function"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCacheEntry_GetData",
+      "description": "This function retrieves data from a cache entry, loads data if necessary, and handles different formats of data.",
+      "parameters": [
+        {
+          "name": "cache_entry",
+          "type": "DataCacheEntry *",
+          "description": "Pointer to the cache entry from which data is to be retrieved"
+        },
+        {
+          "name": "stg",
+          "type": "IStorage *",
+          "description": "Pointer to the storage where the data is to be loaded from if necessary"
+        },
+        {
+          "name": "fmt",
+          "type": "FORMATETC *",
+          "description": "Pointer to the format in which the data is expected"
+        },
+        {
+          "name": "stgmedium",
+          "type": "STGMEDIUM *",
+          "description": "Pointer to the storage medium where the retrieved data is to be stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns the status of the data loading operation if data loading is necessary, OLE_E_BLANK if the storage medium type is TYMED_NULL, the status of bitmap synthesis operation if the format is CF_BITMAP, or the status of the storage medium copying operation otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCacheEntry_DiscardData",
+      "description": "This function releases the storage medium associated with the given data cache entry.",
+      "parameters": [
+        {
+          "name": "cache_entry",
+          "type": "DataCacheEntry *",
+          "description": "A pointer to the data cache entry whose associated storage medium is to be released."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, with S_OK indicating success."
+    }
+  },
+  {
+    "function": {
+      "name": "tymed_from_cf",
+      "description": "This function takes a DWORD parameter and returns a corresponding DWORD value based on the input. It uses a switch case to determine the return value.",
+      "parameters": [
+        {
+          "name": "cf",
+          "type": "DWORD",
+          "description": "This parameter is used as the input for the switch case to determine the return value."
+        }
+      ],
+      "return_type": "DWORD, represents different types of medium (TYMED_GDI, TYMED_MFPICT, TYMED_ENHMF, TYMED_HGLOBAL) based on the input cf."
+    }
+  },
+  {
+    "function": {
+      "name": "create_automatic_entry",
+      "description": "This function creates an automatic entry in a data cache. It checks if the provided CLSID is equal to the cache's CLSID. If they are equal, the function returns S_OK. If not, it moves and reassigns any pre-existing automatic entry. Then, it iterates through a static data array to find a match for the provided CLSID. If a match is found, it creates a new entry in the cache and sets the cache's clsid_static to TRUE. If no match is found, it sets the cache's clsid_static to FALSE and returns S_OK.",
+      "parameters": [
+        {
+          "name": "cache",
+          "type": "DataCache *",
+          "description": "Pointer to the data cache where the automatic entry will be created"
+        },
+        {
+          "name": "clsid",
+          "type": "CLSID *",
+          "description": "Pointer to the CLSID that will be used to create the automatic entry"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_NDIUnknown_QueryInterface",
+      "description": "This function is used to query an interface of a data cache object. It checks the interface ID (IID) and returns the corresponding interface if it is supported. If the requested interface is not supported, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown*",
+          "description": "Pointer to the interface of the object"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested"
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Pointer to the pointer that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the interface is supported and returned successfully, E_NOINTERFACE if the interface is not supported, and E_INVALIDARG if ppvObject is NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_NDIUnknown_AddRef",
+      "description": "This function increments the reference count of a DataCache object",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown*",
+          "description": "Pointer to an IUnknown interface"
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after increment"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_NDIUnknown_Release",
+      "description": "This function releases the data cache by decrementing the reference count. If the reference count reaches zero, it destroys the data cache.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IUnknown*",
+          "description": "This parameter is used to get the data cache implementation."
+        }
+      ],
+      "return_type": "ULONG, represents the reference count after decrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IDataObject_QueryInterface",
+      "description": "This function queries an interface of a data object and returns the interface requested in ppvObject.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Pointer to the interface of the data object."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested."
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *ppvObject contains the requested interface pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the operation. If the operation was successful, it returns S_OK. If the interface is not supported, it returns E_NOINTERFACE."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IDataObject_AddRef",
+      "description": "This function adds a reference to a DataCache object through the IDataObject interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "This is the interface through which the DataCache object is accessed."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after the addition."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IDataObject_Release",
+      "description": "This function releases the IDataObject interface from the DataCache object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "This is the IDataObject interface that is to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the DataCache object after the IDataObject interface has been released."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_GetData",
+      "description": "This function retrieves data from the cache based on the specified format and stores it in the provided storage medium.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Interface to the data object."
+        },
+        {
+          "name": "pformatetcIn",
+          "type": "LPFORMATETC",
+          "description": "Pointer to the FORMATETC structure that defines the format, medium, and target device to use when passing the data."
+        },
+        {
+          "name": "pmedium",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to the STGMEDIUM structure which indicates the storage medium containing the data."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, success or specific type of failure."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_GetDataHere",
+      "description": "This function is currently a stub and not implemented. It is supposed to get data from a cache.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Interface to the data object"
+        },
+        {
+          "name": "pformatetc",
+          "type": "LPFORMATETC",
+          "description": "Pointer to the FORMATETC structure"
+        },
+        {
+          "name": "pmedium",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to the STGMEDIUM structure"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, in this case it returns E_NOTIMPL indicating that the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_QueryGetData",
+      "description": "This function queries the data from the cache based on the format provided.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Interface to the data object"
+        },
+        {
+          "name": "fmt",
+          "type": "FORMATETC*",
+          "description": "Pointer to the format of the data to be retrieved"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. Returns S_OK if the cache entry is found, otherwise returns S_FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_GetCanonicalFormatEtc",
+      "description": "This function is a placeholder that currently does not implement any functionality.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Interface to the data object"
+        },
+        {
+          "name": "pformatectIn",
+          "type": "LPFORMATETC",
+          "description": "Pointer to the input format"
+        },
+        {
+          "name": "pformatetcOut",
+          "type": "LPFORMATETC",
+          "description": "Pointer to the output format"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Currently always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IDataObject_SetData",
+      "description": "This function sets data on an IDataObject interface, queries the interface for IOleCache2, and sets data on the obtained IOleCache2.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Pointer to the IDataObject interface where the data is to be set."
+        },
+        {
+          "name": "pformatetc",
+          "type": "LPFORMATETC",
+          "description": "Pointer to a FORMATETC structure that defines the format, medium, and target device to use for the data object."
+        },
+        {
+          "name": "pmedium",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to a STGMEDIUM structure that defines the storage medium in which the data is being passed."
+        },
+        {
+          "name": "fRelease",
+          "type": "BOOL",
+          "description": "Boolean value that indicates whether the function should release the storage medium after setting the data."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. It returns E_UNEXPECTED if the IDataObject_QueryInterface call fails, otherwise it returns the result of IOleCache2_SetData."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_EnumFormatEtc",
+      "description": "This function is a placeholder that currently does not implement any functionality.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Interface to the data object"
+        },
+        {
+          "name": "dwDirection",
+          "type": "DWORD",
+          "description": "Specifies the direction of the data"
+        },
+        {
+          "name": "ppenumFormatEtc",
+          "type": "IEnumFORMATETC**",
+          "description": "Pointer to a pointer to a FORMATETC enumerator"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Currently always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_DAdvise",
+      "description": "This function is used to advise the data cache. However, it is not supported and always returns OLE_E_ADVISENOTSUPPORTED.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Interface pointer to the data object"
+        },
+        {
+          "name": "pformatetc",
+          "type": "FORMATETC*",
+          "description": "Pointer to a FORMATETC structure"
+        },
+        {
+          "name": "advf",
+          "type": "DWORD",
+          "description": "Advisory flags"
+        },
+        {
+          "name": "pAdvSink",
+          "type": "IAdviseSink*",
+          "description": "Pointer to the IAdviseSink interface on the advise sink"
+        },
+        {
+          "name": "pdwConnection",
+          "type": "DWORD*",
+          "description": "Pointer to a token that can be used to identify the advise connection"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns OLE_E_ADVISENOTSUPPORTED indicating that the operation is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_DUnadvise",
+      "description": "This function is used to remove an advise sink that was previously set up.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "This is an interface pointer that the client can use to call the methods of the DataObject."
+        },
+        {
+          "name": "dwConnection",
+          "type": "DWORD",
+          "description": "This is a unique identifier for the advise connection."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns OLE_E_NOCONNECTION indicating that the advise sink cannot be found."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_EnumDAdvise",
+      "description": "This function is used to trace the function call and return an error code indicating that advise is not supported.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDataObject*",
+          "description": "Interface to the data object"
+        },
+        {
+          "name": "ppenumAdvise",
+          "type": "IEnumSTATDATA**",
+          "description": "Pointer to the enumeration of advise"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, in this case an error code indicating that advise is not supported"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IPersistStorage_QueryInterface",
+      "description": "This function queries a specific interface from a given IPersistStorage interface and returns the result in ppvObject.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "Pointer to an IPersistStorage interface."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested."
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. If the function is successful, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IPersistStorage_AddRef",
+      "description": "This function adds a reference to the IPersistStorage interface of a DataCache object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "Pointer to the IPersistStorage interface of a DataCache object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the IPersistStorage interface after the function is called."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IPersistStorage_Release",
+      "description": "This function releases the IPersistStorage interface of a DataCache object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "Pointer to the IPersistStorage interface of a DataCache object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the outer unknown object after the release operation."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_GetClassID",
+      "description": "This function retrieves the class identifier (CLSID) from the DataCache object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "Pointer to an IPersistStorage interface"
+        },
+        {
+          "name": "clsid",
+          "type": "CLSID*",
+          "description": "Pointer to a CLSID to receive the class identifier"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns S_OK if successful."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IsDirty",
+      "description": "This function checks if the data cache or any of its entries are marked as dirty.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "Interface pointer used to retrieve the data cache implementation"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the data cache or any of its entries are dirty, otherwise returns S_FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_InitNew",
+      "description": "This function initializes a new data cache. If the data cache is already initialized, it returns an error. Otherwise, it creates a new automatic entry and updates the class identifier.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "Interface for the persistent storage object"
+        },
+        {
+          "name": "pStg",
+          "type": "IStorage*",
+          "description": "Pointer to the storage object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "add_cache_entry",
+      "description": "This function adds a new entry to the data cache. If the entry does not exist, it creates a new one. It also sets the load and save stream numbers for the cache entry and marks it as not dirty.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "DataCache*",
+          "description": "Pointer to the DataCache object where the entry is to be added."
+        },
+        {
+          "name": "fmt",
+          "type": "FORMATETC*",
+          "description": "Pointer to the FORMATETC structure that defines the format, medium, and target device that the new cache entry can accept."
+        },
+        {
+          "name": "advf",
+          "type": "DWORD",
+          "description": "Advise flags. This parameter is used when creating a new cache entry."
+        },
+        {
+          "name": "stream_number",
+          "type": "int",
+          "description": "The stream number to be set for the load and save operations of the cache entry."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code."
+    }
+  },
+  {
+    "function": {
+      "name": "parse_pres_streams",
+      "description": "This function parses presentation streams from a given storage and adds them to a cache. It reads the clip format and header from each stream, and if successful, it creates a FORMATETC structure and adds it to the cache. The function continues to parse streams until it encounters a failure or there are no more streams.",
+      "parameters": [
+        {
+          "name": "cache",
+          "type": "DataCache *",
+          "description": "A pointer to the cache where parsed streams will be added."
+        },
+        {
+          "name": "stg",
+          "type": "IStorage *",
+          "description": "A pointer to the storage from where the streams will be read."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function execution. If the function executes successfully, it returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "parse_contents_stream",
+      "description": "This function opens a stream, gets a static entry from the cache, assigns stream numbers to the cache entry and sets its dirty flag to FALSE. It releases the stream before returning.",
+      "parameters": [
+        {
+          "name": "cache",
+          "type": "DataCache *",
+          "description": "Pointer to a DataCache object, used to get a static entry and assign stream numbers"
+        },
+        {
+          "name": "stg",
+          "type": "IStorage *",
+          "description": "Pointer to an IStorage object, used to open a stream"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operations performed in the function. If any operation fails, the function returns the error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_Load",
+      "description": "This function loads data from a storage into a cache. It also handles errors and sets the cache's class ID and presentation storage.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "Interface to the persistent storage object"
+        },
+        {
+          "name": "stg",
+          "type": "IStorage*",
+          "description": "Storage from which data is to be loaded"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation is successful, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_Save",
+      "description": "This function assigns stream numbers to the cache entries and writes out the cache entries. It also checks if the save stream number is different from the stream number, and if so, marks the cache entry as dirty. If the cache entry is dirty or if it's not the same as load, the function attempts to save the cache entry. If the save operation fails, it breaks the loop. If it's the same as load, it marks the cache entry and the DataCache as not dirty.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "Interface pointer used to get the implementation of DataCache"
+        },
+        {
+          "name": "stg",
+          "type": "IStorage*",
+          "description": "Pointer to the storage where the cache entries are to be saved"
+        },
+        {
+          "name": "same_as_load",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether the save operation is the same as the load operation"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the save operation. If the save operation is successful, it returns S_OK, otherwise, it returns the error code"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_SaveCompleted",
+      "description": "This function checks if the new storage pointer is not null, if true it hands off the storage from the interface and loads the data cache from the new storage.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "This is an interface used for managing the storage."
+        },
+        {
+          "name": "pStgNew",
+          "type": "IStorage*",
+          "description": "This is a new storage pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK indicates success."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_HandsOffStorage",
+      "description": "This function releases the presentation storage if it is not null and then sets it to null.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPersistStorage*",
+          "description": "Interface pointer used to implement the function from IPersistStorage"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IViewObject2_QueryInterface",
+      "description": "This function is used to query an interface from a DataCache object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IViewObject2*",
+          "description": "Pointer to an IViewObject2 interface."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested."
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *ppvObject contains the requested interface pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the operation. If the operation was successful, it returns S_OK. If the interface is not supported, it returns E_NOINTERFACE."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IViewObject2_AddRef",
+      "description": "This function adds a reference to the IViewObject2 interface of the DataCache object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IViewObject2*",
+          "description": "This is a pointer to the IViewObject2 interface of the DataCache object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the IViewObject2 interface after the addition."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IViewObject2_Release",
+      "description": "This function releases the IViewObject2 interface and returns the reference count of the outer unknown object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IViewObject2*",
+          "description": "Pointer to the IViewObject2 interface that is to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the outer unknown object after the IViewObject2 interface has been released."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_Draw",
+      "description": "This function is used to draw the data cache. It checks the cache entries and draws the appropriate format based on the cache entry's format. It handles two formats: CF_METAFILEPICT and CF_DIB.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IViewObject2*",
+          "description": "Interface to the view object"
+        },
+        {
+          "name": "dwDrawAspect",
+          "type": "DWORD",
+          "description": "Drawing aspect"
+        },
+        {
+          "name": "lindex",
+          "type": "LONG",
+          "description": "Index of the data to draw"
+        },
+        {
+          "name": "pvAspect",
+          "type": "void*",
+          "description": "Pointer to the aspect"
+        },
+        {
+          "name": "ptd",
+          "type": "DVTARGETDEVICE*",
+          "description": "Target device"
+        },
+        {
+          "name": "hdcTargetDev",
+          "type": "HDC",
+          "description": "Device context of the target device"
+        },
+        {
+          "name": "hdcDraw",
+          "type": "HDC",
+          "description": "Device context for drawing"
+        },
+        {
+          "name": "lprcBounds",
+          "type": "LPCRECTL",
+          "description": "Pointer to the rectangle bounds"
+        },
+        {
+          "name": "lprcWBounds",
+          "type": "LPCRECTL",
+          "description": "Pointer to the window rectangle bounds"
+        },
+        {
+          "name": "pfnContinue",
+          "type": "BOOL (CALLBACK *)(ULONG_PTR)",
+          "description": "Callback function to continue drawing"
+        },
+        {
+          "name": "dwContinue",
+          "type": "ULONG_PTR",
+          "description": "Parameter for the callback function"
+        }
+      ],
+      "return_type": "HRESULT. It returns S_OK if the drawing is successful, E_INVALIDARG if the rectangle bounds is NULL, E_ABORT if the callback function returns false, and OLE_E_BLANK if no data could be found to be drawn."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_GetColorSet",
+      "description": "This function is a stub and not yet implemented. It is expected to get the color set from the data cache.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IViewObject2*",
+          "description": "Interface to the view object"
+        },
+        {
+          "name": "dwDrawAspect",
+          "type": "DWORD",
+          "description": "Drawing aspect"
+        },
+        {
+          "name": "lindex",
+          "type": "LONG",
+          "description": "Index"
+        },
+        {
+          "name": "pvAspect",
+          "type": "void*",
+          "description": "Pointer to the aspect"
+        },
+        {
+          "name": "ptd",
+          "type": "DVTARGETDEVICE*",
+          "description": "Target device"
+        },
+        {
+          "name": "hicTargetDevice",
+          "type": "HDC",
+          "description": "Handle to the target device context"
+        },
+        {
+          "name": "ppColorSet",
+          "type": "LOGPALETTE**",
+          "description": "Pointer to the color set"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, in this case E_NOTIMPL indicating that the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_Freeze",
+      "description": "This function is a stub and not yet implemented. It is expected to freeze a data cache.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IViewObject2*",
+          "description": "Interface to the view object"
+        },
+        {
+          "name": "dwDrawAspect",
+          "type": "DWORD",
+          "description": "Drawing aspect"
+        },
+        {
+          "name": "lindex",
+          "type": "LONG",
+          "description": "Index"
+        },
+        {
+          "name": "pvAspect",
+          "type": "void*",
+          "description": "Pointer to the aspect"
+        },
+        {
+          "name": "pdwFreeze",
+          "type": "DWORD*",
+          "description": "Pointer to the freeze status"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, in this case it returns E_NOTIMPL indicating the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_Unfreeze",
+      "description": "This function is a stub and not yet implemented. It is intended to unfreeze a data cache.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IViewObject2*",
+          "description": "Interface to the view object"
+        },
+        {
+          "name": "dwFreeze",
+          "type": "DWORD",
+          "description": "Identifier for the freeze operation"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating 'not implemented'"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_SetAdvise",
+      "description": "This function sets a new advise sink, releases the previous one if it exists, and fires a view change if the ADVF_PRIMEFIRST flag is set.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IViewObject2*",
+          "description": "Pointer to the IViewObject2 interface"
+        },
+        {
+          "name": "aspects",
+          "type": "DWORD",
+          "description": "Specifies the aspects of the object that the caller is interested in"
+        },
+        {
+          "name": "advf",
+          "type": "DWORD",
+          "description": "Specifies flags that control the advisory connection"
+        },
+        {
+          "name": "pAdvSink",
+          "type": "IAdviseSink*",
+          "description": "Pointer to the IAdviseSink interface on the advisory sink"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_GetAdvise",
+      "description": "This function copies the requested values to the provided pointers, and returns a success status.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IViewObject2*",
+          "description": "Pointer to an interface object"
+        },
+        {
+          "name": "pAspects",
+          "type": "DWORD*",
+          "description": "Pointer to store the sink aspects"
+        },
+        {
+          "name": "pAdvf",
+          "type": "DWORD*",
+          "description": "Pointer to store the sink advise flag"
+        },
+        {
+          "name": "ppAdvSink",
+          "type": "IAdviseSink**",
+          "description": "Pointer to store the sink interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK indicates success."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_GetExtent",
+      "description": "This function retrieves the size of the object's display area in HIMETRIC units. It also handles different formats of the data.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IViewObject2*",
+          "description": "Pointer to the IViewObject2 interface"
+        },
+        {
+          "name": "dwDrawAspect",
+          "type": "DWORD",
+          "description": "Specifies the aspect of the object"
+        },
+        {
+          "name": "lindex",
+          "type": "LONG",
+          "description": "Portion of the object that is of interest"
+        },
+        {
+          "name": "ptd",
+          "type": "DVTARGETDEVICE*",
+          "description": "Pointer to the DVTARGETDEVICE structure"
+        },
+        {
+          "name": "lpsizel",
+          "type": "LPSIZEL",
+          "description": "Pointer to the size limit for the object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. It returns S_OK if successful, E_POINTER if lpsizel is NULL, and OLE_E_BLANK if no data could be found to get the extents from."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IOleCache2_QueryInterface",
+      "description": "This function is used to query an interface from the IOleCache2 interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleCache2*",
+          "description": "Pointer to an IOleCache2 interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested"
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. The value S_OK indicates success and any other value indicates failure"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IOleCache2_AddRef",
+      "description": "This function adds a reference to the IOleCache2 interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleCache2*",
+          "description": "This parameter is a pointer to the IOleCache2 interface."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IOleCache2_Release",
+      "description": "This function releases the IOleCache2 interface and returns the reference count of the outer unknown object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleCache2*",
+          "description": "Pointer to the IOleCache2 interface that is to be released"
+        }
+      ],
+      "return_type": "ULONG, represents the reference count of the outer unknown object after the release operation"
+    }
+  },
+  {
+    "function": {
+      "name": "setup_sink",
+      "description": "This function sets up a sink by clearing the ADVFCACHE_* bits and if the running object exists and flags do not contain ADVF_NODATA, it advises the data object.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "DataCache*",
+          "description": "Pointer to the DataCache object which contains the running object and IAdviseSink interface"
+        },
+        {
+          "name": "cache_entry",
+          "type": "DataCacheEntry*",
+          "description": "Pointer to the DataCacheEntry object which contains the advise flags, format etc., and sink id"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, returns S_FALSE by default, and if the conditions are met, it returns the result of IDataObject_DAdvise function"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_Cache",
+      "description": "This function is used to create a cache entry for a specific format, if it doesn't exist already. It also sets up a sink for the cache entry if it's successfully created.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleCache2*",
+          "description": "Interface pointer to the cache object"
+        },
+        {
+          "name": "pformatetc",
+          "type": "FORMATETC*",
+          "description": "Pointer to the FORMATETC structure that defines the format, medium, and target device for notifications"
+        },
+        {
+          "name": "advf",
+          "type": "DWORD",
+          "description": "Specifies the advise flags"
+        },
+        {
+          "name": "pdwConnection",
+          "type": "DWORD*",
+          "description": "Pointer to a token that can be used to later delete the advisory connection"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It can be a success code, failure code, or warning code."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_Uncache",
+      "description": "This function is used to remove a specific data cache entry identified by its connection ID. If the entry is found, it is destroyed and the function returns S_OK. If the entry is not found, the function returns OLE_E_NOCONNECTION.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleCache2*",
+          "description": "This is an interface pointer used to access the DataCache object."
+        },
+        {
+          "name": "dwConnection",
+          "type": "DWORD",
+          "description": "This is the connection ID of the cache entry to be removed."
+        }
+      ],
+      "return_type": "HRESULT. This represents the status of the operation. It returns S_OK if the cache entry is found and successfully removed, and OLE_E_NOCONNECTION if the cache entry is not found."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_EnumCache",
+      "description": "This function enumerates the cache data. It counts the number of entries in the cache list, allocates memory for the data, and then copies the format, advise flags, and connection ID from each cache entry to the data. If the format of the cache entry is CF_DIB, it creates an additional entry with format CF_BITMAP and tymed TYMED_GDI. If the function fails at any point, it frees the memory allocated for the data and returns the HRESULT from the failed operation.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleCache2 *",
+          "description": "Pointer to an IOleCache2 interface"
+        },
+        {
+          "name": "enum_stat",
+          "type": "IEnumSTATDATA **",
+          "description": "Pointer to a pointer to an IEnumSTATDATA interface, which will receive the enumerated cache data"
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK on success, E_OUTOFMEMORY if memory allocation fails, or the HRESULT from the failed operation if any other operation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_InitCache",
+      "description": "This function initializes a cache and updates it with data from a data object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleCache2 *",
+          "description": "Pointer to an IOleCache2 interface that represents the cache to be initialized."
+        },
+        {
+          "name": "data",
+          "type": "IDataObject *",
+          "description": "Pointer to an IDataObject that contains the data to update the cache with."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IOleCache2_SetData",
+      "description": "This function sets data to a cache entry. If the cache entry is found, it sets the data and fires a view change. If the cache entry is not found, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleCache2*",
+          "description": "Pointer to an IOleCache2 interface"
+        },
+        {
+          "name": "pformatetc",
+          "type": "FORMATETC*",
+          "description": "Pointer to a FORMATETC structure"
+        },
+        {
+          "name": "pmedium",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to a STGMEDIUM structure"
+        },
+        {
+          "name": "fRelease",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether to release the cache entry after setting the data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation was successful, and an error code if it failed"
+    }
+  },
+  {
+    "function": {
+      "name": "entry_updatable",
+      "description": "This function checks if a data cache entry is updatable based on the given mode and the state of the entry.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "DataCacheEntry *",
+          "description": "Pointer to the data cache entry to be checked."
+        },
+        {
+          "name": "mode",
+          "type": "DWORD",
+          "description": "Mode that defines the conditions under which the entry is considered updatable."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the entry is updatable under the given conditions, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_UpdateCache",
+      "description": "This function updates the data cache with the provided data object. It iterates through each entry in the cache list and updates the entry if it is updatable. The function also handles different formats of the data object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleCache2 *",
+          "description": "Interface pointer to the cache"
+        },
+        {
+          "name": "data",
+          "type": "IDataObject *",
+          "description": "Data object to be cached"
+        },
+        {
+          "name": "mode",
+          "type": "DWORD",
+          "description": "Mode of the cache update"
+        },
+        {
+          "name": "reserved",
+          "type": "void *",
+          "description": "Reserved for future use"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful, otherwise returns CACHE_E_NOCACHE_UPDATED if no cache was updated"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_DiscardCache",
+      "description": "This function discards the cache. If the discard option is set to 'DISCARDCACHE_SAVEIFDIRTY', it saves the cache before discarding. It also iterates through each cache entry and discards its data.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleCache2*",
+          "description": "Interface to the data cache"
+        },
+        {
+          "name": "dwDiscardOptions",
+          "type": "DWORD",
+          "description": "Options for discarding the cache"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, it returns S_OK. If it fails during the discarding of cache entry data, it returns the error code."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IOleCacheControl_QueryInterface",
+      "description": "This function is used to query an interface from the DataCache object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleCacheControl*",
+          "description": "Pointer to an IOleCacheControl interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested"
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. It can provide detailed error information."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IOleCacheControl_AddRef",
+      "description": "This function is used to increment the reference count for an interface on an object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleCacheControl*",
+          "description": "Pointer to an IOleCacheControl interface."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IOleCacheControl_Release",
+      "description": "This function releases the IOleCacheControl interface and returns the reference count of the outer unknown object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleCacheControl*",
+          "description": "This is the interface that is to be released."
+        }
+      ],
+      "return_type": "ULONG, which represents the reference count of the outer unknown object after the interface has been released."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_OnRun",
+      "description": "This function checks if a data object is running, if not, it sets the running object to the given data object and sets up a sink for each cache entry in the cache list.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleCacheControl*",
+          "description": "Interface for controlling the cache."
+        },
+        {
+          "name": "data_obj",
+          "type": "IDataObject*",
+          "description": "Data object to be checked and set as running object if not already running."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_OnStop",
+      "description": "This function stops the data cache by unadvising the data object if it has a sink_id, and then setting the running object to NULL.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IOleCacheControl*",
+          "description": "This is an interface pointer used to access the data cache."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. Returns S_OK if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IAdviseSink_QueryInterface",
+      "description": "This function checks if the provided interface ID matches with the known ones (IID_IUnknown, IID_IAdviseSink) and if so, assigns the interface to the provided object pointer and increases its reference count. If the interface ID does not match, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAdviseSink*",
+          "description": "Pointer to the IAdviseSink interface"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the interface ID to be checked"
+        },
+        {
+          "name": "obj",
+          "type": "void**",
+          "description": "Pointer to the object where the interface will be assigned if the interface ID matches"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the interface ID matches and the object is assigned successfully, otherwise returns E_NOINTERFACE"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IAdviseSink_AddRef",
+      "description": "This function returns a static value of 2.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAdviseSink *",
+          "description": "Pointer to an IAdviseSink object"
+        }
+      ],
+      "return_type": "ULONG, represents a static value of 2"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_IAdviseSink_Release",
+      "description": "This function releases an IAdviseSink interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAdviseSink*",
+          "description": "Pointer to an IAdviseSink interface that needs to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count. This is always 1 for this function."
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_OnDataChange",
+      "description": "This function is triggered when there is a change in data. It sets the data in the cache using IOleCache2_SetData method.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAdviseSink*",
+          "description": "Interface used for advisory connections"
+        },
+        {
+          "name": "fmt",
+          "type": "FORMATETC*",
+          "description": "Pointer to a FORMATETC structure that defines the format, medium, and target device that the object application uses to render the data"
+        },
+        {
+          "name": "med",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to a STGMEDIUM structure that defines the storage medium in which the data is being passed"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_OnViewChange",
+      "description": "This function is currently a stub and does not perform any operation.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAdviseSink*",
+          "description": "Interface used for communication"
+        },
+        {
+          "name": "aspect",
+          "type": "DWORD",
+          "description": "Aspect of the view that has changed"
+        },
+        {
+          "name": "index",
+          "type": "LONG",
+          "description": "Index of the view that has changed"
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_OnRename",
+      "description": "This function is a stub and does not perform any operation. It is intended to be implemented in the future.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAdviseSink*",
+          "description": "Interface used for communication"
+        },
+        {
+          "name": "mk",
+          "type": "IMoniker*",
+          "description": "Moniker used for object identification"
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_OnSave",
+      "description": "This function is a stub, it doesn't perform any operation yet.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAdviseSink*",
+          "description": "An interface pointer used in the function"
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_OnClose",
+      "description": "This function is a stub, meant to be implemented in the future.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IAdviseSink*",
+          "description": "Interface used for advising sinks."
+        }
+      ],
+      "return_type": "void, meaning it does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "DataCache_Construct",
+      "description": "This function constructs a new DataCache object, initializes its members and virtual function table, and returns a pointer to the new object.",
+      "parameters": [
+        {
+          "name": "clsid",
+          "type": "REFCLSID",
+          "description": "Class identifier used to create an automatic entry in the new DataCache object"
+        },
+        {
+          "name": "pUnkOuter",
+          "type": "LPUNKNOWN",
+          "description": "Pointer to the controlling IUnknown interface of the aggregate object, or NULL for stand-alone object"
+        }
+      ],
+      "return_type": "DataCache pointer, represents the newly created DataCache object"
+    }
+  },
+  {
+    "function": {
+      "name": "CreateDataCache",
+      "description": "This function creates a new data cache. It performs sanity checks, ensures the cache is constructed for aggregation, and constructs a new instance of the class.",
+      "parameters": [
+        {
+          "name": "pUnkOuter",
+          "type": "LPUNKNOWN",
+          "description": "Pointer to the controlling IUnknown interface of the aggregate."
+        },
+        {
+          "name": "rclsid",
+          "type": "REFCLSID",
+          "description": "Reference to the class identifier (CLSID) for the data object from which the data cache is to be created."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface that the caller is to use to communicate with the new data cache."
+        },
+        {
+          "name": "ppvObj",
+          "type": "LPVOID*",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. It returns S_OK if successful, E_POINTER if ppvObj is NULL, E_INVALIDARG if pUnkOuter is not NULL and riid is not IID_IUnknown, or E_OUTOFMEMORY if there is insufficient memory available."
+    }
+  }
+]

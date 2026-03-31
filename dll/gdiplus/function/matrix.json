@@ -1,0 +1,549 @@
+[
+  {
+    "function": {
+      "name": "matrix_multiply",
+      "description": "This function multiplies two matrices represented by the 'left' and 'right' parameters, and stores the result in the 'out' parameter.",
+      "parameters": [
+        {
+          "name": "left",
+          "type": "GDIPCONST REAL *",
+          "description": "Pointer to the first matrix to be multiplied."
+        },
+        {
+          "name": "right",
+          "type": "GDIPCONST REAL *",
+          "description": "Pointer to the second matrix to be multiplied."
+        },
+        {
+          "name": "out",
+          "type": "REAL *",
+          "description": "Pointer to the output matrix where the result of the multiplication is stored."
+        }
+      ],
+      "return_type": "void, this function does not return a value but instead modifies the 'out' parameter to hold the result of the multiplication."
+    }
+  },
+  {
+    "function": {
+      "name": "matrix_det",
+      "description": "This function calculates and returns the determinant of a given matrix.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "GDIPCONST GpMatrix*",
+          "description": "This parameter is a pointer to the matrix for which the determinant is to be calculated."
+        }
+      ],
+      "return_type": "REAL, which represents the determinant of the matrix"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateMatrix2",
+      "description": "This function creates a matrix using the provided parameters and assigns it to the provided matrix pointer.",
+      "parameters": [
+        {
+          "name": "m11",
+          "type": "REAL",
+          "description": "The value for the first element of the first row in the matrix."
+        },
+        {
+          "name": "m12",
+          "type": "REAL",
+          "description": "The value for the second element of the first row in the matrix."
+        },
+        {
+          "name": "m21",
+          "type": "REAL",
+          "description": "The value for the first element of the second row in the matrix."
+        },
+        {
+          "name": "m22",
+          "type": "REAL",
+          "description": "The value for the second element of the second row in the matrix."
+        },
+        {
+          "name": "dx",
+          "type": "REAL",
+          "description": "The value for the first element of the third row in the matrix."
+        },
+        {
+          "name": "dy",
+          "type": "REAL",
+          "description": "The value for the second element of the third row in the matrix."
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix **",
+          "description": "A pointer to a pointer to a GpMatrix structure. This will be set to point to the newly created matrix."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It returns 'InvalidParameter' if the matrix pointer is null, 'OutOfMemory' if memory allocation fails, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateMatrix3",
+      "description": "This function creates a new matrix based on the given rectangle and points, and stores the result in the provided matrix pointer.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "GDIPCONST GpRectF *",
+          "description": "A pointer to the rectangle used to create the matrix."
+        },
+        {
+          "name": "pt",
+          "type": "GDIPCONST GpPointF *",
+          "description": "A pointer to the points used to create the matrix."
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix **",
+          "description": "A double pointer to a GpMatrix object where the result will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns Ok. If any of the input parameters is invalid, it returns InvalidParameter."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateMatrix3I",
+      "description": "This function converts the input parameters to floating point values and calls the GdipCreateMatrix3 function.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "GDIPCONST GpRect *",
+          "description": "Pointer to a GpRect structure that specifies the rectangular area."
+        },
+        {
+          "name": "pt",
+          "type": "GDIPCONST GpPoint *",
+          "description": "Pointer to an array of three GpPoint structures that specify the points."
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix **",
+          "description": "Pointer to a pointer to a GpMatrix structure that receives the new matrix."
+        }
+      ],
+      "return_type": "GpStatus, which indicates whether the function call was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCloneMatrix",
+      "description": "This function clones a given matrix and returns the status of the operation.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "This is the matrix that will be cloned."
+        },
+        {
+          "name": "clone",
+          "type": "GpMatrix **",
+          "description": "This is a pointer to the cloned matrix."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can be Ok, InvalidParameter or OutOfMemory."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateMatrix",
+      "description": "This function creates a new matrix, initializes it to the identity matrix, and assigns it to the provided pointer.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "GpMatrix**",
+          "description": "A pointer to a pointer to a GpMatrix. The function will allocate memory for a new GpMatrix and assign it to this pointer."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the input parameter is null, 'OutOfMemory' if memory allocation fails, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipDeleteMatrix",
+      "description": "This function deletes a matrix by freeing the memory allocated to it.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "This is a pointer to the matrix to be deleted."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the input is null, 'Ok' otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetMatrixElements",
+      "description": "This function retrieves the elements of a matrix and copies them into an array.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "GDIPCONST GpMatrix *",
+          "description": "Pointer to the matrix from which elements are to be retrieved."
+        },
+        {
+          "name": "out",
+          "type": "REAL *",
+          "description": "Pointer to an array where the retrieved matrix elements will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either of the input parameters is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipInvertMatrix",
+      "description": "This function inverts a given matrix. It optimizes inverting simple scaling and translation matrices. If the matrix cannot be inverted, it returns an error status.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "This is the matrix that will be inverted."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if the matrix cannot be inverted."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipIsMatrixInvertible",
+      "description": "This function checks if a given matrix is invertible or not.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "GDIPCONST GpMatrix *",
+          "description": "This is the matrix to be checked for invertibility."
+        },
+        {
+          "name": "result",
+          "type": "BOOL *",
+          "description": "This is a pointer to a boolean variable where the result will be stored. The result will be TRUE if the matrix is invertible, and FALSE otherwise."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation was successful, and 'InvalidParameter' if the input parameters are not valid."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipMultiplyMatrix",
+      "description": "This function multiplies two matrices. The order of multiplication depends on the 'order' parameter.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "The first matrix to be multiplied."
+        },
+        {
+          "name": "matrix2",
+          "type": "GDIPCONST GpMatrix*",
+          "description": "The second matrix to be multiplied."
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "The order in which the matrices are to be multiplied. Can be either MatrixOrderAppend or MatrixOrderPrepend."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if either of the matrices is null or the order is not recognized."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipRotateMatrix",
+      "description": "This function rotates a given matrix by a specified angle in a specified order.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "Pointer to the matrix to be rotated."
+        },
+        {
+          "name": "angle",
+          "type": "REAL",
+          "description": "The angle by which the matrix is to be rotated."
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "The order in which the rotation is to be applied."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if the parameters are not valid."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipScaleMatrix",
+      "description": "This function scales a matrix by given x and y factors according to the specified order.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "Pointer to the matrix to be scaled."
+        },
+        {
+          "name": "scaleX",
+          "type": "REAL",
+          "description": "The scaling factor in the x direction."
+        },
+        {
+          "name": "scaleY",
+          "type": "REAL",
+          "description": "The scaling factor in the y direction."
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "The order in which to apply the scaling. Can be either MatrixOrderAppend or MatrixOrderPrepend."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the input parameters are not valid."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetMatrixElements",
+      "description": "This function sets the elements of a GpMatrix structure to the specified values.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "Pointer to the GpMatrix structure to be modified."
+        },
+        {
+          "name": "m11",
+          "type": "REAL",
+          "description": "Value to set for the first element of the matrix."
+        },
+        {
+          "name": "m12",
+          "type": "REAL",
+          "description": "Value to set for the second element of the matrix."
+        },
+        {
+          "name": "m21",
+          "type": "REAL",
+          "description": "Value to set for the third element of the matrix."
+        },
+        {
+          "name": "m22",
+          "type": "REAL",
+          "description": "Value to set for the fourth element of the matrix."
+        },
+        {
+          "name": "dx",
+          "type": "REAL",
+          "description": "Value to set for the fifth element of the matrix."
+        },
+        {
+          "name": "dy",
+          "type": "REAL",
+          "description": "Value to set for the sixth element of the matrix."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the matrix pointer is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipShearMatrix",
+      "description": "This function shears a matrix by the given x and y values, and multiplies the sheared matrix to the original matrix based on the specified order.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "Pointer to the matrix to be sheared."
+        },
+        {
+          "name": "shearX",
+          "type": "REAL",
+          "description": "The shear factor in the x direction."
+        },
+        {
+          "name": "shearY",
+          "type": "REAL",
+          "description": "The shear factor in the y direction."
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "The order in which to apply the shear transformation. Can be either MatrixOrderAppend or MatrixOrderPrepend."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the input parameters are not valid."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipTransformMatrixPoints",
+      "description": "This function transforms the points in the array by applying the specified matrix.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "GpMatrix*",
+          "description": "This is a pointer to the transformation matrix."
+        },
+        {
+          "name": "pts",
+          "type": "GpPointF*",
+          "description": "This is a pointer to the array of points to be transformed."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "This represents the number of points in the array."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns 'InvalidParameter' if the matrix or points are null or count is less than or equal to 0. Otherwise, it returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipTransformMatrixPointsI",
+      "description": "This function transforms the points in the array by applying the specified matrix. It first checks if the count is less than or equal to 0, if true it returns InvalidParameter. It then allocates memory for a new array of points, if it fails it returns OutOfMemory. It then transforms the points using the GdipTransformMatrixPoints function. If the transformation is successful, it rounds the points and frees the allocated memory.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "A pointer to the matrix to be applied to the points."
+        },
+        {
+          "name": "pts",
+          "type": "GpPoint *",
+          "description": "A pointer to the array of points to be transformed."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "The number of points in the array."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can be Ok, InvalidParameter or OutOfMemory."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipTranslateMatrix",
+      "description": "This function translates a matrix by the specified offsets along the x-axis and y-axis.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "Pointer to the matrix to be translated."
+        },
+        {
+          "name": "offsetX",
+          "type": "REAL",
+          "description": "Offset along the x-axis."
+        },
+        {
+          "name": "offsetY",
+          "type": "REAL",
+          "description": "Offset along the y-axis."
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "Order in which the translation is applied."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if parameters are not valid."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipVectorTransformMatrixPoints",
+      "description": "This function transforms a set of points using the specified matrix.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "GpMatrix*",
+          "description": "Pointer to the transformation matrix."
+        },
+        {
+          "name": "pts",
+          "type": "GpPointF*",
+          "description": "Pointer to the array of points to be transformed."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "The number of points in the array."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if any of the parameters are invalid or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipVectorTransformMatrixPointsI",
+      "description": "This function transforms a set of points using the specified matrix, and stores the result back into the original array of points. It first checks if the count is valid, then allocates memory for a temporary array of points. It then converts the integer points to floating point, performs the transformation, and rounds the results back to integers before storing them back into the original array. If any step fails, it returns an appropriate error status.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "Pointer to the transformation matrix to be used"
+        },
+        {
+          "name": "pts",
+          "type": "GpPoint *",
+          "description": "Pointer to the array of points to be transformed"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of points in the array"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can be Ok if the operation was successful, InvalidParameter if the count is less than or equal to zero, or OutOfMemory if memory allocation for the temporary array fails"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipIsMatrixEqual",
+      "description": "This function compares two matrices for equality.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "GDIPCONST GpMatrix *",
+          "description": "The first matrix to compare."
+        },
+        {
+          "name": "matrix2",
+          "type": "GDIPCONST GpMatrix *",
+          "description": "The second matrix to compare."
+        },
+        {
+          "name": "result",
+          "type": "BOOL *",
+          "description": "Pointer to a BOOL where the result of the comparison is stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if any of the parameters are NULL, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipIsMatrixIdentity",
+      "description": "This function checks if the provided matrix is an identity matrix.",
+      "parameters": [
+        {
+          "name": "matrix",
+          "type": "GDIPCONST GpMatrix *",
+          "description": "This is the matrix that will be checked."
+        },
+        {
+          "name": "result",
+          "type": "BOOL *",
+          "description": "This is a pointer to a BOOL where the result will be stored."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the parameters are valid and the operation is successful, it returns Ok. If either of the parameters is NULL, it returns InvalidParameter."
+    }
+  }
+]

@@ -1,0 +1,406 @@
+[
+  {
+    "function": {
+      "name": "debugstr_format",
+      "description": "This function formats the debug string based on the given UINT id. It first gets the last Win32 error and stores it. Then it tries to get the clipboard format name for the given id. If successful, it formats the debug string with the id and the obtained name. If not, it checks if the id matches any of the built-in ids and returns the corresponding string. If the id doesn't match any built-in id, it simply formats the debug string with the id.",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "UINT",
+          "description": "The id for which the debug string is to be formatted."
+        }
+      ],
+      "return_type": "char: Returns a formatted debug string."
+    }
+  },
+  {
+    "function": {
+      "name": "get_cached_format",
+      "description": "This function searches for a cached format in a list of cached formats and returns it if found. If not found, it returns NULL.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "UINT",
+          "description": "This parameter represents the format to be searched in the cached formats."
+        }
+      ],
+      "return_type": "struct cached_format* - A pointer to the cached format if found, otherwise NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "free_cached_data",
+      "description": "This function frees up the memory allocated to the cached data. It also performs different actions based on the format of the cached data.",
+      "parameters": [
+        {
+          "name": "cache",
+          "type": "struct cached_format *",
+          "description": "This is a pointer to the cached data structure that needs to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "free_cached_formats",
+      "description": "This function iterates over a list, removes each element and frees the cached data associated with it.",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "struct list *",
+          "description": "A pointer to the list whose elements are to be removed and their associated cached data freed."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "invalidate_memory_formats",
+      "description": "This function iterates over a list of cached formats and removes any format that is not a bitmap, dspbitmap, palette, enhmetafile, dspenhmetafile, metafilepict, or dspmetafilepict. The removed formats are then added to a free list.",
+      "parameters": [
+        {
+          "name": "free_list",
+          "type": "struct list*",
+          "description": "This is a pointer to a list where the removed formats will be added."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserOpenClipboard",
+      "description": "This function opens the clipboard for the current task and empties it.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window to be associated with the open clipboard."
+        },
+        {
+          "name": "unk",
+          "type": "ULONG",
+          "description": "An unknown parameter, its purpose is not clear from the function definition."
+        }
+      ],
+      "return_type": "BOOL, returns a boolean value indicating the success or failure of the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserCloseClipboard",
+      "description": "This function closes the clipboard and notifies the clipboard viewer window.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "BOOL, represents whether the clipboard was successfully closed or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserEmptyClipboard",
+      "description": "This function empties the clipboard and frees the memory associated with data stored in the clipboard. It also sends a message to the clipboard owner if it exists.",
+      "parameters": [],
+      "return_type": "BOOL, returns TRUE if the clipboard was successfully emptied, otherwise FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserCountClipboardFormats",
+      "description": "This function counts the number of formats currently available on the clipboard.",
+      "parameters": [],
+      "return_type": "INT, represents the number of formats available on the clipboard"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserIsClipboardFormatAvailable",
+      "description": "This function checks if a specific clipboard format is available.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "UINT",
+          "description": "This parameter represents the format to check for availability in the clipboard."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the specified format is available in the clipboard, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetUpdatedClipboardFormats",
+      "description": "This function retrieves the updated clipboard formats.",
+      "parameters": [
+        {
+          "name": "formats",
+          "type": "UINT *",
+          "description": "Pointer to the array that receives the clipboard formats."
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "Specifies the size of the array pointed to by the formats parameter."
+        },
+        {
+          "name": "out_size",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the number of clipboard formats copied to the array."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds; otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetPriorityClipboardFormat",
+      "description": "This function checks the availability of clipboard formats in the given list and returns the first available format. If no format is available, it returns -1. If the clipboard is empty, it returns 0.",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "UINT *",
+          "description": "This is a pointer to an array of clipboard formats to check for availability."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "This is the number of clipboard formats in the list."
+        }
+      ],
+      "return_type": "INT. It represents the first available clipboard format in the list. If no format is available, it returns -1. If the clipboard is empty, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetClipboardFormatName",
+      "description": "This function retrieves the name of the clipboard format for the given format identifier.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "UINT",
+          "description": "The format identifier for the clipboard format."
+        },
+        {
+          "name": "buffer",
+          "type": "WCHAR *",
+          "description": "A pointer to the buffer that receives the clipboard format name."
+        },
+        {
+          "name": "maxlen",
+          "type": "INT",
+          "description": "The maximum length, in characters, of the clipboard format name."
+        }
+      ],
+      "return_type": "INT, represents the length of the string copied to the buffer. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetClipboardOwner",
+      "description": "This function is used to get the owner of the clipboard.",
+      "parameters": [],
+      "return_type": "HWND, which represents a handle to the window that owns the clipboard"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetClipboardViewer",
+      "description": "This function sets the specified window as the clipboard viewer and sends a WM_DRAWCLIPBOARD message to the window. If the function is successful, the return value is the handle to the previous clipboard viewer.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window to be set as the new clipboard viewer."
+        }
+      ],
+      "return_type": "HWND, represents the handle to the previous clipboard viewer."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetClipboardViewer",
+      "description": "This function retrieves the window handle of the current clipboard viewer.",
+      "parameters": [],
+      "return_type": "HWND, represents the handle to the window that is currently viewing the clipboard."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserChangeClipboardChain",
+      "description": "This function changes the clipboard chain by setting a new clipboard viewer and removing the old one. It also handles the case where the request is still pending or if an error occurs.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be removed from the clipboard viewer chain"
+        },
+        {
+          "name": "next",
+          "type": "HWND",
+          "description": "Handle to the window to be added to the clipboard viewer chain"
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the function succeeded and FALSE indicates that the function failed or the request is still pending"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetOpenClipboardWindow",
+      "description": "This function is used to get the window handle of the open clipboard window.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "HWND, which represents the handle to the open clipboard window."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetClipboardSequenceNumber",
+      "description": "This function retrieves the clipboard sequence number.",
+      "parameters": [],
+      "return_type": "DWORD, represents the clipboard sequence number"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserEnumClipboardFormats",
+      "description": "This function is used to enumerate the clipboard formats.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "UINT",
+          "description": "This parameter represents the format to be enumerated."
+        }
+      ],
+      "return_type": "UINT, represents the enumerated format."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserAddClipboardFormatListener",
+      "description": "This function adds a window to the clipboard format listener list.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be added to the clipboard format listener list."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds; otherwise FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserRemoveClipboardFormatListener",
+      "description": "This function removes a window from the clipboard format listener list.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be removed from the clipboard format listener list."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "release_clipboard_owner",
+      "description": "This function releases the clipboard owner by sending a message to render all formats, then it starts a server request to release the clipboard. If the server call is successful, it retrieves the viewer and owner from the server reply. If a viewer is present, it sends a message to draw the clipboard.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that owns the clipboard"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetClipboardData",
+      "description": "This function sets the clipboard data in a specific format. It also handles caching of the clipboard data and synchronization using a mutex.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "UINT",
+          "description": "The format in which the clipboard data is to be set."
+        },
+        {
+          "name": "data",
+          "type": "HANDLE",
+          "description": "Handle to the data to be set on the clipboard."
+        },
+        {
+          "name": "params",
+          "type": "struct set_clipboard_params *",
+          "description": "Pointer to a structure containing additional parameters for setting the clipboard data, including whether to cache only, the data to be set, and its size."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. Returns STATUS_SUCCESS if the operation is successful, otherwise returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetClipboardData",
+      "description": "This function retrieves data from the clipboard in a specified format. It also handles caching and rendering of the data.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "UINT",
+          "description": "The format of the clipboard data to retrieve."
+        },
+        {
+          "name": "params",
+          "type": "struct get_clipboard_params *",
+          "description": "A pointer to a structure that contains parameters for retrieving the clipboard data."
+        }
+      ],
+      "return_type": "HANDLE. It represents a handle to the clipboard data in the specified format. If the function fails, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "drag_drop_call",
+      "description": "This function handles different drag and drop events and calls the appropriate user mode callback based on the event type.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that receives the message."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be processed."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "data",
+          "type": "void *",
+          "description": "A pointer to additional data."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing and depends on the message sent."
+    }
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "function": {
+      "name": "stub_syscall",
+      "description": "This function sets up a context and an exception record, gets the current thread context, sets the exception address based on the architecture, and raises an exception.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "char *",
+          "description": "This parameter is used to set the second exception information in the exception record."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "init",
+      "description": "This function initializes the system service table and adds system call debug info. In a 64-bit Windows environment, it also queries system information and sets the 'zero_bits' variable.",
+      "parameters": [
+        {
+          "name": "args",
+          "type": "void *",
+          "description": "This parameter is not used in the function."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the function execution. The function always returns STATUS_SUCCESS."
+    }
+  }
+]

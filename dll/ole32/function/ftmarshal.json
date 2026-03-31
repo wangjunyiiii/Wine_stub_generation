@@ -1,0 +1,121 @@
+[
+  {
+    "function": {
+      "name": "FTMarshalCF_QueryInterface",
+      "description": "This function checks if the provided interface ID matches either IID_IUnknown or IID_IClassFactory. If it does, it assigns the interface to the provided pointer and increments the reference count of the interface. If it doesn't, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPCLASSFACTORY",
+          "description": "Pointer to the interface that needs to be queried"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "The interface ID to be checked"
+        },
+        {
+          "name": "ppv",
+          "type": "LPVOID*",
+          "description": "Pointer to a pointer variable that receives the interface pointer"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the interface ID matches, E_NOINTERFACE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "FTMarshalCF_AddRef",
+      "description": "This function returns a constant value of 2, representing a non-heap based object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPCLASSFACTORY",
+          "description": "This parameter is an interface pointer of type LPCLASSFACTORY."
+        }
+      ],
+      "return_type": "ULONG, represents a non-heap based object."
+    }
+  },
+  {
+    "function": {
+      "name": "FTMarshalCF_Release",
+      "description": "This function returns a static value of 1, indicating a non-heap based object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPCLASSFACTORY",
+          "description": "This parameter is an interface pointer used within the function."
+        }
+      ],
+      "return_type": "ULONG, represents a non-heap based object."
+    }
+  },
+  {
+    "function": {
+      "name": "FTMarshalCF_CreateInstance",
+      "description": "This function creates an instance of a free threaded marshaler.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPCLASSFACTORY",
+          "description": "Pointer to the class factory interface."
+        },
+        {
+          "name": "pUnk",
+          "type": "LPUNKNOWN",
+          "description": "Pointer to the IUnknown interface of the object for which a proxy is being requested."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface that the caller is to use to communicate with the proxy."
+        },
+        {
+          "name": "ppv",
+          "type": "LPVOID",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *ppv contains the requested interface pointer. If the object does not support the interface specified in riid, *ppv will be NULL."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. It returns S_OK if the function was successful, or an error HRESULT if the function failed."
+    }
+  },
+  {
+    "function": {
+      "name": "FTMarshalCF_LockServer",
+      "description": "This function is a stub and does not have a defined functionality yet. It currently returns S_OK regardless of the input parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPCLASSFACTORY",
+          "description": "This parameter is not used in the current implementation of the function."
+        },
+        {
+          "name": "fLock",
+          "type": "BOOL",
+          "description": "This parameter is not used in the current implementation of the function."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. In the current implementation, it always returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "FTMarshalCF_Create",
+      "description": "This function queries an interface of the FTMarshalCF class factory.",
+      "parameters": [
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "This is the identifier of the interface being requested."
+        },
+        {
+          "name": "ppv",
+          "type": "LPVOID *",
+          "description": "This is a pointer to the pointer that receives the interface pointer requested in riid."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the call to the function. If the function succeeds, it returns S_OK. If the function fails, it returns an error code."
+    }
+  }
+]

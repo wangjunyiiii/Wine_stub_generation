@@ -1,0 +1,1738 @@
+[
+  {
+    "function": {
+      "name": "dummy_surface_set_clip",
+      "description": "This function does not perform any operation. It is a placeholder or 'dummy' function.",
+      "parameters": [
+        {
+          "name": "window_surface",
+          "type": "struct window_surface *",
+          "description": "Pointer to a window_surface structure"
+        },
+        {
+          "name": "rects",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure"
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "Unsigned integer representing count"
+        }
+      ],
+      "return_type": "void, meaning this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "dummy_surface_flush",
+      "description": "This function does not perform any operation and always returns TRUE.",
+      "parameters": [
+        {
+          "name": "window_surface",
+          "type": "struct window_surface *",
+          "description": "Pointer to a window surface structure"
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure"
+        },
+        {
+          "name": "dirty",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure representing dirty area"
+        },
+        {
+          "name": "color_info",
+          "type": "BITMAPINFO *",
+          "description": "Pointer to a BITMAPINFO structure for color information"
+        },
+        {
+          "name": "color_bits",
+          "type": "void *",
+          "description": "Pointer to color bits"
+        },
+        {
+          "name": "shape_changed",
+          "type": "BOOL",
+          "description": "Boolean flag indicating if the shape has changed"
+        },
+        {
+          "name": "shape_info",
+          "type": "BITMAPINFO *",
+          "description": "Pointer to a BITMAPINFO structure for shape information"
+        },
+        {
+          "name": "shape_bits",
+          "type": "void *",
+          "description": "Pointer to shape bits"
+        }
+      ],
+      "return_type": "BOOL, always returns TRUE in this function"
+    }
+  },
+  {
+    "function": {
+      "name": "dummy_surface_destroy",
+      "description": "This function doesn't perform any action. It's a placeholder or dummy function.",
+      "parameters": [
+        {
+          "name": "window_surface",
+          "type": "struct window_surface *",
+          "description": "Pointer to a window_surface structure"
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "offscreen_window_surface_set_clip",
+      "description": "The function is a placeholder with no implemented functionality.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct window_surface*",
+          "description": "Pointer to a window surface structure"
+        },
+        {
+          "name": "rects",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure"
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "An unsigned integer representing the count"
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "offscreen_window_surface_flush",
+      "description": "This function is used to flush the offscreen window surface. However, the implementation simply returns TRUE, indicating that the function is likely a stub or placeholder.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct window_surface *",
+          "description": "Pointer to the window surface structure"
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure"
+        },
+        {
+          "name": "dirty",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure indicating the dirty area"
+        },
+        {
+          "name": "color_info",
+          "type": "BITMAPINFO *",
+          "description": "Pointer to a BITMAPINFO structure containing color information"
+        },
+        {
+          "name": "color_bits",
+          "type": "void *",
+          "description": "Pointer to the color bits"
+        },
+        {
+          "name": "shape_changed",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether the shape has changed"
+        },
+        {
+          "name": "shape_info",
+          "type": "BITMAPINFO *",
+          "description": "Pointer to a BITMAPINFO structure containing shape information"
+        },
+        {
+          "name": "shape_bits",
+          "type": "void *",
+          "description": "Pointer to the shape bits"
+        }
+      ],
+      "return_type": "BOOL, always returns TRUE in the current implementation"
+    }
+  },
+  {
+    "function": {
+      "name": "offscreen_window_surface_destroy",
+      "description": "This function is used to destroy an offscreen window surface.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct window_surface*",
+          "description": "This is a pointer to the window surface to be destroyed."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "create_offscreen_window_surface",
+      "description": "This function creates an offscreen window surface, checks if the old surface is an offscreen window surface, or releases it. It also sets up the BITMAPINFO structure and creates a new window surface.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the surface is being created"
+        },
+        {
+          "name": "surface_rect",
+          "type": "const RECT *",
+          "description": "Pointer to a RECT structure that specifies the dimensions of the surface"
+        },
+        {
+          "name": "window_surface",
+          "type": "struct window_surface **",
+          "description": "Pointer to a pointer to a window_surface structure. This will be updated to point to the new surface"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "get_scaled_surface",
+      "description": "This function returns a pointer to a scaled_surface structure that contains the given window_surface structure.",
+      "parameters": [
+        {
+          "name": "window_surface",
+          "type": "struct window_surface *",
+          "description": "A pointer to a window_surface structure."
+        }
+      ],
+      "return_type": "struct scaled_surface *, represents a pointer to a scaled_surface structure."
+    }
+  },
+  {
+    "function": {
+      "name": "scaled_surface_set_clip",
+      "description": "This function sets the clip region for a scaled surface. It first retrieves the scaled surface from the window surface, maps the DPI region of the clip region, sets the clip region of the target surface, and finally deletes the mapped region if it exists.",
+      "parameters": [
+        {
+          "name": "window_surface",
+          "type": "struct window_surface *",
+          "description": "A pointer to the window surface whose clip region is to be set."
+        },
+        {
+          "name": "rects",
+          "type": "RECT *",
+          "description": "A pointer to the rectangles that define the clip region."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of rectangles in the clip region."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "scaled_surface_flush",
+      "description": "This function flushes a scaled surface. It adjusts the source rectangle, maps it to the target DPI, creates compatible device contexts, selects bitmaps into them, and performs a stretch blit operation. If the shape has changed, it also updates the shape and layered properties of the target surface. Finally, it flushes the target surface and returns TRUE.",
+      "parameters": [
+        {
+          "name": "window_surface",
+          "type": "struct window_surface *",
+          "description": "Pointer to the window surface to be flushed"
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to the rectangle to be flushed"
+        },
+        {
+          "name": "dirty",
+          "type": "RECT *",
+          "description": "Pointer to the dirty rectangle"
+        },
+        {
+          "name": "color_info",
+          "type": "BITMAPINFO *",
+          "description": "Pointer to the color information of the bitmap"
+        },
+        {
+          "name": "color_bits",
+          "type": "void *",
+          "description": "Pointer to the color bits of the bitmap"
+        },
+        {
+          "name": "shape_changed",
+          "type": "BOOL",
+          "description": "Flag indicating whether the shape of the surface has changed"
+        },
+        {
+          "name": "shape_info",
+          "type": "BITMAPINFO *",
+          "description": "Pointer to the shape information of the bitmap"
+        },
+        {
+          "name": "shape_bits",
+          "type": "void *",
+          "description": "Pointer to the shape bits of the bitmap"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function executed successfully"
+    }
+  },
+  {
+    "function": {
+      "name": "scaled_surface_destroy",
+      "description": "This function is used to destroy a scaled surface. It first retrieves the scaled surface associated with the given window surface, then releases the target surface of the scaled surface.",
+      "parameters": [
+        {
+          "name": "window_surface",
+          "type": "struct window_surface *",
+          "description": "Pointer to the window surface associated with the scaled surface to be destroyed"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "scaled_surface_set_target",
+      "description": "This function sets a new target for a scaled surface and updates the dpi value. If the surface already has a target, it releases the old one before setting the new one.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct scaled_surface*",
+          "description": "The scaled surface whose target is to be set"
+        },
+        {
+          "name": "target",
+          "type": "struct window_surface*",
+          "description": "The new target surface"
+        },
+        {
+          "name": "dpi_to",
+          "type": "UINT",
+          "description": "The dpi value to be set for the surface"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "scaled_surface_create",
+      "description": "This function creates a scaled window surface.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the surface is created"
+        },
+        {
+          "name": "surface_rect",
+          "type": "const RECT *",
+          "description": "Pointer to a RECT structure that specifies the dimensions of the surface"
+        },
+        {
+          "name": "dpi_from",
+          "type": "UINT",
+          "description": "Dots per inch (DPI) value for the original surface"
+        },
+        {
+          "name": "dpi_to",
+          "type": "UINT",
+          "description": "Dots per inch (DPI) value for the target surface"
+        },
+        {
+          "name": "target_surface",
+          "type": "struct window_surface *",
+          "description": "Pointer to the target surface structure"
+        }
+      ],
+      "return_type": "struct window_surface * - Returns a pointer to the created window surface"
+    }
+  },
+  {
+    "function": {
+      "name": "get_surface_rect",
+      "description": "This function offsets the given rectangle, aligns its sides to the nearest lower multiple of 128, and ensures its width and height are at least 128.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "RECT",
+          "description": "The rectangle to be processed."
+        }
+      ],
+      "return_type": "RECT, representing the processed rectangle."
+    }
+  },
+  {
+    "function": {
+      "name": "create_window_surface",
+      "description": "This function is used to create a window surface. It checks the DPI for the window, gets the surface rectangle, and reuses the underlying driver surface if it matches the target monitor rectangle. If the driver doesn't implement CreateWindowSurface, it creates an offscreen window surface. It also handles the case of reusing previous scaling surface and updates its target to the driver surface.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the surface is being created"
+        },
+        {
+          "name": "create_layered",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether to create a layered window"
+        },
+        {
+          "name": "surface_rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that specifies the dimensions of the surface"
+        },
+        {
+          "name": "monitor_dpi",
+          "type": "UINT",
+          "description": "Dots per inch (DPI) setting of the monitor"
+        },
+        {
+          "name": "window_surface",
+          "type": "struct window_surface **",
+          "description": "Pointer to a pointer to a window_surface structure. This is where the created window surface will be stored"
+        }
+      ],
+      "return_type": "void, this function does not return a value but modifies the window_surface parameter"
+    }
+  },
+  {
+    "function": {
+      "name": "get_driver_window_surface",
+      "description": "This function checks the given surface and returns the appropriate window surface based on the conditions.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct window_surface*",
+          "description": "This is the surface to be checked."
+        },
+        {
+          "name": "monitor_dpi",
+          "type": "UINT",
+          "description": "This is the monitor's DPI to be compared with the surface's DPI."
+        }
+      ],
+      "return_type": "struct window_surface*, represents the appropriate window surface based on the conditions."
+    }
+  },
+  {
+    "function": {
+      "name": "get_color_component",
+      "description": "This function extracts a specific color component from a given color value using a mask.",
+      "parameters": [
+        {
+          "name": "color",
+          "type": "UINT",
+          "description": "This is the color value from which a specific color component is to be extracted."
+        },
+        {
+          "name": "mask",
+          "type": "UINT",
+          "description": "This is the mask used to extract the specific color component from the color value."
+        }
+      ],
+      "return_type": "UINT, represents the specific color component extracted from the color value using the mask."
+    }
+  },
+  {
+    "function": {
+      "name": "get_color_key",
+      "description": "This function checks the validity of the color key and the bitmap information. If valid, it calculates and returns the color key based on the bitmap's color components and the color key's RGB values.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "BITMAPINFO *",
+          "description": "Pointer to a BITMAPINFO structure, which contains information about the dimensions and color format of a device-independent bitmap (DIB)."
+        },
+        {
+          "name": "color_key",
+          "type": "COLORREF",
+          "description": "Specifies the color key. It is a 32-bit value used to specify an RGB color."
+        }
+      ],
+      "return_type": "COLORREF, represents the color key if the input parameters are valid, otherwise returns CLR_INVALID or 0 based on the conditions in the function."
+    }
+  },
+  {
+    "function": {
+      "name": "set_surface_shape_rect",
+      "description": "This function sets the shape of a surface to a rectangle. It manipulates the bits of the surface to form the rectangle shape based on the given parameters.",
+      "parameters": [
+        {
+          "name": "bits",
+          "type": "BYTE *",
+          "description": "Pointer to the bits of the surface"
+        },
+        {
+          "name": "stride",
+          "type": "UINT",
+          "description": "The stride of the rectangle"
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to the rectangle structure"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "window_surface_get_shape",
+      "description": "This function retrieves the shape of a window surface, gets the image from the bitmap, releases the shape bitmap and returns a pointer to the gdi_bits structure.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct window_surface*",
+          "description": "A pointer to the window surface structure from which the shape is to be retrieved."
+        },
+        {
+          "name": "info",
+          "type": "BITMAPINFO*",
+          "description": "A pointer to the BITMAPINFO structure that will receive the bitmap information."
+        }
+      ],
+      "return_type": "void*; Returns a pointer to the gdi_bits structure if successful, otherwise returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "shape_from_alpha_mask",
+      "description": "This function generates a byte mask from the alpha values of an array of bits.",
+      "parameters": [
+        {
+          "name": "bits",
+          "type": "UINT32*",
+          "description": "Pointer to an array of 32-bit unsigned integers representing bit values."
+        },
+        {
+          "name": "alpha_mask",
+          "type": "UINT32",
+          "description": "32-bit unsigned integer representing the alpha mask."
+        },
+        {
+          "name": "alpha",
+          "type": "UINT32",
+          "description": "32-bit unsigned integer representing the alpha value."
+        }
+      ],
+      "return_type": "BYTE, represents the generated byte mask from the alpha values of the bit array."
+    }
+  },
+  {
+    "function": {
+      "name": "shape_from_color_key_16",
+      "description": "This function generates a mask by iterating over bits and comparing each bit with the color key after applying the color mask. The mask is then inverted and returned.",
+      "parameters": [
+        {
+          "name": "bits",
+          "type": "UINT16*",
+          "description": "Pointer to an array of 16-bit unsigned integers representing color bits"
+        },
+        {
+          "name": "color_mask",
+          "type": "UINT16",
+          "description": "16-bit unsigned integer representing the color mask"
+        },
+        {
+          "name": "color_key",
+          "type": "UINT16",
+          "description": "16-bit unsigned integer representing the color key"
+        }
+      ],
+      "return_type": "BYTE, represents the inverted mask generated from the color bits, color mask, and color key"
+    }
+  },
+  {
+    "function": {
+      "name": "shape_from_color_key_32",
+      "description": "This function generates a mask based on a color key and a color mask, then returns the inverse of this mask.",
+      "parameters": [
+        {
+          "name": "bits",
+          "type": "UINT32*",
+          "description": "Pointer to an array of 32-bit unsigned integers representing color bits"
+        },
+        {
+          "name": "color_mask",
+          "type": "UINT32",
+          "description": "32-bit unsigned integer representing the color mask"
+        },
+        {
+          "name": "color_key",
+          "type": "UINT32",
+          "description": "32-bit unsigned integer representing the color key"
+        }
+      ],
+      "return_type": "BYTE, represents the inverse of the generated mask"
+    }
+  },
+  {
+    "function": {
+      "name": "set_surface_shape",
+      "description": "This function sets the shape of a surface, given the surface, rectangle, dirty rectangle, color information, and color bits. It also handles different color bit counts and applies color key and alpha mask if necessary.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct window_surface *",
+          "description": "Pointer to the surface structure to be modified"
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to the rectangle structure defining the shape"
+        },
+        {
+          "name": "dirty",
+          "type": "RECT *",
+          "description": "Pointer to the rectangle structure defining the dirty region"
+        },
+        {
+          "name": "color_info",
+          "type": "BITMAPINFO *",
+          "description": "Pointer to the bitmap information structure containing color information"
+        },
+        {
+          "name": "color_bits",
+          "type": "void *",
+          "description": "Pointer to the color bits to be applied"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully sets the surface shape, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "clear_surface_shape",
+      "description": "This function clears the shape bitmap of a given window surface. If the shape bitmap is not present, it returns FALSE. Otherwise, it deletes the shape bitmap and sets its value to 0, then returns TRUE.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct window_surface *",
+          "description": "This is a pointer to the window surface whose shape bitmap is to be cleared."
+        }
+      ],
+      "return_type": "BOOL, represents whether the shape bitmap was successfully cleared or not."
+    }
+  },
+  {
+    "function": {
+      "name": "update_surface_shape",
+      "description": "This function updates the shape of a given surface. If the surface is a dummy surface, the function returns FALSE. If the surface has a shape region, an alpha mask, or a color key that is not invalid, the function sets the surface shape. Otherwise, it clears the surface shape.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct window_surface *",
+          "description": "This is the surface to be updated."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "This is the rectangle that defines the shape of the surface."
+        },
+        {
+          "name": "dirty",
+          "type": "RECT *",
+          "description": "This is the rectangle that defines the dirty region of the surface."
+        },
+        {
+          "name": "color_info",
+          "type": "BITMAPINFO *",
+          "description": "This is the color information for the surface."
+        },
+        {
+          "name": "color_bits",
+          "type": "void *",
+          "description": "This is the color bits for the surface."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the surface shape was successfully updated, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "window_surface_create",
+      "description": "This function creates a new window surface, initializes its properties, and returns a pointer to it.",
+      "parameters": [
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "Size of the window surface to be created"
+        },
+        {
+          "name": "funcs",
+          "type": "const struct window_surface_funcs *",
+          "description": "Pointer to the window surface functions"
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the surface is being created"
+        },
+        {
+          "name": "rect",
+          "type": "const RECT *",
+          "description": "Pointer to the rectangle structure defining the window surface dimensions"
+        },
+        {
+          "name": "info",
+          "type": "BITMAPINFO *",
+          "description": "Pointer to the bitmap information structure"
+        },
+        {
+          "name": "bitmap",
+          "type": "HBITMAP",
+          "description": "Handle to the bitmap to be used for the window surface"
+        }
+      ],
+      "return_type": "window_surface pointer, represents the created window surface. Returns NULL if the creation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "window_surface_add_ref",
+      "description": "This function increments the reference count of a window surface object.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct window_surface *",
+          "description": "This is a pointer to the window surface object whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "W32KAPI void, which represents that this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "window_surface_release",
+      "description": "This function releases a window surface. It decrements the reference count of the surface, and if the count reaches zero, it destroys the surface's mutex, deletes the clip region, color bitmap, and shape bitmap if they exist, and finally calls the destroy function and frees the surface.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct window_surface *",
+          "description": "This is a pointer to the window surface to be released."
+        }
+      ],
+      "return_type": "W32KAPI void, which represents that this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "window_surface_lock",
+      "description": "This function checks if the provided surface is a dummy surface, if not, it locks the surface's mutex.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct window_surface *",
+          "description": "This is a pointer to the surface to be locked."
+        }
+      ],
+      "return_type": "W32KAPI void, which means this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "window_surface_unlock",
+      "description": "This function unlocks the mutex of a given window surface if the surface is not a dummy surface.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct window_surface *",
+          "description": "This is a pointer to the window surface whose mutex needs to be unlocked."
+        }
+      ],
+      "return_type": "W32KAPI void, which means this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "window_surface_get_color",
+      "description": "This function retrieves the color information from a given window surface and stores it in a BITMAPINFO structure. If the surface is a dummy surface, it returns a pointer to dummy data. Otherwise, it gets the bitmap object associated with the color of the surface, retrieves the image from the bitmap, releases the bitmap object, and returns a pointer to the image bits.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct window_surface*",
+          "description": "A pointer to the window surface from which to retrieve color information."
+        },
+        {
+          "name": "info",
+          "type": "BITMAPINFO*",
+          "description": "A pointer to a BITMAPINFO structure that will receive the color information."
+        }
+      ],
+      "return_type": "void*; Returns a pointer to the image bits if successful, or NULL if not. If the surface is a dummy surface, it returns a pointer to dummy data."
+    }
+  },
+  {
+    "function": {
+      "name": "window_surface_flush",
+      "description": "This function flushes the window surface, aligns the bounds, offsets the dirty rectangle, checks for intersection, updates the surface shape if necessary, and resets the bounds if the surface function flush is successful.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct window_surface *",
+          "description": "This parameter is a pointer to the window surface structure that needs to be flushed."
+        }
+      ],
+      "return_type": "W32KAPI void, which represents that this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "window_surface_set_layered",
+      "description": "This function sets the layered properties of a window surface, including color key, alpha bits, and alpha mask. It also locks and unlocks the window surface during the operation.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct window_surface *",
+          "description": "Pointer to the window surface structure to be modified"
+        },
+        {
+          "name": "color_key",
+          "type": "COLORREF",
+          "description": "Color key to be set for the window surface"
+        },
+        {
+          "name": "alpha_bits",
+          "type": "UINT",
+          "description": "Alpha bits to be set for the window surface"
+        },
+        {
+          "name": "alpha_mask",
+          "type": "UINT",
+          "description": "Alpha mask to be set for the window surface"
+        }
+      ],
+      "return_type": "W32KAPI void, which represents that this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "window_surface_set_clip",
+      "description": "This function sets or clears the clip region of a window surface. If the clip region is NULL and the surface has a clip region, it clears the clip region. If the clip region is not NULL and it is not equal to the surface's clip region, it sets the clip region of the surface.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct window_surface *",
+          "description": "This is a pointer to the window surface whose clip region is to be set or cleared."
+        },
+        {
+          "name": "clip_region",
+          "type": "HRGN",
+          "description": "This is the clip region to be set. If it is NULL, the function will clear the surface's clip region."
+        }
+      ],
+      "return_type": "W32KAPI void, which means the function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "window_surface_set_shape",
+      "description": "This function sets the shape of a window surface. If the shape region is null and the surface has a shape region, it deletes the shape region and sets the bounds to the rectangle of the surface. If the shape region is not null and not equal to the surface's shape region, it creates a new rectangular region if the surface doesn't have a shape region, then combines the shape region with the surface's shape region and sets the bounds to the rectangle of the surface.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct window_surface *",
+          "description": "This is the window surface whose shape is to be set."
+        },
+        {
+          "name": "shape_region",
+          "type": "HRGN",
+          "description": "This is the region that defines the shape to be set on the window surface."
+        }
+      ],
+      "return_type": "W32KAPI void, which means this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "register_window_surface",
+      "description": "This function registers a new window surface and unregisters the old one. It also handles the case where the old and new surfaces are the same or dummy surfaces.",
+      "parameters": [
+        {
+          "name": "old",
+          "type": "struct window_surface*",
+          "description": "Pointer to the old window surface to be unregistered"
+        },
+        {
+          "name": "new",
+          "type": "struct window_surface*",
+          "description": "Pointer to the new window surface to be registered"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "flush_window_surfaces",
+      "description": "This function flushes window surfaces. If the system is idle, it updates the last idle time. If the system is not idle, it only flushes if there's evidence that the app never goes idle.",
+      "parameters": [
+        {
+          "name": "idle",
+          "type": "BOOL",
+          "description": "A boolean value indicating whether the system is idle or not."
+        }
+      ],
+      "return_type": "void, this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "dump_rdw_flags",
+      "description": "This function checks the given flags against a set of predefined flags (RDW flags) and traces the matched flags. If there are any flags that do not match the predefined flags, it traces those as well.",
+      "parameters": [
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "This parameter represents the flags that are to be checked against the predefined RDW flags."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "update_visible_region",
+      "description": "This function updates the visible region of a window in a graphical user interface. It fetches the visible region from the server, combines it with the clip region if any, and sets it as the new visible region. It also handles special cases like parent clip region, OpenGL windows, and empty surfaces.",
+      "parameters": [
+        {
+          "name": "dce",
+          "type": "struct dce *",
+          "description": "A pointer to a device context environment structure, which contains information about the window and its properties."
+        }
+      ],
+      "return_type": "void, meaning it does not return any value. It modifies the state of the window in the graphical user interface."
+    }
+  },
+  {
+    "function": {
+      "name": "release_dce",
+      "description": "This function releases a device context environment (DCE), sets the visible region, releases the device context (DC), deletes the clipping region if it exists, and resets the DCE fields.",
+      "parameters": [
+        {
+          "name": "dce",
+          "type": "struct dce*",
+          "description": "A pointer to the device context environment to be released."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "delete_clip_rgn",
+      "description": "This function deletes a clipping region from a device context extension, resets relevant flags, and marks the visibility region for recomputation.",
+      "parameters": [
+        {
+          "name": "dce",
+          "type": "struct dce*",
+          "description": "This is a pointer to a device context extension structure. The function operates on this structure to delete the clipping region and update the flags."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "delete_dce",
+      "description": "This function deletes a device context extension (DCE) if it is cached. It also removes the DCE from a list and frees the memory allocated to it.",
+      "parameters": [
+        {
+          "name": "dce",
+          "type": "struct dce*",
+          "description": "A pointer to the device context extension (DCE) to be deleted."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the DCE was successfully deleted, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "update_dc",
+      "description": "This function checks if the DC is dirty and if it is, it updates the visible region if the DC is in use. If the DC is not in use, it issues a warning.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This is a pointer to the DC structure that needs to be updated"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "alloc_dce",
+      "description": "This function allocates memory for a new dce structure, initializes its fields, and associates it with a device context. If memory allocation or device context opening fails, it cleans up and returns NULL.",
+      "parameters": [],
+      "return_type": "struct dce pointer, represents a pointer to the newly allocated and initialized dce structure, or NULL if the operation failed"
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_dce",
+      "description": "This function retrieves a pointer to a device context environment (DCE) for a given window. If no DCE exists, it attempts to allocate one based on the window's class style.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the DCE is to be retrieved or allocated."
+        }
+      ],
+      "return_type": "struct dce*. It represents a pointer to the DCE of the window. If the function fails to retrieve or allocate a DCE, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "free_dce",
+      "description": "This function is used to free a DCE (Device Context Entry). It first locks the user, checks if the DCE is valid and if the count is zero, it releases the DCE and removes it from the list. If the DCE's window handle matches the provided handle, it releases the DCE. It then checks for cache DCEs. If the window handle is valid, it iterates through the DCE list and releases any DCEs that match the window handle and have the cache flag set. It then unlocks the user. If a DCE was marked for freeing, it sets the DCE's device context to NULL, deletes the DCE's object application, and frees the DCE.",
+      "parameters": [
+        {
+          "name": "dce",
+          "type": "struct dce *",
+          "description": "A pointer to the DCE to be freed"
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window associated with the DCE"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "make_dc_dirty",
+      "description": "This function checks the count of the DCE structure. If the count is zero, it releases the DCE, otherwise it sets dirty bits in the hDC and DCE structures.",
+      "parameters": [
+        {
+          "name": "dce",
+          "type": "struct dce*",
+          "description": "This parameter is a pointer to a DCE structure that is to be checked and manipulated."
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "invalidate_dce",
+      "description": "This function checks and updates the Device Context Entries (DCEs) for a given window and its old rectangle. It makes the DCE dirty if the DCE window is a child of the given window or if the window rectangle intersects with the DCE window.",
+      "parameters": [
+        {
+          "name": "win",
+          "type": "WND*",
+          "description": "Pointer to the window structure"
+        },
+        {
+          "name": "old_rect",
+          "type": "RECT*",
+          "description": "Pointer to the old rectangle structure"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "release_dc",
+      "description": "This function releases a device context (DC), potentially resetting its attributes and deleting its clipping region based on the provided parameters and the state of the DC. It locks the user while performing these operations to ensure thread safety.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to a window. This parameter is used to identify the window for which the DC is released."
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context. This parameter is used to identify the device context to be released."
+        },
+        {
+          "name": "end_paint",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether the function is called as a result of ending a paint operation. If this parameter is TRUE, or if the DC was created with the DCX_CACHE flag, the function deletes the clipping region of the DC."
+        }
+      ],
+      "return_type": "INT. Returns TRUE if the DC was successfully released and its state was potentially modified, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetDCEx",
+      "description": "This function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. It also manages the device context cache and handles the flags for the device context.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window whose DC is to be retrieved. If this value is NULL, GetDC retrieves the DC for the entire screen."
+        },
+        {
+          "name": "clip_rgn",
+          "type": "HRGN",
+          "description": "A clipping region that may be combined with the visible region of the DC."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Specifies how the DC is created."
+        }
+      ],
+      "return_type": "HDC. It returns a handle to the DC for the specified window's client area if the function is successful. If not, the return value is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserReleaseDC",
+      "description": "This function releases a device context (DC), freeing it for use by other applications.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window whose DC is to be released"
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "A handle to the DC to be released"
+        }
+      ],
+      "return_type": "INT, represents the status of the operation. If the function succeeds, the return value is 1, if it fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetDC",
+      "description": "This function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen. It can return the DC for the specified window's client area or for the entire screen.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window whose DC is to be retrieved. If this value is NULL, GetDC retrieves the DC for the entire screen."
+        }
+      ],
+      "return_type": "HDC, which represents a handle to the device context for the specified window's client area or for the entire screen."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetWindowDC",
+      "description": "This function retrieves the device context (DC) for the entire window, including title bar, menus, and scroll bars.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window for which the DC is to be retrieved."
+        }
+      ],
+      "return_type": "HDC, which represents the handle to the device context for the specified window."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserWindowFromDC",
+      "description": "This function retrieves the window handle associated with a device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This is a handle to the device context."
+        }
+      ],
+      "return_type": "HWND, represents the handle to the window associated with the provided device context."
+    }
+  },
+  {
+    "function": {
+      "name": "get_update_region",
+      "description": "This function retrieves the update region of a window or a child window, and updates the flags and child window handle based on the server response. It handles memory allocation for the region data and handles potential errors.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose update region is to be retrieved."
+        },
+        {
+          "name": "flags",
+          "type": "UINT*",
+          "description": "Pointer to a UINT variable that will receive flags from the server response."
+        },
+        {
+          "name": "child",
+          "type": "HWND*",
+          "description": "Pointer to a HWND variable that will receive the handle of the child window from the server response."
+        }
+      ],
+      "return_type": "HRGN, represents the handle to the update region of the window. Returns 0 in case of an error."
+    }
+  },
+  {
+    "function": {
+      "name": "redraw_window_rects",
+      "description": "This function redraws the specified window by sending a redraw request to the server. It checks the flags to determine whether the window needs to be redrawn and if not, it returns TRUE. If the window needs to be redrawn, it sends the redraw request to the server and returns the result of the server call.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that needs to be redrawn"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags that specify the type of redrawing to be performed"
+        },
+        {
+          "name": "rects",
+          "type": "RECT *",
+          "description": "Pointer to an array of rectangles that need to be redrawn"
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "Number of rectangles in the array"
+        }
+      ],
+      "return_type": "BOOL, represents whether the redraw request was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "get_update_flags",
+      "description": "This function retrieves update flags for a given window and its child window, if any. It communicates with a server to get the update region, and updates the flags and child window handle accordingly.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which update flags are to be retrieved"
+        },
+        {
+          "name": "child",
+          "type": "HWND*",
+          "description": "Pointer to a handle to the child window. This will be updated with the handle to the child window returned from the server."
+        },
+        {
+          "name": "flags",
+          "type": "UINT*",
+          "description": "Pointer to the update flags. This will be updated with the flags returned from the server."
+        }
+      ],
+      "return_type": "BOOL, represents whether the server call was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "send_ncpaint",
+      "description": "This function is used to send a non-client area paint message. It checks if the update region overlaps with the non-client area, and if it does, it creates a new region that excludes the client area. If the update region contains the complete non-client area, it deletes the original region and sets the whole region to 1. It then checks if the non-client area needs to be updated and sends a WM_NCPAINT message if necessary.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that the function operates on."
+        },
+        {
+          "name": "child",
+          "type": "HWND*",
+          "description": "Pointer to a handle to the child window. If this parameter is not NULL, the function operates on the child window instead of the window specified by hwnd."
+        },
+        {
+          "name": "flags",
+          "type": "UINT*",
+          "description": "Pointer to a set of flags that specify how the function operates. For example, if the UPDATE_NONCLIENT flag is set, the function sends a WM_NCPAINT message."
+        }
+      ],
+      "return_type": "HRGN. It represents the handle to the region that needs to be updated. If the whole region is 1, it means that the entire non-client area needs to be updated."
+    }
+  },
+  {
+    "function": {
+      "name": "send_erase",
+      "description": "This function determines whether a window needs to be erased and performs the erasing if necessary. It also handles the retrieval and release of the device context for the window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags that specify the erasing and updating options."
+        },
+        {
+          "name": "client_rgn",
+          "type": "HRGN",
+          "description": "Handle to the region within the window."
+        },
+        {
+          "name": "clip_rect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that specifies the clipping rectangle."
+        },
+        {
+          "name": "hdc_ret",
+          "type": "HDC*",
+          "description": "Pointer to a HDC that receives the device context of the window."
+        }
+      ],
+      "return_type": "BOOL, represents whether the window needs to be erased or not."
+    }
+  },
+  {
+    "function": {
+      "name": "move_window_bits",
+      "description": "This function moves the bits of a window. It first checks if the source and destination rectangles are not the same. If they are not, it gets the update region of the window, gets the device context of the window, and then copies the bits from the source rectangle to the destination rectangle.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window."
+        },
+        {
+          "name": "rects",
+          "type": "struct window_rects *",
+          "description": "Pointer to a structure containing the rectangles of the window."
+        },
+        {
+          "name": "valid_rects",
+          "type": "RECT *",
+          "description": "Pointer to an array of rectangles that are valid for the window."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "move_window_bits_surface",
+      "description": "This function moves the bits of a window surface from one rectangle to another. It first gets the update region of the window, then locks the old surface, gets the color of the old surface, sets the bits to the device, unlocks the old surface, and finally releases the device context.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "window_rect",
+          "type": "const RECT *",
+          "description": "Pointer to the rectangle of the window"
+        },
+        {
+          "name": "old_surface",
+          "type": "struct window_surface *",
+          "description": "Pointer to the old surface of the window"
+        },
+        {
+          "name": "old_visible_rect",
+          "type": "const RECT *",
+          "description": "Pointer to the old visible rectangle of the window"
+        },
+        {
+          "name": "valid_rects",
+          "type": "const RECT *",
+          "description": "Pointer to the valid rectangles of the window"
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserBeginPaint",
+      "description": "This function begins the painting process for a specified window. It hides the caret, sends non-client area paint message, erases the background if necessary, and prepares the paint structure.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that is to be repainted."
+        },
+        {
+          "name": "ps",
+          "type": "PAINTSTRUCT*",
+          "description": "Pointer to a PAINTSTRUCT structure that will receive painting information."
+        }
+      ],
+      "return_type": "HDC, represents the handle to the device context for the specified window. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserEndPaint",
+      "description": "This function ends a painting session that was previously started by a call to the BeginPaint function.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that is to be repainted."
+        },
+        {
+          "name": "ps",
+          "type": "PAINTSTRUCT *",
+          "description": "A pointer to a PAINTSTRUCT structure that was filled by the BeginPaint function."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "erase_now",
+      "description": "This function erases a specified window and potentially its child windows based on the provided flags. It loops through each child window, updating and erasing as necessary until there are no more children or the flags indicate no further action is needed.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be erased"
+        },
+        {
+          "name": "rdw_flags",
+          "type": "UINT",
+          "description": "Flags that specify how the window is to be erased"
+        }
+      ],
+      "return_type": "void, meaning this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "update_now",
+      "description": "This function updates a window and its child windows based on the specified flags. It handles special cases for the desktop window and loops through child windows to repaint them as necessary.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that needs to be updated"
+        },
+        {
+          "name": "rdw_flags",
+          "type": "UINT",
+          "description": "Flags that specify how the window is to be updated"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserRedrawWindow",
+      "description": "This function redraws the specified window or region within a window. It also processes any pending expose events before painting.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be redrawn."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that contains the coordinates of the rectangle to be redrawn. If this parameter is NULL, the entire client area is redrawn."
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "Handle to the region to be redrawn. This parameter is ignored if the rect parameter is non-NULL."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies the redraw options. It can be a combination of the RedrawWindow function flags."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserValidateRect",
+      "description": "This function validates a rectangle in a window. If the window handle is null, it invalidates and redraws all children of the window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that contains the rectangle to be validated."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that contains the logical coordinates of the rectangle to be validated."
+        }
+      ],
+      "return_type": "BOOL, represents whether the window was successfully redrawn or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserValidateRgn",
+      "description": "This function validates a region in a window. If the window handle is invalid, it sets the last error to ERROR_INVALID_WINDOW_HANDLE and returns FALSE. Otherwise, it redraws the window and returns the result of the redraw operation.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window that contains the region to be validated."
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "This is a handle to the region within the window to be validated."
+        }
+      ],
+      "return_type": "BOOL. This represents whether the function was successful in validating the region. It returns FALSE if the window handle is invalid, otherwise it returns the result of the redraw operation."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetUpdateRgn",
+      "description": "This function gets the update region of a window, optionally erases the background, and then combines the update region with the specified region.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose update region is to be retrieved."
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "Handle to the region to be combined with the update region."
+        },
+        {
+          "name": "erase",
+          "type": "BOOL",
+          "description": "Specifies whether the background within the update region is to be erased."
+        }
+      ],
+      "return_type": "INT, represents the status of the operation. If the function succeeds, the return value is nonzero. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetUpdateRect",
+      "description": "This function retrieves the update region of a window, transforms the coordinates of the region, and determines whether the region needs to be erased.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose update region is to be retrieved."
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that receives the coordinates of the update region."
+        },
+        {
+          "name": "erase",
+          "type": "BOOL",
+          "description": "Specifies whether the update region should be erased."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function successfully retrieves the update region and determines whether it needs to be erased; otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserExcludeUpdateRgn",
+      "description": "This function excludes the update region of a window from the current clipping region of a specified device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose update region is to be excluded."
+        }
+      ],
+      "return_type": "INT, represents the complexity of the resulting region if the function succeeds, or an error code if the function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserInvalidateRgn",
+      "description": "This function invalidates the region of a window, causing the window to be redrawn. If the 'erase' parameter is true, the function also erases the background.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose region is to be invalidated."
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "Handle to the region to be invalidated. If this parameter is NULL, the entire window is invalidated."
+        },
+        {
+          "name": "erase",
+          "type": "BOOL",
+          "description": "Specifies whether the background within the update region is to be erased when the update region is processed."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful or not. Returns FALSE if the window handle is invalid, otherwise returns the result of NtUserRedrawWindow function."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserInvalidateRect",
+      "description": "This function invalidates the rectangle area of a window and adds it to the window's update region. The update region represents the portion of the window's client area that must be redrawn.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose update region has changed."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that contains the client coordinates of the rectangle to be added to the update region."
+        },
+        {
+          "name": "erase",
+          "type": "BOOL",
+          "description": "Specifies whether the background within the update region is to be erased when the update region is processed."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserLockWindowUpdate",
+      "description": "This function locks the window update to the specified window and returns a boolean value indicating the success of the operation.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window that is to be locked for update."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the window was successfully locked for update and FALSE indicates failure."
+    }
+  },
+  {
+    "function": {
+      "name": "fix_caret",
+      "description": "This function adjusts the position of the caret in a window, based on the scrolling and other parameters. It also determines whether the caret needs to be moved along with scrolling.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window where the caret is located."
+        },
+        {
+          "name": "scroll_rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that specifies the scrolling rectangle."
+        },
+        {
+          "name": "dx",
+          "type": "INT",
+          "description": "Specifies the amount of horizontal scrolling."
+        },
+        {
+          "name": "dy",
+          "type": "INT",
+          "description": "Specifies the amount of vertical scrolling."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies the scrolling flags."
+        },
+        {
+          "name": "move_caret",
+          "type": "BOOL *",
+          "description": "Pointer to a BOOL variable that indicates whether the caret needs to be moved."
+        },
+        {
+          "name": "new_caret_pos",
+          "type": "POINT *",
+          "description": "Pointer to a POINT structure that receives the new caret position."
+        }
+      ],
+      "return_type": "HWND. Returns the handle to the caret window if the caret needs to be updated during the scrolling, otherwise returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserScrollWindowEx",
+      "description": "This function scrolls the contents of the specified window's client area.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window to be scrolled."
+        },
+        {
+          "name": "dx",
+          "type": "INT",
+          "description": "The amount of horizontal scrolling."
+        },
+        {
+          "name": "dy",
+          "type": "INT",
+          "description": "The amount of vertical scrolling."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "A pointer to the RECT structure specifying the portion of the client area to be scrolled."
+        },
+        {
+          "name": "clip_rect",
+          "type": "RECT *",
+          "description": "A pointer to the RECT structure specifying the clipping rectangle."
+        },
+        {
+          "name": "update_rgn",
+          "type": "HRGN",
+          "description": "A handle to the region that is modified to represent the area to be updated."
+        },
+        {
+          "name": "update_rect",
+          "type": "RECT *",
+          "description": "A pointer to the RECT structure receiving the bounding rectangle of the scroll region."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "The scrolling flags."
+        }
+      ],
+      "return_type": "INT, represents the resulting region type. It can be NULLREGION if the region is empty, SIMPLEREGION if the region is a single rectangle, or COMPLEXREGION if the region is more than one rectangle."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserPrintWindow",
+      "description": "This function sends a message to the window to print itself, including its children, erasing the background, and printing owned windows and client windows. If the PW_CLIENTONLY flag is not set, it also prints non-client areas.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that is to be printed."
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies the drawing options. It can be one or more of the following values: PW_CLIENTONLY."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE always indicating the successful execution of the function."
+    }
+  }
+]

@@ -1,0 +1,1395 @@
+[
+  {
+    "function": {
+      "name": "overlapping",
+      "description": "This function checks if two rectangles overlap each other",
+      "parameters": [
+        {
+          "name": "r1",
+          "type": "RECT *",
+          "description": "Pointer to the first rectangle"
+        },
+        {
+          "name": "r2",
+          "type": "RECT *",
+          "description": "Pointer to the second rectangle"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the rectangles overlap and FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "grow_region",
+      "description": "This function grows the size of a given region. If the size is less than or equal to the current size of the region, it returns true. If the region's rectangles are equal to the region's rectangle buffer, it allocates new memory for the rectangles. If not, it reallocates the memory. If memory allocation or reallocation fails, it returns false. Otherwise, it updates the region's rectangles and size, and returns true.",
+      "parameters": [
+        {
+          "name": "rgn",
+          "type": "WINEREGION*",
+          "description": "Pointer to the region to be grown"
+        },
+        {
+          "name": "size",
+          "type": "int",
+          "description": "The new size for the region"
+        }
+      ],
+      "return_type": "BOOL, represents whether the region was successfully grown or not"
+    }
+  },
+  {
+    "function": {
+      "name": "add_rect",
+      "description": "This function adds a rectangle to the given region. If the region is full, it attempts to grow the region. The rectangle is defined by its left, top, right, and bottom coordinates.",
+      "parameters": [
+        {
+          "name": "reg",
+          "type": "WINEREGION*",
+          "description": "Pointer to the region where the rectangle will be added"
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "The left coordinate of the rectangle"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "The top coordinate of the rectangle"
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "The right coordinate of the rectangle"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "The bottom coordinate of the rectangle"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the rectangle was successfully added to the region, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "empty_region",
+      "description": "This function resets the properties of a WINEREGION object to their initial state.",
+      "parameters": [
+        {
+          "name": "reg",
+          "type": "WINEREGION*",
+          "description": "A pointer to the WINEREGION object to be reset."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "is_in_rect",
+      "description": "This function checks if a point (x, y) is within a given rectangle.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "This is a pointer to the rectangle."
+        },
+        {
+          "name": "x",
+          "type": "int",
+          "description": "This is the x-coordinate of the point."
+        },
+        {
+          "name": "y",
+          "type": "int",
+          "description": "This is the y-coordinate of the point."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the point is within the rectangle, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "bres_init_polygon",
+      "description": "This function initializes the Bresenham's line algorithm for polygon rendering. It calculates the slope and increments for the algorithm based on the input parameters.",
+      "parameters": [
+        {
+          "name": "dy",
+          "type": "int",
+          "description": "The difference in y-coordinates of two points on the polygon edge."
+        },
+        {
+          "name": "x1",
+          "type": "int",
+          "description": "The x-coordinate of the first point on the polygon edge."
+        },
+        {
+          "name": "x2",
+          "type": "int",
+          "description": "The x-coordinate of the second point on the polygon edge."
+        },
+        {
+          "name": "bres",
+          "type": "struct bres_info*",
+          "description": "A pointer to a bres_info structure where the calculated values for the Bresenham's line algorithm will be stored."
+        }
+      ],
+      "return_type": "void, as this function does not return any value but modifies the bres_info structure pointed by the 'bres' parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "bres_incr_polygon",
+      "description": "This function increments the values of minor_axis and d in the bres_info structure based on the conditions of m1 and d.",
+      "parameters": [
+        {
+          "name": "bres",
+          "type": "struct bres_info*",
+          "description": "Pointer to a bres_info structure which contains the variables to be incremented."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "get_region_type",
+      "description": "This function determines the type of a given wine region based on the number of rectangles it contains.",
+      "parameters": [
+        {
+          "name": "obj",
+          "type": "WINEREGION*",
+          "description": "A pointer to the wine region object to be evaluated."
+        }
+      ],
+      "return_type": "INT, represents the type of the region. It can be NULLREGION if the region contains no rectangles, SIMPLEREGION if it contains one rectangle, or COMPLEXREGION if it contains more than one rectangle."
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_DumpRegion",
+      "description": "This function dumps the details of a given region, including its extents and rectangles, to the trace log.",
+      "parameters": [
+        {
+          "name": "pReg",
+          "type": "WINEREGION*",
+          "description": "A pointer to the region to be dumped."
+        }
+      ],
+      "return_type": "void, meaning it does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "init_region",
+      "description": "This function initializes a region with a given size. If the size is larger than the default, it allocates memory for the region. Otherwise, it uses the buffer already present in the region. It then empties the region and returns a boolean value indicating the success of the operation.",
+      "parameters": [
+        {
+          "name": "pReg",
+          "type": "WINEREGION*",
+          "description": "Pointer to the region to be initialized"
+        },
+        {
+          "name": "n",
+          "type": "INT",
+          "description": "The size of the region to be initialized"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the region is successfully initialized, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "destroy_region",
+      "description": "This function frees the memory allocated to the rects field of the WINEREGION structure if it is not the same as the rects_buf field.",
+      "parameters": [
+        {
+          "name": "pReg",
+          "type": "WINEREGION*",
+          "description": "Pointer to a WINEREGION structure"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "free_region",
+      "description": "This function destroys the region and frees the memory allocated to the region.",
+      "parameters": [
+        {
+          "name": "rgn",
+          "type": "WINEREGION*",
+          "description": "This is a pointer to the region to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "alloc_region",
+      "description": "This function allocates memory for a WINEREGION object and initializes it. If the initialization fails, it frees the allocated memory and sets the pointer to NULL.",
+      "parameters": [
+        {
+          "name": "n",
+          "type": "INT",
+          "description": "This parameter is used for initializing the WINEREGION object"
+        }
+      ],
+      "return_type": "WINEREGION pointer, represents a pointer to the allocated and initialized WINEREGION object, or NULL if the initialization failed"
+    }
+  },
+  {
+    "function": {
+      "name": "move_rects",
+      "description": "This function moves rectangles from a source region to a destination region, destroying the destination region first. If the source rectangles are in the buffer, they are copied to the destination buffer. Otherwise, the destination rectangles pointer is set to the source rectangles. The size and number of rectangles are also copied from the source to the destination. Finally, the source region is initialized with zero rectangles.",
+      "parameters": [
+        {
+          "name": "dst",
+          "type": "WINEREGION*",
+          "description": "This is the destination region where the rectangles will be moved to."
+        },
+        {
+          "name": "src",
+          "type": "WINEREGION*",
+          "description": "This is the source region where the rectangles will be moved from."
+        }
+      ],
+      "return_type": "void, as this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_DeleteObject",
+      "description": "This function deletes a region object by freeing the GDI handle and the region itself.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "This is a handle to the GDI object that is to be deleted."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the object was successfully deleted and FALSE indicates that the object could not be deleted."
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_OffsetRegion",
+      "description": "This function offsets a region by a given x and y value. If the source region is not the same as the destination region, it first copies the source region to the destination. Then, if either x or y is non-zero, it offsets all rectangles in the region and the extents of the region by these values.",
+      "parameters": [
+        {
+          "name": "rgn",
+          "type": "WINEREGION*",
+          "description": "Pointer to the destination region"
+        },
+        {
+          "name": "srcrgn",
+          "type": "WINEREGION*",
+          "description": "Pointer to the source region"
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x offset"
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y offset"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation is successful, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiOffsetRgn",
+      "description": "This function offsets a region by the specified amount in the x and y directions.",
+      "parameters": [
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "This is a handle to the region to be offset."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "This is the amount by which the region is to be offset in the x direction."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "This is the amount by which the region is to be offset in the y direction."
+        }
+      ],
+      "return_type": "INT, represents the type of the region after it has been offset. If the region handle is invalid, it returns ERROR."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetRgnBox",
+      "description": "This function retrieves the bounding box of a region and returns the type of the region.",
+      "parameters": [
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "This parameter is a handle to the region."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "This is a pointer to a RECT structure that will receive the bounding box of the region."
+        }
+      ],
+      "return_type": "INT, represents the type of the region if the function succeeds, or an error code if the function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiCreateRectRgn",
+      "description": "This function creates a rectangular region and returns a handle to it.",
+      "parameters": [
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the rectangle."
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the rectangle."
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "The x-coordinate of the lower-right corner of the rectangle."
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "The y-coordinate of the lower-right corner of the rectangle."
+        }
+      ],
+      "return_type": "HRGN, which represents a handle to the newly created rectangular region. Returns 0 if the region creation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSetRectRgn",
+      "description": "This function sets the dimensions of a rectangular region. It swaps the values of left and right, and top and bottom if left > right or top > bottom. If left != right and top != bottom, it sets the dimensions of the region and the number of rectangles to 1. If not, it empties the region. It then releases the region object and returns TRUE.",
+      "parameters": [
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "Handle to the region."
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the rectangle."
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the rectangle."
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "The x-coordinate of the lower-right corner of the rectangle."
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "The y-coordinate of the lower-right corner of the rectangle."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully sets the dimensions of the region, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiCreateRoundRectRgn",
+      "description": "This function creates a rounded rectangle region. The region is defined by the corners specified by the left, top, right, and bottom parameters, and the ellipse used to create the corners of the rounded rectangle is specified by the ellipse_width and ellipse_height parameters.",
+      "parameters": [
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the rectangle"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the rectangle"
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "The x-coordinate of the lower-right corner of the rectangle"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "The y-coordinate of the lower-right corner of the rectangle"
+        },
+        {
+          "name": "ellipse_width",
+          "type": "INT",
+          "description": "The width of the ellipse used to create the rounded corners of the rectangle"
+        },
+        {
+          "name": "ellipse_height",
+          "type": "INT",
+          "description": "The height of the ellipse used to create the rounded corners of the rectangle"
+        }
+      ],
+      "return_type": "HRGN, represents the handle to the region if the function succeeds, or zero otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiCreateEllipticRgn",
+      "description": "This function creates an elliptical region using the specified coordinates.",
+      "parameters": [
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the bounding rectangle."
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the bounding rectangle."
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "The x-coordinate of the lower-right corner of the bounding rectangle."
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "The y-coordinate of the lower-right corner of the bounding rectangle."
+        }
+      ],
+      "return_type": "HRGN, represents the handle to the region if the function is successful. If the function fails, the return value is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetRegionData",
+      "description": "This function retrieves the data for a specified region. It checks if the region object exists, calculates the size of the region data, checks if the buffer is large enough to hold the data, and if so, copies the data into the buffer. If the buffer is too small or null, it returns the required buffer size.",
+      "parameters": [
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "Handle to the region."
+        },
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "The size of the buffer for the region data."
+        },
+        {
+          "name": "rgndata",
+          "type": "RGNDATA*",
+          "description": "Pointer to a RGNDATA structure that will receive the region data."
+        }
+      ],
+      "return_type": "DWORD. If the function succeeds, the return value is the number of bytes stored in the buffer. If the buffer is too small or null, the return value is the required buffer size. If the region does not exist, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "translate",
+      "description": "This function translates a set of points according to a given transformation matrix.",
+      "parameters": [
+        {
+          "name": "pt",
+          "type": "POINT*",
+          "description": "Pointer to the first element of an array of points to be translated."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of points in the array that will be translated."
+        },
+        {
+          "name": "xform",
+          "type": "XFORM*",
+          "description": "Pointer to the transformation matrix used for translation."
+        }
+      ],
+      "return_type": "void, this function does not return a value but modifies the input points in place."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiExtCreateRegion",
+      "description": "This function creates a region using the specified transformation, count, and region data. It also checks for valid input and handles errors accordingly.",
+      "parameters": [
+        {
+          "name": "xform",
+          "type": "XFORM *",
+          "description": "This is a pointer to the transformation to be applied to the region."
+        },
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "This is the count of the number of rectangles in the region data."
+        },
+        {
+          "name": "rgndata",
+          "type": "RGNDATA *",
+          "description": "This is a pointer to the region data which contains information about the region to be created."
+        }
+      ],
+      "return_type": "HRGN, which represents the handle to the created region. If the region creation fails, the function returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiPtInRegion",
+      "description": "This function checks if a given point is in a specific region.",
+      "parameters": [
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "This is a handle to the region."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "This is the x-coordinate of the point."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "This is the y-coordinate of the point."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the point is in the region, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiRectInRegion",
+      "description": "This function checks if a given rectangle overlaps with any rectangle in a specified region. It normalizes the input rectangle, retrieves the region object, and iterates through its rectangles to find an overlap.",
+      "parameters": [
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "This is a handle to the region where the function checks for overlaps."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "This is a pointer to the rectangle that the function checks for overlaps within the region."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the rectangle overlaps with at least one rectangle in the region, and FALSE indicates no overlap."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiEqualRgn",
+      "description": "This function checks if two regions (hrgn1 and hrgn2) are equal. It compares the number of rectangles in each region, the extents of the regions, and the properties of each rectangle in the regions.",
+      "parameters": [
+        {
+          "name": "hrgn1",
+          "type": "HRGN",
+          "description": "The first region to be compared."
+        },
+        {
+          "name": "hrgn2",
+          "type": "HRGN",
+          "description": "The second region to be compared."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the regions are equal, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_UnionRectWithRegion",
+      "description": "This function unites a rectangle with a region.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "This is a pointer to the rectangle to be united with the region."
+        },
+        {
+          "name": "rgn",
+          "type": "WINEREGION *",
+          "description": "This is a pointer to the region with which the rectangle will be united."
+        }
+      ],
+      "return_type": "BOOL, represents whether the union of the rectangle and the region was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "add_rect_to_region",
+      "description": "This function adds a rectangle to a region. It first retrieves the region object, checks if it exists, and then unites the rectangle with the region. Finally, it releases the region object and returns the result of the union operation.",
+      "parameters": [
+        {
+          "name": "rgn",
+          "type": "HRGN",
+          "description": "This is the handle to the region where the rectangle will be added."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "This is a pointer to the rectangle that will be added to the region."
+        }
+      ],
+      "return_type": "BOOL. This function returns TRUE if the rectangle was successfully added to the region, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_FrameRgn",
+      "description": "This function frames a region by offsetting, intersecting and subtracting regions. It releases the GDI objects after use.",
+      "parameters": [
+        {
+          "name": "hDest",
+          "type": "HRGN",
+          "description": "Handle to the destination region"
+        },
+        {
+          "name": "hSrc",
+          "type": "HRGN",
+          "description": "Handle to the source region"
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "Horizontal offset"
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "Vertical offset"
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiCombineRgn",
+      "description": "This function combines two source regions (hSrc1 and hSrc2) into a destination region (hDest) based on the specified mode. The mode can be RGN_AND, RGN_OR, RGN_XOR, RGN_DIFF, or RGN_COPY. The function also traces and dumps the region objects for debugging purposes.",
+      "parameters": [
+        {
+          "name": "hDest",
+          "type": "HRGN",
+          "description": "Handle to the destination region where the result of the operation will be stored"
+        },
+        {
+          "name": "hSrc1",
+          "type": "HRGN",
+          "description": "Handle to the first source region to be combined"
+        },
+        {
+          "name": "hSrc2",
+          "type": "HRGN",
+          "description": "Handle to the second source region to be combined"
+        },
+        {
+          "name": "mode",
+          "type": "INT",
+          "description": "Mode of the operation. It can be RGN_AND, RGN_OR, RGN_XOR, RGN_DIFF, or RGN_COPY"
+        }
+      ],
+      "return_type": "INT, represents the type of the region after the operation. If an error occurs, the function returns ERROR"
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_SetExtents",
+      "description": "This function sets the extents of a region. If the region has no rectangles, it sets all extents to 0. Otherwise, it sets the extents to the smallest and largest values found in the rectangles of the region.",
+      "parameters": [
+        {
+          "name": "pReg",
+          "type": "WINEREGION*",
+          "description": "A pointer to the region whose extents are to be set."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_CopyRegion",
+      "description": "This function copies the content of one WINEREGION structure to another. If the destination region is smaller than the source, it attempts to grow the destination region. If it can't, it returns FALSE. Otherwise, it copies the data and returns TRUE.",
+      "parameters": [
+        {
+          "name": "dst",
+          "type": "WINEREGION*",
+          "description": "This is the destination region where the content of the source region will be copied."
+        },
+        {
+          "name": "src",
+          "type": "WINEREGION*",
+          "description": "This is the source region whose content will be copied to the destination region."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the copy operation is successful, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_MirrorRegion",
+      "description": "This function mirrors a region horizontally based on a specified width. It modifies the destination region to be the mirrored version of the source region.",
+      "parameters": [
+        {
+          "name": "dst",
+          "type": "WINEREGION*",
+          "description": "Pointer to the destination region. This region is modified to be the mirrored version of the source region."
+        },
+        {
+          "name": "src",
+          "type": "WINEREGION*",
+          "description": "Pointer to the source region. This region is mirrored horizontally."
+        },
+        {
+          "name": "width",
+          "type": "int",
+          "description": "The width used for mirroring the region. The mirroring is done based on this width."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation is successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "mirror_region",
+      "description": "This function mirrors a source region into a destination region with a specified width.",
+      "parameters": [
+        {
+          "name": "dst",
+          "type": "HRGN",
+          "description": "This is the destination region where the source region will be mirrored."
+        },
+        {
+          "name": "src",
+          "type": "HRGN",
+          "description": "This is the source region which will be mirrored into the destination region."
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "This is the width of the mirror region."
+        }
+      ],
+      "return_type": "INT, represents the type of the region if the mirroring is successful, otherwise it returns an error."
+    }
+  },
+  {
+    "function": {
+      "name": "mirror_window_region",
+      "description": "This function mirrors a specified region of a window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be mirrored."
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "Handle to the region in the window to be mirrored."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully mirrors the region, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_Coalesce",
+      "description": "This function coalesces or merges bands of rectangles in a region if they are in the same position and have the same dimensions. It also adjusts the bottom of each rectangle in the previous band to that of the corresponding rectangle in the current band.",
+      "parameters": [
+        {
+          "name": "pReg",
+          "type": "WINEREGION*",
+          "description": "Pointer to the region to be coalesced"
+        },
+        {
+          "name": "prevStart",
+          "type": "INT",
+          "description": "Index of the start of the previous band of rectangles"
+        },
+        {
+          "name": "curStart",
+          "type": "INT",
+          "description": "Index of the start of the current band of rectangles"
+        }
+      ],
+      "return_type": "INT, represents the index of the start of the current or previous band depending on whether coalescing was possible or not"
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_compact",
+      "description": "This function compacts the size of the region if the number of rectangles is less than half the size of the region and greater than the default rectangles. It reallocates memory for the rectangles and updates the size of the region.",
+      "parameters": [
+        {
+          "name": "reg",
+          "type": "WINEREGION*",
+          "description": "Pointer to the region that needs to be compacted"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_RegionOp",
+      "description": "This function performs an operation on two regions, using the provided overlap and non-overlap functions, and stores the result in a destination region.",
+      "parameters": [
+        {
+          "name": "destReg",
+          "type": "WINEREGION*",
+          "description": "Place to store the result of the operation"
+        },
+        {
+          "name": "reg1",
+          "type": "WINEREGION*",
+          "description": "First region in the operation"
+        },
+        {
+          "name": "reg2",
+          "type": "WINEREGION*",
+          "description": "Second region in the operation"
+        },
+        {
+          "name": "overlapFunc",
+          "type": "BOOL (*)(WINEREGION*, RECT*, RECT*, RECT*, RECT*, INT, INT)",
+          "description": "Function to call for overlapping bands"
+        },
+        {
+          "name": "nonOverlap1Func",
+          "type": "BOOL (*)(WINEREGION*, RECT*, RECT*, INT, INT)",
+          "description": "Function to call for non-overlapping bands in the first region"
+        },
+        {
+          "name": "nonOverlap2Func",
+          "type": "BOOL (*)(WINEREGION*, RECT*, RECT*, INT, INT)",
+          "description": "Function to call for non-overlapping bands in the second region"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation was successful, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_IntersectO",
+      "description": "This function checks for any overlap between two rectangles and adds that overlap to a new region. It advances the pointers based on which rectangle extends to the right the least.",
+      "parameters": [
+        {
+          "name": "pReg",
+          "type": "WINEREGION*",
+          "description": "Pointer to the new region where overlaps are added"
+        },
+        {
+          "name": "r1",
+          "type": "RECT*",
+          "description": "Pointer to the start of the first rectangle"
+        },
+        {
+          "name": "r1End",
+          "type": "RECT*",
+          "description": "Pointer to the end of the first rectangle"
+        },
+        {
+          "name": "r2",
+          "type": "RECT*",
+          "description": "Pointer to the start of the second rectangle"
+        },
+        {
+          "name": "r2End",
+          "type": "RECT*",
+          "description": "Pointer to the end of the second rectangle"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "Top boundary of the overlap region"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "Bottom boundary of the overlap region"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function executes successfully, and FALSE if the function fails to add the overlap to the new region"
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_IntersectRegion",
+      "description": "This function checks for intersection between two regions and updates the new region based on the intersection. If no intersection is found, the new region is set to have no rectangles. The function also sets the extents of the new region.",
+      "parameters": [
+        {
+          "name": "newReg",
+          "type": "WINEREGION*",
+          "description": "Pointer to the new region that will be updated based on the intersection of reg1 and reg2"
+        },
+        {
+          "name": "reg1",
+          "type": "WINEREGION*",
+          "description": "Pointer to the first region to check for intersection"
+        },
+        {
+          "name": "reg2",
+          "type": "WINEREGION*",
+          "description": "Pointer to the second region to check for intersection"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation is successful, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_UnionNonO",
+      "description": "This function iterates through a range of rectangles, adding each to a region until the end of the range is reached or an error occurs.",
+      "parameters": [
+        {
+          "name": "pReg",
+          "type": "WINEREGION*",
+          "description": "Pointer to the region where rectangles will be added"
+        },
+        {
+          "name": "r",
+          "type": "RECT*",
+          "description": "Pointer to the start of the range of rectangles to be added"
+        },
+        {
+          "name": "rEnd",
+          "type": "RECT*",
+          "description": "Pointer to the end of the range of rectangles to be added"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "The top coordinate of the rectangles to be added"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "The bottom coordinate of the rectangles to be added"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if all rectangles were successfully added, FALSE if an error occurred"
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_UnionO",
+      "description": "This function merges two regions based on the provided parameters. It uses a macro named MERGERECT to perform the merging operation. The function iterates over the rectangles in the two regions, and merges them if certain conditions are met. If the merging operation is successful, the function returns TRUE, otherwise it returns FALSE.",
+      "parameters": [
+        {
+          "name": "pReg",
+          "type": "WINEREGION*",
+          "description": "Pointer to the region where the result of the union operation will be stored."
+        },
+        {
+          "name": "r1",
+          "type": "RECT*",
+          "description": "Pointer to the first rectangle of the first region to be merged."
+        },
+        {
+          "name": "r1End",
+          "type": "RECT*",
+          "description": "Pointer to the last rectangle of the first region to be merged."
+        },
+        {
+          "name": "r2",
+          "type": "RECT*",
+          "description": "Pointer to the first rectangle of the second region to be merged."
+        },
+        {
+          "name": "r2End",
+          "type": "RECT*",
+          "description": "Pointer to the last rectangle of the second region to be merged."
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "The top coordinate of the rectangle to be merged."
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "The bottom coordinate of the rectangle to be merged."
+        }
+      ],
+      "return_type": "BOOL, represents whether the merging operation was successful or not. Returns TRUE if successful, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_UnionRegion",
+      "description": "This function unites two regions and stores the result in a new region. It handles various cases such as when the regions are the same, one is empty, or one completely subsumes the other.",
+      "parameters": [
+        {
+          "name": "newReg",
+          "type": "WINEREGION*",
+          "description": "Pointer to the new region where the result of the union operation will be stored"
+        },
+        {
+          "name": "reg1",
+          "type": "WINEREGION*",
+          "description": "Pointer to the first region to be united"
+        },
+        {
+          "name": "reg2",
+          "type": "WINEREGION*",
+          "description": "Pointer to the second region to be united"
+        }
+      ],
+      "return_type": "BOOL, represents whether the union operation was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_SubtractNonO1",
+      "description": "This function iterates over a range of rectangles from 'r' to 'rEnd', and for each rectangle, it attempts to add a new rectangle to the 'pReg' region with the specified 'top' and 'bottom'. If the addition of any rectangle fails, it immediately returns FALSE. If all rectangles are added successfully, it returns TRUE.",
+      "parameters": [
+        {
+          "name": "pReg",
+          "type": "WINEREGION*",
+          "description": "Pointer to the region where new rectangles are to be added"
+        },
+        {
+          "name": "r",
+          "type": "RECT*",
+          "description": "Pointer to the start of the range of rectangles to be processed"
+        },
+        {
+          "name": "rEnd",
+          "type": "RECT*",
+          "description": "Pointer to the end of the range of rectangles to be processed"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "The top coordinate for the new rectangles to be added to the region"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "The bottom coordinate for the new rectangles to be added to the region"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if all rectangles are added successfully, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_SubtractO",
+      "description": "This function subtracts one region from another. It iterates over the rectangles in the minuend and subtrahend regions, and adds the uncovered parts of the minuend to the new region.",
+      "parameters": [
+        {
+          "name": "pReg",
+          "type": "WINEREGION*",
+          "description": "Pointer to the region where the result will be stored"
+        },
+        {
+          "name": "r1",
+          "type": "RECT*",
+          "description": "Pointer to the first rectangle in the minuend region"
+        },
+        {
+          "name": "r1End",
+          "type": "RECT*",
+          "description": "Pointer to the rectangle after the last one in the minuend region"
+        },
+        {
+          "name": "r2",
+          "type": "RECT*",
+          "description": "Pointer to the first rectangle in the subtrahend region"
+        },
+        {
+          "name": "r2End",
+          "type": "RECT*",
+          "description": "Pointer to the rectangle after the last one in the subtrahend region"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "The top coordinate of the rectangles to be added to the region"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "The bottom coordinate of the rectangles to be added to the region"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation was successful, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_SubtractRegion",
+      "description": "This function subtracts one region from another. If the regions do not overlap, it simply copies the first region. If they do overlap, it performs a region operation to subtract the second region from the first. It then sets the extents of the resulting region.",
+      "parameters": [
+        {
+          "name": "regD",
+          "type": "WINEREGION*",
+          "description": "This is the destination region where the result of the subtraction will be stored."
+        },
+        {
+          "name": "regM",
+          "type": "WINEREGION*",
+          "description": "This is the minuend region from which another region will be subtracted."
+        },
+        {
+          "name": "regS",
+          "type": "WINEREGION*",
+          "description": "This is the subtrahend region which will be subtracted from the minuend region."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the operation was successful, and FALSE indicates that the operation failed."
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_XorRegion",
+      "description": "This function performs the XOR operation on two regions and stores the result in a third region. It first initializes two temporary regions, then subtracts each source region from the other, and finally unites the two results into the destination region. The temporary regions are destroyed before the function returns.",
+      "parameters": [
+        {
+          "name": "dr",
+          "type": "WINEREGION*",
+          "description": "Pointer to the destination region where the result of the XOR operation will be stored"
+        },
+        {
+          "name": "sra",
+          "type": "WINEREGION*",
+          "description": "Pointer to the first source region for the XOR operation"
+        },
+        {
+          "name": "srb",
+          "type": "WINEREGION*",
+          "description": "Pointer to the second source region for the XOR operation"
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_InsertEdgeInET",
+      "description": "This function inserts an edge into the Edge Table (ET). It finds the right bucket to put the edge into, reassigns the pointer to ScanLineList if necessary, and then inserts the edge in the right bucket.",
+      "parameters": [
+        {
+          "name": "ET",
+          "type": "EdgeTable *",
+          "description": "Pointer to the Edge Table"
+        },
+        {
+          "name": "ETE",
+          "type": "EdgeTableEntry *",
+          "description": "Pointer to the Edge Table Entry"
+        },
+        {
+          "name": "scanline",
+          "type": "INT",
+          "description": "The scanline where the edge is to be inserted"
+        },
+        {
+          "name": "SLLBlock",
+          "type": "ScanLineListBlock **",
+          "description": "Pointer to the Scan Line List Block"
+        },
+        {
+          "name": "iSLLBlock",
+          "type": "INT *",
+          "description": "Pointer to the index of the Scan Line List Block"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_CreateEdgeTable",
+      "description": "This function initializes an edge table for a polygon region, calculates the y min and y max for the edge table, and inserts edges into the edge table. It also handles the case of overflow.",
+      "parameters": [
+        {
+          "name": "Count",
+          "type": "INT *",
+          "description": "Pointer to the count of vertices in each polygon"
+        },
+        {
+          "name": "nbpolygons",
+          "type": "INT",
+          "description": "Number of polygons"
+        },
+        {
+          "name": "pts",
+          "type": "POINT *",
+          "description": "Pointer to the array of points representing vertices of polygons"
+        },
+        {
+          "name": "ET",
+          "type": "EdgeTable *",
+          "description": "Pointer to the Edge Table to be initialized and filled"
+        },
+        {
+          "name": "pETEs",
+          "type": "EdgeTableEntry *",
+          "description": "Pointer to the Edge Table Entries to be filled"
+        },
+        {
+          "name": "pSLLBlock",
+          "type": "ScanLineListBlock *",
+          "description": "Pointer to the Scan Line List Block"
+        },
+        {
+          "name": "clip_rect",
+          "type": "RECT *",
+          "description": "Pointer to the clipping rectangle. If present, only the part of the polygon that lies within this rectangle is processed"
+        }
+      ],
+      "return_type": "unsigned int representing the total change in y across all edges of the polygon. Returns 0 in case of overflow"
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_loadAET",
+      "description": "This function loads an Active Edge Table (AET) with Edge Table Entries (ETEs). It iterates through each ETE, finds its appropriate position in the AET based on the minor axis, and inserts it there.",
+      "parameters": [
+        {
+          "name": "AET",
+          "type": "struct list*",
+          "description": "Pointer to the Active Edge Table to be loaded"
+        },
+        {
+          "name": "ETEs",
+          "type": "struct list*",
+          "description": "Pointer to the Edge Table Entries to be loaded into the AET"
+        }
+      ],
+      "return_type": "void, as this function does not return any value but modifies the AET in place"
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_computeWAET",
+      "description": "This function initializes the WETE list, iterates over the AET list, and based on certain conditions, adds the winding_entry of the active element to the WETE list and toggles the inside flag.",
+      "parameters": [
+        {
+          "name": "AET",
+          "type": "struct list*",
+          "description": "Pointer to the Active Edge Table list"
+        },
+        {
+          "name": "WETE",
+          "type": "struct list*",
+          "description": "Pointer to the Winding-Even Table Entry list"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "next_scanline",
+      "description": "This function iterates over the Active Edge Table (AET), removes the edges that are no longer relevant, increments the Bresenham values for the remaining edges, and reorders the AET based on the new Bresenham values.",
+      "parameters": [
+        {
+          "name": "AET",
+          "type": "struct list*",
+          "description": "Pointer to the Active Edge Table (AET)"
+        },
+        {
+          "name": "y",
+          "type": "int",
+          "description": "The y-coordinate of the current scanline"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the AET was modified, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "REGION_FreeStorage",
+      "description": "This function frees the memory allocated to a linked list of ScanLineListBlock objects.",
+      "parameters": [
+        {
+          "name": "pSLLBlock",
+          "type": "ScanLineListBlock*",
+          "description": "Pointer to the first block in a linked list of ScanLineListBlock objects."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "scan_convert",
+      "description": "This function performs scan conversion, which is a process of converting 2D or 3D objects in a scene into a 2D image. It handles two modes of operation, WINDING and non-WINDING, and manages active edge tables and scanlines for the conversion process.",
+      "parameters": [
+        {
+          "name": "obj",
+          "type": "WINEREGION*",
+          "description": "This is a pointer to the WINEREGION object that the function will modify."
+        },
+        {
+          "name": "ET",
+          "type": "EdgeTable*",
+          "description": "This is a pointer to the EdgeTable object that the function will use for the scan conversion."
+        },
+        {
+          "name": "mode",
+          "type": "INT",
+          "description": "This parameter determines the mode of operation. It can be WINDING or non-WINDING."
+        },
+        {
+          "name": "clip_rect",
+          "type": "RECT*",
+          "description": "This is a pointer to the RECT object that defines the clipping rectangle. If this parameter is not NULL, the function will clip the output to this rectangle."
+        }
+      ],
+      "return_type": "void, as this function does not return any value but modifies the WINEREGION object passed as a parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "create_polypolygon_region",
+      "description": "This function creates a polygonal region from a set of points, with special handling for rectangular regions. It also handles memory allocation and deallocation for the region.",
+      "parameters": [
+        {
+          "name": "Pts",
+          "type": "const POINT *",
+          "description": "Pointer to an array of points defining the vertices of the polygons"
+        },
+        {
+          "name": "Count",
+          "type": "const INT *",
+          "description": "Pointer to an array of integers specifying the number of points in each polygon"
+        },
+        {
+          "name": "nbpolygons",
+          "type": "INT",
+          "description": "Number of polygons"
+        },
+        {
+          "name": "mode",
+          "type": "INT",
+          "description": "Mode for the scan conversion of the polygons"
+        },
+        {
+          "name": "clip_rect",
+          "type": "const RECT *",
+          "description": "Pointer to a RECT structure that specifies the clipping rectangle"
+        }
+      ],
+      "return_type": "HRGN, represents the handle to the resulting region"
+    }
+  }
+]

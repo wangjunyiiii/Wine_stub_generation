@@ -1,0 +1,45 @@
+[
+  {
+    "function": {
+      "name": "OleMetafilePictFromIconAndLabel",
+      "description": "This function creates a metafile picture from an icon and a label, optionally including the source file and icon index.",
+      "parameters": [
+        {
+          "name": "hIcon",
+          "type": "HICON",
+          "description": "Handle to the icon to be used."
+        },
+        {
+          "name": "lpszLabel",
+          "type": "LPOLESTR",
+          "description": "Pointer to the label to be used."
+        },
+        {
+          "name": "lpszSourceFile",
+          "type": "LPOLESTR",
+          "description": "Pointer to the source file to be used."
+        },
+        {
+          "name": "iIconIndex",
+          "type": "UINT",
+          "description": "Index of the icon to be used."
+        }
+      ],
+      "return_type": "HGLOBAL. It represents a handle to a global memory object. This function returns a handle to the metafile picture that it creates."
+    }
+  },
+  {
+    "function": {
+      "name": "IsValidInterface",
+      "description": "This function checks if the provided interface pointer is valid by checking if the pointer itself, its vtable pointer, and the QueryInterface function pointer are readable and executable.",
+      "parameters": [
+        {
+          "name": "punk",
+          "type": "LPUNKNOWN",
+          "description": "This is a pointer to the interface to be checked."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the interface is valid, otherwise returns FALSE."
+    }
+  }
+]

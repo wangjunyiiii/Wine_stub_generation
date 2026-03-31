@@ -1,0 +1,651 @@
+[
+  {
+    "function": {
+      "name": "get_session_thread_data",
+      "description": "This function retrieves the session data associated with the current user thread. If no session data exists, it allocates memory for it.",
+      "parameters": [],
+      "return_type": "struct session_thread_data pointer, representing the session data associated with the current user thread"
+    }
+  },
+  {
+    "function": {
+      "name": "shared_object_acquire_seqlock",
+      "description": "This function acquires a sequence lock on a shared object. It continuously reads the sequence number of the object until it gets an even number, yielding the processor each time it gets an odd number.",
+      "parameters": [
+        {
+          "name": "object",
+          "type": "shared_object_t *",
+          "description": "This is the shared object on which the sequence lock is to be acquired."
+        },
+        {
+          "name": "seq",
+          "type": "UINT64 *",
+          "description": "This is the pointer to a 64-bit unsigned integer where the sequence number of the object will be stored."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "shared_object_release_seqlock",
+      "description": "This function checks if the sequence number of a shared object matches a given sequence number.",
+      "parameters": [
+        {
+          "name": "object",
+          "type": "shared_object_t *",
+          "description": "Pointer to the shared object"
+        },
+        {
+          "name": "seq",
+          "type": "UINT64",
+          "description": "The sequence number to be compared with the object's sequence number"
+        }
+      ],
+      "return_type": "BOOL, returns true if the sequence number of the object matches the given sequence number, false otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "shared_object_get_id",
+      "description": "This function acquires a sequence lock on a shared object, retrieves the object's ID, and then releases the sequence lock.",
+      "parameters": [
+        {
+          "name": "object",
+          "type": "shared_object_t *",
+          "description": "This is the shared object whose ID is to be retrieved."
+        }
+      ],
+      "return_type": "object_id_t, which represents the ID of the shared object"
+    }
+  },
+  {
+    "function": {
+      "name": "map_shared_session_block",
+      "description": "This function maps a shared session block in memory. It opens a section, maps a view of the section, adds the block to a list of session blocks, and sets the return value to the block. If any step fails, it cleans up and returns an error status.",
+      "parameters": [
+        {
+          "name": "offset",
+          "type": "SIZE_T",
+          "description": "The offset at which to start the mapping."
+        },
+        {
+          "name": "size",
+          "type": "SIZE_T",
+          "description": "The size of the block to map."
+        },
+        {
+          "name": "ret",
+          "type": "struct session_block **",
+          "description": "A pointer to a pointer to a session_block structure. This is where the function will store the pointer to the mapped block."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. If the function succeeds, it returns STATUS_SUCCESS. If it fails, it returns an error status code."
+    }
+  },
+  {
+    "function": {
+      "name": "find_shared_session_block",
+      "description": "This function finds a shared session block in a list of session blocks. If it doesn't find a suitable block, it attempts to map a new one.",
+      "parameters": [
+        {
+          "name": "offset",
+          "type": "SIZE_T",
+          "description": "The offset at which to start the search for the session block"
+        },
+        {
+          "name": "size",
+          "type": "SIZE_T",
+          "description": "The size of the session block to find"
+        },
+        {
+          "name": "ret",
+          "type": "struct session_block **",
+          "description": "A pointer to a pointer to a session block structure. This is where the function will store the address of the found or newly mapped session block"
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the status of the operation. Returns STATUS_SUCCESS if a suitable block is found, otherwise returns the status of the map_shared_session_block function"
+    }
+  },
+  {
+    "function": {
+      "name": "find_shared_session_object",
+      "description": "This function is used to find a shared session object based on the provided object id and offset. It returns a pointer to the shared object if found and matches the id, otherwise it returns NULL.",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "object_id_t",
+          "description": "This is the id of the shared object to be found."
+        },
+        {
+          "name": "offset",
+          "type": "mem_size_t",
+          "description": "This is the offset to be used when finding the shared object."
+        }
+      ],
+      "return_type": "shared_object_t pointer. It represents the shared object found based on the provided id and offset. If no matching object is found, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "shared_session_init",
+      "description": "This function initializes a shared session by finding a shared session block and mapping it to the shared session. If the mapping fails, it logs an error message.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "get_shared_desktop",
+      "description": "This function retrieves a shared desktop object and its associated lock. If the shared desktop object does not exist, it attempts to find it. If the lock is not valid or the sequence lock of the shared object cannot be released, it acquires a sequence lock on the shared object and sets the desktop_shm pointer to the shared memory of the desktop object.",
+      "parameters": [
+        {
+          "name": "lock",
+          "type": "struct object_lock *",
+          "description": "A pointer to an object_lock structure. This lock is used to synchronize access to the shared desktop object."
+        },
+        {
+          "name": "desktop_shm",
+          "type": "desktop_shm_t **",
+          "description": "A pointer to a pointer to a desktop_shm_t structure. This parameter is used to return a pointer to the shared memory of the desktop object."
+        }
+      ],
+      "return_type": "NTSTATUS. It represents the status of the operation. It returns STATUS_SUCCESS if the operation is successful, STATUS_PENDING if a sequence lock on the shared object is acquired, and STATUS_INVALID_HANDLE if the shared desktop object cannot be found."
+    }
+  },
+  {
+    "function": {
+      "name": "get_shared_queue",
+      "description": "This function retrieves a shared message queue. It first checks if the shared queue is already available in the session thread data. If not, it sends a request to the server to get the message queue. It then finds the shared session object using the locator returned from the server. If the object is not found, it returns an invalid handle status. If the object is found, it checks if the lock's id is valid and if the shared object's sequence lock can be released. If not, it acquires the sequence lock, sets the queue_shm to the shared object's queue, sets the lock's id to the object's id, and returns a pending status. If the sequence lock can be released, it returns a success status.",
+      "parameters": [
+        {
+          "name": "lock",
+          "type": "struct object_lock *",
+          "description": "This is a pointer to the object lock structure. It is used to manage access to the shared queue."
+        },
+        {
+          "name": "queue_shm",
+          "type": "queue_shm_t **",
+          "description": "This is a pointer to a pointer to the shared memory queue. It is used to store the address of the shared queue."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. It can be STATUS_INVALID_HANDLE if the shared object is not found, STATUS_PENDING if the sequence lock is acquired, or STATUS_SUCCESS if the sequence lock can be released."
+    }
+  },
+  {
+    "function": {
+      "name": "try_get_shared_input",
+      "description": "This function attempts to get shared input from a thread. If the object is not found in the cache, it makes a server request to get the thread input. It then checks the validity of the object and locks it. If the object is invalidated, it resets the cache and lock.",
+      "parameters": [
+        {
+          "name": "tid",
+          "type": "UINT",
+          "description": "Thread identifier"
+        },
+        {
+          "name": "lock",
+          "type": "struct object_lock *",
+          "description": "Pointer to the object lock structure"
+        },
+        {
+          "name": "input_shm",
+          "type": "input_shm_t **",
+          "description": "Pointer to a pointer of shared memory input type"
+        },
+        {
+          "name": "cache",
+          "type": "struct shared_input_cache *",
+          "description": "Pointer to the shared input cache structure"
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. Returns STATUS_PENDING if the object is locked, STATUS_INVALID_HANDLE if the object is not found, and STATUS_SUCCESS if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "get_shared_input",
+      "description": "This function retrieves shared input from a session thread data. It checks the thread id (tid) and based on its value, it assigns a cache. If the tid doesn't match with the cache's tid, it resets the cache. It then tries to get the shared input and repeats until it gets a status and an id in the cache.",
+      "parameters": [
+        {
+          "name": "tid",
+          "type": "UINT",
+          "description": "The thread id to check and assign cache based on its value"
+        },
+        {
+          "name": "lock",
+          "type": "struct object_lock *",
+          "description": "Pointer to the object lock structure"
+        },
+        {
+          "name": "input_shm",
+          "type": "input_shm_t **",
+          "description": "Double pointer to the shared memory input type"
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation"
+    }
+  },
+  {
+    "function": {
+      "name": "is_virtual_desktop",
+      "description": "This function checks if the current desktop is a virtual desktop by accessing shared memory. It uses a loop to continuously check the status of the shared desktop until it is no longer pending. If the status is not zero after the loop, it sets the return value to FALSE.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not accept any parameters."
+        }
+      ],
+      "return_type": "BOOL, represents whether the current desktop is a virtual desktop or not."
+    }
+  },
+  {
+    "function": {
+      "name": "is_service_process",
+      "description": "This function checks if the current process is a service process by comparing the name of the process window station with a predefined name.",
+      "parameters": [],
+      "return_type": "BOOL, returns TRUE if the current process is a service process, otherwise FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserCreateWindowStation",
+      "description": "This function creates a new window station, sets the last Win32 error if the object name length exceeds the maximum path, and returns a handle to the new window station.",
+      "parameters": [
+        {
+          "name": "attr",
+          "type": "OBJECT_ATTRIBUTES*",
+          "description": "Pointer to an OBJECT_ATTRIBUTES structure that contains the name, attributes, and root directory for the window station."
+        },
+        {
+          "name": "access",
+          "type": "ACCESS_MASK",
+          "description": "Specifies the access to the window station."
+        },
+        {
+          "name": "arg3",
+          "type": "ULONG",
+          "description": "Not used in this function."
+        },
+        {
+          "name": "arg4",
+          "type": "ULONG",
+          "description": "Not used in this function."
+        },
+        {
+          "name": "arg5",
+          "type": "ULONG",
+          "description": "Not used in this function."
+        },
+        {
+          "name": "arg6",
+          "type": "ULONG",
+          "description": "Not used in this function."
+        },
+        {
+          "name": "arg7",
+          "type": "ULONG",
+          "description": "Not used in this function."
+        }
+      ],
+      "return_type": "HWINSTA. It represents a handle to the newly created window station. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserOpenWindowStation",
+      "description": "This function opens a window station with specified attributes and access.",
+      "parameters": [
+        {
+          "name": "attr",
+          "type": "OBJECT_ATTRIBUTES*",
+          "description": "Pointer to the attributes of the window station to be opened"
+        },
+        {
+          "name": "access",
+          "type": "ACCESS_MASK",
+          "description": "The access mask that specifies the requested types of access to the window station"
+        }
+      ],
+      "return_type": "HWINSTA, represents a handle to the opened window station"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserCloseWindowStation",
+      "description": "This function closes a window station.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HWINSTA",
+          "description": "This is a handle to the window station to be closed."
+        }
+      ],
+      "return_type": "BOOL, represents whether the window station was successfully closed or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetProcessWindowStation",
+      "description": "This function is used to get the window station for the current process.",
+      "parameters": [],
+      "return_type": "HWINSTA, represents a handle to the window station for the current process"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetProcessWindowStation",
+      "description": "This function sets the window station for the current process.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HWINSTA",
+          "description": "This is a handle to the window station."
+        }
+      ],
+      "return_type": "BOOL, represents whether the window station was successfully set or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserCreateDesktopEx",
+      "description": "This function creates a new desktop with specified attributes, device settings, access permissions, and heap size. It also handles errors related to invalid parameters and filename range exceeding the limit.",
+      "parameters": [
+        {
+          "name": "attr",
+          "type": "OBJECT_ATTRIBUTES*",
+          "description": "Pointer to the object attributes for the new desktop"
+        },
+        {
+          "name": "device",
+          "type": "UNICODE_STRING*",
+          "description": "Pointer to the device settings for the new desktop"
+        },
+        {
+          "name": "devmode",
+          "type": "DEVMODEW*",
+          "description": "Pointer to the device mode settings for the new desktop"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags to specify additional options or settings"
+        },
+        {
+          "name": "access",
+          "type": "ACCESS_MASK",
+          "description": "Access permissions for the new desktop"
+        },
+        {
+          "name": "heap_size",
+          "type": "ULONG",
+          "description": "Size of the heap for the new desktop"
+        }
+      ],
+      "return_type": "HDESK, represents a handle to the newly created desktop. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserOpenDesktop",
+      "description": "This function opens a desktop object, modifies the access rights, checks if the object name length exceeds the maximum path length, and sets the last error to ERROR_FILENAME_EXCED_RANGE if it does. It then starts a server request to open the desktop, sets the necessary parameters, adds data to the server, and if the server call is successful, it sets the return value to the server pointer handle.",
+      "parameters": [
+        {
+          "name": "attr",
+          "type": "OBJECT_ATTRIBUTES*",
+          "description": "Pointer to an OBJECT_ATTRIBUTES structure that contains the name, attributes, and root directory that are used when opening the new desktop."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "The flags that control the behavior of the function."
+        },
+        {
+          "name": "access",
+          "type": "ACCESS_MASK",
+          "description": "The access mask that specifies the requested access to the desktop. It is modified within the function to include DESKTOP_READOBJECTS and DESKTOP_WRITEOBJECTS."
+        }
+      ],
+      "return_type": "HDESK. It represents a handle to the opened desktop. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserCloseDesktop",
+      "description": "This function closes a desktop, freeing the associated resources.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HDESK",
+          "description": "This is a handle to the desktop that needs to be closed."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the desktop was successfully closed, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetThreadDesktop",
+      "description": "This function retrieves the desktop associated with a specific thread.",
+      "parameters": [
+        {
+          "name": "thread",
+          "type": "DWORD",
+          "description": "This is the identifier of the thread for which the desktop is to be retrieved."
+        }
+      ],
+      "return_type": "HDESK, represents a handle to the desktop associated with the specified thread."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetThreadDesktop",
+      "description": "This function sets the desktop associated with a specific thread. It also updates the display cache if the desktop was a virtual desktop.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HDESK",
+          "description": "This is a handle to the desktop to be associated with the thread."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserOpenInputDesktop",
+      "description": "This function opens the input desktop, modifies the access permissions and returns a handle to the desktop.",
+      "parameters": [
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags that control the behavior of the function."
+        },
+        {
+          "name": "inherit",
+          "type": "BOOL",
+          "description": "Determines whether the returned handle can be inherited by child processes."
+        },
+        {
+          "name": "access",
+          "type": "ACCESS_MASK",
+          "description": "Specifies the requested access rights to the desktop."
+        }
+      ],
+      "return_type": "HDESK, a handle to the opened input desktop."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSwitchDesktop",
+      "description": "This function switches the input desktop to the one specified by the handle.",
+      "parameters": [
+        {
+          "name": "desktop",
+          "type": "HDESK",
+          "description": "Handle to the desktop to switch to."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the desktop was successfully switched, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserBuildNameList",
+      "description": "This function builds a list of names from a window station object, given a handle to the object, a size for the list, a pointer to the list, and a pointer to the return size.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HWINSTA",
+          "description": "Handle to the window station object."
+        },
+        {
+          "name": "size",
+          "type": "ULONG",
+          "description": "Size of the list to be built."
+        },
+        {
+          "name": "list",
+          "type": "struct ntuser_name_list*",
+          "description": "Pointer to the list where the names will be stored."
+        },
+        {
+          "name": "ret_size",
+          "type": "ULONG*",
+          "description": "Pointer to the variable where the function will store the size of the built list."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. If the operation is successful, the function returns STATUS_SUCCESS. If the size is less than or equal to the header size, it returns STATUS_INVALID_HANDLE. If memory allocation fails, it returns STATUS_NO_MEMORY. If the buffer is too small, it returns STATUS_BUFFER_TOO_SMALL."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetObjectInformation",
+      "description": "This function retrieves information about a user object for the specified handle and index. It handles different cases based on the index value.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HANDLE",
+          "description": "A handle to the user object"
+        },
+        {
+          "name": "index",
+          "type": "INT",
+          "description": "An index that determines the type of information to be retrieved"
+        },
+        {
+          "name": "info",
+          "type": "void *",
+          "description": "A pointer to the buffer that receives the information"
+        },
+        {
+          "name": "len",
+          "type": "DWORD",
+          "description": "The size, in bytes, of the buffer pointed to by the info parameter"
+        },
+        {
+          "name": "needed",
+          "type": "DWORD *",
+          "description": "A pointer to a variable that receives the number of bytes required to store the requested information"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds; otherwise, FALSE. If the buffer is too small to receive all of the information, the function returns FALSE and stores the required buffer size into the variable pointed to by needed."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetObjectInformation",
+      "description": "This function sets the information for a user object. It checks the validity of the parameters, sets the last error to ERROR_INVALID_PARAMETER if they are invalid, and makes a server call to set the user object information.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HANDLE",
+          "description": "A handle to the user object."
+        },
+        {
+          "name": "index",
+          "type": "INT",
+          "description": "The index of the information to be set."
+        },
+        {
+          "name": "info",
+          "type": "void *",
+          "description": "A pointer to the information to be set."
+        },
+        {
+          "name": "len",
+          "type": "DWORD",
+          "description": "The length of the information to be set."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the server call to set the user object information is successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_desktop_window",
+      "description": "This function retrieves the desktop window for the current thread. If the top window does not exist, it creates a new explorer desktop window unless the process is a service. It also registers built-in classes.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters"
+        }
+      ],
+      "return_type": "HWND, which represents a handle to the top window of the current thread"
+    }
+  },
+  {
+    "function": {
+      "name": "get_winstations_dir_handle",
+      "description": "This function returns a handle to the directory of window stations for the current session. It first constructs the path to the directory, then attempts to open it and returns the handle if successful.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "HANDLE, which represents a handle to the directory of window stations. If the function fails to open the directory, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "get_default_desktop",
+      "description": "This function retrieves the default desktop from the Wine registry or returns a default value if it cannot be found. It also processes the application's image path name.",
+      "parameters": [
+        {
+          "name": "buf",
+          "type": "void*",
+          "description": "Buffer to hold the registry key value data"
+        },
+        {
+          "name": "buf_size",
+          "type": "size_t",
+          "description": "Size of the buffer"
+        }
+      ],
+      "return_type": "WCHAR (pointer to a wide character string). It represents the default desktop retrieved from the Wine registry or a default value if it cannot be found."
+    }
+  },
+  {
+    "function": {
+      "name": "winstation_init",
+      "description": "This function initializes a window station and desktop for the current process. It first checks if a window station is already set for the process, if not, it creates a new one. It then checks if a desktop is set for the current thread, if not, it creates a new one. The function also handles memory allocation and deallocation for the window station and desktop names.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  }
+]

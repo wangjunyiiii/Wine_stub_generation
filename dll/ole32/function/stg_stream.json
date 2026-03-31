@@ -1,0 +1,352 @@
+[
+  {
+    "function": {
+      "name": "StgStreamImpl_QueryInterface",
+      "description": "This function checks if the requested interface (identified by riid) is supported. If it is, a pointer to that interface is returned in ppvObject. The function also increments the reference count for the interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Pointer to the IStream interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Identifier of the interface being requested"
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Address of a pointer variable that receives the interface pointer requested in riid. Upon successful return, *ppvObject contains the requested interface pointer"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the interface is supported, E_NOINTERFACE if not, E_INVALIDARG if ppvObject is a null pointer"
+    }
+  },
+  {
+    "function": {
+      "name": "StgStreamImpl_AddRef",
+      "description": "This function increments the reference count of the StgStreamImpl object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Pointer to an IStream interface."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after increment."
+    }
+  },
+  {
+    "function": {
+      "name": "StgStreamImpl_Release",
+      "description": "This function releases a reference to an IStream interface, and if the reference count drops to 0, it removes the stream from its parent storage and frees the memory allocated for the stream.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Pointer to an IStream interface that is to be released"
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the IStream interface after the release operation"
+    }
+  },
+  {
+    "function": {
+      "name": "StgStreamImpl_Read",
+      "description": "This function reads data from a stream object and advances the position pointer for the stream.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Pointer to the IStream interface"
+        },
+        {
+          "name": "pv",
+          "type": "void*",
+          "description": "Pointer to the buffer which the stream is read into"
+        },
+        {
+          "name": "cb",
+          "type": "ULONG",
+          "description": "Number of bytes to read from the stream"
+        },
+        {
+          "name": "pcbRead",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG where the actual number of bytes read is placed"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK. If the end of the stream was reached before the operation could be completed, it's S_FALSE. Otherwise, a failure status code is returned."
+    }
+  },
+  {
+    "function": {
+      "name": "StgStreamImpl_Write",
+      "description": "This function is used to write a specified number of bytes into the current seek pointer of the stream. It also updates the seek pointer by the number of bytes actually written.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Pointer to the IStream interface"
+        },
+        {
+          "name": "pv",
+          "type": "void*",
+          "description": "Pointer to the buffer which the stream data is read from"
+        },
+        {
+          "name": "cb",
+          "type": "ULONG",
+          "description": "Number of bytes of data to attempt to write into the stream"
+        },
+        {
+          "name": "pcbWritten",
+          "type": "ULONG*",
+          "description": "Pointer to location where this function writes the actual number of bytes written to the stream"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK. If the operation failed, the return value is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "StgStreamImpl_Seek",
+      "description": "This function moves the file pointer of a stream object to a new location. The new location is relative to either the beginning of the stream, the current seek pointer, or the end of the stream.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Pointer to the IStream interface"
+        },
+        {
+          "name": "dlibMove",
+          "type": "LARGE_INTEGER",
+          "description": "Specifies the displacement to be added to the location indicated by the dwOrigin parameter"
+        },
+        {
+          "name": "dwOrigin",
+          "type": "DWORD",
+          "description": "Specifies the origin of the seek. The origin can be the beginning of the file, the current seek pointer, or the end of the file"
+        },
+        {
+          "name": "plibNewPosition",
+          "type": "ULARGE_INTEGER*",
+          "description": "Pointer to the location where this method writes the value of the new seek pointer from the beginning of the stream"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK. Otherwise, it is an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "StgStreamImpl_SetSize",
+      "description": "This function sets the size of a stream. It first checks if the parent storage exists, if the size is valid, and if it has the necessary permissions. Then it sets the size and flushes the parent storage.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Interface pointer to the stream whose size is to be set"
+        },
+        {
+          "name": "libNewSize",
+          "type": "ULARGE_INTEGER",
+          "description": "The new size to be set for the stream"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It can return various status codes like STG_E_REVERTED, STG_E_INVALIDFUNCTION, STG_E_ACCESSDENIED, or the status of the flush operation."
+    }
+  },
+  {
+    "function": {
+      "name": "StgStreamImpl_CopyTo",
+      "description": "This function copies a specified number bytes from the current seek pointer in the stream to another stream.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Pointer to the interface of the source stream."
+        },
+        {
+          "name": "pstm",
+          "type": "IStream*",
+          "description": "Pointer to the interface of the destination stream."
+        },
+        {
+          "name": "cb",
+          "type": "ULARGE_INTEGER",
+          "description": "The number of bytes to copy from the source stream."
+        },
+        {
+          "name": "pcbRead",
+          "type": "ULARGE_INTEGER*",
+          "description": "Pointer to the location where this function writes the actual number of bytes read from the source."
+        },
+        {
+          "name": "pcbWritten",
+          "type": "ULARGE_INTEGER*",
+          "description": "Pointer to the location where this function writes the actual number of bytes written to the destination."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "StgStreamImpl_Commit",
+      "description": "This function commits changes to the stream object that it is called upon. If the parent storage is null, it warns and returns an error. Otherwise, it flushes the parent storage.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "This is the interface pointer to the stream object."
+        },
+        {
+          "name": "grfCommitFlags",
+          "type": "DWORD",
+          "description": "This parameter is used to control how changes are committed to the stream object."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns STG_E_REVERTED if the parent storage is null, otherwise it returns the result of the flush operation on the parent storage."
+    }
+  },
+  {
+    "function": {
+      "name": "StgStreamImpl_Revert",
+      "description": "This function is used to revert the changes in a storage object to a previous state.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "This is an interface pointer to the stream to be reverted."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK indicates success."
+    }
+  },
+  {
+    "function": {
+      "name": "StgStreamImpl_LockRegion",
+      "description": "This function is used to lock a region in a stream. However, the function is not fully implemented and will return an error if called.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Interface for the stream to lock a region in"
+        },
+        {
+          "name": "libOffset",
+          "type": "ULARGE_INTEGER",
+          "description": "The offset at which to start the lock"
+        },
+        {
+          "name": "cb",
+          "type": "ULARGE_INTEGER",
+          "description": "The number of bytes to lock"
+        },
+        {
+          "name": "dwLockType",
+          "type": "DWORD",
+          "description": "The type of lock to apply"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It will return STG_E_REVERTED if the parent storage is null, and E_NOTIMPL as the function is not fully implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "StgStreamImpl_UnlockRegion",
+      "description": "This function is used to unlock a region in a storage stream. However, it is currently not implemented.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Pointer to the IStream interface"
+        },
+        {
+          "name": "libOffset",
+          "type": "ULARGE_INTEGER",
+          "description": "Specifies the byte offset for the beginning of the range"
+        },
+        {
+          "name": "cb",
+          "type": "ULARGE_INTEGER",
+          "description": "Specifies, in bytes, the length of the range to be unlocked"
+        },
+        {
+          "name": "dwLockType",
+          "type": "DWORD",
+          "description": "Specifies the restrictions on accessing the specified range"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns STG_E_REVERTED if the storage has been reverted, and E_NOTIMPL as it is not implemented yet."
+    }
+  },
+  {
+    "function": {
+      "name": "StgStreamImpl_Stat",
+      "description": "This function reads the information from the directory entry of a stream and copies it to a STATSTG structure. If the stream has no parent, it returns STG_E_REVERTED. In simple create mode, cbSize is the current position.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Interface pointer to the stream"
+        },
+        {
+          "name": "pstatstg",
+          "type": "STATSTG*",
+          "description": "Pointer to a STATSTG structure where this function will copy the directory entry information"
+        },
+        {
+          "name": "grfStatFlag",
+          "type": "DWORD",
+          "description": "Flag that specifies the type of STATSTG structure members to be returned"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If the stream has no parent, it returns STG_E_REVERTED. If it fails to read the directory entry, it returns the error code from the failed operation."
+    }
+  },
+  {
+    "function": {
+      "name": "StgStreamImpl_Clone",
+      "description": "This function clones a stream object and positions the clone at the same position as the original stream.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Pointer to the original stream object to be cloned."
+        },
+        {
+          "name": "ppstm",
+          "type": "IStream**",
+          "description": "Pointer to a pointer to receive the cloned stream object."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation is successful, the function returns S_OK. If the operation fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "StgStreamImpl_Construct",
+      "description": "This function constructs a new StgStreamImpl object, initializes its properties, and adds it to the parent storage's list of active streams.",
+      "parameters": [
+        {
+          "name": "parentStorage",
+          "type": "StorageBaseImpl*",
+          "description": "Pointer to the parent storage object."
+        },
+        {
+          "name": "grfMode",
+          "type": "DWORD",
+          "description": "Mode of the stream."
+        },
+        {
+          "name": "dirEntry",
+          "type": "DirRef",
+          "description": "Directory reference for the stream."
+        }
+      ],
+      "return_type": "StgStreamImpl*; Returns a pointer to the newly created StgStreamImpl object."
+    }
+  }
+]

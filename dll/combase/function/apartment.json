@@ -1,0 +1,693 @@
+[
+  {
+    "function": {
+      "name": "apartment_get_dll",
+      "description": "This function searches for a DLL in a list of DLLs, increments its reference count, and returns a pointer to it if found.",
+      "parameters": [
+        {
+          "name": "library_name",
+          "type": "const WCHAR *",
+          "description": "The name of the DLL to search for."
+        }
+      ],
+      "return_type": "struct opendll *; A pointer to the DLL if found, otherwise NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_add_dll",
+      "description": "This function attempts to add a DLL to the apartment. If the DLL is already added, it returns S_OK. If the DLL cannot be loaded or does not export DllGetClassObject, it returns an error. If the DLL is successfully added, it returns S_OK.",
+      "parameters": [
+        {
+          "name": "library_name",
+          "type": "const WCHAR *",
+          "description": "The name of the DLL to be added to the apartment."
+        },
+        {
+          "name": "ret",
+          "type": "struct opendll **",
+          "description": "A pointer to a pointer to a struct opendll. If the function succeeds, *ret will point to the added DLL."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. S_OK if the DLL is successfully added or already present, E_ACCESSDENIED if the DLL could not be loaded, CO_E_DLLNOTFOUND if the DLL did not export DllGetClassObject, and E_OUTOFMEMORY if there was not enough memory to complete the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_release_dll",
+      "description": "This function decrements the reference count of the given DLL entry. If the reference count reaches zero and the free_entry flag is set, it removes the entry from the list, frees the library and the library name, and finally frees the entry itself.",
+      "parameters": [
+        {
+          "name": "entry",
+          "type": "struct opendll*",
+          "description": "Pointer to the DLL entry to be released"
+        },
+        {
+          "name": "free_entry",
+          "type": "BOOL",
+          "description": "Flag indicating whether to free the entry or not"
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_release_dlls",
+      "description": "This function releases the DLLs in an apartment by removing them from the list, freeing the memory allocated for their names and the entries themselves, and deleting the critical section.",
+      "parameters": [],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IServiceProvider",
+      "description": "This function returns the containing record of the given interface, which is of type struct local_server.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IServiceProvider *",
+          "description": "This parameter is used to get the containing record."
+        }
+      ],
+      "return_type": "struct local_server, which represents the containing record of the given interface."
+    }
+  },
+  {
+    "function": {
+      "name": "local_server_QueryInterface",
+      "description": "This function checks if the provided interface ID matches either IID_IUnknown or IID_IServiceProvider. If it does, it assigns the address of the IServiceProvider interface of the local server to the provided object pointer and increases its reference count. If it doesn't, it assigns NULL to the object pointer and returns an error code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IServiceProvider *",
+          "description": "Pointer to an IServiceProvider interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to an interface ID"
+        },
+        {
+          "name": "obj",
+          "type": "void **",
+          "description": "Pointer to an object pointer where the address of the requested interface will be stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the interface ID matches either IID_IUnknown or IID_IServiceProvider, otherwise returns E_NOINTERFACE"
+    }
+  },
+  {
+    "function": {
+      "name": "local_server_AddRef",
+      "description": "This function increments the reference count of a local server object and returns the updated count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IServiceProvider*",
+          "description": "Pointer to an IServiceProvider interface object."
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count of the local server object."
+    }
+  },
+  {
+    "function": {
+      "name": "local_server_Release",
+      "description": "This function decrements the reference count of the local server object. If the reference count reaches zero, it asserts that the apartment is not set and frees the local server object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IServiceProvider*",
+          "description": "Pointer to an IServiceProvider interface object"
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after decrement"
+    }
+  },
+  {
+    "function": {
+      "name": "local_server_QueryService",
+      "description": "This function queries a service from a local server. It retrieves a pointer to an interface that represents a specific service, identified by a reference GUID.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IServiceProvider*",
+          "description": "Pointer to an IServiceProvider interface"
+        },
+        {
+          "name": "guid",
+          "type": "REFGUID",
+          "description": "Reference to the GUID of the service to query"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface that the caller is to use to communicate with the service"
+        },
+        {
+          "name": "obj",
+          "type": "void**",
+          "description": "Address of the pointer variable that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. It returns E_FAIL if it fails, E_UNEXPECTED if the local server is not available, or the HRESULT value from IUnknown_QueryInterface if it succeeds."
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_get_local_server_stream",
+      "description": "This function gets the local server stream for a given apartment. If the apartment does not have a local server, it creates one. It then clones the marshal stream of the local server to the output parameter.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "A pointer to the apartment structure for which the local server stream is to be obtained."
+        },
+        {
+          "name": "ret",
+          "type": "IStream **",
+          "description": "A pointer to a pointer to an IStream interface. On successful completion, this will point to the cloned marshal stream of the local server."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. S_OK if successful, E_OUTOFMEMORY if memory allocation failed, or other error codes if other failures occurred."
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_construct",
+      "description": "This function creates a new apartment, initializes its properties, and adds it to the list of apartments. It also sets the apartment's OXID based on whether it is multi-threaded or not.",
+      "parameters": [
+        {
+          "name": "model",
+          "type": "DWORD",
+          "description": "This parameter is used to determine if the apartment is multi-threaded or not."
+        }
+      ],
+      "return_type": "struct apartment. It represents the newly created apartment."
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_freeunusedlibraries",
+      "description": "This function unloads the DLLs that are no longer in use from the apartment structure after a specified delay. If the delay is set to INFINITE, the function will unload the DLLs immediately unless they return multi-threaded objects, in which case the function will wait for 10 minutes to cope with potential race conditions. The function also handles the case where the DLL cannot be unloaded yet by setting the unload time to the current tick count plus the delay.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "Pointer to the apartment structure from which the unused DLLs are to be unloaded."
+        },
+        {
+          "name": "delay",
+          "type": "DWORD",
+          "description": "The delay in milliseconds after which the unused DLLs should be unloaded. If set to INFINITE, the DLLs are unloaded immediately unless they return multi-threaded objects."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_release",
+      "description": "This function releases the resources associated with an apartment object. It decrements the reference count of the apartment, and if the reference count reaches zero, it destroys the apartment and releases all associated resources.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "This is a pointer to the apartment structure that needs to be released."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_addref",
+      "description": "This function increments the reference count of the given apartment structure and returns the updated count.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "This is a pointer to the apartment structure whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "DWORD, represents the updated reference count of the apartment structure."
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_get_or_create",
+      "description": "This function gets the current apartment if it exists, otherwise it creates a new one based on the provided model. It handles both main-threaded and multi-threaded apartments.",
+      "parameters": [
+        {
+          "name": "model",
+          "type": "DWORD",
+          "description": "This parameter is used to determine the type of apartment to create if one does not already exist. It also determines the flags to be set for the apartment."
+        }
+      ],
+      "return_type": "struct apartment, representing the current or newly created apartment"
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_get_mta",
+      "description": "This function retrieves the apartment object from the mta variable, if it exists, and increments its reference count. It also ensures thread safety by entering and leaving a critical section.",
+      "parameters": [],
+      "return_type": "struct apartment pointer, representing the retrieved apartment object or NULL if it doesn't exist"
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_get_current_or_mta",
+      "description": "This function gets the current apartment. If it exists, the function adds a reference to it and returns it. If it doesn't exist, the function gets the MTA apartment.",
+      "parameters": [],
+      "return_type": "struct apartment, represents the current or MTA apartment"
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_findfromoxid",
+      "description": "This function searches for an apartment with a given OXID in a list of apartments. If found, it increases the reference count of the apartment and returns it.",
+      "parameters": [
+        {
+          "name": "oxid",
+          "type": "OXID",
+          "description": "The OXID of the apartment to be found."
+        }
+      ],
+      "return_type": "struct apartment, represents the apartment with the given OXID if found, otherwise NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_findfromtid",
+      "description": "This function searches for an apartment struct with a given thread identifier (tid). If it finds one, it increases the reference count of the apartment and returns it. If it doesn't find one, it checks if the multi-threaded apartment (mta) has the given tid, if so, it increases the reference count of the mta and returns it.",
+      "parameters": [],
+      "return_type": "struct apartment - Represents the apartment struct with the given tid. If no such apartment is found, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_findmain",
+      "description": "This function is used to find the main apartment. It enters a critical section to ensure thread safety, checks if the main apartment exists, and if it does, adds a reference to it, then leaves the critical section and returns the result.",
+      "parameters": [],
+      "return_type": "struct apartment - Represents the main apartment if it exists, otherwise NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "get_object_dll_path",
+      "description": "This function retrieves the DLL path for a given object. It checks the origin of the registry data, and based on that it either queries the registry or activates the activation context and searches for the module.",
+      "parameters": [
+        {
+          "name": "regdata",
+          "type": "struct class_reg_data *",
+          "description": "Pointer to the registry data of the object"
+        },
+        {
+          "name": "dst",
+          "type": "WCHAR *",
+          "description": "Buffer to store the DLL path"
+        },
+        {
+          "name": "dstlen",
+          "type": "DWORD",
+          "description": "Length of the destination buffer"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the DLL path is successfully retrieved, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_getclassobject",
+      "description": "This function is used to get the class object of a DLL in an apartment. If the DLL is not already loaded, it loads the DLL and adds it to the apartment's list of loaded DLLs. It also handles the case where the DLL is 'ole32.dll', using a local implementation of DllGetClassObject directly.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "Pointer to the apartment structure where the DLL is loaded."
+        },
+        {
+          "name": "dllpath",
+          "type": "LPCWSTR",
+          "description": "Path to the DLL whose class object is to be retrieved."
+        },
+        {
+          "name": "apartment_threaded",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether the DLL is apartment-threaded or not."
+        },
+        {
+          "name": "rclsid",
+          "type": "REFCLSID",
+          "description": "Reference to the class identifier of the DLL."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier for the class object to be retrieved."
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Pointer to the location where the interface pointer to the class object is returned on successful completion."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful, an error code otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_hostobject_thread",
+      "description": "This function initializes the COM library on the current thread, creates a window if the threading model is apartment threaded, sets an event to signal that the thread is ready, and then enters a message loop where it handles DM_HOSTOBJECT messages and dispatches all other messages. It uninitializes the COM library before exiting.",
+      "parameters": [
+        {
+          "name": "p",
+          "type": "void*",
+          "description": "A pointer to a struct of type host_thread_params, which contains parameters needed for the function."
+        }
+      ],
+      "return_type": "DWORD, represents the return value of the function. If the COM library initialization fails, it returns the HRESULT from the failed CoInitializeEx call. Otherwise, it returns S_OK to indicate successful execution."
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_hostobject_in_hostapt",
+      "description": "This function hosts an object in an apartment. It handles both multi-threaded and main apartment scenarios. It also manages the creation of threads and handles for the apartment, and handles any errors that may occur during these processes.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "Pointer to the apartment structure"
+        },
+        {
+          "name": "multi_threaded",
+          "type": "BOOL",
+          "description": "Boolean flag indicating if the apartment is multi-threaded"
+        },
+        {
+          "name": "main_apartment",
+          "type": "BOOL",
+          "description": "Boolean flag indicating if the apartment is the main apartment"
+        },
+        {
+          "name": "regdata",
+          "type": "struct class_reg_data *",
+          "description": "Pointer to the class registration data structure"
+        },
+        {
+          "name": "rclsid",
+          "type": "REFCLSID",
+          "description": "Class identifier"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Interface identifier"
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Pointer to the interface pointer"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. It can indicate success, error, or warning conditions."
+    }
+  },
+  {
+    "function": {
+      "name": "get_threading_model",
+      "description": "This function retrieves the threading model of a COM class from the registry or the activation context.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "struct class_reg_data *",
+          "description": "A pointer to the class_reg_data structure which contains information about the COM class."
+        }
+      ],
+      "return_type": "enum comclass_threadingmodel, represents the threading model of the COM class."
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_get_inproc_class_object",
+      "description": "This function retrieves an in-process class object from a specified apartment, based on the class registration data and the class and interface identifiers. It also takes into account the class context and provides a pointer to the interface of the object.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "Pointer to the apartment from which the class object is to be retrieved."
+        },
+        {
+          "name": "regdata",
+          "type": "struct class_reg_data *",
+          "description": "Pointer to the class registration data."
+        },
+        {
+          "name": "rclsid",
+          "type": "REFCLSID",
+          "description": "Class identifier for the class object."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Interface identifier for the interface of the object."
+        },
+        {
+          "name": "class_context",
+          "type": "DWORD",
+          "description": "Specifies the context in which the code that manages the newly created object will run."
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. It returns a success code if the function successfully retrieves the class object, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_hostobject",
+      "description": "This function is used to host an object in an apartment. It gets the DLL path of the object, gets the class object, marshals the interface, and then seeks the stream to the beginning.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment*",
+          "description": "This parameter is used to represent the apartment where the object is hosted."
+        },
+        {
+          "name": "params",
+          "type": "struct host_object_params*",
+          "description": "This parameter is used to pass various parameters needed for hosting the object such as the class ID, interface ID, registry data, whether the apartment is threaded or not, and the stream."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function. It returns REGDB_E_CLASSNOTREG if the CLSID is not found in the registry. If the function fails to get the class object or marshal the interface, it returns the corresponding error code. If the function succeeds, it returns the result of the CoMarshalInterface function."
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_wndproc",
+      "description": "This function processes messages sent to a window. It handles two specific messages, DM_EXECUTERPC and DM_HOSTOBJECT, and for all other messages, it calls the default window procedure.",
+      "parameters": [
+        {
+          "name": "hWnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message."
+        },
+        {
+          "name": "wParam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lParam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "LRESULT. The return value is the result of the message processing and depends on the message sent."
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_is_model",
+      "description": "This function checks if the apartment is multi-threaded and not apartment threaded.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment*",
+          "description": "Pointer to the apartment structure"
+        },
+        {
+          "name": "model",
+          "type": "DWORD",
+          "description": "Model to check against"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the apartment is multi-threaded and not apartment threaded, otherwise FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "enter_apartment",
+      "description": "This function is used to enter an apartment. If the apartment does not exist, it attempts to create it. If the apartment exists but the model does not match, it warns and returns an error. It also increments the initialization count of the data.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "struct tlsdata*",
+          "description": "This is a pointer to the tlsdata structure which contains the apartment data."
+        },
+        {
+          "name": "model",
+          "type": "DWORD",
+          "description": "This is the model of the apartment to be entered or created."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It can return S_OK if the operation is successful, E_OUTOFMEMORY if the apartment could not be created, RPC_E_CHANGED_MODE if the apartment model does not match, or S_FALSE if the apartment already exists."
+    }
+  },
+  {
+    "function": {
+      "name": "leave_apartment",
+      "description": "This function manages the process of leaving an apartment. It checks if the apartment is initialized and if so, it releases the apartment and performs additional cleanup tasks such as decrementing the MTA usage if an implicit MTA cookie is present and resetting certain flags.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "struct tlsdata*",
+          "description": "This parameter is a pointer to a tlsdata structure which contains information about the apartment to be left."
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_increment_mta_usage",
+      "description": "This function increments the usage of a Multi-Threaded Apartment (MTA). It creates a new MTA if none exists, adds it to the list of usage cookies, and updates the cookie pointer.",
+      "parameters": [
+        {
+          "name": "cookie",
+          "type": "CO_MTA_USAGE_COOKIE*",
+          "description": "This is a pointer to a cookie that is used to track the usage of the MTA."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and E_OUTOFMEMORY if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_decrement_mta_usage",
+      "description": "This function decrements the usage of a Multi-Threaded Apartment (MTA) by removing a cookie from the MTA's usage cookies list and releasing the MTA.",
+      "parameters": [
+        {
+          "name": "cookie",
+          "type": "CO_MTA_USAGE_COOKIE",
+          "description": "This parameter is a cookie that represents a specific usage of the MTA."
+        }
+      ],
+      "return_type": "void, which means this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "register_class",
+      "description": "This function registers a window class for dispatching to the correct thread in an apartment through window messages. It initializes a WNDCLASSW structure, sets its properties, and registers it using the RegisterClassW function.",
+      "parameters": [
+        {
+          "name": "once",
+          "type": "INIT_ONCE*",
+          "description": "Pointer to a one-time initialization structure"
+        },
+        {
+          "name": "param",
+          "type": "void*",
+          "description": "Pointer to a parameter that the function uses"
+        },
+        {
+          "name": "context",
+          "type": "void**",
+          "description": "Pointer to a pointer to a context that the function uses"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function executed successfully or not, always returns TRUE in this case"
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_createwindowifneeded",
+      "description": "This function checks if a window is needed for the apartment. If needed, it creates the window. If the window creation fails, it returns an error.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "Pointer to the apartment structure for which a window may need to be created"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the window creation. Returns S_OK if the window is successfully created or if it is not needed. If the window creation fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_getwindow",
+      "description": "This function checks if the apartment is not multi-threaded and returns the window of the apartment.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "Pointer to the apartment structure"
+        }
+      ],
+      "return_type": "HWND, represents the window of the apartment"
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_getoxid",
+      "description": "This function returns the oxid of the given apartment.",
+      "parameters": [
+        {
+          "name": "apt",
+          "type": "struct apartment *",
+          "description": "Pointer to the apartment structure from which the oxid is to be retrieved."
+        }
+      ],
+      "return_type": "OXID, represents the oxid of the given apartment."
+    }
+  },
+  {
+    "function": {
+      "name": "apartment_global_cleanup",
+      "description": "This function cleans up the global apartment state. It unregisters a window class if it exists, releases DLLs associated with the apartment, and deletes a critical section.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not accept any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "ensure_mta",
+      "description": "This function ensures the multi-threaded apartment (MTA) state. It gets the thread local storage data, checks the apartment state and increments the MTA usage if necessary. If any of these operations fail, it returns the corresponding HRESULT error code.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, otherwise it returns an error code."
+    }
+  }
+]

@@ -1,0 +1,2171 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IWICComponentFactory",
+      "description": "This function returns a pointer to an ImagingFactory structure that contains the given IWICComponentFactory interface pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "This is a pointer to an IWICComponentFactory interface."
+        }
+      ],
+      "return_type": "ImagingFactory * - a pointer to an ImagingFactory structure that contains the given IWICComponentFactory interface pointer."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IWICImagingFactory2",
+      "description": "This function returns a pointer to an ImagingFactory object that contains the given IWICImagingFactory2 interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2*",
+          "description": "Pointer to an IWICImagingFactory2 interface"
+        }
+      ],
+      "return_type": "ImagingFactory* - a pointer to an ImagingFactory object that contains the given IWICImagingFactory2 interface"
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_QueryInterface",
+      "description": "This function queries an interface for a specific GUID and returns a pointer to that interface if it is supported.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2*",
+          "description": "Pointer to an IWICImagingFactory2 interface."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to a pointer that receives the interface pointer requested in iid."
+        }
+      ],
+      "return_type": "HRESULT, where S_OK indicates success, E_INVALIDARG indicates an invalid argument, and E_NOINTERFACE indicates that the requested interface is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_AddRef",
+      "description": "This function increments the reference count of the ImagingFactory object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2*",
+          "description": "This is a pointer to the IWICImagingFactory2 interface."
+        }
+      ],
+      "return_type": "ULONG, which represents the new reference count after incrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_Release",
+      "description": "This function decrements the reference count of the ImagingFactory object. If the reference count becomes 0, it frees the memory allocated to the object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2*",
+          "description": "This parameter is a pointer to an IWICImagingFactory2 interface."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after decrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateDecoderFromFilename",
+      "description": "This function creates a decoder for a specified file, using the provided vendor GUID, access options, and metadata options.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2*",
+          "description": "Pointer to an IWICImagingFactory2 interface"
+        },
+        {
+          "name": "wzFilename",
+          "type": "LPCWSTR",
+          "description": "Pointer to a wide-character string that represents the name of the file for which to create a decoder"
+        },
+        {
+          "name": "pguidVendor",
+          "type": "GUID*",
+          "description": "Pointer to a GUID that identifies the preferred decoder vendor"
+        },
+        {
+          "name": "dwDesiredAccess",
+          "type": "DWORD",
+          "description": "Access rights for the file"
+        },
+        {
+          "name": "metadataOptions",
+          "type": "WICDecodeOptions",
+          "description": "Options for decoding the image metadata"
+        },
+        {
+          "name": "ppIDecoder",
+          "type": "IWICBitmapDecoder**",
+          "description": "Address of a pointer that receives the IWICBitmapDecoder interface pointer"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "find_decoder",
+      "description": "This function is used to find a suitable decoder for a given IStream. It iterates over all available decoders until it finds one that matches the provided vendor GUID and can decode the stream. If no suitable decoder is found, it returns an error.",
+      "parameters": [
+        {
+          "name": "pIStream",
+          "type": "IStream*",
+          "description": "Pointer to the input stream to be decoded."
+        },
+        {
+          "name": "pguidVendor",
+          "type": "GUID*",
+          "description": "Pointer to the vendor GUID. The function will try to find a decoder from this vendor."
+        },
+        {
+          "name": "metadataOptions",
+          "type": "WICDecodeOptions",
+          "description": "Options for decoding the metadata."
+        },
+        {
+          "name": "decoder",
+          "type": "IWICBitmapDecoder**",
+          "description": "Pointer to a pointer to an IWICBitmapDecoder. If a suitable decoder is found, it is returned in this parameter."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If a suitable decoder is found, the function returns S_OK. If no suitable decoder is found, it returns WINCODEC_ERR_COMPONENTNOTFOUND."
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateDecoderFromStream",
+      "description": "This function creates a decoder from a stream. If a vendor GUID is provided, it attempts to find a decoder for that vendor. If no decoder is found, it attempts to find a default decoder. If a decoder is found, it is returned, otherwise an error is returned.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2 *",
+          "description": "Pointer to an IWICImagingFactory2 interface"
+        },
+        {
+          "name": "pIStream",
+          "type": "IStream *",
+          "description": "Pointer to the IStream interface from which to create the decoder"
+        },
+        {
+          "name": "pguidVendor",
+          "type": "GUID *",
+          "description": "Pointer to a GUID for the vendor of the decoder. If this is NULL, a default decoder is used"
+        },
+        {
+          "name": "metadataOptions",
+          "type": "WICDecodeOptions",
+          "description": "Options for decoding the image"
+        },
+        {
+          "name": "ppIDecoder",
+          "type": "IWICBitmapDecoder **",
+          "description": "Pointer to a pointer to an IWICBitmapDecoder interface. If a decoder is found, it is returned in this parameter"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. S_OK if a decoder was successfully created, otherwise an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateDecoderFromFileHandle",
+      "description": "This function creates a decoder from a file handle, using the specified vendor GUID and metadata options.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2*",
+          "description": "Pointer to an IWICImagingFactory2 interface"
+        },
+        {
+          "name": "hFile",
+          "type": "ULONG_PTR",
+          "description": "Handle to the file"
+        },
+        {
+          "name": "pguidVendor",
+          "type": "GUID*",
+          "description": "Pointer to the vendor's GUID"
+        },
+        {
+          "name": "metadataOptions",
+          "type": "WICDecodeOptions",
+          "description": "Options for decoding the metadata"
+        },
+        {
+          "name": "ppIDecoder",
+          "type": "IWICBitmapDecoder**",
+          "description": "Pointer to a pointer to an IWICBitmapDecoder interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or the error code"
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateComponentInfo",
+      "description": "This function creates a component info object for a specified component class ID.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2*",
+          "description": "Pointer to an IWICImagingFactory2 interface"
+        },
+        {
+          "name": "clsidComponent",
+          "type": "REFCLSID",
+          "description": "Class ID of the component for which the info object is to be created"
+        },
+        {
+          "name": "ppIInfo",
+          "type": "IWICComponentInfo**",
+          "description": "Pointer to a pointer that receives the created IWICComponentInfo interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateDecoder",
+      "description": "This function creates a decoder for a specific image format and vendor, if provided.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2*",
+          "description": "Pointer to an IWICImagingFactory2 interface"
+        },
+        {
+          "name": "guidContainerFormat",
+          "type": "REFGUID",
+          "description": "GUID of the container format for which a decoder is to be created"
+        },
+        {
+          "name": "pguidVendor",
+          "type": "GUID*",
+          "description": "Pointer to the GUID of the vendor. If this parameter is NULL, the function will choose the decoder that is best suited to the container format"
+        },
+        {
+          "name": "ppIDecoder",
+          "type": "IWICBitmapDecoder**",
+          "description": "Address of a pointer that receives the IWICBitmapDecoder interface pointer"
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If the function fails, it returns an HRESULT error code"
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateEncoder",
+      "description": "This function creates an encoder for a specific image format. It iterates through available encoders until it finds one that matches the specified container format.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2*",
+          "description": "Pointer to an IWICImagingFactory2 interface"
+        },
+        {
+          "name": "guidContainerFormat",
+          "type": "REFGUID",
+          "description": "GUID of the container format for which an encoder is to be created"
+        },
+        {
+          "name": "pguidVendor",
+          "type": "GUID*",
+          "description": "Pointer to the GUID of the vendor. Currently, this parameter is ignored"
+        },
+        {
+          "name": "ppIEncoder",
+          "type": "IWICBitmapEncoder**",
+          "description": "Address of a pointer that receives the IWICBitmapEncoder interface pointer"
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If it fails, it returns an HRESULT error code. Specifically, if no suitable encoder is found, it returns WINCODEC_ERR_COMPONENTNOTFOUND"
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreatePalette",
+      "description": "This function creates a palette using the provided imaging factory and palette pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2*",
+          "description": "Pointer to an imaging factory"
+        },
+        {
+          "name": "ppIPalette",
+          "type": "IWICPalette**",
+          "description": "Double pointer to a palette"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure"
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateFormatConverter",
+      "description": "This function creates an instance of a format converter.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2 *",
+          "description": "Pointer to an interface for a WIC imaging factory."
+        },
+        {
+          "name": "ppIFormatConverter",
+          "type": "IWICFormatConverter **",
+          "description": "Pointer to a pointer to a format converter interface."
+        }
+      ],
+      "return_type": "HRESULT, which indicates the success or failure of the function."
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateBitmapScaler",
+      "description": "This function creates a bitmap scaler.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2 *",
+          "description": "Pointer to an instance of IWICImagingFactory2 interface"
+        },
+        {
+          "name": "ppIBitmapScaler",
+          "type": "IWICBitmapScaler **",
+          "description": "Pointer to a pointer to IWICBitmapScaler interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateBitmapClipper",
+      "description": "This function creates a Bitmap Clipper using the provided Imaging Factory interface and returns the result.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2*",
+          "description": "This is a pointer to an Imaging Factory interface used to create the Bitmap Clipper."
+        },
+        {
+          "name": "ppIBitmapClipper",
+          "type": "IWICBitmapClipper**",
+          "description": "This is a pointer to a pointer to a Bitmap Clipper. The function will create a Bitmap Clipper and store the pointer to it in this parameter."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateBitmapFlipRotator",
+      "description": "This function creates a bitmap flip rotator.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2 *",
+          "description": "Pointer to an IWICImagingFactory2 interface"
+        },
+        {
+          "name": "ppIBitmapFlipRotator",
+          "type": "IWICBitmapFlipRotator **",
+          "description": "Pointer to a pointer to an IWICBitmapFlipRotator interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateStream",
+      "description": "This function creates a stream using the provided imaging factory interface and returns the result.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2 *",
+          "description": "This is a pointer to an imaging factory interface used to create the stream."
+        },
+        {
+          "name": "ppIWICStream",
+          "type": "IWICStream **",
+          "description": "This is a pointer to a pointer to a stream. The function will create a new stream and store the pointer to it in this parameter."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateColorContext",
+      "description": "This function creates a color context using the provided imaging factory interface and color context pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2 *",
+          "description": "This is a pointer to an imaging factory interface."
+        },
+        {
+          "name": "ppIColorContext",
+          "type": "IWICColorContext **",
+          "description": "This is a pointer to a pointer of a color context."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateColorTransformer",
+      "description": "This function creates a color transformer using the provided imaging factory and color transform interfaces.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2*",
+          "description": "Pointer to an imaging factory interface used for creating the color transformer."
+        },
+        {
+          "name": "ppIColorTransform",
+          "type": "IWICColorTransform**",
+          "description": "Pointer to a color transform interface where the created color transformer will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateBitmap",
+      "description": "This function creates a bitmap with specified width, height, pixel format, and cache option.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2*",
+          "description": "Pointer to an instance of IWICImagingFactory2 interface."
+        },
+        {
+          "name": "uiWidth",
+          "type": "UINT",
+          "description": "The width of the bitmap to be created."
+        },
+        {
+          "name": "uiHeight",
+          "type": "UINT",
+          "description": "The height of the bitmap to be created."
+        },
+        {
+          "name": "pixelFormat",
+          "type": "REFWICPixelFormatGUID",
+          "description": "The pixel format of the bitmap to be created."
+        },
+        {
+          "name": "option",
+          "type": "WICBitmapCreateCacheOption",
+          "description": "The cache option for the bitmap."
+        },
+        {
+          "name": "ppIBitmap",
+          "type": "IWICBitmap**",
+          "description": "Pointer to a pointer to an IWICBitmap interface, which receives the created bitmap."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of bitmap creation. If the function succeeds, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "create_bitmap_from_source_rect",
+      "description": "This function creates a bitmap from a source rectangle, with options for caching and output.",
+      "parameters": [
+        {
+          "name": "piBitmapSource",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to the source bitmap."
+        },
+        {
+          "name": "rect",
+          "type": "WICRect *",
+          "description": "Pointer to the source rectangle."
+        },
+        {
+          "name": "option",
+          "type": "WICBitmapCreateCacheOption",
+          "description": "Option for creating bitmap cache."
+        },
+        {
+          "name": "ppIBitmap",
+          "type": "IWICBitmap **",
+          "description": "Pointer to the output bitmap."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. S_OK if the function succeeds, otherwise an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateBitmapFromSource",
+      "description": "This function creates a bitmap from a source using the specified cache option.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2 *",
+          "description": "Pointer to an instance of the IWICImagingFactory2 interface."
+        },
+        {
+          "name": "piBitmapSource",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to the bitmap source."
+        },
+        {
+          "name": "option",
+          "type": "WICBitmapCreateCacheOption",
+          "description": "Specifies the cache option for the bitmap."
+        },
+        {
+          "name": "ppIBitmap",
+          "type": "IWICBitmap **",
+          "description": "Pointer to a pointer to the IWICBitmap interface, which receives the created bitmap."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateBitmapFromSourceRect",
+      "description": "This function creates a bitmap from a specified source rectangle.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2 *",
+          "description": "Pointer to an instance of the IWICImagingFactory2 interface."
+        },
+        {
+          "name": "piBitmapSource",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to the source bitmap."
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x-coordinate of the upper-left corner of the rectangle."
+        },
+        {
+          "name": "y",
+          "type": "UINT",
+          "description": "The y-coordinate of the upper-left corner of the rectangle."
+        },
+        {
+          "name": "width",
+          "type": "UINT",
+          "description": "The width of the rectangle."
+        },
+        {
+          "name": "height",
+          "type": "UINT",
+          "description": "The height of the rectangle."
+        },
+        {
+          "name": "ppIBitmap",
+          "type": "IWICBitmap **",
+          "description": "Pointer to a pointer to the IWICBitmap interface that receives the bitmap."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateBitmapFromMemory",
+      "description": "This function creates a bitmap from memory using the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2 *",
+          "description": "Pointer to an interface for the imaging factory."
+        },
+        {
+          "name": "width",
+          "type": "UINT",
+          "description": "The width of the bitmap."
+        },
+        {
+          "name": "height",
+          "type": "UINT",
+          "description": "The height of the bitmap."
+        },
+        {
+          "name": "format",
+          "type": "REFWICPixelFormatGUID",
+          "description": "The pixel format of the bitmap."
+        },
+        {
+          "name": "stride",
+          "type": "UINT",
+          "description": "The stride, or width in bytes, of a single row of pixels in the bitmap."
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "The size of the buffer."
+        },
+        {
+          "name": "buffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer from which the bitmap is created."
+        },
+        {
+          "name": "bitmap",
+          "type": "IWICBitmap **",
+          "description": "Pointer to a pointer to the created bitmap."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "get_16bpp_format",
+      "description": "This function determines the pixel format of a given bitmap and assigns the corresponding format GUID. If the bitmap's bitfields are unrecognized, it returns FALSE and logs an error message.",
+      "parameters": [
+        {
+          "name": "hbm",
+          "type": "HBITMAP",
+          "description": "Handle to the bitmap to get the pixel format of."
+        },
+        {
+          "name": "format",
+          "type": "WICPixelFormatGUID *",
+          "description": "Pointer to a variable that receives the format GUID."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not. TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateBitmapFromHBITMAP",
+      "description": "This function creates a bitmap from a given HBITMAP, with the option to specify an alpha channel option. It also handles palette entries if a palette is provided.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2 *",
+          "description": "Pointer to an instance of the IWICImagingFactory2 interface."
+        },
+        {
+          "name": "hbm",
+          "type": "HBITMAP",
+          "description": "Handle to the bitmap to be converted."
+        },
+        {
+          "name": "hpal",
+          "type": "HPALETTE",
+          "description": "Handle to the palette used for color mapping of the bitmap."
+        },
+        {
+          "name": "option",
+          "type": "WICBitmapAlphaChannelOption",
+          "description": "Specifies the treatment of the alpha channel, if present."
+        },
+        {
+          "name": "bitmap",
+          "type": "IWICBitmap **",
+          "description": "Pointer to a pointer that receives the interface pointer to the new IWICBitmap."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. S_OK if successful, an error code otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateBitmapFromHICON",
+      "description": "This function creates a bitmap from a handle to an icon (HICON). It also handles the bitmap's alpha channel, if it exists.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2 *",
+          "description": "Pointer to an IWICImagingFactory2 interface."
+        },
+        {
+          "name": "hicon",
+          "type": "HICON",
+          "description": "Handle to the icon from which the bitmap is created."
+        },
+        {
+          "name": "bitmap",
+          "type": "IWICBitmap **",
+          "description": "Pointer to a pointer to an IWICBitmap object. This object will receive the created bitmap."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateComponentEnumerator",
+      "description": "This function creates an enumerator for components based on the specified types and options.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2*",
+          "description": "Pointer to an IWICImagingFactory2 interface"
+        },
+        {
+          "name": "componentTypes",
+          "type": "DWORD",
+          "description": "Specifies the types of components to enumerate"
+        },
+        {
+          "name": "options",
+          "type": "DWORD",
+          "description": "Specifies the options for the enumeration"
+        },
+        {
+          "name": "ppIEnumUnknown",
+          "type": "IEnumUnknown**",
+          "description": "Pointer to a pointer to an IEnumUnknown interface, which receives the created enumerator"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function call"
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateFastMetadataEncoderFromDecoder",
+      "description": "This function is a stub and not yet implemented. It is intended to create a fast metadata encoder from a bitmap decoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2 *",
+          "description": "Interface for the imaging factory"
+        },
+        {
+          "name": "pIDecoder",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to the bitmap decoder"
+        },
+        {
+          "name": "ppIFastEncoder",
+          "type": "IWICFastMetadataEncoder **",
+          "description": "Pointer to the fast metadata encoder"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, in this case it returns E_NOTIMPL indicating the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateFastMetadataEncoderFromFrameDecode",
+      "description": "This function is a stub and not yet implemented. It is intended to create a fast metadata encoder from a frame decode.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2*",
+          "description": "Pointer to an IWICImagingFactory2 interface"
+        },
+        {
+          "name": "pIFrameDecoder",
+          "type": "IWICBitmapFrameDecode*",
+          "description": "Pointer to an IWICBitmapFrameDecode interface"
+        },
+        {
+          "name": "ppIFastEncoder",
+          "type": "IWICFastMetadataEncoder**",
+          "description": "Pointer to a pointer to an IWICFastMetadataEncoder interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateQueryWriter",
+      "description": "This function creates a metadata query writer. It first initializes the query_writer to NULL, then creates a metadata writer. If the creation is successful, it creates an instance of MetadataQueryWriter and releases the metadata writer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2 *",
+          "description": "Pointer to an IWICImagingFactory2 interface"
+        },
+        {
+          "name": "format",
+          "type": "REFGUID",
+          "description": "Reference to the format GUID"
+        },
+        {
+          "name": "vendor",
+          "type": "GUID *",
+          "description": "Pointer to the vendor GUID"
+        },
+        {
+          "name": "query_writer",
+          "type": "IWICMetadataQueryWriter **",
+          "description": "Double pointer to an IWICMetadataQueryWriter interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateQueryWriterFromReader",
+      "description": "This function creates a metadata query writer from a given metadata query reader.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2*",
+          "description": "Pointer to an instance of the IWICImagingFactory2 interface."
+        },
+        {
+          "name": "query_reader",
+          "type": "IWICMetadataQueryReader*",
+          "description": "Pointer to an instance of the IWICMetadataQueryReader from which the query writer is created."
+        },
+        {
+          "name": "vendor",
+          "type": "GUID*",
+          "description": "Pointer to a GUID that identifies the vendor."
+        },
+        {
+          "name": "query_writer",
+          "type": "IWICMetadataQueryWriter**",
+          "description": "Pointer to a pointer to an IWICMetadataQueryWriter instance. This instance is created by the function."
+        }
+      ],
+      "return_type": "HRESULT, which is a data type used in Windows programming to represent error conditions, and warning conditions as well. The full set of codes and their meanings are defined in the Winerror.h header file."
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateImageEncoder",
+      "description": "This function is a stub and not yet implemented. It is intended to create an image encoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory2 *",
+          "description": "Pointer to an IWICImagingFactory2 interface"
+        },
+        {
+          "name": "device",
+          "type": "ID2D1Device *",
+          "description": "Pointer to an ID2D1Device interface"
+        },
+        {
+          "name": "encoder",
+          "type": "IWICImageEncoder **",
+          "description": "Pointer to a pointer to an IWICImageEncoder interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, in this case E_NOTIMPL indicating the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_QueryInterface",
+      "description": "This function queries an interface from a component factory.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory*",
+          "description": "Pointer to an interface of a component factory."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to the location of the requested interface pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_AddRef",
+      "description": "This function adds a reference to the IWICComponentFactory interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory*",
+          "description": "This parameter is a pointer to an IWICComponentFactory interface."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count to the IWICComponentFactory interface."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_Release",
+      "description": "This function releases the IWICComponentFactory interface and returns the status of the operation.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "This is a pointer to the IWICComponentFactory interface that is to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the status of the release operation."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateDecoderFromFilename",
+      "description": "This function creates a decoder from a given filename.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Pointer to an interface of a component factory"
+        },
+        {
+          "name": "filename",
+          "type": "LPCWSTR",
+          "description": "The name of the file from which to create the decoder"
+        },
+        {
+          "name": "vendor",
+          "type": "GUID *",
+          "description": "Pointer to the vendor's GUID"
+        },
+        {
+          "name": "desired_access",
+          "type": "DWORD",
+          "description": "The desired access to the file"
+        },
+        {
+          "name": "options",
+          "type": "WICDecodeOptions",
+          "description": "Decoding options"
+        },
+        {
+          "name": "decoder",
+          "type": "IWICBitmapDecoder **",
+          "description": "Pointer to a pointer to a bitmap decoder"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure"
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateDecoderFromStream",
+      "description": "This function creates a decoder from a stream using a component factory.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Pointer to an interface of a Windows Imaging Component (WIC) component factory."
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the stream from which the decoder is created."
+        },
+        {
+          "name": "vendor",
+          "type": "GUID *",
+          "description": "Pointer to the GUID of the vendor who created the decoder."
+        },
+        {
+          "name": "options",
+          "type": "WICDecodeOptions",
+          "description": "Options for decoding the stream."
+        },
+        {
+          "name": "decoder",
+          "type": "IWICBitmapDecoder **",
+          "description": "Pointer to a pointer to the decoder that is created."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns standard COM error codes."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateDecoderFromFileHandle",
+      "description": "This function creates a decoder from a file handle.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Interface for the component factory"
+        },
+        {
+          "name": "hFile",
+          "type": "ULONG_PTR",
+          "description": "Handle to the file"
+        },
+        {
+          "name": "vendor",
+          "type": "GUID *",
+          "description": "GUID of the vendor"
+        },
+        {
+          "name": "options",
+          "type": "WICDecodeOptions",
+          "description": "Decoding options"
+        },
+        {
+          "name": "decoder",
+          "type": "IWICBitmapDecoder **",
+          "description": "Pointer to the decoder to be created"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure"
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateComponentInfo",
+      "description": "This function creates a component info object from a given component ID.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Pointer to an instance of IWICComponentFactory interface."
+        },
+        {
+          "name": "component",
+          "type": "REFCLSID",
+          "description": "Reference to the CLSID of the component."
+        },
+        {
+          "name": "info",
+          "type": "IWICComponentInfo **",
+          "description": "Pointer to a pointer that receives the component info object."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateDecoder",
+      "description": "This function creates a decoder for a specific format and vendor.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Pointer to an IWICComponentFactory interface"
+        },
+        {
+          "name": "format",
+          "type": "REFGUID",
+          "description": "Reference to the GUID of the format"
+        },
+        {
+          "name": "vendor",
+          "type": "GUID *",
+          "description": "Pointer to the GUID of the vendor"
+        },
+        {
+          "name": "decoder",
+          "type": "IWICBitmapDecoder **",
+          "description": "Pointer to a pointer to an IWICBitmapDecoder interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure"
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateEncoder",
+      "description": "This function creates an encoder using the provided format and vendor, and returns it through the encoder parameter.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Interface to the WIC component factory"
+        },
+        {
+          "name": "format",
+          "type": "REFGUID",
+          "description": "Reference to the GUID of the format to use for the encoder"
+        },
+        {
+          "name": "vendor",
+          "type": "GUID *",
+          "description": "Pointer to the GUID of the vendor to use for the encoder"
+        },
+        {
+          "name": "encoder",
+          "type": "IWICBitmapEncoder **",
+          "description": "Pointer to a pointer to receive the created encoder"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns standard COM error codes in case of failure"
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreatePalette",
+      "description": "This function creates a palette using the IWICImagingFactory2 interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Pointer to an instance of IWICComponentFactory interface"
+        },
+        {
+          "name": "palette",
+          "type": "IWICPalette **",
+          "description": "Pointer to a pointer to an IWICPalette interface, which will be filled by the function"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns standard codes like S_OK for success and E_FAIL for failure."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateFormatConverter",
+      "description": "This function creates a format converter using the provided component factory interface and returns the result.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "This is the interface to the component factory that will be used to create the format converter."
+        },
+        {
+          "name": "converter",
+          "type": "IWICFormatConverter **",
+          "description": "This is a pointer to a pointer to a format converter. The function will fill this with the created format converter."
+        }
+      ],
+      "return_type": "HRESULT, which is a code indicating the success or failure of the function. It returns the result of the IWICImagingFactory2_CreateFormatConverter function."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateBitmapScaler",
+      "description": "This function creates a bitmap scaler by calling the IWICImagingFactory2_CreateBitmapScaler function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Pointer to an interface component factory"
+        },
+        {
+          "name": "scaler",
+          "type": "IWICBitmapScaler **",
+          "description": "Double pointer to a bitmap scaler"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns standard codes like S_OK for successful operations or error codes in case of failure."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateBitmapClipper",
+      "description": "This function creates a bitmap clipper using the provided interface and clipper.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "This is an interface to the component factory."
+        },
+        {
+          "name": "clipper",
+          "type": "IWICBitmapClipper **",
+          "description": "This is a pointer to a pointer to a bitmap clipper."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateBitmapFlipRotator",
+      "description": "This function creates a bitmap flip rotator using the provided interface and fliprotator.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "This is the interface used to create the bitmap flip rotator."
+        },
+        {
+          "name": "fliprotator",
+          "type": "IWICBitmapFlipRotator **",
+          "description": "This is the fliprotator that will be created by the function."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateStream",
+      "description": "This function creates a stream using the IWICImagingFactory2 interface from the given IWICComponentFactory interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Pointer to an IWICComponentFactory interface"
+        },
+        {
+          "name": "stream",
+          "type": "IWICStream **",
+          "description": "Pointer to a pointer to an IWICStream interface, which will be filled by the function"
+        }
+      ],
+      "return_type": "HRESULT, which is the status code of the operation. If the function succeeds, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateColorContext",
+      "description": "This function creates a color context using the IWICImagingFactory2 interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Pointer to an IWICComponentFactory interface"
+        },
+        {
+          "name": "context",
+          "type": "IWICColorContext **",
+          "description": "Pointer to a pointer to an IWICColorContext interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateColorTransformer",
+      "description": "This function creates a color transformer using the provided interface and transformer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "This is an interface to the WIC component factory."
+        },
+        {
+          "name": "transformer",
+          "type": "IWICColorTransform **",
+          "description": "This is a pointer to a pointer to a WIC color transform object."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateBitmap",
+      "description": "This function creates a bitmap using the provided parameters and returns the result.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Interface to the component factory"
+        },
+        {
+          "name": "width",
+          "type": "UINT",
+          "description": "Width of the bitmap to be created"
+        },
+        {
+          "name": "height",
+          "type": "UINT",
+          "description": "Height of the bitmap to be created"
+        },
+        {
+          "name": "pixel_format",
+          "type": "REFWICPixelFormatGUID",
+          "description": "Pixel format for the bitmap"
+        },
+        {
+          "name": "option",
+          "type": "WICBitmapCreateCacheOption",
+          "description": "Cache option for the bitmap creation"
+        },
+        {
+          "name": "bitmap",
+          "type": "IWICBitmap **",
+          "description": "Pointer to the bitmap to be created"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of bitmap creation, success or any specific error"
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateBitmapFromSource",
+      "description": "This function creates a bitmap from a given source using the specified cache option.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Pointer to an interface of a component factory"
+        },
+        {
+          "name": "source",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to the source of the bitmap"
+        },
+        {
+          "name": "option",
+          "type": "WICBitmapCreateCacheOption",
+          "description": "Specifies the cache option for creating the bitmap"
+        },
+        {
+          "name": "bitmap",
+          "type": "IWICBitmap **",
+          "description": "Pointer to a pointer to a bitmap, which will be created by this function"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateBitmapFromSourceRect",
+      "description": "This function creates a bitmap from a source rectangle using the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Interface to the component factory"
+        },
+        {
+          "name": "source",
+          "type": "IWICBitmapSource *",
+          "description": "Source bitmap"
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "X-coordinate of the source rectangle"
+        },
+        {
+          "name": "y",
+          "type": "UINT",
+          "description": "Y-coordinate of the source rectangle"
+        },
+        {
+          "name": "width",
+          "type": "UINT",
+          "description": "Width of the source rectangle"
+        },
+        {
+          "name": "height",
+          "type": "UINT",
+          "description": "Height of the source rectangle"
+        },
+        {
+          "name": "bitmap",
+          "type": "IWICBitmap **",
+          "description": "Pointer to the output bitmap"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateBitmapFromMemory",
+      "description": "This function creates a bitmap from memory using the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Interface for the component factory"
+        },
+        {
+          "name": "width",
+          "type": "UINT",
+          "description": "Width of the bitmap"
+        },
+        {
+          "name": "height",
+          "type": "UINT",
+          "description": "Height of the bitmap"
+        },
+        {
+          "name": "format",
+          "type": "REFWICPixelFormatGUID",
+          "description": "Pixel format of the bitmap"
+        },
+        {
+          "name": "stride",
+          "type": "UINT",
+          "description": "Stride of the bitmap"
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "Size of the bitmap"
+        },
+        {
+          "name": "buffer",
+          "type": "BYTE *",
+          "description": "Buffer that holds the bitmap data"
+        },
+        {
+          "name": "bitmap",
+          "type": "IWICBitmap **",
+          "description": "Pointer to the created bitmap"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure"
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateBitmapFromHBITMAP",
+      "description": "This function creates a bitmap from a given HBITMAP.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Interface for the component factory"
+        },
+        {
+          "name": "hbm",
+          "type": "HBITMAP",
+          "description": "Handle to the bitmap"
+        },
+        {
+          "name": "hpal",
+          "type": "HPALETTE",
+          "description": "Handle to the palette"
+        },
+        {
+          "name": "option",
+          "type": "WICBitmapAlphaChannelOption",
+          "description": "Options for the alpha channel"
+        },
+        {
+          "name": "bitmap",
+          "type": "IWICBitmap **",
+          "description": "Pointer to the resulting bitmap"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure"
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateBitmapFromHICON",
+      "description": "This function creates a bitmap from a handle to an icon (HICON).",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Interface to the WIC component factory."
+        },
+        {
+          "name": "hicon",
+          "type": "HICON",
+          "description": "Handle to the icon from which to create a bitmap."
+        },
+        {
+          "name": "bitmap",
+          "type": "IWICBitmap **",
+          "description": "Pointer to a pointer to the bitmap to be created."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateComponentEnumerator",
+      "description": "This function creates a component enumerator from the given component factory interface, component types, and options.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Pointer to the component factory interface"
+        },
+        {
+          "name": "component_types",
+          "type": "DWORD",
+          "description": "Specifies the types of components to enumerate"
+        },
+        {
+          "name": "options",
+          "type": "DWORD",
+          "description": "Specifies the options for the enumeration"
+        },
+        {
+          "name": "enumerator",
+          "type": "IEnumUnknown **",
+          "description": "Pointer to a pointer to the enumerator to be created"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure"
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateFastMetadataEncoderFromDecoder",
+      "description": "This function creates a fast metadata encoder from a given bitmap decoder using a component factory interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "This is the interface to the component factory."
+        },
+        {
+          "name": "decoder",
+          "type": "IWICBitmapDecoder *",
+          "description": "This is the bitmap decoder from which the metadata encoder is created."
+        },
+        {
+          "name": "encoder",
+          "type": "IWICFastMetadataEncoder **",
+          "description": "This is a pointer to the fast metadata encoder that is created."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateFastMetadataEncoderFromFrameDecode",
+      "description": "This function creates a fast metadata encoder from a frame decode.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Interface to the WIC component factory"
+        },
+        {
+          "name": "frame_decode",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Frame decode to create the metadata encoder from"
+        },
+        {
+          "name": "encoder",
+          "type": "IWICFastMetadataEncoder **",
+          "description": "Pointer to the created fast metadata encoder"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns standard codes like S_OK for success and others for various kinds of errors."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateQueryWriter",
+      "description": "This function creates a query writer for a specific component factory.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Pointer to the interface of the component factory"
+        },
+        {
+          "name": "format",
+          "type": "REFGUID",
+          "description": "Reference to the GUID of the format"
+        },
+        {
+          "name": "vendor",
+          "type": "GUID *",
+          "description": "Pointer to the GUID of the vendor"
+        },
+        {
+          "name": "writer",
+          "type": "IWICMetadataQueryWriter **",
+          "description": "Pointer to the pointer of the metadata query writer"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure"
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateQueryWriterFromReader",
+      "description": "This function creates a query writer from a given query reader.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Pointer to an instance of IWICComponentFactory interface"
+        },
+        {
+          "name": "reader",
+          "type": "IWICMetadataQueryReader *",
+          "description": "Pointer to an instance of IWICMetadataQueryReader from which the writer is created"
+        },
+        {
+          "name": "vendor",
+          "type": "GUID *",
+          "description": "Pointer to a GUID that represents the vendor"
+        },
+        {
+          "name": "writer",
+          "type": "IWICMetadataQueryWriter **",
+          "description": "Pointer to a pointer to an instance of IWICMetadataQueryWriter which will be created by this function"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "create_metadata_reader_from_container_iterator",
+      "description": "This function creates a metadata reader from a container iterator. It queries for a metadata reader info interface, checks if the vendor GUID matches the context's vendor, checks if the metadata reader info matches a pattern, seeks to the start of the stream, creates an instance of the metadata reader, queries for a persist stream interface, loads the persist stream, and finally, if successful, sets the context's result to the reader and returns ITER_DONE. If any step fails, it releases any interfaces it has and returns ITER_SKIP.",
+      "parameters": [
+        {
+          "name": "item",
+          "type": "IUnknown*",
+          "description": "Pointer to an unknown item from which the metadata reader is to be created"
+        },
+        {
+          "name": "context",
+          "type": "struct iterator_context*",
+          "description": "Pointer to the iterator context that contains the vendor, format, stream, options, and result"
+        }
+      ],
+      "return_type": "enum iterator_result, represents the result of the iteration. It can be ITER_SKIP if the function fails at any step or ITER_DONE if the function successfully creates a metadata reader"
+    }
+  },
+  {
+    "function": {
+      "name": "create_metadata_reader_iterator",
+      "description": "This function creates a metadata reader iterator. It checks if the vendor and format of the metadata reader info match the context. If they do, it creates an instance of the metadata reader. If a stream is provided in the context, it seeks to the current position, queries for a persist stream interface, loads the stream, and restores the position. If successful, it sets the context result to the reader and returns ITER_DONE. If any step fails, it skips the item and returns ITER_SKIP.",
+      "parameters": [
+        {
+          "name": "item",
+          "type": "IUnknown *",
+          "description": "The item to create a metadata reader iterator for."
+        },
+        {
+          "name": "context",
+          "type": "struct iterator_context *",
+          "description": "The context containing the vendor and format to match, the stream to load, and the result to set."
+        }
+      ],
+      "return_type": "enum iterator_result, represents the result of the iterator creation. It returns ITER_DONE if the iterator was successfully created, and ITER_SKIP if the item should be skipped."
+    }
+  },
+  {
+    "function": {
+      "name": "create_metadata_writer_iterator",
+      "description": "This function creates an iterator for a metadata writer. It checks if the vendor and format match the context, and if so, it creates an instance of the metadata writer and assigns it to the context result. If any of these operations fail, it skips the current iteration.",
+      "parameters": [
+        {
+          "name": "item",
+          "type": "IUnknown*",
+          "description": "Pointer to an unknown item, used to query for a metadata writer info interface."
+        },
+        {
+          "name": "context",
+          "type": "struct iterator_context*",
+          "description": "Pointer to the iterator context, which contains the vendor and format to match, and the result to assign the created metadata writer to."
+        }
+      ],
+      "return_type": "enum iterator_result, represents the result of the iteration. It can be ITER_SKIP if the operation failed or the vendor/format didn't match, or ITER_DONE if the metadata writer was successfully created and assigned."
+    }
+  },
+  {
+    "function": {
+      "name": "foreach_component",
+      "description": "This function iterates over each component based on a given mask, applying a function to each one and managing the iteration context. It handles the creation and release of the component enumerator and the unknown items.",
+      "parameters": [
+        {
+          "name": "mask",
+          "type": "DWORD",
+          "description": "This parameter is used to filter the components that will be enumerated."
+        },
+        {
+          "name": "func",
+          "type": "iterator_func",
+          "description": "This is the function that will be applied to each enumerated component."
+        },
+        {
+          "name": "context",
+          "type": "struct iterator_context *",
+          "description": "This is the context in which the iteration is happening. It is used to store the result of the function applied to each component."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function. It returns S_OK if the context result is not NULL, otherwise it returns WINCODEC_ERR_COMPONENTNOTFOUND."
+    }
+  },
+  {
+    "function": {
+      "name": "create_unknown_metadata_reader",
+      "description": "This function creates an unknown metadata reader, sets the stream position to the beginning, creates an instance of the metadata reader, queries for the IWICPersistStream interface, and loads the metadata from the stream. If any of these operations fail, it releases the metadata reader and sets the reader pointer to NULL.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the stream from which the metadata is read"
+        },
+        {
+          "name": "options",
+          "type": "DWORD",
+          "description": "Options for loading the metadata"
+        },
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader **",
+          "description": "Pointer to a pointer to the metadata reader"
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function"
+    }
+  },
+  {
+    "function": {
+      "name": "create_metadata_reader",
+      "description": "This function creates a metadata reader instance. It iterates over each component and if it fails, it warns and tries to create an unknown metadata reader. It returns an error if the reader is not created.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "REFGUID",
+          "description": "The format of the metadata to be read"
+        },
+        {
+          "name": "vendor",
+          "type": "GUID*",
+          "description": "The vendor of the metadata"
+        },
+        {
+          "name": "options",
+          "type": "DWORD",
+          "description": "Options for creating the metadata reader"
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "The stream from which the metadata is read"
+        },
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader**",
+          "description": "The created metadata reader"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. Returns S_OK if the reader is created successfully, else returns WINCODEC_ERR_COMPONENTNOTFOUND"
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateMetadataReader",
+      "description": "This function creates a metadata reader for a specific format and vendor, with given options, using a provided stream.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Pointer to an instance of IWICComponentFactory interface"
+        },
+        {
+          "name": "format",
+          "type": "REFGUID",
+          "description": "Reference to the GUID of the format for which a metadata reader is to be created"
+        },
+        {
+          "name": "vendor",
+          "type": "GUID *",
+          "description": "Pointer to the GUID of the vendor for the format"
+        },
+        {
+          "name": "options",
+          "type": "DWORD",
+          "description": "Options for creating the metadata reader"
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the stream from which the metadata reader will read"
+        },
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader **",
+          "description": "Pointer to a pointer to an IWICMetadataReader interface, which will be filled by this function"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns E_INVALIDARG if either format or reader is NULL, otherwise it returns the result of the create_metadata_reader function"
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateMetadataReaderFromContainer",
+      "description": "This function creates a metadata reader from a container. It checks the validity of the parameters, sets the context, and iterates over each component to create a metadata reader. If it fails, it tries again without a vendor. If it still fails, it warns and tries to create an unknown metadata reader. It returns a success code if a reader is created, otherwise it returns an error code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Interface to the component factory"
+        },
+        {
+          "name": "format",
+          "type": "REFGUID",
+          "description": "Reference to the format GUID"
+        },
+        {
+          "name": "vendor",
+          "type": "GUID *",
+          "description": "Pointer to the vendor GUID"
+        },
+        {
+          "name": "options",
+          "type": "DWORD",
+          "description": "Options for the metadata reader"
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Stream to read from"
+        },
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader **",
+          "description": "Pointer to the pointer to the metadata reader"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. It returns S_OK if a reader is created, otherwise it returns WINCODEC_ERR_COMPONENTNOTFOUND."
+    }
+  },
+  {
+    "function": {
+      "name": "create_metadata_writer",
+      "description": "This function creates a metadata writer instance based on the provided format, vendor, and options. If the creation fails, it attempts to create a generic metadata writer. If that also fails, it returns an error.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "REFGUID",
+          "description": "The format of the metadata writer to be created."
+        },
+        {
+          "name": "vendor",
+          "type": "const GUID *",
+          "description": "The vendor of the metadata writer. If the creation fails with the provided vendor, the function attempts to create a generic metadata writer."
+        },
+        {
+          "name": "options",
+          "type": "DWORD",
+          "description": "Options for the metadata writer creation. If the option WICMetadataCreationFailUnknown is not set and the creation fails, the function attempts to create a generic metadata writer."
+        },
+        {
+          "name": "writer",
+          "type": "IWICMetadataWriter **",
+          "description": "A pointer to a pointer to an IWICMetadataWriter. If the function succeeds, this parameter receives the created metadata writer."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If it fails to create a metadata writer, it returns WINCODEC_ERR_COMPONENTNOTFOUND."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateMetadataWriter",
+      "description": "This function creates a metadata writer based on the provided format, vendor, options, and writer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Interface for the component factory"
+        },
+        {
+          "name": "format",
+          "type": "REFGUID",
+          "description": "Reference to the GUID of the format"
+        },
+        {
+          "name": "vendor",
+          "type": "GUID *",
+          "description": "Pointer to the GUID of the vendor"
+        },
+        {
+          "name": "options",
+          "type": "DWORD",
+          "description": "Options for the metadata writer"
+        },
+        {
+          "name": "writer",
+          "type": "IWICMetadataWriter **",
+          "description": "Double pointer to the metadata writer"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns E_INVALIDARG if either format or writer is null, or if options contain invalid arguments. Otherwise, it returns the result of the create_metadata_writer function."
+    }
+  },
+  {
+    "function": {
+      "name": "metadata_writer_copy_items_from_reader",
+      "description": "This function copies metadata items from a reader to a writer. If a metadata item is a nested reader, it creates a writer from it and replaces the reader with the writer.",
+      "parameters": [
+        {
+          "name": "writer",
+          "type": "IWICMetadataWriter *",
+          "description": "Pointer to the metadata writer where the items will be copied to"
+        },
+        {
+          "name": "vendor",
+          "type": "GUID *",
+          "description": "Pointer to the vendor GUID"
+        },
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader *",
+          "description": "Pointer to the metadata reader from where the items will be copied"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "create_metadata_writer_from_reader",
+      "description": "This function creates a metadata writer from a given metadata reader. It also handles the creation of a stream wrapper if a stream is available, and manages the persistence options for the stream provider.",
+      "parameters": [
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader *",
+          "description": "Pointer to the metadata reader from which the writer is to be created"
+        },
+        {
+          "name": "vendor",
+          "type": "GUID *",
+          "description": "Pointer to the vendor GUID"
+        },
+        {
+          "name": "out_writer",
+          "type": "IWICMetadataWriter **",
+          "description": "Pointer to the output writer pointer. The created writer is returned in this parameter"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. If the function succeeds, it returns S_OK. If the function fails, it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateMetadataWriterFromReader",
+      "description": "This function creates a metadata writer from a given metadata reader, vendor and writer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Interface for the component factory"
+        },
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader *",
+          "description": "Metadata reader to create the writer from"
+        },
+        {
+          "name": "vendor",
+          "type": "GUID *",
+          "description": "Vendor identifier"
+        },
+        {
+          "name": "writer",
+          "type": "IWICMetadataWriter **",
+          "description": "Pointer to the metadata writer to be created"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns E_INVALIDARG if reader or writer is null, otherwise returns the result of create_metadata_writer_from_reader function"
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateQueryReaderFromBlockReader",
+      "description": "This function creates a metadata query reader from a metadata block reader.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Interface to the WIC component factory."
+        },
+        {
+          "name": "block_reader",
+          "type": "IWICMetadataBlockReader *",
+          "description": "Metadata block reader from which to create the query reader."
+        },
+        {
+          "name": "query_reader",
+          "type": "IWICMetadataQueryReader **",
+          "description": "Pointer to a location to receive the created query reader."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns E_INVALIDARG if block_reader or query_reader is NULL, otherwise returns the result of MetadataQueryReader_CreateInstanceFromBlockReader function."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateQueryWriterFromBlockWriter",
+      "description": "This function creates a metadata query writer from a metadata block writer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Interface for the component factory."
+        },
+        {
+          "name": "block_writer",
+          "type": "IWICMetadataBlockWriter *",
+          "description": "Metadata block writer from which the query writer is created."
+        },
+        {
+          "name": "query_writer",
+          "type": "IWICMetadataQueryWriter **",
+          "description": "Pointer to the created metadata query writer."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns E_INVALIDARG if either block_writer or query_writer is null, otherwise returns the result of MetadataQueryWriter_CreateInstanceFromBlockWriter function."
+    }
+  },
+  {
+    "function": {
+      "name": "ComponentFactory_CreateEncoderPropertyBag",
+      "description": "This function creates a property bag for an encoder component.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory*",
+          "description": "Interface to the WIC component factory"
+        },
+        {
+          "name": "options",
+          "type": "PROPBAG2*",
+          "description": "Options for the property bag"
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "Number of properties in the bag"
+        },
+        {
+          "name": "property",
+          "type": "IPropertyBag2**",
+          "description": "Pointer to the created property bag"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "ImagingFactory_CreateInstance",
+      "description": "This function creates an instance of ImagingFactory, assigns the vtable pointers, sets the reference count to 1, and then calls the QueryInterface method of the IWICImagingFactory2 interface. It releases the IWICImagingFactory2 interface before returning.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "The reference to the identifier of the interface being requested"
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "The address of a pointer variable that receives the interface pointer requested in the iid parameter. Upon successful return, *ppv contains the requested interface pointer. If the object does not support the interface, *ppv will contain NULL."
+        }
+      ],
+      "return_type": "HRESULT, which indicates the success or failure of the function. It returns E_OUTOFMEMORY if the malloc operation fails, otherwise it returns the result of the QueryInterface method call."
+    }
+  },
+  {
+    "function": {
+      "name": "WICCreateBitmapFromSectionEx",
+      "description": "This function creates a bitmap from a section of memory with specified parameters.",
+      "parameters": [
+        {
+          "name": "width",
+          "type": "UINT",
+          "description": "The width of the bitmap."
+        },
+        {
+          "name": "height",
+          "type": "UINT",
+          "description": "The height of the bitmap."
+        },
+        {
+          "name": "format",
+          "type": "REFWICPixelFormatGUID",
+          "description": "The pixel format of the bitmap."
+        },
+        {
+          "name": "section",
+          "type": "HANDLE",
+          "description": "A handle to the file mapping object that the system will use to create the bitmap."
+        },
+        {
+          "name": "stride",
+          "type": "UINT",
+          "description": "The stride, or pitch, of the bitmap. This is the number of bytes from one row of pixels in memory to the next row of pixels in memory."
+        },
+        {
+          "name": "offset",
+          "type": "UINT",
+          "description": "The offset, in bytes, from the beginning of the file mapping to the start of the bitmap."
+        },
+        {
+          "name": "wicaccess",
+          "type": "WICSectionAccessLevel",
+          "description": "The access level of the bitmap."
+        },
+        {
+          "name": "bitmap",
+          "type": "IWICBitmap **",
+          "description": "A pointer to a pointer to the IWICBitmap interface of the bitmap to be created."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "WICCreateBitmapFromSection",
+      "description": "This function creates a bitmap from a section with specified parameters.",
+      "parameters": [
+        {
+          "name": "width",
+          "type": "UINT",
+          "description": "The width of the bitmap."
+        },
+        {
+          "name": "height",
+          "type": "UINT",
+          "description": "The height of the bitmap."
+        },
+        {
+          "name": "format",
+          "type": "REFWICPixelFormatGUID",
+          "description": "The pixel format of the bitmap."
+        },
+        {
+          "name": "section",
+          "type": "HANDLE",
+          "description": "A handle to the section from which to create the bitmap."
+        },
+        {
+          "name": "stride",
+          "type": "UINT",
+          "description": "The stride, or width in bytes, of the bitmap."
+        },
+        {
+          "name": "offset",
+          "type": "UINT",
+          "description": "The offset, or starting point in bytes, at which to begin creating the bitmap."
+        },
+        {
+          "name": "bitmap",
+          "type": "IWICBitmap **",
+          "description": "A pointer to a pointer to the IWICBitmap interface for the bitmap."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  }
+]

@@ -1,0 +1,1805 @@
+[
+  {
+    "function": {
+      "name": "OleBuildVersion",
+      "description": "This function returns the version and build of the OLE (Object Linking and Embedding) by shifting the version (rmm) by 16 bits and adding the build (rup).",
+      "parameters": [],
+      "return_type": "DWORD, represents the version and build of the OLE."
+    }
+  },
+  {
+    "function": {
+      "name": "OleInitialize",
+      "description": "This function initializes the COM libraries and the OLE specific modules which includes Clipboard, Drag and Drop, Object linking and Embedding, and In-place activation.",
+      "parameters": [
+        {
+          "name": "reserved",
+          "type": "LPVOID",
+          "description": "This parameter is reserved and not currently used."
+        }
+      ],
+      "return_type": "DECLSPEC_HOTPATCH, represents the status of the initialization. It returns S_OK if the initialization is successful, S_FALSE if the OLE libraries are already initialized, or an error code if the initialization fails."
+    }
+  },
+  {
+    "function": {
+      "name": "OleUninitialize",
+      "description": "This function is used to uninitialize the OLE libraries, OLE clipboard, and OLE shared menu. It also checks if the ole_inits is already 0 and if it hits the bottom of the lock stack, it frees the libraries.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters"
+        }
+      ],
+      "return_type": "DECLSPEC_HOTPATCH, it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "OleInitializeWOW",
+      "description": "This function is currently a stub and does not have a defined functionality.",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "DWORD",
+          "description": "This parameter does not have a defined use in this stub function."
+        },
+        {
+          "name": "y",
+          "type": "DWORD",
+          "description": "This parameter does not have a defined use in this stub function."
+        }
+      ],
+      "return_type": "HRESULT, in this stub function it always returns 0"
+    }
+  },
+  {
+    "function": {
+      "name": "get_droptarget_handle",
+      "description": "This function retrieves a handle to a drop target object associated with the specified window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window associated with the drop target."
+        }
+      ],
+      "return_type": "HANDLE, represents a handle to the drop target object."
+    }
+  },
+  {
+    "function": {
+      "name": "is_droptarget",
+      "description": "This function checks if the given window handle is a drop target by comparing the return value of get_droptarget_handle function with 0.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window that is checked if it is a drop target."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the window is a drop target, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "get_droptarget_local_handle",
+      "description": "This function retrieves a handle to the drop target associated with the specified window, duplicates the handle for the current process, and then closes the handle to the original process.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window associated with the drop target."
+        }
+      ],
+      "return_type": "HANDLE, represents a handle to the drop target for the current process. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "create_map_from_stream",
+      "description": "This function creates a file mapping object from a given stream and returns the handle to this object.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "This is the input stream from which the file mapping object is created."
+        },
+        {
+          "name": "map",
+          "type": "HANDLE*",
+          "description": "This is a pointer to the handle of the file mapping object that is created."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If the function fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "create_stream_from_map",
+      "description": "This function creates a stream from a memory map. It first maps the file into the address space of the calling process and then queries the memory for basic information. It allocates global memory and copies the data from the mapped file into this global memory. It then creates a stream object that uses an HGLOBAL memory handle to manage its storage.",
+      "parameters": [
+        {
+          "name": "map",
+          "type": "HANDLE",
+          "description": "Handle to the file mapping object. The file mapping object must exist prior to the call of this function."
+        },
+        {
+          "name": "stream",
+          "type": "IStream**",
+          "description": "Pointer to an IStream interface pointer. This will be filled with the address of the IStream interface pointer upon successful return."
+        }
+      ],
+      "return_type": "HRESULT, which is a data type used in Windows to represent error conditions, and warning, success and failure messages. It indicates the success or failure of the function."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IDropTarget",
+      "description": "This function returns the containing record for the given interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDropTarget*",
+          "description": "This parameter is used to get the containing record."
+        }
+      ],
+      "return_type": "DropTargetWrapper* which represents the containing record for the given interface."
+    }
+  },
+  {
+    "function": {
+      "name": "DropTargetWrapper_QueryInterface",
+      "description": "This function checks if the provided interface ID matches either IID_IUnknown or IID_IDropTarget. If it does, it increments the reference count of the IDropTarget interface and assigns the address of the IDropTarget interface to the ppvObject. If it doesn't, it assigns NULL to ppvObject and returns E_NOINTERFACE.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDropTarget*",
+          "description": "Pointer to the IDropTarget interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface ID to be checked"
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Pointer to the pointer that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the interface is supported, E_NOINTERFACE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "DropTargetWrapper_AddRef",
+      "description": "This function increments the reference count of the DropTargetWrapper object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDropTarget*",
+          "description": "Pointer to the IDropTarget interface of the DropTargetWrapper object"
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after increment"
+    }
+  },
+  {
+    "function": {
+      "name": "DropTargetWrapper_Release",
+      "description": "This function releases the DropTargetWrapper object and decrements the reference count. If the reference count becomes zero, the object is freed from memory.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDropTarget*",
+          "description": "Pointer to the IDropTarget interface of the object to be released"
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after the object has been released"
+    }
+  },
+  {
+    "function": {
+      "name": "get_target_from_wrapper",
+      "description": "This function retrieves the target from a given wrapper, adds a reference to the target, and returns a status code.",
+      "parameters": [
+        {
+          "name": "wrapper",
+          "type": "IDropTarget*",
+          "description": "The wrapper from which the target is to be retrieved."
+        },
+        {
+          "name": "target",
+          "type": "IDropTarget**",
+          "description": "A pointer to a pointer to the target to be retrieved."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and DRAGDROP_E_NOTREGISTERED if the target is not found."
+    }
+  },
+  {
+    "function": {
+      "name": "DropTargetWrapper_DragEnter",
+      "description": "This function is a wrapper for the IDropTarget_DragEnter function. It first retrieves the target from the wrapper, then calls the IDropTarget_DragEnter function on the target, and finally releases the target.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDropTarget*",
+          "description": "Interface pointer to the drop target"
+        },
+        {
+          "name": "pDataObj",
+          "type": "IDataObject*",
+          "description": "Pointer to the data object"
+        },
+        {
+          "name": "grfKeyState",
+          "type": "DWORD",
+          "description": "Current state of the keyboard modifier keys on the keyboard"
+        },
+        {
+          "name": "pt",
+          "type": "POINTL",
+          "description": "Structure that contains the cursor coordinates"
+        },
+        {
+          "name": "pdwEffect",
+          "type": "DWORD*",
+          "description": "Pointer to the effect of the drag-and-drop operation"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure"
+    }
+  },
+  {
+    "function": {
+      "name": "DropTargetWrapper_DragOver",
+      "description": "This function retrieves the target from the wrapper, calls the DragOver method on the target, releases the target, and returns the result.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDropTarget*",
+          "description": "Pointer to the IDropTarget interface"
+        },
+        {
+          "name": "grfKeyState",
+          "type": "DWORD",
+          "description": "Current state of the keyboard modifier keys on the keyboard"
+        },
+        {
+          "name": "pt",
+          "type": "POINTL",
+          "description": "Current cursor coordinates"
+        },
+        {
+          "name": "pdwEffect",
+          "type": "DWORD*",
+          "description": "Pointer to the effect of the drag-and-drop operation"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function. It can be a success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "DropTargetWrapper_DragLeave",
+      "description": "This function retrieves the target from the wrapper, calls the DragLeave method on the target, and then releases the target.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDropTarget*",
+          "description": "This is the interface pointer to the drop target."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function. It returns the result of the DragLeave method or the result of getting the target from the wrapper."
+    }
+  },
+  {
+    "function": {
+      "name": "DropTargetWrapper_Drop",
+      "description": "This function retrieves the target from the wrapper, performs the drop operation on the target, and then releases the target.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IDropTarget*",
+          "description": "Interface to the drop target"
+        },
+        {
+          "name": "pDataObj",
+          "type": "IDataObject*",
+          "description": "Pointer to the data object"
+        },
+        {
+          "name": "grfKeyState",
+          "type": "DWORD",
+          "description": "Current state of the keyboard modifier keys on the keyboard"
+        },
+        {
+          "name": "pt",
+          "type": "POINTL",
+          "description": "Structure that contains the cursor coordinates at the time of the drop"
+        },
+        {
+          "name": "pdwEffect",
+          "type": "DWORD*",
+          "description": "Pointer to the effect of the drop operation"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the drop operation"
+    }
+  },
+  {
+    "function": {
+      "name": "WrapDropTarget",
+      "description": "This function allocates memory for a DropTargetWrapper structure, initializes it, and returns a pointer to its IDropTarget interface.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that the drop target is associated with."
+        }
+      ],
+      "return_type": "IDropTarget pointer, which represents the IDropTarget interface of the newly created DropTargetWrapper structure."
+    }
+  },
+  {
+    "function": {
+      "name": "get_droptarget_pointer",
+      "description": "This function retrieves a pointer to an IDropTarget interface for a given window handle. It does this by getting a handle to a local memory object, creating a stream from this object, and then unmarshalling the IDropTarget interface from this stream.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window for which the IDropTarget interface pointer is to be retrieved."
+        }
+      ],
+      "return_type": "IDropTarget*. This is a pointer to the IDropTarget interface for the given window handle. If the function fails to retrieve this pointer, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "RegisterDragDrop",
+      "description": "This function registers the specified window as a potential target for an OLE drag-and-drop operation and marshals the drop target pointer into a shared memory map.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window being registered as a drop target."
+        },
+        {
+          "name": "pDropTarget",
+          "type": "LPDROPTARGET",
+          "description": "Pointer to the IDropTarget interface on the object that will accept the data."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If the window is already registered, it returns DRAGDROP_E_ALREADYREGISTERED. If the function fails, it returns a standard COM error code."
+    }
+  },
+  {
+    "function": {
+      "name": "RevokeDragDrop",
+      "description": "This function revokes the drag-and-drop functionality from a specified window. It releases the drop target and the marshalled drop target, and closes the handle to the drop target map.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window from which the drag-and-drop functionality is to be revoked."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns DRAGDROP_E_INVALIDHWND if the window handle is invalid, DRAGDROP_E_NOTREGISTERED if there is no registration data, and the result of the create_stream_from_map function otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "OleRegGetUserType",
+      "description": "This function retrieves the user-readable name of a specified form for a specified class.",
+      "parameters": [
+        {
+          "name": "clsid",
+          "type": "REFCLSID",
+          "description": "This is the CLSID of the object."
+        },
+        {
+          "name": "form",
+          "type": "DWORD",
+          "description": "This is the form of the user type name to be retrieved."
+        },
+        {
+          "name": "usertype",
+          "type": "LPOLESTR",
+          "description": "This is the pointer to a location where the function can store a pointer to the user type string."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, the return value is S_OK. If the function fails, the return value can be E_INVALIDARG, REGDB_E_READREGDB, or E_OUTOFMEMORY."
+    }
+  },
+  {
+    "function": {
+      "name": "DoDragDrop",
+      "description": "This function initiates a drag-and-drop operation, setting up a tracking window, capturing mouse input, and processing messages until the operation is complete. It also handles the ESC key press event to cancel the operation.",
+      "parameters": [
+        {
+          "name": "pDataObject",
+          "type": "IDataObject *",
+          "description": "Pointer to the data object being dragged"
+        },
+        {
+          "name": "pDropSource",
+          "type": "IDropSource *",
+          "description": "Pointer to the source object initiating the drag-and-drop operation"
+        },
+        {
+          "name": "dwOKEffect",
+          "type": "DWORD",
+          "description": "Effects allowed by the source during the operation"
+        },
+        {
+          "name": "pdwEffect",
+          "type": "DWORD *",
+          "description": "Pointer to the effects of the source, updated during the operation"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns E_INVALIDARG if any of the input pointers are NULL, E_FAIL if the tracking window could not be created, or the return value from the tracking operation otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "OleQueryLinkFromData",
+      "description": "This function is a stub and does not currently perform any operation. It is intended to query a link from data.",
+      "parameters": [
+        {
+          "name": "pSrcDataObject",
+          "type": "IDataObject*",
+          "description": "Pointer to the source data object"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the operation. Currently, it always returns S_FALSE indicating failure."
+    }
+  },
+  {
+    "function": {
+      "name": "OleRegGetMiscStatus",
+      "description": "This function retrieves the miscellaneous status for a specified CLSID and aspect. It reads the status from the registry, and if not found, it returns 0.",
+      "parameters": [
+        {
+          "name": "clsid",
+          "type": "REFCLSID",
+          "description": "The CLSID for which the miscellaneous status is to be retrieved."
+        },
+        {
+          "name": "dwAspect",
+          "type": "DWORD",
+          "description": "The aspect for which the miscellaneous status is to be retrieved."
+        },
+        {
+          "name": "pdwStatus",
+          "type": "DWORD*",
+          "description": "A pointer to a variable that receives the miscellaneous status."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. S_OK if successful, E_INVALIDARG if pdwStatus is NULL, or other error codes if the function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IEnumOLEVERB",
+      "description": "This function returns the containing record for the given IEnumOLEVERB interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumOLEVERB*",
+          "description": "Pointer to the IEnumOLEVERB interface for which the containing record is to be returned."
+        }
+      ],
+      "return_type": "EnumOLEVERB*. It represents the containing record for the given IEnumOLEVERB interface."
+    }
+  },
+  {
+    "function": {
+      "name": "EnumOLEVERB_QueryInterface",
+      "description": "This function checks if the provided interface ID matches either IID_IUnknown or IID_IEnumOLEVERB. If it does, it increments the reference count of the interface and sets the ppv pointer to the interface, otherwise it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumOLEVERB *",
+          "description": "Pointer to the interface that is being queried"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Identifier of the interface being requested"
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Pointer to the location where the interface pointer will be stored if the requested interface is supported"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the interface is supported, otherwise E_NOINTERFACE"
+    }
+  },
+  {
+    "function": {
+      "name": "EnumOLEVERB_AddRef",
+      "description": "This function increments the reference count of an IEnumOLEVERB interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumOLEVERB*",
+          "description": "This is a pointer to the IEnumOLEVERB interface whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "ULONG, which represents the new reference count after incrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "EnumOLEVERB_Release",
+      "description": "This function releases the IEnumOLEVERB interface and decrements the reference count. If the reference count reaches zero, it closes the registry key and frees the memory allocated to the interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumOLEVERB*",
+          "description": "Pointer to the IEnumOLEVERB interface that is to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after the decrement."
+    }
+  },
+  {
+    "function": {
+      "name": "EnumOLEVERB_Next",
+      "description": "This function enumerates the next OLEVERB structure in a sequence.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumOLEVERB*",
+          "description": "Pointer to an interface."
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "The number of OLEVERB structures to be fetched."
+        },
+        {
+          "name": "rgelt",
+          "type": "LPOLEVERB",
+          "description": "Pointer to the fetched OLEVERB structure."
+        },
+        {
+          "name": "pceltFetched",
+          "type": "ULONG*",
+          "description": "Pointer to the actual number of OLEVERB structures fetched."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if successful, error code otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "EnumOLEVERB_Skip",
+      "description": "This function skips a specified number of elements in the enumeration sequence.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumOLEVERB*",
+          "description": "Pointer to an interface used to enumerate OLE verbs."
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "The number of elements to be skipped in the enumeration sequence."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. S_OK indicates success."
+    }
+  },
+  {
+    "function": {
+      "name": "EnumOLEVERB_Reset",
+      "description": "This function resets the index of the EnumOLEVERB object to 0.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumOLEVERB*",
+          "description": "Pointer to an IEnumOLEVERB interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK if the operation was successful"
+    }
+  },
+  {
+    "function": {
+      "name": "EnumOLEVERB_Clone",
+      "description": "This function duplicates a handle to a verb enumeration object and constructs a new enumeration object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IEnumOLEVERB *",
+          "description": "Pointer to the interface of the verb enumeration object to be cloned."
+        },
+        {
+          "name": "ppenum",
+          "type": "IEnumOLEVERB **",
+          "description": "Pointer to a pointer to receive the interface of the newly cloned verb enumeration object."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "EnumOLEVERB_Construct",
+      "description": "This function allocates memory for a new EnumOLEVERB object, initializes its members, and returns a pointer to its IEnumOLEVERB interface.",
+      "parameters": [
+        {
+          "name": "hkeyVerb",
+          "type": "HKEY",
+          "description": "A handle to a registry key that the function uses to initialize the hkeyVerb member of the new object."
+        },
+        {
+          "name": "index",
+          "type": "ULONG",
+          "description": "A value that the function uses to initialize the index member of the new object."
+        },
+        {
+          "name": "ppenum",
+          "type": "IEnumOLEVERB**",
+          "description": "A pointer to a caller-allocated pointer variable that receives the IEnumOLEVERB interface pointer of the new object."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. The function returns S_OK if it succeeds and E_OUTOFMEMORY if it fails to allocate memory for the new object."
+    }
+  },
+  {
+    "function": {
+      "name": "OleRegEnumVerbs",
+      "description": "This function is used to enumerate the verbs for a specified class identifier (CLSID). It opens the registry key for the CLSID, checks for errors, queries the subkey count, and constructs an enumeration of OLE verbs if there are any subkeys.",
+      "parameters": [
+        {
+          "name": "clsid",
+          "type": "REFCLSID",
+          "description": "This is a reference to the class identifier (CLSID) for which the verbs are to be enumerated."
+        },
+        {
+          "name": "ppenum",
+          "type": "LPENUMOLEVERB*",
+          "description": "This is a pointer to a pointer to an IEnumOLEVERB interface. It receives the interface pointer of the enumeration object that can be used to enumerate the verbs."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, the return value is S_OK. If the function fails, the return value can be one of the error values like REGDB_E_CLASSNOTREG, REGDB_E_KEYMISSING, REGDB_E_READREGDB, OLEOBJ_E_NOVERBS, etc."
+    }
+  },
+  {
+    "function": {
+      "name": "OleSetContainedObject",
+      "description": "This function sets a contained object to the provided IUnknown interface pointer and boolean value.",
+      "parameters": [
+        {
+          "name": "pUnknown",
+          "type": "LPUNKNOWN",
+          "description": "Pointer to an IUnknown interface of the object to be set."
+        },
+        {
+          "name": "fContained",
+          "type": "BOOL",
+          "description": "Boolean value to set the contained object."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, it returns S_OK, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "OleRun",
+      "description": "This function runs an object if it implements the IRunnableObject interface.",
+      "parameters": [
+        {
+          "name": "pUnknown",
+          "type": "LPUNKNOWN",
+          "description": "Pointer to an unknown object that may implement the IRunnableObject interface."
+        }
+      ],
+      "return_type": "DECLSPEC_HOTPATCH, represents the status of the function execution. Returns S_OK if the object does not implement the IRunnableObject interface or the result of IRunnableObject_Run otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "OleLoad",
+      "description": "This function loads an object from the provided storage into memory. It also initializes the object and informs it of its client site.",
+      "parameters": [
+        {
+          "name": "pStg",
+          "type": "LPSTORAGE",
+          "description": "Pointer to the IStorage interface on the storage from which the object is to be loaded."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface the caller is to use to communicate with the object."
+        },
+        {
+          "name": "pClientSite",
+          "type": "LPOLECLIENTSITE",
+          "description": "Pointer to the IOleClientSite interface on the object's intended client site."
+        },
+        {
+          "name": "ppvObj",
+          "type": "LPVOID*",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, the return value is S_OK. If the function fails, the return value can be E_OUTOFMEMORY, E_UNEXPECTED, REGDB_E_CLASSNOTREG, or REGDB_E_READREGDB."
+    }
+  },
+  {
+    "function": {
+      "name": "OleSave",
+      "description": "This function first transfers the class ID, then asks the object to save itself to the storage. If it is successful, it commits the storage.",
+      "parameters": [
+        {
+          "name": "pPS",
+          "type": "LPPERSISTSTORAGE",
+          "description": "Pointer to the IPersistStorage interface of the object being saved."
+        },
+        {
+          "name": "pStg",
+          "type": "LPSTORAGE",
+          "description": "Pointer to the IStorage interface of the storage into which the object is to be saved."
+        },
+        {
+          "name": "fSameAsLoad",
+          "type": "BOOL",
+          "description": "Indicates whether the save operation should be the same as when the object was loaded."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "OleLockRunning",
+      "description": "This function locks or unlocks a specified object for the running object table and determines whether the object is closed when it is no longer running.",
+      "parameters": [
+        {
+          "name": "pUnknown",
+          "type": "LPUNKNOWN",
+          "description": "Pointer to the IUnknown interface on the object that is to be locked or unlocked."
+        },
+        {
+          "name": "fLock",
+          "type": "BOOL",
+          "description": "Determines whether to lock the object (TRUE) or unlock the object (FALSE)."
+        },
+        {
+          "name": "fLastUnlockCloses",
+          "type": "BOOL",
+          "description": "If TRUE, when the last lock on the object is unlocked, the object's UnLockRunning method is called with the fLastUnlockCloses parameter set to TRUE."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. S_OK indicates success and other values indicate failure."
+    }
+  },
+  {
+    "function": {
+      "name": "OLEMenu_Initialize",
+      "description": "This function doesn't perform any operation. It's a static void function with no parameters.",
+      "parameters": [],
+      "return_type": "void, meaning it doesn't return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "OLEMenu_UnInitialize",
+      "description": "This function does not perform any operation. It's a placeholder for a function that is meant to uninitialize OLEMenu but is currently not implemented.",
+      "parameters": [],
+      "return_type": "void, meaning this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "OLEMenu_InstallHooks",
+      "description": "This function installs hooks for thread scope messages, creates an entry for the hook table, and manages the hook table entry in case of failure.",
+      "parameters": [
+        {
+          "name": "tid",
+          "type": "DWORD",
+          "description": "Thread identifier for which the hooks are to be installed."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the hooks are successfully installed, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "OLEMenu_UnInstallHooks",
+      "description": "This function uninstalls the hooks installed for a specific thread and releases the hook table entry. If the hook or the hook table entry cannot be found, the function will return FALSE.",
+      "parameters": [
+        {
+          "name": "tid",
+          "type": "DWORD",
+          "description": "This parameter represents the thread identifier for which the hooks are to be uninstalled."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the hooks were successfully uninstalled and the hook table entry was released, and FALSE indicates that the operation was unsuccessful."
+    }
+  },
+  {
+    "function": {
+      "name": "OLEMenu_IsHookInstalled",
+      "description": "This function performs a simple linear search for an entry in the hook_list whose tid matches the input tid. If a match is found, it returns the corresponding hook item. If no match is found, it returns NULL.",
+      "parameters": [
+        {
+          "name": "tid",
+          "type": "DWORD",
+          "description": "The thread identifier that is used to search for a matching entry in the hook_list."
+        }
+      ],
+      "return_type": "OleMenuHookItem pointer. It represents the hook item in the hook_list whose tid matches the input tid. If no match is found, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "OLEMenu_FindMainMenuIndex",
+      "description": "This function searches for a popup menu within a main menu and returns its index. It uses recursion to search within submenus.",
+      "parameters": [
+        {
+          "name": "hMainMenu",
+          "type": "HMENU",
+          "description": "Handle to the main menu"
+        },
+        {
+          "name": "hPopupMenu",
+          "type": "HMENU",
+          "description": "Handle to the popup menu to find"
+        },
+        {
+          "name": "pnPos",
+          "type": "UINT*",
+          "description": "Pointer to a variable that receives the index of the popup menu within the main menu"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the popup menu is found within the main menu, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "OLEMenu_SetIsServerMenu",
+      "description": "This function checks if a given menu is a server menu and sets the bIsServerItem flag in the OleMenuDescriptor accordingly.",
+      "parameters": [
+        {
+          "name": "hmenu",
+          "type": "HMENU",
+          "description": "Handle to the menu to be checked."
+        },
+        {
+          "name": "pOleMenuDescriptor",
+          "type": "OleMenuDescriptor *",
+          "description": "Pointer to an OleMenuDescriptor structure that contains information about the menu."
+        }
+      ],
+      "return_type": "BOOL, returns the value of the bIsServerItem flag in the OleMenuDescriptor structure, indicating whether the menu is a server menu or not."
+    }
+  },
+  {
+    "function": {
+      "name": "OLEMenu_CallWndProc",
+      "description": "This function processes system messages for a window, specifically those related to OLEMenu. It checks if the message is destined for a window it is interested in, retrieves the menu descriptor, processes menu messages, and dispatches the message if it was for the server. It also handles the case where the hook item for the current thread cannot be retrieved.",
+      "parameters": [
+        {
+          "name": "code",
+          "type": "INT",
+          "description": "The system provided code to identify the action to be performed"
+        },
+        {
+          "name": "wParam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "lParam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information"
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing and depends on the message sent"
+    }
+  },
+  {
+    "function": {
+      "name": "OLEMenu_GetMsgProc",
+      "description": "This function processes messages for OLEMenu. It checks if the message is destined for a window it is interested in, processes menu messages, retrieves the menu descriptor, and dispatches the message to the server if necessary. It also handles hook items for the current thread and passes on the message to the next hooker.",
+      "parameters": [
+        {
+          "name": "code",
+          "type": "INT",
+          "description": "This parameter is used to check if the function is being asked to process a message."
+        },
+        {
+          "name": "wParam",
+          "type": "WPARAM",
+          "description": "This parameter is used in the CallNextHookEx function to pass on the message to the next hooker."
+        },
+        {
+          "name": "lParam",
+          "type": "LPARAM",
+          "description": "This parameter is used to retrieve the current message being dispatched."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing. It returns FALSE if it could not retrieve hHook for the current thread, otherwise it returns the result of the CallNextHookEx function."
+    }
+  },
+  {
+    "function": {
+      "name": "OleCreateMenuDescriptor",
+      "description": "This function creates an OLE menu descriptor, initializes menu group widths and hmenu, and returns the handle to the OLE menu descriptor.",
+      "parameters": [
+        {
+          "name": "hmenuCombined",
+          "type": "HMENU",
+          "description": "Handle to the combined menu"
+        },
+        {
+          "name": "lpMenuWidths",
+          "type": "LPOLEMENUGROUPWIDTHS",
+          "description": "Pointer to a structure that contains the widths of the menu groups"
+        }
+      ],
+      "return_type": "HOLEMENU, which represents the handle to the OLE menu descriptor"
+    }
+  },
+  {
+    "function": {
+      "name": "OleDestroyMenuDescriptor",
+      "description": "This function destroys a previously created menu descriptor.",
+      "parameters": [
+        {
+          "name": "hmenuDescriptor",
+          "type": "HOLEMENU",
+          "description": "This is a handle to the menu descriptor to be destroyed."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation was successful."
+    }
+  },
+  {
+    "function": {
+      "name": "OleSetMenuDescriptor",
+      "description": "This function sets up a message hook to intercept the containers frame window messages. The message filter is responsible for dispatching menu messages from the shared menu which are intended for the object. It also manages the installation and uninstallation of dispatching code.",
+      "parameters": [
+        {
+          "name": "hOleMenu",
+          "type": "HOLEMENU",
+          "description": "Handle to the OLE menu descriptor"
+        },
+        {
+          "name": "hwndFrame",
+          "type": "HWND",
+          "description": "Handle to the frame window"
+        },
+        {
+          "name": "hwndActiveObject",
+          "type": "HWND",
+          "description": "Handle to the active object window"
+        },
+        {
+          "name": "lpFrame",
+          "type": "LPOLEINPLACEFRAME",
+          "description": "Pointer to the OLE in-place frame"
+        },
+        {
+          "name": "lpActiveObject",
+          "type": "LPOLEINPLACEACTIVEOBJECT",
+          "description": "Pointer to the OLE in-place active object"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. It returns S_OK on success, and error codes like E_INVALIDARG, E_FAIL, E_UNEXPECTED on failure conditions."
+    }
+  },
+  {
+    "function": {
+      "name": "IsAccelerator",
+      "description": "This function checks if a given key message corresponds to an accelerator in the provided accelerator table. If it does, the function returns TRUE and sets the command identifier associated with the accelerator to the value pointed by lpwCmd. If it doesn't, the function returns FALSE.",
+      "parameters": [
+        {
+          "name": "hAccel",
+          "type": "HACCEL",
+          "description": "Handle to the accelerator table."
+        },
+        {
+          "name": "cAccelEntries",
+          "type": "int",
+          "description": "Number of entries in the accelerator table."
+        },
+        {
+          "name": "lpMsg",
+          "type": "LPMSG",
+          "description": "Pointer to a MSG structure that contains the key message."
+        },
+        {
+          "name": "lpwCmd",
+          "type": "WORD*",
+          "description": "Pointer to the variable that receives the command identifier associated with the accelerator."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the key message corresponds to an accelerator in the accelerator table, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "ReleaseStgMedium",
+      "description": "This function releases a storage medium object. It frees the resources used by the STGMEDIUM structure.",
+      "parameters": [
+        {
+          "name": "pmedium",
+          "type": "STGMEDIUM*",
+          "description": "Pointer to the STGMEDIUM structure. This structure contains information necessary to transfer the data object from one location to another."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "OLEDD_Initialize",
+      "description": "This function initializes a window class for a drag tracker in the OLED display driver.",
+      "parameters": [],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "OLEDD_DragTrackerWindowProc",
+      "description": "This function is a window procedure that handles various window messages for drag tracking. It sets up a timer on window creation, handles mouse and timer messages to track state changes, and kills the timer on window destruction.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "uMsg",
+          "type": "UINT",
+          "description": "The message."
+        },
+        {
+          "name": "wParam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lParam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "LRESULT, the result of the message processing and it is typically used to return a value if needed."
+    }
+  },
+  {
+    "function": {
+      "name": "drag_enter",
+      "description": "This function handles the event of a drag entering a new target. It updates the current target and drag target in the TrackerWindowInfo structure, and calls the IDropTarget_DragEnter function. If the DragEnter operation fails, it releases the current drag target and resets the current target and drag target to NULL.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "TrackerWindowInfo *",
+          "description": "Pointer to a TrackerWindowInfo structure that contains information about the current window and drag operation."
+        },
+        {
+          "name": "new_target",
+          "type": "HWND",
+          "description": "Handle to the new target window where the drag operation has entered."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "drag_end",
+      "description": "This function ends the dragging process, releases the capture, checks if there is a current drag target and if so, processes the drop or leaves the drag. It also releases the drag target and sets it to NULL.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "TrackerWindowInfo *",
+          "description": "Pointer to a TrackerWindowInfo structure that contains information about the window and the dragging process."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "give_feedback",
+      "description": "This function provides feedback based on the current drag and drop operation. It sets the cursor type based on the drop effect and calls the IDropSource_GiveFeedback function.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "TrackerWindowInfo*",
+          "description": "Pointer to a TrackerWindowInfo structure that contains information about the current drag and drop operation."
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function execution. It returns the result of the IDropSource_GiveFeedback function call."
+    }
+  },
+  {
+    "function": {
+      "name": "OLEDD_TrackStateChange",
+      "description": "This function tracks the state changes in a window, specifically for drag and drop operations. It checks if the mouse is over a new window, and if so, it initiates a drag enter operation. It also gives feedback and handles the end of a drag operation.",
+      "parameters": [
+        {
+          "name": "trackerInfo",
+          "type": "TrackerWindowInfo*",
+          "description": "A pointer to a TrackerWindowInfo structure that contains information about the window and the current drag and drop operation."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "OLEDD_GetButtonState",
+      "description": "This function gets the state of the keyboard buttons and returns a DWORD value representing the state of specific keys (Shift, Control, Alt, Left Button, Right Button, Middle Button).",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "DWORD, represents a bitmask of the state of specific keys. Each bit in the mask corresponds to a specific key (Shift, Control, Alt, Left Button, Right Button, Middle Button)."
+    }
+  },
+  {
+    "function": {
+      "name": "OLEUTL_ReadRegistryDWORDValue",
+      "description": "This function reads a DWORD value from the registry using the provided registry key. The value is then stored in the provided DWORD pointer.",
+      "parameters": [
+        {
+          "name": "regKey",
+          "type": "HKEY",
+          "description": "This is the registry key from where the DWORD value is read."
+        },
+        {
+          "name": "pdwValue",
+          "type": "DWORD*",
+          "description": "This is a pointer to a DWORD where the read value from the registry will be stored."
+        }
+      ],
+      "return_type": "void, this function does not return a value but modifies the DWORD pointed by the pdwValue parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "OleDraw",
+      "description": "This function is used to draw a representation of an object onto a specified device context.",
+      "parameters": [
+        {
+          "name": "pUnk",
+          "type": "IUnknown*",
+          "description": "Pointer to the IUnknown interface of the object to be drawn."
+        },
+        {
+          "name": "dwAspect",
+          "type": "DWORD",
+          "description": "Specifies the aspect to be drawn."
+        },
+        {
+          "name": "hdcDraw",
+          "type": "HDC",
+          "description": "Handle to the device context where the drawing should occur."
+        },
+        {
+          "name": "rect",
+          "type": "LPCRECT",
+          "description": "Pointer to a RECT structure containing the rectangle used for drawing."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK on success, E_INVALIDARG if the pUnk parameter is NULL, and DV_E_NOIVIEWOBJECT if the object does not support the IViewObject interface."
+    }
+  },
+  {
+    "function": {
+      "name": "OleTranslateAccelerator",
+      "description": "This function translates accelerator keystrokes for OLE in-place objects.",
+      "parameters": [
+        {
+          "name": "lpFrame",
+          "type": "LPOLEINPLACEFRAME",
+          "description": "Pointer to the frame window in which the object is being in-place activated."
+        },
+        {
+          "name": "lpFrameInfo",
+          "type": "LPOLEINPLACEFRAMEINFO",
+          "description": "Pointer to a structure that contains accelerator information."
+        },
+        {
+          "name": "lpmsg",
+          "type": "LPMSG",
+          "description": "Pointer to the message that may be an accelerator keystroke."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns S_FALSE if the keystroke was not an accelerator, otherwise returns the result of IOleInPlaceFrame_TranslateAccelerator."
+    }
+  },
+  {
+    "function": {
+      "name": "OleCreate",
+      "description": "This function creates a new object of the class associated with the specified CLSID, and initializes the object from the specified storage object according to the specified options.",
+      "parameters": [
+        {
+          "name": "rclsid",
+          "type": "REFCLSID",
+          "description": "The CLSID associated with the data and code that will be used to create the object."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "A reference to the identifier of the interface to be used to communicate with the object."
+        },
+        {
+          "name": "renderopt",
+          "type": "DWORD",
+          "description": "Specifies whether the object is to be rendered when it is being loaded, and if so, how the rendering is to occur."
+        },
+        {
+          "name": "pFormatEtc",
+          "type": "LPFORMATETC",
+          "description": "A pointer to a FORMATETC structure that defines the format used for the rendering."
+        },
+        {
+          "name": "pClientSite",
+          "type": "LPOLECLIENTSITE",
+          "description": "A pointer to the IOleClientSite interface on the object's container."
+        },
+        {
+          "name": "pStg",
+          "type": "LPSTORAGE",
+          "description": "A pointer to the IStorage interface on the storage object from which the object is to be initialized."
+        },
+        {
+          "name": "ppvObj",
+          "type": "LPVOID*",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, the return value is S_OK. If the function fails, the return value can be one of the error values from the CoCreateInstance function."
+    }
+  },
+  {
+    "function": {
+      "name": "OleGetAutoConvert",
+      "description": "This function retrieves the CLSID of the object that the input object is set to automatically convert to.",
+      "parameters": [
+        {
+          "name": "clsidOld",
+          "type": "REFCLSID",
+          "description": "The CLSID of the object that is set to automatically convert."
+        },
+        {
+          "name": "pClsidNew",
+          "type": "LPCLSID",
+          "description": "Pointer to where the function writes the CLSID of the object to which the input object is set to automatically convert."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. S_OK indicates success and any other value indicates failure."
+    }
+  },
+  {
+    "function": {
+      "name": "OleSetAutoConvert",
+      "description": "This function sets the CLSID of the object that will be used for automatic conversion of the object identified by the input CLSID.",
+      "parameters": [
+        {
+          "name": "clsidOld",
+          "type": "REFCLSID",
+          "description": "This is the CLSID of the object that needs to be converted."
+        },
+        {
+          "name": "clsidNew",
+          "type": "REFCLSID",
+          "description": "This is the CLSID of the object that will be used for automatic conversion."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the operation. S_OK indicates success and any other value indicates failure."
+    }
+  },
+  {
+    "function": {
+      "name": "OleDoAutoConvert",
+      "description": "This function automatically converts a storage object to a new class, if a conversion handler is registered for the original class of the object.",
+      "parameters": [
+        {
+          "name": "pStg",
+          "type": "LPSTORAGE",
+          "description": "Pointer to the IStorage interface on the storage object that needs to be converted."
+        },
+        {
+          "name": "pClsidNew",
+          "type": "LPCLSID",
+          "description": "Pointer to the CLSID of the new class. If the function is successful, the identifier of the new class is written to this location."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, the return value is S_OK. If the function fails, the return value can be one of the standard HRESULT values."
+    }
+  },
+  {
+    "function": {
+      "name": "OleIsRunning",
+      "description": "This function checks if the OLE object is currently running or not.",
+      "parameters": [
+        {
+          "name": "object",
+          "type": "LPOLEOBJECT",
+          "description": "This is the OLE object that the function checks."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the OLE object is running, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "OleNoteObjectVisible",
+      "description": "This function is used to lock or unlock an object for external connections based on the visibility flag.",
+      "parameters": [
+        {
+          "name": "pUnknown",
+          "type": "LPUNKNOWN",
+          "description": "Pointer to the object to be locked or unlocked."
+        },
+        {
+          "name": "bVisible",
+          "type": "BOOL",
+          "description": "Flag indicating whether the object should be visible or not."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the operation. S_OK indicates success and other values indicate failure."
+    }
+  },
+  {
+    "function": {
+      "name": "PropSysAllocString",
+      "description": "This function allocates a new string and copies the input string into it.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "LPCOLESTR",
+          "description": "This is the string that will be copied into the newly allocated string."
+        }
+      ],
+      "return_type": "BSTR, which represents the newly allocated string that contains the copied input string."
+    }
+  },
+  {
+    "function": {
+      "name": "PropSysFreeString",
+      "description": "This function frees a previously allocated string.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "LPOLESTR",
+          "description": "This is the string that will be freed."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "OleQueryCreateFromData",
+      "description": "This function queries whether an object can be created from the data object. It checks for various clipboard formats and returns appropriate status based on the formats found.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "IDataObject*",
+          "description": "Pointer to the data object to be queried"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the object can be created, OLE_S_STATIC if only static formats are available, and S_FALSE if the object cannot be created."
+    }
+  },
+  {
+    "function": {
+      "name": "init_fmtetc",
+      "description": "This function initializes the FORMATETC structure with the provided parameters.",
+      "parameters": [
+        {
+          "name": "fmt",
+          "type": "FORMATETC*",
+          "description": "Pointer to the FORMATETC structure to be initialized"
+        },
+        {
+          "name": "cf",
+          "type": "CLIPFORMAT",
+          "description": "Clip format to be set in the FORMATETC structure"
+        },
+        {
+          "name": "tymed",
+          "type": "TYMED",
+          "description": "Target device medium to be set in the FORMATETC structure"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "get_storage",
+      "description": "This function retrieves the storage of a data object, checks for different formats, and saves the storage if possible.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "IDataObject *",
+          "description": "Pointer to the data object to get storage from."
+        },
+        {
+          "name": "stg",
+          "type": "IStorage *",
+          "description": "Pointer to the storage to be retrieved."
+        },
+        {
+          "name": "src_cf",
+          "type": "UINT *",
+          "description": "Pointer to the source clipboard format."
+        },
+        {
+          "name": "other_fmts",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether other formats should be checked."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns the result of the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "OleCreateFromDataEx",
+      "description": "This function is used to create a new object from the data provided and initializes the object's cache.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "IDataObject*",
+          "description": "Pointer to the data object from which to create the object"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface that the caller is to use to communicate with the object"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Specifies whether the object is created from a link object or another kind of object"
+        },
+        {
+          "name": "renderopt",
+          "type": "DWORD",
+          "description": "Specifies whether to render the data on load or on demand"
+        },
+        {
+          "name": "num_cache_fmts",
+          "type": "ULONG",
+          "description": "Number of FORMATETC structures in the cache_fmts array"
+        },
+        {
+          "name": "adv_flags",
+          "type": "DWORD*",
+          "description": "Pointer to an array of advisory flags"
+        },
+        {
+          "name": "cache_fmts",
+          "type": "FORMATETC*",
+          "description": "Pointer to an array of cache formats"
+        },
+        {
+          "name": "sink",
+          "type": "IAdviseSink*",
+          "description": "Pointer to the IAdviseSink interface on the advise sink"
+        },
+        {
+          "name": "conns",
+          "type": "DWORD*",
+          "description": "Pointer to an array of DWORD tokens that represent the advise connections"
+        },
+        {
+          "name": "client_site",
+          "type": "IOleClientSite*",
+          "description": "Pointer to the IOleClientSite interface on the object's client site"
+        },
+        {
+          "name": "stg",
+          "type": "IStorage*",
+          "description": "Pointer to the IStorage interface on the storage object"
+        },
+        {
+          "name": "obj",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in iid"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, success or the error that occurred"
+    }
+  },
+  {
+    "function": {
+      "name": "OleCreateFromData",
+      "description": "This function creates a new object from the data provided and returns the result.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "IDataObject *",
+          "description": "Pointer to the data object from which the object is created"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface"
+        },
+        {
+          "name": "renderopt",
+          "type": "DWORD",
+          "description": "Options for rendering the data"
+        },
+        {
+          "name": "fmt",
+          "type": "FORMATETC *",
+          "description": "Pointer to the format in which the data is rendered"
+        },
+        {
+          "name": "client_site",
+          "type": "IOleClientSite *",
+          "description": "Pointer to the client site where the object is to be created"
+        },
+        {
+          "name": "stg",
+          "type": "IStorage *",
+          "description": "Pointer to the storage to be used for the object"
+        },
+        {
+          "name": "obj",
+          "type": "void **",
+          "description": "Pointer to the location where the created object is returned"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or the error occurred"
+    }
+  },
+  {
+    "function": {
+      "name": "OleCreateLinkFromData",
+      "description": "This function creates a linked object from a data object and initializes it.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "IDataObject *",
+          "description": "Pointer to the data object from which to create a linked object."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface the caller uses to communicate with the resulting linked object."
+        },
+        {
+          "name": "renderopt",
+          "type": "DWORD",
+          "description": "Specifies the drawing options."
+        },
+        {
+          "name": "fmt",
+          "type": "FORMATETC *",
+          "description": "Pointer to a FORMATETC structure that defines the format, medium, and target device to use for the presentation data."
+        },
+        {
+          "name": "client_site",
+          "type": "IOleClientSite *",
+          "description": "Pointer to the IOleClientSite interface on the container site where the linked object is to be placed."
+        },
+        {
+          "name": "stg",
+          "type": "IStorage *",
+          "description": "Pointer to the IStorage interface on the storage to be used for storing the linked object."
+        },
+        {
+          "name": "obj",
+          "type": "void **",
+          "description": "Address of pointer variable that receives the interface pointer requested in iid."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, success or an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "OleCreateStaticFromData",
+      "description": "This function creates a new static object from data provided in a specified format. It is used in OLE (Object Linking and Embedding) to create a static object from a data object.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "IDataObject *",
+          "description": "Pointer to the data object from which to create the static object."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface the caller is to use to communicate with the resulting object."
+        },
+        {
+          "name": "renderopt",
+          "type": "DWORD",
+          "description": "Specifies the drawing option. It controls whether and how the object handler should draw the object."
+        },
+        {
+          "name": "fmt",
+          "type": "FORMATETC *",
+          "description": "Pointer to a FORMATETC structure that defines the format, medium, and target device to use for the presentation data."
+        },
+        {
+          "name": "client_site",
+          "type": "IOleClientSite *",
+          "description": "Pointer to the IOleClientSite interface on the container application's client site object."
+        },
+        {
+          "name": "stg",
+          "type": "IStorage *",
+          "description": "Pointer to the IStorage interface on the storage object in which the object is to be saved."
+        },
+        {
+          "name": "obj",
+          "type": "void **",
+          "description": "Address of pointer variable that receives the interface pointer requested in iid."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, the return value is S_OK. If the function fails, the return value can be one of the standard return values or one of the specific return values."
+    }
+  },
+  {
+    "function": {
+      "name": "OleCreateFromFileEx",
+      "description": "This function creates a compound document object from a file and provides the caller with an interface pointer to this new object.",
+      "parameters": [
+        {
+          "name": "clsid",
+          "type": "REFCLSID",
+          "description": "Class identifier (CLSID) of the object"
+        },
+        {
+          "name": "filename",
+          "type": "OLECHAR *",
+          "description": "Pointer to the name of the file from which the object is to be created"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface that the caller wants to use to communicate with the object"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Controls aspects of the object creation"
+        },
+        {
+          "name": "renderopt",
+          "type": "DWORD",
+          "description": "Specifies whether the object is to be rendered when it is loaded"
+        },
+        {
+          "name": "num_fmts",
+          "type": "ULONG",
+          "description": "Number of elements in the array pointed to by fmts"
+        },
+        {
+          "name": "adv_flags",
+          "type": "DWORD *",
+          "description": "Pointer to an array of advisory flags"
+        },
+        {
+          "name": "fmts",
+          "type": "FORMATETC *",
+          "description": "Pointer to an array of structures that specify the formats to be used for presentation data"
+        },
+        {
+          "name": "sink",
+          "type": "IAdviseSink *",
+          "description": "Pointer to the IAdviseSink interface on the advise sink"
+        },
+        {
+          "name": "conns",
+          "type": "DWORD *",
+          "description": "Pointer to an array of token numbers"
+        },
+        {
+          "name": "client_site",
+          "type": "IOleClientSite *",
+          "description": "Pointer to the IOleClientSite interface on the container's client site"
+        },
+        {
+          "name": "stg",
+          "type": "IStorage *",
+          "description": "Pointer to the IStorage interface on the storage to be used for the object"
+        },
+        {
+          "name": "obj",
+          "type": "void **",
+          "description": "Address of pointer variable that receives the interface pointer requested in iid"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. It can be a success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "OleCreateFromFile",
+      "description": "This function creates a compound document object from a file and returns an interface pointer to the new object.",
+      "parameters": [
+        {
+          "name": "clsid",
+          "type": "REFCLSID",
+          "description": "Class identifier (CLSID) of the object"
+        },
+        {
+          "name": "filename",
+          "type": "OLECHAR *",
+          "description": "Pointer to the name of the file from which the object is to be created"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface that the caller wants to use to communicate with the object"
+        },
+        {
+          "name": "renderopt",
+          "type": "DWORD",
+          "description": "Specifies whether the object is to be rendered when it is loaded"
+        },
+        {
+          "name": "fmt",
+          "type": "FORMATETC *",
+          "description": "Pointer to a FORMATETC structure that defines the format, target device, aspect, and medium that will be used for future rendering of the object"
+        },
+        {
+          "name": "client_site",
+          "type": "IOleClientSite *",
+          "description": "Pointer to the IOleClientSite interface on the container site where the object is to be created"
+        },
+        {
+          "name": "storage",
+          "type": "IStorage *",
+          "description": "Pointer to the IStorage interface on the storage object where the object is to be stored"
+        },
+        {
+          "name": "obj",
+          "type": "void **",
+          "description": "Address of pointer variable that receives the interface pointer requested in iid"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns S_OK if the function was successful, or an error value otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "OleDuplicateData",
+      "description": "This function duplicates the data from a source handle to a destination handle based on the specified format and flags.",
+      "parameters": [
+        {
+          "name": "hSrc",
+          "type": "HANDLE",
+          "description": "This is the source handle from which data is to be duplicated."
+        },
+        {
+          "name": "cfFormat",
+          "type": "CLIPFORMAT",
+          "description": "This is the format in which the data is to be duplicated."
+        },
+        {
+          "name": "uiFlags",
+          "type": "UINT",
+          "description": "These are the flags that determine the behavior of the duplication process."
+        }
+      ],
+      "return_type": "HANDLE. This is the handle to the duplicated data. If the function fails, the return value is NULL."
+    }
+  }
+]

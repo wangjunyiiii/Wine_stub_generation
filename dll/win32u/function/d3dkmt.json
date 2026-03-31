@@ -1,0 +1,1164 @@
+[
+  {
+    "function": {
+      "name": "is_d3dkmt_global",
+      "description": "This function checks if a given handle is a global D3DKMT handle.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "D3DKMT_HANDLE",
+          "description": "The handle to be checked."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the handle is a global D3DKMT handle, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "index_to_handle",
+      "description": "This function shifts the bits of the index to the left by 6 places and performs a bitwise OR operation with D3DKMT_HANDLE_BIT, then returns the result.",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "int",
+          "description": "This parameter represents the index that will be shifted and used in the bitwise OR operation."
+        }
+      ],
+      "return_type": "D3DKMT_HANDLE, which represents the result of the bitwise operations performed on the index."
+    }
+  },
+  {
+    "function": {
+      "name": "handle_to_index",
+      "description": "This function takes a handle, performs a bitwise AND operation with a hexadecimal number, and then right shifts the result by 6 bits.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "D3DKMT_HANDLE",
+          "description": "This parameter is a handle that the function operates on."
+        }
+      ],
+      "return_type": "int, represents the result of the bitwise operations on the input handle."
+    }
+  },
+  {
+    "function": {
+      "name": "init_handle_table",
+      "description": "This function initializes a handle table by allocating memory for it and setting up its end and next pointers. If memory allocation fails, it returns a status indicating no memory. Otherwise, it returns a status of success.",
+      "parameters": [],
+      "return_type": "NTSTATUS, which represents the status of the function execution. It returns STATUS_NO_MEMORY if memory allocation fails, and STATUS_SUCCESS if the function executes successfully."
+    }
+  },
+  {
+    "function": {
+      "name": "alloc_object_handle",
+      "description": "This function allocates a handle for a d3dkmt_object. It locks the d3dkmt_lock mutex, initializes the handle table if it's not already initialized, finds an empty slot in the handle table, assigns the handle to the object, and then unlocks the mutex. If it can't find an empty slot, it tries to grow the handle table. If it still can't find an empty slot, it returns an error status.",
+      "parameters": [
+        {
+          "name": "object",
+          "type": "struct d3dkmt_object *",
+          "description": "This is the object for which the function is trying to allocate a handle."
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the status of the operation. It returns STATUS_SUCCESS if a handle was successfully allocated for the object, or STATUS_NO_MEMORY if it couldn't allocate a handle."
+    }
+  },
+  {
+    "function": {
+      "name": "free_object_handle",
+      "description": "This function frees an object handle by setting the corresponding index in the objects array to NULL and resetting the local field of the object to 0. It uses a mutex lock to ensure thread safety.",
+      "parameters": [
+        {
+          "name": "object",
+          "type": "struct d3dkmt_object*",
+          "description": "This is the object handle that is to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "get_d3dkmt_object",
+      "description": "This function retrieves a d3dkmt_object from an array of objects using a given handle and type. It locks the operation with a mutex to ensure thread safety. If the object does not exist, or the local handle or type does not match, it returns NULL.",
+      "parameters": [
+        {
+          "name": "local",
+          "type": "D3DKMT_HANDLE",
+          "description": "A handle used to locate the d3dkmt_object"
+        },
+        {
+          "name": "type",
+          "type": "enum d3dkmt_type",
+          "description": "The type of the d3dkmt_object to be retrieved"
+        }
+      ],
+      "return_type": "void pointer, represents the retrieved d3dkmt_object or NULL if the object does not exist or does not match the given handle or type"
+    }
+  },
+  {
+    "function": {
+      "name": "d3dkmt_object_alloc",
+      "description": "This function allocates memory for a d3dkmt_object, sets its type, and returns a pointer to it.",
+      "parameters": [
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "The size of the memory to be allocated for the object"
+        },
+        {
+          "name": "type",
+          "type": "enum d3dkmt_type",
+          "description": "The type of the d3dkmt_object"
+        },
+        {
+          "name": "obj",
+          "type": "void **",
+          "description": "A pointer to a pointer. This will point to the allocated d3dkmt_object."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the function execution. Returns STATUS_SUCCESS if the function executes successfully, and STATUS_NO_MEMORY if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "d3dkmt_object_create",
+      "description": "This function creates a new d3dkmt object and assigns values to its properties. It also handles server requests and responses related to the object creation.",
+      "parameters": [
+        {
+          "name": "object",
+          "type": "struct d3dkmt_object *",
+          "description": "Pointer to the d3dkmt object to be created"
+        },
+        {
+          "name": "fd",
+          "type": "int",
+          "description": "File descriptor"
+        },
+        {
+          "name": "value",
+          "type": "UINT",
+          "description": "Unsigned integer value to be assigned to the object"
+        },
+        {
+          "name": "shared",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether the object is shared or not"
+        },
+        {
+          "name": "runtime",
+          "type": "void *",
+          "description": "Pointer to the runtime data"
+        },
+        {
+          "name": "runtime_size",
+          "type": "UINT",
+          "description": "Size of the runtime data"
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the function execution. If the function executes successfully, it returns a status code. If not, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "d3dkmt_object_update",
+      "description": "This function updates a d3dkmt_object with the given runtime data and size. It communicates with a server to perform the update and returns a status code indicating the success or failure of the operation.",
+      "parameters": [
+        {
+          "name": "object",
+          "type": "struct d3dkmt_object*",
+          "description": "The d3dkmt_object to be updated"
+        },
+        {
+          "name": "runtime",
+          "type": "void*",
+          "description": "The runtime data to update the object with"
+        },
+        {
+          "name": "runtime_size",
+          "type": "UINT",
+          "description": "The size of the runtime data"
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the status of the operation. A non-zero value indicates an error."
+    }
+  },
+  {
+    "function": {
+      "name": "d3dkmt_object_open",
+      "description": "This function opens a D3DKMT (Direct3D Kernel Mode Driver) object and sets its properties. It also handles server requests and allocates object handles.",
+      "parameters": [
+        {
+          "name": "obj",
+          "type": "struct d3dkmt_object *",
+          "description": "Pointer to the D3DKMT object to be opened"
+        },
+        {
+          "name": "global",
+          "type": "D3DKMT_HANDLE",
+          "description": "Global handle for the D3DKMT object"
+        },
+        {
+          "name": "handle",
+          "type": "HANDLE",
+          "description": "Handle for the D3DKMT object"
+        },
+        {
+          "name": "runtime",
+          "type": "void *",
+          "description": "Pointer to the runtime environment of the D3DKMT object"
+        },
+        {
+          "name": "runtime_size",
+          "type": "UINT *",
+          "description": "Pointer to the size of the runtime environment of the D3DKMT object"
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the function execution. If the status is zero, the function was successful, otherwise an error occurred"
+    }
+  },
+  {
+    "function": {
+      "name": "d3dkmt_object_query",
+      "description": "This function queries a global object and retrieves its runtime size.",
+      "parameters": [
+        {
+          "name": "type",
+          "type": "enum d3dkmt_type",
+          "description": "The type of the object to query."
+        },
+        {
+          "name": "global",
+          "type": "D3DKMT_HANDLE",
+          "description": "A handle to the global object to query."
+        },
+        {
+          "name": "handle",
+          "type": "HANDLE",
+          "description": "A handle used for the server object."
+        },
+        {
+          "name": "runtime_size",
+          "type": "UINT *",
+          "description": "A pointer to store the runtime size of the object."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. If the status is non-zero, the operation failed."
+    }
+  },
+  {
+    "function": {
+      "name": "d3dkmt_object_free",
+      "description": "This function frees the memory allocated to the d3dkmt_object. It first checks if the object's local and handle properties are not null, and if so, it calls the respective functions to free them. Finally, it frees the object itself.",
+      "parameters": [
+        {
+          "name": "object",
+          "type": "struct d3dkmt_object*",
+          "description": "This is a pointer to the d3dkmt_object that needs to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "alloc_object_attributes",
+      "description": "This function allocates memory for object attributes, checks the validity of the attributes, and copies them into the allocated memory. It also calculates the length of the allocated memory.",
+      "parameters": [
+        {
+          "name": "attr",
+          "type": "const OBJECT_ATTRIBUTES *",
+          "description": "Pointer to the object attributes to be allocated and copied"
+        },
+        {
+          "name": "ret",
+          "type": "struct object_attributes **",
+          "description": "Pointer to the pointer where the allocated memory address will be stored"
+        },
+        {
+          "name": "ret_len",
+          "type": "data_size_t *",
+          "description": "Pointer to the variable where the length of the allocated memory will be stored"
+        }
+      ],
+      "return_type": "unsigned int, represents the status of the function execution. It returns STATUS_SUCCESS if the function executes successfully, and error status codes otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "d3dkmt_init_vulkan",
+      "description": "This function initializes the Vulkan driver and creates a Vulkan instance. It also loads several Vulkan functions.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "d3dkmt_use_vulkan",
+      "description": "This function checks if the Vulkan instance is initialized and returns its status.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not accept any parameters."
+        }
+      ],
+      "return_type": "BOOL, a boolean value indicating whether the Vulkan instance is initialized or not."
+    }
+  },
+  {
+    "function": {
+      "name": "validate_open_object_attributes",
+      "description": "This function validates the attributes of an open object. It checks if the object attributes are valid, if the object name is aligned and valid, and if the root directory is present when the object name is not.",
+      "parameters": [
+        {
+          "name": "attr",
+          "type": "OBJECT_ATTRIBUTES *",
+          "description": "Pointer to the object attributes to be validated"
+        }
+      ],
+      "return_type": "unsigned int, represents the status of the validation. It can be STATUS_INVALID_PARAMETER, STATUS_DATATYPE_MISALIGNMENT, STATUS_OBJECT_NAME_INVALID, or STATUS_SUCCESS"
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIOpenAdapterFromHdc",
+      "description": "This function is a stub and does not perform any operation. It is meant to open an adapter from a handle to device context but currently just returns a status indicating no memory.",
+      "parameters": [
+        {
+          "name": "desc",
+          "type": "D3DKMT_OPENADAPTERFROMHDC *",
+          "description": "Pointer to a structure that describes the adapter to open"
+        }
+      ],
+      "return_type": "NTSTATUS representing the status of the operation. Currently, it always returns STATUS_NO_MEMORY indicating failure due to lack of memory"
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIEscape",
+      "description": "This function handles the escape sequences in the D3DKMT (Direct3D Kernel Mode Driver) context. It updates the resource if the escape type is D3DKMT_ESCAPE_UPDATE_RESOURCE_WINE, otherwise it returns an error.",
+      "parameters": [
+        {
+          "name": "desc",
+          "type": "D3DKMT_ESCAPE *",
+          "description": "This is a pointer to the D3DKMT_ESCAPE structure that contains the escape sequences to be handled."
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the status of the operation. It returns STATUS_INVALID_PARAMETER if the resource is not found, STATUS_NO_MEMORY for unhandled escape sequences, and the status of the resource update operation for D3DKMT_ESCAPE_UPDATE_RESOURCE_WINE escape type."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDICloseAdapter",
+      "description": "This function closes a graphics adapter by freeing the associated d3dkmt_object. It returns an NTSTATUS indicating the success or failure of the operation.",
+      "parameters": [
+        {
+          "name": "desc",
+          "type": "D3DKMT_CLOSEADAPTER *",
+          "description": "This is a pointer to a D3DKMT_CLOSEADAPTER structure that describes the adapter to close."
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the status of the operation. It returns STATUS_SUCCESS if the operation is successful, or STATUS_INVALID_PARAMETER if the input parameter is invalid."
+    }
+  },
+  {
+    "function": {
+      "name": "get_vulkan_physical_devices",
+      "description": "This function retrieves the physical devices available in the Vulkan instance and returns the count of these devices.",
+      "parameters": [
+        {
+          "name": "devices",
+          "type": "VkPhysicalDevice**",
+          "description": "A pointer to a pointer to a VkPhysicalDevice structure. This parameter is used to store the list of physical devices retrieved."
+        }
+      ],
+      "return_type": "UINT, represents the count of physical devices retrieved. If the function fails to retrieve the devices, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "get_vulkan_physical_device",
+      "description": "This function retrieves a Vulkan physical device associated with a given LUID. It first gets the UUID from the LUID, then iterates over all available Vulkan physical devices until it finds one with a matching UUID.",
+      "parameters": [
+        {
+          "name": "luid",
+          "type": "LUID*",
+          "description": "A pointer to a LUID (Locally Unique Identifier) that is used to identify the Vulkan physical device."
+        }
+      ],
+      "return_type": "VkPhysicalDevice, which represents the Vulkan physical device associated with the provided LUID. If no such device is found, the function returns VK_NULL_HANDLE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIOpenAdapterFromLuid",
+      "description": "This function opens an adapter using a locally unique identifier (LUID). It checks if Vulkan is available and if the Vulkan physical device can be found. If successful, it assigns the LUID to the adapter and sets the adapter handle.",
+      "parameters": [
+        {
+          "name": "desc",
+          "type": "D3DKMT_OPENADAPTERFROMLUID *",
+          "description": "This is a pointer to a D3DKMT_OPENADAPTERFROMLUID structure that describes the adapter to open."
+        }
+      ],
+      "return_type": "NTSTATUS, representing the status of the operation. It returns STATUS_SUCCESS if the operation is successful, otherwise it returns the error status."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDICreateDevice",
+      "description": "This function creates a device in the Direct3D Kernel Mode Thunk (D3DKMT). It allocates memory for the device, assigns it a locally unique identifier (LUID) from the adapter, and assigns the device's local handle to the 'hDevice' member of the 'desc' parameter. If any step fails, it frees the allocated memory and returns the error status.",
+      "parameters": [
+        {
+          "name": "desc",
+          "type": "D3DKMT_CREATEDEVICE *",
+          "description": "This is a pointer to a D3DKMT_CREATEDEVICE structure that describes the device to be created."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the device creation operation. Returns STATUS_SUCCESS if the operation is successful, otherwise returns an error status code."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIDestroyDevice",
+      "description": "This function destroys a device in the D3DKMT (Direct3D Kernel Mode Driver) context. It checks if the device handle is valid, sets the VidPn source owner for the device, and then frees the device object.",
+      "parameters": [
+        {
+          "name": "desc",
+          "type": "D3DKMT_DESTROYDEVICE *",
+          "description": "A pointer to a D3DKMT_DESTROYDEVICE structure that describes the device to be destroyed."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. Returns STATUS_SUCCESS if the operation is successful, or STATUS_INVALID_PARAMETER if the input parameter is invalid or the device handle is not found."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIQueryAdapterInfo",
+      "description": "This function queries the adapter information based on the type specified in the desc parameter. It handles two types: KMTQAITYPE_CHECKDRIVERUPDATESTATUS and KMTQAITYPE_DRIVERVERSION. For other types, it returns STATUS_NOT_IMPLEMENTED.",
+      "parameters": [
+        {
+          "name": "desc",
+          "type": "D3DKMT_QUERYADAPTERINFO *",
+          "description": "This is a pointer to a D3DKMT_QUERYADAPTERINFO structure that describes the type of adapter information to query and where to store the queried information."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. It can return STATUS_INVALID_PARAMETER if the input parameter is invalid, STATUS_SUCCESS if the operation is successful, or STATUS_NOT_IMPLEMENTED if the type specified in desc is not handled."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIQueryStatistics",
+      "description": "This function is a stub and does not perform any operation. It is intended to query statistics but currently only returns a success status.",
+      "parameters": [
+        {
+          "name": "stats",
+          "type": "D3DKMT_QUERYSTATISTICS *",
+          "description": "Pointer to a D3DKMT_QUERYSTATISTICS structure that will receive the statistics data."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the completion status of the operation. Currently, it always returns STATUS_SUCCESS."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIQueryVideoMemoryInfo",
+      "description": "This function queries the video memory information of a physical device.",
+      "parameters": [
+        {
+          "name": "desc",
+          "type": "D3DKMT_QUERYVIDEOMEMORYINFO *",
+          "description": "A pointer to a D3DKMT_QUERYVIDEOMEMORYINFO structure that describes the video memory."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the completion status of the operation. Returns STATUS_SUCCESS if the operation is successful, STATUS_INVALID_PARAMETER if the parameters are not valid, or STATUS_ACCESS_DENIED if the process does not have the necessary access rights."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDISetQueuedLimit",
+      "description": "This function is a stub and not yet implemented. It is expected to set a limit to a queue.",
+      "parameters": [
+        {
+          "name": "desc",
+          "type": "D3DKMT_SETQUEUEDLIMIT *",
+          "description": "This is a pointer to a D3DKMT_SETQUEUEDLIMIT structure that describes the queue limit to set."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the completion status of the operation. In this case, it always returns STATUS_NOT_IMPLEMENTED indicating that the function is not yet implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDISetVidPnSourceOwner",
+      "description": "This function sets the owner of a video present network (VidPN) source. It checks the parameters, removes the current owner if necessary, and adds a new owner. It locks and unlocks the d3dkmt_lock mutex to ensure thread safety.",
+      "parameters": [
+        {
+          "name": "desc",
+          "type": "D3DKMT_SETVIDPNSOURCEOWNER *",
+          "description": "A pointer to a D3DKMT_SETVIDPNSOURCEOWNER structure that describes the VidPN source owner to set."
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the status of the operation. It can return STATUS_SUCCESS if the operation is successful, STATUS_INVALID_PARAMETER if the parameters are not valid, STATUS_GRAPHICS_VIDPN_SOURCE_IN_USE if the VidPN source is already in use, or STATUS_NO_MEMORY if there is not enough memory to complete the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDICheckOcclusion",
+      "description": "This function is a stub and does not perform any operation. It is intended to check occlusion but currently returns an error status.",
+      "parameters": [
+        {
+          "name": "desc",
+          "type": "D3DKMT_CHECKOCCLUSION *",
+          "description": "Pointer to a D3DKMT_CHECKOCCLUSION structure that describes the occlusion to check."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the completion status of the operation. Currently, it always returns STATUS_PROCEDURE_NOT_FOUND indicating that the procedure does not exist."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDICheckVidPnExclusiveOwnership",
+      "description": "This function checks if the video present network (VidPn) source has exclusive ownership. It locks the d3dkmt_lock mutex before checking and unlocks it after the check. If the VidPn source has exclusive ownership, it returns STATUS_GRAPHICS_PRESENT_OCCLUDED; otherwise, it returns STATUS_SUCCESS.",
+      "parameters": [
+        {
+          "name": "desc",
+          "type": "D3DKMT_CHECKVIDPNEXCLUSIVEOWNERSHIP *",
+          "description": "A pointer to a D3DKMT_CHECKVIDPNEXCLUSIVEOWNERSHIP structure that describes the VidPn source to check for exclusive ownership."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. Returns STATUS_INVALID_PARAMETER if the input parameter is invalid, STATUS_GRAPHICS_PRESENT_OCCLUDED if the VidPn source has exclusive ownership, and STATUS_SUCCESS otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "compare_vulkan_physical_devices",
+      "description": "This function compares two Vulkan physical devices based on their type rank and device UUID. It uses a predefined ranking system for device types and memcmp for comparing device UUIDs.",
+      "parameters": [
+        {
+          "name": "v1",
+          "type": "void*",
+          "description": "Pointer to the first Vulkan physical device to be compared"
+        },
+        {
+          "name": "v2",
+          "type": "void*",
+          "description": "Pointer to the second Vulkan physical device to be compared"
+        }
+      ],
+      "return_type": "int, represents the result of the comparison. If the return value is less than, equal to, or greater than zero, it indicates that the first device is considered to be respectively less than, equal to, or greater than the second."
+    }
+  },
+  {
+    "function": {
+      "name": "get_vulkan_gpus",
+      "description": "This function retrieves information about the physical devices (GPUs) that support Vulkan, stores them in a list, and returns a boolean value indicating whether the operation was successful or not.",
+      "parameters": [
+        {
+          "name": "gpus",
+          "type": "struct list *",
+          "description": "A pointer to a list where the information about the Vulkan GPUs will be stored."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation was successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "free_vulkan_gpu",
+      "description": "This function frees up the memory allocated to the vulkan_gpu structure and its name.",
+      "parameters": [
+        {
+          "name": "gpu",
+          "type": "struct vulkan_gpu *",
+          "description": "A pointer to the vulkan_gpu structure that needs to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIShareObjects",
+      "description": "This function shares objects between processes in the context of Direct3D Kernel Mode Threading. It can handle different types of objects such as resources, mutexes, and syncs.",
+      "parameters": [
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of objects to be shared"
+        },
+        {
+          "name": "handles",
+          "type": "D3DKMT_HANDLE *",
+          "description": "Pointer to the array of handles of the objects to be shared"
+        },
+        {
+          "name": "attr",
+          "type": "OBJECT_ATTRIBUTES *",
+          "description": "Pointer to the attributes of the objects to be shared"
+        },
+        {
+          "name": "access",
+          "type": "UINT",
+          "description": "The access rights for the shared objects"
+        },
+        {
+          "name": "handle",
+          "type": "HANDLE *",
+          "description": "Pointer to the handle that will receive the handle of the shared objects"
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. Returns STATUS_INVALID_PARAMETER if the object count or types are unsupported, or if the sharing operation fails for any other reason"
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDICreateAllocation2",
+      "description": "This function is used to create a new allocation in the device context. It validates the parameters, checks for existing resources, creates new resources if necessary, and handles errors.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_CREATEALLOCATION *",
+          "description": "This is a pointer to a structure that contains the parameters for the allocation creation."
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the status of the operation. It returns STATUS_SUCCESS if the operation is successful. Otherwise, it returns an error code such as STATUS_INVALID_PARAMETER, STATUS_INVALID_HANDLE, etc."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDICreateAllocation",
+      "description": "This function creates an allocation by calling the function NtGdiDdDDICreateAllocation2 with the same parameters.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_CREATEALLOCATION *",
+          "description": "Pointer to a D3DKMT_CREATEALLOCATION structure that describes the allocation to be created."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the completion status of the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIDestroyAllocation2",
+      "description": "This function destroys a specified allocation. It checks the validity of the parameters and the allocation objects. If any of the checks fail, it returns an error status. If all checks pass, it frees the allocation objects and returns a success status.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_DESTROYALLOCATION2 *",
+          "description": "This is a pointer to a D3DKMT_DESTROYALLOCATION2 structure that describes the allocation to destroy."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the completion status of the operation. Returns STATUS_SUCCESS if the operation is successful, otherwise it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIDestroyAllocation",
+      "description": "This function destroys a previously created allocation.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_DESTROYALLOCATION *",
+          "description": "Pointer to a D3DKMT_DESTROYALLOCATION structure that describes the allocation to destroy."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the completion status of the operation. Returns STATUS_INVALID_PARAMETER if the params pointer is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIOpenResource",
+      "description": "This function opens a resource in the Direct3D Kernel Mode Thunk (D3DKMT). It validates the parameters, allocates memory for the resource and allocation objects, opens the object, allocates an object handle, and updates the parameters with the resource and allocation details.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_OPENRESOURCE *",
+          "description": "This is a pointer to a D3DKMT_OPENRESOURCE structure that describes the resource to open."
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the completion status of the operation. Returns STATUS_SUCCESS if the operation is successful, and an error status code if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIOpenResource2",
+      "description": "This function opens a resource in the D3DKMT (Direct3D Kernel Mode Thunk) layer. It allocates and initializes resource and allocation objects, checks for valid parameters, and handles potential failures.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_OPENRESOURCE*",
+          "description": "A pointer to a D3DKMT_OPENRESOURCE structure that contains the parameters for opening the resource."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. Returns STATUS_SUCCESS if the operation is successful, otherwise it returns an error status code."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIOpenResourceFromNtHandle",
+      "description": "This function opens a resource from a handle provided by the NT kernel. It performs several checks on the parameters and if any of them fails, it returns an error status. If all checks pass, it allocates and opens objects for resource, mutex and sync. If any of these operations fail, it frees the allocated objects and returns the error status. If all operations are successful, it updates the parameters with the local handles of the allocated objects and returns a success status.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_OPENRESOURCEFROMNTHANDLE *",
+          "description": "A pointer to a structure that contains the parameters required for opening a resource from a NT handle. The structure includes fields for private runtime data, total private driver data buffer, open allocation info, number of allocations, NT handle, keyed mutex private runtime data, private runtime data size, keyed mutex private runtime data size, resource handle, keyed mutex handle, sync object handle, total private driver data buffer size, and resource private driver data size."
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the status of the operation. It returns STATUS_SUCCESS if the operation is successful. If any of the checks on the parameters fail, it returns STATUS_INVALID_PARAMETER. If any of the object allocation or opening operations fail, it returns the error status returned by these operations."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIOpenNtHandleFromName",
+      "description": "This function opens a handle to a named object in the NT namespace. It validates the object attributes, starts a server request to open the object with the specified name, and returns the status of the operation.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_OPENNTHANDLEFROMNAME *",
+          "description": "This is a pointer to a structure that contains the name of the object to open, the desired access, and the object attributes."
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the status of the operation. If the function succeeds, it returns STATUS_SUCCESS. If the function fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIQueryResourceInfo",
+      "description": "This function queries resource information for a given device and updates the parameters with the queried data.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_QUERYRESOURCEINFO *",
+          "description": "A pointer to a D3DKMT_QUERYRESOURCEINFO structure that, on input, specifies the device and resource. On output, the structure contains the queried resource information."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. Returns STATUS_SUCCESS if the operation is successful, otherwise returns an error code such as STATUS_INVALID_PARAMETER."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIQueryResourceInfoFromNtHandle",
+      "description": "This function queries resource information from an NT handle.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_QUERYRESOURCEINFOFROMNTHANDLE *",
+          "description": "This is a pointer to a structure that contains the NT handle and other related information."
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the status of the operation. If the operation is successful, it returns STATUS_SUCCESS."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDICreateKeyedMutex2",
+      "description": "This function creates a keyed mutex object and returns the status of the operation. It also updates the parameters structure with the handle of the mutex object.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_CREATEKEYEDMUTEX2 *",
+          "description": "A pointer to a D3DKMT_CREATEKEYEDMUTEX2 structure that, on input, contains the initial value and security attributes for the keyed mutex. On output, the structure contains the handle of the keyed mutex."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. It returns STATUS_SUCCESS if the operation is successful, STATUS_INVALID_PARAMETER if the input parameter is invalid, or other NTSTATUS codes depending on the error occurred during the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDICreateKeyedMutex",
+      "description": "This function creates a keyed mutex by calling the NtGdiDdDDICreateKeyedMutex2 function. It initializes the parameters for the NtGdiDdDDICreateKeyedMutex2 function, checks if the input parameters are valid, and assigns the returned handle and mutex to the input parameters.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_CREATEKEYEDMUTEX *",
+          "description": "A pointer to a D3DKMT_CREATEKEYEDMUTEX structure that, on input, contains the initial value for the keyed mutex. On output, it receives the handle and the keyed mutex."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. If the function succeeds, the return value is STATUS_SUCCESS. If the input parameter is null, it returns STATUS_INVALID_PARAMETER."
+    }
+  },
+  {
+    "function": {
+      "name": "d3dkmt_destroy_mutex",
+      "description": "This function destroys a mutex object, releases the mutex if it is owned, and frees the associated object.",
+      "parameters": [
+        {
+          "name": "local",
+          "type": "D3DKMT_HANDLE",
+          "description": "This is a handle to the mutex object that needs to be destroyed."
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the status of the operation. Returns STATUS_SUCCESS if the operation is successful, and STATUS_INVALID_PARAMETER if the mutex object is not found."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIDestroyKeyedMutex",
+      "description": "This function is used to destroy a keyed mutex.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_DESTROYKEYEDMUTEX *",
+          "description": "This is a pointer to a D3DKMT_DESTROYKEYEDMUTEX structure that contains the keyed mutex to be destroyed."
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the completion status of the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIOpenKeyedMutex2",
+      "description": "This function opens a keyed mutex object and returns a handle to it. It also checks the validity of the parameters and handles any errors that might occur during the process.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_OPENKEYEDMUTEX2 *",
+          "description": "This is a pointer to a D3DKMT_OPENKEYEDMUTEX2 structure that contains the necessary data to open the mutex."
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the completion status of the operation. It returns STATUS_SUCCESS if the operation is successful, and an error status code if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIOpenKeyedMutex",
+      "description": "This function opens a keyed mutex object. It first checks if the parameter is valid, then opens the mutex using the NtGdiDdDDIOpenKeyedMutex2 function, and assigns the handle of the opened mutex back to the parameter.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_OPENKEYEDMUTEX *",
+          "description": "A pointer to a D3DKMT_OPENKEYEDMUTEX structure that, on input, contains the handle to the shared resource. On output, it receives the handle to the keyed mutex object."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the completion status of the operation. Returns STATUS_INVALID_PARAMETER if the input parameter is invalid."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIOpenKeyedMutexFromNtHandle",
+      "description": "This function opens a keyed mutex object from an NT handle.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_OPENKEYEDMUTEXFROMNTHANDLE *",
+          "description": "A pointer to a D3DKMT_OPENKEYEDMUTEXFROMNTHANDLE structure that describes the keyed mutex to open."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. Returns STATUS_SUCCESS if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIAcquireKeyedMutex2",
+      "description": "This function acquires a keyed mutex object. It waits for the mutex object to be released before returning, and it adjusts the mutex's state based on the parameters passed.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_ACQUIREKEYEDMUTEX2*",
+          "description": "This is a pointer to a D3DKMT_ACQUIREKEYEDMUTEX2 structure that describes the keyed mutex to acquire."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the completion status of the operation. Returns STATUS_SUCCESS if the operation is successful, STATUS_INVALID_PARAMETER if the parameters are not valid, or STATUS_PENDING if the operation is still pending."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIAcquireKeyedMutex",
+      "description": "This function acquires a keyed mutex. It initializes a D3DKMT_ACQUIREKEYEDMUTEX2 structure, copies the values from the input parameters, calls NtGdiDdDDIAcquireKeyedMutex2 with the new structure, and then updates the FenceValue in the original structure with the new value.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_ACQUIREKEYEDMUTEX *",
+          "description": "A pointer to a D3DKMT_ACQUIREKEYEDMUTEX structure that contains the parameters for the function."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the completion status of the operation. Returns STATUS_INVALID_PARAMETER if the params pointer is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIReleaseKeyedMutex2",
+      "description": "This function releases a keyed mutex object. It first checks if the mutex object is valid, then sends a server request to release the mutex. If the server call is successful, it sets the mutex ownership to FALSE.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_RELEASEKEYEDMUTEX2 *",
+          "description": "Pointer to a D3DKMT_RELEASEKEYEDMUTEX2 structure that describes the keyed mutex to release."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. If the function succeeds, the return value is STATUS_SUCCESS. If the function fails, the return value can be STATUS_INVALID_PARAMETER if the mutex object is not valid."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIReleaseKeyedMutex",
+      "description": "This function releases a keyed mutex. It initializes a D3DKMT_RELEASEKEYEDMUTEX2 structure with the values from the input parameter, then calls the NtGdiDdDDIReleaseKeyedMutex2 function with this structure.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_RELEASEKEYEDMUTEX *",
+          "description": "Pointer to a D3DKMT_RELEASEKEYEDMUTEX structure that contains the keyed mutex to be released."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. Returns STATUS_INVALID_PARAMETER if the input parameter is null."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDICreateSynchronizationObject2",
+      "description": "This function creates a synchronization object for a device and returns the status of the operation.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_CREATESYNCHRONIZATIONOBJECT2 *",
+          "description": "A pointer to a structure that contains information about the synchronization object to be created."
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the status of the operation. It returns STATUS_SUCCESS if the operation is successful, otherwise it returns an error status code."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDICreateSynchronizationObject",
+      "description": "This function creates a synchronization object for a device. It checks the type of the synchronization object and if it is not a mutex or semaphore, it returns an invalid parameter status. If the type is valid, it creates the synchronization object and assigns it to the handle in the input parameters.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_CREATESYNCHRONIZATIONOBJECT*",
+          "description": "A pointer to a D3DKMT_CREATESYNCHRONIZATIONOBJECT structure that describes the synchronization object to be created."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the function execution. If the function succeeds, the return value is STATUS_SUCCESS. If the function fails, the return value can be STATUS_INVALID_PARAMETER."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIOpenSyncObjectFromNtHandle2",
+      "description": "This function opens a synchronization object from an NT handle and allocates and opens a d3dkmt object.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_OPENSYNCOBJECTFROMNTHANDLE2 *",
+          "description": "A pointer to a structure that contains the parameters for opening a synchronization object from an NT handle."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. Returns STATUS_SUCCESS if the operation is successful, STATUS_INVALID_PARAMETER if the parameters are invalid, or other status codes depending on the failure."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIOpenSyncObjectFromNtHandle",
+      "description": "This function opens a synchronization object from an NT handle.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_OPENSYNCOBJECTFROMNTHANDLE *",
+          "description": "A pointer to a structure that contains the NT handle and will receive the handle of the opened synchronization object."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. Returns STATUS_SUCCESS if the operation is successful, STATUS_INVALID_PARAMETER if the input parameter is null, or other status codes depending on the failure."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIOpenSyncObjectNtHandleFromName",
+      "description": "This function opens a synchronization object handle from a given name, validates the object attributes, and sets the handle in the provided parameters structure.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_OPENSYNCOBJECTNTHANDLEFROMNAME *",
+          "description": "A pointer to a structure that contains the object attributes and desired access. The function sets the handle in this structure."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. If the function succeeds, the return value is STATUS_SUCCESS. If the function fails, the return value is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIOpenSynchronizationObject",
+      "description": "This function opens a synchronization object in the D3DKMT (Direct3D Kernel Mode Threading) context. It checks if the shared handle is valid, allocates and opens a D3DKMT object, and assigns the local handle of the object to the synchronization object handle in the input parameters.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_OPENSYNCHRONIZATIONOBJECT *",
+          "description": "A pointer to a D3DKMT_OPENSYNCHRONIZATIONOBJECT structure that, on input, contains the shared handle of the synchronization object to open. On output, this structure contains the local handle of the opened synchronization object."
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the status of the operation. It returns STATUS_SUCCESS if the function successfully opens the synchronization object. If the input parameters are null or the shared handle is invalid, it returns STATUS_INVALID_PARAMETER. If there is an error in allocating or opening the D3DKMT object, it returns the error status."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIDestroySynchronizationObject",
+      "description": "This function destroys a synchronization object in the D3DKMT (Direct3D Kernel Mode Threading).",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "D3DKMT_DESTROYSYNCHRONIZATIONOBJECT *",
+          "description": "A pointer to a D3DKMT_DESTROYSYNCHRONIZATIONOBJECT structure that describes the synchronization object to destroy."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the completion status of the operation. If the function succeeds, the return value is STATUS_SUCCESS. If the function fails, the return value is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "get_resource_global_keyed_mutex",
+      "description": "This function checks the size and version of the 'desc' parameter. If the size and version are supported, and if 'desc' has a keyed mutex but is not shared, it assigns the mutex and sync handles from 'desc' to 'mutex_global' and 'sync_global' respectively.",
+      "parameters": [
+        {
+          "name": "desc",
+          "type": "struct d3dkmt_dxgi_desc *",
+          "description": "Pointer to a structure that contains the description of the DirectX Graphics Infrastructure (DXGI)."
+        },
+        {
+          "name": "mutex_global",
+          "type": "D3DKMT_HANDLE *",
+          "description": "Pointer to a handle that will receive the mutex handle from 'desc' if the conditions are met."
+        },
+        {
+          "name": "sync_global",
+          "type": "D3DKMT_HANDLE *",
+          "description": "Pointer to a handle that will receive the sync handle from 'desc' if the conditions are met."
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "d3dkmt_object_get_fd",
+      "description": "This function retrieves a file descriptor for a given D3DKMT object.",
+      "parameters": [
+        {
+          "name": "local",
+          "type": "D3DKMT_HANDLE",
+          "description": "This is a handle to the D3DKMT object for which the file descriptor is to be retrieved."
+        }
+      ],
+      "return_type": "int, represents the file descriptor of the D3DKMT object. Returns -1 if the object is not found or if there is a failure in receiving the object."
+    }
+  },
+  {
+    "function": {
+      "name": "d3dkmt_create_resource",
+      "description": "This function is used to create a new resource in the D3DKMT (Direct3D Kernel Mode Threading) environment. It allocates and initializes a new resource and allocation objects, creates the resource object, assigns the allocation object to the resource, and returns the local handle of the resource object. If any of these operations fail, it cleans up any allocated objects and returns 0.",
+      "parameters": [
+        {
+          "name": "fd",
+          "type": "int",
+          "description": "File descriptor used for creating the resource object"
+        },
+        {
+          "name": "global",
+          "type": "D3DKMT_HANDLE*",
+          "description": "Pointer to a global handle. If not null, the global handle of the resource object is stored here"
+        }
+      ],
+      "return_type": "D3DKMT_HANDLE, represents the local handle of the created resource object. If the function fails, it returns 0"
+    }
+  },
+  {
+    "function": {
+      "name": "d3dkmt_open_resource",
+      "description": "This function opens a resource in the D3DKMT (Direct3D Kernel Mode Threading) context. It allocates and initializes various objects, checks for errors, and handles them appropriately. It also manages memory for runtime data.",
+      "parameters": [
+        {
+          "name": "global",
+          "type": "D3DKMT_HANDLE",
+          "description": "A handle to the global D3DKMT resource"
+        },
+        {
+          "name": "shared",
+          "type": "HANDLE",
+          "description": "A handle to the shared resource"
+        },
+        {
+          "name": "mutex_local",
+          "type": "D3DKMT_HANDLE*",
+          "description": "A pointer to a local mutex handle"
+        },
+        {
+          "name": "sync_local",
+          "type": "D3DKMT_HANDLE*",
+          "description": "A pointer to a local synchronization handle"
+        }
+      ],
+      "return_type": "D3DKMT_HANDLE, represents a handle to the opened resource. If the function fails to open the resource, it returns 0"
+    }
+  },
+  {
+    "function": {
+      "name": "d3dkmt_destroy_resource",
+      "description": "This function is used to destroy a resource in the D3DKMT (Direct3D Kernel Mode Threading). It first retrieves the resource and allocation objects associated with the provided handle, then frees the allocation and resource objects.",
+      "parameters": [
+        {
+          "name": "local",
+          "type": "D3DKMT_HANDLE",
+          "description": "This is a handle to the resource that is to be destroyed."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. Returns STATUS_SUCCESS if the operation is successful, and STATUS_INVALID_PARAMETER if the resource could not be retrieved."
+    }
+  },
+  {
+    "function": {
+      "name": "d3dkmt_create_sync",
+      "description": "This function creates a sync object and assigns it to a global handle if provided. If the creation fails, it cleans up the allocated memory and returns 0.",
+      "parameters": [
+        {
+          "name": "fd",
+          "type": "int",
+          "description": "File descriptor used for object creation."
+        },
+        {
+          "name": "global",
+          "type": "D3DKMT_HANDLE*",
+          "description": "Pointer to a global handle where the created sync object will be assigned."
+        }
+      ],
+      "return_type": "D3DKMT_HANDLE, represents the local handle of the created sync object. If the creation fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "d3dkmt_open_sync",
+      "description": "This function opens a synchronization object and returns its local handle. If the operation fails, it cleans up and returns 0.",
+      "parameters": [
+        {
+          "name": "global",
+          "type": "D3DKMT_HANDLE",
+          "description": "A handle to the global object"
+        },
+        {
+          "name": "shared",
+          "type": "HANDLE",
+          "description": "A handle to the shared object"
+        }
+      ],
+      "return_type": "D3DKMT_HANDLE, represents the local handle of the opened synchronization object, or 0 if the operation failed"
+    }
+  },
+  {
+    "function": {
+      "name": "d3dkmt_destroy_sync",
+      "description": "This function destroys a sync object associated with a local handle. It first retrieves the sync object using the provided handle, then frees the memory occupied by the object.",
+      "parameters": [
+        {
+          "name": "local",
+          "type": "D3DKMT_HANDLE",
+          "description": "This is a handle to the local sync object that needs to be destroyed."
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the status of the operation. It returns STATUS_SUCCESS if the operation is successful, and STATUS_INVALID_PARAMETER if the sync object could not be retrieved with the provided handle."
+    }
+  }
+]

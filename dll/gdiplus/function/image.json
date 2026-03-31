@@ -1,0 +1,4683 @@
+[
+  {
+    "function": {
+      "name": "get_palette",
+      "description": "This function retrieves a color palette from a given bitmap frame and palette type. It interacts with the Windows Imaging Component (WIC) to create and manipulate the palette.",
+      "parameters": [
+        {
+          "name": "frame",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "This is a pointer to the bitmap frame from which the palette is to be retrieved."
+        },
+        {
+          "name": "palette_type",
+          "type": "WICBitmapPaletteType",
+          "description": "This parameter specifies the type of palette to be retrieved."
+        }
+      ],
+      "return_type": "ColorPalette *; Returns a pointer to the retrieved color palette. If the palette cannot be retrieved, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "set_palette",
+      "description": "This function sets the color palette for a given bitmap frame encode object. It creates an imaging factory, creates a palette from the factory, initializes the palette with the given entries and count, and then sets the palette to the frame encode object.",
+      "parameters": [
+        {
+          "name": "frame",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is a pointer to the bitmap frame encode object to which the palette will be set."
+        },
+        {
+          "name": "palette",
+          "type": "ColorPalette *",
+          "description": "This is a pointer to the color palette that will be set to the bitmap frame encode object."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operations performed within the function. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipBitmapApplyEffect",
+      "description": "This function is a stub and not implemented in Windows's GDI+. It is intended to apply an effect to a bitmap.",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "GpBitmap*",
+          "description": "Pointer to the bitmap to which the effect is to be applied"
+        },
+        {
+          "name": "effect",
+          "type": "CGpEffect*",
+          "description": "Pointer to the effect to be applied"
+        },
+        {
+          "name": "roi",
+          "type": "RECT*",
+          "description": "Pointer to the region of interest on the bitmap"
+        },
+        {
+          "name": "useAuxData",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether auxiliary data should be used"
+        },
+        {
+          "name": "auxData",
+          "type": "VOID**",
+          "description": "Pointer to the auxiliary data"
+        },
+        {
+          "name": "auxDataSize",
+          "type": "INT*",
+          "description": "Pointer to the size of the auxiliary data"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, in this case always returns NotImplemented"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipBitmapCreateApplyEffect",
+      "description": "This function is a stub and not implemented in Windows's GDI+. It is intended to apply an effect to a bitmap.",
+      "parameters": [
+        {
+          "name": "inputBitmaps",
+          "type": "GpBitmap**",
+          "description": "Pointer to the input bitmaps"
+        },
+        {
+          "name": "numInputs",
+          "type": "INT",
+          "description": "Number of input bitmaps"
+        },
+        {
+          "name": "effect",
+          "type": "CGpEffect*",
+          "description": "Effect to be applied"
+        },
+        {
+          "name": "roi",
+          "type": "RECT*",
+          "description": "Region of interest in the bitmap"
+        },
+        {
+          "name": "outputRect",
+          "type": "RECT*",
+          "description": "Output rectangle"
+        },
+        {
+          "name": "outputBitmap",
+          "type": "GpBitmap**",
+          "description": "Pointer to the output bitmap"
+        },
+        {
+          "name": "useAuxData",
+          "type": "BOOL",
+          "description": "Flag to use auxiliary data"
+        },
+        {
+          "name": "auxData",
+          "type": "VOID**",
+          "description": "Pointer to auxiliary data"
+        },
+        {
+          "name": "auxDataSize",
+          "type": "INT*",
+          "description": "Size of auxiliary data"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns NotImplemented as the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "getpixel_1bppIndexed",
+      "description": "This function retrieves a pixel value from a 1 bit per pixel indexed image.",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "BYTE*",
+          "description": "Pointer to store the retrieved pixel value."
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "Pointer to the row in the image from where the pixel value is to be retrieved."
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x-coordinate of the pixel in the row."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the value pointed by the 'index' parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "getpixel_4bppIndexed",
+      "description": "This function retrieves a pixel value from a 4 bits per pixel indexed image.",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "BYTE*",
+          "description": "A pointer to store the retrieved pixel value."
+        },
+        {
+          "name": "row",
+          "type": "const BYTE*",
+          "description": "A pointer to the row in the image from which the pixel value is to be retrieved."
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x-coordinate of the pixel to be retrieved."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but instead modifies the value pointed to by the 'index' parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "getpixel_8bppIndexed",
+      "description": "This function retrieves the pixel value at a specific position in a row for an 8-bit indexed image.",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "BYTE*",
+          "description": "Pointer to a BYTE where the pixel value will be stored."
+        },
+        {
+          "name": "row",
+          "type": "const BYTE*",
+          "description": "Pointer to the row of the image from which the pixel value will be retrieved."
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The position in the row from which the pixel value will be retrieved."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but instead modifies the value pointed to by the 'index' parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "getpixel_16bppGrayScale",
+      "description": "This function sets the values of r, g, b to the value at the index (x*2+1) in the row array and sets the value of a to 255.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE*",
+          "description": "Pointer to a byte where the red component of the pixel will be stored"
+        },
+        {
+          "name": "g",
+          "type": "BYTE*",
+          "description": "Pointer to a byte where the green component of the pixel will be stored"
+        },
+        {
+          "name": "b",
+          "type": "BYTE*",
+          "description": "Pointer to a byte where the blue component of the pixel will be stored"
+        },
+        {
+          "name": "a",
+          "type": "BYTE*",
+          "description": "Pointer to a byte where the alpha component of the pixel will be stored"
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "Pointer to the row of pixels"
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x coordinate of the pixel"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "getpixel_16bppRGB555",
+      "description": "This function retrieves a pixel from a 16-bit RGB 555 image and separates it into its red, green, blue, and alpha components.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE*",
+          "description": "Pointer to store the red component of the pixel"
+        },
+        {
+          "name": "g",
+          "type": "BYTE*",
+          "description": "Pointer to store the green component of the pixel"
+        },
+        {
+          "name": "b",
+          "type": "BYTE*",
+          "description": "Pointer to store the blue component of the pixel"
+        },
+        {
+          "name": "a",
+          "type": "BYTE*",
+          "description": "Pointer to store the alpha component of the pixel"
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "Pointer to the row in the image from which to retrieve the pixel"
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x-coordinate of the pixel to retrieve"
+        }
+      ],
+      "return_type": "void, as this function does not return a value but instead modifies the values pointed to by the parameters r, g, b, and a"
+    }
+  },
+  {
+    "function": {
+      "name": "getpixel_16bppRGB565",
+      "description": "This function extracts the RGB and alpha values from a pixel at a given position in a row of pixels, in a 16-bit RGB 565 format image.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE*",
+          "description": "Pointer to store the red component of the pixel"
+        },
+        {
+          "name": "g",
+          "type": "BYTE*",
+          "description": "Pointer to store the green component of the pixel"
+        },
+        {
+          "name": "b",
+          "type": "BYTE*",
+          "description": "Pointer to store the blue component of the pixel"
+        },
+        {
+          "name": "a",
+          "type": "BYTE*",
+          "description": "Pointer to store the alpha component of the pixel"
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "Pointer to the row of pixels"
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The position of the pixel in the row"
+        }
+      ],
+      "return_type": "void, as this function does not return a value but instead modifies the values pointed to by the parameters r, g, b, and a"
+    }
+  },
+  {
+    "function": {
+      "name": "getpixel_16bppARGB1555",
+      "description": "This function extracts the color and alpha components from a 16-bit ARGB1555 pixel and stores them in separate variables.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE*",
+          "description": "Pointer to store the red component of the pixel"
+        },
+        {
+          "name": "g",
+          "type": "BYTE*",
+          "description": "Pointer to store the green component of the pixel"
+        },
+        {
+          "name": "b",
+          "type": "BYTE*",
+          "description": "Pointer to store the blue component of the pixel"
+        },
+        {
+          "name": "a",
+          "type": "BYTE*",
+          "description": "Pointer to store the alpha component of the pixel"
+        },
+        {
+          "name": "row",
+          "type": "const BYTE*",
+          "description": "Pointer to the row of pixels"
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x-coordinate of the pixel in the row"
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the input pointers"
+    }
+  },
+  {
+    "function": {
+      "name": "getpixel_24bppRGB",
+      "description": "This function retrieves the RGB and alpha values of a pixel at a specific position in a 24 bits per pixel RGB image.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE*",
+          "description": "Pointer to store the Red component of the pixel"
+        },
+        {
+          "name": "g",
+          "type": "BYTE*",
+          "description": "Pointer to store the Green component of the pixel"
+        },
+        {
+          "name": "b",
+          "type": "BYTE*",
+          "description": "Pointer to store the Blue component of the pixel"
+        },
+        {
+          "name": "a",
+          "type": "BYTE*",
+          "description": "Pointer to store the Alpha component of the pixel"
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "Pointer to the row in the image where the pixel is located"
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x position of the pixel in the row"
+        }
+      ],
+      "return_type": "void, this function does not return a value but modifies the values pointed by the parameters r, g, b, and a"
+    }
+  },
+  {
+    "function": {
+      "name": "getpixel_32bppRGB",
+      "description": "This function retrieves the RGB color values of a pixel at a given position in a 32-bit per pixel image row.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE*",
+          "description": "Pointer to store the red component of the pixel color"
+        },
+        {
+          "name": "g",
+          "type": "BYTE*",
+          "description": "Pointer to store the green component of the pixel color"
+        },
+        {
+          "name": "b",
+          "type": "BYTE*",
+          "description": "Pointer to store the blue component of the pixel color"
+        },
+        {
+          "name": "a",
+          "type": "BYTE*",
+          "description": "Pointer to store the alpha component of the pixel color"
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "Pointer to the start of the image row"
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x-coordinate of the pixel in the row"
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the values pointed to by the parameters r, g, b, and a"
+    }
+  },
+  {
+    "function": {
+      "name": "getpixel_32bppARGB",
+      "description": "This function retrieves the pixel color values at a specific position in a 32-bit ARGB image.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE*",
+          "description": "Pointer to store the red component of the pixel color"
+        },
+        {
+          "name": "g",
+          "type": "BYTE*",
+          "description": "Pointer to store the green component of the pixel color"
+        },
+        {
+          "name": "b",
+          "type": "BYTE*",
+          "description": "Pointer to store the blue component of the pixel color"
+        },
+        {
+          "name": "a",
+          "type": "BYTE*",
+          "description": "Pointer to store the alpha component of the pixel color"
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "Pointer to the row in the image where the pixel is located"
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x-coordinate of the pixel in the row"
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the values pointed to by the parameters r, g, b, and a"
+    }
+  },
+  {
+    "function": {
+      "name": "getpixel_32bppPARGB",
+      "description": "This function retrieves the pixel color values from a 32-bit pre-multiplied ARGB image at a given position.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE*",
+          "description": "Pointer to store the red component of the pixel color"
+        },
+        {
+          "name": "g",
+          "type": "BYTE*",
+          "description": "Pointer to store the green component of the pixel color"
+        },
+        {
+          "name": "b",
+          "type": "BYTE*",
+          "description": "Pointer to store the blue component of the pixel color"
+        },
+        {
+          "name": "a",
+          "type": "BYTE*",
+          "description": "Pointer to store the alpha component of the pixel color"
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "Pointer to the row in the image where the pixel is located"
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x-coordinate of the pixel in the row"
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the values pointed to by the parameters r, g, b, and a"
+    }
+  },
+  {
+    "function": {
+      "name": "getpixel_48bppRGB",
+      "description": "This function retrieves the color values of a pixel in a 48bpp RGB image.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE*",
+          "description": "Pointer to store the red color value of the pixel"
+        },
+        {
+          "name": "g",
+          "type": "BYTE*",
+          "description": "Pointer to store the green color value of the pixel"
+        },
+        {
+          "name": "b",
+          "type": "BYTE*",
+          "description": "Pointer to store the blue color value of the pixel"
+        },
+        {
+          "name": "a",
+          "type": "BYTE*",
+          "description": "Pointer to store the alpha value of the pixel"
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "Pointer to the row of the image where the pixel is located"
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x-coordinate of the pixel in the row"
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the values of the parameters passed to it"
+    }
+  },
+  {
+    "function": {
+      "name": "getpixel_64bppARGB",
+      "description": "This function retrieves the color and alpha values of a pixel at a given position in a 64-bit ARGB image.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE*",
+          "description": "Pointer to store the red component of the pixel"
+        },
+        {
+          "name": "g",
+          "type": "BYTE*",
+          "description": "Pointer to store the green component of the pixel"
+        },
+        {
+          "name": "b",
+          "type": "BYTE*",
+          "description": "Pointer to store the blue component of the pixel"
+        },
+        {
+          "name": "a",
+          "type": "BYTE*",
+          "description": "Pointer to store the alpha component of the pixel"
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "Pointer to the row in the image where the pixel is located"
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x-coordinate of the pixel in the row"
+        }
+      ],
+      "return_type": "void, as this function does not return a value but instead modifies the values pointed to by the parameters r, g, b, and a"
+    }
+  },
+  {
+    "function": {
+      "name": "getpixel_64bppPARGB",
+      "description": "This function retrieves the pixel color values from a 64-bit pre-multiplied ARGB image at a specified position.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE*",
+          "description": "Pointer to store the red component of the pixel color"
+        },
+        {
+          "name": "g",
+          "type": "BYTE*",
+          "description": "Pointer to store the green component of the pixel color"
+        },
+        {
+          "name": "b",
+          "type": "BYTE*",
+          "description": "Pointer to store the blue component of the pixel color"
+        },
+        {
+          "name": "a",
+          "type": "BYTE*",
+          "description": "Pointer to store the alpha component of the pixel color"
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "Pointer to the row of the image where the pixel is located"
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x-coordinate of the pixel in the row"
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the values pointed by the input pointers"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipBitmapGetPixel",
+      "description": "This function retrieves the color of a specified pixel in this Bitmap object and sets the ARGB value.",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "GpBitmap*",
+          "description": "Pointer to the bitmap object"
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the pixel"
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the pixel"
+        },
+        {
+          "name": "color",
+          "type": "ARGB*",
+          "description": "Pointer to the ARGB structure that receives the color of the specified pixel"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns 'Ok'. If the parameters are invalid, it returns 'InvalidParameter'. If the operation is not implemented for a specific format, it returns 'NotImplemented'."
+    }
+  },
+  {
+    "function": {
+      "name": "absdiff",
+      "description": "This function calculates the absolute difference between two unsigned integers",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "unsigned int",
+          "description": "The first unsigned integer"
+        },
+        {
+          "name": "y",
+          "type": "unsigned int",
+          "description": "The second unsigned integer"
+        }
+      ],
+      "return_type": "unsigned int representing the absolute difference between x and y"
+    }
+  },
+  {
+    "function": {
+      "name": "get_palette_index",
+      "description": "This function scans the entire palette, computes the difference from the desired color (all color components have equal weight) and returns the index of the color with the least difference.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE",
+          "description": "The red component of the desired color."
+        },
+        {
+          "name": "g",
+          "type": "BYTE",
+          "description": "The green component of the desired color."
+        },
+        {
+          "name": "b",
+          "type": "BYTE",
+          "description": "The blue component of the desired color."
+        },
+        {
+          "name": "a",
+          "type": "BYTE",
+          "description": "The alpha component of the desired color."
+        },
+        {
+          "name": "palette",
+          "type": "ColorPalette *",
+          "description": "The color palette to scan."
+        }
+      ],
+      "return_type": "UINT, represents the index of the color in the palette that is closest to the desired color."
+    }
+  },
+  {
+    "function": {
+      "name": "setpixel_8bppIndexed",
+      "description": "This function sets the pixel value at a specific position in a row using 8 bits per pixel indexed color.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE",
+          "description": "The red component of the color."
+        },
+        {
+          "name": "g",
+          "type": "BYTE",
+          "description": "The green component of the color."
+        },
+        {
+          "name": "b",
+          "type": "BYTE",
+          "description": "The blue component of the color."
+        },
+        {
+          "name": "a",
+          "type": "BYTE",
+          "description": "The alpha component of the color."
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "The row in which the pixel is to be set."
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The position in the row where the pixel is to be set."
+        },
+        {
+          "name": "palette",
+          "type": "ColorPalette*",
+          "description": "The color palette used for the indexed color."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "setpixel_1bppIndexed",
+      "description": "This function sets the pixel value in a 1 bit per pixel indexed color image.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE",
+          "description": "The red component of the color."
+        },
+        {
+          "name": "g",
+          "type": "BYTE",
+          "description": "The green component of the color."
+        },
+        {
+          "name": "b",
+          "type": "BYTE",
+          "description": "The blue component of the color."
+        },
+        {
+          "name": "a",
+          "type": "BYTE",
+          "description": "The alpha component of the color."
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "The row in the image where the pixel is to be set."
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x-coordinate of the pixel to be set."
+        },
+        {
+          "name": "palette",
+          "type": "ColorPalette*",
+          "description": "The color palette used for the image."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "setpixel_4bppIndexed",
+      "description": "This function sets a pixel at a specific position in a 4 bits per pixel indexed color image using a color palette.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE",
+          "description": "The red component of the color."
+        },
+        {
+          "name": "g",
+          "type": "BYTE",
+          "description": "The green component of the color."
+        },
+        {
+          "name": "b",
+          "type": "BYTE",
+          "description": "The blue component of the color."
+        },
+        {
+          "name": "a",
+          "type": "BYTE",
+          "description": "The alpha (transparency) component of the color."
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "A pointer to the row in the image where the pixel will be set."
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x-coordinate of the pixel to set."
+        },
+        {
+          "name": "palette",
+          "type": "ColorPalette*",
+          "description": "A pointer to the color palette used for the image."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the image directly."
+    }
+  },
+  {
+    "function": {
+      "name": "setpixel_16bppGrayScale",
+      "description": "This function sets a pixel in a 16 bits per pixel grayscale image.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE",
+          "description": "The red component of the pixel color."
+        },
+        {
+          "name": "g",
+          "type": "BYTE",
+          "description": "The green component of the pixel color."
+        },
+        {
+          "name": "b",
+          "type": "BYTE",
+          "description": "The blue component of the pixel color."
+        },
+        {
+          "name": "a",
+          "type": "BYTE",
+          "description": "The alpha component of the pixel color."
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "A pointer to the row in the image where the pixel is to be set."
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x-coordinate of the pixel to be set."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "setpixel_16bppRGB555",
+      "description": "This function sets a pixel at a specific position in a row with a specific color in a 16 bits per pixel RGB 555 format.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE",
+          "description": "The red component of the color."
+        },
+        {
+          "name": "g",
+          "type": "BYTE",
+          "description": "The green component of the color."
+        },
+        {
+          "name": "b",
+          "type": "BYTE",
+          "description": "The blue component of the color."
+        },
+        {
+          "name": "a",
+          "type": "BYTE",
+          "description": "The alpha component of the color."
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "The pointer to the row in which the pixel will be set."
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The position in the row where the pixel will be set."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "setpixel_16bppRGB565",
+      "description": "This function sets a pixel at a specific position in a row for a 16 bits per pixel RGB565 image.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE",
+          "description": "The red component of the pixel color."
+        },
+        {
+          "name": "g",
+          "type": "BYTE",
+          "description": "The green component of the pixel color."
+        },
+        {
+          "name": "b",
+          "type": "BYTE",
+          "description": "The blue component of the pixel color."
+        },
+        {
+          "name": "a",
+          "type": "BYTE",
+          "description": "The alpha component of the pixel color."
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "A pointer to the row in which the pixel is to be set."
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The position in the row where the pixel is to be set."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "setpixel_16bppARGB1555",
+      "description": "This function sets a pixel at a specific position in a row with a color defined by the ARGB1555 format.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE",
+          "description": "The red component of the color."
+        },
+        {
+          "name": "g",
+          "type": "BYTE",
+          "description": "The green component of the color."
+        },
+        {
+          "name": "b",
+          "type": "BYTE",
+          "description": "The blue component of the color."
+        },
+        {
+          "name": "a",
+          "type": "BYTE",
+          "description": "The alpha component of the color."
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "A pointer to the row where the pixel will be set."
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The position in the row where the pixel will be set."
+        }
+      ],
+      "return_type": "void, as this function does not return any value but modifies the row directly."
+    }
+  },
+  {
+    "function": {
+      "name": "setpixel_24bppRGB",
+      "description": "This function sets the RGB values for a specific pixel in a row.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE",
+          "description": "The red component of the pixel color."
+        },
+        {
+          "name": "g",
+          "type": "BYTE",
+          "description": "The green component of the pixel color."
+        },
+        {
+          "name": "b",
+          "type": "BYTE",
+          "description": "The blue component of the pixel color."
+        },
+        {
+          "name": "a",
+          "type": "BYTE",
+          "description": "The alpha component of the pixel color."
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "The row in which the pixel is located."
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x-coordinate of the pixel."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the row array directly."
+    }
+  },
+  {
+    "function": {
+      "name": "setpixel_32bppRGB",
+      "description": "This function sets a pixel's color in a 32 bits per pixel RGB image.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE",
+          "description": "The red component of the pixel's color."
+        },
+        {
+          "name": "g",
+          "type": "BYTE",
+          "description": "The green component of the pixel's color."
+        },
+        {
+          "name": "b",
+          "type": "BYTE",
+          "description": "The blue component of the pixel's color."
+        },
+        {
+          "name": "a",
+          "type": "BYTE",
+          "description": "The alpha component of the pixel's color."
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "A pointer to the row in the image where the pixel is located."
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x coordinate of the pixel in the row."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the image directly."
+    }
+  },
+  {
+    "function": {
+      "name": "setpixel_32bppARGB",
+      "description": "This function sets a pixel at a specific location in a 32-bit ARGB image.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE",
+          "description": "The red component of the pixel color."
+        },
+        {
+          "name": "g",
+          "type": "BYTE",
+          "description": "The green component of the pixel color."
+        },
+        {
+          "name": "b",
+          "type": "BYTE",
+          "description": "The blue component of the pixel color."
+        },
+        {
+          "name": "a",
+          "type": "BYTE",
+          "description": "The alpha component of the pixel color."
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "A pointer to the row in the image where the pixel is to be set."
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x-coordinate of the pixel to be set."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the image directly."
+    }
+  },
+  {
+    "function": {
+      "name": "setpixel_32bppPARGB",
+      "description": "This function sets a pixel at a specific position in a row for a 32 bit per pixel PARGB image.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE",
+          "description": "The red component of the pixel color."
+        },
+        {
+          "name": "g",
+          "type": "BYTE",
+          "description": "The green component of the pixel color."
+        },
+        {
+          "name": "b",
+          "type": "BYTE",
+          "description": "The blue component of the pixel color."
+        },
+        {
+          "name": "a",
+          "type": "BYTE",
+          "description": "The alpha component of the pixel color."
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "A pointer to the row in which the pixel is to be set."
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The position in the row where the pixel is to be set."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "setpixel_48bppRGB",
+      "description": "This function sets the pixel color in a 48 bits per pixel RGB image.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE",
+          "description": "The red component of the pixel color."
+        },
+        {
+          "name": "g",
+          "type": "BYTE",
+          "description": "The green component of the pixel color."
+        },
+        {
+          "name": "b",
+          "type": "BYTE",
+          "description": "The blue component of the pixel color."
+        },
+        {
+          "name": "a",
+          "type": "BYTE",
+          "description": "The alpha component of the pixel color."
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "A pointer to the row in the image where the pixel is located."
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x-coordinate of the pixel in the row."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "setpixel_64bppARGB",
+      "description": "This function sets a pixel in a 64-bit ARGB image.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE",
+          "description": "The red component of the pixel color."
+        },
+        {
+          "name": "g",
+          "type": "BYTE",
+          "description": "The green component of the pixel color."
+        },
+        {
+          "name": "b",
+          "type": "BYTE",
+          "description": "The blue component of the pixel color."
+        },
+        {
+          "name": "a",
+          "type": "BYTE",
+          "description": "The alpha component of the pixel color."
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "A pointer to the row in the image where the pixel is to be set."
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The x-coordinate of the pixel to be set."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "setpixel_64bppPARGB",
+      "description": "This function sets a pixel at a specific position in a row for a 64 bits per pixel image using pre-multiplied alpha RGB color model.",
+      "parameters": [
+        {
+          "name": "r",
+          "type": "BYTE",
+          "description": "The red component of the pixel color."
+        },
+        {
+          "name": "g",
+          "type": "BYTE",
+          "description": "The green component of the pixel color."
+        },
+        {
+          "name": "b",
+          "type": "BYTE",
+          "description": "The blue component of the pixel color."
+        },
+        {
+          "name": "a",
+          "type": "BYTE",
+          "description": "The alpha component of the pixel color."
+        },
+        {
+          "name": "row",
+          "type": "BYTE*",
+          "description": "The row in which the pixel is to be set."
+        },
+        {
+          "name": "x",
+          "type": "UINT",
+          "description": "The position in the row where the pixel is to be set."
+        }
+      ],
+      "return_type": "void, as this function does not return any value but modifies the pixel data directly."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipBitmapSetPixel",
+      "description": "This function sets the color of a specific pixel in a bitmap image.",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "GpBitmap*",
+          "description": "A pointer to the bitmap image."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the pixel."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the pixel."
+        },
+        {
+          "name": "color",
+          "type": "ARGB",
+          "description": "The color to set the pixel to."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the bitmap is null or the coordinates are out of range, 'NotImplemented' if the pixel format is not supported, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "convert_pixels",
+      "description": "This function is used to convert pixels from one format to another. It supports various pixel formats and uses different conversion methods based on the source and destination pixel formats.",
+      "parameters": [
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "The width of the pixel data to be converted"
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "The height of the pixel data to be converted"
+        },
+        {
+          "name": "dst_stride",
+          "type": "INT",
+          "description": "The stride of the destination pixel data"
+        },
+        {
+          "name": "dst_bits",
+          "type": "BYTE *",
+          "description": "A pointer to the destination pixel data"
+        },
+        {
+          "name": "dst_format",
+          "type": "PixelFormat",
+          "description": "The format of the destination pixel data"
+        },
+        {
+          "name": "dst_palette",
+          "type": "ColorPalette *",
+          "description": "A pointer to the destination color palette"
+        },
+        {
+          "name": "src_stride",
+          "type": "INT",
+          "description": "The stride of the source pixel data"
+        },
+        {
+          "name": "src_bits",
+          "type": "BYTE *",
+          "description": "A pointer to the source pixel data"
+        },
+        {
+          "name": "src_format",
+          "type": "PixelFormat",
+          "description": "The format of the source pixel data"
+        },
+        {
+          "name": "src_palette",
+          "type": "ColorPalette *",
+          "description": "A pointer to the source color palette"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the pixel conversion operation. It returns 'Ok' if the operation is successful, 'NotImplemented' if the operation is not supported for the given pixel formats"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipBitmapLockBits",
+      "description": "This function locks a portion of an image within a bitmap object, which provides the direct access to the bitmap's pixel data. It also checks if the bitmap is already locked, if the parameters are valid and if the conversion to the requested format is possible.",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "GpBitmap*",
+          "description": "Pointer to the bitmap object"
+        },
+        {
+          "name": "rect",
+          "type": "GDIPCONST GpRect*",
+          "description": "Pointer to the rectangle structure that specifies the portion of the Bitmap to lock"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies the access level (read, write, read/write) for the Bitmap"
+        },
+        {
+          "name": "format",
+          "type": "PixelFormat",
+          "description": "Specifies the data format of the Bitmap"
+        },
+        {
+          "name": "lockeddata",
+          "type": "BitmapData*",
+          "description": "Pointer to a BitmapData object that will receive the information about the locked Bitmap"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the function call, which could be Ok, InvalidParameter, ObjectBusy, WrongState, NotImplemented, or OutOfMemory"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipBitmapSetResolution",
+      "description": "This function sets the resolution of a bitmap image by updating the x and y resolution values of the image.",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "GpBitmap*",
+          "description": "This is a pointer to the bitmap image whose resolution is to be set."
+        },
+        {
+          "name": "xdpi",
+          "type": "REAL",
+          "description": "This is the new horizontal resolution to be set for the bitmap image."
+        },
+        {
+          "name": "ydpi",
+          "type": "REAL",
+          "description": "This is the new vertical resolution to be set for the bitmap image."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if the input parameters are not valid."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipBitmapUnlockBits",
+      "description": "This function unlocks a bitmap that was previously locked by the GdipBitmapLockBits function. It checks the validity of the parameters, the lock mode of the bitmap, and the reserved bits of the locked data. It then performs pixel conversion and releases the memory allocated for the bitmap bits.",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "GpBitmap*",
+          "description": "Pointer to the bitmap to be unlocked"
+        },
+        {
+          "name": "lockeddata",
+          "type": "BitmapData*",
+          "description": "Pointer to the locked data of the bitmap"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return InvalidParameter if the bitmap or lockeddata is NULL, ObjectBusy if the image cannot be locked, WrongState if the bitmap is not in lock mode, or Ok if the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCloneBitmapArea",
+      "description": "This function clones a specified area of a bitmap and creates a new bitmap with the cloned area.",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "REAL",
+          "description": "The x-coordinate of the upper-left corner of the area to clone."
+        },
+        {
+          "name": "y",
+          "type": "REAL",
+          "description": "The y-coordinate of the upper-left corner of the area to clone."
+        },
+        {
+          "name": "width",
+          "type": "REAL",
+          "description": "The width of the area to clone."
+        },
+        {
+          "name": "height",
+          "type": "REAL",
+          "description": "The height of the area to clone."
+        },
+        {
+          "name": "format",
+          "type": "PixelFormat",
+          "description": "The pixel format of the cloned area. If this parameter is PixelFormatDontCare, the function uses the pixel format of the source bitmap."
+        },
+        {
+          "name": "srcBitmap",
+          "type": "GpBitmap*",
+          "description": "Pointer to the source bitmap."
+        },
+        {
+          "name": "dstBitmap",
+          "type": "GpBitmap**",
+          "description": "Pointer to a pointer that receives the cloned bitmap."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, the function returns Ok. If the operation fails, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCloneBitmapAreaI",
+      "description": "This function clones a bitmap area from the source bitmap to the destination bitmap.",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the rectangle to clone."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the rectangle to clone."
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "The width of the rectangle to clone."
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "The height of the rectangle to clone."
+        },
+        {
+          "name": "format",
+          "type": "PixelFormat",
+          "description": "The pixel format for the cloned area."
+        },
+        {
+          "name": "srcBitmap",
+          "type": "GpBitmap*",
+          "description": "Pointer to the source bitmap."
+        },
+        {
+          "name": "dstBitmap",
+          "type": "GpBitmap**",
+          "description": "Pointer to the destination bitmap."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns Ok. Otherwise, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCloneImage",
+      "description": "This function clones an image. If the image is a bitmap, it clones the bitmap area. If the image is a metafile, it creates a new metafile and copies the attributes from the original metafile. If the image is neither a bitmap nor a metafile, it returns an error.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "The original image to be cloned."
+        },
+        {
+          "name": "cloneImage",
+          "type": "GpImage **",
+          "description": "A pointer to a pointer to store the cloned image."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if the input parameters are null or the image type is not supported, 'OutOfMemory' if memory allocation fails, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateBitmapFromFile",
+      "description": "This function creates a bitmap from a file, using a filename and a pointer to a bitmap object.",
+      "parameters": [
+        {
+          "name": "filename",
+          "type": "GDIPCONST WCHAR*",
+          "description": "This is the name of the file from which the bitmap will be created."
+        },
+        {
+          "name": "bitmap",
+          "type": "GpBitmap **",
+          "description": "This is a pointer to a bitmap object where the created bitmap will be stored."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns 'Ok'. If the parameters are invalid, it returns 'InvalidParameter'. If the file cannot be read, it returns the status of the failed operation."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateBitmapFromGdiDib",
+      "description": "This function creates a bitmap from a device-independent bitmap (DIB) using GDI+.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "GDIPCONST BITMAPINFO*",
+          "description": "Pointer to a BITMAPINFO structure that contains information about the DIB."
+        },
+        {
+          "name": "bits",
+          "type": "VOID*",
+          "description": "Pointer to the DIB bit values."
+        },
+        {
+          "name": "bitmap",
+          "type": "GpBitmap**",
+          "description": "Pointer to a GpBitmap pointer that receives the bitmap."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns Ok. If any of the parameters is NULL, it returns InvalidParameter."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateBitmapFromFileICM",
+      "description": "This function creates a bitmap from a file using Image Color Management (ICM).",
+      "parameters": [
+        {
+          "name": "filename",
+          "type": "GDIPCONST WCHAR*",
+          "description": "The name of the file to create the bitmap from."
+        },
+        {
+          "name": "bitmap",
+          "type": "GpBitmap **",
+          "description": "A pointer to a pointer to a GpBitmap object. This will be filled with the created bitmap."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the function succeeds, it returns Ok. If the function fails, it returns one of the error statuses."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateBitmapFromResource",
+      "description": "This function loads a bitmap from a resource, creates a GDI+ bitmap from it, and then deletes the original bitmap.",
+      "parameters": [
+        {
+          "name": "hInstance",
+          "type": "HINSTANCE",
+          "description": "Handle to the instance of the module whose executable file contains the bitmap to be loaded."
+        },
+        {
+          "name": "lpBitmapName",
+          "type": "GDIPCONST WCHAR*",
+          "description": "Pointer to a null-terminated string that contains the name of the bitmap resource to be loaded."
+        },
+        {
+          "name": "bitmap",
+          "type": "GpBitmap**",
+          "description": "Pointer to a GpBitmap pointer that receives the bitmap from the resource."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the function succeeds, it returns 'Ok'. If the function fails, it returns an error status code."
+    }
+  },
+  {
+    "function": {
+      "name": "blend_argb_no_bkgnd_alpha",
+      "description": "This function blends a source color with a background color, without considering the background's alpha. The blending is done per channel (red, green, blue) and the result is returned as a DWORD.",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "DWORD",
+          "description": "The source color, represented as a DWORD. Each byte represents a channel (blue, green, red, alpha), from least significant to most significant."
+        },
+        {
+          "name": "bkgnd",
+          "type": "DWORD",
+          "description": "The background color, represented as a DWORD. Each byte represents a channel (blue, green, red, alpha), from least significant to most significant."
+        }
+      ],
+      "return_type": "DWORD, representing the blended color. Each byte represents a channel (blue, green, red, alpha), from least significant to most significant."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateHBITMAPFromBitmap",
+      "description": "This function creates a Windows DIB section from a GDI+ bitmap, and returns a handle to the DIB section.",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "GpBitmap*",
+          "description": "Pointer to the GDI+ bitmap to convert."
+        },
+        {
+          "name": "hbmReturn",
+          "type": "HBITMAP*",
+          "description": "Pointer to a variable that receives the handle to the DIB section."
+        },
+        {
+          "name": "background",
+          "type": "ARGB",
+          "description": "Specifies the background color."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It returns 'Ok' if successful, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateBitmapFromGraphics",
+      "description": "This function creates a bitmap from graphics using specified width, height and target. It also checks for invalid parameters and returns the status of bitmap creation.",
+      "parameters": [
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "The width of the bitmap to be created"
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "The height of the bitmap to be created"
+        },
+        {
+          "name": "target",
+          "type": "GpGraphics*",
+          "description": "The target graphics from which the bitmap is to be created"
+        },
+        {
+          "name": "bitmap",
+          "type": "GpBitmap**",
+          "description": "A pointer to the bitmap that will be created"
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the bitmap creation operation"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateBitmapFromHICON",
+      "description": "This function creates a bitmap from a handle to an icon (HICON).",
+      "parameters": [
+        {
+          "name": "hicon",
+          "type": "HICON",
+          "description": "Handle to the icon to create the bitmap from."
+        },
+        {
+          "name": "bitmap",
+          "type": "GpBitmap**",
+          "description": "Pointer to a pointer to a GpBitmap object where the created bitmap will be stored."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can return Ok if the operation was successful, InvalidParameter if the parameters are not valid, GenericError for a generic error, or OutOfMemory if there was not enough memory to complete the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "generate_halftone_palette",
+      "description": "This function generates a halftone palette by manipulating the entries of an ARGB array based on the count.",
+      "parameters": [
+        {
+          "name": "entries",
+          "type": "ARGB*",
+          "description": "A pointer to an array of ARGB entries to be manipulated."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of entries to be manipulated in the ARGB array."
+        }
+      ],
+      "return_type": "void, this function does not return anything as it modifies the ARGB array in place."
+    }
+  },
+  {
+    "function": {
+      "name": "get_screen_resolution",
+      "description": "This function gets the screen resolution in pixels per inch along the screen width (x-axis) and height (y-axis).",
+      "parameters": [
+        {
+          "name": "xres",
+          "type": "REAL*",
+          "description": "A pointer to a REAL type where the function will store the screen resolution along the x-axis."
+        },
+        {
+          "name": "yres",
+          "type": "REAL*",
+          "description": "A pointer to a REAL type where the function will store the screen resolution along the y-axis."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation was successful, 'GenericError' if it failed."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateBitmapFromScan0",
+      "description": "This function creates a bitmap from a block of memory, using the specified width, height, stride, pixel format, and optional scan0 pointer. It also sets the bitmap's properties and flags based on the pixel format.",
+      "parameters": [
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "The width of the bitmap."
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "The height of the bitmap."
+        },
+        {
+          "name": "stride",
+          "type": "INT",
+          "description": "The byte offset between the beginning of one scan line and the next. This is usually (but not necessarily) the number of bytes in the pixel format (for example, 2 for 16 bits per pixel) multiplied by the width of the bitmap."
+        },
+        {
+          "name": "format",
+          "type": "PixelFormat",
+          "description": "The pixel format of the bitmap."
+        },
+        {
+          "name": "scan0",
+          "type": "BYTE*",
+          "description": "A pointer to the memory block that contains the bitmap data."
+        },
+        {
+          "name": "bitmap",
+          "type": "GpBitmap**",
+          "description": "A pointer to the pointer of the GpBitmap object to be created."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns 'Ok'. It can also return 'InvalidParameter' if the parameters are not valid, or 'OutOfMemory' if the memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateBitmapFromStream",
+      "description": "This function creates a bitmap from a stream. It first loads the image from the stream, checks if the image type is a bitmap, and if not, disposes the image and returns an error. If the image type is a bitmap, it returns Ok.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "This is the input stream from which the bitmap is created."
+        },
+        {
+          "name": "bitmap",
+          "type": "GpBitmap**",
+          "description": "This is a pointer to a pointer to a GpBitmap object. If the function is successful, this parameter will point to the created bitmap."
+        }
+      ],
+      "return_type": "GpStatus. This represents the status of the function execution. It returns Ok if the function is successful, otherwise it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateBitmapFromStreamICM",
+      "description": "This function creates a bitmap from a stream using Image Color Management (ICM).",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "This is the input stream from which the bitmap is created."
+        },
+        {
+          "name": "bitmap",
+          "type": "GpBitmap**",
+          "description": "This is a pointer to a pointer to a GpBitmap object. The function will set this to point to the newly created bitmap."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the function succeeds, it returns Ok. If the function fails, it returns one of the error statuses."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateCachedBitmap",
+      "description": "This function creates a cached bitmap from a given bitmap and graphics object. It checks for valid parameters, allocates memory for the new cached bitmap, clones the image from the original bitmap to the new one, and handles any errors that may occur during these processes.",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "GpBitmap *",
+          "description": "Pointer to the original bitmap to be cached"
+        },
+        {
+          "name": "graphics",
+          "type": "GpGraphics *",
+          "description": "Pointer to the graphics object associated with the bitmap"
+        },
+        {
+          "name": "cachedbmp",
+          "type": "GpCachedBitmap **",
+          "description": "Pointer to a pointer to the new cached bitmap to be created"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the function execution. It can return 'InvalidParameter' if any of the parameters are NULL, 'OutOfMemory' if memory allocation for the new cached bitmap fails, or 'Ok' if the function executes successfully"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateHICONFromBitmap",
+      "description": "This function creates an HICON from a GpBitmap object. It locks the bitmap, calculates the size and stride of the bitmap, allocates memory for the bitmap, and then creates the icon. If the bitmap cannot be locked or memory cannot be allocated, it returns an error status.",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "GpBitmap *",
+          "description": "This is a pointer to the GpBitmap object from which the HICON will be created."
+        },
+        {
+          "name": "hicon",
+          "type": "HICON *",
+          "description": "This is a pointer to the HICON that will be created from the bitmap."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns 'Ok'. If the bitmap cannot be locked, it returns 'InvalidParameter'. If memory cannot be allocated, it returns 'OutOfMemory'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipDeleteCachedBitmap",
+      "description": "This function deletes a cached bitmap, disposes its image and frees the memory allocated to it.",
+      "parameters": [
+        {
+          "name": "cachedbmp",
+          "type": "GpCachedBitmap *",
+          "description": "This is a pointer to the cached bitmap that is to be deleted."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the input parameter is null, otherwise returns 'Ok' after successful deletion and disposal of the bitmap."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipDrawCachedBitmap",
+      "description": "This function draws a cached bitmap at the specified location.",
+      "parameters": [
+        {
+          "name": "graphics",
+          "type": "GpGraphics *",
+          "description": "Pointer to the graphics context where the bitmap will be drawn."
+        },
+        {
+          "name": "cachedbmp",
+          "type": "GpCachedBitmap *",
+          "description": "Pointer to the cached bitmap to be drawn."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the drawn bitmap."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the drawn bitmap."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if either 'graphics' or 'cachedbmp' is NULL, otherwise it returns the status of the 'GdipDrawImage' function."
+    }
+  },
+  {
+    "function": {
+      "name": "move_bitmap",
+      "description": "This function moves a bitmap from a source to a destination. It also has the option to clobber (overwrite) the palette of the destination bitmap with the source's palette.",
+      "parameters": [
+        {
+          "name": "dst",
+          "type": "GpBitmap *",
+          "description": "This is the destination bitmap where the source bitmap will be moved to."
+        },
+        {
+          "name": "src",
+          "type": "GpBitmap *",
+          "description": "This is the source bitmap that will be moved to the destination bitmap."
+        },
+        {
+          "name": "clobber_palette",
+          "type": "BOOL",
+          "description": "This parameter determines whether the palette of the destination bitmap will be overwritten with the source's palette."
+        }
+      ],
+      "return_type": "void, which means this function does not return a value. It performs the operation of moving the bitmap and optionally overwriting the palette."
+    }
+  },
+  {
+    "function": {
+      "name": "free_image_data",
+      "description": "This function is used to free the memory allocated to an image object. It checks the type of the image and accordingly frees the memory. It also releases any metadata reader and decoder associated with the image, terminates any encoder, and frees the palette.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "This is a pointer to the image object whose memory needs to be freed."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can return InvalidParameter if the image is null, ObjectBusy if the image type is invalid, or Ok if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipDisposeImage",
+      "description": "This function disposes the image, frees the image data and sets the image type to ~0.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage*",
+          "description": "This is a pointer to the image to be disposed."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, otherwise returns the error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipFindFirstImageItem",
+      "description": "This function checks the first image item in the given image. However, it's not fully implemented yet.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image where the function will look for the first item."
+        },
+        {
+          "name": "item",
+          "type": "ImageItemData *",
+          "description": "Pointer to the item data where the function will store the first item information."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns InvalidParameter if the input parameters are null, NotImplemented if the function is called for the first time."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImageItemData",
+      "description": "This function is not implemented yet. It is supposed to get the image item data but currently it only increases the call count and returns a 'NotImplemented' status.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image from which to get the item data"
+        },
+        {
+          "name": "item",
+          "type": "ImageItemData *",
+          "description": "Pointer to the item data to be filled"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, currently always returns 'NotImplemented'"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImageBounds",
+      "description": "This function retrieves the bounds of an image and the unit of measure. It checks if the image is a Metafile or a Bitmap and sets the bounds and unit accordingly. If the image is not of these types, it returns an error.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image whose bounds are to be retrieved"
+        },
+        {
+          "name": "srcRect",
+          "type": "GpRectF *",
+          "description": "Pointer to the rectangle structure that receives the bounds of the image"
+        },
+        {
+          "name": "srcUnit",
+          "type": "GpUnit *",
+          "description": "Pointer to the unit of measure used for the bounds"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters is null or if the image type is not supported"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImageDimension",
+      "description": "This function retrieves the dimensions of an image. If the image is a metafile, it converts the units to pixels. If the image is a bitmap, it directly retrieves the height and width. If the image is neither, it returns an error.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image from which dimensions are to be retrieved"
+        },
+        {
+          "name": "width",
+          "type": "REAL *",
+          "description": "Pointer to a variable where the width of the image will be stored"
+        },
+        {
+          "name": "height",
+          "type": "REAL *",
+          "description": "Pointer to a variable where the height of the image will be stored"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters are null or if the image type is neither metafile nor bitmap"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImageGraphicsContext",
+      "description": "This function retrieves the graphics context from an image. If the image type is a Metafile, it gets the graphics context from the Metafile. Otherwise, it gets the graphics context from the image.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "A pointer to the image from which the graphics context is to be retrieved."
+        },
+        {
+          "name": "graphics",
+          "type": "GpGraphics **",
+          "description": "A pointer to a pointer to a GpGraphics object. This will be filled with the graphics context from the image."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns the status of the graphics context retrieval. If either of the input parameters is NULL, it returns InvalidParameter."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImageHeight",
+      "description": "This function retrieves the height of an image. The height is calculated differently based on the type of the image (Metafile or Bitmap). If the image is of type Metafile, the height is calculated using the units_to_pixels function. If the image is of type Bitmap, the height is directly accessed from the image object. If the image is of an unknown type, the function returns an error.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage*",
+          "description": "This is a pointer to the image object whose height is to be retrieved."
+        },
+        {
+          "name": "height",
+          "type": "UINT*",
+          "description": "This is a pointer to an unsigned integer where the height of the image will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns 'Ok'. If either of the input parameters is NULL or if the image is of an unknown type, it returns 'InvalidParameter'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImageHorizontalResolution",
+      "description": "This function retrieves the horizontal resolution of an image.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "A pointer to the image from which the horizontal resolution is to be retrieved."
+        },
+        {
+          "name": "res",
+          "type": "REAL *",
+          "description": "A pointer to a REAL type variable where the retrieved horizontal resolution will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the input parameters are null, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImagePaletteSize",
+      "description": "This function retrieves the size of the color palette of an image.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "A pointer to the image from which the palette size is to be retrieved."
+        },
+        {
+          "name": "size",
+          "type": "INT *",
+          "description": "A pointer to an integer that will receive the size of the palette."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It returns 'InvalidParameter' if the image or size is null, 'GenericError' if the image type is Metafile, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImagePixelFormat",
+      "description": "This function retrieves the pixel format of an image. If the image is not a bitmap, it sets the pixel format to 24-bit RGB. Otherwise, it sets the pixel format to the format of the bitmap image.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "This is a pointer to the image from which the pixel format is to be retrieved."
+        },
+        {
+          "name": "format",
+          "type": "PixelFormat *",
+          "description": "This is a pointer to a PixelFormat variable. The function sets this to the pixel format of the image."
+        }
+      ],
+      "return_type": "GpStatus. This represents the status of the operation. If the function succeeds, it returns 'Ok'. If either of the input pointers is NULL, it returns 'InvalidParameter'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImageRawFormat",
+      "description": "This function gets the raw format of an image and copies it into a GUID structure.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image from which the raw format is to be retrieved."
+        },
+        {
+          "name": "format",
+          "type": "GUID *",
+          "description": "Pointer to a GUID structure where the raw format of the image will be copied."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either of the parameters is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImageType",
+      "description": "This function retrieves the type of an image.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "A pointer to the image whose type is to be retrieved."
+        },
+        {
+          "name": "type",
+          "type": "ImageType *",
+          "description": "A pointer to a variable that receives the type of the image."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either parameter is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImageVerticalResolution",
+      "description": "This function retrieves the vertical resolution of an image.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "A pointer to the image from which the vertical resolution is to be retrieved."
+        },
+        {
+          "name": "res",
+          "type": "REAL *",
+          "description": "A pointer to a REAL where the vertical resolution of the image will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the input parameters are null, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImageWidth",
+      "description": "This function retrieves the width of an image. If the image is of type Metafile, it converts the width from units to pixels. If the image is of type Bitmap, it directly retrieves the width. If the image is of any other type, it returns an error.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage*",
+          "description": "A pointer to the image from which the width is to be retrieved."
+        },
+        {
+          "name": "width",
+          "type": "UINT*",
+          "description": "A pointer to an unsigned integer where the width of the image will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the parameters are null or the image type is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPropertyCount",
+      "description": "This function retrieves the count of properties associated with an image. If the image is of type Bitmap and has a property item or a metadata reader, the count is updated accordingly.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image from which to retrieve the property count."
+        },
+        {
+          "name": "num",
+          "type": "UINT *",
+          "description": "Pointer to a variable where the property count will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the image or num is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPropertyIdList",
+      "description": "This function retrieves the list of property identifiers for the specified image. If the image does not have any properties, the function returns an empty list. The function also handles various error conditions, such as invalid parameters or unsupported property types.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "A pointer to the image for which to retrieve the property identifiers."
+        },
+        {
+          "name": "num",
+          "type": "UINT",
+          "description": "The number of property identifiers to retrieve."
+        },
+        {
+          "name": "list",
+          "type": "PROPID *",
+          "description": "A pointer to the list that receives the property identifiers."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return Ok if the operation is successful, InvalidParameter if the parameters are not valid, NotImplemented if the image type is not supported, or other status codes depending on the result of internal operations."
+    }
+  },
+  {
+    "function": {
+      "name": "propvariant_size",
+      "description": "This function calculates the size of a PROPVARIANT value, taking into account its type and whether it is a vector. It handles several different types of PROPVARIANT, returning the size in bytes.",
+      "parameters": [
+        {
+          "name": "value",
+          "type": "PROPVARIANT*",
+          "description": "Pointer to the PROPVARIANT whose size is to be calculated."
+        }
+      ],
+      "return_type": "UINT, represents the size of the PROPVARIANT in bytes."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPropertyItemSize",
+      "description": "This function retrieves the size of a property item from a given image. If the property item is found, the size is stored in the 'size' parameter. If the property item is not found or an error occurs, an appropriate status code is returned.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "A pointer to the image from which the property item size is to be retrieved."
+        },
+        {
+          "name": "propid",
+          "type": "PROPID",
+          "description": "The identifier of the property item whose size is to be retrieved."
+        },
+        {
+          "name": "size",
+          "type": "UINT *",
+          "description": "A pointer to a variable that receives the size of the property item."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can return 'Ok' if the operation is successful, 'InvalidParameter' if the parameters are not valid, 'NotImplemented' if the image type is not a bitmap, or 'PropertyNotFound' if the property item is not found."
+    }
+  },
+  {
+    "function": {
+      "name": "vt_to_itemtype",
+      "description": "This function maps a variant type to a corresponding item type.",
+      "parameters": [
+        {
+          "name": "vt",
+          "type": "UINT",
+          "description": "This is the variant type to be mapped to an item type."
+        }
+      ],
+      "return_type": "UINT, represents the corresponding item type for the given variant type. If the variant type is not supported, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "propvariant_to_item",
+      "description": "This function converts a PROPVARIANT structure to a PropertyItem structure. It checks the size and type of the PROPVARIANT, copies the value to the PropertyItem, and sets the length, type, and id of the PropertyItem.",
+      "parameters": [
+        {
+          "name": "value",
+          "type": "PROPVARIANT*",
+          "description": "Pointer to the PROPVARIANT structure to be converted"
+        },
+        {
+          "name": "item",
+          "type": "PropertyItem*",
+          "description": "Pointer to the PropertyItem structure where the converted value will be stored"
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "Size of the PROPVARIANT structure"
+        },
+        {
+          "name": "id",
+          "type": "PROPID",
+          "description": "Property identifier for the PropertyItem"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if the size or type of the PROPVARIANT is not correct."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPropertyItem",
+      "description": "This function retrieves a property item (metadata) from an image object. If the property item is found, it is copied into the buffer provided. The function also checks for valid parameters and handles different image types.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image object from which the property item is to be retrieved."
+        },
+        {
+          "name": "propid",
+          "type": "PROPID",
+          "description": "Identifier of the property item to be retrieved."
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "Size of the property item to be retrieved."
+        },
+        {
+          "name": "buffer",
+          "type": "PropertyItem *",
+          "description": "Pointer to the buffer where the retrieved property item will be stored."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can return Ok if the operation is successful, InvalidParameter if the parameters are not valid, NotImplemented if the image type is not supported, or PropertyNotFound if the property item is not found."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPropertySize",
+      "description": "This function is used to get the size and count of properties of an image. If the image type is not a bitmap, it returns NotImplemented. If the image has a property item, it calculates the size and count. If the image has a metadata reader, it reads the properties from the metadata.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image from which to get the property size and count"
+        },
+        {
+          "name": "size",
+          "type": "UINT *",
+          "description": "Pointer to a variable where the function will store the size of the properties"
+        },
+        {
+          "name": "count",
+          "type": "UINT *",
+          "description": "Pointer to a variable where the function will store the count of the properties"
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can return Ok, InvalidParameter, NotImplemented, or PropertyNotFound depending on the conditions"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetAllPropertyItems",
+      "description": "This function retrieves all property items (metadata) from an image. It checks the image type, validates parameters, and copies the property items to a buffer. If the image's property items are not available, it uses a metadata reader to retrieve them.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "A pointer to the image from which to retrieve property items."
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "The size of the property items to be retrieved."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of property items to be retrieved."
+        },
+        {
+          "name": "buf",
+          "type": "PropertyItem *",
+          "description": "A pointer to the buffer where the retrieved property items will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return Ok if the operation is successful, InvalidParameter if the parameters are not valid, NotImplemented if the image type is not supported, GenericError if the metadata reader is not available, or PropertyNotFound if the property items are not found."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipImageGetFrameCount",
+      "description": "This function retrieves the number of frames in the specified dimension of an image.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image from which to get the frame count."
+        },
+        {
+          "name": "dimensionID",
+          "type": "GDIPCONST GUID*",
+          "description": "Pointer to the GUID that specifies the dimension."
+        },
+        {
+          "name": "count",
+          "type": "UINT*",
+          "description": "Pointer to a variable that receives the number of frames in the specified dimension."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if parameters are null or if dimensionID does not match with any of the image's dimensions."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipImageGetFrameDimensionsCount",
+      "description": "This function checks the validity of the image and count parameters. If they are valid, it sets the count to 1. It does not yet support multiple frame dimensions.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image to get frame dimensions count from."
+        },
+        {
+          "name": "count",
+          "type": "UINT *",
+          "description": "Pointer to an unsigned integer where the frame dimensions count will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if either parameter is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipImageGetFrameDimensionsList",
+      "description": "This function retrieves an array of GUIDs that represent the dimensions of frames within an image.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage*",
+          "description": "Pointer to the image to get the frame dimensions from."
+        },
+        {
+          "name": "dimensionIDs",
+          "type": "GUID*",
+          "description": "Pointer to an array of GUIDs that receive the dimensions."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of elements in the dimensionIDs array."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the input parameters are not valid, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipLoadImageFromFile",
+      "description": "This function loads an image from a file into a GpImage object using a stream.",
+      "parameters": [
+        {
+          "name": "filename",
+          "type": "GDIPCONST WCHAR*",
+          "description": "The name of the file from which the image is to be loaded."
+        },
+        {
+          "name": "image",
+          "type": "GpImage**",
+          "description": "A pointer to a GpImage object where the loaded image will be stored."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns 'Ok'. If not, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipLoadImageFromFileICM",
+      "description": "This function loads an image from a file using Image Color Management (ICM).",
+      "parameters": [
+        {
+          "name": "filename",
+          "type": "GDIPCONST WCHAR*",
+          "description": "The name of the file from which the image is to be loaded."
+        },
+        {
+          "name": "image",
+          "type": "GpImage**",
+          "description": "A pointer to a pointer to a GpImage object. This is where the loaded image will be stored."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the function succeeds, it returns Ok. If the function fails, it returns one of the error statuses."
+    }
+  },
+  {
+    "function": {
+      "name": "add_property",
+      "description": "This function adds a property to a bitmap. If the bitmap's property item is null, it allocates memory for a new property item. If not, it calculates the size and count of the properties, allocates memory for a new property item, and copies the existing properties into the new item. Then it sets the id, type, length, and value of the new property item, frees the old property item, and sets the bitmap's property item to the new item.",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "GpBitmap *",
+          "description": "This is a pointer to the bitmap where the property will be added."
+        },
+        {
+          "name": "item",
+          "type": "PropertyItem *",
+          "description": "This is a pointer to the property item that will be added to the bitmap."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the bitmap in place."
+    }
+  },
+  {
+    "function": {
+      "name": "get_bool_property",
+      "description": "This function retrieves a boolean property from a metadata reader using a specified GUID and property name.",
+      "parameters": [
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader *",
+          "description": "Pointer to the metadata reader from which the property is to be retrieved."
+        },
+        {
+          "name": "guid",
+          "type": "GUID *",
+          "description": "Pointer to the GUID that identifies the format of the metadata."
+        },
+        {
+          "name": "prop_name",
+          "type": "WCHAR *",
+          "description": "Pointer to the name of the property to be retrieved."
+        }
+      ],
+      "return_type": "BOOL, represents whether the property was successfully retrieved or not."
+    }
+  },
+  {
+    "function": {
+      "name": "get_property",
+      "description": "This function retrieves a property from a metadata reader. It first gets the metadata format and checks if it matches the provided GUID. If it does, it initializes two PROPVARIANT structures for the property ID and value. It then allocates memory for the property name and retrieves the property value. If the retrieval is successful, it calculates the size of the property value and allocates memory for the property item. It then converts the property value to a property item. If the conversion is not successful, it frees the memory for the property item. Finally, it clears the PROPVARIANT structures and returns the property item.",
+      "parameters": [
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader *",
+          "description": "Pointer to the metadata reader from which the property is to be retrieved"
+        },
+        {
+          "name": "guid",
+          "type": "const GUID *",
+          "description": "Pointer to the GUID of the metadata format"
+        },
+        {
+          "name": "prop_name",
+          "type": "const WCHAR *",
+          "description": "Pointer to the name of the property to be retrieved"
+        }
+      ],
+      "return_type": "PropertyItem *. It represents the retrieved property item. If the retrieval or conversion is not successful, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "get_gif_comment",
+      "description": "This function retrieves the comment from a GIF file's metadata.",
+      "parameters": [
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader *",
+          "description": "A pointer to an instance of IWICMetadataReader that reads the metadata of the GIF file."
+        }
+      ],
+      "return_type": "PropertyItem*, represents the comment property item from the GIF file's metadata."
+    }
+  },
+  {
+    "function": {
+      "name": "get_gif_loopcount",
+      "description": "This function retrieves the loop count property from a GIF file's metadata. It first checks if the Application Extension contains 'NETSCAPE2.0' or 'ANIMEXTS1.0'. If it does, it then checks if the Data Extension is of type byte and length 4. If it is, it checks if the first two bytes are 3 and 1 respectively. If they are, it allocates memory for a new PropertyItem, sets its type to short, its id to LoopCount, its length to the size of a short, and its value to the third and fourth bytes of the Data Extension. The function then returns this new PropertyItem.",
+      "parameters": [
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader *",
+          "description": "A pointer to an IWICMetadataReader object that is used to read the metadata of the GIF file."
+        }
+      ],
+      "return_type": "PropertyItem * - A pointer to a PropertyItem object that represents the loop count property of the GIF file. If the loop count property could not be retrieved, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "get_gif_background",
+      "description": "This function retrieves the background property of a GIF image using a metadata reader. If the GIF has a global color table, the function gets the background color index and sets the property tag to 'PropertyTagIndexBackground'.",
+      "parameters": [
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader *",
+          "description": "This is a pointer to an instance of IWICMetadataReader. It is used to read the metadata of the GIF image."
+        }
+      ],
+      "return_type": "PropertyItem*. It represents the background property of the GIF image. If the GIF does not have a global color table, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "get_gif_palette",
+      "description": "This function retrieves the color palette from a GIF image using the Windows Imaging Component (WIC) interfaces. It first checks if the GIF has a global color table. If it does, it creates a palette and copies the colors from the GIF's global color table into the palette. It then creates a PropertyItem structure to hold the palette information and fills it with the palette colors. If any of these operations fail, it returns NULL.",
+      "parameters": [
+        {
+          "name": "decoder",
+          "type": "IWICBitmapDecoder *",
+          "description": "A pointer to an IWICBitmapDecoder interface that provides access to the GIF image."
+        },
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader *",
+          "description": "A pointer to an IWICMetadataReader interface that provides access to the GIF's metadata."
+        }
+      ],
+      "return_type": "PropertyItem *: A pointer to a PropertyItem structure that holds the GIF's color palette, or NULL if the GIF does not have a global color table or if an error occurs."
+    }
+  },
+  {
+    "function": {
+      "name": "get_gif_transparent_idx",
+      "description": "This function retrieves the index of the transparent color in a GIF image, if it exists.",
+      "parameters": [
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader *",
+          "description": "A pointer to an instance of IWICMetadataReader which reads metadata from an image."
+        }
+      ],
+      "return_type": "PropertyItem pointer. It represents the index of the transparent color in a GIF image. If the image does not have a transparent color, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "get_gif_frame_property",
+      "description": "This function retrieves a specific property from a GIF frame using the provided format and property identifiers. The property value is then stored in the provided LONG pointer.",
+      "parameters": [
+        {
+          "name": "frame",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "A pointer to the GIF frame from which the property is to be retrieved."
+        },
+        {
+          "name": "format",
+          "type": "GUID *",
+          "description": "A pointer to the GUID that identifies the format of the property to be retrieved."
+        },
+        {
+          "name": "property",
+          "type": "WCHAR *",
+          "description": "A pointer to the WCHAR that identifies the specific property to be retrieved."
+        },
+        {
+          "name": "value",
+          "type": "LONG *",
+          "description": "A pointer to a LONG where the value of the retrieved property will be stored."
+        }
+      ],
+      "return_type": "void, this function does not return a value but modifies the value pointed to by the 'value' parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "gif_metadata_reader",
+      "description": "This function reads metadata from a GIF file, including frame delay, comment, loop count, palette, background, and transparent index. It uses Windows Imaging Component (WIC) interfaces to decode the GIF and read its metadata.",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "GpBitmap *",
+          "description": "Pointer to a GpBitmap object where the GIF image is loaded"
+        },
+        {
+          "name": "decoder",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to a IWICBitmapDecoder object used to decode the GIF image"
+        },
+        {
+          "name": "active_frame",
+          "type": "UINT",
+          "description": "The active frame number in the GIF image"
+        }
+      ],
+      "return_type": "void, this function does not return a value but modifies the GpBitmap object passed as a parameter"
+    }
+  },
+  {
+    "function": {
+      "name": "create_prop",
+      "description": "This function creates a new property item with a given property ID and value. It calculates the size of the property variant, allocates memory for the new item, and then converts the property variant to the item. If the conversion fails, it frees the allocated memory and sets the item to NULL.",
+      "parameters": [
+        {
+          "name": "propid",
+          "type": "PROPID",
+          "description": "This is the property ID for the new property item."
+        },
+        {
+          "name": "value",
+          "type": "PROPVARIANT*",
+          "description": "This is a pointer to the property variant that will be converted to the new property item."
+        }
+      ],
+      "return_type": "PropertyItem*. It represents the newly created property item. If the property variant to item conversion fails, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "get_ulong_by_index",
+      "description": "This function retrieves a ULONG value from a metadata reader at a specified index.",
+      "parameters": [
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader*",
+          "description": "A pointer to the metadata reader from which the ULONG value is to be retrieved."
+        },
+        {
+          "name": "index",
+          "type": "ULONG",
+          "description": "The index at which the ULONG value is located in the metadata reader."
+        }
+      ],
+      "return_type": "ULONG, represents the ULONG value retrieved from the metadata reader at the specified index. If the retrieval is unsuccessful, the function returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "png_read_text",
+      "description": "This function reads metadata from a PNG image and stores it in a bitmap. It also keeps track of which metadata items have been seen.",
+      "parameters": [
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader *",
+          "description": "A pointer to an IWICMetadataReader object that is used to read the metadata from the PNG image."
+        },
+        {
+          "name": "bitmap",
+          "type": "GpBitmap *",
+          "description": "A pointer to a GpBitmap object where the metadata read from the PNG image is stored."
+        },
+        {
+          "name": "seen_text",
+          "type": "BOOL **",
+          "description": "A pointer to a pointer to a BOOL array. This array is used to keep track of which metadata items have been seen."
+        }
+      ],
+      "return_type": "HRESULT. This is a standard return type for Windows API functions. It indicates the success or failure of the function. The function returns S_OK on success and an error code on failure."
+    }
+  },
+  {
+    "function": {
+      "name": "png_read_gamma",
+      "description": "This function reads the gamma value from a PNG image metadata and adds it as a property to a bitmap.",
+      "parameters": [
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader *",
+          "description": "A pointer to an instance of IWICMetadataReader, which is used to read the metadata of the PNG image."
+        },
+        {
+          "name": "bitmap",
+          "type": "GpBitmap *",
+          "description": "A pointer to a GpBitmap instance, to which the gamma property will be added."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns E_OUTOFMEMORY if memory allocation fails, and S_OK if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "png_read_whitepoint",
+      "description": "This function reads the whitepoint property from a metadata reader and adds it to a bitmap.",
+      "parameters": [
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader*",
+          "description": "Pointer to a metadata reader from which the whitepoint property is read"
+        },
+        {
+          "name": "bitmap",
+          "type": "GpBitmap*",
+          "description": "Pointer to a bitmap to which the whitepoint property is added"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns E_OUTOFMEMORY if memory allocation fails, otherwise it returns S_OK"
+    }
+  },
+  {
+    "function": {
+      "name": "png_read_chromaticity",
+      "description": "This function reads chromaticity information from a PNG image using a metadata reader and stores it in a bitmap structure.",
+      "parameters": [
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader *",
+          "description": "This is a pointer to a metadata reader used to read the chromaticity information from the PNG image."
+        },
+        {
+          "name": "bitmap",
+          "type": "GpBitmap *",
+          "description": "This is a pointer to a bitmap structure where the chromaticity information will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns E_OUTOFMEMORY if memory allocation fails and S_OK if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "png_read_time",
+      "description": "This function reads the time metadata from a PNG image using a metadata reader and stores it in a bitmap structure.",
+      "parameters": [
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader *",
+          "description": "Pointer to the metadata reader used to read the PNG image metadata"
+        },
+        {
+          "name": "bitmap",
+          "type": "GpBitmap *",
+          "description": "Pointer to the bitmap structure where the read time metadata will be stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation is successful, E_FAIL if the operation fails, E_OUTOFMEMORY if memory allocation fails"
+    }
+  },
+  {
+    "function": {
+      "name": "png_read_histogram",
+      "description": "This function reads a histogram from a PNG image using a metadata reader, creates a property item from the histogram data, adds the property item to a bitmap, and then frees the property item.",
+      "parameters": [
+        {
+          "name": "reader",
+          "type": "IWICMetadataReader *",
+          "description": "Pointer to an IWICMetadataReader object used to read the metadata of the PNG image"
+        },
+        {
+          "name": "bitmap",
+          "type": "GpBitmap *",
+          "description": "Pointer to a GpBitmap object where the histogram data will be stored as a property item"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "png_add_unit_properties",
+      "description": "This function adds unit properties to a bitmap image from a frame decode. It calculates the resolution, allocates memory for unit properties, sets their values, and adds them to the bitmap. If any memory allocation fails, it frees all allocated memory and returns an error.",
+      "parameters": [
+        {
+          "name": "frame",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Pointer to the frame decode from which properties are obtained"
+        },
+        {
+          "name": "bitmap",
+          "type": "GpBitmap *",
+          "description": "Pointer to the bitmap to which properties are added"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_OUTOFMEMORY if memory allocation fails, or other error codes if getting resolution fails."
+    }
+  },
+  {
+    "function": {
+      "name": "png_metadata_reader",
+      "description": "This function reads metadata from a PNG image using a bitmap decoder. It reads various types of metadata including text, gamma, whitepoint, chromaticity, time, and histogram. It also manages memory for the metadata reader and releases it when done.",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "GpBitmap *",
+          "description": "Pointer to the bitmap structure representing the PNG image"
+        },
+        {
+          "name": "decoder",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to the bitmap decoder used to decode the PNG image"
+        },
+        {
+          "name": "active_frame",
+          "type": "UINT",
+          "description": "The active frame to be read from the PNG image"
+        }
+      ],
+      "return_type": "void, does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "initialize_decoder_wic",
+      "description": "This function initializes a Windows Imaging Component (WIC) bitmap decoder with a specified container format and stream.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "This is the input stream to be decoded."
+        },
+        {
+          "name": "container",
+          "type": "REFGUID",
+          "description": "This is the GUID for the container format of the bitmap."
+        },
+        {
+          "name": "decoder",
+          "type": "IWICBitmapDecoder **",
+          "description": "This is a pointer to a pointer to an IWICBitmapDecoder interface. The function will initialize this decoder."
+        }
+      ],
+      "return_type": "GpStatus. This represents the status of the function execution. If the function executes successfully, it returns 'Ok'. If it fails, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "decode_frame_wic",
+      "description": "This function decodes a frame using Windows Imaging Component (WIC), and creates a GDI+ bitmap from it. It also handles metadata reading and palette conversion if necessary.",
+      "parameters": [
+        {
+          "name": "decoder",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to the WIC bitmap decoder object"
+        },
+        {
+          "name": "force_conversion",
+          "type": "BOOL",
+          "description": "Flag to force conversion of the image format"
+        },
+        {
+          "name": "active_frame",
+          "type": "UINT",
+          "description": "The index of the frame to be decoded"
+        },
+        {
+          "name": "metadata_reader",
+          "type": "metadata_reader_func",
+          "description": "Function pointer to the metadata reader function"
+        },
+        {
+          "name": "image",
+          "type": "GpImage **",
+          "description": "Pointer to the pointer of the GDI+ image object where the decoded frame will be stored"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the function executes successfully, it returns 'Ok'. Otherwise, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "decode_image_wic",
+      "description": "This function decodes an image using Windows Imaging Component (WIC). It initializes the decoder, decodes the frame, releases the decoder and returns the status of these operations.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "This is the input stream that contains the image data to be decoded."
+        },
+        {
+          "name": "container",
+          "type": "REFGUID",
+          "description": "This is the reference to the GUID of the container format for the image."
+        },
+        {
+          "name": "metadata_reader",
+          "type": "metadata_reader_func",
+          "description": "This is a function pointer to the function that reads the metadata of the image."
+        },
+        {
+          "name": "image",
+          "type": "GpImage**",
+          "description": "This is a pointer to a pointer to a GpImage object where the decoded image will be stored."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the image decoding process. If the process is successful, it returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "select_frame_wic",
+      "description": "This function selects a specific frame from an image using Windows Imaging Component (WIC). It decodes the frame, checks the image type, copies the image format and encoder to the new image, frees the old image data, and copies the new image data to the original image object.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "A pointer to the image object from which a frame is to be selected."
+        },
+        {
+          "name": "active_frame",
+          "type": "UINT",
+          "description": "The index of the frame to be selected from the image."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, otherwise returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "get_gif_frame_rect",
+      "description": "This function retrieves the properties of a GIF frame such as its left and top positions, and its width and height.",
+      "parameters": [
+        {
+          "name": "frame",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Pointer to the GIF frame to get the properties from."
+        },
+        {
+          "name": "left",
+          "type": "UINT *",
+          "description": "Pointer to store the left position of the GIF frame."
+        },
+        {
+          "name": "top",
+          "type": "UINT *",
+          "description": "Pointer to store the top position of the GIF frame."
+        },
+        {
+          "name": "width",
+          "type": "UINT *",
+          "description": "Pointer to store the width of the GIF frame."
+        },
+        {
+          "name": "height",
+          "type": "UINT *",
+          "description": "Pointer to store the height of the GIF frame."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "blit_gif_frame",
+      "description": "This function is used to decode a GIF frame and draw it onto a bitmap. It handles memory allocation, error checking, and pixel copying.",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "GpBitmap *",
+          "description": "A pointer to the bitmap where the GIF frame will be drawn."
+        },
+        {
+          "name": "frame",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "A pointer to the GIF frame that will be decoded and drawn."
+        },
+        {
+          "name": "first_frame",
+          "type": "BOOL",
+          "description": "A boolean value that indicates whether the frame is the first frame of the GIF."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "get_gif_background_color",
+      "description": "This function retrieves the background color of a GIF image represented by a GpBitmap object.",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "GpBitmap*",
+          "description": "This is a pointer to the GpBitmap object representing the GIF image."
+        }
+      ],
+      "return_type": "DWORD, represents the background color of the GIF image. If the color cannot be retrieved, it returns 0xffffffff."
+    }
+  },
+  {
+    "function": {
+      "name": "select_frame_gif",
+      "description": "This function is used to select a specific frame from a GIF image. It handles different disposal methods and updates the current frame of the image.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage*",
+          "description": "A pointer to the GIF image from which a frame is to be selected."
+        },
+        {
+          "name": "active_frame",
+          "type": "UINT",
+          "description": "The index of the frame to be selected from the GIF image."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns 'Ok'. If it fails, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "decode_image_icon",
+      "description": "This function decodes an image icon using a specific container format.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "This is the input stream from which the image icon is read."
+        },
+        {
+          "name": "image",
+          "type": "GpImage**",
+          "description": "This is a pointer to a pointer to the image that will be decoded."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns Ok. If not, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "decode_image_bmp",
+      "description": "This function decodes a BMP image from a stream and returns the status of the operation. If the image format is PixelFormat32bppARGB, it changes the format to PixelFormat32bppRGB because gdiplus does not support bmp files with alpha.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "This is the input stream from which the BMP image is to be decoded."
+        },
+        {
+          "name": "image",
+          "type": "GpImage**",
+          "description": "This is a pointer to a pointer to a GpImage object. The decoded image is stored in the object pointed by this parameter."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the image decoding operation. If the operation is successful, it returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "decode_image_jpeg",
+      "description": "This function decodes a JPEG image from a stream.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "This is the input stream from which the JPEG image is read."
+        },
+        {
+          "name": "image",
+          "type": "GpImage**",
+          "description": "This is a pointer to a pointer to a GpImage object. The decoded image is stored in the object pointed to by this parameter."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the function is successful, it returns Ok. If the function fails, it returns one of the error statuses."
+    }
+  },
+  {
+    "function": {
+      "name": "has_png_transparency_chunk",
+      "description": "This function checks if a given PNG stream has a transparency chunk (tRNS). It reads the PNG stream and checks each chunk until it finds a tRNS chunk or reaches the end of the stream (IEND).",
+      "parameters": [
+        {
+          "name": "pIStream",
+          "type": "IStream*",
+          "description": "Pointer to the input stream of the PNG file."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the PNG stream has a transparency chunk, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "decode_image_png",
+      "description": "This function decodes a PNG image from a stream using Windows Imaging Component (WIC) interfaces. It checks the pixel format of the image and decides whether to force conversion based on the format and presence of a transparency chunk in PNG. It then decodes the frame and releases the resources.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "The input stream from which the PNG image is to be decoded."
+        },
+        {
+          "name": "image",
+          "type": "GpImage**",
+          "description": "A pointer to a pointer to a GpImage object. The decoded image will be stored in the object pointed by this parameter."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the function executes successfully, it returns 'Ok'. If an error occurs during the execution, it returns the error status."
+    }
+  },
+  {
+    "function": {
+      "name": "decode_image_gif",
+      "description": "This function decodes a GIF image from a given stream and stores the result in a GpImage object.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "This is the input stream from which the GIF image is read."
+        },
+        {
+          "name": "image",
+          "type": "GpImage**",
+          "description": "This is a pointer to a pointer to a GpImage object where the decoded image will be stored."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the function returns Ok, the operation was successful. Otherwise, an error occurred."
+    }
+  },
+  {
+    "function": {
+      "name": "decode_image_tiff",
+      "description": "This function decodes a TIFF image from a stream.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "This is the input stream from which the TIFF image is read."
+        },
+        {
+          "name": "image",
+          "type": "GpImage**",
+          "description": "This is a pointer to a pointer to a GpImage object where the decoded image will be stored."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns Ok. If the operation fails, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "load_wmf",
+      "description": "This function reads a Windows Metafile (WMF) from a stream, checks if it is placeable, reads the file into a buffer, and creates a GDI+ Metafile object from it.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "The input stream from which the WMF is read."
+        },
+        {
+          "name": "metafile",
+          "type": "GpMetafile **",
+          "description": "A pointer to a pointer to a GpMetafile object. If the function succeeds, this parameter will point to the created GDI+ Metafile object."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the function succeeds, it returns Ok. If it fails, it returns an error code such as GenericError or OutOfMemory."
+    }
+  },
+  {
+    "function": {
+      "name": "decode_image_wmf",
+      "description": "This function decodes a Windows Metafile (WMF) image from a stream and stores it in a GpImage object.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "This is the input stream from which the WMF image is read."
+        },
+        {
+          "name": "image",
+          "type": "GpImage **",
+          "description": "This is a pointer to a GpImage object where the decoded WMF image will be stored."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns 'Ok' if the operation is successful, 'InvalidParameter' if the input parameters are null, and the status of the 'load_wmf' function if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "load_emf",
+      "description": "This function reads an Enhanced Metafile (EMF) from a stream, creates a GDI+ metafile object from it, and returns the status of these operations.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "The input stream from which the EMF data is read."
+        },
+        {
+          "name": "metafile",
+          "type": "GpMetafile **",
+          "description": "A pointer to a GDI+ metafile object. If the function succeeds, this parameter receives the address of the new metafile object."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operations performed in the function. It can indicate success (Ok) or various types of errors (GenericError, OutOfMemory, etc.)."
+    }
+  },
+  {
+    "function": {
+      "name": "decode_image_emf",
+      "description": "This function decodes an EMF image from a stream and loads it into a GpImage object.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "The input stream from which the EMF image is read."
+        },
+        {
+          "name": "image",
+          "type": "GpImage **",
+          "description": "A pointer to a GpImage object where the decoded image will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if the input parameters are null, or the status of the 'load_emf' function if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "get_decoder_info",
+      "description": "This function seeks to the start of the stream, reads the first 8 bytes and checks for matching codecs. If a match is found, it sets the result to the matching codec and returns Ok. If no match is found, it returns a GenericError.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "The stream to read from."
+        },
+        {
+          "name": "result",
+          "type": "struct image_codec**",
+          "description": "A pointer to a pointer to a struct. This is where the function will store the matching codec if one is found."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns Ok if a matching codec is found, otherwise it returns a GenericError."
+    }
+  },
+  {
+    "function": {
+      "name": "get_decoder_info_from_image",
+      "description": "This function iterates through a list of codecs, and if it finds a codec that matches the format of the given image, it assigns the address of the codec to the result pointer and returns Ok. If no matching codec is found, it logs a trace message and returns GenericError.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "A pointer to the image for which the decoder information is to be retrieved."
+        },
+        {
+          "name": "result",
+          "type": "struct image_codec **",
+          "description": "A pointer to a pointer to a struct. This is where the function will store the address of the matching codec, if one is found."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns Ok if a matching codec is found, and GenericError if not."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipImageSelectActiveFrame",
+      "description": "This function selects an active frame in an image using the specified dimension ID and frame index. It also handles various error conditions such as invalid parameters, busy objects, and missing decoders.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image object where the frame is to be selected."
+        },
+        {
+          "name": "dimensionID",
+          "type": "GDIPCONST GUID *",
+          "description": "Pointer to the GUID that represents the dimension of the frame to be selected."
+        },
+        {
+          "name": "frame",
+          "type": "UINT",
+          "description": "The index of the frame to be selected."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return various status codes like Ok, InvalidParameter, ObjectBusy etc. depending on the outcome of the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipLoadImageFromStream",
+      "description": "This function loads an image from a stream, chooses an appropriate image decoder, seeks to the start of the stream, calls on the image decoder to do the real work, and takes note of the original data format.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "This is the input stream from which the image is loaded."
+        },
+        {
+          "name": "image",
+          "type": "GpImage **",
+          "description": "This is a pointer to the image that is loaded from the stream."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns 'Ok' if the operation is successful, and an error status otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipLoadImageFromStreamICM",
+      "description": "This function loads an image from a stream using the Image Color Management (ICM).",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "This is the input stream from which the image is loaded."
+        },
+        {
+          "name": "image",
+          "type": "GpImage**",
+          "description": "This is a pointer to the loaded image."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the function succeeds, it returns Ok. If the function fails, it returns one of the error statuses."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipRemovePropertyItem",
+      "description": "This function is used to remove a property item from an image. However, it is not fully implemented yet.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "This is a pointer to the image from which the property item will be removed."
+        },
+        {
+          "name": "propId",
+          "type": "PROPID",
+          "description": "This is the ID of the property that will be removed from the image."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns InvalidParameter if the image pointer is null, NotImplemented if the function is not fully implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPropertyItem",
+      "description": "This function sets a property item for an image. It checks if the image and item parameters are not null, and returns an error if they are. It also traces the item details and returns a success status if the function is called for the first time.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "This is a pointer to the image where the property item will be set."
+        },
+        {
+          "name": "item",
+          "type": "GDIPCONST PropertyItem*",
+          "description": "This is a pointer to the property item that will be set to the image."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns 'InvalidParameter' if the image or item is null, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSaveImageToFile",
+      "description": "This function saves an image to a file using a specified encoder and parameters.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image to be saved."
+        },
+        {
+          "name": "filename",
+          "type": "GDIPCONST WCHAR*",
+          "description": "Name of the file to save the image to."
+        },
+        {
+          "name": "clsidEncoder",
+          "type": "GDIPCONST CLSID *",
+          "description": "Class identifier for the encoder to be used."
+        },
+        {
+          "name": "encoderParams",
+          "type": "GDIPCONST EncoderParameters *",
+          "description": "Parameters for the encoder."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if any of the parameters is null, 'GenericError' if the file stream could not be created, or the status of the 'GdipSaveImageToStream' function."
+    }
+  },
+  {
+    "function": {
+      "name": "initialize_encoder_wic",
+      "description": "This function initializes a WIC (Windows Imaging Component) encoder with a given stream, container, and image. It terminates any previous encoder associated with the image, creates a new encoder, and initializes it. If any of these operations fail, it cleans up and returns an error status.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the stream where the encoded image data will be written."
+        },
+        {
+          "name": "container",
+          "type": "REFGUID",
+          "description": "Reference to the GUID of the container format for the encoder."
+        },
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image that will be encoded."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, otherwise returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "terminate_encoder_wic",
+      "description": "This function commits any changes to the specified image encoder, releases the encoder, and then sets the encoder to NULL.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "A pointer to the image whose encoder is to be terminated."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, either successful or contains an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "encode_frame_wic",
+      "description": "This function encodes a frame using Windows Imaging Component (WIC). It handles the creation of a new frame, setting the container format, initializing and setting the size and resolution of the frame, handling pixel formats, and writing pixels to the frame.",
+      "parameters": [
+        {
+          "name": "encoder",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is a pointer to the WIC bitmap encoder object used to encode the frame."
+        },
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "This is a pointer to the image object that is to be encoded into a frame."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns a status code indicating success or the type of error that occurred."
+    }
+  },
+  {
+    "function": {
+      "name": "has_encoder_param_long",
+      "description": "This function checks if a specific encoder parameter of type 'long' exists within a given set of encoder parameters, and if its value matches a specified value.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "GDIPCONST EncoderParameters*",
+          "description": "Pointer to the set of encoder parameters to be checked."
+        },
+        {
+          "name": "param_guid",
+          "type": "GUID",
+          "description": "The GUID of the encoder parameter to be checked."
+        },
+        {
+          "name": "val",
+          "type": "ULONG",
+          "description": "The value to be compared with the value of the specified encoder parameter."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the specified encoder parameter exists and its value matches the specified value, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "encode_image_wic",
+      "description": "This function encodes an image using Windows Imaging Component (WIC). It first checks if the image type is Bitmap, then initializes the encoder. If the encoder is successfully initialized, it encodes the image frame. If the encoder parameters do not have a long value for EncoderSaveFlag with EncoderValueMultiFrame, it tries to terminate the encoder.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image to be encoded"
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Stream where the encoded image will be written"
+        },
+        {
+          "name": "container",
+          "type": "REFGUID",
+          "description": "Reference to the GUID of the container format for the image"
+        },
+        {
+          "name": "params",
+          "type": "GDIPCONST EncoderParameters *",
+          "description": "Pointer to the encoder parameters"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the encoding process. It can be 'Ok' if the process was successful, or 'GenericError' if the image type is not Bitmap or if any error occurred during the encoding or termination of the encoder."
+    }
+  },
+  {
+    "function": {
+      "name": "encode_image_BMP",
+      "description": "This function encodes an image into BMP format.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "This is the image to be encoded."
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "This is the stream where the encoded image will be written."
+        },
+        {
+          "name": "params",
+          "type": "GDIPCONST EncoderParameters*",
+          "description": "These are the parameters for the encoder."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "encode_image_tiff",
+      "description": "This function encodes an image into TIFF format.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "The image to be encoded."
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "The stream where the encoded image will be written."
+        },
+        {
+          "name": "params",
+          "type": "GDIPCONST EncoderParameters*",
+          "description": "The encoding parameters."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the encoding operation."
+    }
+  },
+  {
+    "function": {
+      "name": "encode_image_png",
+      "description": "This function encodes an image into PNG format.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "This is the image to be encoded."
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "This is the stream where the encoded image will be written."
+        },
+        {
+          "name": "params",
+          "type": "GDIPCONST EncoderParameters*",
+          "description": "These are the parameters for the encoder."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the encoding operation."
+    }
+  },
+  {
+    "function": {
+      "name": "encode_image_jpeg",
+      "description": "This function encodes an image into JPEG format.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image to be encoded"
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Stream where the encoded image will be written"
+        },
+        {
+          "name": "params",
+          "type": "GDIPCONST EncoderParameters*",
+          "description": "Parameters for the encoder"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the encoding operation"
+    }
+  },
+  {
+    "function": {
+      "name": "encode_image_gif",
+      "description": "This function encodes an image into GIF format.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "The image to be encoded."
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "The stream where the encoded image will be written."
+        },
+        {
+          "name": "params",
+          "type": "GDIPCONST EncoderParameters*",
+          "description": "The encoding parameters."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the encoding operation."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSaveImageToStream",
+      "description": "This function saves an image to a stream using a specified encoder.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image to be saved."
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the stream where the image will be saved."
+        },
+        {
+          "name": "clsid",
+          "type": "GDIPCONST CLSID*",
+          "description": "Class identifier of the encoder to be used."
+        },
+        {
+          "name": "params",
+          "type": "GDIPCONST EncoderParameters*",
+          "description": "Pointer to the encoder parameters."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It returns 'InvalidParameter' if the image or stream is null, 'UnknownImageFormat' if the encoder is not found, and the status of the encoding operation otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSaveAdd",
+      "description": "This function adds an image to the save object with specified parameters.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image to be added."
+        },
+        {
+          "name": "params",
+          "type": "GDIPCONST EncoderParameters *",
+          "description": "Pointer to the encoder parameters for the image."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns Ok. Otherwise, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSaveAddImage",
+      "description": "This function is used to add an additional image to an existing image based on the provided encoder parameters. It checks for the validity of the parameters and the presence of an encoder in the main image. Depending on the encoder parameters, it either terminates the encoder or encodes a frame.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the main image to which an additional image will be added."
+        },
+        {
+          "name": "additional_image",
+          "type": "GpImage *",
+          "description": "Pointer to the additional image that will be added to the main image."
+        },
+        {
+          "name": "params",
+          "type": "GDIPCONST EncoderParameters *",
+          "description": "Pointer to the encoder parameters that determine how the additional image will be added to the main image."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return InvalidParameter if any of the parameters are null or if the encoder parameters are not recognized. It can return Win32Error if the main image does not have an encoder. It can also return the result of the terminate_encoder_wic or encode_frame_wic functions, depending on the encoder parameters."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImagePalette",
+      "description": "This function retrieves the color palette of an image, if it exists, and copies it into the provided palette structure. If the image does not have a palette, the function sets the Flags and Count fields of the palette structure to 0.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image from which to retrieve the color palette."
+        },
+        {
+          "name": "palette",
+          "type": "ColorPalette *",
+          "description": "Pointer to the palette structure into which to copy the image's color palette."
+        },
+        {
+          "name": "size",
+          "type": "INT",
+          "description": "The size of the palette structure. The function checks if this size is sufficient to hold the image's color palette."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if the image or palette pointers are null, 'InsufficientBuffer' if the size of the palette structure is not sufficient to hold the image's color palette, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetImagePalette",
+      "description": "This function sets the color palette of an image.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "This is a pointer to the image whose palette is to be set."
+        },
+        {
+          "name": "palette",
+          "type": "GDIPCONST ColorPalette *",
+          "description": "This is a pointer to the color palette to be set to the image."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if the image or palette is null or if the palette count is more than 256, 'OutOfMemory' if memory allocation fails, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImageDecodersSize",
+      "description": "This function counts the number of image decoders and calculates the total size of all decoders.",
+      "parameters": [
+        {
+          "name": "numDecoders",
+          "type": "UINT*",
+          "description": "Pointer to store the number of image decoders."
+        },
+        {
+          "name": "size",
+          "type": "UINT*",
+          "description": "Pointer to store the total size of all decoders."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either of the input pointers is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImageDecoders",
+      "description": "This function retrieves the decoders for the image codecs. It checks if the size of the decoders array matches the expected size, and if not, it returns an error. It then iterates through the codecs, copying the decoder information into the decoders array. If the number of decoders is less than the expected number, it returns an error.",
+      "parameters": [
+        {
+          "name": "numDecoders",
+          "type": "UINT",
+          "description": "The number of decoders to be retrieved"
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "The size of the decoders array"
+        },
+        {
+          "name": "decoders",
+          "type": "ImageCodecInfo *",
+          "description": "A pointer to an array of ImageCodecInfo structures that will receive the decoder information"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'GenericError' if an error occurs"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImageEncodersSize",
+      "description": "This function counts the number of image encoders and calculates the total size of all encoders.",
+      "parameters": [
+        {
+          "name": "numEncoders",
+          "type": "UINT*",
+          "description": "Pointer to an unsigned integer that receives the number of image encoders."
+        },
+        {
+          "name": "size",
+          "type": "UINT*",
+          "description": "Pointer to an unsigned integer that receives the total size of all image encoders."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either of the parameters is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImageEncoders",
+      "description": "This function retrieves the available image encoders in the system.",
+      "parameters": [
+        {
+          "name": "numEncoders",
+          "type": "UINT",
+          "description": "The number of encoders to retrieve."
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "The size of the encoders array."
+        },
+        {
+          "name": "encoders",
+          "type": "ImageCodecInfo *",
+          "description": "Pointer to an array of ImageCodecInfo structures that receives the encoder information."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'GenericError' if there is an error."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetEncoderParameterListSize",
+      "description": "This function is used to get the size of the encoder parameter list. However, it is not implemented yet.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image object"
+        },
+        {
+          "name": "clsidEncoder",
+          "type": "GDIPCONST CLSID*",
+          "description": "Pointer to the CLSID of the encoder"
+        },
+        {
+          "name": "size",
+          "type": "UINT *",
+          "description": "Pointer to store the size of the encoder parameter list"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns NotImplemented in this case"
+    }
+  },
+  {
+    "function": {
+      "name": "get_16bpp_format",
+      "description": "This function determines the pixel format of a given bitmap. It checks if the bitmap's red, green, and blue masks match certain values and returns the corresponding pixel format. If the masks do not match any known values, it logs an error and returns an undefined pixel format.",
+      "parameters": [
+        {
+          "name": "hbm",
+          "type": "HBITMAP",
+          "description": "This is a handle to the bitmap whose pixel format is to be determined."
+        }
+      ],
+      "return_type": "PixelFormat, which represents the pixel format of the input bitmap."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateBitmapFromHBITMAP",
+      "description": "This function creates a bitmap from a given HBITMAP, HPALETTE and a pointer to a GpBitmap object. It handles different pixel formats and performs various operations including locking bitmap bits, creating a compatible DC, getting DIBits, setting image palette, and disposing image if necessary.",
+      "parameters": [
+        {
+          "name": "hbm",
+          "type": "HBITMAP",
+          "description": "Handle to the bitmap."
+        },
+        {
+          "name": "hpal",
+          "type": "HPALETTE",
+          "description": "Handle to the logical palette."
+        },
+        {
+          "name": "bitmap",
+          "type": "GpBitmap**",
+          "description": "Pointer to a pointer to a GpBitmap object where the created bitmap will be stored."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can return 'InvalidParameter' if the parameters are not valid, 'OutOfMemory' if memory allocation fails, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "get_effect_parameter_size",
+      "description": "This function returns the size of the structure corresponding to the given effect type.",
+      "parameters": [
+        {
+          "name": "type",
+          "type": "EffectType",
+          "description": "This parameter represents the type of effect."
+        }
+      ],
+      "return_type": "UINT, represents the size of the structure corresponding to the given effect type. If the effect type is not recognized, the function returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateEffect",
+      "description": "This function creates an effect based on the provided GUID. The effect is then stored in the provided CGpEffect pointer. The function also checks if the GUID matches with any of the predefined effect GUIDs, and if it doesn't, it returns an error.",
+      "parameters": [
+        {
+          "name": "guid",
+          "type": "GUID",
+          "description": "This is the unique identifier for the effect to be created."
+        },
+        {
+          "name": "effect",
+          "type": "CGpEffect**",
+          "description": "This is a pointer to a pointer of CGpEffect. The created effect is stored in this parameter."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the function execution. It returns 'Ok' if the function executes successfully, 'InvalidParameter' if the effect parameter is null, and 'Win32Error' if the provided GUID does not match any predefined effect GUIDs."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipDeleteEffect",
+      "description": "This function deletes an effect by freeing the memory allocated to it.",
+      "parameters": [
+        {
+          "name": "effect",
+          "type": "CGpEffect *",
+          "description": "This is a pointer to the effect to be deleted."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. Returns 'InvalidParameter' if the effect is null, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetEffectParameterSize",
+      "description": "This function retrieves the size of an effect parameter in a GDI+ effect.",
+      "parameters": [
+        {
+          "name": "effect",
+          "type": "CGpEffect *",
+          "description": "A pointer to the effect whose parameter size is to be retrieved."
+        },
+        {
+          "name": "size",
+          "type": "UINT *",
+          "description": "A pointer to a variable that receives the size of the effect parameter."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It returns 'Ok' if the operation is successful, 'InvalidParameter' if the input parameters are null or if the size of the effect parameter is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetEffectParameters",
+      "description": "This function retrieves the parameters of a specified effect.",
+      "parameters": [
+        {
+          "name": "effect",
+          "type": "CGpEffect *",
+          "description": "Pointer to the effect whose parameters are to be retrieved."
+        },
+        {
+          "name": "size",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the size of the parameters."
+        },
+        {
+          "name": "params",
+          "type": "void *",
+          "description": "Pointer to a buffer that receives the parameters."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return Ok if the operation is successful, InvalidParameter if any of the parameters is NULL or if the size is less than the parameter size, or NotImplemented if the effect type is RedEyeCorrectionEffect."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetEffectParameters",
+      "description": "This function sets the parameters for a given effect. It checks if the effect and parameters are valid, if the effect type is RedEyeCorrectionEffect, and if the size of the parameters matches the expected size for the effect type. If all checks pass, it copies the parameters into the effect's data.",
+      "parameters": [
+        {
+          "name": "effect",
+          "type": "CGpEffect *",
+          "description": "Pointer to the effect to set parameters for"
+        },
+        {
+          "name": "params",
+          "type": "VOID *",
+          "description": "Pointer to the parameters to set"
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "Size of the parameters"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return InvalidParameter if the effect or parameters are null or if the size does not match, NotImplemented if the effect type is RedEyeCorrectionEffect, or Ok if the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImageFlags",
+      "description": "This function retrieves the flags associated with an image.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "This is a pointer to the image from which the flags are to be retrieved."
+        },
+        {
+          "name": "flags",
+          "type": "UINT *",
+          "description": "This is a pointer to a variable where the retrieved flags will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if any of the input parameters is NULL, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipTestControl",
+      "description": "This function tests controls based on the provided control enum and parameter. It handles different cases based on the control type and performs certain operations if the parameter is not null. For the 'TestControlGetBuildNumber' case, it assigns a specific value to the parameter.",
+      "parameters": [
+        {
+          "name": "control",
+          "type": "GpTestControlEnum",
+          "description": "This parameter determines the control type to be tested."
+        },
+        {
+          "name": "param",
+          "type": "void *",
+          "description": "This parameter is used for different purposes based on the control type. It can be assigned a value or checked if it's not null."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, in this case it always returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipImageForceValidation",
+      "description": "This function is used to force validation of an image object.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "This is a pointer to the image object that needs to be validated."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, in this case, it returns 'Ok' indicating successful validation."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetImageThumbnail",
+      "description": "This function generates a thumbnail of a given image. It first checks if the image and return image pointers are valid. If the width or height are not specified, it defaults them to 120. It then creates a bitmap from the scan0 of the specified width and height. If successful, it gets the graphics context of the return image and draws the image onto the graphics context. If any step fails, it disposes the return image and sets the pointer to NULL.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the source image"
+        },
+        {
+          "name": "width",
+          "type": "UINT",
+          "description": "Width of the thumbnail"
+        },
+        {
+          "name": "height",
+          "type": "UINT",
+          "description": "Height of the thumbnail"
+        },
+        {
+          "name": "ret_image",
+          "type": "GpImage **",
+          "description": "Pointer to the pointer of the return image"
+        },
+        {
+          "name": "cb",
+          "type": "GetThumbnailImageAbort",
+          "description": "Callback function"
+        },
+        {
+          "name": "cb_data",
+          "type": "VOID *",
+          "description": "Pointer to the callback data"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the function call. If successful, it returns 'Ok'. If not, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipImageRotateFlip",
+      "description": "This function rotates and/or flips an image according to the specified type.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image to be rotated/flipped."
+        },
+        {
+          "name": "type",
+          "type": "RotateFlipType",
+          "description": "Specifies the type of rotation and/or flip to apply."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if the image is null, 'ObjectBusy' if the image is locked, 'NotImplemented' if the image type is not Bitmap or if the bits per pixel is less than 8, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipImageSetAbort",
+      "description": "This function sets an abort flag for a given image. However, the abort callback is not currently supported.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image for which the abort flag is to be set."
+        },
+        {
+          "name": "pabort",
+          "type": "GdiplusAbort *",
+          "description": "Pointer to the abort flag. Currently not supported."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the image pointer is null, 'Ok' otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipBitmapConvertFormat",
+      "description": "This function is a stub and not yet implemented. It is intended to convert the format of a bitmap using specified parameters.",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "GpBitmap *",
+          "description": "Pointer to the bitmap to be converted"
+        },
+        {
+          "name": "format",
+          "type": "PixelFormat",
+          "description": "The format to which the bitmap should be converted"
+        },
+        {
+          "name": "dithertype",
+          "type": "DitherType",
+          "description": "The type of dithering to be used in the conversion"
+        },
+        {
+          "name": "palettetype",
+          "type": "PaletteType",
+          "description": "The type of palette to be used in the conversion"
+        },
+        {
+          "name": "palette",
+          "type": "ColorPalette *",
+          "description": "Pointer to the color palette to be used in the conversion"
+        },
+        {
+          "name": "alphathreshold",
+          "type": "REAL",
+          "description": "The alpha threshold to be used in the conversion"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. In this case, it always returns 'NotImplemented'"
+    }
+  },
+  {
+    "function": {
+      "name": "set_histogram_point_argb",
+      "description": "This function increments the values of four channels of a histogram at the positions determined by the ARGB color.",
+      "parameters": [
+        {
+          "name": "color",
+          "type": "ARGB",
+          "description": "The ARGB color value used to determine the positions in the histogram."
+        },
+        {
+          "name": "ch0",
+          "type": "UINT*",
+          "description": "Pointer to the first channel of the histogram."
+        },
+        {
+          "name": "ch1",
+          "type": "UINT*",
+          "description": "Pointer to the second channel of the histogram."
+        },
+        {
+          "name": "ch2",
+          "type": "UINT*",
+          "description": "Pointer to the third channel of the histogram."
+        },
+        {
+          "name": "ch3",
+          "type": "UINT*",
+          "description": "Pointer to the fourth channel of the histogram."
+        }
+      ],
+      "return_type": "void, as this function does not return any value but modifies the histogram directly."
+    }
+  },
+  {
+    "function": {
+      "name": "set_histogram_point_pargb",
+      "description": "This function increments the values of the histogram points for the given ARGB color.",
+      "parameters": [
+        {
+          "name": "color",
+          "type": "ARGB",
+          "description": "The ARGB color value."
+        },
+        {
+          "name": "ch0",
+          "type": "UINT*",
+          "description": "Pointer to the histogram for the alpha channel."
+        },
+        {
+          "name": "ch1",
+          "type": "UINT*",
+          "description": "Pointer to the histogram for the red channel."
+        },
+        {
+          "name": "ch2",
+          "type": "UINT*",
+          "description": "Pointer to the histogram for the green channel."
+        },
+        {
+          "name": "ch3",
+          "type": "UINT*",
+          "description": "Pointer to the histogram for the blue channel."
+        }
+      ],
+      "return_type": "void, as this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "set_histogram_point_rgb",
+      "description": "This function increments the values of the histogram points for the RGB channels of a given color.",
+      "parameters": [
+        {
+          "name": "color",
+          "type": "ARGB",
+          "description": "The color whose histogram points are to be set."
+        },
+        {
+          "name": "ch0",
+          "type": "UINT*",
+          "description": "Pointer to the first channel of the histogram."
+        },
+        {
+          "name": "ch1",
+          "type": "UINT*",
+          "description": "Pointer to the second channel of the histogram."
+        },
+        {
+          "name": "ch2",
+          "type": "UINT*",
+          "description": "Pointer to the third channel of the histogram."
+        },
+        {
+          "name": "ch3",
+          "type": "UINT*",
+          "description": "Pointer to the fourth channel of the histogram."
+        }
+      ],
+      "return_type": "void, as this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "set_histogram_point_gray",
+      "description": "This function calculates a grayscale value from an ARGB color and increments the corresponding histogram bin.",
+      "parameters": [
+        {
+          "name": "color",
+          "type": "ARGB",
+          "description": "The input color in ARGB format."
+        },
+        {
+          "name": "ch0",
+          "type": "UINT*",
+          "description": "Pointer to the histogram bin for the first channel."
+        },
+        {
+          "name": "ch1",
+          "type": "UINT*",
+          "description": "Pointer to the histogram bin for the second channel."
+        },
+        {
+          "name": "ch2",
+          "type": "UINT*",
+          "description": "Pointer to the histogram bin for the third channel."
+        },
+        {
+          "name": "ch3",
+          "type": "UINT*",
+          "description": "Pointer to the histogram bin for the fourth channel."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the histogram bins directly."
+    }
+  },
+  {
+    "function": {
+      "name": "set_histogram_point_b",
+      "description": "This function increments the value of the color index in the ch0 array",
+      "parameters": [
+        {
+          "name": "color",
+          "type": "ARGB",
+          "description": "The color index to be incremented in the ch0 array"
+        },
+        {
+          "name": "ch0",
+          "type": "UINT*",
+          "description": "Pointer to an array where the color histogram is stored"
+        },
+        {
+          "name": "ch1",
+          "type": "UINT*",
+          "description": "Unused parameter"
+        },
+        {
+          "name": "ch2",
+          "type": "UINT*",
+          "description": "Unused parameter"
+        },
+        {
+          "name": "ch3",
+          "type": "UINT*",
+          "description": "Unused parameter"
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "set_histogram_point_g",
+      "description": "This function increments the value at the index calculated by bitwise shifting and AND operation on the color parameter in the ch0 array.",
+      "parameters": [
+        {
+          "name": "color",
+          "type": "ARGB",
+          "description": "This parameter represents the color value which is used for bitwise operations."
+        },
+        {
+          "name": "ch0",
+          "type": "UINT*",
+          "description": "This is a pointer to an array where the increment operation is performed."
+        },
+        {
+          "name": "ch1",
+          "type": "UINT*",
+          "description": "This parameter is not used in the function."
+        },
+        {
+          "name": "ch2",
+          "type": "UINT*",
+          "description": "This parameter is not used in the function."
+        },
+        {
+          "name": "ch3",
+          "type": "UINT*",
+          "description": "This parameter is not used in the function."
+        }
+      ],
+      "return_type": "void, as this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "set_histogram_point_r",
+      "description": "This function increments the value at the index calculated by shifting the bits of the color to the right by 16 places and performing a bitwise AND operation with 0xff in the ch0 array.",
+      "parameters": [
+        {
+          "name": "color",
+          "type": "ARGB",
+          "description": "An ARGB color value used to calculate the index in the ch0 array."
+        },
+        {
+          "name": "ch0",
+          "type": "UINT *",
+          "description": "Pointer to an array where the value at the calculated index will be incremented."
+        },
+        {
+          "name": "ch1",
+          "type": "UINT *",
+          "description": "Unused parameter in this function."
+        },
+        {
+          "name": "ch2",
+          "type": "UINT *",
+          "description": "Unused parameter in this function."
+        },
+        {
+          "name": "ch3",
+          "type": "UINT *",
+          "description": "Unused parameter in this function."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "set_histogram_point_a",
+      "description": "This function increments the value at the index calculated from the most significant byte of the color in the ch0 array.",
+      "parameters": [
+        {
+          "name": "color",
+          "type": "ARGB",
+          "description": "An ARGB color value used to calculate the index in the ch0 array"
+        },
+        {
+          "name": "ch0",
+          "type": "UINT*",
+          "description": "Pointer to an array where the value at the calculated index is incremented"
+        },
+        {
+          "name": "ch1",
+          "type": "UINT*",
+          "description": "This parameter is not used in the function"
+        },
+        {
+          "name": "ch2",
+          "type": "UINT*",
+          "description": "This parameter is not used in the function"
+        },
+        {
+          "name": "ch3",
+          "type": "UINT*",
+          "description": "This parameter is not used in the function"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipBitmapGetHistogram",
+      "description": "This function generates a histogram of a bitmap image based on the specified format.",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "GpBitmap *",
+          "description": "Pointer to the bitmap image."
+        },
+        {
+          "name": "format",
+          "type": "HistogramFormat",
+          "description": "The format of the histogram to be generated."
+        },
+        {
+          "name": "num_of_entries",
+          "type": "UINT",
+          "description": "The number of entries in the histogram."
+        },
+        {
+          "name": "ch0",
+          "type": "UINT *",
+          "description": "Pointer to the first channel of the histogram."
+        },
+        {
+          "name": "ch1",
+          "type": "UINT *",
+          "description": "Pointer to the second channel of the histogram."
+        },
+        {
+          "name": "ch2",
+          "type": "UINT *",
+          "description": "Pointer to the third channel of the histogram."
+        },
+        {
+          "name": "ch3",
+          "type": "UINT *",
+          "description": "Pointer to the fourth channel of the histogram."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if parameters are incorrect."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipBitmapGetHistogramSize",
+      "description": "This function sets the number of entries in a histogram to 256 and checks if the pointer to the number of entries is not null.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "HistogramFormat",
+          "description": "This parameter represents the format of the histogram."
+        },
+        {
+          "name": "num_of_entries",
+          "type": "UINT *",
+          "description": "This is a pointer to the number of entries in the histogram. The function sets its value to 256."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if the num_of_entries pointer is null."
+    }
+  },
+  {
+    "function": {
+      "name": "create_optimal_palette",
+      "description": "This function creates an optimal color palette for a given bitmap. It locks the bitmap bits, creates an imaging factory, creates a palette, and initializes it from the bitmap. If any of these operations fail, it unlocks the bitmap bits and returns an error status.",
+      "parameters": [
+        {
+          "name": "palette",
+          "type": "ColorPalette *",
+          "description": "Pointer to the color palette to be created"
+        },
+        {
+          "name": "desired",
+          "type": "INT",
+          "description": "Desired number of colors in the palette"
+        },
+        {
+          "name": "transparent",
+          "type": "BOOL",
+          "description": "Indicates whether the palette should support transparency"
+        },
+        {
+          "name": "bitmap",
+          "type": "GpBitmap *",
+          "description": "Pointer to the bitmap for which the palette is to be created"
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the function execution. It can be 'Ok' for successful execution, 'InvalidParameter' if the bitmap is null, 'GenericError' if the palette's count is less than desired, or an error status converted from HRESULT if any operation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipInitializePalette",
+      "description": "This function initializes a palette with a specified type, desired color count, transparency option, and bitmap.",
+      "parameters": [
+        {
+          "name": "palette",
+          "type": "ColorPalette *",
+          "description": "Pointer to the palette to be initialized"
+        },
+        {
+          "name": "type",
+          "type": "PaletteType",
+          "description": "Type of the palette to be created"
+        },
+        {
+          "name": "desired",
+          "type": "INT",
+          "description": "Desired number of colors in the palette"
+        },
+        {
+          "name": "transparent",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether the palette should support transparency"
+        },
+        {
+          "name": "bitmap",
+          "type": "GpBitmap *",
+          "description": "Pointer to the bitmap to be used for palette initialization"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'Ok' if the operation is successful, 'InvalidParameter' if the input parameters are not valid, 'OutOfMemory' if the memory allocation fails, or 'GenericError' for other types of errors"
+    }
+  }
+]

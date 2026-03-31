@@ -1,0 +1,302 @@
+[
+  {
+    "function": {
+      "name": "impl_from_ILockBytes",
+      "description": "This function returns the containing record for the given interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ILockBytes *",
+          "description": "This is the interface from which the containing record is to be returned."
+        }
+      ],
+      "return_type": "FileLockBytesImpl * - a pointer to the containing record."
+    }
+  },
+  {
+    "function": {
+      "name": "GetProtectMode",
+      "description": "This function determines the protection mode based on the openFlags parameter. It uses the STGM_ACCESS_MODE macro to check the access mode of the openFlags. If the access mode is STGM_WRITE or STGM_READWRITE, it returns PAGE_READWRITE. Otherwise, it returns PAGE_READONLY.",
+      "parameters": [
+        {
+          "name": "openFlags",
+          "type": "DWORD",
+          "description": "This parameter represents the flags for opening a file or device. It is used to determine the protection mode."
+        }
+      ],
+      "return_type": "DWORD. It represents the protection mode. It can be either PAGE_READWRITE or PAGE_READONLY."
+    }
+  },
+  {
+    "function": {
+      "name": "FileLockBytesImpl_Construct",
+      "description": "This function constructs a FileLockBytesImpl object, sets its properties, and returns a pointer to its ILockBytes interface.",
+      "parameters": [
+        {
+          "name": "hFile",
+          "type": "HANDLE",
+          "description": "Handle to the file to be locked"
+        },
+        {
+          "name": "openFlags",
+          "type": "DWORD",
+          "description": "Flags that control the behavior of the function"
+        },
+        {
+          "name": "pwcsName",
+          "type": "LPCWSTR",
+          "description": "Pointer to a wide-character string that specifies the name of the file"
+        },
+        {
+          "name": "pLockBytes",
+          "type": "ILockBytes**",
+          "description": "Pointer to a pointer to an ILockBytes interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. It returns S_OK on success, E_FAIL if the file handle is invalid, and E_OUTOFMEMORY if the function fails to allocate memory."
+    }
+  },
+  {
+    "function": {
+      "name": "FileLockBytesImpl_QueryInterface",
+      "description": "This function checks if the provided interface ID matches either IID_IUnknown or IID_ILockBytes. If it does, it assigns the interface to the output parameter and increases its reference count. If it doesn't, it sets the output parameter to NULL and returns an error code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ILockBytes*",
+          "description": "An interface pointer that the function will attempt to query."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "The interface ID that the function will check against."
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "An output parameter that will either receive the interface pointer or NULL."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and E_NOINTERFACE if the interface ID does not match."
+    }
+  },
+  {
+    "function": {
+      "name": "FileLockBytesImpl_AddRef",
+      "description": "This function increments the reference count of the FileLockBytesImpl object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ILockBytes *",
+          "description": "Pointer to an ILockBytes interface."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after increment."
+    }
+  },
+  {
+    "function": {
+      "name": "FileLockBytesImpl_Release",
+      "description": "This function releases a file lock and frees up associated resources when the reference count drops to zero.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ILockBytes *",
+          "description": "Pointer to an ILockBytes interface that represents the file lock to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after the decrement operation."
+    }
+  },
+  {
+    "function": {
+      "name": "FileLockBytesImpl_ReadAt",
+      "description": "This function reads a specified number of bytes from a specified location in an ILockBytes object into memory, starting at the current seek pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ILockBytes*",
+          "description": "Pointer to the ILockBytes interface"
+        },
+        {
+          "name": "ulOffset",
+          "type": "ULARGE_INTEGER",
+          "description": "The offset at which to start reading"
+        },
+        {
+          "name": "pv",
+          "type": "void*",
+          "description": "Pointer to the buffer into which the data is read"
+        },
+        {
+          "name": "cb",
+          "type": "ULONG",
+          "description": "The number of bytes to read"
+        },
+        {
+          "name": "pcbRead",
+          "type": "ULONG*",
+          "description": "Pointer to location that contains actual number of bytes read"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if successful, STG_E_READFAULT if there was an error reading from the file, E_FAIL if the environment is not sane"
+    }
+  },
+  {
+    "function": {
+      "name": "FileLockBytesImpl_WriteAt",
+      "description": "This function writes a specified number of bytes at a specified offset into the underlying file or byte array from the provided buffer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ILockBytes*",
+          "description": "Pointer to the ILockBytes interface"
+        },
+        {
+          "name": "ulOffset",
+          "type": "ULARGE_INTEGER",
+          "description": "Offset at which to start writing"
+        },
+        {
+          "name": "pv",
+          "type": "void*",
+          "description": "Pointer to the buffer from which to write data"
+        },
+        {
+          "name": "cb",
+          "type": "ULONG",
+          "description": "Number of bytes to write"
+        },
+        {
+          "name": "pcbWritten",
+          "type": "ULONG*",
+          "description": "Pointer to a variable where the number of bytes written will be stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK on success, STG_E_ACCESSDENIED if the protection is not PAGE_READWRITE, STG_E_WRITEFAULT if the writing operation fails, and E_FAIL if the environment is not sane."
+    }
+  },
+  {
+    "function": {
+      "name": "FileLockBytesImpl_Flush",
+      "description": "This function returns S_OK indicating the operation was successful.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ILockBytes*",
+          "description": "Pointer to an ILockBytes interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the operation, S_OK if successful"
+    }
+  },
+  {
+    "function": {
+      "name": "FileLockBytesImpl_SetSize",
+      "description": "This function sets the size of a file in bytes.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ILockBytes*",
+          "description": "Interface used to access the file"
+        },
+        {
+          "name": "newSize",
+          "type": "ULARGE_INTEGER",
+          "description": "The new size for the file"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. S_OK indicates success."
+    }
+  },
+  {
+    "function": {
+      "name": "get_lock_error",
+      "description": "This function checks the last error occurred and returns a corresponding HRESULT error code.",
+      "parameters": [],
+      "return_type": "HRESULT, which represents the error code corresponding to the last error occurred"
+    }
+  },
+  {
+    "function": {
+      "name": "FileLockBytesImpl_LockRegion",
+      "description": "This function locks a specified region in a byte array object that supports the ILockBytes interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ILockBytes*",
+          "description": "Pointer to the ILockBytes interface"
+        },
+        {
+          "name": "libOffset",
+          "type": "ULARGE_INTEGER",
+          "description": "The offset at which to start the lock"
+        },
+        {
+          "name": "cb",
+          "type": "ULARGE_INTEGER",
+          "description": "The length of the region to lock"
+        },
+        {
+          "name": "dwLockType",
+          "type": "DWORD",
+          "description": "The type of lock to apply"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful, STG_E_INVALIDFUNCTION if the lock type is LOCK_WRITE, or the error code from get_lock_error() if the LockFileEx function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "FileLockBytesImpl_UnlockRegion",
+      "description": "This function unlocks a region in a file that was previously locked.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ILockBytes *",
+          "description": "Interface pointer to the locked bytes"
+        },
+        {
+          "name": "libOffset",
+          "type": "ULARGE_INTEGER",
+          "description": "Offset at which to start unlocking"
+        },
+        {
+          "name": "cb",
+          "type": "ULARGE_INTEGER",
+          "description": "Number of bytes to unlock"
+        },
+        {
+          "name": "dwLockType",
+          "type": "DWORD",
+          "description": "Type of lock to unlock"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful, STG_E_INVALIDFUNCTION if the lock type is invalid, or an error code if the operation failed"
+    }
+  },
+  {
+    "function": {
+      "name": "FileLockBytesImpl_Stat",
+      "description": "This function is used to retrieve the STATSTG structure for the ILockBytes interface. It also sets the name, type, size, and lock support fields of the STATSTG structure.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ILockBytes*",
+          "description": "Pointer to an ILockBytes interface"
+        },
+        {
+          "name": "pstatstg",
+          "type": "STATSTG*",
+          "description": "Pointer to a STATSTG structure"
+        },
+        {
+          "name": "grfStatFlag",
+          "type": "DWORD",
+          "description": "Flag that specifies whether the pwcsName member of the STATSTG structure is returned"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns S_OK if the function succeeds."
+    }
+  }
+]

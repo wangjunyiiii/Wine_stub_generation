@@ -1,0 +1,36 @@
+[
+  {
+    "function": {
+      "name": "system_tray_call",
+      "description": "This function handles different system tray calls based on the message received. It can notify icon, cleanup icons, initialize, insert, clear, or remove dock in the system tray.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window"
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The system message to be processed"
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "data",
+          "type": "void *",
+          "description": "A pointer to additional data"
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing. It can be 0, -1 or the result of a specific function call depending on the message."
+    }
+  }
+]

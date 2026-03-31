@@ -1,0 +1,226 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IWICBitmapClipper",
+      "description": "This function returns the BitmapClipper that contains the given IWICBitmapClipper interface",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapClipper*",
+          "description": "The IWICBitmapClipper interface contained within the BitmapClipper"
+        }
+      ],
+      "return_type": "BitmapClipper*, represents the BitmapClipper that contains the given IWICBitmapClipper interface"
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapClipper_QueryInterface",
+      "description": "This function checks if the provided interface supports the specified interface ID (IID). If it does, it returns a pointer to that interface; otherwise, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapClipper*",
+          "description": "Pointer to the IWICBitmapClipper interface."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "The identifier of the interface being queried."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "If the interface is supported, upon return, contains the address of the pointer to that interface; otherwise, null."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the interface is supported, E_NOINTERFACE if it's not, and E_INVALIDARG if the ppv parameter is null."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapClipper_AddRef",
+      "description": "This function increments the reference count of a BitmapClipper object and returns the updated count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapClipper*",
+          "description": "Pointer to the BitmapClipper object whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count of the BitmapClipper object."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapClipper_Release",
+      "description": "This function releases the BitmapClipper object and decreases its reference count. If the reference count reaches zero, it deletes the critical section, releases the bitmap source if it exists, and frees the memory allocated to the BitmapClipper object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapClipper*",
+          "description": "This is a pointer to the BitmapClipper interface."
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count after the release operation."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapClipper_GetSize",
+      "description": "This function retrieves the width and height of a bitmap clipper object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapClipper*",
+          "description": "Pointer to the bitmap clipper interface."
+        },
+        {
+          "name": "width",
+          "type": "UINT*",
+          "description": "Pointer to store the width of the bitmap clipper."
+        },
+        {
+          "name": "height",
+          "type": "UINT*",
+          "description": "Pointer to store the height of the bitmap clipper."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if successful, E_INVALIDARG if width or height is NULL, and WINCODEC_ERR_WRONGSTATE if the source of the bitmap clipper is not set."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapClipper_GetPixelFormat",
+      "description": "This function retrieves the pixel format of the bitmap source from a BitmapClipper object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapClipper*",
+          "description": "Pointer to an IWICBitmapClipper interface"
+        },
+        {
+          "name": "format",
+          "type": "WICPixelFormatGUID*",
+          "description": "Pointer to a WICPixelFormatGUID structure that receives the pixel format of the bitmap source"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns E_INVALIDARG if the format is null, WINCODEC_ERR_WRONGSTATE if the source is null, otherwise it returns the result of IWICBitmapSource_GetPixelFormat function call"
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapClipper_GetResolution",
+      "description": "This function retrieves the resolution of the bitmap clipper object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapClipper*",
+          "description": "Interface pointer to the bitmap clipper object."
+        },
+        {
+          "name": "dpiX",
+          "type": "double*",
+          "description": "Pointer to store the horizontal resolution."
+        },
+        {
+          "name": "dpiY",
+          "type": "double*",
+          "description": "Pointer to store the vertical resolution."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns E_INVALIDARG if dpiX or dpiY is NULL, WINCODEC_ERR_WRONGSTATE if the source is not available, otherwise it returns the result of IWICBitmapSource_GetResolution function."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapClipper_CopyPalette",
+      "description": "This function copies the color palette from the source bitmap to the provided palette object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapClipper *",
+          "description": "Interface pointer to the BitmapClipper object."
+        },
+        {
+          "name": "palette",
+          "type": "IWICPalette *",
+          "description": "Pointer to the palette object where the source bitmap's palette will be copied."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns E_INVALIDARG if the palette is null, WINCODEC_ERR_WRONGSTATE if the source is null, or the status of the IWICBitmapSource_CopyPalette function otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapClipper_CopyPixels",
+      "description": "This function copies pixels from a source bitmap into a buffer, applying a clipping rectangle and a stride.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapClipper*",
+          "description": "Pointer to the interface of the bitmap clipper."
+        },
+        {
+          "name": "rc",
+          "type": "WICRect*",
+          "description": "Pointer to the clipping rectangle."
+        },
+        {
+          "name": "stride",
+          "type": "UINT",
+          "description": "The stride, or pitch, of the bitmap. This is the number of bytes from one row of pixels in memory to the next row."
+        },
+        {
+          "name": "buffer_size",
+          "type": "UINT",
+          "description": "The size of the buffer that receives the pixels."
+        },
+        {
+          "name": "buffer",
+          "type": "BYTE*",
+          "description": "Pointer to the buffer that receives the pixels."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK on success, E_INVALIDARG if the clipping rectangle is out of the bitmap bounds, and WINCODEC_ERR_WRONGSTATE if the source is not set."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapClipper_Initialize",
+      "description": "This function initializes a BitmapClipper object. It sets the source and the rectangle of the BitmapClipper, and checks if the rectangle is within the bounds of the source. If the source is already set or the rectangle is out of bounds, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapClipper*",
+          "description": "Pointer to an IWICBitmapClipper interface"
+        },
+        {
+          "name": "source",
+          "type": "IWICBitmapSource*",
+          "description": "Pointer to an IWICBitmapSource interface that represents the source bitmap"
+        },
+        {
+          "name": "rc",
+          "type": "WICRect*",
+          "description": "Pointer to a WICRect structure that specifies the rectangle to clip"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. If the function succeeds, it returns S_OK. If the source is already set, it returns WINCODEC_ERR_WRONGSTATE. If the rectangle is out of bounds, it returns E_INVALIDARG."
+    }
+  },
+  {
+    "function": {
+      "name": "BitmapClipper_Create",
+      "description": "This function creates a BitmapClipper object, initializes its critical section, and assigns the address of its IWICBitmapClipper interface to the provided pointer.",
+      "parameters": [
+        {
+          "name": "clipper",
+          "type": "IWICBitmapClipper**",
+          "description": "A pointer to a pointer to an IWICBitmapClipper interface. The function assigns the address of the created BitmapClipper's IWICBitmapClipper interface to this pointer."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function call. It returns S_OK if the function succeeds, or E_OUTOFMEMORY if memory allocation fails."
+    }
+  }
+]

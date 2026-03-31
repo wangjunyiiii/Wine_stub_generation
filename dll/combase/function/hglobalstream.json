@@ -1,0 +1,440 @@
+[
+  {
+    "function": {
+      "name": "handle_addref",
+      "description": "This function increments the reference count of a handle_wrapper structure.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "struct handle_wrapper*",
+          "description": "This is a pointer to the handle_wrapper structure whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "handle_release",
+      "description": "This function decrements the reference count of the handle. If the reference count reaches zero, it frees the memory allocated for the handle and, if the 'delete_on_release' flag is set, it also frees the memory allocated for the 'hglobal' field of the handle.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "struct handle_wrapper*",
+          "description": "A pointer to the handle_wrapper structure which encapsulates the handle whose reference count is to be decremented."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "handle_create",
+      "description": "This function creates a new handle, allocates memory for it, sets its properties, and returns a pointer to it.",
+      "parameters": [
+        {
+          "name": "hglobal",
+          "type": "HGLOBAL",
+          "description": "A handle to a global memory object. If this parameter is NULL, the function allocates a new global memory object."
+        },
+        {
+          "name": "delete_on_release",
+          "type": "BOOL",
+          "description": "A flag indicating whether the global memory object should be automatically deleted when the handle is released."
+        }
+      ],
+      "return_type": "struct handle_wrapper*. It represents a pointer to the newly created handle. If the function fails to allocate memory for the handle or the global memory object, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IStream",
+      "description": "This function returns the containing record for the given interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Interface for which the containing record is to be returned."
+        }
+      ],
+      "return_type": "struct hglobal_stream*; Represents the containing record for the given interface."
+    }
+  },
+  {
+    "function": {
+      "name": "hglobalstream_construct",
+      "description": "This function allocates memory for a new hglobal_stream object, initializes its fields and returns a pointer to it.",
+      "parameters": [],
+      "return_type": "struct hglobal_stream pointer, representing the newly created hglobal_stream object"
+    }
+  },
+  {
+    "function": {
+      "name": "stream_QueryInterface",
+      "description": "This function checks if the provided interface supports the requested interface ID (IID). If it does, it increases the reference count of the interface and returns a pointer to it. If it doesn't, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Pointer to the interface that is being queried"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "The requested interface ID"
+        },
+        {
+          "name": "obj",
+          "type": "void**",
+          "description": "Pointer to the location where the pointer to the requested interface will be stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the interface supports the requested IID, E_NOINTERFACE if it doesn't, and E_INVALIDARG if the obj parameter is NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "stream_AddRef",
+      "description": "This function increments the reference count of the stream object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "This is a pointer to the IStream interface of the stream object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the stream object after incrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "stream_Release",
+      "description": "This function releases a stream and decrements the reference count. If the reference count is zero, it releases the handle and frees the stream.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "This is an interface pointer to the stream to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after the stream has been released."
+    }
+  },
+  {
+    "function": {
+      "name": "stream_Read",
+      "description": "This function reads data from a stream into a buffer, updates the stream's position, and returns the number of bytes read.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Pointer to the stream interface from which to read data."
+        },
+        {
+          "name": "pv",
+          "type": "void*",
+          "description": "Pointer to the buffer into which the data is read."
+        },
+        {
+          "name": "cb",
+          "type": "ULONG",
+          "description": "Number of bytes to read from the stream."
+        },
+        {
+          "name": "read_len",
+          "type": "ULONG*",
+          "description": "Pointer to a variable that receives the actual number of bytes read."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK indicates success."
+    }
+  },
+  {
+    "function": {
+      "name": "stream_Write",
+      "description": "This function writes data to a stream, and if necessary, increases the size of the stream. It also locks and unlocks the global handle of the stream.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Pointer to the IStream interface"
+        },
+        {
+          "name": "pv",
+          "type": "void*",
+          "description": "Pointer to the data to be written"
+        },
+        {
+          "name": "cb",
+          "type": "ULONG",
+          "description": "Number of bytes to be written"
+        },
+        {
+          "name": "written",
+          "type": "ULONG*",
+          "description": "Pointer to a variable that receives the actual number of bytes written"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful, error code otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "stream_Seek",
+      "description": "This function seeks to a new position in the stream based on the move and origin parameters, and updates the position.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Pointer to the IStream interface"
+        },
+        {
+          "name": "move",
+          "type": "LARGE_INTEGER",
+          "description": "The offset to move the pointer in the stream"
+        },
+        {
+          "name": "origin",
+          "type": "DWORD",
+          "description": "The origin from where to move the pointer. It can be the start, current position or end of the stream"
+        },
+        {
+          "name": "pos",
+          "type": "ULARGE_INTEGER*",
+          "description": "Pointer to a variable that receives the new position in the stream"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if successful, otherwise it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "stream_SetSize",
+      "description": "This function resizes a stream to a specified size. If the stream is already of the specified size, it does nothing. If the stream cannot be resized due to lack of memory, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "This is the stream interface that is to be resized."
+        },
+        {
+          "name": "size",
+          "type": "ULARGE_INTEGER",
+          "description": "This is the new size for the stream."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and E_OUTOFMEMORY if the operation fails due to lack of memory."
+    }
+  },
+  {
+    "function": {
+      "name": "stream_CopyTo",
+      "description": "This function copies data from one stream to another. It reads data from the source stream, writes it to the destination stream, and keeps track of the total amount of data read and written.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream *",
+          "description": "The source stream from which data is read."
+        },
+        {
+          "name": "dest",
+          "type": "IStream *",
+          "description": "The destination stream to which data is written."
+        },
+        {
+          "name": "cb",
+          "type": "ULARGE_INTEGER",
+          "description": "The amount of data to copy from the source stream to the destination stream."
+        },
+        {
+          "name": "read_len",
+          "type": "ULARGE_INTEGER *",
+          "description": "A pointer to a variable that receives the total amount of data read from the source stream."
+        },
+        {
+          "name": "written",
+          "type": "ULARGE_INTEGER *",
+          "description": "A pointer to a variable that receives the total amount of data written to the destination stream."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If the function fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "stream_Commit",
+      "description": "This function commits changes to a stream object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "This is an interface pointer to a stream object."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "This parameter specifies the flags for committing changes."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. In this case, it always returns S_OK indicating a successful operation."
+    }
+  },
+  {
+    "function": {
+      "name": "stream_Revert",
+      "description": "This function reverts a stream to its initial state.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "This is the interface of the stream to be reverted."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status code of the operation. S_OK indicates success."
+    }
+  },
+  {
+    "function": {
+      "name": "stream_LockRegion",
+      "description": "This function attempts to lock a region in a stream, but always returns an error indicating the function is not valid.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Pointer to the IStream interface"
+        },
+        {
+          "name": "offset",
+          "type": "ULARGE_INTEGER",
+          "description": "Specifies the byte offset for the beginning of the range"
+        },
+        {
+          "name": "len",
+          "type": "ULARGE_INTEGER",
+          "description": "Specifies, in bytes, the length of the range to be locked"
+        },
+        {
+          "name": "lock_type",
+          "type": "DWORD",
+          "description": "Specifies the restrictions on accessing the specified range"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function. Always returns STG_E_INVALIDFUNCTION indicating the function is not valid"
+    }
+  },
+  {
+    "function": {
+      "name": "stream_UnlockRegion",
+      "description": "This function unlocks a region in a stream.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Pointer to the stream interface"
+        },
+        {
+          "name": "offset",
+          "type": "ULARGE_INTEGER",
+          "description": "The offset at which to start unlocking"
+        },
+        {
+          "name": "len",
+          "type": "ULARGE_INTEGER",
+          "description": "The length of the region to unlock"
+        },
+        {
+          "name": "lock_type",
+          "type": "DWORD",
+          "description": "The type of lock to unlock"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK if the operation was successful"
+    }
+  },
+  {
+    "function": {
+      "name": "stream_Stat",
+      "description": "This function initializes a STATSTG structure with stream data, sets the type to STGTY_STREAM and the size to the size of the stream handle.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream*",
+          "description": "Pointer to an IStream interface"
+        },
+        {
+          "name": "pstatstg",
+          "type": "STATSTG*",
+          "description": "Pointer to a STATSTG structure to be filled with stream data"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags to control the stat operation"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK if successful"
+    }
+  },
+  {
+    "function": {
+      "name": "stream_Clone",
+      "description": "This function clones a stream and sets the position of the cloned stream to the same position as the original stream.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IStream *",
+          "description": "Pointer to the original stream to be cloned."
+        },
+        {
+          "name": "ppstm",
+          "type": "IStream **",
+          "description": "Pointer to a pointer, which will point to the cloned stream after the function is executed."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. Returns S_OK if the operation is successful, or E_OUTOFMEMORY if there is not enough memory to create the clone."
+    }
+  },
+  {
+    "function": {
+      "name": "CreateStreamOnHGlobal",
+      "description": "This function creates a stream object that uses an HGLOBAL memory handle to store the stream.",
+      "parameters": [
+        {
+          "name": "hGlobal",
+          "type": "HGLOBAL",
+          "description": "Handle to a global memory object. This is the memory block that the stream object will use."
+        },
+        {
+          "name": "delete_on_release",
+          "type": "BOOL",
+          "description": "If TRUE, the function frees the hGlobal parameter when the IStream object is released."
+        },
+        {
+          "name": "stream",
+          "type": "IStream**",
+          "description": "Pointer to an IStream interface pointer. This parameter cannot be NULL. Receives the interface pointer to the new stream object."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "GetHGlobalFromStream",
+      "description": "This function retrieves a global memory handle from a stream object.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "This is the input stream from which the global memory handle is retrieved."
+        },
+        {
+          "name": "phglobal",
+          "type": "HGLOBAL*",
+          "description": "This is a pointer to the global memory handle that is retrieved from the stream."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK on success, E_INVALIDARG if either of the input parameters is NULL, or if the stream does not have a valid hglobalstreamvtbl."
+    }
+  }
+]

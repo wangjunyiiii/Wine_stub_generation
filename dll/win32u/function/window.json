@@ -1,0 +1,3769 @@
+[
+  {
+    "function": {
+      "name": "alloc_user_handle",
+      "description": "This function allocates a user handle, sets its type, and associates it with a pointer. If the handle is successfully allocated, it is stored in the client_objects array at the index derived from the handle.",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "void *",
+          "description": "This is the pointer that will be associated with the allocated user handle."
+        },
+        {
+          "name": "type",
+          "type": "unsigned short",
+          "description": "This is the type that will be set for the allocated user handle."
+        }
+      ],
+      "return_type": "HANDLE, which represents the allocated user handle. If the handle allocation fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "is_valid_entry_uniq",
+      "description": "This function checks if a given entry is valid and unique based on the provided handle, type, and unique identifier.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HANDLE",
+          "description": "This is used to identify a particular object or instance."
+        },
+        {
+          "name": "type",
+          "type": "unsigned short",
+          "description": "This represents the type of the entry."
+        },
+        {
+          "name": "uniq",
+          "type": "UINT64",
+          "description": "This is a unique identifier for the entry."
+        }
+      ],
+      "return_type": "BOOL, represents whether the entry is valid and unique or not."
+    }
+  },
+  {
+    "function": {
+      "name": "is_valid_entry",
+      "description": "This function checks if a user entry is valid based on the provided handle and type.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HANDLE",
+          "description": "This is a handle to the user entry that needs to be validated."
+        },
+        {
+          "name": "type",
+          "type": "unsigned short",
+          "description": "This is the type of the user entry that needs to be validated."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the user entry is valid and FALSE indicates that it is not."
+    }
+  },
+  {
+    "function": {
+      "name": "read_acquire_user_entry",
+      "description": "This function reads and acquires a user entry from a source and copies it to a destination. It also checks the validity of the entry's unique identifier.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HANDLE",
+          "description": "Handle to the user entry"
+        },
+        {
+          "name": "type",
+          "type": "unsigned short",
+          "description": "Type of the user entry"
+        },
+        {
+          "name": "src",
+          "type": "struct user_entry *",
+          "description": "Source from where the user entry is to be read and acquired"
+        },
+        {
+          "name": "dst",
+          "type": "struct user_entry *",
+          "description": "Destination where the user entry is to be copied"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the unique identifier of the destination matches the source, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "get_user_entry",
+      "description": "This function retrieves a user entry from a shared session based on the provided handle and type. It also sets the full handle based on the index and generation of the user entry.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HANDLE",
+          "description": "Handle to the user entry to be retrieved"
+        },
+        {
+          "name": "type",
+          "type": "unsigned short",
+          "description": "Type of the user entry to be retrieved"
+        },
+        {
+          "name": "entry",
+          "type": "struct user_entry *",
+          "description": "Pointer to a user_entry struct where the retrieved entry will be stored"
+        },
+        {
+          "name": "full",
+          "type": "HANDLE *",
+          "description": "Pointer to a HANDLE where the full handle will be stored"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the user entry was successfully retrieved and FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "get_user_entry_at",
+      "description": "This function retrieves a user entry at a specified index, checks the validity of the index, reads the user entry, and assigns a handle to the 'full' parameter.",
+      "parameters": [
+        {
+          "name": "index",
+          "type": "WORD",
+          "description": "The index at which the user entry is to be retrieved"
+        },
+        {
+          "name": "type",
+          "type": "unsigned short",
+          "description": "The type of the user entry"
+        },
+        {
+          "name": "entry",
+          "type": "struct user_entry*",
+          "description": "A pointer to the user entry structure where the retrieved entry will be stored"
+        },
+        {
+          "name": "full",
+          "type": "HANDLE*",
+          "description": "A pointer to a HANDLE where the handle from the index and generation of the entry will be stored"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the user entry is successfully retrieved and FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "get_shared_window",
+      "description": "This function retrieves a shared window object. If the lock id is not set, it finds the shared session object. If the object is not found or the lock id is set but the shared object release sequence lock fails, it acquires a sequence lock on the shared object and sets the window shared memory pointer to the window shared memory of the object and the lock id to the object id. If the user entry cannot be retrieved, it returns an invalid handle status. If all operations are successful, it returns a success status.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HANDLE",
+          "description": "Handle to the user object"
+        },
+        {
+          "name": "lock",
+          "type": "struct object_lock *",
+          "description": "Pointer to the object lock structure"
+        },
+        {
+          "name": "window_shm",
+          "type": "window_shm_t **",
+          "description": "Pointer to the pointer of the window shared memory structure"
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. It can be STATUS_INVALID_HANDLE if the user entry cannot be retrieved or the shared session object is not found, STATUS_PENDING if the sequence lock is acquired, or STATUS_SUCCESS if all operations are successful."
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_class_locator",
+      "description": "This function retrieves the class locator of a window by its handle. It initializes an object lock, gets the shared window, and assigns the class locator to the locator variable. If the status is not successful, it resets the locator.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window for which the class locator is to be retrieved."
+        }
+      ],
+      "return_type": "struct obj_locator, which represents the class locator of the window."
+    }
+  },
+  {
+    "function": {
+      "name": "get_user_handle_ptr",
+      "description": "This function retrieves a pointer to a user handle. It checks if the handle is valid and if it belongs to the current process. If the handle is invalid or belongs to another process, it returns NULL or a pointer to an object in another process respectively.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HANDLE",
+          "description": "The handle to the user object."
+        },
+        {
+          "name": "type",
+          "type": "unsigned short",
+          "description": "The type of the user object."
+        }
+      ],
+      "return_type": "void pointer. It represents a pointer to the user object if the handle is valid and belongs to the current process, NULL if the handle is invalid, or a pointer to an object in another process if the handle belongs to another process."
+    }
+  },
+  {
+    "function": {
+      "name": "next_thread_user_object",
+      "description": "This function iterates over user entries starting from a given index. It checks each entry for a specific type and whether it belongs to the current process and thread. If such an entry is found, it returns the corresponding client object. If no such entry is found, it returns NULL.",
+      "parameters": [
+        {
+          "name": "tid",
+          "type": "UINT",
+          "description": "Thread identifier to match in the user entries."
+        },
+        {
+          "name": "handle",
+          "type": "HANDLE*",
+          "description": "Pointer to a handle. The function starts searching from the user entry corresponding to this handle."
+        },
+        {
+          "name": "type",
+          "type": "unsigned short",
+          "description": "Type of user entry to match."
+        }
+      ],
+      "return_type": "void*: Returns a pointer to the client object corresponding to the first matching user entry. If no matching entry is found, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "set_user_handle_ptr",
+      "description": "This function sets a user handle pointer to a specified value.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HANDLE",
+          "description": "This is the user handle that needs to be set."
+        },
+        {
+          "name": "ptr",
+          "type": "void *",
+          "description": "This is the pointer value to which the user handle needs to be set."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "release_user_handle_ptr",
+      "description": "This function releases a user handle pointer after making sure it is not null and not pointing to another process object. It also unlocks the user.",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "void*",
+          "description": "This is a pointer to the user handle that needs to be released."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "free_user_handle",
+      "description": "This function is used to free a user handle. It first gets the user handle pointer. If the pointer is valid and not pointing to another process, it starts a server request to free the user handle. If the server call is successful, it sets the client object at the index derived from the handle to NULL.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HANDLE",
+          "description": "This is the user handle that needs to be freed."
+        },
+        {
+          "name": "type",
+          "type": "unsigned short",
+          "description": "This represents the type of the user handle."
+        }
+      ],
+      "return_type": "void pointer. It represents the pointer to the user handle. If the server call to free the handle is successful, it returns NULL, otherwise, it returns the original pointer."
+    }
+  },
+  {
+    "function": {
+      "name": "detach_client_surfaces",
+      "description": "This function detaches client surfaces from a given window handle, locks the surfaces for thread safety, removes the surfaces from the client_surfaces list and adds them to a detached list, then releases the surfaces.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window from which the client surfaces are to be detached."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "update_client_surfaces",
+      "description": "This function updates the client surfaces associated with a given window handle. It locks the surfaces list, iterates over it, and if the surface's window handle matches the provided one, it updates the surface and sets its 'updated' flag to 1. After the update, it unlocks the surfaces list.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window whose associated client surfaces need to be updated."
+        }
+      ],
+      "return_type": "void, meaning this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "client_surface_create",
+      "description": "This function creates a new client surface, initializes it, and adds it to the client surfaces list.",
+      "parameters": [
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "The size of the client surface to be created"
+        },
+        {
+          "name": "funcs",
+          "type": "const struct client_surface_funcs *",
+          "description": "Pointer to the client surface functions"
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window where the client surface is to be created"
+        }
+      ],
+      "return_type": "void *: Returns a pointer to the created client surface. Returns NULL if the surface could not be created."
+    }
+  },
+  {
+    "function": {
+      "name": "client_surface_add_ref",
+      "description": "This function increments the reference count of a client surface.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct client_surface *",
+          "description": "This is a pointer to the client surface whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "client_surface_release",
+      "description": "This function decreases the reference count of the client surface. If the reference count reaches zero, it locks the surfaces, detaches the surface if it has a window handle, removes the surface from the list, unlocks the surfaces, destroys the surface and finally frees the memory allocated to the surface.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct client_surface *",
+          "description": "This parameter is a pointer to the client surface that needs to be released."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "client_surface_present",
+      "description": "This function locks the surfaces, checks if the surface has a window handle, and if it does, it gets the device context if the surface is offscreen. It then calls the present function of the surface with the surface and device context as parameters. If a device context was obtained, it releases it. Finally, it unlocks the surfaces.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct client_surface *",
+          "description": "This is a pointer to the client surface structure that is to be presented."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "is_client_surface_window",
+      "description": "This function checks if the given window handle (HWND) matches the window handle stored in the client_surface structure. It returns TRUE if they match, FALSE otherwise. It also handles thread safety with the use of pthread_mutex_lock and pthread_mutex_unlock.",
+      "parameters": [
+        {
+          "name": "surface",
+          "type": "struct client_surface *",
+          "description": "Pointer to the client_surface structure which contains the window handle to be compared."
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "The window handle to be compared with the one stored in the client_surface structure."
+        }
+      ],
+      "return_type": "BOOL, represents whether the window handle provided matches the one in the client_surface structure or not."
+    }
+  },
+  {
+    "function": {
+      "name": "get_hwnd_message_parent",
+      "description": "This function retrieves the parent window of the current message. If the message window does not exist, it triggers the creation of the desktop window. It then returns the handle to the message window.",
+      "parameters": [],
+      "return_type": "HWND, which represents a handle to the parent window of the current message"
+    }
+  },
+  {
+    "function": {
+      "name": "get_full_window_handle",
+      "description": "This function retrieves the full window handle for a given window handle. It performs various checks and transformations on the input handle, and may return the input handle itself or a handle obtained from the get_user_entry function.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is the handle to the window for which the full handle is to be retrieved."
+        }
+      ],
+      "return_type": "HWND, which represents the full window handle for the given window handle."
+    }
+  },
+  {
+    "function": {
+      "name": "is_desktop_window",
+      "description": "This function checks if the provided window handle corresponds to the top window or the message window of the current thread.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window that needs to be checked."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the provided window handle corresponds to either the top window or the message window of the current thread, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_win_ptr",
+      "description": "This function retrieves a pointer to a window object based on the provided window handle. If the window belongs to another process, it checks if it's a desktop window and adjusts the pointer accordingly.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window for which the pointer is to be retrieved."
+        }
+      ],
+      "return_type": "WND pointer, which represents the pointer to the window object."
+    }
+  },
+  {
+    "function": {
+      "name": "is_current_thread_window",
+      "description": "This function checks if the current thread is associated with the given window handle.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window to be checked."
+        }
+      ],
+      "return_type": "HWND, represents the handle to the window if the current thread is associated with the window, otherwise returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "is_current_process_window",
+      "description": "This function checks if the given window handle belongs to the current process.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window that needs to be checked."
+        }
+      ],
+      "return_type": "HWND, which is a handle to the window if it belongs to the current process, otherwise it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "is_window",
+      "description": "This function checks if the provided window handle is valid.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is the handle to the window that needs to be checked."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the window handle is valid, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_thread",
+      "description": "This function retrieves the thread identifier and process identifier for the window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "process",
+          "type": "DWORD*",
+          "description": "A pointer to a variable that receives the process identifier. If this parameter is not NULL, get_window_thread copies the identifier of the process to the variable; otherwise, it does not."
+        }
+      ],
+      "return_type": "DWORD, represents the identifier of the thread that created the window. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "get_parent",
+      "description": "This function retrieves the parent window of the given window handle. If the window is a top-level window, the function retrieves the owner of the window. If the window is a child window, the function searches for the parent window. The function also handles error conditions and returns 0 if the window handle is invalid or if the window is a desktop window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window whose parent or owner is to be retrieved."
+        }
+      ],
+      "return_type": "HWND. This is a handle to the parent or owner window. If the window does not have a parent or owner, or if the function fails, the return value is 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetParent",
+      "description": "This function sets a new parent for a given window. It also handles various error conditions, such as invalid parameters or window handles, and adjusts the window's position and visibility accordingly.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose parent is to be changed."
+        },
+        {
+          "name": "parent",
+          "type": "HWND",
+          "description": "Handle to the new parent window."
+        }
+      ],
+      "return_type": "HWND. Returns the handle to the old parent window if the function succeeds. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_relative",
+      "description": "This function retrieves a handle to a window that has the specified relationship (Z-Order or owner) to the specified window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to a window. The window handle retrieved is relative to this window, based on the value of the rel parameter."
+        },
+        {
+          "name": "rel",
+          "type": "UINT",
+          "description": "The relationship between the specified window and the window whose handle is to be retrieved. This parameter can be one of the following values: GW_HWNDFIRST, GW_HWNDLAST, GW_HWNDNEXT, GW_HWNDPREV, GW_OWNER, GW_CHILD."
+        }
+      ],
+      "return_type": "HWND. If the function succeeds, the return value is a window handle. If no window exists with the specified relationship to the specified window, the return value is NULL. To get extended error information, call GetLastError."
+    }
+  },
+  {
+    "function": {
+      "name": "list_window_parents",
+      "description": "This function lists the parents of a given window. It first tries to do this locally, but if a parent belongs to another process, it queries the server. The function dynamically allocates and grows a list to store the parent windows.",
+      "parameters": [],
+      "return_type": "HWND pointer. It represents a pointer to a list of parent windows. If the function fails, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "list_window_children",
+      "description": "This function lists all the child windows of a given window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the parent window."
+        }
+      ],
+      "return_type": "Returns a pointer to an array of HWNDs representing the child windows. If the function fails, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetAncestor",
+      "description": "This function retrieves the ancestor of the specified window based on the specified type.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window whose ancestor is to be retrieved."
+        },
+        {
+          "name": "type",
+          "type": "UINT",
+          "description": "The ancestor type. This parameter can be one of the following values: GA_PARENT, GA_ROOT, GA_ROOTOWNER."
+        }
+      ],
+      "return_type": "HWND. It represents the handle to the ancestor window if the function succeeds. Otherwise, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "is_child",
+      "description": "This function checks if a given window (child) is a child of another window (parent). It retrieves the style of the child window and checks if it has the WS_CHILD style. It then gets a list of the child window's parents and checks if any of them are the parent window. If it finds a match, it checks if the parent window and the next window in the list are not NULL, and if so, sets the return value to TRUE. If it doesn't find a match or if a window in the list does not have the WS_CHILD style, it breaks the loop and returns the result.",
+      "parameters": [
+        {
+          "name": "parent",
+          "type": "HWND",
+          "description": "Handle to the parent window."
+        },
+        {
+          "name": "child",
+          "type": "HWND",
+          "description": "Handle to the child window."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the window is a child of the parent window, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "is_window_visible",
+      "description": "This function checks if a window is visible by examining its style and its parent windows' styles.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window to be checked."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the window is visible, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "is_window_drawable",
+      "description": "This function checks if a window is drawable based on its style, visibility, minimization status, and icon. It also checks if the window's parents are visible and not minimized.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window to check."
+        },
+        {
+          "name": "icon",
+          "type": "BOOL",
+          "description": "A boolean value that indicates whether the window has an icon."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the window is drawable, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "is_window_unicode",
+      "description": "This function checks if a window is Unicode or not.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window to be checked."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the window is Unicode, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserEnableWindow",
+      "description": "This function enables or disables a window based on the 'enable' parameter. If the window is being enabled, it sets the window style bits, sends a message to the window, and notifies the window event. If the window is being disabled, it sends a cancel mode message to the window, sets the window style bits, checks if the window is in focus and if so, removes the focus, and sends a message to the window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be enabled or disabled."
+        },
+        {
+          "name": "enable",
+          "type": "BOOL",
+          "description": "Boolean value that determines whether to enable or disable the window. TRUE to enable the window, FALSE to disable it."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not. Returns FALSE if the operation fails, otherwise returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "is_hung_app_window",
+      "description": "This function checks if a given application window is not responding.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window to be checked."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the window is not responding, otherwise FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "is_window_enabled",
+      "description": "This function checks if a window is enabled by getting the window style and checking if the WS_DISABLED bit is not set.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window to check."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the window is enabled, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_dpi_awareness_context",
+      "description": "This function retrieves the DPI awareness context of a specified window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window whose DPI awareness context is to be retrieved."
+        }
+      ],
+      "return_type": "UINT, represents the DPI awareness context of the window. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "get_dpi_for_window",
+      "description": "This function retrieves the DPI (dots per inch) for a specific window. It first gets the DPI awareness context for the window. If the context is monitor aware, it retrieves the DPI from the window's monitor. Otherwise, it gets the DPI from the context.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window for which the DPI is to be retrieved."
+        }
+      ],
+      "return_type": "UINT, which represents the DPI for the specified window."
+    }
+  },
+  {
+    "function": {
+      "name": "get_last_active_popup",
+      "description": "This function retrieves the last active popup window associated with the specified window handle.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window."
+        }
+      ],
+      "return_type": "HWND, which represents the handle to the last active popup window."
+    }
+  },
+  {
+    "function": {
+      "name": "get_win_data",
+      "description": "This function retrieves data from a given memory location and returns it as a LONG_PTR. The type of data retrieved depends on the size parameter, it can be a WORD, DWORD or LONG_PTR.",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "void *",
+          "description": "This is a pointer to the memory location from where the data is to be retrieved."
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "This parameter determines the type of data to be retrieved. It should be the size of either a WORD, DWORD or LONG_PTR."
+        }
+      ],
+      "return_type": "LONG_PTR, which represents the data retrieved from the memory location pointed to by ptr."
+    }
+  },
+  {
+    "function": {
+      "name": "set_win_data",
+      "description": "This function sets the value of a given pointer based on the size provided. It uses memcpy to copy the value into the pointer. The size determines the type of the value to be copied.",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "void*",
+          "description": "This is the pointer to which the value will be copied."
+        },
+        {
+          "name": "val",
+          "type": "LONG_PTR",
+          "description": "This is the value that will be copied to the pointer."
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "This determines the type of the value to be copied. It can be the size of a WORD or DWORD, or any other size."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "is_iconic",
+      "description": "This function checks if a window is minimized (iconic).",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This parameter is a handle to the window."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the window is minimized, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "is_zoomed",
+      "description": "This function checks if a window is maximized or not.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This parameter is a handle to the window."
+        }
+      ],
+      "return_type": "BOOL, returns true if the window is maximized, false otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_long_size",
+      "description": "This function retrieves information about a window, given its handle, offset, size, and ANSI flag. The information retrieved depends on the offset value provided.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window for which information is to be retrieved."
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "Specifies the zero-based offset to the value to be retrieved."
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "Specifies the size of the value to be retrieved."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "A flag that indicates whether the function should retrieve ANSI or Unicode window information."
+        }
+      ],
+      "return_type": "LONG_PTR, represents the requested value if the function succeeds. Otherwise, it returns zero."
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_long",
+      "description": "This function retrieves information about the specified window. The function also retrieves the 32-bit (long) value at the specified offset into the extra window memory.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window and context for the function"
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "The zero-based offset to the value to be retrieved. Valid values are in the range zero through the number of bytes of extra window memory, minus four; for example, if you specified 12 or more bytes of extra memory, a value of 8 would be an index to the third 32-bit integer."
+        }
+      ],
+      "return_type": "DWORD, represents the 32-bit value at the specified offset."
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_long_ptr",
+      "description": "This function retrieves information about the specified window. The function also retrieves the 32-bit (long) value at the specified offset into the extra window memory.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window and, indirectly, the class to which the window belongs."
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "The zero-based offset to the value to be retrieved. Valid values are in the range zero through the number of bytes of extra window memory, minus four; for example, if you specified 12 or more bytes of extra memory, a value of 8 would be an index to the third 32-bit integer."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "A flag indicating whether the function should operate in ANSI or Unicode mode. If this parameter is TRUE, the function operates in ANSI mode."
+        }
+      ],
+      "return_type": "ULONG_PTR and it represents the requested 32-bit value from the specified window's extra memory."
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_word",
+      "description": "This function retrieves the word at the specified offset in the extra window memory of the given window. If the offset is invalid, it sets the last error to ERROR_INVALID_INDEX and returns 0.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose extra window memory is to be retrieved."
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "Specifies the zero-based offset to the value to be retrieved. Valid values are in the range zero through the number of bytes of extra window memory, minus the size of a WORD."
+        }
+      ],
+      "return_type": "WORD. It represents the word at the specified offset in the extra window memory. If the offset is invalid, the function returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "set_window_style_bits",
+      "description": "This function modifies the style of a window by setting and clearing specific style bits. It also handles visibility changes and updates the window state if necessary.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window whose style is to be modified."
+        },
+        {
+          "name": "set_bits",
+          "type": "UINT",
+          "description": "The style bits to be set (turned on) for the window."
+        },
+        {
+          "name": "clear_bits",
+          "type": "UINT",
+          "description": "The style bits to be cleared (turned off) for the window."
+        }
+      ],
+      "return_type": "UINT, represents the old style of the window before the modification. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserAlterWindowStyle",
+      "description": "This function alters the style of a window based on the provided mask and style parameters.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose style is to be altered."
+        },
+        {
+          "name": "mask",
+          "type": "UINT",
+          "description": "An unsigned integer representing the mask for the window style."
+        },
+        {
+          "name": "style",
+          "type": "UINT",
+          "description": "An unsigned integer representing the new style for the window."
+        }
+      ],
+      "return_type": "ULONG, represents the result of setting the window style bits. Returns non-zero if the operation was successful, zero otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "fix_exstyle",
+      "description": "This function modifies the extended style of a window based on its current style and extended style.",
+      "parameters": [
+        {
+          "name": "style",
+          "type": "DWORD",
+          "description": "The current style of the window."
+        },
+        {
+          "name": "exstyle",
+          "type": "DWORD",
+          "description": "The current extended style of the window."
+        }
+      ],
+      "return_type": "DWORD representing the modified extended style of the window."
+    }
+  },
+  {
+    "function": {
+      "name": "set_window_owner",
+      "description": "This function sets the owner of a window. It first checks if the window exists and is not a desktop or another process window. If it is valid, it sends a request to the server to set the window owner. After the server call, it releases the window pointer and returns the previous owner of the window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose owner is to be set."
+        },
+        {
+          "name": "owner",
+          "type": "HWND",
+          "description": "Handle to the window that is to be set as the owner."
+        }
+      ],
+      "return_type": "HWND, represents the handle to the previous owner of the window. If the window is invalid, desktop, or belongs to another process, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "set_window_long",
+      "description": "This function is used to change an attribute of the specified window. The function also sets a value at the specified offset in the extra window memory.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window and, indirectly, the class to which the window belongs."
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "Specifies the zero-based offset to the value to be set. Valid values are in the range zero through the number of bytes of extra window memory, minus the size of an integer."
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "Specifies the size of the parameter to be set."
+        },
+        {
+          "name": "newval",
+          "type": "LONG_PTR",
+          "description": "Specifies the replacement value."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "Specifies whether the window is ANSI or not."
+        }
+      ],
+      "return_type": "LONG_PTR. If the function succeeds, the return value is the previous value of the specified offset. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetWindowWord",
+      "description": "This function sets a new value to a window word if the offset is valid. If the offset is less than 0 and not equal to GWLP_USERDATA, it sets the last Win32 error to ERROR_INVALID_INDEX and returns 0. Otherwise, it sets the window long with the new value.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "The zero-based byte offset into the extra window memory"
+        },
+        {
+          "name": "newval",
+          "type": "WORD",
+          "description": "The replacement value"
+        }
+      ],
+      "return_type": "WORD, represents the previous value of the specified 16-bit integer if the function succeeds. If the function fails, the return value is zero"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetWindowLong",
+      "description": "This function sets the value of a specified offset in the extra window memory.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window and context for the function"
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "Specifies the zero-based offset to the value to be set"
+        },
+        {
+          "name": "newval",
+          "type": "LONG",
+          "description": "Specifies the replacement value"
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "Specifies whether the system should treat the value as ANSI or Unicode"
+        }
+      ],
+      "return_type": "LONG, represents the previous value of the specified offset in the extra window memory"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetWindowLongPtr",
+      "description": "This function sets the value of a specified offset in the extra window memory.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window and specifies the window whose window memory will be set."
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "Specifies the zero-based byte offset in the window memory."
+        },
+        {
+          "name": "newval",
+          "type": "LONG_PTR",
+          "description": "Specifies the replacement value."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "Specifies whether the system should treat the value as an ANSI or a Unicode value."
+        }
+      ],
+      "return_type": "LONG_PTR, represents the previous value of the specified offset in the window memory."
+    }
+  },
+  {
+    "function": {
+      "name": "set_window_pixel_format",
+      "description": "This function sets the pixel format of a window. If the window is not valid or is a desktop or other process window, it returns false. If the 'internal' parameter is true, it sets the internal pixel format to the specified format. Otherwise, it sets the internal pixel format to 0 and the pixel format to the specified format. After setting the pixel format, it releases the window pointer and updates the window state.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the pixel format is to be set."
+        },
+        {
+          "name": "format",
+          "type": "int",
+          "description": "The pixel format to be set."
+        },
+        {
+          "name": "internal",
+          "type": "BOOL",
+          "description": "Determines whether the internal pixel format is to be set (if true) or the pixel format (if false)."
+        }
+      ],
+      "return_type": "BOOL, represents whether the pixel format was successfully set. Returns TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_pixel_format",
+      "description": "This function retrieves the pixel format of a window. If the window is not valid or is a desktop or other process window, it returns 0. Otherwise, it returns the internal pixel format if it exists and the internal parameter is true, or the window's pixel format.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window for which the pixel format is to be retrieved."
+        },
+        {
+          "name": "internal",
+          "type": "BOOL",
+          "description": "This parameter determines whether to return the internal pixel format (if it exists) or the window's pixel format."
+        }
+      ],
+      "return_type": "int, representing the pixel format of the window. If the window is not valid or is a desktop or other process window, it returns 0. Otherwise, it returns the internal pixel format if it exists and the internal parameter is true, or the window's pixel format."
+    }
+  },
+  {
+    "function": {
+      "name": "window_has_client_surface",
+      "description": "This function checks if a window has a client surface by comparing the window handle with the handles of all client surfaces. It also checks if the window has a pixel format or internal pixel format.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window for which the function checks if it has a client surface."
+        }
+      ],
+      "return_type": "int, where the return value is TRUE if the window has a client surface or a pixel format or internal pixel format, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetProp",
+      "description": "This function retrieves a property from a window object.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window for which the property is to be retrieved."
+        },
+        {
+          "name": "str",
+          "type": "WCHAR *",
+          "description": "A pointer to the string that represents the property name."
+        }
+      ],
+      "return_type": "HANDLE, represents the handle to the property if the function succeeds. Otherwise, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetProp",
+      "description": "This function is used to set a property for a window. It communicates with a server to set the window property.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window for which the property is to be set."
+        },
+        {
+          "name": "str",
+          "type": "WCHAR *",
+          "description": "A pointer to a string that specifies the property name."
+        },
+        {
+          "name": "handle",
+          "type": "HANDLE",
+          "description": "A handle to the property data."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in setting the property or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserRemoveProp",
+      "description": "This function removes a property from a window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window from which the property will be removed."
+        },
+        {
+          "name": "str",
+          "type": "WCHAR *",
+          "description": "A pointer to a string that specifies the string of the property to be removed."
+        }
+      ],
+      "return_type": "HANDLE, represents a handle to the property that was removed. If the property was not previously set, the return value is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserBuildPropList",
+      "description": "This function builds a list of properties for a given window handle.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which to build the property list."
+        },
+        {
+          "name": "count",
+          "type": "ULONG",
+          "description": "Number of properties to retrieve."
+        },
+        {
+          "name": "buffer",
+          "type": "struct ntuser_property_list*",
+          "description": "Pointer to the buffer that receives the property list."
+        },
+        {
+          "name": "ret_count",
+          "type": "ULONG*",
+          "description": "Pointer to a variable that receives the number of properties written to the buffer."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the completion status of the function. It can return STATUS_INVALID_PARAMETER if the buffer or ret_count is NULL, STATUS_NO_MEMORY if memory allocation fails, or STATUS_BUFFER_TOO_SMALL if the buffer size is insufficient."
+    }
+  },
+  {
+    "function": {
+      "name": "mirror_rect",
+      "description": "This function mirrors a rectangle along the y-axis within another rectangle.",
+      "parameters": [
+        {
+          "name": "window_rect",
+          "type": "RECT *",
+          "description": "This is the rectangle within which the other rectangle is mirrored."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "This is the rectangle that is mirrored within the window_rect."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_rects",
+      "description": "This function retrieves the window rectangles (window, client, visible) for a given window handle and coordinate type. It also adjusts the rectangles based on the DPI settings.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the rectangles are to be retrieved."
+        },
+        {
+          "name": "relative",
+          "type": "enum coords_relative",
+          "description": "Specifies the type of coordinates to be used for the rectangles."
+        },
+        {
+          "name": "rects",
+          "type": "struct window_rects *",
+          "description": "Pointer to a structure that receives the window rectangles."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "Specifies the DPI settings to be used for adjusting the rectangles."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully retrieves the window rectangles, otherwise FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_rect_rel",
+      "description": "This function retrieves the coordinates of a window relative to the screen or client area, depending on the specified relative coordinate system.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose coordinates are to be retrieved."
+        },
+        {
+          "name": "rel",
+          "type": "enum coords_relative",
+          "description": "Specifies the coordinate system to be used."
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that receives the screen or client coordinates of the window."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "Specifies the dots per inch (dpi) for the window."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_rect",
+      "description": "This function retrieves the dimensions of the bounding rectangle of the specified window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window."
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that receives the screen coordinates of the upper-left and lower-right corners of the window."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "The DPI for the window."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in retrieving the window rectangle or not."
+    }
+  },
+  {
+    "function": {
+      "name": "get_client_rect_rel",
+      "description": "This function gets the client rectangle relative to the window rectangle.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window."
+        },
+        {
+          "name": "rel",
+          "type": "enum coords_relative",
+          "description": "Specifies the coordinates relative to which the function should retrieve the rectangle."
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that receives the client rectangle."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "Specifies the dots per inch (dpi) for the window."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in getting the client rectangle."
+    }
+  },
+  {
+    "function": {
+      "name": "get_client_rect",
+      "description": "This function retrieves the coordinates of a window's client area. The client coordinates specify the upper-left and lower-right corners of the client area. Because client coordinates are relative to the upper-left corner of a window's client area, the coordinates of the upper-left corner are (0,0).",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose client coordinates are to be retrieved."
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that receives the client coordinates. The left and top members are zero. The right and bottom members contain the width and height of the window."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "The DPI for the window."
+        }
+      ],
+      "return_type": "BOOL, returns whether the function was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_info",
+      "description": "This function retrieves information about a specified window and stores it in a WINDOWINFO structure.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which information is to be retrieved."
+        },
+        {
+          "name": "info",
+          "type": "WINDOWINFO *",
+          "description": "Pointer to a WINDOWINFO structure to receive the information."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_region",
+      "description": "This function retrieves the region of a window. It allocates memory for the region data, makes a server request to get the window region, and then creates the region using the received data. If the server call returns a buffer overflow status, the function repeats the process with a larger buffer size. The function also retrieves the visible rectangle of the window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the region is to be retrieved."
+        },
+        {
+          "name": "surface",
+          "type": "BOOL",
+          "description": "Boolean value that specifies whether to retrieve the surface region of the window."
+        },
+        {
+          "name": "region",
+          "type": "HRGN*",
+          "description": "Pointer to a variable that receives the handle to the region of the window."
+        },
+        {
+          "name": "visible",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that receives the visible rectangle of the window."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the function execution. If the function succeeds, the return value is STATUS_SUCCESS. If the function fails due to insufficient memory, the return value is STATUS_NO_MEMORY. If the function fails due to a buffer overflow, the function repeats the process with a larger buffer size and the return value is STATUS_BUFFER_OVERFLOW."
+    }
+  },
+  {
+    "function": {
+      "name": "update_surface_region",
+      "description": "This function updates the region of a surface associated with a window. It first gets the window pointer and checks if it's valid and not a desktop or other process. If the window has a surface, it gets the window region and creates a region from the visible rectangle. It then combines the shape and region, mirrors the region if the window style is RTL, and sets the shape of the window surface. It then gets the window region again and sets the clip of the window surface to the region or shape, offsetting the region if necessary. Finally, it cleans up by deleting any created regions and releasing the window pointer.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window whose surface region is to be updated."
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "get_visible_rect",
+      "description": "This function calculates and returns the visible rectangle of a window, taking into account the window's style, extended style, and whether it is shaped or not.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the visible rectangle is to be calculated."
+        },
+        {
+          "name": "shaped",
+          "type": "BOOL",
+          "description": "Indicates whether the window is shaped or not."
+        },
+        {
+          "name": "style",
+          "type": "UINT",
+          "description": "The style of the window."
+        },
+        {
+          "name": "ex_style",
+          "type": "UINT",
+          "description": "The extended style of the window."
+        },
+        {
+          "name": "rects",
+          "type": "struct window_rects *",
+          "description": "Pointer to a structure containing the window and client rectangles."
+        }
+      ],
+      "return_type": "RECT. Represents the visible rectangle of the window."
+    }
+  },
+  {
+    "function": {
+      "name": "get_surface_rect",
+      "description": "This function adjusts the surface rectangle based on the visible rectangle and the virtual screen rectangle. It crops surfaces larger than the virtual screen rectangle and offsets the surface rectangle by the top left coordinates of the visible rectangle. It also rounds the surface coordinates to avoid frequent re-creation on resize.",
+      "parameters": [
+        {
+          "name": "visible_rect",
+          "type": "RECT *",
+          "description": "Pointer to the visible rectangle structure."
+        },
+        {
+          "name": "surface_rect",
+          "type": "RECT *",
+          "description": "Pointer to the surface rectangle structure. This structure is modified by the function."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the surface rectangle was successfully adjusted, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_default_window_surface",
+      "description": "This function retrieves the default window surface for a given window. It checks if the window is valid and not a desktop or other process window. If the window has a previous surface that matches the provided surface rectangle, it reuses it. If the window is a top-level window, it assigns a dummy surface. For child windows, it uses the parent's surface.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the default surface is to be retrieved"
+        },
+        {
+          "name": "surface_rect",
+          "type": "const RECT *",
+          "description": "Pointer to a RECT structure that specifies the surface rectangle"
+        },
+        {
+          "name": "surface",
+          "type": "struct window_surface **",
+          "description": "Pointer to a pointer to a window_surface structure. This is where the function will store the retrieved surface"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully retrieves the window surface, and FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_surface",
+      "description": "This function retrieves the window surface for a given window. It takes into account various properties of the window such as its parent, style, shape, visibility, and whether it is layered or not. It also handles the creation of a new surface if necessary.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the surface is being retrieved"
+        },
+        {
+          "name": "swp_flags",
+          "type": "UINT",
+          "description": "Flags that control the size and position of the window"
+        },
+        {
+          "name": "create_layered",
+          "type": "BOOL",
+          "description": "Flag indicating whether to create a layered window"
+        },
+        {
+          "name": "rects",
+          "type": "struct window_rects *",
+          "description": "Pointer to a structure containing the window's rectangle information"
+        },
+        {
+          "name": "surface_rect",
+          "type": "RECT *",
+          "description": "Pointer to a structure to receive the surface rectangle"
+        }
+      ],
+      "return_type": "struct window_surface * - Pointer to the window surface structure. Returns NULL if the surface could not be retrieved or created"
+    }
+  },
+  {
+    "function": {
+      "name": "update_children_window_state",
+      "description": "This function updates the state of all child windows of a given window. It first lists all child windows, then checks if each has a client surface, and if so, updates the window state. Finally, it frees the memory allocated for the list of child windows.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the parent window whose child windows' states are to be updated."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "get_icon_info",
+      "description": "This function retrieves information about an icon or a cursor.",
+      "parameters": [
+        {
+          "name": "icon",
+          "type": "HICON",
+          "description": "Handle to the icon to get information about"
+        },
+        {
+          "name": "ii",
+          "type": "ICONINFO*",
+          "description": "Pointer to an ICONINFO structure that receives the information about the icon"
+        }
+      ],
+      "return_type": "HICON, represents the handle to the icon if the function is successful, otherwise NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_icon_info",
+      "description": "This function retrieves the icon information for a given window. It tries to get the icon info in several ways and returns the first successful result. If no icon info can be obtained, it returns NULL.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the icon information is to be retrieved."
+        },
+        {
+          "name": "type",
+          "type": "UINT",
+          "description": "The type of icon to be retrieved."
+        },
+        {
+          "name": "icon",
+          "type": "HICON",
+          "description": "Handle to the icon."
+        },
+        {
+          "name": "ret",
+          "type": "ICONINFO*",
+          "description": "Pointer to an ICONINFO structure that receives the icon information."
+        }
+      ],
+      "return_type": "HICON. It represents the handle to the icon if the icon information is successfully retrieved, otherwise NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "apply_window_pos",
+      "description": "This function applies the position and size of a window, and updates its surface and other related properties.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window."
+        },
+        {
+          "name": "insert_after",
+          "type": "HWND",
+          "description": "Handle to the window to insert after."
+        },
+        {
+          "name": "swp_flags",
+          "type": "UINT",
+          "description": "Flags that specify the size and position of the window."
+        },
+        {
+          "name": "new_surface",
+          "type": "struct window_surface *",
+          "description": "Pointer to the new surface of the window."
+        },
+        {
+          "name": "new_rects",
+          "type": "struct window_rects *",
+          "description": "Pointer to the new rectangle of the window."
+        },
+        {
+          "name": "valid_rects",
+          "type": "RECT *",
+          "description": "Pointer to the valid rectangle of the window."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully applies the window position, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "expose_window_surface",
+      "description": "This function exposes a window surface, handles its reference count, redraws the window if necessary, locks and unlocks the surface, and releases the surface when done.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to control the behavior of the function."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that specifies the area to be exposed."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "The DPI value for the window."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the function succeeded and FALSE indicates that it failed."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetWindowRgnEx",
+      "description": "This function retrieves the window region of a specified window, combines it with a specified region, and deletes the window region.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose window region is to be retrieved."
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "Handle to the region to be combined with the window region."
+        },
+        {
+          "name": "unk",
+          "type": "UINT",
+          "description": "An unknown parameter."
+        }
+      ],
+      "return_type": "int, represents the status of the function execution. Returns ERROR if the window region retrieval fails, otherwise returns the status of the region combination operation."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetWindowRgn",
+      "description": "This function sets the window region of a given window. If a region is provided, it is used, otherwise the existing region is cleared. The function also handles redrawing and DPI scaling.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose region is to be set."
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "Handle to the region to be set. If this parameter is NULL, the existing window region is cleared."
+        },
+        {
+          "name": "redraw",
+          "type": "BOOL",
+          "description": "Specifies whether the system redraws the window after setting the window region. If this parameter is TRUE, the system does so; otherwise, it does not."
+        }
+      ],
+      "return_type": "int, represents whether the function was successful or not. Returns TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserMoveWindow",
+      "description": "This function moves a window to a new location and optionally resizes it.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to move."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The new position of the left side of the window."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The new position of the top of the window."
+        },
+        {
+          "name": "cx",
+          "type": "INT",
+          "description": "The new width of the window."
+        },
+        {
+          "name": "cy",
+          "type": "INT",
+          "description": "The new height of the window."
+        },
+        {
+          "name": "repaint",
+          "type": "BOOL",
+          "description": "Whether the window should be repainted following the move."
+        }
+      ],
+      "return_type": "BOOL, represents whether the window was successfully moved and resized."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetLayeredWindowAttributes",
+      "description": "This function retrieves the color key, alpha value, and flags for a layered window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the layered window"
+        },
+        {
+          "name": "key",
+          "type": "COLORREF*",
+          "description": "A pointer to a variable that receives the color key of the layered window"
+        },
+        {
+          "name": "alpha",
+          "type": "BYTE*",
+          "description": "A pointer to a variable that receives the alpha value of the layered window"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD*",
+          "description": "A pointer to a variable that receives the layered window attributes"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function successfully retrieved the window attributes or not"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetLayeredWindowAttributes",
+      "description": "This function sets the attributes for a layered window. It first sends a request to the server to set the window layered info. If the request is successful, it sets the layered window attributes and updates the window state.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "key",
+          "type": "COLORREF",
+          "description": "Specifies the color key"
+        },
+        {
+          "name": "alpha",
+          "type": "BYTE",
+          "description": "Specifies the alpha value"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Specifies the flags"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in setting the layered window attributes and updating the window state"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserUpdateLayeredWindow",
+      "description": "This function updates the attributes of a layered window with the specified parameters.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the layered window"
+        },
+        {
+          "name": "hdc_dst",
+          "type": "HDC",
+          "description": "Handle to the device context"
+        },
+        {
+          "name": "pts_dst",
+          "type": "POINT *",
+          "description": "Pointer to the new screen position of the layered window"
+        },
+        {
+          "name": "size",
+          "type": "SIZE *",
+          "description": "Pointer to the new size of the layered window"
+        },
+        {
+          "name": "hdc_src",
+          "type": "HDC",
+          "description": "Handle to the device context for the surface to be used"
+        },
+        {
+          "name": "pts_src",
+          "type": "POINT *",
+          "description": "Pointer to the point on the source surface to be used as the upper-left corner"
+        },
+        {
+          "name": "key",
+          "type": "COLORREF",
+          "description": "Specifies the color key"
+        },
+        {
+          "name": "blend",
+          "type": "BLENDFUNCTION *",
+          "description": "Pointer to the blend function for the layered window"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Specifies the flags for the layered window"
+        },
+        {
+          "name": "dirty",
+          "type": "RECT *",
+          "description": "Pointer to the structure for the dirty region"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, or FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "list_children_from_point",
+      "description": "This function retrieves a list of child windows from a given point. It dynamically allocates memory for the list, and if the memory allocation fails or no child windows are found, it returns NULL.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the parent window."
+        },
+        {
+          "name": "pt",
+          "type": "POINT",
+          "description": "Structure that specifies the x- and y-coordinates of the point."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "The DPI setting for the window."
+        }
+      ],
+      "return_type": "HWND*. It returns a pointer to the list of child window handles. If no child windows are found or memory allocation fails, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "window_from_point",
+      "description": "This function retrieves a handle to the window that contains the specified point and determines the hit-test value. It can also send a WM_NCHITTEST message to the window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window. If this parameter is NULL, the function uses the desktop window."
+        },
+        {
+          "name": "pt",
+          "type": "POINT",
+          "description": "A POINT structure that specifies the point to be checked."
+        },
+        {
+          "name": "hittest",
+          "type": "INT*",
+          "description": "Pointer to an integer that receives the hit-test value. It can be one of the HT* values."
+        },
+        {
+          "name": "send_nchittest",
+          "type": "BOOL",
+          "description": "Specifies whether to send a WM_NCHITTEST message to the window that contains the point. If this parameter is TRUE and the thread that owns the window is not hung, the function sends a WM_NCHITTEST message."
+        }
+      ],
+      "return_type": "HWND. If the function succeeds, the return value is a handle to the window that contains the point. If no window exists at the given point, the return value is NULL. If the function fails, the return value is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserWindowFromPoint",
+      "description": "This function returns the window that contains the specified point.",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "LONG",
+          "description": "The x-coordinate of the point."
+        },
+        {
+          "name": "y",
+          "type": "LONG",
+          "description": "The y-coordinate of the point."
+        }
+      ],
+      "return_type": "HWND, represents a handle to the window that contains the point."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserChildWindowFromPointEx",
+      "description": "This function retrieves a handle to the child window that contains the specified point and meets the specified criteria.",
+      "parameters": [
+        {
+          "name": "parent",
+          "type": "HWND",
+          "description": "Handle to the parent window."
+        },
+        {
+          "name": "x",
+          "type": "LONG",
+          "description": "The x-coordinate of the point."
+        },
+        {
+          "name": "y",
+          "type": "LONG",
+          "description": "The y-coordinate of the point."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "The child window must meet these criteria."
+        }
+      ],
+      "return_type": "HWND, represents a handle to the child window that contains the point and meets the criteria specified by uFlags. If the function fails, the return value is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserRealChildWindowFromPoint",
+      "description": "This function returns the child window of a parent window that lies at the specified point.",
+      "parameters": [
+        {
+          "name": "parent",
+          "type": "HWND",
+          "description": "Handle to the parent window."
+        },
+        {
+          "name": "x",
+          "type": "LONG",
+          "description": "The x-coordinate of the point."
+        },
+        {
+          "name": "y",
+          "type": "LONG",
+          "description": "The y-coordinate of the point."
+        }
+      ],
+      "return_type": "HWND, represents the handle to the child window at the specified point."
+    }
+  },
+  {
+    "function": {
+      "name": "get_maximized_rect",
+      "description": "This function gets the maximized rectangle of a window. It first retrieves the monitor information for the window, then checks the window's style. If the window has a maximize box, a caption, and is not a child window, it adjusts the rectangle to the work area of the monitor.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which to get the maximized rectangle."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that receives the maximized rectangle."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE always indicating the function executed successfully."
+    }
+  },
+  {
+    "function": {
+      "name": "update_maximized_pos",
+      "description": "This function updates the maximized position of a window. If the window is maximized and not minimized, it gets the monitor information and updates the window's maximized position based on the work area of the monitor. If the window is not maximized, it sets the maximized position to -1.",
+      "parameters": [
+        {
+          "name": "wnd",
+          "type": "WND*",
+          "description": "This parameter is a pointer to the window structure whose maximized position is to be updated."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "empty_point",
+      "description": "This function checks if the given point is at the position (-1, -1).",
+      "parameters": [
+        {
+          "name": "pt",
+          "type": "POINT",
+          "description": "The point to check."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the point is at the position (-1, -1), otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetWindowPlacement",
+      "description": "This function retrieves the show state and the restored, minimized, and maximized positions of the specified window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "placement",
+          "type": "WINDOWPLACEMENT*",
+          "description": "A pointer to the WINDOWPLACEMENT structure that receives the show state and position information."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates success and FALSE indicates failure."
+    }
+  },
+  {
+    "function": {
+      "name": "make_rect_onscreen",
+      "description": "This function adjusts the position of a rectangle to ensure it is within the screen boundaries. It uses the monitor information corresponding to the rectangle and the thread's DPI.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "This is a pointer to the rectangle that needs to be adjusted to fit within the screen boundaries."
+        }
+      ],
+      "return_type": "void, as this function does not return anything but modifies the rectangle passed to it in-place."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetInternalWindowPos",
+      "description": "This function retrieves the show state and the restored, minimized, and maximized positions of the specified window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "A pointer to a RECT structure that receives the restored window position."
+        },
+        {
+          "name": "pt",
+          "type": "POINT*",
+          "description": "A pointer to a POINT structure that receives the restored window position."
+        }
+      ],
+      "return_type": "UINT, represents the current show state of the window. It returns zero if the function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "make_point_onscreen",
+      "description": "This function adjusts the coordinates of a point to ensure it is onscreen. It first creates a rectangle with the point as the top left corner and a size of 1x1, then adjusts the rectangle to be onscreen, and finally sets the point's coordinates to the top left corner of the adjusted rectangle.",
+      "parameters": [
+        {
+          "name": "pt",
+          "type": "POINT*",
+          "description": "A pointer to the point to be adjusted."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the point in place."
+    }
+  },
+  {
+    "function": {
+      "name": "set_window_placement",
+      "description": "This function adjusts the placement of a window based on the provided parameters. It checks the flags to determine which placements to adjust (minimum, maximum, or normal). It also handles different window styles (minimized, maximized, or normal).",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose placement is to be set."
+        },
+        {
+          "name": "wndpl",
+          "type": "const WINDOWPLACEMENT *",
+          "description": "Pointer to a WINDOWPLACEMENT structure that contains the new window placement information."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags indicating which placements to adjust."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the window placement was successfully set, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetWindowPlacement",
+      "description": "This function sets the placement of a window based on the WINDOWPLACEMENT structure provided. It also sets flags based on the WINDOWPLACEMENT structure and returns the result of the set_window_placement function.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose placement is to be set."
+        },
+        {
+          "name": "wpl",
+          "type": "WINDOWPLACEMENT*",
+          "description": "Pointer to a WINDOWPLACEMENT structure that contains the new window placement information."
+        }
+      ],
+      "return_type": "BOOL, represents whether the window placement was successfully set or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserBuildHwndList",
+      "description": "This function builds a list of window handles (HWNDs) for a given desktop and window, with options to include child windows and non-immersive windows. It also provides the ability to filter the windows by thread ID.",
+      "parameters": [
+        {
+          "name": "desktop",
+          "type": "HDESK",
+          "description": "Handle to the desktop for which to build the window handle list."
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which to build the window handle list."
+        },
+        {
+          "name": "children",
+          "type": "BOOL",
+          "description": "Specifies whether to include child windows in the list."
+        },
+        {
+          "name": "non_immersive",
+          "type": "BOOL",
+          "description": "Specifies whether to include non-immersive windows in the list."
+        },
+        {
+          "name": "thread_id",
+          "type": "ULONG",
+          "description": "Thread ID to filter the windows. Only windows created by this thread will be included in the list."
+        },
+        {
+          "name": "count",
+          "type": "ULONG",
+          "description": "The number of window handles to include in the list."
+        },
+        {
+          "name": "buffer",
+          "type": "HWND*",
+          "description": "Pointer to the buffer that receives the window handles."
+        },
+        {
+          "name": "size",
+          "type": "ULONG*",
+          "description": "Pointer to a variable that receives the size of the window handle list."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. Returns STATUS_SUCCESS if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserFindWindowEx",
+      "description": "This function is used to find a window with the specified parent, child, class, title, and unknown parameters. It iterates over the windows until it finds the one that matches the given parameters.",
+      "parameters": [
+        {
+          "name": "parent",
+          "type": "HWND",
+          "description": "Handle to the parent window."
+        },
+        {
+          "name": "child",
+          "type": "HWND",
+          "description": "Handle to the child window."
+        },
+        {
+          "name": "class",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to the class of the window."
+        },
+        {
+          "name": "title",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to the title of the window."
+        },
+        {
+          "name": "unk",
+          "type": "ULONG",
+          "description": "Unknown parameter."
+        }
+      ],
+      "return_type": "HWND, represents the handle to the window if found, otherwise returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "get_server_window_text",
+      "description": "This function retrieves the text of a window from the server.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window whose text is to be retrieved."
+        },
+        {
+          "name": "text",
+          "type": "WCHAR*",
+          "description": "A pointer to the buffer that will receive the text."
+        },
+        {
+          "name": "count",
+          "type": "data_size_t",
+          "description": "The maximum number of characters to be copied to the text buffer, including the null character."
+        }
+      ],
+      "return_type": "data_size_t, represents the length of the text retrieved from the server."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserInternalGetWindowText",
+      "description": "This function retrieves the window text of a given window handle. If the window belongs to the current process, it directly copies the text from the window structure. If not, it requests the text from the server. If the count is less than or equal to 0, or the window pointer is not obtained, it returns 0.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window whose text is to be retrieved."
+        },
+        {
+          "name": "text",
+          "type": "WCHAR *",
+          "description": "This is a pointer to the buffer that will receive the text."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "This is the maximum number of characters to copy to the buffer, including the null character."
+        }
+      ],
+      "return_type": "INT. This function returns the length of the string copied to the buffer. If the window has no title bar or text, if the title bar is empty, or if the window or control handle is invalid, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "get_windows_offset",
+      "description": "This function calculates the offset between two windows, considering their positions, DPI, and mirroring settings. It also handles cases where windows belong to other processes.",
+      "parameters": [
+        {
+          "name": "hwnd_from",
+          "type": "HWND",
+          "description": "Handle to the source window."
+        },
+        {
+          "name": "hwnd_to",
+          "type": "HWND",
+          "description": "Handle to the destination window."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "Dots per inch (DPI) setting for the windows."
+        },
+        {
+          "name": "mirrored",
+          "type": "BOOL *",
+          "description": "Pointer to a boolean variable that indicates whether the windows are mirrored."
+        },
+        {
+          "name": "ret_offset",
+          "type": "POINT *",
+          "description": "Pointer to a POINT structure that receives the calculated offset."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully calculates the offset, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "client_to_screen",
+      "description": "This function converts client-area coordinates into screen coordinates. It also checks if the window handle is valid and if the window is mirrored.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window whose client area is used for the conversion."
+        },
+        {
+          "name": "pt",
+          "type": "POINT*",
+          "description": "A pointer to a POINT structure that contains the client coordinates to be converted."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully converts the coordinates, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "screen_to_client",
+      "description": "This function converts screen coordinates to client coordinates for a specified window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose client area will be used for the conversion."
+        },
+        {
+          "name": "pt",
+          "type": "POINT*",
+          "description": "Pointer to a POINT structure that contains the screen coordinates to be converted."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the conversion is successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "map_window_region",
+      "description": "This function maps a region from one window to another, taking into account the offset and mirroring. If the windows are mirrored, it adjusts the region's coordinates accordingly.",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "HWND",
+          "description": "Handle to the source window from which the region is to be mapped."
+        },
+        {
+          "name": "to",
+          "type": "HWND",
+          "description": "Handle to the destination window to which the region is to be mapped."
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "Handle to the region to be mapped."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but performs actions based on the provided parameters."
+    }
+  },
+  {
+    "function": {
+      "name": "map_window_points",
+      "description": "This function maps the points of one window to another. It adjusts the points based on the offset between the two windows and flips the x-coordinates if the windows are mirrored. In a special case when the count is 2, it swaps the x-coordinates of the two points.",
+      "parameters": [
+        {
+          "name": "hwnd_from",
+          "type": "HWND",
+          "description": "Handle to the window from which points are to be mapped."
+        },
+        {
+          "name": "hwnd_to",
+          "type": "HWND",
+          "description": "Handle to the window to which points are to be mapped."
+        },
+        {
+          "name": "points",
+          "type": "POINT*",
+          "description": "Pointer to an array of POINT structures that contain the set of points to be mapped."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of POINT structures in the array."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "The DPI setting for the window."
+        }
+      ],
+      "return_type": "int, represents the low-order word of the new x-coordinate and the high-order word of the new y-coordinate if the function succeeds. Otherwise, it returns zero."
+    }
+  },
+  {
+    "function": {
+      "name": "dump_winpos_flags",
+      "description": "This function checks the status of various window position flags and logs them if they are set.",
+      "parameters": [
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "This parameter represents the window position flags to be checked."
+        }
+      ],
+      "return_type": "void, as this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "map_dpi_winpos",
+      "description": "This function maps the DPI (dots per inch) of a window position, adjusting the coordinates and size according to the DPI settings.",
+      "parameters": [
+        {
+          "name": "winpos",
+          "type": "WINDOWPOS*",
+          "description": "A pointer to a WINDOWPOS structure that contains the size and position of a window."
+        }
+      ],
+      "return_type": "void, this function does not return a value. It modifies the WINDOWPOS structure passed to it."
+    }
+  },
+  {
+    "function": {
+      "name": "calc_winpos",
+      "description": "This function calculates the new position and size of a window. It sends a WM_WINDOWPOSCHANGING message, gets the window pointer, calculates new position and size based on various conditions, and finally releases the window pointer.",
+      "parameters": [
+        {
+          "name": "winpos",
+          "type": "WINDOWPOS *",
+          "description": "Pointer to a WINDOWPOS structure that contains information about the window's new size and position"
+        },
+        {
+          "name": "old_rects",
+          "type": "struct window_rects *",
+          "description": "Pointer to a structure that contains the old window rectangles"
+        },
+        {
+          "name": "new_rects",
+          "type": "struct window_rects *",
+          "description": "Pointer to a structure that will be filled with the new window rectangles"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully calculates the new position and size, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "get_valid_rects",
+      "description": "This function sets the valid rectangles based on the old and new client rectangles and the flags provided. It ensures that the rectangles have the same size and aligns them based on the flags.",
+      "parameters": [
+        {
+          "name": "old_client",
+          "type": "RECT *",
+          "description": "Pointer to the old client rectangle"
+        },
+        {
+          "name": "new_client",
+          "type": "RECT *",
+          "description": "Pointer to the new client rectangle"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to determine the behavior of the function"
+        },
+        {
+          "name": "valid",
+          "type": "RECT *",
+          "description": "Pointer to the valid rectangles to be set by the function"
+        }
+      ],
+      "return_type": "void, this function does not return a value but modifies the valid rectangles based on the input parameters"
+    }
+  },
+  {
+    "function": {
+      "name": "calc_ncsize",
+      "description": "This function calculates the new client area of a window and returns the flags that determine the redrawing options.",
+      "parameters": [
+        {
+          "name": "winpos",
+          "type": "WINDOWPOS *",
+          "description": "Pointer to a WINDOWPOS structure that contains information about the window's position."
+        },
+        {
+          "name": "old_rects",
+          "type": "struct window_rects *",
+          "description": "Pointer to a structure that contains the old window and client rectangles."
+        },
+        {
+          "name": "new_rects",
+          "type": "struct window_rects *",
+          "description": "Pointer to a structure that contains the new window and client rectangles."
+        },
+        {
+          "name": "valid_rects",
+          "type": "RECT *",
+          "description": "Pointer to an array of rectangles that will receive the valid update areas."
+        },
+        {
+          "name": "parent_x",
+          "type": "int",
+          "description": "The x-coordinate of the parent window's client area."
+        },
+        {
+          "name": "parent_y",
+          "type": "int",
+          "description": "The y-coordinate of the parent window's client area."
+        }
+      ],
+      "return_type": "UINT, represents the flags that determine the redrawing options for the window."
+    }
+  },
+  {
+    "function": {
+      "name": "fixup_swp_flags",
+      "description": "This function validates and adjusts the window position and size flags. It also checks the window's visibility and position in the z-order, and sets the appropriate flags.",
+      "parameters": [
+        {
+          "name": "winpos",
+          "type": "WINDOWPOS*",
+          "description": "Pointer to a WINDOWPOS structure that contains information about the window's position and size."
+        },
+        {
+          "name": "old_window_rect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that contains the old window rectangle."
+        },
+        {
+          "name": "parent_x",
+          "type": "int",
+          "description": "The x-coordinate of the parent window."
+        },
+        {
+          "name": "parent_y",
+          "type": "int",
+          "description": "The y-coordinate of the parent window."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully adjusts the flags, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "swp_owner_popups",
+      "description": "This function adjusts the z-order of windows to ensure that popups stay above their owner windows. It also handles various window positioning scenarios based on the 'after' parameter.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that needs to be adjusted."
+        },
+        {
+          "name": "after",
+          "type": "HWND",
+          "description": "Handle to the window after which 'hwnd' should be placed in the z-order."
+        }
+      ],
+      "return_type": "HWND, represents the handle to the window after which 'hwnd' is placed in the z-order."
+    }
+  },
+  {
+    "function": {
+      "name": "set_window_pos",
+      "description": "This function sets the position of a window. It checks the z-order arguments, ensures the coordinates are valid for WM_WINDOWPOSCHANGING, performs common operations, handles the visibility of the window, handles the activation of the window, erases parent when hiding or resizing child, and sends the WM_WINDOWPOSCHANGED message.",
+      "parameters": [
+        {
+          "name": "winpos",
+          "type": "WINDOWPOS *",
+          "description": "Pointer to a WINDOWPOS structure that contains information about the window's size and position"
+        },
+        {
+          "name": "parent_x",
+          "type": "int",
+          "description": "The x-coordinate of the parent window"
+        },
+        {
+          "name": "parent_y",
+          "type": "int",
+          "description": "The y-coordinate of the parent window"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in setting the window position or not"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetWindowPos",
+      "description": "This function sets the position and dimensions of a window. It also sets the Z order of the window and updates the window flags.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "after",
+          "type": "HWND",
+          "description": "Handle to the window to insert after in Z order"
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "New position of the left side of the window"
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "New position of the top of the window"
+        },
+        {
+          "name": "cx",
+          "type": "INT",
+          "description": "New width of the window"
+        },
+        {
+          "name": "cy",
+          "type": "INT",
+          "description": "New height of the window"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Window positioning flags"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserBeginDeferWindowPos",
+      "description": "This function begins the process of changing the size and position of multiple windows in a single operation. It allocates memory for the operation and returns a handle to the memory.",
+      "parameters": [
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "The number of windows for which the size and position should be changed. If the count is zero, the function allocates memory for 8 moves. If the count is less than zero, the function sets the last error to ERROR_INVALID_PARAMETER and returns 0."
+        }
+      ],
+      "return_type": "HDWP. This is a handle to the memory allocated for the operation. If the function fails to allocate memory, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserDeferWindowPosAndBand",
+      "description": "This function defers the position and band of a window. It checks if the window is valid, adjusts the window position according to the DPI settings, and merges the changes with existing ones or adds a new position if necessary.",
+      "parameters": [
+        {
+          "name": "hdwp",
+          "type": "HDWP",
+          "description": "Handle to a multiple-window – position structure that contains size and position information for one or more windows."
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window."
+        },
+        {
+          "name": "after",
+          "type": "HWND",
+          "description": "Handle to the window to insert after."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "Specifies the new position of the left side of the window."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "Specifies the new position of the top of the window."
+        },
+        {
+          "name": "cx",
+          "type": "INT",
+          "description": "Specifies the new width of the window."
+        },
+        {
+          "name": "cy",
+          "type": "INT",
+          "description": "Specifies the new height of the window."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies the window sizing and positioning flags."
+        },
+        {
+          "name": "unk1",
+          "type": "UINT",
+          "description": "Unknown parameter."
+        },
+        {
+          "name": "unk2",
+          "type": "UINT",
+          "description": "Unknown parameter."
+        }
+      ],
+      "return_type": "HDWP, represents the updated multiple-window – position structure."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserEndDeferWindowPosEx",
+      "description": "This function ends the window positioning process that was started by a previous call to the BeginDeferWindowPos function. It also sends the WM_WINE_SETWINDOWPOS message to the window procedure of each window affected by the positioning operation.",
+      "parameters": [
+        {
+          "name": "hdwp",
+          "type": "HDWP",
+          "description": "Handle to a multiple-window - position structure that contains size and position information for one or more windows."
+        },
+        {
+          "name": "async",
+          "type": "BOOL",
+          "description": "Boolean value that indicates whether the function should be asynchronous or not. Currently, asynchronous operation is not supported."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetInternalWindowPos",
+      "description": "This function sets the internal position of a window. It modifies the WINDOWPLACEMENT structure and calls the set_window_placement function to apply the changes.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose position is to be set."
+        },
+        {
+          "name": "cmd",
+          "type": "UINT",
+          "description": "Command to show the window."
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that specifies the new coordinates of the window."
+        },
+        {
+          "name": "pt",
+          "type": "POINT*",
+          "description": "Pointer to a POINT structure that specifies the new minimum position of the window."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "win_set_flags",
+      "description": "This function sets and clears specific flags for a window, and returns the original flags.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose flags are to be set and cleared."
+        },
+        {
+          "name": "set_mask",
+          "type": "UINT",
+          "description": "Flags to be set for the window."
+        },
+        {
+          "name": "clear_mask",
+          "type": "UINT",
+          "description": "Flags to be cleared for the window."
+        }
+      ],
+      "return_type": "UINT, represents the original flags of the window before setting and clearing."
+    }
+  },
+  {
+    "function": {
+      "name": "can_activate_window",
+      "description": "This function checks if a window can be activated based on its style properties.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This parameter is a handle to the window to be checked."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the window can be activated, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "activate_other_window",
+      "description": "This function activates another window based on certain conditions. It first checks if the given window is a popup and has an owner, if so it tries to activate the root ancestor of the owner. If it can't, it then tries to activate the next window in the Z order. If it still can't, it tries to activate the first child of the desktop window. If all these fail, it sets the foreground window to the given window if it's not already the foreground window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that needs to be activated"
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "send_parent_notify",
+      "description": "This function checks if a window is a child window and not set to ignore parent notifications. If these conditions are met, it retrieves the parent of the window and sends a notification message to it.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be sent to the parent window."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "get_min_max_info",
+      "description": "This function retrieves the minimum and maximum window dimensions and positions for a given window handle.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window for which the minimum and maximum information is to be retrieved."
+        }
+      ],
+      "return_type": "MINMAXINFO, a structure that contains the information about the minimum and maximum window dimensions and positions."
+    }
+  },
+  {
+    "function": {
+      "name": "get_first_minimized_child_pos",
+      "description": "This function calculates the position of the first minimized child window based on the parent window's dimensions and the minimized metrics.",
+      "parameters": [
+        {
+          "name": "parent",
+          "type": "RECT *",
+          "description": "This is a pointer to the parent window's rectangle structure which contains the dimensions of the parent window."
+        },
+        {
+          "name": "mm",
+          "type": "MINIMIZEDMETRICS *",
+          "description": "This is a pointer to the minimized metrics structure which contains information about the arrangement and spacing of minimized windows."
+        },
+        {
+          "name": "width",
+          "type": "int",
+          "description": "This is the width of the child window."
+        },
+        {
+          "name": "height",
+          "type": "int",
+          "description": "This is the height of the child window."
+        }
+      ],
+      "return_type": "POINT, which represents the calculated position of the first minimized child window."
+    }
+  },
+  {
+    "function": {
+      "name": "get_next_minimized_child_pos",
+      "description": "This function calculates the next position for a minimized child window based on the current position, window size, and arrangement settings.",
+      "parameters": [
+        {
+          "name": "parent",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that specifies the parent window."
+        },
+        {
+          "name": "mm",
+          "type": "MINIMIZEDMETRICS*",
+          "description": "Pointer to a MINIMIZEDMETRICS structure that contains the arrangement settings."
+        },
+        {
+          "name": "width",
+          "type": "int",
+          "description": "The width of the child window."
+        },
+        {
+          "name": "height",
+          "type": "int",
+          "description": "The height of the child window."
+        },
+        {
+          "name": "pos",
+          "type": "POINT*",
+          "description": "Pointer to a POINT structure that specifies the current position of the child window. The function updates this structure with the next position."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the pos parameter to reflect the next position."
+    }
+  },
+  {
+    "function": {
+      "name": "get_minimized_pos",
+      "description": "This function calculates the minimized position of a window. If the window is already in a suitable position, it returns the current position. Otherwise, it finds the first available minimized position that is not occupied by another icon.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose minimized position is to be calculated."
+        },
+        {
+          "name": "pt",
+          "type": "POINT",
+          "description": "Current position of the window."
+        }
+      ],
+      "return_type": "POINT, representing the minimized position of the window."
+    }
+  },
+  {
+    "function": {
+      "name": "window_min_maximize",
+      "description": "This function handles the minimizing, maximizing, and restoring of a window. It adjusts the window's size and position based on the command received and the window's current state.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be minimized, maximized, or restored."
+        },
+        {
+          "name": "cmd",
+          "type": "UINT",
+          "description": "Command to determine the action to be taken on the window. It could be minimize, maximize, restore, etc."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that receives the new dimensions and position of the window."
+        }
+      ],
+      "return_type": "UINT. It represents the flags that indicate how the window is to be shown. It could be SWP_NOSIZE, SWP_NOMOVE, SWP_NOCOPYBITS, SWP_STATECHANGED, etc."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserArrangeIconicWindows",
+      "description": "This function arranges all the iconic (minimized) child windows of a parent window.",
+      "parameters": [
+        {
+          "name": "parent",
+          "type": "HWND",
+          "description": "Handle to the parent window whose iconic child windows are to be arranged."
+        }
+      ],
+      "return_type": "UINT, represents the number of iconic child windows arranged."
+    }
+  },
+  {
+    "function": {
+      "name": "update_window_state",
+      "description": "This function updates the state of a window. It sets the thread DPI awareness context, gets the window rectangles, gets the window surface, applies the window position, and finally resets the thread DPI awareness context.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window whose state is to be updated."
+        }
+      ],
+      "return_type": "void, meaning it does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "show_window",
+      "description": "This function is used to show or hide a window, minimize or maximize it, or restore it to its original size and position. It also handles the visibility of the window and its parent, and sends appropriate messages for window events.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "cmd",
+          "type": "INT",
+          "description": "The command to be executed. This can be a command to show or hide the window, minimize or maximize it, or restore it to its original size and position."
+        }
+      ],
+      "return_type": "BOOL. It returns TRUE if the window was visible before the function was called, otherwise it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserShowWindowAsync",
+      "description": "This function is used to show or hide a window asynchronously. It first checks if the window is a broadcast window, if so, it sets the last Win32 error to ERROR_INVALID_PARAMETER and returns FALSE. If the window is the current thread window, it shows the window with the specified command. Otherwise, it sends a message to the window to show it.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be shown or hidden"
+        },
+        {
+          "name": "cmd",
+          "type": "INT",
+          "description": "Command to be executed, typically to show or hide the window"
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserShowWindow",
+      "description": "This function is used to show or hide a window based on the command provided. It also checks if the window is already visible or hidden before performing the action.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be shown or hidden"
+        },
+        {
+          "name": "cmd",
+          "type": "INT",
+          "description": "Command to either show or hide the window"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation is successful, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserShowOwnedPopups",
+      "description": "This function shows or hides pop-up windows owned by the specified window based on the 'show' parameter. It iterates through all the windows, checks if the window is owned by the specified owner and then sends a message to show or hide the window based on the 'show' parameter and the current state of the window.",
+      "parameters": [
+        {
+          "name": "owner",
+          "type": "HWND",
+          "description": "Handle to the window that owns the pop-up windows."
+        },
+        {
+          "name": "show",
+          "type": "BOOL",
+          "description": "Boolean value that specifies whether to show or hide the pop-up windows. If this parameter is TRUE, the pop-up windows are shown; if it is FALSE, the pop-up windows are hidden."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function executes successfully, regardless of whether the windows were shown or hidden."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserFlashWindowEx",
+      "description": "This function is used to flash the specified window. It changes the state of the specified window's title bar as specified by the FLASHWINFO structure. If the window is minimized and the system has a taskbar, the window's taskbar button will flash. Once flashing has started, it will be stopped by the system after a specified number of times or the system will stop flashing when the window comes to the foreground.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "FLASHWINFO *",
+          "description": "This is a pointer to a FLASHWINFO structure that specifies the type of flashing to be done."
+        }
+      ],
+      "return_type": "BOOL. The function returns TRUE if the function succeeds, FALSE otherwise. If the window is not found or the function fails for other reasons, the return value is FALSE and the last error code can be retrieved using GetLastError."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetWindowContextHelpId",
+      "description": "This function retrieves the help context identifier, if any, associated with the window represented by the given handle.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window whose help context identifier is to be retrieved."
+        }
+      ],
+      "return_type": "DWORD, represents the help context identifier associated with the window. If the window does not have a help context identifier, or if the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetWindowContextHelpId",
+      "description": "This function sets the help context identifier for the specified window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window for which the help context identifier is to be set."
+        },
+        {
+          "name": "id",
+          "type": "DWORD",
+          "description": "The help context identifier to be set."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully sets the help context identifier, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserInternalGetWindowIcon",
+      "description": "This function retrieves the icon associated with a window. It handles different types of icons and errors related to invalid window handles or parameters.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the icon is to be retrieved."
+        },
+        {
+          "name": "type",
+          "type": "UINT",
+          "description": "Type of the icon to be retrieved. It can be ICON_BIG, ICON_SMALL, or ICON_SMALL2."
+        }
+      ],
+      "return_type": "HICON, represents the handle to the icon. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "send_destroy_message",
+      "description": "This function sends a destroy message to a window and its children. If the window is the owner of the caret, the clipboard, or is active, it performs specific actions. It also checks if the window still exists after the destroy message, as the message can trigger re-entrant calls to DestroyWindow.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be destroyed"
+        },
+        {
+          "name": "winevent",
+          "type": "BOOL",
+          "description": "Boolean value that indicates whether to notify the event of object destruction"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "free_window_handle",
+      "description": "This function is used to free the memory allocated to a window handle. It first checks if the window handle exists and is not owned by another process. If these conditions are met, it destroys the window on the server, sets the user handle pointer to NULL, unlocks the user, and frees the memory allocated to the window's scroll, text, and the window itself.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is the handle to the window that needs to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "destroy_window",
+      "description": "This function is responsible for destroying a window and freeing all the resources associated with it. It handles the destruction of child windows, unlinking from the parent, sending the WM_NCDESTROY message, updating the window state if necessary, and freeing resources such as menus, cursors, surfaces, and drawables.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be destroyed"
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing and depends on the message sent. In this case, it always returns 0 indicating successful execution of the function"
+    }
+  },
+  {
+    "function": {
+      "name": "user_destroy_window",
+      "description": "This function is used to destroy a window and perform necessary cleanup operations. It checks if the window belongs to the current thread and is not a desktop window, calls necessary hooks, ends the menu if active, checks if the window is a child window and sends a destroy notification to the parent if it is. If the window is not a child, it calls shell hooks. It then hides the window, destroys child windows if any, sends a destroy message and finally destroys the window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be destroyed"
+        },
+        {
+          "name": "winevent",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether a winevent should be triggered"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the window is successfully destroyed, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserDestroyWindow",
+      "description": "This function is used to destroy a window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window to be destroyed."
+        }
+      ],
+      "return_type": "BOOL, represents whether the window was successfully destroyed or not."
+    }
+  },
+  {
+    "function": {
+      "name": "destroy_thread_windows",
+      "description": "This function is used to destroy all the windows associated with the current thread. It recycles WND structs as destroy_entry structs, frees up resources associated with the windows, and then destroys the windows.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "create_window_handle",
+      "description": "This function creates a window handle with the specified parameters, and returns a pointer to the created window.",
+      "parameters": [
+        {
+          "name": "parent",
+          "type": "HWND",
+          "description": "Handle to the parent window."
+        },
+        {
+          "name": "owner",
+          "type": "HWND",
+          "description": "Handle to the owner window."
+        },
+        {
+          "name": "name",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to the name of the window."
+        },
+        {
+          "name": "class_instance",
+          "type": "HINSTANCE",
+          "description": "Instance of the window class."
+        },
+        {
+          "name": "instance",
+          "type": "HINSTANCE",
+          "description": "Instance of the window."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether the window is ANSI or not."
+        },
+        {
+          "name": "style",
+          "type": "DWORD",
+          "description": "Style of the window."
+        },
+        {
+          "name": "ex_style",
+          "type": "DWORD",
+          "description": "Extended style of the window."
+        }
+      ],
+      "return_type": "WND *: Pointer to the created window. If the window creation fails, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "is_default_coord",
+      "description": "This function checks if the given integer is equal to the constant CW_USEDEFAULT or the hexadecimal value 0x8000.",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "int",
+          "description": "This parameter represents the integer to be checked."
+        }
+      ],
+      "return_type": "BOOL, returns true if the integer is equal to CW_USEDEFAULT or 0x8000, otherwise false."
+    }
+  },
+  {
+    "function": {
+      "name": "fix_cs_coordinates",
+      "description": "This function adjusts the coordinates of a window based on its style and default coordinates. If the window is a child or popup, it sets the x and y coordinates to 0 if they are default. For an overlapped window, it sets the x and y coordinates based on the process parameters or monitor info, and adjusts the width and height similarly. It also handles a special case where neither x nor width are default, but height is.",
+      "parameters": [
+        {
+          "name": "cs",
+          "type": "CREATESTRUCTW *",
+          "description": "A pointer to a CREATESTRUCTW structure that defines the initialization parameters of the window."
+        },
+        {
+          "name": "sw",
+          "type": "INT *",
+          "description": "A pointer to an integer that will be set to the y coordinate if it is not default."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the parameters directly."
+    }
+  },
+  {
+    "function": {
+      "name": "map_dpi_create_struct",
+      "description": "This function maps the DPI (dots per inch) of a CREATESTRUCTW structure from one value to another. It also adjusts the x, y, cx, and cy values of the structure based on the new DPI.",
+      "parameters": [
+        {
+          "name": "cs",
+          "type": "CREATESTRUCTW*",
+          "description": "A pointer to a CREATESTRUCTW structure that contains information about a window's initial size and position."
+        },
+        {
+          "name": "dpi_to",
+          "type": "UINT",
+          "description": "The DPI value to which the DPI of the CREATESTRUCTW structure should be mapped."
+        }
+      ],
+      "return_type": "void, this function does not return a value but modifies the CREATESTRUCTW structure passed as a parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserCreateWindowEx",
+      "description": "This function is used to create a new window with extended styles. It sets up the window structure, sends necessary messages, applies window position, and performs other tasks necessary for window creation.",
+      "parameters": [
+        {
+          "name": "ex_style",
+          "type": "DWORD",
+          "description": "Extended window style"
+        },
+        {
+          "name": "class_name",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to the class name"
+        },
+        {
+          "name": "version",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to the version"
+        },
+        {
+          "name": "window_name",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to the window name"
+        },
+        {
+          "name": "style",
+          "type": "DWORD",
+          "description": "Window style"
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "Horizontal position of the window"
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "Vertical position of the window"
+        },
+        {
+          "name": "cx",
+          "type": "INT",
+          "description": "Width of the window"
+        },
+        {
+          "name": "cy",
+          "type": "INT",
+          "description": "Height of the window"
+        },
+        {
+          "name": "parent",
+          "type": "HWND",
+          "description": "Handle to the parent window"
+        },
+        {
+          "name": "menu",
+          "type": "HMENU",
+          "description": "Handle to the menu"
+        },
+        {
+          "name": "class_instance",
+          "type": "HINSTANCE",
+          "description": "Handle to the instance of the class"
+        },
+        {
+          "name": "params",
+          "type": "void *",
+          "description": "Pointer to the parameters"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags for window creation"
+        },
+        {
+          "name": "instance",
+          "type": "HINSTANCE",
+          "description": "Handle to the instance of the window"
+        },
+        {
+          "name": "class",
+          "type": "WCHAR *",
+          "description": "Pointer to the class"
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether the window is ANSI or not"
+        }
+      ],
+      "return_type": "HWND, which represents the handle to the newly created window. If the function fails to create a window, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "get_dialog_info",
+      "description": "This function retrieves the dialog information associated with a given window handle. If the window handle is invalid or corresponds to another process or the desktop, it sets the last error to ERROR_INVALID_WINDOW_HANDLE and returns NULL.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window for which dialog information is to be retrieved."
+        }
+      ],
+      "return_type": "void*: Returns a pointer to the dialog information of the window. If the window handle is invalid or corresponds to another process or the desktop, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "set_dialog_info",
+      "description": "This function sets the dialog information for a given window. It first retrieves the window pointer, checks if it's valid and not pointing to another process or the desktop, then sets the dialog information and releases the window pointer.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the dialog information is to be set."
+        },
+        {
+          "name": "info",
+          "type": "void *",
+          "description": "Pointer to the dialog information to be set for the window."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the dialog information was successfully set, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "set_raw_window_pos",
+      "description": "This function sets the raw position of a window. It maps the raw rectangle to a virtual one based on the thread's DPI, then sets the window's position based on whether the operation is internal or not.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose position is to be set."
+        },
+        {
+          "name": "rect",
+          "type": "RECT",
+          "description": "Rectangle structure that specifies the new position of the window."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies the window sizing and positioning flags."
+        },
+        {
+          "name": "internal",
+          "type": "BOOL",
+          "description": "Specifies whether the window positioning operation is internal or not."
+        }
+      ],
+      "return_type": "BOOL, represents whether the window positioning operation was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserCallHwnd",
+      "description": "This function handles various window related operations based on the provided code. It uses a switch statement to determine the operation to perform.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window on which the operation is to be performed."
+        },
+        {
+          "name": "code",
+          "type": "DWORD",
+          "description": "The code representing the operation to be performed on the window."
+        }
+      ],
+      "return_type": "ULONG_PTR, represents the result of the operation performed on the window. The specific meaning depends on the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserCallHwndParam",
+      "description": "This function handles various operations on a window based on the provided code. The operations include getting window information, setting window information, mapping window points, and more.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window on which the operation is to be performed."
+        },
+        {
+          "name": "param",
+          "type": "DWORD_PTR",
+          "description": "Parameter used in the operation. Its actual type and purpose depend on the operation code."
+        },
+        {
+          "name": "code",
+          "type": "DWORD",
+          "description": "Code that determines the operation to be performed on the window."
+        }
+      ],
+      "return_type": "ULONG_PTR, represents the result of the operation. The actual type and meaning of the return value depend on the operation code."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserDragDetect",
+      "description": "This function detects if the user has dragged the mouse within a certain rectangle. It first checks if the left mouse button is down. If not, it returns false. If it is, it sets a capture on the mouse input and enters a loop where it checks for mouse messages. If the left button is released, it releases the capture and returns false. If the mouse moves outside the rectangle, it releases the capture and returns true.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that receives the mouse input."
+        },
+        {
+          "name": "x",
+          "type": "int",
+          "description": "The x-coordinate of the point where the mouse was initially clicked."
+        },
+        {
+          "name": "y",
+          "type": "int",
+          "description": "The y-coordinate of the point where the mouse was initially clicked."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the user drags the mouse outside the rectangle, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserDragObject",
+      "description": "This function is a stub and does not perform any operation. It is expected to handle drag operations of an object in a window.",
+      "parameters": [
+        {
+          "name": "parent",
+          "type": "HWND",
+          "description": "Handle to the parent window of the drag source."
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that receives the drag item."
+        },
+        {
+          "name": "fmt",
+          "type": "UINT",
+          "description": "Format of the data to be dragged."
+        },
+        {
+          "name": "data",
+          "type": "ULONG_PTR",
+          "description": "Data to be dragged."
+        },
+        {
+          "name": "cursor",
+          "type": "HCURSOR",
+          "description": "Handle to the cursor that is displayed during the drag operation."
+        }
+      ],
+      "return_type": "DWORD, represents the status of the operation. In this stub function, it always returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "get_shell_window",
+      "description": "This function is used to get the handle to the shell window.",
+      "parameters": [],
+      "return_type": "HWND, which is a handle to the shell window."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserQueryWindow",
+      "description": "This function queries information about a specific window based on the provided class of information.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window about which information is to be retrieved."
+        },
+        {
+          "name": "cls",
+          "type": "WINDOWINFOCLASS",
+          "description": "The class of information to be retrieved about the window."
+        }
+      ],
+      "return_type": "HANDLE, represents a handle to the requested window information. The exact nature of this handle depends on the WINDOWINFOCLASS requested."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetShellWindowEx",
+      "description": "This function sets the shell window and list view window to the bottom of the Z order. It also sets the shell window and list view window as the desktop shell windows on the server side.",
+      "parameters": [
+        {
+          "name": "shell",
+          "type": "HWND",
+          "description": "Handle to the shell window."
+        },
+        {
+          "name": "list_view",
+          "type": "HWND",
+          "description": "Handle to the list view window."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation was successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_progman_window",
+      "description": "This function is used to get the handle to the Program Manager window.",
+      "parameters": [],
+      "return_type": "HWND, which represents the handle to the Program Manager window."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetProgmanWindow",
+      "description": "This function sets the desktop shell windows with the given window handle.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window that is to be set as the desktop shell window."
+        }
+      ],
+      "return_type": "HWND, which represents the handle to the window that was set. If the operation fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "get_taskman_window",
+      "description": "This function is used to get the handle to the task manager window.",
+      "parameters": [],
+      "return_type": "HWND, which represents the handle to the task manager window."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetTaskmanWindow",
+      "description": "This function sets the task manager window for the desktop shell.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This parameter is a handle to the window that is to be set as the task manager window."
+        }
+      ],
+      "return_type": "HWND, represents the handle to the window that has been set as the task manager window. If the operation fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserIsChildWindowDpiMessageEnabled",
+      "description": "This function is a stub and does not perform any operation. It always returns FALSE.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        }
+      ],
+      "return_type": "BOOL, represents the status of the operation. Always returns FALSE in this case."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetWindowDisplayAffinity",
+      "description": "This function is used to get the display affinity setting for a window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "affinity",
+          "type": "DWORD *",
+          "description": "A pointer to a variable that receives the display affinity setting."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, and FALSE otherwise."
+    }
+  }
+]

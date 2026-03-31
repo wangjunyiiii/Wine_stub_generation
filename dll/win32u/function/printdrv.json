@@ -1,0 +1,124 @@
+[
+  {
+    "function": {
+      "name": "NtGdiGetSpoolMessage",
+      "description": "This function is used to delay the execution of the spoolsv.exe process to avoid 100% CPU usage. It is a stub function.",
+      "parameters": [
+        {
+          "name": "ptr1",
+          "type": "void *",
+          "description": "First pointer parameter, not used in the function."
+        },
+        {
+          "name": "data2",
+          "type": "DWORD",
+          "description": "First DWORD parameter, not used in the function."
+        },
+        {
+          "name": "ptr3",
+          "type": "void *",
+          "description": "Second pointer parameter, not used in the function."
+        },
+        {
+          "name": "data4",
+          "type": "DWORD",
+          "description": "Second DWORD parameter, not used in the function."
+        }
+      ],
+      "return_type": "DWORD, represents the status of the function execution. In this case, it always returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiInitSpool",
+      "description": "This function is a stub, it doesn't perform any operation yet.",
+      "parameters": [],
+      "return_type": "DWORD, it represents a 32-bit unsigned integer. In this case, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiStartDoc",
+      "description": "This function starts a print job for a document. It retrieves a pointer to a device context, traces the document details, and if the device context is valid, it retrieves a physical device and starts the document on that device.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "doc",
+          "type": "DOCINFOW *",
+          "description": "Pointer to a DOCINFOW structure that contains the details of the document."
+        },
+        {
+          "name": "banding",
+          "type": "BOOL *",
+          "description": "Pointer to a boolean value that indicates whether banding is used."
+        },
+        {
+          "name": "job",
+          "type": "INT",
+          "description": "Identifier for the print job."
+        }
+      ],
+      "return_type": "INT. Returns SP_ERROR if the device context is not valid, otherwise it returns the result of the pStartDoc function of the physical device."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiEndDoc",
+      "description": "This function ends a print job for a specific device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This is a handle to the device context."
+        }
+      ],
+      "return_type": "INT, represents the status of the operation. Returns SP_ERROR if the operation fails, otherwise returns the result of the pEndDoc function call."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiStartPage",
+      "description": "This function starts a new page for specific device context by getting the device context pointer, retrieving the physical device and calling the start page function of the physical device.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        }
+      ],
+      "return_type": "INT, represents the status of the operation. Returns SP_ERROR if the operation fails, otherwise returns the result of the pStartPage function of the physical device."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiEndPage",
+      "description": "This function ends a page in a physical device context by retrieving the device context pointer, getting the physical device, calling the end page function of the physical device, and finally releasing the device context pointer.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        }
+      ],
+      "return_type": "INT, represents the status of the operation. Returns SP_ERROR if the operation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiAbortDoc",
+      "description": "This function aborts the current document in the specified device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        }
+      ],
+      "return_type": "INT, represents the status of the operation. Returns SP_ERROR if the operation fails."
+    }
+  }
+]

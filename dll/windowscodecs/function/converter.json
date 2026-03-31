@@ -1,0 +1,925 @@
+[
+  {
+    "function": {
+      "name": "float_16_to_32",
+      "description": "This function converts a 16-bit floating point number to a 32-bit floating point number.",
+      "parameters": [
+        {
+          "name": "in",
+          "type": "unsigned short",
+          "description": "This parameter represents the 16-bit floating point number to be converted."
+        }
+      ],
+      "return_type": "float, representing the 32-bit floating point number after conversion"
+    }
+  },
+  {
+    "function": {
+      "name": "to_sRGB_component",
+      "description": "This function converts a linear RGB component to an sRGB component.",
+      "parameters": [
+        {
+          "name": "f",
+          "type": "float",
+          "description": "This parameter represents the linear RGB component that needs to be converted."
+        }
+      ],
+      "return_type": "float, representing the converted sRGB component"
+    }
+  },
+  {
+    "function": {
+      "name": "from_sRGB_component",
+      "description": "This function converts an sRGB component to a linear sRGB component.",
+      "parameters": [
+        {
+          "name": "f",
+          "type": "float",
+          "description": "This parameter represents the sRGB component to be converted."
+        }
+      ],
+      "return_type": "float, representing the linear sRGB component"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IWICFormatConverter",
+      "description": "This function returns a pointer to a FormatConverter structure that contains the given IWICFormatConverter interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICFormatConverter *",
+          "description": "Pointer to an IWICFormatConverter interface"
+        }
+      ],
+      "return_type": "FormatConverter pointer, representing the FormatConverter structure that contains the given IWICFormatConverter interface"
+    }
+  },
+  {
+    "function": {
+      "name": "copypixels_to_32bppRGBA",
+      "description": "This function copies pixels to a 32bppRGBA format. It handles different source formats and applies necessary transformations.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct FormatConverter *",
+          "description": "Pointer to the FormatConverter structure"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to the rectangle structure that specifies the portion of the bitmap to copy"
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "Specifies the stride, or pitch, of the bitmap"
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "Specifies the size of the buffer"
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer that receives the bitmap data"
+        },
+        {
+          "name": "source_format",
+          "type": "enum pixelformat",
+          "description": "Specifies the source pixel format"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function"
+    }
+  },
+  {
+    "function": {
+      "name": "copypixels_to_32bppBGR",
+      "description": "This function copies pixels to a 32bppBGR format. It handles different source formats and uses a switch case to determine the appropriate action based on the source format.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct FormatConverter *",
+          "description": "Pointer to the FormatConverter structure"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to the rectangle structure that specifies the portion of the bitmap to copy"
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "The stride, or pitch, of the bitmap"
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "The size of the buffer"
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer that receives the bitmap data"
+        },
+        {
+          "name": "source_format",
+          "type": "enum pixelformat",
+          "description": "The source pixel format"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function execution. It returns S_OK if the function is successful, otherwise it returns the result of the IWICBitmapSource_CopyPixels function or the copypixels_to_32bppBGRA function depending on the source format."
+    }
+  },
+  {
+    "function": {
+      "name": "copypixels_to_32bppRGB",
+      "description": "This function copies pixels to a 32bppRGB format. It handles different source formats and uses a different function for formats other than 32bppRGB, 32bppRGBA, and 32bppPRGBA.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct FormatConverter *",
+          "description": "Pointer to the FormatConverter structure"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to the rectangle structure that specifies the portion of the bitmap to copy"
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "Specifies the stride, or pitch, of the bitmap"
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "Specifies the size of the buffer"
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer that receives the bitmap data"
+        },
+        {
+          "name": "source_format",
+          "type": "enum pixelformat",
+          "description": "Specifies the source pixel format"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, it returns S_OK, otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "copypixels_to_32bppPBGRA",
+      "description": "This function copies pixels to a 32 bits per pixel (bpp) PBGRA format. It handles different source formats and applies alpha blending if necessary.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct FormatConverter *",
+          "description": "Pointer to the FormatConverter structure which contains the source of the pixels."
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to a WICRect structure that specifies the portion of the source bitmap to copy."
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "The stride, or pitch, of the bitmap. This is the number of bytes from one row of pixels in memory to the next row of pixels in memory."
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "The size of the buffer to which the pixels will be copied."
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer to which the pixels will be copied."
+        },
+        {
+          "name": "source_format",
+          "type": "enum pixelformat",
+          "description": "The pixel format of the source image."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "copypixels_to_32bppPRGBA",
+      "description": "This function copies pixels to a 32bppPRGBA format. It handles two cases: when the source format is already 32bppPRGBA and when it is not. In the first case, it directly copies the pixels. In the second case, it first converts the pixels to 32bppRGBA format and then adjusts the color components based on the alpha value.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct FormatConverter *",
+          "description": "Pointer to the FormatConverter structure"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to the rectangle structure that specifies the portion of the bitmap to copy"
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "Specifies the stride, or pitch, of the bitmap"
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "Specifies the size of the buffer"
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer that receives the bitmap data"
+        },
+        {
+          "name": "source_format",
+          "type": "enum pixelformat",
+          "description": "Specifies the pixel format of the source image"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, otherwise it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "set_24bppbgr_pixel",
+      "description": "This function sets the color of a pixel in a 24-bit BGR image.",
+      "parameters": [
+        {
+          "name": "dstpixel",
+          "type": "BYTE**",
+          "description": "A pointer to the destination pixel."
+        },
+        {
+          "name": "color",
+          "type": "WICColor",
+          "description": "The color to set the pixel to."
+        }
+      ],
+      "return_type": "void, this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "copypixels_to_24bppBGR",
+      "description": "This function converts the source pixel format to 24bppBGR pixel format.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct FormatConverter *",
+          "description": "Pointer to the FormatConverter structure."
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to the rectangle structure that specifies the portion of the bitmap to copy."
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "The stride, or pitch, of the bitmap. The stride is the number of bytes from one row of pixels in memory to the next row of pixels in memory."
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "The size of the buffer."
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer to which the pixels will be copied."
+        },
+        {
+          "name": "source_format",
+          "type": "enum pixelformat",
+          "description": "The source pixel format."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If the function fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "copypixels_to_24bppRGB",
+      "description": "This function copies pixels from a source to a buffer, converting them to a 24bpp RGB format. It handles different source formats and applies necessary conversions.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct FormatConverter *",
+          "description": "Pointer to the FormatConverter structure which contains the source of the pixels"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to the rectangle structure defining the area of the source to copy"
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "The stride, or width in memory, of the source data"
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "The size of the buffer to which the pixels will be copied"
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer to which the pixels will be copied"
+        },
+        {
+          "name": "source_format",
+          "type": "enum pixelformat",
+          "description": "The format of the source pixels"
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK if the operation is successful, E_OUTOFMEMORY if memory allocation fails, or WINCODEC_ERR_UNSUPPORTEDOPERATION if the source format is not supported"
+    }
+  },
+  {
+    "function": {
+      "name": "copypixels_to_32bppGrayFloat",
+      "description": "This function copies pixels to a 32 bit per pixel gray float format. It handles different source formats and performs a conversion to grayscale if necessary.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct FormatConverter *",
+          "description": "Pointer to the FormatConverter structure"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to the rectangle structure that specifies the portion of the bitmap to copy"
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "Specifies the stride, or pitch, of the bitmap"
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "Specifies the size of the buffer"
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer that receives the bitmap data"
+        },
+        {
+          "name": "source_format",
+          "type": "enum pixelformat",
+          "description": "Specifies the source pixel format"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function execution. It can indicate success or failure, and carries specific error or status information."
+    }
+  },
+  {
+    "function": {
+      "name": "copypixels_to_8bppGray",
+      "description": "This function converts pixels from a source format to 8bppGray format. It handles different source formats and uses different strategies for each format.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct FormatConverter *",
+          "description": "Pointer to the FormatConverter structure which contains the source of the pixels."
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to the rectangle structure that specifies the portion of the bitmap to copy."
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "The stride, or pitch, of the bitmap. This is the number of bytes between the beginning of one line of pixels in the bitmap and the beginning of the next line."
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "The size of the buffer to which the pixels will be copied."
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer to which the pixels will be copied."
+        },
+        {
+          "name": "source_format",
+          "type": "enum pixelformat",
+          "description": "The format of the source pixels."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK if the function is successful, E_OUTOFMEMORY if memory allocation fails, or the error code returned by the function IWICBitmapSource_CopyPixels."
+    }
+  },
+  {
+    "function": {
+      "name": "rgb_to_palette_index",
+      "description": "This function converts RGB color values to a palette index by finding the palette color that is closest to the input color.",
+      "parameters": [
+        {
+          "name": "bgr",
+          "type": "BYTE[3]",
+          "description": "An array of bytes representing BGR color values."
+        },
+        {
+          "name": "colors",
+          "type": "WICColor*",
+          "description": "A pointer to an array of palette colors."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The number of colors in the palette."
+        }
+      ],
+      "return_type": "UINT, represents the index of the palette color that is closest to the input color."
+    }
+  },
+  {
+    "function": {
+      "name": "copypixels_to_8bppIndexed",
+      "description": "This function converts the source pixel data to 8bppIndexed format and copies it to the provided buffer.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct FormatConverter *",
+          "description": "Pointer to the FormatConverter structure."
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to the rectangle structure that specifies the portion of the bitmap to copy."
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "The stride, or pitch, of the bitmap. The stride is the number of bytes from one row of pixels in memory to the next row of pixels in memory."
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "The size of the buffer to which the pixels will be copied."
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer to which the pixels will be copied."
+        },
+        {
+          "name": "source_format",
+          "type": "enum pixelformat",
+          "description": "The pixel format of the source data."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, E_OUTOFMEMORY if the operation fails due to lack of memory, or WINCODEC_ERR_WRONGSTATE if the operation fails due to incorrect state."
+    }
+  },
+  {
+    "function": {
+      "name": "copypixels_to_16bppBGRA5551",
+      "description": "This function copies pixels from a source to a destination, converting the pixel format if necessary. It supports conversion from 16bppBGRA5551 and 32bppBGRA formats to 16bppBGRA5551 format.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct FormatConverter *",
+          "description": "Pointer to the FormatConverter structure which contains the source of the pixels."
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to the rectangle structure that defines the area of the source to be copied."
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "The stride, or pitch, of the bitmap. This is the number of bytes from one row of pixels in memory to the next row."
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "The size of the buffer to which the pixels will be copied."
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer to which the pixels will be copied."
+        },
+        {
+          "name": "source_format",
+          "type": "enum pixelformat",
+          "description": "The format of the source pixels."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the operation is successful, E_OUTOFMEMORY if it fails to allocate memory, or WINCODEC_ERR_UNSUPPORTEDOPERATION if the source pixel format is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "copypixels_to_64bppRGBA",
+      "description": "This function copies pixels to a 64bppRGBA format. It handles different source formats and performs necessary conversions.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct FormatConverter *",
+          "description": "Pointer to the FormatConverter structure"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to the rectangle structure that specifies the portion of the bitmap to copy"
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "The stride, or pitch, of the bitmap"
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "The size of the buffer"
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer that receives the bitmap data"
+        },
+        {
+          "name": "source_format",
+          "type": "enum pixelformat",
+          "description": "The source pixel format"
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. It can be a success code, an error code or a warning code"
+    }
+  },
+  {
+    "function": {
+      "name": "copypixels_to_128bppRGBAFloat",
+      "description": "This function copies pixels from a source to a destination buffer, converting them to 128bpp RGBA float format. It supports two source formats: 24bpp BGR and 32bpp BGRA.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct FormatConverter *",
+          "description": "Pointer to the FormatConverter structure which contains the source of the pixels"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to a WICRect structure that specifies the rectangle of pixels to copy"
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "Specifies the stride, or pitch, of the destination buffer"
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "Specifies the size of the destination buffer"
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to the destination buffer"
+        },
+        {
+          "name": "source_format",
+          "type": "enum pixelformat",
+          "description": "Specifies the format of the source pixels"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It can be S_OK if the operation is successful, E_OUTOFMEMORY if there is not enough memory to perform the operation, or WINCODEC_ERR_UNSUPPORTEDOPERATION if the source format is not supported"
+    }
+  },
+  {
+    "function": {
+      "name": "copypixels_to_128bppRGBFloat",
+      "description": "This function copies pixels from a source to a destination buffer, converting the pixel format to 128bpp RGB Float. It handles different source formats including 48bpp RGB, 96bpp RGB Float, 48bpp RGB Half, and 16bpp Gray Half.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "struct FormatConverter *",
+          "description": "Pointer to the FormatConverter structure"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to the rectangle structure that defines the area of the source to copy"
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "Specifies the stride, or pitch, of the bitmap"
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "Specifies the size of the buffer"
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer that receives the bitmap data"
+        },
+        {
+          "name": "source_format",
+          "type": "enum pixelformat",
+          "description": "Specifies the pixel format of the source data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It can return S_OK if the operation is successful, E_OUTOFMEMORY if memory allocation fails, or WINCODEC_ERR_UNSUPPORTEDOPERATION if the source format is not supported"
+    }
+  },
+  {
+    "function": {
+      "name": "get_formatinfo",
+      "description": "This function iterates over the supported_formats array to find a format that matches the input format. If a match is found, it returns a pointer to the matching format. If no match is found, it returns NULL.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "const WICPixelFormatGUID *",
+          "description": "This is a pointer to the format that needs to be matched in the supported_formats array."
+        }
+      ],
+      "return_type": "struct pixelformatinfo pointer. It represents a pointer to the matching format in the supported_formats array if a match is found, otherwise NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "FormatConverter_QueryInterface",
+      "description": "This function checks if the provided interface supports the requested interface ID (IID). If it does, it returns a pointer to that interface; otherwise, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICFormatConverter*",
+          "description": "Pointer to the IWICFormatConverter interface."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier (IID) of the interface being queried for."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Address of a pointer variable that receives the interface pointer requested in iid. Upon successful return, *ppv contains the requested interface pointer. If the object does not support the interface, *ppv will contain NULL."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call. Returns S_OK if the interface is supported, E_NOINTERFACE if not supported, and E_INVALIDARG if ppv is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "FormatConverter_AddRef",
+      "description": "This function increments the reference count of the FormatConverter object and returns the updated count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICFormatConverter *",
+          "description": "This parameter is a pointer to an IWICFormatConverter interface object."
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count of the FormatConverter object."
+    }
+  },
+  {
+    "function": {
+      "name": "FormatConverter_Release",
+      "description": "This function releases the resources associated with a FormatConverter object. It decrements the reference count, and if it reaches 0, it deletes the critical section, releases the source and palette if they exist, and frees the memory allocated to the FormatConverter object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICFormatConverter *",
+          "description": "This is a pointer to the IWICFormatConverter interface of the FormatConverter object to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after the decrement. If it is 0, the object has been freed."
+    }
+  },
+  {
+    "function": {
+      "name": "FormatConverter_GetSize",
+      "description": "This function retrieves the size of the source bitmap. If the source bitmap is not initialized, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICFormatConverter*",
+          "description": "Pointer to an IWICFormatConverter interface"
+        },
+        {
+          "name": "puiWidth",
+          "type": "UINT*",
+          "description": "Pointer to a UINT that receives the width of the bitmap"
+        },
+        {
+          "name": "puiHeight",
+          "type": "UINT*",
+          "description": "Pointer to a UINT that receives the height of the bitmap"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, it returns the size of the bitmap. If the source bitmap is not initialized, it returns WINCODEC_ERR_NOTINITIALIZED."
+    }
+  },
+  {
+    "function": {
+      "name": "FormatConverter_GetPixelFormat",
+      "description": "This function retrieves the pixel format of the given format converter interface. If the source is not null, it copies the destination format's GUID to the pixel format. If the source is null, it returns an error indicating that the format converter is not initialized.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICFormatConverter*",
+          "description": "This is the format converter interface whose pixel format is to be retrieved."
+        },
+        {
+          "name": "pPixelFormat",
+          "type": "WICPixelFormatGUID*",
+          "description": "This is a pointer to a variable that receives the pixel format GUID."
+        }
+      ],
+      "return_type": "HRESULT. It returns S_OK if the function succeeds. If the source is null, it returns WINCODEC_ERR_NOTINITIALIZED."
+    }
+  },
+  {
+    "function": {
+      "name": "FormatConverter_GetResolution",
+      "description": "This function retrieves the resolution of the source bitmap.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICFormatConverter*",
+          "description": "Pointer to the IWICFormatConverter interface"
+        },
+        {
+          "name": "pDpiX",
+          "type": "double*",
+          "description": "Pointer to a variable that receives the horizontal resolution"
+        },
+        {
+          "name": "pDpiY",
+          "type": "double*",
+          "description": "Pointer to a variable that receives the vertical resolution"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the source is initialized, it returns the resolution of the source bitmap. If not, it returns an error code indicating that the source is not initialized."
+    }
+  },
+  {
+    "function": {
+      "name": "FormatConverter_CopyPalette",
+      "description": "This function copies the color palette from the source to the destination. If the destination palette is not initialized, it initializes it from the source palette.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICFormatConverter *",
+          "description": "This is the interface to the format converter object."
+        },
+        {
+          "name": "palette",
+          "type": "IWICPalette *",
+          "description": "This is the palette that will be copied to."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns E_INVALIDARG if the palette is not initialized, WINCODEC_ERR_WRONGSTATE if the source is not initialized or if the destination format is an indexed format, and S_OK (success) otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "FormatConverter_CopyPixels",
+      "description": "This function copies pixels from a source to a destination buffer, with a specific format conversion. If no rectangle is provided, it copies the entire source.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICFormatConverter *",
+          "description": "Pointer to an interface for a format converter."
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to a rectangle structure that specifies the portion of the source to copy. If this parameter is NULL, the entire source is copied."
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "The stride, or pitch, of the destination bitmap. This is the number of bytes between the beginning of one scan line and the beginning of the next scan line."
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "The size of the destination buffer."
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to the destination buffer."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If it fails, it returns an error code. In particular, it returns WINCODEC_ERR_WRONGSTATE if the source is not set."
+    }
+  },
+  {
+    "function": {
+      "name": "FormatConverter_Initialize",
+      "description": "This function initializes a format converter object. It sets up the conversion from one pixel format to another, with optional dithering, palette and alpha threshold.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICFormatConverter*",
+          "description": "Pointer to the interface of the format converter object to be initialized"
+        },
+        {
+          "name": "source",
+          "type": "IWICBitmapSource*",
+          "description": "Pointer to the source bitmap"
+        },
+        {
+          "name": "dstFormat",
+          "type": "REFWICPixelFormatGUID",
+          "description": "Destination pixel format GUID"
+        },
+        {
+          "name": "dither",
+          "type": "WICBitmapDitherType",
+          "description": "Dither type to be used in the conversion"
+        },
+        {
+          "name": "palette",
+          "type": "IWICPalette*",
+          "description": "Pointer to the palette to be used in the conversion"
+        },
+        {
+          "name": "alpha_threshold",
+          "type": "double",
+          "description": "Alpha threshold to be used in the conversion"
+        },
+        {
+          "name": "palette_type",
+          "type": "WICBitmapPaletteType",
+          "description": "Type of palette to be used in the conversion"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation is successful, error code otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "FormatConverter_CanConvert",
+      "description": "This function checks if a conversion between two pixel formats is possible.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICFormatConverter *",
+          "description": "Pointer to an instance of IWICFormatConverter interface"
+        },
+        {
+          "name": "srcPixelFormat",
+          "type": "REFWICPixelFormatGUID",
+          "description": "Source pixel format GUID"
+        },
+        {
+          "name": "dstPixelFormat",
+          "type": "REFWICPixelFormatGUID",
+          "description": "Destination pixel format GUID"
+        },
+        {
+          "name": "pfCanConvert",
+          "type": "BOOL *",
+          "description": "Pointer to a BOOL variable where the function stores the result of whether a conversion is possible or not"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error code if the operation fails"
+    }
+  },
+  {
+    "function": {
+      "name": "FormatConverter_CreateInstance",
+      "description": "This function creates an instance of FormatConverter, initializes it, and assigns the instance to the provided pointer. It also queries an interface based on the provided IID and releases the interface after querying.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "This is the reference to the interface identifier that is to be queried."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "This is a pointer to the pointer where the created instance of FormatConverter will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function execution. It returns E_OUTOFMEMORY if memory allocation fails, otherwise it returns the result of the interface query operation."
+    }
+  }
+]

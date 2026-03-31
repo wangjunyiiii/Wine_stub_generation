@@ -1,0 +1,1407 @@
+[
+  {
+    "function": {
+      "name": "has_dialog_frame",
+      "description": "This function checks if a window has a dialog frame by examining the style and extended style parameters.",
+      "parameters": [
+        {
+          "name": "style",
+          "type": "UINT",
+          "description": "This parameter represents the style of the window."
+        },
+        {
+          "name": "ex_style",
+          "type": "UINT",
+          "description": "This parameter represents the extended style of the window."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the window has a dialog frame, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "has_thick_frame",
+      "description": "This function checks if the style has a thick frame and if it does not have a dialog frame.",
+      "parameters": [
+        {
+          "name": "style",
+          "type": "UINT",
+          "description": "This parameter represents the style of the window."
+        },
+        {
+          "name": "ex_style",
+          "type": "UINT",
+          "description": "This parameter represents the extended style of the window."
+        }
+      ],
+      "return_type": "BOOL, returns true if the style has a thick frame and does not have a dialog frame, otherwise returns false."
+    }
+  },
+  {
+    "function": {
+      "name": "has_thin_frame",
+      "description": "This function checks if a given style has a thin frame by using bitwise operations on the style parameter.",
+      "parameters": [
+        {
+          "name": "style",
+          "type": "UINT",
+          "description": "This parameter represents the style that is being checked for a thin frame."
+        }
+      ],
+      "return_type": "BOOL, represents whether the given style has a thin frame or not."
+    }
+  },
+  {
+    "function": {
+      "name": "has_big_frame",
+      "description": "This function checks if a window has a big frame by examining the style and extended style parameters.",
+      "parameters": [
+        {
+          "name": "style",
+          "type": "UINT",
+          "description": "This parameter represents the style of the window."
+        },
+        {
+          "name": "ex_style",
+          "type": "UINT",
+          "description": "This parameter represents the extended style of the window."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the window has a big frame, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "has_static_outer_frame",
+      "description": "This function checks if the given extended style has a static outer frame.",
+      "parameters": [
+        {
+          "name": "ex_style",
+          "type": "UINT",
+          "description": "This parameter represents the extended style that is to be checked."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the extended style has a static outer frame, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "has_menu",
+      "description": "This function checks if a window has a menu by checking the style and calling the get_menu function.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window."
+        },
+        {
+          "name": "style",
+          "type": "UINT",
+          "description": "This is the style of the window."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the window has a menu, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "fill_rect",
+      "description": "This function fills a rectangle in a device context with a specified brush. It first checks if the brush is a system color brush and if so, retrieves the corresponding system color brush. It then selects the brush into the device context, fills the rectangle, and finally reselects the previous brush back into the device context.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "HDC",
+          "description": "Handle to the device context where the rectangle will be filled."
+        },
+        {
+          "name": "rect",
+          "type": "const RECT *",
+          "description": "Pointer to a RECT structure that specifies the dimensions of the rectangle."
+        },
+        {
+          "name": "hbrush",
+          "type": "HBRUSH",
+          "description": "Handle to the brush used to fill the rectangle. If this parameter is a system color value, the function retrieves the corresponding system color brush."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "draw_focus_rect",
+      "description": "This function draws a rectangle with a focus effect on a device context. It sets the brush to NULL, creates a pen, sets the drawing and background modes, draws the rectangle, and then restores the previous settings.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context where the rectangle will be drawn."
+        },
+        {
+          "name": "rc",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that specifies the dimensions of the rectangle."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE always indicating the function has successfully executed."
+    }
+  },
+  {
+    "function": {
+      "name": "draw_rect_edge",
+      "description": "This function draws the edges of a rectangle with specified characteristics.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "rc",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that contains the logical coordinates of the rectangle."
+        },
+        {
+          "name": "type",
+          "type": "UINT",
+          "description": "Specifies the type of inner and outer edges to draw."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies the edges of the rectangle to be drawn."
+        },
+        {
+          "name": "width",
+          "type": "UINT",
+          "description": "Specifies the width of the edges."
+        }
+      ],
+      "return_type": "BOOL, returns a boolean value that indicates whether the function succeeded or not."
+    }
+  },
+  {
+    "function": {
+      "name": "adjust_window_rect",
+      "description": "This function adjusts the size of a window rectangle based on the window style, extended style, presence of menu, and DPI. It also modifies the top of the rectangle based on the caption and menu height.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "A pointer to the rectangle to be adjusted."
+        },
+        {
+          "name": "style",
+          "type": "DWORD",
+          "description": "The style of the window."
+        },
+        {
+          "name": "menu",
+          "type": "BOOL",
+          "description": "A boolean value indicating the presence of a menu."
+        },
+        {
+          "name": "ex_style",
+          "type": "DWORD",
+          "description": "The extended style of the window."
+        },
+        {
+          "name": "dpi",
+          "type": "UINT",
+          "description": "The DPI setting for the window."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE after successfully adjusting the window rectangle."
+    }
+  },
+  {
+    "function": {
+      "name": "set_window_text",
+      "description": "This function sets the text of a window. It checks if the text is a string or a resource, converts it if necessary, and then sets the window text.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window whose text is to be set"
+        },
+        {
+          "name": "text",
+          "type": "void *",
+          "description": "A pointer to the text to be set. If this is a resource, the function will return false"
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "A flag indicating whether the text is in ANSI format. If true, the function will convert the text to wide string format"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was able to set the window text successfully or not"
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_text",
+      "description": "This function retrieves the text of a specified window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window and context whose text is to be retrieved."
+        },
+        {
+          "name": "str",
+          "type": "WCHAR*",
+          "description": "Pointer to the buffer that will receive the text."
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "description": "Specifies the maximum number of characters to copy to the buffer, including the null character."
+        }
+      ],
+      "return_type": "int, represents the length of the string copied to the buffer, not including the terminating null character. If the window has no text, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_icon",
+      "description": "This function retrieves the icon associated with a window based on the specified type.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window whose icon is to be retrieved."
+        },
+        {
+          "name": "type",
+          "type": "WPARAM",
+          "description": "The type of icon to be retrieved. This can be ICON_SMALL, ICON_BIG, or ICON_SMALL2."
+        }
+      ],
+      "return_type": "HICON, which represents the handle to the icon. If the window does not have an icon of the specified type, or if an error occurs, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "set_window_icon",
+      "description": "This function sets the icon for a window. It handles both small and big icons, and manages the icon resources accordingly.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the icon is being set."
+        },
+        {
+          "name": "type",
+          "type": "WPARAM",
+          "description": "Specifies the type of the icon. It can be either ICON_SMALL or ICON_BIG."
+        },
+        {
+          "name": "icon",
+          "type": "HICON",
+          "description": "Handle to the icon that is to be set for the window."
+        }
+      ],
+      "return_type": "HICON, represents the previous window icon before the change was made."
+    }
+  },
+  {
+    "function": {
+      "name": "handle_set_cursor",
+      "description": "This function handles the setting of the cursor based on the message received. It sets the cursor to different types based on the area of the window that is being interacted with.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing and depends on the message sent."
+    }
+  },
+  {
+    "function": {
+      "name": "handle_window_pos_changing",
+      "description": "This function handles the changing position of a window. It first retrieves the window style, then checks certain conditions to adjust the window's size based on the minimum and maximum track size.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "winpos",
+          "type": "WINDOWPOS *",
+          "description": "A pointer to a structure that contains the size and position of a window."
+        }
+      ],
+      "return_type": "LONG, represents the result of the window position changing handling. It returns 0 in all cases in this function."
+    }
+  },
+  {
+    "function": {
+      "name": "handle_window_pos_changed",
+      "description": "This function handles the changes in the position of a window. It first gets the client rectangle relative to the window. If the window is not moved, it sends a message to the window with the new position. If the window size or state has changed, it checks if the window is minimized or maximized and sends a message to the window with the new size.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose position has changed"
+        },
+        {
+          "name": "winpos",
+          "type": "WINDOWPOS *",
+          "description": "Pointer to a structure that contains the new position and dimensions of the window"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "draw_moving_frame",
+      "description": "This function draws a moving frame on a window. It can either draw a thick frame or a focus rectangle depending on the 'thickframe' parameter.",
+      "parameters": [
+        {
+          "name": "parent",
+          "type": "HWND",
+          "description": "Handle to the parent window."
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "screen_rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that specifies the dimensions of the frame."
+        },
+        {
+          "name": "thickframe",
+          "type": "BOOL",
+          "description": "Specifies whether to draw a thick frame. If this parameter is TRUE, the function draws a thick frame; otherwise, it draws a focus rectangle."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "start_size_move",
+      "description": "This function handles the movement and resizing of a window. It calculates the new position and size based on user input and updates the window accordingly.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window to be moved or resized"
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Parameter containing additional message-specific information"
+        },
+        {
+          "name": "capture_point",
+          "type": "POINT *",
+          "description": "Pointer to a POINT structure that receives the new screen coordinates of the cursor"
+        },
+        {
+          "name": "style",
+          "type": "LONG",
+          "description": "Specifies the window style"
+        }
+      ],
+      "return_type": "LONG, represents the hit-test value for the area of the window where the cursor is located when the function returns"
+    }
+  },
+  {
+    "function": {
+      "name": "on_left_border",
+      "description": "Determines if a hit is on the left border by checking if it equals HTLEFT, HTTOPLEFT, or HTBOTTOMLEFT.",
+      "parameters": [
+        {
+          "name": "hit",
+          "type": "int",
+          "description": "The hit to be checked"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the hit is on the left border, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "on_right_border",
+      "description": "This function checks if the hit is on the right border.",
+      "parameters": [
+        {
+          "name": "hit",
+          "type": "int",
+          "description": "This parameter represents the hit position."
+        }
+      ],
+      "return_type": "BOOL, returns true if the hit is on the right border, otherwise false."
+    }
+  },
+  {
+    "function": {
+      "name": "on_top_border",
+      "description": "Determines if the hit is on the top border by checking if the hit equals HTTOP, HTTOPLEFT, or HTTOPRIGHT.",
+      "parameters": [
+        {
+          "name": "hit",
+          "type": "int",
+          "description": "The hit to check if it's on the top border"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the hit is on the top border, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "on_bottom_border",
+      "description": "This function checks if the hit is on the bottom border.",
+      "parameters": [
+        {
+          "name": "hit",
+          "type": "int",
+          "description": "This parameter represents the hit position."
+        }
+      ],
+      "return_type": "BOOL, returns true if the hit is on the bottom border, otherwise false."
+    }
+  },
+  {
+    "function": {
+      "name": "sys_command_size_move",
+      "description": "This function handles the system commands for moving and resizing a window. It calculates the new position and size of the window based on the user's input and system parameters. It also handles the drawing and redrawing of the window during the move/resize operation.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that is being moved or resized."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information. The contents of this parameter depend on the value of the uMsg parameter."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "track_nc_scroll_bar",
+      "description": "This function checks the WPARAM value to determine the type of scroll bar (horizontal or vertical) and then calls the track_scroll_bar function with the appropriate parameters.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that contains the scroll bar"
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Parameter that indicates the type of scroll bar"
+        },
+        {
+          "name": "pt",
+          "type": "POINT",
+          "description": "Structure that specifies the x- and y- coordinates of a point"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "handle_sys_command",
+      "description": "This function handles system commands for a given window. It processes different types of system commands such as size, move, minimize, maximize, close, vertical scroll, horizontal scroll, mouse menu, keyboard menu, restore, tasklist, screensave, hotkey, arrange, next window, previous window, etc.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that the system command is applied to"
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "The system command type"
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information"
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing and depends on the message sent"
+    }
+  },
+  {
+    "function": {
+      "name": "get_inside_rect",
+      "description": "This function gets the window rectangle relative to the given coordinates, removes the frame from the rectangle based on the style and ex_style parameters, and adjusts the rectangle if the window is a child (but not an MDI child) and has additional border information.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "relative",
+          "type": "enum coords_relative",
+          "description": "Specifies the coordinates relative to which the window rectangle is to be retrieved"
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that receives the screen coordinates of the upper-left and lower-right corners of the window"
+        },
+        {
+          "name": "style",
+          "type": "DWORD",
+          "description": "Specifies the window style"
+        },
+        {
+          "name": "ex_style",
+          "type": "DWORD",
+          "description": "Specifies the extended window style"
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "get_sys_popup_pos",
+      "description": "This function gets the system popup position. If the window is iconic, it gets the window rectangle using the thread dpi. Otherwise, it gets the window style and extended style, calculates the inside rectangle, adjusts the right and bottom coordinates based on system metrics, and maps the window points using the thread dpi.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the system popup position is to be determined."
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that receives the screen coordinates of the upper-left and lower-right corners of the window."
+        }
+      ],
+      "return_type": "void, this function does not return a value but modifies the RECT structure pointed by the 'rect' parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "draw_nc_frame",
+      "description": "This function draws a non-client frame with specified dimensions, style, and state.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that specifies the dimensions of the frame."
+        },
+        {
+          "name": "active",
+          "type": "BOOL",
+          "description": "Specifies the state of the frame. If this parameter is TRUE, the frame is active; otherwise, it is inactive."
+        },
+        {
+          "name": "style",
+          "type": "DWORD",
+          "description": "Specifies the style of the frame."
+        },
+        {
+          "name": "ex_style",
+          "type": "DWORD",
+          "description": "Specifies the extended style of the frame."
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "get_nc_icon_for_window",
+      "description": "This function retrieves the small icon associated with a window. If the window does not have a small icon, the function retrieves the first large icon. If the window or its class has no icons, the function retrieves the default window icon.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window for which the function will retrieve the icon."
+        }
+      ],
+      "return_type": "HICON, which represents the handle to the icon associated with the window."
+    }
+  },
+  {
+    "function": {
+      "name": "draw_caption_bar",
+      "description": "This function draws a caption bar with a gradient or solid color based on the provided parameters.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that specifies the dimensions of the caption bar."
+        },
+        {
+          "name": "style",
+          "type": "DWORD",
+          "description": "Specifies the style of the window."
+        },
+        {
+          "name": "active",
+          "type": "BOOL",
+          "description": "Specifies whether the window is active."
+        },
+        {
+          "name": "gradient",
+          "type": "BOOL",
+          "description": "Specifies whether the caption bar should be drawn with a gradient."
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "draw_nc_sys_button",
+      "description": "This function draws a system button on a window. It first gets the icon for the window, then calculates the position and size of the button based on the window's style and metrics. The button is drawn using the NtUserDrawIconEx function.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window on which the system button is to be drawn"
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context for the window"
+        },
+        {
+          "name": "down",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether the button is in a pressed state"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the icon for the window exists, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "make_square_rect",
+      "description": "This function modifies the destination rectangle to make it a square based on the dimensions of the source rectangle, keeping the center of the rectangle the same.",
+      "parameters": [
+        {
+          "name": "src",
+          "type": "RECT*",
+          "description": "This is the source rectangle that will be used as a reference to create a square rectangle."
+        },
+        {
+          "name": "dst",
+          "type": "RECT*",
+          "description": "This is the destination rectangle that will be modified to become a square."
+        }
+      ],
+      "return_type": "int, represents the side length of the square rectangle."
+    }
+  },
+  {
+    "function": {
+      "name": "draw_checked_rect",
+      "description": "This function draws a checked rectangle. If the system color is white, it fills the rectangle with a system color brush, sets the background color, selects a brush, performs a pattern blit operation, and then resets the brush and background color. If the system color is not white, it simply fills the rectangle with a system color brush.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "HDC",
+          "description": "This is a handle to the device context."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "This is a pointer to the RECT structure that specifies the dimensions of the rectangle."
+        }
+      ],
+      "return_type": "void, as this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "draw_push_button",
+      "description": "This function draws a push button with specific flags on a device context. It adjusts the rectangle if asked and returns TRUE.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "HDC",
+          "description": "Handle to the device context where the button is to be drawn"
+        },
+        {
+          "name": "r",
+          "type": "RECT *",
+          "description": "Pointer to the rectangle structure that defines the coordinates, in logical units, of the upper-left and lower-right corners of the button"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies the type of frame drawn around the item and how the item is to be drawn"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function executed successfully or not"
+    }
+  },
+  {
+    "function": {
+      "name": "draw_frame_caption",
+      "description": "This function draws a caption for a frame. It uses the provided device context, rectangle, and flags to determine how to draw the caption. The caption is drawn using the Marlett font and can represent different system actions such as close, help, minimize, maximize, and restore. The function also handles the case where the caption is inactive.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "HDC",
+          "description": "Handle to the device context where the caption will be drawn."
+        },
+        {
+          "name": "r",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that specifies the dimensions and position of the caption."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags that determine the caption's appearance and state. This can include whether the caption is for a close, help, minimize, maximize, or restore action, and whether the caption is inactive."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully draws the caption, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "draw_menu_button",
+      "description": "This function draws a non-client button on a window menu.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window where the button will be drawn"
+        },
+        {
+          "name": "dc",
+          "type": "HDC",
+          "description": "Handle to the device context for the window"
+        },
+        {
+          "name": "r",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that specifies the dimensions and position of the button"
+        },
+        {
+          "name": "type",
+          "type": "enum NONCLIENT_BUTTON_TYPE",
+          "description": "The type of non-client button to draw"
+        },
+        {
+          "name": "down",
+          "type": "BOOL",
+          "description": "Indicates whether the button is in a pressed state"
+        },
+        {
+          "name": "grayed",
+          "type": "BOOL",
+          "description": "Indicates whether the button is in a disabled state"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "draw_frame_menu",
+      "description": "This function draws a frame menu with different styles based on the flags value. The styles can be an arrow, a bullet, or a check mark. If the flag value is not recognized, it returns FALSE.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "r",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that specifies the dimensions and position of the frame menu."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies the style of the frame menu. It can be DFCS_MENUARROW, DFCS_MENUBULLET, or DFCS_MENUCHECK."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully draws the frame menu, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "draw_close_button",
+      "description": "This function draws a close button on a window. The button can be in a pressed or inactive state, and the function adjusts its size and position based on the window's style and metrics.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window where the close button will be drawn."
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context for the window."
+        },
+        {
+          "name": "down",
+          "type": "BOOL",
+          "description": "Indicates whether the close button is in a pressed state."
+        },
+        {
+          "name": "grayed",
+          "type": "BOOL",
+          "description": "Indicates whether the close button is in an inactive state."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "draw_max_button",
+      "description": "This function is used to draw the maximize button on a window. It checks the window style and extended style, and adjusts the button appearance based on whether the window is maximized, whether the button is pressed, and whether the button is inactive.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window on which the maximize button is to be drawn"
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context for the window"
+        },
+        {
+          "name": "down",
+          "type": "BOOL",
+          "description": "Indicates whether the button is in the pressed state"
+        },
+        {
+          "name": "grayed",
+          "type": "BOOL",
+          "description": "Indicates whether the button is inactive"
+        }
+      ],
+      "return_type": "void, as this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "draw_min_button",
+      "description": "This function is used to draw the minimize button on a window. It checks the style of the window and adjusts the button accordingly. If the window has the WS_EX_TOOLWINDOW style, the function returns without drawing the minimize button. The function also adjusts the button's appearance based on whether the window is minimized and whether the button is grayed out.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window on which the minimize button is to be drawn"
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context for the window"
+        },
+        {
+          "name": "down",
+          "type": "BOOL",
+          "description": "Indicates whether the minimize button is in a pressed state"
+        },
+        {
+          "name": "grayed",
+          "type": "BOOL",
+          "description": "Indicates whether the minimize button is grayed out"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "draw_nc_caption",
+      "description": "This function draws the non-client area caption of a window, including the system menu, minimize, maximize and close buttons, and the window title.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that specifies the dimensions of the caption."
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window."
+        },
+        {
+          "name": "style",
+          "type": "DWORD",
+          "description": "The window style."
+        },
+        {
+          "name": "ex_style",
+          "type": "DWORD",
+          "description": "The extended window style."
+        },
+        {
+          "name": "active",
+          "type": "BOOL",
+          "description": "Specifies whether the window is active."
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserDrawCaptionTemp",
+      "description": "This function draws a caption bar, icon, and text on a window. It also handles different flags for customizing the appearance.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window where the caption is drawn"
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context for the window"
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that specifies the dimensions of the caption"
+        },
+        {
+          "name": "font",
+          "type": "HFONT",
+          "description": "Handle to the font to be used when drawing the text"
+        },
+        {
+          "name": "icon",
+          "type": "HICON",
+          "description": "Handle to the icon to be drawn"
+        },
+        {
+          "name": "str",
+          "type": "WCHAR *",
+          "description": "Pointer to a string that specifies the text to be drawn"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies drawing options"
+        }
+      ],
+      "return_type": "BOOL, returns FALSE always in the current implementation"
+    }
+  },
+  {
+    "function": {
+      "name": "nc_paint",
+      "description": "This function is responsible for painting the non-client area of a window. It handles the drawing of elements such as the window frame, caption, menu, scroll-bars, and size-box.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that needs to be painted."
+        },
+        {
+          "name": "clip",
+          "type": "HRGN",
+          "description": "Handle to a clipping region. This is the area within the window to be updated."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "handle_nc_paint",
+      "description": "This function handles the non-client area painting of a window. It checks if the window is visible, if so, it calls the nc_paint function. If the parent of the window is the desktop window, it posts a WM_PARENTNOTIFY message with WM_NCPAINT as the notification code.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that needs to be painted."
+        },
+        {
+          "name": "clip",
+          "type": "HRGN",
+          "description": "A handle to a clipping region that defines the area to be painted."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing and it is always 0 in this function."
+    }
+  },
+  {
+    "function": {
+      "name": "handle_nc_activate",
+      "description": "This function handles the activation of a non-client area in a window. It sets flags based on the WPARAM value, paints the non-client area if LPARAM is not -1, and posts a message if the window's parent is the desktop window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information. Used to determine which flags to set."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information. Used to determine whether to paint the non-client area and post a message."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing and depends on the message sent. In this case, it always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "handle_nc_calc_size",
+      "description": "This function adjusts the size and position of a window's client area based on its style, extended style, and other parameters. It also handles the presence of a menu bar, client edge, vertical and horizontal scroll bars, and the window's minimized state.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose client area is being calculated."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information. In this case, it is used to check if the window is in screen coordinates."
+        },
+        {
+          "name": "win_rect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that contains the screen coordinates of the window's client area."
+        }
+      ],
+      "return_type": "void, this function does not return a value but modifies the win_rect parameter directly."
+    }
+  },
+  {
+    "function": {
+      "name": "handle_nc_hit_test",
+      "description": "This function handles the non-client area hit test for a window. It determines which part of the window the given point 'pt' falls in, such as the client area, caption, menu bar, scroll bars, etc.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window for which the hit test is to be conducted."
+        },
+        {
+          "name": "pt",
+          "type": "POINT",
+          "description": "The point, in screen coordinates, to be tested."
+        }
+      ],
+      "return_type": "LRESULT. It represents the result of the hit test, indicating the specific part of the window where the point falls. The possible values are HTNOWHERE, HTCLIENT, HTTOPLEFT, HTTOPRIGHT, HTTOP, HTBOTTOMLEFT, HTBOTTOMRIGHT, HTBOTTOM, HTLEFT, HTRIGHT, HTBORDER, HTSYSMENU, HTCLOSE, HTMAXBUTTON, HTMINBUTTON, HTCAPTION, HTMENU, HTVSCROLL, HTHSCROLL, HTSIZE."
+    }
+  },
+  {
+    "function": {
+      "name": "track_min_max_box",
+      "description": "This function handles the behavior of minimize and maximize buttons in a window. It tracks the state of these buttons, draws them when pressed, and sends appropriate system commands to minimize or maximize the window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window which contains the minimize and maximize buttons."
+        },
+        {
+          "name": "wparam",
+          "type": "WORD",
+          "description": "Parameter that indicates which button (minimize or maximize) is being tracked."
+        }
+      ],
+      "return_type": "void, this function does not return a value but performs actions based on the parameters given."
+    }
+  },
+  {
+    "function": {
+      "name": "track_close_button",
+      "description": "This function tracks the state of the close button in a window's system menu. It handles the button's visual state during mouse interactions and sends a close command when the button is pressed.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window with the close button."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information. In this case, it is used to compare with the result of the hit test."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information. In this case, it is used as a parameter for the close command."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "handle_nc_lbutton_down",
+      "description": "This function handles the non-client area left mouse button down event. It performs different actions based on the hit test result (wparam), such as moving the window, showing system menu, scrolling, minimizing/maximizing/closing the window, resizing the window, etc.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that receives the message."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "The hit-test value. It is used to identify the specific non-client area clicked by the user."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Specifies the coordinates of the cursor, in screen coordinates, when the message is posted."
+        }
+      ],
+      "return_type": "LRESULT. It returns 0 if the function is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "handle_nc_rbutton_down",
+      "description": "This function handles the event of right mouse button down. It captures the mouse input, processes the messages and releases the capture. If the hit test result is HTCAPTION or HTSYSMENU, it sends a WM_CONTEXTMENU message.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window where the event occurred."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information, used here to store the hit test result."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing. In this function, it always returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "handle_nc_button_dbl_click",
+      "description": "This function handles the double click event on a non-client area button. Depending on the area clicked (caption, system menu, horizontal scroll, vertical scroll), it sends different system commands.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that receives the message."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information, used here to determine the area of the window that was clicked."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing and depends on the message sent. In this function, it always returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "handle_control_color",
+      "description": "This function handles the color of the control based on the type. It sets the text and background color for different control types and returns the brush color.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "type",
+          "type": "UINT",
+          "description": "Type of the control."
+        }
+      ],
+      "return_type": "HBRUSH, represents the brush color for the control."
+    }
+  },
+  {
+    "function": {
+      "name": "handle_nc_mouse_move",
+      "description": "This function handles the mouse move event for non-client area scroll bars. It calculates the relative position of the mouse pointer and triggers a scroll event accordingly.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window where the mouse move event occurred."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information. In this case, it indicates the hit-test value of the scroll bar where the mouse event occurred."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information. In this case, it indicates the x and y coordinates of the cursor."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing and depends on the message sent. In this case, it always returns 0 indicating the message has been processed."
+    }
+  },
+  {
+    "function": {
+      "name": "handle_nc_mouse_leave",
+      "description": "This function handles the event of a mouse leaving a non-client area of a window. It checks if the window has horizontal or vertical scroll bars and if so, it handles the scroll event.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing and depends on the message sent."
+    }
+  },
+  {
+    "function": {
+      "name": "default_window_proc",
+      "description": "This function is a default window procedure that handles various window messages such as creation, destruction, activation, painting, etc.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that the message is to be sent."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be processed."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "A flag indicating whether the message is ANSI or Unicode."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing and depends on the message sent."
+    }
+  },
+  {
+    "function": {
+      "name": "update_children_window_state",
+      "description": "This function updates the state of all child windows of a given window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the parent window whose child windows' state are to be updated."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "desktop_window_proc",
+      "description": "This function is a window procedure for a desktop window. It handles various window messages such as WM_NCCREATE, WM_NCCALCSIZE, WM_DISPLAYCHANGE and others. It also includes a default case that calls a default window procedure.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "A flag indicating whether the function should use ANSI or Unicode strings."
+        }
+      ],
+      "return_type": "LRESULT. The return value is the result of the message processing and depends on the message sent."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetTitleBarInfo",
+      "description": "This function retrieves the information about the title bar of a window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window for which information is to be retrieved."
+        },
+        {
+          "name": "info",
+          "type": "TITLEBARINFO*",
+          "description": "A pointer to a TITLEBARINFO structure that receives the information. The calling application must set the cbSize member to sizeof(TITLEBARINFO) before calling this function."
+        }
+      ],
+      "return_type": "BOOL. If the function succeeds, the return value is non-zero. If the function fails, the return value is zero. To get extended error information, call GetLastError."
+    }
+  }
+]

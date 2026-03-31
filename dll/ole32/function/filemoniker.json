@@ -1,0 +1,830 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IMoniker",
+      "description": "This function is used to get the containing record of the given interface pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "This is an interface pointer used to get the containing record."
+        }
+      ],
+      "return_type": "FileMonikerImpl pointer, which represents the containing record of the given interface pointer."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IROTData",
+      "description": "This function returns a pointer to a FileMonikerImpl structure that contains the IROTData interface passed as a parameter.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IROTData *",
+          "description": "Pointer to an IROTData interface"
+        }
+      ],
+      "return_type": "FileMonikerImpl pointer, represents a pointer to a FileMonikerImpl structure that contains the IROTData interface"
+    }
+  },
+  {
+    "function": {
+      "name": "unsafe_impl_from_IMoniker",
+      "description": "This function checks if the vtable of the provided IMoniker interface matches the VT_FileMonikerImpl. If it does, it returns the containing record of the interface, otherwise it returns NULL.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "This is the interface from which the implementation is to be extracted."
+        }
+      ],
+      "return_type": "FileMonikerImpl*. It represents the implementation of the FileMoniker from the provided IMoniker interface. If the vtable does not match, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_QueryInterface",
+      "description": "This function is used to query an interface of a FileMoniker object. It checks if the requested interface is supported, and if so, returns a pointer to that interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to the interface of the FileMoniker object."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested."
+        },
+        {
+          "name": "ppvObject",
+          "type": "void**",
+          "description": "Address of the pointer variable that receives the interface pointer requested in riid. Upon successful return, *ppvObject contains the requested interface pointer. If the object does not support the interface, *ppvObject is set to NULL."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the interface is supported, E_NOINTERFACE if not supported, and E_INVALIDARG if ppvObject is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_AddRef",
+      "description": "This function increments the reference count of the FileMonikerImpl object",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to an IMoniker interface"
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after increment"
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_Release",
+      "description": "This function releases the FileMonikerImpl object and decreases its reference count. If the reference count becomes zero, it releases the marshal and frees the memory allocated for the filePathName and the moniker itself.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "This is an interface pointer used to access the FileMonikerImpl object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after the decrement operation."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_GetClassID",
+      "description": "This function checks if the pClassID pointer is null. If not, it assigns the value of CLSID_FileMoniker to the location pClassID points to.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Interface pointer used in the function"
+        },
+        {
+          "name": "pClassID",
+          "type": "CLSID*",
+          "description": "Pointer to a CLSID variable. If not null, the function assigns the value of CLSID_FileMoniker to the location it points to."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns E_POINTER if pClassID is null, otherwise returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_IsDirty",
+      "description": "This function checks if the file moniker is dirty or not.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "This is an interface pointer to the file moniker."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns S_FALSE indicating that the file moniker is not dirty."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_Load",
+      "description": "This function reads data from a stream and loads it into a file moniker object. It handles memory allocation and error checking for the process.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to the interface of the file moniker object"
+        },
+        {
+          "name": "pStm",
+          "type": "IStream*",
+          "description": "Pointer to the stream from which data is read"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the function succeeds and an error code if it fails"
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_Save",
+      "description": "This function saves a file moniker to a stream. It writes the file path and other constants to the stream. If the file path cannot be converted to the ANSI code page, or if it's a directory, or if there's a character > 0xFF, it writes the wide version of the file path.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Interface to the FileMonikerImpl object"
+        },
+        {
+          "name": "pStm",
+          "type": "IStream*",
+          "description": "Pointer to the IStream interface on the stream where the file moniker is to be saved"
+        },
+        {
+          "name": "fClearDirty",
+          "type": "BOOL",
+          "description": "Indicates whether to clear the modified flag after the save is complete"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. It returns S_OK on success, E_POINTER if pStm is NULL, E_OUTOFMEMORY if memory allocation fails, or other error codes as defined by the IStream_Write function."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_GetSizeMax",
+      "description": "This function calculates an over-estimate of the size of the file moniker object. If the pcbSize pointer is null, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to the interface of the file moniker object"
+        },
+        {
+          "name": "pcbSize",
+          "type": "ULARGE_INTEGER*",
+          "description": "Pointer to a variable that receives the size of the file moniker object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, E_POINTER if pcbSize is NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_BindToObject",
+      "description": "This function binds to the object referenced by the moniker and returns the specified interface pointer to the caller.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface of the object that needs to be bound."
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to the IBindCtx interface on the bind context object."
+        },
+        {
+          "name": "pmkToLeft",
+          "type": "IMoniker*",
+          "description": "If the moniker is part of a composite moniker, pointer to the moniker to the left of this moniker."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface to be used to communicate with the object."
+        },
+        {
+          "name": "ppvResult",
+          "type": "VOID**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, the return value is S_OK. If the function fails, the return value can be E_FAIL or another error code."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_BindToStorage",
+      "description": "This function binds a file moniker to a storage object. It checks the bind options and based on the parameters, it either opens the storage, returns an error, or does not implement the function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Interface for the file moniker"
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to the bind context"
+        },
+        {
+          "name": "pmkToLeft",
+          "type": "IMoniker*",
+          "description": "Pointer to the moniker to the left of the current moniker"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface"
+        },
+        {
+          "name": "object",
+          "type": "void**",
+          "description": "Pointer to the object where the result is stored"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It can be a success code, an error code, or a warning code."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_Reduce",
+      "description": "This function reduces the moniker to its simplest form for the specified bind context.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface"
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to the IBindCtx interface"
+        },
+        {
+          "name": "howfar",
+          "type": "DWORD",
+          "description": "Specifies how far the moniker should be reduced"
+        },
+        {
+          "name": "toleft",
+          "type": "IMoniker**",
+          "description": "Pointer to the pointer to the IMoniker interface that will receive the remaining portion of the moniker after reduction"
+        },
+        {
+          "name": "reduced",
+          "type": "IMoniker**",
+          "description": "Pointer to the pointer to the IMoniker interface that will receive the reduced moniker"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns MK_S_REDUCED_TO_SELF if the function succeeds, or E_INVALIDARG if the input arguments are not valid"
+    }
+  },
+  {
+    "function": {
+      "name": "free_stringtable",
+      "description": "This function frees the memory allocated for a string table.",
+      "parameters": [
+        {
+          "name": "stringTable",
+          "type": "LPOLESTR*",
+          "description": "This is a pointer to the string table to be freed."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_DecomposePath",
+      "description": "This function decomposes a given path into its individual components and stores them in a string table. It also handles memory allocation for the string table and the individual strings within it.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "LPCOLESTR",
+          "description": "This is the path that will be decomposed into its individual components."
+        },
+        {
+          "name": "stringTable",
+          "type": "LPOLESTR**",
+          "description": "This is a pointer to a string table where the individual components of the path will be stored."
+        }
+      ],
+      "return_type": "int, represents the number of components in the decomposed path. If an error occurs during memory allocation, it returns E_OUTOFMEMORY."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_ComposeWith",
+      "description": "This function composes a new composite moniker by combining two existing monikers. It handles different types of monikers and performs various checks and operations to ensure the correct composition.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to the interface of the first moniker to be composed."
+        },
+        {
+          "name": "pmkRight",
+          "type": "IMoniker*",
+          "description": "Pointer to the interface of the second moniker to be composed."
+        },
+        {
+          "name": "fOnlyIfNotGeneric",
+          "type": "BOOL",
+          "description": "Boolean flag that indicates whether the function should return an error if the moniker is not generic."
+        },
+        {
+          "name": "ppmkComposite",
+          "type": "IMoniker**",
+          "description": "Pointer to a pointer to the interface of the resulting composite moniker."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It can return various error codes based on different conditions within the function."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_Enum",
+      "description": "This function checks if the pointer to the IEnumMoniker interface is NULL. If it is, it returns an error code. Otherwise, it sets the pointer to NULL and returns a success code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface"
+        },
+        {
+          "name": "fForward",
+          "type": "BOOL",
+          "description": "Boolean flag indicating the direction of enumeration"
+        },
+        {
+          "name": "ppenumMoniker",
+          "type": "IEnumMoniker**",
+          "description": "Pointer to a pointer to the IEnumMoniker interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns E_POINTER if ppenumMoniker is NULL, otherwise returns S_OK"
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_IsEqual",
+      "description": "This function checks if two file monikers are equal by comparing their filePathName properties.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "First file moniker to compare."
+        },
+        {
+          "name": "other",
+          "type": "IMoniker*",
+          "description": "Second file moniker to compare."
+        }
+      ],
+      "return_type": "HRESULT, where S_OK represents that the file monikers are equal, S_FALSE represents they are not equal, and E_INVALIDARG represents that the second file moniker is not provided."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_Hash",
+      "description": "This function calculates the hash value of a file path name stored in a FileMonikerImpl object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Interface pointer to a FileMonikerImpl object"
+        },
+        {
+          "name": "pdwHash",
+          "type": "DWORD*",
+          "description": "Pointer to a DWORD to store the calculated hash value"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, E_POINTER if pdwHash is NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_IsRunning",
+      "description": "This function checks if the specified file moniker is running or not. It first checks if the newly running moniker is equal to the interface, if not it gets the running object table from the bind context and checks if the interface is running in the object table.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Interface to the file moniker to check if it's running"
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to the bind context used to get the running object table"
+        },
+        {
+          "name": "pmkToLeft",
+          "type": "IMoniker*",
+          "description": "Not used in this function"
+        },
+        {
+          "name": "pmkNewlyRunning",
+          "type": "IMoniker*",
+          "description": "Pointer to the newly running moniker, used to check if it's equal to the interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the moniker is running, E_POINTER if the bind context is NULL, or the result of the IRunningObjectTable_IsRunning function."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_GetTimeOfLastChange",
+      "description": "This function retrieves the time of the last change to the file moniker object. It checks if the file moniker is registered in the running object table. If not, it retrieves the last write time of the file.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to the interface of the file moniker object"
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to the bind context interface"
+        },
+        {
+          "name": "pmkToLeft",
+          "type": "IMoniker*",
+          "description": "Pointer to the moniker to the left of the current moniker in the composite"
+        },
+        {
+          "name": "pFileTime",
+          "type": "FILETIME*",
+          "description": "Pointer to the FILETIME structure that receives the time of the last change"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if successful, E_POINTER if pFileTime is NULL, E_INVALIDARG if pmkToLeft is not NULL, or MK_E_NOOBJECT if the file does not exist"
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_Inverse",
+      "description": "This function creates an inverse for a file moniker.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to the interface of the moniker to be inversed"
+        },
+        {
+          "name": "ppmk",
+          "type": "IMoniker**",
+          "description": "Pointer to a pointer to the interface of the inverse moniker to be created"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_CommonPrefixWith",
+      "description": "This function compares two file monikers and creates a new moniker that represents the common prefix of the input monikers. It also handles various edge cases and errors.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "The first file moniker to compare."
+        },
+        {
+          "name": "pmkOther",
+          "type": "IMoniker*",
+          "description": "The second file moniker to compare."
+        },
+        {
+          "name": "ppmkPrefix",
+          "type": "IMoniker**",
+          "description": "A pointer to a pointer to a moniker. If the function is successful, this parameter will point to the new moniker that represents the common prefix."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It can return various error codes in case of failure, such as E_POINTER, E_INVALIDARG, MK_E_NOPREFIX, and E_OUTOFMEMORY."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_RelativePathTo",
+      "description": "This function creates a relative path from one file moniker to another.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to the interface of the current file moniker."
+        },
+        {
+          "name": "pmOther",
+          "type": "IMoniker*",
+          "description": "Pointer to the interface of the other file moniker."
+        },
+        {
+          "name": "ppmkRelPath",
+          "type": "IMoniker**",
+          "description": "Pointer to a pointer to a moniker that receives the relative path moniker."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns E_POINTER if ppmkRelPath is NULL, E_INVALIDARG if pmOther is NULL, E_OUTOFMEMORY if there is not enough memory to decompose the path, MK_S_HIM if the length of either path is 0 or both lengths are 1 and there are no similar items, and the result of CreateFileMoniker otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_GetDisplayName",
+      "description": "This function retrieves the display name of a file moniker object. It checks for valid parameters, allocates memory for the display name, and copies the file path name to the display name.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Interface pointer to the FileMoniker object"
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to the bind context interface"
+        },
+        {
+          "name": "pmkToLeft",
+          "type": "IMoniker*",
+          "description": "Pointer to the moniker to the left of this moniker"
+        },
+        {
+          "name": "ppszDisplayName",
+          "type": "LPOLESTR*",
+          "description": "Pointer to the display name string"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if successful, E_POINTER if ppszDisplayName is NULL, E_INVALIDARG if pmkToLeft is not NULL, and E_OUTOFMEMORY if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_ParseDisplayName",
+      "description": "This function is a stub and not yet implemented. It is designed to parse a display name.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Interface pointer"
+        },
+        {
+          "name": "pbc",
+          "type": "IBindCtx*",
+          "description": "Pointer to the bind context"
+        },
+        {
+          "name": "pmkToLeft",
+          "type": "IMoniker*",
+          "description": "Pointer to the moniker to the left"
+        },
+        {
+          "name": "pszDisplayName",
+          "type": "LPOLESTR",
+          "description": "Pointer to the display name string"
+        },
+        {
+          "name": "pchEaten",
+          "type": "ULONG*",
+          "description": "Pointer to the number of characters parsed"
+        },
+        {
+          "name": "ppmkOut",
+          "type": "IMoniker**",
+          "description": "Pointer to the output moniker"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_IsSystemMoniker",
+      "description": "This function checks if the provided moniker is a system moniker and assigns the result to the pwdMksys pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IMoniker*",
+          "description": "Pointer to the IMoniker interface"
+        },
+        {
+          "name": "pwdMksys",
+          "type": "DWORD*",
+          "description": "Pointer to a DWORD variable where the result is stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, E_POINTER if pwdMksys is NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerROTDataImpl_QueryInterface",
+      "description": "This function is used to query an interface of a FileMoniker object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IROTData*",
+          "description": "Pointer to the IROTData interface of a FileMoniker object."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested."
+        },
+        {
+          "name": "ppvObject",
+          "type": "VOID**",
+          "description": "Pointer to the pointer that receives the interface pointer requested in riid. Upon successful return, *ppvObject contains the requested interface pointer."
+        }
+      ],
+      "return_type": "HRESULT, which indicates the success or failure of the function."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerROTDataImpl_AddRef",
+      "description": "This function is used to increase the reference count of a FileMonikerImpl object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IROTData*",
+          "description": "This parameter is an interface pointer used to access the FileMonikerImpl object."
+        }
+      ],
+      "return_type": "ULONG, which represents the new reference count of the FileMonikerImpl object."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerROTDataImpl_Release",
+      "description": "This function releases the FileMonikerImpl instance from the IROTData interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IROTData*",
+          "description": "This parameter is used to represent the IROTData interface from which the FileMonikerImpl instance is to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the status of the FileMonikerImpl release operation."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerROTDataImpl_GetComparisonData",
+      "description": "This function gets comparison data for a File Moniker object. It copies the class identifier (CLSID) and the uppercase version of the file path name into the provided buffer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IROTData*",
+          "description": "Interface pointer to the File Moniker object"
+        },
+        {
+          "name": "pbData",
+          "type": "BYTE*",
+          "description": "Pointer to the buffer that receives the comparison data"
+        },
+        {
+          "name": "cbMax",
+          "type": "ULONG",
+          "description": "The maximum number of bytes that can be written to the buffer"
+        },
+        {
+          "name": "pcbData",
+          "type": "ULONG*",
+          "description": "Pointer to a variable that receives the actual number of bytes written to the buffer"
+        }
+      ],
+      "return_type": "HRESULT. It returns S_OK if the function successfully writes the comparison data to the buffer, or E_OUTOFMEMORY if the buffer is not large enough to hold the data"
+    }
+  },
+  {
+    "function": {
+      "name": "FileMonikerImpl_Construct",
+      "description": "This function constructs a FileMonikerImpl object. It initializes the virtual function table, allocates memory for the filePathName, decomposes the path, and modifies the filePathName based on certain conditions.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "FileMonikerImpl*",
+          "description": "Pointer to the FileMonikerImpl object to be constructed"
+        },
+        {
+          "name": "lpszPathName",
+          "type": "LPCOLESTR",
+          "description": "The path name to be assigned to the FileMonikerImpl object"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns E_OUTOFMEMORY if memory allocation fails, and S_OK if the function executes successfully"
+    }
+  },
+  {
+    "function": {
+      "name": "CreateFileMoniker",
+      "description": "This function creates a FileMoniker object and initializes it with the specified path name.",
+      "parameters": [
+        {
+          "name": "lpszPathName",
+          "type": "LPCOLESTR",
+          "description": "This is the path name used to initialize the FileMoniker object."
+        },
+        {
+          "name": "ppmk",
+          "type": "IMoniker**",
+          "description": "This is a pointer to a pointer to an IMoniker interface. If the function is successful, this parameter will contain the address of the pointer to the new FileMoniker object."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If the function fails, it can return one of the following values: E_POINTER, MK_E_SYNTAX, E_OUTOFMEMORY."
+    }
+  },
+  {
+    "function": {
+      "name": "memrpbrkW",
+      "description": "This function scans a memory block for a set of characters in reverse order.",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "const WCHAR *",
+          "description": "Pointer to the memory block to be scanned."
+        },
+        {
+          "name": "n",
+          "type": "size_t",
+          "description": "Number of characters to be scanned."
+        },
+        {
+          "name": "accept",
+          "type": "const WCHAR *",
+          "description": "Pointer to the set of characters to be searched for."
+        }
+      ],
+      "return_type": "WCHAR. Returns a pointer to the last occurrence of any character from the 'accept' set in the memory block. If no match is found, returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMoniker_CreateFromDisplayName",
+      "description": "This function creates a file moniker from a display name. It checks if the file is running, gets the full path name, and checks the file attributes. If the file is not running or the file attributes are invalid, it releases the file moniker and returns an error.",
+      "parameters": [
+        {
+          "name": "pbc",
+          "type": "LPBC",
+          "description": "Pointer to the bind context interface"
+        },
+        {
+          "name": "szDisplayName",
+          "type": "LPCOLESTR",
+          "description": "Pointer to the display name string"
+        },
+        {
+          "name": "pchEaten",
+          "type": "LPDWORD",
+          "description": "Pointer to the number of characters eaten in the display name"
+        },
+        {
+          "name": "ppmk",
+          "type": "IMoniker **",
+          "description": "Pointer to the pointer to the moniker interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. It returns S_OK if the function is successful, E_OUTOFMEMORY if there is not enough memory, MK_E_SYNTAX if there is a syntax error, or MK_E_CANTOPENFILE if the file cannot be opened."
+    }
+  },
+  {
+    "function": {
+      "name": "FileMoniker_CreateInstance",
+      "description": "This function creates an instance of a FileMoniker object, which is used to manage file-based monikers.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClassFactory *",
+          "description": "Pointer to the IClassFactory interface that creates the object"
+        },
+        {
+          "name": "pUnk",
+          "type": "IUnknown *",
+          "description": "Pointer to the controlling IUnknown interface of the aggregate"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface that the caller is to use to communicate with the new object"
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It could be a success or an error code"
+    }
+  }
+]

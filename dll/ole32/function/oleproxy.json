@@ -1,0 +1,121 @@
+[
+  {
+    "function": {
+      "name": "ClassFactory_QueryInterface",
+      "description": "This function checks if the provided interface identifier matches either IID_IUnknown or IID_IClassFactory. If it matches, the function sets the ppv pointer to the iface pointer and returns S_OK. If it doesn't match, the function sets the ppv pointer to NULL and returns E_NOINTERFACE.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClassFactory *",
+          "description": "Pointer to the interface object"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier"
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Pointer to the pointer that receives the interface pointer on successful return"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the interface is supported, and E_NOINTERFACE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "ClassFactory_AddRef",
+      "description": "This function returns a static value of 2",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClassFactory *",
+          "description": "Pointer to an instance of IClassFactory"
+        }
+      ],
+      "return_type": "ULONG, represents a static value of 2"
+    }
+  },
+  {
+    "function": {
+      "name": "ClassFactory_Release",
+      "description": "This function releases the class factory interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClassFactory *",
+          "description": "This is a pointer to the interface of the class factory to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the status of the operation, in this case it always returns 1 indicating success."
+    }
+  },
+  {
+    "function": {
+      "name": "ClassFactory_LockServer",
+      "description": "This function locks or unlocks the class factory server based on the boolean value passed to it.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClassFactory *",
+          "description": "This is a pointer to the interface of the class factory."
+        },
+        {
+          "name": "fLock",
+          "type": "BOOL",
+          "description": "This boolean value determines whether to lock (if TRUE) or unlock (if FALSE) the server."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. S_OK is returned if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "DllGetClassObject",
+      "description": "This function retrieves a class object from a DLL object and provides the ability to create an object of a specified class.",
+      "parameters": [
+        {
+          "name": "rclsid",
+          "type": "REFCLSID",
+          "description": "The CLSID that will be associated with the data and code that will be used to create the object."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "A reference to the identifier of the interface that the caller is to use to communicate with the object."
+        },
+        {
+          "name": "ppv",
+          "type": "LPVOID",
+          "description": "The address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *ppv contains the requested interface pointer. Upon failure, *ppv contains NULL."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "Ole32DllGetClassObject",
+      "description": "This function checks the class ID of the provided object and returns the corresponding interface, if available.",
+      "parameters": [
+        {
+          "name": "rclsid",
+          "type": "REFCLSID",
+          "description": "The class ID of the object."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "The interface ID to be queried."
+        },
+        {
+          "name": "obj",
+          "type": "void**",
+          "description": "A pointer to the interface pointer that receives the interface pointer requested in riid."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns specific values for different class IDs and CLASS_E_CLASSNOTAVAILABLE if the class ID does not match any predefined IDs."
+    }
+  }
+]

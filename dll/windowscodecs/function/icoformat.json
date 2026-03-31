@@ -1,0 +1,631 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IWICBitmapDecoder",
+      "description": "This function returns the IcoDecoder instance that contains the given IWICBitmapDecoder interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to IWICBitmapDecoder interface contained within an IcoDecoder instance."
+        }
+      ],
+      "return_type": "IcoDecoder *: Pointer to the IcoDecoder instance that contains the given IWICBitmapDecoder interface."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IWICBitmapFrameDecode",
+      "description": "This function returns a pointer to an IcoFrameDecode structure that contains the given IWICBitmapFrameDecode interface pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Pointer to IWICBitmapFrameDecode interface"
+        }
+      ],
+      "return_type": "IcoFrameDecode *: Pointer to IcoFrameDecode structure containing the given IWICBitmapFrameDecode interface pointer"
+    }
+  },
+  {
+    "function": {
+      "name": "IcoFrameDecode_QueryInterface",
+      "description": "This function is used to query the interface of a bitmap frame decode object. It checks if the provided interface ID matches with any of the known interface IDs (IUnknown, IWICBitmapSource, IWICBitmapFrameDecode). If it matches, the function returns a pointer to the interface. If not, it returns a NULL pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "This is a pointer to the bitmap frame decode object."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "This is the interface ID that is being queried."
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "This is a pointer to a pointer. It is used to return the interface pointer if the queried interface ID matches with any of the known interface IDs."
+        }
+      ],
+      "return_type": "HRESULT. It represents the status of the operation. If the function succeeds, it returns S_OK. If the ppv parameter is NULL, it returns E_INVALIDARG. If the queried interface ID does not match with any of the known interface IDs, it returns E_NOINTERFACE."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoFrameDecode_AddRef",
+      "description": "This function increments the reference count of the IcoFrameDecode object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "This is a pointer to the IWICBitmapFrameDecode interface of the IcoFrameDecode object."
+        }
+      ],
+      "return_type": "ULONG, which represents the new reference count after incrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoFrameDecode_Release",
+      "description": "This function releases the IcoFrameDecode object and decreases its reference count. If the reference count is 0, it frees the memory allocated for the object and its bits.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "This is a pointer to the IcoFrameDecode object."
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count of the IcoFrameDecode object after it has been decremented."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoFrameDecode_GetSize",
+      "description": "This function retrieves the width and height of an ICO frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Pointer to an interface for decoding bitmap frames."
+        },
+        {
+          "name": "puiWidth",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the width of the ICO frame."
+        },
+        {
+          "name": "puiHeight",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the height of the ICO frame."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoFrameDecode_GetPixelFormat",
+      "description": "This function copies the value of GUID_WICPixelFormat32bppBGRA into the memory location pointed to by pPixelFormat and returns S_OK.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Pointer to an instance of IWICBitmapFrameDecode interface"
+        },
+        {
+          "name": "pPixelFormat",
+          "type": "WICPixelFormatGUID *",
+          "description": "Pointer to a WICPixelFormatGUID structure that receives the pixel format of the bitmap frame"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK if the operation was successful"
+    }
+  },
+  {
+    "function": {
+      "name": "IcoFrameDecode_GetResolution",
+      "description": "This function retrieves the resolution of an ICO frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Interface pointer to the ICO frame to decode."
+        },
+        {
+          "name": "pDpiX",
+          "type": "double *",
+          "description": "Pointer to a variable that receives the horizontal resolution."
+        },
+        {
+          "name": "pDpiY",
+          "type": "double *",
+          "description": "Pointer to a variable that receives the vertical resolution."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoFrameDecode_CopyPalette",
+      "description": "This function is used to copy the palette but it always returns an error indicating that the palette is unavailable.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "This is an interface to a bitmap frame decoder."
+        },
+        {
+          "name": "pIPalette",
+          "type": "IWICPalette *",
+          "description": "This is a pointer to a palette."
+        }
+      ],
+      "return_type": "HRESULT, which is a data type used in Windows programming to represent error conditions, and warning conditions. In this case, it always returns WINCODEC_ERR_PALETTEUNAVAILABLE indicating that the palette is unavailable."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoFrameDecode_CopyPixels",
+      "description": "This function is used to copy pixels from a source to a destination buffer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Interface pointer to the bitmap frame decode object"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to a rectangle structure that specifies the portion of the source bitmap to copy"
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "Specifies the stride, or pitch, of the destination bitmap"
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "Specifies the size of the buffer to receive the bitmap data"
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer to receive the bitmap data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoFrameDecode_GetMetadataQueryReader",
+      "description": "This function is used to get the metadata query reader from an ICO frame decode interface. However, this operation is currently unsupported.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "This is a pointer to an ICO frame decode interface."
+        },
+        {
+          "name": "ppIMetadataQueryReader",
+          "type": "IWICMetadataQueryReader **",
+          "description": "This is a pointer to a pointer to a metadata query reader interface. The function would normally fill this with the requested interface, but currently it is unsupported."
+        }
+      ],
+      "return_type": "HRESULT, which is a data type used in Windows programming to represent error conditions, and warning conditions. The function returns WINCODEC_ERR_UNSUPPORTEDOPERATION, indicating that the operation is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoFrameDecode_GetColorContexts",
+      "description": "This function is used to get color contexts of an ICO frame. However, it is currently unsupported and always returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "An interface pointer to the bitmap frame to decode."
+        },
+        {
+          "name": "cCount",
+          "type": "UINT",
+          "description": "The count of color contexts to get."
+        },
+        {
+          "name": "ppIColorContexts",
+          "type": "IWICColorContext **",
+          "description": "A pointer to the array of color contexts to get."
+        },
+        {
+          "name": "pcActualCount",
+          "type": "UINT *",
+          "description": "A pointer to the actual count of color contexts retrieved."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns WINCODEC_ERR_UNSUPPORTEDOPERATION indicating that the operation is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoFrameDecode_GetThumbnail",
+      "description": "This function is used to get the thumbnail from a given interface and store it in a provided bitmap source pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "This is the interface from which the thumbnail is to be retrieved."
+        },
+        {
+          "name": "ppIThumbnail",
+          "type": "IWICBitmapSource **",
+          "description": "This is the pointer to the bitmap source where the retrieved thumbnail will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "pixel_set_trans",
+      "description": "This function sets the transparency of a pixel.",
+      "parameters": [
+        {
+          "name": "pixel",
+          "type": "DWORD*",
+          "description": "This is a pointer to the pixel to be set."
+        },
+        {
+          "name": "transparent",
+          "type": "BOOL",
+          "description": "This parameter determines whether the pixel should be transparent or not."
+        }
+      ],
+      "return_type": "void, as this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "ReadIcoDib",
+      "description": "This function reads a bitmap image from an input stream and decodes it into a frame. It handles different pixel formats and manages memory for the decoded image. It also handles transparency and alpha channels.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "This is the input stream from which the bitmap image is read."
+        },
+        {
+          "name": "result",
+          "type": "IcoFrameDecode *",
+          "description": "This is a pointer to the structure where the decoded frame will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function execution. If the function executes successfully, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ReadIcoPng",
+      "description": "This function reads an ICO PNG image from a stream, decodes it, and stores the result in an IcoFrameDecode structure.",
+      "parameters": [
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "The input stream from which the ICO PNG image is read."
+        },
+        {
+          "name": "result",
+          "type": "IcoFrameDecode*",
+          "description": "The structure in which the decoded image data is stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoDecoder_QueryInterface",
+      "description": "This function checks if the provided interface supports the requested interface ID (IID). If it does, it returns a pointer to that interface; otherwise, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to the IWICBitmapDecoder interface"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Identifier of the interface being requested"
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Pointer to the location where the interface pointer will be stored if the requested interface is supported"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the interface is supported, E_NOINTERFACE if it is not, and E_INVALIDARG if ppv is NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "IcoDecoder_AddRef",
+      "description": "This function increments the reference count of the IcoDecoder object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "This parameter is a pointer to an IWICBitmapDecoder interface."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after incrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoDecoder_Release",
+      "description": "This function releases the resources used by the IcoDecoder object. It decreases the reference count of the object, and if the reference count becomes zero, it deletes the critical section, releases the stream if it exists, and frees the memory allocated to the object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "This is a pointer to the IWICBitmapDecoder interface of the IcoDecoder object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the IcoDecoder object after it has been decremented."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoDecoder_QueryCapability",
+      "description": "This function queries the capability of an ICO decoder. It initializes the decoder and sets its capability to decode all images.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder*",
+          "description": "Pointer to an instance of the IWICBitmapDecoder interface."
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "Pointer to the stream to be decoded."
+        },
+        {
+          "name": "capability",
+          "type": "DWORD*",
+          "description": "Pointer to a DWORD to receive the decoder's capabilities."
+        }
+      ],
+      "return_type": "HRESULT. It represents the status of the function call. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoDecoder_Initialize",
+      "description": "This function initializes an ICO decoder. It reads the header of the ICO file, checks its validity, and prepares the decoder for further operations.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder*",
+          "description": "Pointer to an interface that provides methods for decoding an image."
+        },
+        {
+          "name": "pIStream",
+          "type": "IStream*",
+          "description": "Pointer to a stream interface that represents the ICO file to be decoded."
+        },
+        {
+          "name": "cacheOptions",
+          "type": "WICDecodeOptions",
+          "description": "Options for caching the decoded image."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoDecoder_GetContainerFormat",
+      "description": "This function copies the GUID of the ICO container format to the provided GUID pointer and returns a success code.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder*",
+          "description": "Pointer to an interface of a bitmap decoder."
+        },
+        {
+          "name": "pguidContainerFormat",
+          "type": "GUID*",
+          "description": "Pointer to a GUID variable where the ICO container format GUID will be copied."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, returns S_OK if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoDecoder_GetDecoderInfo",
+      "description": "This function retrieves decoder information for an ICO (icon) file.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to an interface for a bitmap decoder."
+        },
+        {
+          "name": "ppIDecoderInfo",
+          "type": "IWICBitmapDecoderInfo **",
+          "description": "Pointer to a pointer to receive the decoder information."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns the result of the get_decoder_info function."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoDecoder_CopyPalette",
+      "description": "This function is used to copy the palette from a bitmap decoder interface to a palette interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "This is a pointer to the bitmap decoder interface from which the palette is to be copied."
+        },
+        {
+          "name": "pIPalette",
+          "type": "IWICPalette *",
+          "description": "This is a pointer to the palette interface where the palette is to be copied."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. In this function, it always returns WINCODEC_ERR_PALETTEUNAVAILABLE indicating that the palette is unavailable."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoDecoder_GetMetadataQueryReader",
+      "description": "This function is used to get the metadata query reader from an ICO decoder. However, it currently returns an unsupported operation error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to an instance of IWICBitmapDecoder interface"
+        },
+        {
+          "name": "ppIMetadataQueryReader",
+          "type": "IWICMetadataQueryReader **",
+          "description": "Double pointer to an instance of IWICMetadataQueryReader interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns WINCODEC_ERR_UNSUPPORTEDOPERATION indicating that the operation is not supported"
+    }
+  },
+  {
+    "function": {
+      "name": "IcoDecoder_GetPreview",
+      "description": "This function is used to get a preview of an ICO decoder. However, it currently returns an unsupported operation error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "This is an interface to the bitmap decoder."
+        },
+        {
+          "name": "ppIBitmapSource",
+          "type": "IWICBitmapSource **",
+          "description": "This is a pointer to a pointer to a bitmap source."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns WINCODEC_ERR_UNSUPPORTEDOPERATION indicating that the operation is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoDecoder_GetColorContexts",
+      "description": "This function is used to get the color contexts of an ICO decoder. However, it currently returns an unsupported operation error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to an interface of a bitmap decoder"
+        },
+        {
+          "name": "cCount",
+          "type": "UINT",
+          "description": "The count of color contexts to get"
+        },
+        {
+          "name": "ppIColorContexts",
+          "type": "IWICColorContext **",
+          "description": "Pointer to a pointer of color contexts to get"
+        },
+        {
+          "name": "pcActualCount",
+          "type": "UINT *",
+          "description": "Pointer to the actual count of color contexts obtained"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns WINCODEC_ERR_UNSUPPORTEDOPERATION indicating the operation is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoDecoder_GetThumbnail",
+      "description": "This function is used to get the thumbnail of an ICO decoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "This is an interface pointer to the bitmap decoder."
+        },
+        {
+          "name": "ppIThumbnail",
+          "type": "IWICBitmapSource **",
+          "description": "This is a pointer to a pointer to the bitmap source for the thumbnail."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. In this case, it always returns WINCODEC_ERR_CODECNOTHUMBNAIL indicating that the codec does not support thumbnail generation."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoDecoder_GetFrameCount",
+      "description": "This function retrieves the frame count of an ICO decoder object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to an IWICBitmapDecoder interface of the ICO decoder object."
+        },
+        {
+          "name": "pCount",
+          "type": "UINT *",
+          "description": "Pointer to a UINT variable that receives the frame count."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "IcoDecoder_GetFrame",
+      "description": "This function decodes a frame from an ICO file. It reads the icon entry, creates a stream object for the icon, reads the bitmapinfo size or magic number, and forwards to the appropriate decoding function based on the magic number. If any step fails, it cleans up and returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to the IWICBitmapDecoder interface"
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "Index of the frame to decode"
+        },
+        {
+          "name": "ppIBitmapFrame",
+          "type": "IWICBitmapFrameDecode **",
+          "description": "Pointer to a pointer to an IWICBitmapFrameDecode interface, which will be filled with the decoded frame"
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK on success, and an error code on failure"
+    }
+  },
+  {
+    "function": {
+      "name": "IcoDecoder_CreateInstance",
+      "description": "This function creates an instance of IcoDecoder, initializes it and assigns it to the provided pointer, and then queries and releases an interface for the IcoDecoder instance.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "The interface identifier to be queried."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to the location where the pointer to the created IcoDecoder instance will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If the function fails, it returns an error code."
+    }
+  }
+]

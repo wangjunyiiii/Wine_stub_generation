@@ -1,0 +1,1696 @@
+[
+  {
+    "function": {
+      "name": "free_gdi_path",
+      "description": "This function is used to free the memory allocated to the gdi_path structure and its points if they are not equal to points_buf.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "struct gdi_path*",
+          "description": "This is a pointer to the gdi_path structure that needs to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "alloc_gdi_path",
+      "description": "This function allocates memory for a gdi_path structure and initializes its fields. If the requested memory allocation exceeds a predefined initial number of entries, additional memory is allocated. If memory allocation fails at any point, an error is set and the function returns NULL.",
+      "parameters": [
+        {
+          "name": "count",
+          "type": "int",
+          "description": "The number of entries to be allocated for the gdi_path structure"
+        }
+      ],
+      "return_type": "struct gdi_path*, represents a pointer to the allocated and initialized gdi_path structure, or NULL if memory allocation failed"
+    }
+  },
+  {
+    "function": {
+      "name": "copy_gdi_path",
+      "description": "This function copies a gdi_path structure.",
+      "parameters": [
+        {
+          "name": "src_path",
+          "type": "const struct gdi_path *",
+          "description": "The source gdi_path structure to be copied."
+        }
+      ],
+      "return_type": "struct gdi_path *, a pointer to the copied gdi_path structure. Returns NULL if allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "INTERNAL_LPTODP_FLOAT",
+      "description": "This function transforms a set of points from logical coordinates to device coordinates using the transformation matrix of a device context.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This is a pointer to the device context that contains the transformation matrix."
+        },
+        {
+          "name": "point",
+          "type": "FLOAT_POINT *",
+          "description": "This is a pointer to the array of points that will be transformed."
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "description": "This is the number of points in the array."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the input points in place."
+    }
+  },
+  {
+    "function": {
+      "name": "int_from_fixed",
+      "description": "This function converts a fixed point number to an integer. If the fractional part of the fixed point number is greater than or equal to 0x8000, it increments the value part by 1. Otherwise, it returns the value part as is.",
+      "parameters": [
+        {
+          "name": "f",
+          "type": "FIXED",
+          "description": "This parameter represents the fixed point number to be converted to an integer."
+        }
+      ],
+      "return_type": "INT, representing the converted integer value from the fixed point number."
+    }
+  },
+  {
+    "function": {
+      "name": "PATH_ReserveEntries",
+      "description": "This function reserves memory for a given number of entries in a path. If the number of entries to be reserved is more than the currently allocated size, it allocates more memory. The size of the array grows exponentially to ensure linear time complexity. If memory allocation fails, the function returns FALSE. Otherwise, it updates the path's points, flags, and allocated size, and returns TRUE.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "struct gdi_path *",
+          "description": "This is a pointer to the path structure for which entries are to be reserved."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "This is the number of entries to be reserved in the path."
+        }
+      ],
+      "return_type": "BOOL, represents whether the memory reservation was successful or not. Returns TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "PATH_AddEntry",
+      "description": "This function adds an entry to a given path. It reserves enough memory for an extra path entry, stores the point and flags information in the path entry, and increments the path count.",
+      "parameters": [
+        {
+          "name": "pPath",
+          "type": "struct gdi_path*",
+          "description": "Pointer to the path where the entry is to be added"
+        },
+        {
+          "name": "pPoint",
+          "type": "const POINT*",
+          "description": "Pointer to the point to be added to the path"
+        },
+        {
+          "name": "flags",
+          "type": "BYTE",
+          "description": "Flags to be stored in the path entry"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the entry was successfully added to the path, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "add_log_points",
+      "description": "This function reserves entries for a path, copies points into the path, converts logical points to device points, sets path flags, and increments the path count.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "Device context to be used for the conversion of logical points to device points"
+        },
+        {
+          "name": "path",
+          "type": "struct gdi_path *",
+          "description": "Path in which points and flags are to be stored"
+        },
+        {
+          "name": "points",
+          "type": "const POINT *",
+          "description": "Points to be copied into the path"
+        },
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "Number of points to be copied and the value to increment the path count by"
+        },
+        {
+          "name": "type",
+          "type": "BYTE",
+          "description": "Value to set the path flags to"
+        }
+      ],
+      "return_type": "BYTE *, represents the address of the path flags after the count has been incremented"
+    }
+  },
+  {
+    "function": {
+      "name": "add_points",
+      "description": "This function reserves entries for a path, copies points into the path, sets the path flags to a specified type, increments the path count by the number of points, and returns a pointer to the path flags.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "struct gdi_path*",
+          "description": "Pointer to the path structure to be manipulated"
+        },
+        {
+          "name": "points",
+          "type": "const POINT*",
+          "description": "Pointer to the points to be copied into the path"
+        },
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "Number of points to be copied"
+        },
+        {
+          "name": "type",
+          "type": "BYTE",
+          "description": "Type to be set for the path flags"
+        }
+      ],
+      "return_type": "BYTE*; Returns a pointer to the path flags. If the reservation of entries fails, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "reverse_points",
+      "description": "This function reverses the order of points in an array.",
+      "parameters": [
+        {
+          "name": "points",
+          "type": "POINT*",
+          "description": "This is a pointer to an array of points to be reversed."
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "This is the number of points in the array."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "start_new_stroke",
+      "description": "This function checks if a new stroke can be started based on the path's current state and either starts a new stroke or adds points to the existing path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "struct gdi_path *",
+          "description": "This parameter represents the path for the stroke."
+        }
+      ],
+      "return_type": "BOOL, represents whether a new stroke was started or points were added to the path."
+    }
+  },
+  {
+    "function": {
+      "name": "update_current_pos",
+      "description": "This function updates the current position in a given path by setting it to the last point in the path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "struct gdi_path *",
+          "description": "This is a pointer to the path structure whose current position is to be updated."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "close_figure",
+      "description": "This function closes a figure by setting the PT_CLOSEFIGURE flag on the last element of the flags array in the gdi_path structure.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "struct gdi_path *",
+          "description": "This parameter is a pointer to a gdi_path structure. It is used to access the count and flags properties of the structure."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "add_log_points_new_stroke",
+      "description": "This function starts a new stroke, adds log points to it, updates the current position of the path, and returns a boolean value indicating the success or failure of these operations.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "Pointer to a device context"
+        },
+        {
+          "name": "path",
+          "type": "struct gdi_path *",
+          "description": "Pointer to a GDI path structure"
+        },
+        {
+          "name": "points",
+          "type": "POINT *",
+          "description": "Pointer to an array of points"
+        },
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "Number of points in the array"
+        },
+        {
+          "name": "type",
+          "type": "BYTE",
+          "description": "Type of log points to be added"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operations are successful, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "path_to_region",
+      "description": "This function converts a path into a region. It counts the number of polygons in the path, creates a region from these polygons, and returns the region.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "const struct gdi_path *",
+          "description": "This is the path to be converted into a region."
+        },
+        {
+          "name": "mode",
+          "type": "int",
+          "description": "This parameter determines the mode of the region creation."
+        }
+      ],
+      "return_type": "HRGN, which represents the region created from the path."
+    }
+  },
+  {
+    "function": {
+      "name": "PATH_CheckCorners",
+      "description": "This function converts points to device coordinates, ensures the first corner is top left and the second corner is bottom right, and in GM_COMPATIBLE mode, it does not include bottom and right edges.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "Device context to be used"
+        },
+        {
+          "name": "corners",
+          "type": "POINT []",
+          "description": "Array of points representing corners"
+        },
+        {
+          "name": "x1",
+          "type": "INT",
+          "description": "X-coordinate of the first point"
+        },
+        {
+          "name": "y1",
+          "type": "INT",
+          "description": "Y-coordinate of the first point"
+        },
+        {
+          "name": "x2",
+          "type": "INT",
+          "description": "X-coordinate of the second point"
+        },
+        {
+          "name": "y2",
+          "type": "INT",
+          "description": "Y-coordinate of the second point"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation is successful, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "PATH_AddFlatBezier",
+      "description": "This function adds a flat Bezier curve to a given path. It first generates the Bezier points, then adds them to the path. If the curve is closed, it closes the figure. Finally, it frees the memory allocated for the points and returns the result of the operation.",
+      "parameters": [
+        {
+          "name": "pPath",
+          "type": "struct gdi_path*",
+          "description": "Pointer to the path where the Bezier curve will be added."
+        },
+        {
+          "name": "pt",
+          "type": "POINT*",
+          "description": "Pointer to the array of points that define the Bezier curve."
+        },
+        {
+          "name": "closed",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether the curve is closed or not."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "PATH_FlattenPath",
+      "description": "This function flattens a given path by creating a new path and adding entries to it based on the flags of the original path. It also handles the case of Bezier curves by adding a flat Bezier to the new path.",
+      "parameters": [
+        {
+          "name": "pPath",
+          "type": "const struct gdi_path *",
+          "description": "This parameter is a pointer to the original path that needs to be flattened."
+        }
+      ],
+      "return_type": "struct gdi_path *, represents the new flattened path. If the path cannot be created or an entry cannot be added, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "PATH_ScaleNormalizedPoint",
+      "description": "This function scales a point in a normalized space defined by two corners to a point in a non-normalized space.",
+      "parameters": [
+        {
+          "name": "corners",
+          "type": "FLOAT_POINT[]",
+          "description": "Array of two points defining the corners of the normalized space"
+        },
+        {
+          "name": "x",
+          "type": "double",
+          "description": "The x-coordinate of the point in the normalized space"
+        },
+        {
+          "name": "y",
+          "type": "double",
+          "description": "The y-coordinate of the point in the normalized space"
+        },
+        {
+          "name": "pPoint",
+          "type": "POINT*",
+          "description": "Pointer to a POINT structure where the function will store the coordinates of the point in the non-normalized space"
+        }
+      ],
+      "return_type": "void, as the function does not return a value but modifies the POINT structure pointed to by the pPoint parameter"
+    }
+  },
+  {
+    "function": {
+      "name": "PATH_NormalizePoint",
+      "description": "This function normalizes the coordinates of a point with respect to a pair of corner points.",
+      "parameters": [
+        {
+          "name": "corners",
+          "type": "FLOAT_POINT[]",
+          "description": "An array of corner points used for normalization"
+        },
+        {
+          "name": "pPoint",
+          "type": "FLOAT_POINT*",
+          "description": "A pointer to the point to be normalized"
+        },
+        {
+          "name": "pX",
+          "type": "double*",
+          "description": "A pointer to a double where the normalized x-coordinate will be stored"
+        },
+        {
+          "name": "pY",
+          "type": "double*",
+          "description": "A pointer to a double where the normalized y-coordinate will be stored"
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the values pointed to by pX and pY"
+    }
+  },
+  {
+    "function": {
+      "name": "PATH_DoArcPart",
+      "description": "This function computes control points for an arc part, adds the starting point to the path if desired, and adds points to the path. Returns a boolean value indicating success or failure.",
+      "parameters": [
+        {
+          "name": "pPath",
+          "type": "struct gdi_path *",
+          "description": "Pointer to a gdi_path structure"
+        },
+        {
+          "name": "corners",
+          "type": "FLOAT_POINT[]",
+          "description": "Array of floating point values representing the corners of the path"
+        },
+        {
+          "name": "angleStart",
+          "type": "double",
+          "description": "Starting angle for the arc part"
+        },
+        {
+          "name": "angleEnd",
+          "type": "double",
+          "description": "Ending angle for the arc part"
+        },
+        {
+          "name": "startEntryType",
+          "type": "BYTE",
+          "description": "Type of the starting entry"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function executes successfully, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "get_gdi_flat_path",
+      "description": "This function retrieves a flattened GDI path from a device context, optionally converting it to a region.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "Pointer to the device context which contains the GDI path."
+        },
+        {
+          "name": "rgn",
+          "type": "HRGN *",
+          "description": "Optional pointer to a region that will receive the converted GDI path."
+        }
+      ],
+      "return_type": "struct gdi_path *; Pointer to the flattened GDI path, or NULL if the operation could not be completed."
+    }
+  },
+  {
+    "function": {
+      "name": "get_gdi_path_data",
+      "description": "This function retrieves the points and flags from a given gdi_path structure and returns the count of the path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "struct gdi_path *",
+          "description": "Pointer to the gdi_path structure from which data is to be retrieved"
+        },
+        {
+          "name": "pts",
+          "type": "POINT **",
+          "description": "Pointer to a pointer for storing the points of the path"
+        },
+        {
+          "name": "flags",
+          "type": "BYTE **",
+          "description": "Pointer to a pointer for storing the flags of the path"
+        }
+      ],
+      "return_type": "int, represents the count of the path"
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiBeginPath",
+      "description": "This function begins a new path for the specified device context. It gets the device context pointer, retrieves the physical device and calls the BeginPath function of the physical device. If successful, it releases the device context pointer.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiEndPath",
+      "description": "This function ends the path bracket and prepares the path for filling or stroking.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function successfully ended the path or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiAbortPath",
+      "description": "This function aborts the current path for a specified device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function successfully aborted the path or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiCloseFigure",
+      "description": "This function closes an open figure in a device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This is a handle to the device context."
+        }
+      ],
+      "return_type": "BOOL, represents whether the figure was successfully closed or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetPath",
+      "description": "This function retrieves the path from a device context, copies the points and types to the provided arrays, and converts the points to logical coordinates.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "points",
+          "type": "POINT*",
+          "description": "Pointer to an array that receives the set of points in the path."
+        },
+        {
+          "name": "types",
+          "type": "BYTE*",
+          "description": "Pointer to an array that receives the set of point types in the path."
+        },
+        {
+          "name": "size",
+          "type": "INT",
+          "description": "The size of the points and types arrays."
+        }
+      ],
+      "return_type": "INT, represents the number of points in the path if successful, -1 otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiPathToRegion",
+      "description": "This function converts a path in a device context to a region.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This parameter is a handle to the device context."
+        }
+      ],
+      "return_type": "HRGN, represents the handle to the region created from the path. Returns 0 if the function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiFillPath",
+      "description": "This function fills a path in a device context using the current brush and polygon-filling mode of the device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "A handle to the device context."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function is successful, otherwise FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSelectClipPath",
+      "description": "This function selects the specified clipping path for the device context, converts the path to a region, and then selects the region into the device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "mode",
+          "type": "INT",
+          "description": "Specifies the mode to be used for path to region conversion."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_BeginPath",
+      "description": "This function checks if a path is already open, if so, it does nothing.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device for which the path is to be checked."
+        }
+      ],
+      "return_type": "BOOL, represents whether the path is already open or not. Returns TRUE if the path is open."
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_AbortPath",
+      "description": "This function aborts a path in a device context (DC). It retrieves the DC from the physical device, removes the path driver from the DC stack, and deletes the DC.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device whose path is to be aborted."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not. Always returns TRUE in this implementation."
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_EndPath",
+      "description": "This function ends a path for a given device, updates the path in the device context, pops the path driver from the device context stack, and frees the path physical device memory.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device whose path is to be ended."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful. Always returns TRUE in the current implementation."
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_CreateDC",
+      "description": "This function creates a device context (DC) for a given device. It allocates memory for a path_physdev structure, checks if the allocation was successful, pushes the DC driver to the stack, and returns a boolean value indicating the success of these operations.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV*",
+          "description": "Pointer to a PHYSDEV structure representing the physical device."
+        },
+        {
+          "name": "device",
+          "type": "LPCWSTR",
+          "description": "Pointer to a wide-character string that specifies the name of the device for which the context is to be created."
+        },
+        {
+          "name": "output",
+          "type": "LPCWSTR",
+          "description": "Pointer to a wide-character string that specifies the name of the specific output for the device driver."
+        },
+        {
+          "name": "devmode",
+          "type": "DEVMODEW*",
+          "description": "Pointer to a DEVMODEW structure containing device-specific attributes."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully creates a DC and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_DeleteDC",
+      "description": "This function deletes a device context by freeing the path and the physical device associated with it.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device to be deleted."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE after successfully freeing the path and the physical device."
+    }
+  },
+  {
+    "function": {
+      "name": "PATH_SavePath",
+      "description": "This function copies the path from the source device context to the destination device context. If the source has a path, it is directly copied. If not, the function attempts to find a path driver and copy the path from there. If no path or path driver is found, the destination path is set to NULL.",
+      "parameters": [
+        {
+          "name": "dst",
+          "type": "DC *",
+          "description": "This is the destination device context where the path is to be copied."
+        },
+        {
+          "name": "src",
+          "type": "DC *",
+          "description": "This is the source device context from where the path is to be copied."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the path is successfully copied or set to NULL, and FALSE if the path copy operation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "PATH_RestorePath",
+      "description": "This function restores the path from the source DC to the destination DC. It frees up the path and the path_physdev structure associated with the destination DC, and then copies the path from the source DC to the destination DC. It also frees up the path associated with the destination DC before the copy.",
+      "parameters": [
+        {
+          "name": "dst",
+          "type": "DC*",
+          "description": "This is the destination DC where the path will be restored."
+        },
+        {
+          "name": "src",
+          "type": "DC*",
+          "description": "This is the source DC from where the path will be copied."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the path is successfully restored, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_MoveTo",
+      "description": "This function moves the path to a new position (x, y) and sets the newStroke property to TRUE. It also converts logical coordinates to device coordinates.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "This parameter represents the x-coordinate of the new position."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "This parameter represents the y-coordinate of the new position."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not. Always returns TRUE in this implementation."
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_LineTo",
+      "description": "This function draws a line in a device context to the specified point.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the device context where the line is to be drawn."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "This is the x-coordinate of the end point of the line."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "This is the y-coordinate of the end point of the line."
+        }
+      ],
+      "return_type": "BOOL, represents whether the line was successfully drawn or not."
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_Rectangle",
+      "description": "This function draws a rectangle on a device context using the specified coordinates. It checks the corners of the rectangle, reverses the points if the arc direction is clockwise, adds the points to the path, and then closes the figure.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the device context on which the rectangle is to be drawn."
+        },
+        {
+          "name": "x1",
+          "type": "INT",
+          "description": "This is the x-coordinate of the first corner of the rectangle."
+        },
+        {
+          "name": "y1",
+          "type": "INT",
+          "description": "This is the y-coordinate of the first corner of the rectangle."
+        },
+        {
+          "name": "x2",
+          "type": "INT",
+          "description": "This is the x-coordinate of the opposite corner of the rectangle."
+        },
+        {
+          "name": "y2",
+          "type": "INT",
+          "description": "This is the y-coordinate of the opposite corner of the rectangle."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the rectangle is successfully drawn, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_RoundRect",
+      "description": "This function draws a rounded rectangle. It calculates the points for the rectangle, checks the corners, calculates the width and height of the ellipse, and then draws the rounded rectangle. If the ellipse width or height is zero, it calls the pathdrv_Rectangle function to draw a rectangle instead.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to draw on"
+        },
+        {
+          "name": "x1",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the rectangle"
+        },
+        {
+          "name": "y1",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the rectangle"
+        },
+        {
+          "name": "x2",
+          "type": "INT",
+          "description": "The x-coordinate of the lower-right corner of the rectangle"
+        },
+        {
+          "name": "y2",
+          "type": "INT",
+          "description": "The y-coordinate of the lower-right corner of the rectangle"
+        },
+        {
+          "name": "ell_width",
+          "type": "INT",
+          "description": "The width of the ellipse used to draw the rounded corners"
+        },
+        {
+          "name": "ell_height",
+          "type": "INT",
+          "description": "The height of the ellipse used to draw the rounded corners"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully draws the rounded rectangle, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_Ellipse",
+      "description": "This function draws an ellipse on a device context using the specified coordinates. It calculates the width and height of the ellipse, defines the points for the four curves of the ellipse, and adds these points to the path of the device context. If the arc direction attribute of the device context is clockwise, the points are reversed. The function then closes the figure on the path and returns TRUE if successful.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "The physical device context where the ellipse will be drawn."
+        },
+        {
+          "name": "x1",
+          "type": "INT",
+          "description": "The x-coordinate of the first corner of the bounding rectangle for the ellipse."
+        },
+        {
+          "name": "y1",
+          "type": "INT",
+          "description": "The y-coordinate of the first corner of the bounding rectangle for the ellipse."
+        },
+        {
+          "name": "x2",
+          "type": "INT",
+          "description": "The x-coordinate of the second corner of the bounding rectangle for the ellipse."
+        },
+        {
+          "name": "y2",
+          "type": "INT",
+          "description": "The y-coordinate of the second corner of the bounding rectangle for the ellipse."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the ellipse is successfully drawn, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "PATH_Arc",
+      "description": "This function is used to draw an arc in a device context. It takes the device context, coordinates of the bounding rectangle, start and end points of the arc, direction of the arc, and the number of lines as parameters. It returns a boolean value indicating the success or failure of the operation.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the device context where the arc is to be drawn."
+        },
+        {
+          "name": "x1",
+          "type": "INT",
+          "description": "This is the x-coordinate of the upper-left corner of the bounding rectangle."
+        },
+        {
+          "name": "y1",
+          "type": "INT",
+          "description": "This is the y-coordinate of the upper-left corner of the bounding rectangle."
+        },
+        {
+          "name": "x2",
+          "type": "INT",
+          "description": "This is the x-coordinate of the lower-right corner of the bounding rectangle."
+        },
+        {
+          "name": "y2",
+          "type": "INT",
+          "description": "This is the y-coordinate of the lower-right corner of the bounding rectangle."
+        },
+        {
+          "name": "xStart",
+          "type": "INT",
+          "description": "This is the x-coordinate of the start point of the arc."
+        },
+        {
+          "name": "yStart",
+          "type": "INT",
+          "description": "This is the y-coordinate of the start point of the arc."
+        },
+        {
+          "name": "xEnd",
+          "type": "INT",
+          "description": "This is the x-coordinate of the end point of the arc."
+        },
+        {
+          "name": "yEnd",
+          "type": "INT",
+          "description": "This is the y-coordinate of the end point of the arc."
+        },
+        {
+          "name": "direction",
+          "type": "int",
+          "description": "This indicates the direction of the arc. It can be clockwise or counter-clockwise."
+        },
+        {
+          "name": "lines",
+          "type": "int",
+          "description": "This indicates the number of lines in the arc."
+        }
+      ],
+      "return_type": "BOOL. It returns TRUE if the arc is successfully drawn, otherwise it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_AngleArc",
+      "description": "This function calculates the start and end points of an arc based on the given parameters and then draws the arc.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Physical device context to draw on"
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "x-coordinate of the center of the arc"
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "y-coordinate of the center of the arc"
+        },
+        {
+          "name": "radius",
+          "type": "DWORD",
+          "description": "Radius of the arc"
+        },
+        {
+          "name": "eStartAngle",
+          "type": "FLOAT",
+          "description": "Starting angle of the arc, in degrees"
+        },
+        {
+          "name": "eSweepAngle",
+          "type": "FLOAT",
+          "description": "Sweep angle of the arc, in degrees"
+        }
+      ],
+      "return_type": "BOOL, represents whether the arc was successfully drawn or not"
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_Arc",
+      "description": "This function gets the physical device context and returns the path of the arc based on the provided parameters.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "The physical device context"
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "The left coordinate of the arc"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "The top coordinate of the arc"
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "The right coordinate of the arc"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "The bottom coordinate of the arc"
+        },
+        {
+          "name": "xstart",
+          "type": "INT",
+          "description": "The starting x-coordinate of the arc"
+        },
+        {
+          "name": "ystart",
+          "type": "INT",
+          "description": "The starting y-coordinate of the arc"
+        },
+        {
+          "name": "xend",
+          "type": "INT",
+          "description": "The ending x-coordinate of the arc"
+        },
+        {
+          "name": "yend",
+          "type": "INT",
+          "description": "The ending y-coordinate of the arc"
+        }
+      ],
+      "return_type": "BOOL, represents whether the path of the arc was successfully returned or not"
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_ArcTo",
+      "description": "This function is used to draw an arc in a specified rectangle, from the start point to the end point.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to draw on"
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the rectangle"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the rectangle"
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "The x-coordinate of the lower-right corner of the rectangle"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "The y-coordinate of the lower-right corner of the rectangle"
+        },
+        {
+          "name": "xstart",
+          "type": "INT",
+          "description": "The x-coordinate of the start point of the arc"
+        },
+        {
+          "name": "ystart",
+          "type": "INT",
+          "description": "The y-coordinate of the start point of the arc"
+        },
+        {
+          "name": "xend",
+          "type": "INT",
+          "description": "The x-coordinate of the end point of the arc"
+        },
+        {
+          "name": "yend",
+          "type": "INT",
+          "description": "The y-coordinate of the end point of the arc"
+        }
+      ],
+      "return_type": "BOOL, represents whether the arc was successfully drawn or not"
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_Chord",
+      "description": "This function gets the device context, calls the PATH_Arc function with the provided parameters, the arc direction from the device context, and a flag set to 1.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to be used"
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "Left coordinate of the bounding rectangle"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "Top coordinate of the bounding rectangle"
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "Right coordinate of the bounding rectangle"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "Bottom coordinate of the bounding rectangle"
+        },
+        {
+          "name": "xstart",
+          "type": "INT",
+          "description": "X coordinate of the start point of the arc"
+        },
+        {
+          "name": "ystart",
+          "type": "INT",
+          "description": "Y coordinate of the start point of the arc"
+        },
+        {
+          "name": "xend",
+          "type": "INT",
+          "description": "X coordinate of the end point of the arc"
+        },
+        {
+          "name": "yend",
+          "type": "INT",
+          "description": "Y coordinate of the end point of the arc"
+        }
+      ],
+      "return_type": "BOOL, represents whether the PATH_Arc function was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_Pie",
+      "description": "This function gets the device context and returns the result of the PATH_Arc function with the provided parameters and the arc direction from the device context attributes.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Physical device"
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "Left coordinate of the pie"
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "Top coordinate of the pie"
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "Right coordinate of the pie"
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "Bottom coordinate of the pie"
+        },
+        {
+          "name": "xstart",
+          "type": "INT",
+          "description": "X coordinate of the start point of the pie"
+        },
+        {
+          "name": "ystart",
+          "type": "INT",
+          "description": "Y coordinate of the start point of the pie"
+        },
+        {
+          "name": "xend",
+          "type": "INT",
+          "description": "X coordinate of the end point of the pie"
+        },
+        {
+          "name": "yend",
+          "type": "INT",
+          "description": "Y coordinate of the end point of the pie"
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the PATH_Arc function"
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_PolyBezierTo",
+      "description": "This function is used to add a new stroke to a path using the specified points and Bezier curves.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is a physical device."
+        },
+        {
+          "name": "pts",
+          "type": "const POINT*",
+          "description": "This parameter is a pointer to the points that define the Bezier curves."
+        },
+        {
+          "name": "cbPoints",
+          "type": "DWORD",
+          "description": "This parameter represents the number of points in the array."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation of adding points to the path was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_PolyBezier",
+      "description": "This function is used to draw a PolyBezier in a path. It gets the path_physdev and the DC from the PHYSDEV, adds log points to the path, sets the first type to PT_MOVETO, and returns TRUE if successful.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is used to get the path_physdev and the DC."
+        },
+        {
+          "name": "pts",
+          "type": "const POINT *",
+          "description": "This parameter is used to specify the points for the PolyBezier."
+        },
+        {
+          "name": "cbPoints",
+          "type": "DWORD",
+          "description": "This parameter is used to specify the number of points in the PolyBezier."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully draws the PolyBezier, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_PolyDraw",
+      "description": "This function draws a polygon based on the given points, types, and count of points. It handles different types of points such as move to, line to, and bezier to. It also handles the closing of figures and the creation of new strokes.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to draw on"
+        },
+        {
+          "name": "pts",
+          "type": "const POINT*",
+          "description": "Array of points to draw"
+        },
+        {
+          "name": "types",
+          "type": "const BYTE*",
+          "description": "Array of types corresponding to the points"
+        },
+        {
+          "name": "cbPoints",
+          "type": "DWORD",
+          "description": "Count of points to draw"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the polygon was successfully drawn, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_PolylineTo",
+      "description": "This function is used to draw a polyline on a path device context. It gets the path device and device context, checks if the count of points is less than 1, if so it returns FALSE. Otherwise, it adds the points to the path with a new stroke.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the physical device."
+        },
+        {
+          "name": "pts",
+          "type": "POINT*",
+          "description": "This is a pointer to the points to be drawn."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "This is the count of points to be drawn."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the points were successfully added to the path, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_PolyPolygon",
+      "description": "This function is used to draw multiple polygons on a device context. It checks the validity of the polygons, adds the points of the polygons to the path, and sets the first point of each polyline to PT_MOVETO and the last one to PT_LINETO | PT_CLOSEFIGURE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the device context on which the polygons are to be drawn."
+        },
+        {
+          "name": "pts",
+          "type": "const POINT*",
+          "description": "This is a pointer to the array of points that define the polygons."
+        },
+        {
+          "name": "counts",
+          "type": "const INT*",
+          "description": "This is a pointer to the array that contains the number of points in each polygon."
+        },
+        {
+          "name": "polygons",
+          "type": "UINT",
+          "description": "This is the number of polygons to be drawn."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the polygons were successfully drawn, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_PolyPolyline",
+      "description": "This function is used to draw multiple polylines. It first checks if the number of polylines is valid, then it adds the points of the polylines to the path. It also ensures that the first point of each polyline is a PT_MOVETO.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is a physical device."
+        },
+        {
+          "name": "pts",
+          "type": "const POINT*",
+          "description": "This parameter is a pointer to the points of the polylines."
+        },
+        {
+          "name": "counts",
+          "type": "const DWORD*",
+          "description": "This parameter is a pointer to the counts of the points in each polyline."
+        },
+        {
+          "name": "polylines",
+          "type": "DWORD",
+          "description": "This parameter represents the number of polylines."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully draws the polylines, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "PATH_BezierTo",
+      "description": "This function adds a Bezier curve to the specified path. The curve is defined by three points. The curve does not include the first point, but begins at the second point and ends at the third point.",
+      "parameters": [
+        {
+          "name": "pPath",
+          "type": "struct gdi_path*",
+          "description": "This is the path where the Bezier curve will be added."
+        },
+        {
+          "name": "lppt",
+          "type": "POINT*",
+          "description": "This is an array of points that define the Bezier curve."
+        },
+        {
+          "name": "n",
+          "type": "INT",
+          "description": "This is the number of points in the lppt array."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "PATH_add_outline",
+      "description": "This function adds an outline to a path by iterating over a header and adding entries to the path based on the header's type. It handles different types of curves and closes the figure at the end.",
+      "parameters": [
+        {
+          "name": "physdev",
+          "type": "struct path_physdev *",
+          "description": "A pointer to the physical device structure associated with the path"
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the path"
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the path"
+        },
+        {
+          "name": "header",
+          "type": "TTPOLYGONHEADER *",
+          "description": "A pointer to the header of the polygon"
+        },
+        {
+          "name": "size",
+          "type": "DWORD",
+          "description": "The size of the header"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully adds an outline to the path, and FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_ExtTextOut",
+      "description": "This function is used to draw text using specified font, color, and location. It also handles the glyph outlines and their positions.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to draw on"
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the starting position"
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the starting position"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Options for the function"
+        },
+        {
+          "name": "lprc",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure for clipping"
+        },
+        {
+          "name": "str",
+          "type": "LPCWSTR",
+          "description": "The string to be drawn"
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "The length of the string"
+        },
+        {
+          "name": "dx",
+          "type": "INT *",
+          "description": "Pointer to an array of additional spacing between characters"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function is successful, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "pathdrv_CloseFigure",
+      "description": "This function closes a figure by setting PT_CLOSEFIGURE on the last entry and starting a new stroke. It doesn't draw a line as PT_CLOSEFIGURE is a virtual closing line itself.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is used to get the path physical device."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not, always returns TRUE in this case."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiFlattenPath",
+      "description": "This function flattens the current path in the device context specified by the parameter. It replaces the current path with the flattened version of the same path.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        }
+      ],
+      "return_type": "BOOL, represents whether the path was successfully flattened. Returns TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "PATH_WidenPath",
+      "description": "This function widens a path based on the current pen in the DC. It returns a new path that represents the outline that would be drawn stroking the path with the pen.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This parameter is a pointer to the device context which contains the path to be widened."
+        }
+      ],
+      "return_type": "struct gdi_path *: Returns a pointer to a new path that represents the outline that would be drawn stroking the path with the pen. If the function fails, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiStrokeAndFillPath",
+      "description": "This function strokes and fills a path in the device context specified by the parameter.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function is successful, otherwise it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiStrokePath",
+      "description": "This function strokes a path in the device context specified by the parameter. It retrieves a pointer to the device context, checks if it's valid, gets the physical device for the device context, calls the stroke path function for the physical device, releases the device context pointer, and returns the result.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This parameter is a handle to the device context."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in stroking the path or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiWidenPath",
+      "description": "This function widens the current path in the device context specified by the parameter. It returns a boolean value indicating the success or failure of the operation.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This is a handle to the device context."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the path was successfully widened, and FALSE indicates a failure in the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_BeginPath",
+      "description": "This function begins a new path for a device. It allocates a new GDI path, creates a DC for the path driver, retrieves the path physical device, and sets the current position. If any of these operations fail, it cleans up and returns FALSE. Otherwise, it returns TRUE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device for which the path is to be started."
+        }
+      ],
+      "return_type": "BOOL, represents whether the path was successfully started or not. Returns TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_EndPath",
+      "description": "This function sets the last error to ERROR_CAN_NOT_COMPLETE and returns FALSE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device."
+        }
+      ],
+      "return_type": "BOOL, represents the success or failure of the function. In this case, it always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_AbortPath",
+      "description": "This function aborts the current path of a device context, freeing any associated resources and setting the path to NULL.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device whose path is to be aborted."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE after successfully aborting the path."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_CloseFigure",
+      "description": "This function sets the last error for the calling thread to ERROR_CAN_NOT_COMPLETE and returns FALSE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter is a device context to be closed."
+        }
+      ],
+      "return_type": "BOOL, representing the success or failure of the operation. In this case, it always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_FillPath",
+      "description": "This function checks if the path can be retrieved for the given device. If it can't, it returns FALSE. If it can, it aborts the path and returns TRUE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the physical device for which the path is to be checked and aborted."
+        }
+      ],
+      "return_type": "BOOL, represents whether the path was successfully retrieved and aborted (TRUE) or not (FALSE)"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_StrokeAndFillPath",
+      "description": "This function attempts to get the path of a device. If it fails, it aborts the path and returns FALSE. If it succeeds, it aborts the path and returns TRUE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device whose path is to be obtained."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was able to get the path of the device successfully or not."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_StrokePath",
+      "description": "This function attempts to get the path of a device. If it fails, it aborts the path and returns FALSE. Otherwise, it returns TRUE.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This parameter represents the physical device whose path is to be retrieved."
+        }
+      ],
+      "return_type": "BOOL, represents whether the path retrieval and aborting (if necessary) was successful or not."
+    }
+  }
+]

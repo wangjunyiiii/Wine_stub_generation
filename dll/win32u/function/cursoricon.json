@@ -1,0 +1,466 @@
+[
+  {
+    "function": {
+      "name": "get_icon_ptr",
+      "description": "This function retrieves a pointer to a cursoricon_object associated with a given handle. If the handle is from another process, it issues a warning and returns NULL.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HICON",
+          "description": "This is the handle for which the cursoricon_object pointer is to be retrieved."
+        }
+      ],
+      "return_type": "struct cursoricon_object pointer. It represents a pointer to the cursoricon_object associated with the given handle. If the handle is from another process, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "process_wine_setcursor",
+      "description": "This function sets the cursor for a specific window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "window",
+          "type": "HWND",
+          "description": "Handle to the window where the cursor will be set"
+        },
+        {
+          "name": "handle",
+          "type": "HCURSOR",
+          "description": "Handle to the cursor"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE after setting the cursor"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserShowCursor",
+      "description": "This function is used to show or hide the cursor based on the boolean value passed to it. It communicates with a server to set the cursor count and returns the updated count.",
+      "parameters": [
+        {
+          "name": "show",
+          "type": "BOOL",
+          "description": "This parameter is used to decide whether to show or hide the cursor. If true, the cursor is shown, if false, the cursor is hidden."
+        }
+      ],
+      "return_type": "INT, represents the updated count of the cursor after the show or hide operation"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetCursor",
+      "description": "This function sets the cursor to a specified cursor and returns the previous cursor.",
+      "parameters": [
+        {
+          "name": "cursor",
+          "type": "HCURSOR",
+          "description": "This parameter is the handle to the cursor that is to be set."
+        }
+      ],
+      "return_type": "HCURSOR, which represents the handle to the previous cursor."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetCursor",
+      "description": "This function is used to get the current cursor.",
+      "parameters": [],
+      "return_type": "HCURSOR, which represents the handle to the current cursor"
+    }
+  },
+  {
+    "function": {
+      "name": "alloc_cursoricon_handle",
+      "description": "This function allocates a handle for a cursor or icon object and sets its properties.",
+      "parameters": [
+        {
+          "name": "is_icon",
+          "type": "BOOL",
+          "description": "A boolean value that determines if the object is an icon or not."
+        }
+      ],
+      "return_type": "HICON, which represents the handle to the cursor or icon object."
+    }
+  },
+  {
+    "function": {
+      "name": "get_icon_frame_ptr",
+      "description": "This function retrieves a pointer to a specific frame of an animated cursor or icon. If the cursor or icon is not animated, it returns a pointer to the cursor or icon itself.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HICON",
+          "description": "This is a handle to the icon or cursor."
+        },
+        {
+          "name": "step",
+          "type": "UINT",
+          "description": "This is the index of the frame to be retrieved in case of an animated cursor or icon."
+        }
+      ],
+      "return_type": "struct cursoricon_object pointer. It represents a pointer to the requested frame of the animated cursor or icon, or to the cursor or icon itself if it is not animated. If the function fails, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "free_icon_handle",
+      "description": "This function is used to free the memory allocated to an icon handle. It also handles the freeing of associated resources such as frames in case of animated icons, and dispatches a callback after freeing the resources.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HICON",
+          "description": "This is the handle to the icon that needs to be freed."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the icon handle was successfully freed, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserDestroyCursor",
+      "description": "This function is used to destroy a cursor and free up the resources associated with it.",
+      "parameters": [
+        {
+          "name": "cursor",
+          "type": "HCURSOR",
+          "description": "This is a handle to the cursor to be destroyed."
+        },
+        {
+          "name": "arg",
+          "type": "ULONG",
+          "description": "This argument is not used in the function."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the cursor was successfully destroyed, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetCursorIconData",
+      "description": "This function sets the cursor icon data. It initializes the cursor icon object, sets the delay, number of steps, and frames if any. It also sets the resource name and module if provided. If the cursor icon is animated, it sets up the animated frames in the correct sequence. If the flag LR_SHARED is set, it adds the object to the icon cache.",
+      "parameters": [
+        {
+          "name": "cursor",
+          "type": "HCURSOR",
+          "description": "Handle to the cursor icon"
+        },
+        {
+          "name": "module",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to the module unicode string"
+        },
+        {
+          "name": "res_name",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to the resource name unicode string"
+        },
+        {
+          "name": "desc",
+          "type": "struct cursoricon_desc *",
+          "description": "Pointer to the cursor icon description structure"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the cursor icon data is successfully set, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserFindExistingCursorIcon",
+      "description": "This function searches for an existing cursor or icon in the icon cache that matches the given module, resource name, and description.",
+      "parameters": [
+        {
+          "name": "module",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to the module of the cursor or icon"
+        },
+        {
+          "name": "res_name",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to the resource name of the cursor or icon"
+        },
+        {
+          "name": "desc",
+          "type": "void *",
+          "description": "Pointer to the description of the cursor or icon"
+        }
+      ],
+      "return_type": "HICON, represents the handle to the cursor or icon if found, otherwise returns 0"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetIconSize",
+      "description": "This function retrieves the dimensions of an icon or cursor.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HICON",
+          "description": "Handle to the icon or cursor"
+        },
+        {
+          "name": "step",
+          "type": "UINT",
+          "description": "The step for which to get the icon frame"
+        },
+        {
+          "name": "width",
+          "type": "LONG*",
+          "description": "Pointer to the variable that receives the width of the icon or cursor"
+        },
+        {
+          "name": "height",
+          "type": "LONG*",
+          "description": "Pointer to the variable that receives the height of the icon or cursor"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds; otherwise, it returns FALSE and sets the last error to ERROR_INVALID_CURSOR_HANDLE"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetCursorFrameInfo",
+      "description": "This function retrieves information about a cursor's animation frame, including the rate at which the frame changes (in jiffies) and the total number of steps in the animation.",
+      "parameters": [
+        {
+          "name": "cursor",
+          "type": "HCURSOR",
+          "description": "Handle to the cursor for which to get frame information."
+        },
+        {
+          "name": "istep",
+          "type": "DWORD",
+          "description": "The index of the step in the cursor's animation sequence."
+        },
+        {
+          "name": "rate_jiffies",
+          "type": "DWORD*",
+          "description": "Pointer to a variable that receives the rate at which the frame changes, in jiffies."
+        },
+        {
+          "name": "num_steps",
+          "type": "DWORD*",
+          "description": "Pointer to a variable that receives the total number of steps in the cursor's animation sequence."
+        }
+      ],
+      "return_type": "HCURSOR. Returns a handle to the cursor if successful, or zero otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "copy_bitmap",
+      "description": "This function copies a bitmap using the Windows GDI functions. It creates a compatible device context, selects the bitmap into it, creates a new bitmap of the same size, and copies the original bitmap into the new one.",
+      "parameters": [
+        {
+          "name": "bitmap",
+          "type": "HBITMAP",
+          "description": "This is the original bitmap that will be copied."
+        }
+      ],
+      "return_type": "HBITMAP, which represents the new copied bitmap. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetIconInfo",
+      "description": "This function retrieves information about an icon or a cursor. It gets the icon pointer and frame pointer, checks their validity, and then extracts the icon information. If the icon has a module, it copies the module and resource name to the provided buffers. If not, it sets the lengths of the module and resource name to 0.",
+      "parameters": [
+        {
+          "name": "icon",
+          "type": "HICON",
+          "description": "Handle to the icon or cursor"
+        },
+        {
+          "name": "info",
+          "type": "ICONINFO *",
+          "description": "Pointer to an ICONINFO structure that receives the information about the icon or cursor"
+        },
+        {
+          "name": "module",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to a UNICODE_STRING structure that receives the module name"
+        },
+        {
+          "name": "res_name",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to a UNICODE_STRING structure that receives the resource name"
+        },
+        {
+          "name": "bpp",
+          "type": "DWORD *",
+          "description": "Pointer to a DWORD that receives the color depth of the icon or cursor"
+        },
+        {
+          "name": "unk",
+          "type": "LONG",
+          "description": "Unknown parameter"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully retrieves the icon information, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserDrawIconEx",
+      "description": "This function draws an icon or cursor into the specified device context, with the ability to modify its dimensions, handle the drawing of the icon's mask and image layers separately, and apply alpha blending if the icon supports it.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context where the icon will be drawn."
+        },
+        {
+          "name": "x0",
+          "type": "INT",
+          "description": "The x-coordinate, in logical units, of the upper-left corner of the icon."
+        },
+        {
+          "name": "y0",
+          "type": "INT",
+          "description": "The y-coordinate, in logical units, of the upper-left corner of the icon."
+        },
+        {
+          "name": "icon",
+          "type": "HICON",
+          "description": "Handle to the icon to be drawn."
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "The width, in logical units, of the icon. If this parameter is zero, the function uses the SM_CXICON or SM_CXCURSOR system metric value to set the width."
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "The height, in logical units, of the icon. If this parameter is zero, the function uses the SM_CYICON or SM_CYCURSOR system metric value to set the height."
+        },
+        {
+          "name": "step",
+          "type": "UINT",
+          "description": "The index of the frame to draw, for animated cursors and icons."
+        },
+        {
+          "name": "brush",
+          "type": "HBRUSH",
+          "description": "Handle to the brush used for drawing the icon."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies drawing options. It can be zero or a combination of the following values: DI_COMPAT, DI_DEFAULTSIZE, DI_IMAGE, DI_MASK, DI_NOMIRROR, DI_NORMAL."
+        }
+      ],
+      "return_type": "BOOL. If the function succeeds, the return value is nonzero. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "get_icon_param",
+      "description": "This function retrieves the parameter of an icon object associated with a given handle.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HICON",
+          "description": "This is a handle to the icon object."
+        }
+      ],
+      "return_type": "ULONG_PTR, represents the parameter of the icon object. If the icon object does not exist or belongs to another process, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "set_icon_param",
+      "description": "This function sets the parameters of an icon object and returns the previous parameter value.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HICON",
+          "description": "This is a handle to the icon object."
+        },
+        {
+          "name": "params",
+          "type": "struct free_icon_params *",
+          "description": "This is a pointer to the structure containing the new parameters for the icon object."
+        }
+      ],
+      "return_type": "ULONG_PTR, represents the previous parameter value of the icon object."
+    }
+  },
+  {
+    "function": {
+      "name": "CopyImage",
+      "description": "This function copies an image and returns a handle to the new image.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HANDLE",
+          "description": "A handle to the image to be copied."
+        },
+        {
+          "name": "type",
+          "type": "UINT",
+          "description": "The type of the image to be copied."
+        },
+        {
+          "name": "dx",
+          "type": "INT",
+          "description": "The desired width of the new image."
+        },
+        {
+          "name": "dy",
+          "type": "INT",
+          "description": "The desired height of the new image."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Options for the copy operation."
+        }
+      ],
+      "return_type": "HANDLE, represents a handle to the new image if the copy operation is successful, otherwise returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "LoadImageW",
+      "description": "This function is used to load an image into memory. It checks if the name is supported in Unix modules, and if not, it returns 0. If the name is supported, it calls the KeUserModeCallback function and returns a pointer to the loaded image if successful.",
+      "parameters": [
+        {
+          "name": "hinst",
+          "type": "HINSTANCE",
+          "description": "Handle to the instance of the module whose executable file contains the image to be loaded"
+        },
+        {
+          "name": "name",
+          "type": "WCHAR *",
+          "description": "Pointer to a null-terminated string that contains the name of the image resource in the module"
+        },
+        {
+          "name": "type",
+          "type": "UINT",
+          "description": "The type of image to be loaded"
+        },
+        {
+          "name": "dx",
+          "type": "INT",
+          "description": "The desired width of the image"
+        },
+        {
+          "name": "dy",
+          "type": "INT",
+          "description": "The desired height of the image"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Controls the load options"
+        }
+      ],
+      "return_type": "HANDLE, which represents a pointer to the loaded image if successful, or 0 if not"
+    }
+  }
+]

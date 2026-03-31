@@ -1,0 +1,1293 @@
+[
+  {
+    "function": {
+      "name": "get_element_size",
+      "description": "This function calculates and returns the size of a given region element. The size is determined based on the type of the region element.",
+      "parameters": [
+        {
+          "name": "element",
+          "type": "region_element *",
+          "description": "This is a pointer to the region element whose size is to be calculated."
+        }
+      ],
+      "return_type": "INT, represents the size of the given region element in bytes."
+    }
+  },
+  {
+    "function": {
+      "name": "init_region",
+      "description": "This function initializes a region with a given type and sets the number of children to zero.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion*",
+          "description": "Pointer to the region to be initialized"
+        },
+        {
+          "name": "type",
+          "type": "RegionType",
+          "description": "Type to be assigned to the region"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns 'Ok' if the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "clone_element",
+      "description": "This function clones a region element. If the second parameter points to NULL, a new region element is allocated. Depending on the type of the original element, the function either directly copies the data, clones a path, or recursively clones combined elements. If any operation fails, the function cleans up and returns the error status.",
+      "parameters": [
+        {
+          "name": "element",
+          "type": "const region_element*",
+          "description": "Pointer to the original region element to be cloned"
+        },
+        {
+          "name": "element2",
+          "type": "region_element**",
+          "description": "Pointer to a pointer to a region element. If *element2 is NULL, a new element is allocated. Otherwise, *element2 is assumed to point to a valid object, and its contents are replaced with the cloned data"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'OutOfMemory' if memory allocation fails, or other status codes depending on the failure"
+    }
+  },
+  {
+    "function": {
+      "name": "fuse_region",
+      "description": "This function sets the type of the node in the region to the given mode, assigns the left and right elements to the combine structure in the node, and increments the number of children in the region by 2.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion*",
+          "description": "Pointer to the region where the node's type is set and the elements are combined"
+        },
+        {
+          "name": "left",
+          "type": "region_element*",
+          "description": "Pointer to the left element to be combined in the node"
+        },
+        {
+          "name": "right",
+          "type": "region_element*",
+          "description": "Pointer to the right element to be combined in the node"
+        },
+        {
+          "name": "mode",
+          "type": "CombineMode",
+          "description": "The mode to be set as the type of the node in the region"
+        }
+      ],
+      "return_type": "void, as this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCloneRegion",
+      "description": "This function clones a region and returns the status of the operation.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "Pointer to the region to be cloned."
+        },
+        {
+          "name": "clone",
+          "type": "GpRegion **",
+          "description": "Pointer to a pointer, where the cloned region will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the cloning operation. It can be InvalidParameter if the parameters are not valid, or OutOfMemory if memory allocation for the clone fails."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCombineRegionPath",
+      "description": "This function combines a region with a path according to a specified combine mode. It can replace the region data with the path data or fuse the region with the path.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "Pointer to the region to be combined with the path"
+        },
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path to be combined with the region"
+        },
+        {
+          "name": "mode",
+          "type": "CombineMode",
+          "description": "The mode that determines how the region and path are combined"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'Ok' if the operation was successful, 'InvalidParameter' if the region or path is null, or 'OutOfMemory' if memory allocation fails"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCombineRegionRect",
+      "description": "This function combines a region with a rectangle using a specified combine mode. If the combine mode is 'Replace', it replaces the region data with the rectangle region. If the combine mode is not 'Replace', it fuses the region and rectangle region together.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "Pointer to the region to be combined with the rectangle."
+        },
+        {
+          "name": "rect",
+          "type": "GDIPCONST GpRectF *",
+          "description": "Pointer to the rectangle to be combined with the region."
+        },
+        {
+          "name": "mode",
+          "type": "CombineMode",
+          "description": "The mode in which the region and rectangle are to be combined."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can be 'Ok' if the operation is successful, 'InvalidParameter' if the region or rectangle is NULL, or 'OutOfMemory' if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCombineRegionRectI",
+      "description": "This function combines a region with a rectangle using a specified combine mode.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "Pointer to the region to be combined."
+        },
+        {
+          "name": "rect",
+          "type": "GDIPCONST GpRect *",
+          "description": "Pointer to the rectangle to be combined."
+        },
+        {
+          "name": "mode",
+          "type": "CombineMode",
+          "description": "The mode to use when combining the region and rectangle."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the rectangle pointer is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCombineRegionRegion",
+      "description": "This function combines two regions based on the specified mode. If the mode is 'CombineModeReplace', it replaces the first region with the second one. Otherwise, it fuses the two regions together.",
+      "parameters": [
+        {
+          "name": "region1",
+          "type": "GpRegion*",
+          "description": "Pointer to the first region to be combined"
+        },
+        {
+          "name": "region2",
+          "type": "GpRegion*",
+          "description": "Pointer to the second region to be combined"
+        },
+        {
+          "name": "mode",
+          "type": "CombineMode",
+          "description": "The mode of combination. It can be 'CombineModeReplace' or any other valid CombineMode value"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can be 'Ok' if the operation is successful, 'InvalidParameter' if the input parameters are not valid, or 'OutOfMemory' if there is not enough memory to perform the operation"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateRegion",
+      "description": "This function creates a new region and initializes it with an infinite rectangle.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion**",
+          "description": "This is a pointer to a pointer to a GpRegion structure. The function will allocate memory for a new GpRegion and store the address in this parameter."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns InvalidParameter if the input parameter is null, OutOfMemory if memory allocation fails, and the result of the init_region function otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateRegionPath",
+      "description": "This function creates a new region that is the result of a specified path. It initializes the region, clones the path, and handles any errors that may occur during these processes.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is a pointer to the path that will be cloned to create the new region."
+        },
+        {
+          "name": "region",
+          "type": "GpRegion **",
+          "description": "This is a double pointer to a GpRegion object. The function will allocate memory for a new GpRegion object and the pointer to this new object will be stored in the location pointed to by this double pointer."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can return 'InvalidParameter' if the path or region pointers are NULL, 'OutOfMemory' if memory allocation for the new region fails, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateRegionRect",
+      "description": "This function creates a region that consists of a rectangle. It initializes the region, checks for errors, and if successful, assigns the rectangle's dimensions to the region's node element data.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "GDIPCONST GpRectF *",
+          "description": "This is a pointer to the rectangle from which the region is to be created."
+        },
+        {
+          "name": "region",
+          "type": "GpRegion **",
+          "description": "This is a double pointer to the region that is to be created."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns 'Ok' if the operation is successful, 'InvalidParameter' if the parameters are null, and the status of the initialization operation if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateRegionRectI",
+      "description": "This function creates a rectangular region with integer coordinates.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "GDIPCONST GpRect *",
+          "description": "A pointer to the rectangle structure."
+        },
+        {
+          "name": "region",
+          "type": "GpRegion **",
+          "description": "A pointer to a pointer to a GpRegion structure. This receives the created region."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the function is successful, it returns Ok. If there is an error, it returns an error status code."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateRegionHrgn",
+      "description": "This function creates a new region that is a copy of the specified region and assigns it to the provided pointer. It handles memory allocation and error checking for the new region.",
+      "parameters": [
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "Handle to the region to be copied."
+        },
+        {
+          "name": "region",
+          "type": "GpRegion**",
+          "description": "Pointer to a pointer to a GpRegion object. This will be set to the newly created region."
+        }
+      ],
+      "return_type": "GpStatus. It represents the status of the operation. If the function succeeds, the return value is Ok. If the function fails, the return value can be one of the error values."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipDeleteRegion",
+      "description": "This function deletes a region and frees the memory allocated to it.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "A pointer to the region to be deleted."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the region is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetRegionBounds",
+      "description": "This function retrieves the bounding box of a region. It ignores the graphics transform and handles cases where the region is infinite or empty.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "Pointer to the region whose bounds are to be retrieved"
+        },
+        {
+          "name": "graphics",
+          "type": "GpGraphics *",
+          "description": "Pointer to the graphics context"
+        },
+        {
+          "name": "rect",
+          "type": "GpRectF *",
+          "description": "Pointer to a GpRectF structure that receives the bounding box of the region"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters is null"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetRegionBoundsI",
+      "description": "This function gets the bounds of a region in integer format. It first checks if the rect parameter is not null, then it gets the bounds of the region and rounds the values to the nearest integer.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "This is the region whose bounds are to be determined."
+        },
+        {
+          "name": "graphics",
+          "type": "GpGraphics *",
+          "description": "This is the graphics context."
+        },
+        {
+          "name": "rect",
+          "type": "GpRect *",
+          "description": "This is the rectangle structure where the bounds of the region will be stored."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns Ok. If the rect parameter is null, it returns InvalidParameter."
+    }
+  },
+  {
+    "function": {
+      "name": "write_dword",
+      "description": "This function writes a DWORD to a specific location and increments the offset.",
+      "parameters": [
+        {
+          "name": "location",
+          "type": "DWORD*",
+          "description": "This is the location where the DWORD will be written."
+        },
+        {
+          "name": "offset",
+          "type": "INT*",
+          "description": "This is the offset at which the DWORD will be written. It is incremented after the write operation."
+        },
+        {
+          "name": "write",
+          "type": "DWORD",
+          "description": "This is the DWORD that will be written to the specified location."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "write_float",
+      "description": "This function writes a float value to a specific location and increments the offset",
+      "parameters": [
+        {
+          "name": "location",
+          "type": "DWORD*",
+          "description": "Pointer to the location where the float value is to be written"
+        },
+        {
+          "name": "offset",
+          "type": "INT*",
+          "description": "Pointer to the offset at which the float value is to be written"
+        },
+        {
+          "name": "write",
+          "type": "FLOAT",
+          "description": "The float value to be written"
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "write_element",
+      "description": "This function writes the data of a region element into a buffer. The type of the element determines how the data is written. The function also keeps track of how much of the buffer is filled.",
+      "parameters": [
+        {
+          "name": "element",
+          "type": "region_element*",
+          "description": "The region element whose data is to be written into the buffer"
+        },
+        {
+          "name": "buffer",
+          "type": "DWORD*",
+          "description": "The buffer where the data of the region element is written"
+        },
+        {
+          "name": "filled",
+          "type": "INT*",
+          "description": "Keeps track of how much of the buffer has been filled"
+        }
+      ],
+      "return_type": "void, as this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "write_region_data",
+      "description": "This function writes the region data into a structure and returns the size of the data written. If the data parameter is null, it only calculates and returns the size.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "Pointer to the region whose data is to be written"
+        },
+        {
+          "name": "data",
+          "type": "void *",
+          "description": "Pointer to the data where the region data is to be written"
+        }
+      ],
+      "return_type": "DWORD, represents the size of the data written or to be written"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetRegionData",
+      "description": "This function retrieves the data of a region, checks if the buffer size is sufficient, and writes the region data into the buffer. It also calculates the required size for the buffer.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "Pointer to the region from which data is to be retrieved."
+        },
+        {
+          "name": "buffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer where the region data is to be written."
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "Size of the buffer."
+        },
+        {
+          "name": "needed",
+          "type": "UINT *",
+          "description": "Pointer to a variable where the function stores the required size of the buffer."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if any of the parameters is NULL or 'InsufficientBuffer' if the buffer size is less than required. If the operation is successful, it returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "read_element",
+      "description": "This function reads an element from a memory buffer, processes it based on its type, and updates the provided region and count accordingly.",
+      "parameters": [
+        {
+          "name": "mbuf",
+          "type": "struct memory_buffer *",
+          "description": "Pointer to the memory buffer from which the element is read."
+        },
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "Pointer to the region that is updated based on the read element."
+        },
+        {
+          "name": "node",
+          "type": "region_element *",
+          "description": "Pointer to the node that is updated with the read element."
+        },
+        {
+          "name": "count",
+          "type": "INT *",
+          "description": "Pointer to the count that is incremented based on the read element."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can be Ok, OutOfMemory, InvalidParameter, or GenericError."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateRegionRgnData",
+      "description": "This function creates a region from the specified region data.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "GDIPCONST BYTE *",
+          "description": "Pointer to the region data."
+        },
+        {
+          "name": "size",
+          "type": "INT",
+          "description": "Size of the region data."
+        },
+        {
+          "name": "region",
+          "type": "GpRegion **",
+          "description": "Pointer to a pointer to a GpRegion object where the region will be created."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns 'Ok'. If not, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetRegionDataSize",
+      "description": "This function calculates the size of the region data and stores it in the 'needed' parameter. It returns a status indicating whether the operation was successful or not.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "Pointer to the region whose data size is to be calculated."
+        },
+        {
+          "name": "needed",
+          "type": "UINT *",
+          "description": "Pointer to a variable where the calculated size will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either of the parameters is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "edge_list_reserve",
+      "description": "This function reserves space for an edge list. If the requested count is less than or equal to the current capacity, it returns Ok. If the count is more than the maximum capacity, it returns OutOfMemory. Otherwise, it reallocates memory for the edge list to the new capacity and updates the capacity.",
+      "parameters": [
+        {
+          "name": "edges",
+          "type": "struct edge_list*",
+          "description": "Pointer to the edge list for which space is to be reserved"
+        },
+        {
+          "name": "count",
+          "type": "size_t",
+          "description": "The number of elements to reserve space for in the edge list"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns Ok if successful, OutOfMemory if the operation fails due to insufficient memory"
+    }
+  },
+  {
+    "function": {
+      "name": "rgn_round",
+      "description": "This function rounds a real number upwards after subtracting a constant offset.",
+      "parameters": [
+        {
+          "name": "x",
+          "type": "REAL",
+          "description": "The real number to be rounded"
+        }
+      ],
+      "return_type": "INT, representing the rounded value of the input real number"
+    }
+  },
+  {
+    "function": {
+      "name": "line_to_edge_list",
+      "description": "This function converts a line defined by two points into a list of edges. It also checks and adjusts the edges based on the given bounds.",
+      "parameters": [
+        {
+          "name": "p1",
+          "type": "GpPointF",
+          "description": "The first point of the line."
+        },
+        {
+          "name": "p2",
+          "type": "GpPointF",
+          "description": "The second point of the line."
+        },
+        {
+          "name": "bounds",
+          "type": "RECT *",
+          "description": "A pointer to the bounding rectangle."
+        },
+        {
+          "name": "edges",
+          "type": "struct edge_list *",
+          "description": "A pointer to the list of edges to be filled."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "flat_path_to_edge_list",
+      "description": "This function converts a flat path to an edge list. It iterates over the path data, identifies the start and line points, and adds them to the edge list. It also handles the closing of subpaths.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path to be converted"
+        },
+        {
+          "name": "bounds",
+          "type": "const RECT *",
+          "description": "Pointer to the rectangular bounds"
+        },
+        {
+          "name": "edges",
+          "type": "struct edge_list *",
+          "description": "Pointer to the edge list where the result will be stored"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation was successful"
+    }
+  },
+  {
+    "function": {
+      "name": "cmp_edges",
+      "description": "This function compares two edges based on their 'y' values first and then 'x' values if 'y' values are equal. It returns a positive value if the first edge is greater, negative if the second edge is greater, and zero if both are equal.",
+      "parameters": [
+        {
+          "name": "a",
+          "type": "void*",
+          "description": "This is a pointer to the first edge to be compared."
+        },
+        {
+          "name": "b",
+          "type": "void*",
+          "description": "This is a pointer to the second edge to be compared."
+        }
+      ],
+      "return_type": "int, represents the result of the comparison between the two edges"
+    }
+  },
+  {
+    "function": {
+      "name": "edge_list_to_rgndata",
+      "description": "This function sorts the edges, allocates memory for rgndata, translates edges into scans based on winding mode, and sets the properties of rgndata. It returns a status indicating if the operation was successful or if there was an out of memory error.",
+      "parameters": [
+        {
+          "name": "edges",
+          "type": "struct edge_list*",
+          "description": "A pointer to the list of edges to be processed."
+        },
+        {
+          "name": "fill_mode",
+          "type": "FillMode",
+          "description": "The fill mode to be used when translating edges into scans."
+        },
+        {
+          "name": "rgndata",
+          "type": "RGNDATA**",
+          "description": "A double pointer to the RGNDATA structure where the result will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It returns 'Ok' if the operation was successful, 'OutOfMemory' if there was a memory allocation error."
+    }
+  },
+  {
+    "function": {
+      "name": "get_path_hrgn",
+      "description": "This function generates a region from a path. It first checks if the path has any data. If not, it creates a rectangular region with zero dimensions. If the path has data, it clones the path, flattens it, transforms it into an edge list, then into a scans list, and finally into a region. It handles memory allocation and deallocation for the intermediate data structures.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path from which the region is to be generated"
+        },
+        {
+          "name": "bounds",
+          "type": "const RECT*",
+          "description": "Pointer to the bounding rectangle for the path"
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN*",
+          "description": "Pointer to the region to be generated"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'OutOfMemory' if memory allocation fails"
+    }
+  },
+  {
+    "function": {
+      "name": "get_region_hrgn",
+      "description": "This function creates a region handle for a given region element and bounds. It handles different types of region data and combine modes.",
+      "parameters": [
+        {
+          "name": "element",
+          "type": "struct region_element*",
+          "description": "Pointer to the region element structure"
+        },
+        {
+          "name": "bounds",
+          "type": "const RECT*",
+          "description": "Pointer to the rectangle structure that specifies the bounds"
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN*",
+          "description": "Pointer to the region handle that will be created"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can be Ok, OutOfMemory, GenericError, or NotImplemented depending on the situation"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetRegionHRgn",
+      "description": "This function retrieves a handle to a region that is equivalent to the specified region. It also transforms the region if a graphics object is provided.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "A pointer to the region for which to retrieve the handle."
+        },
+        {
+          "name": "graphics",
+          "type": "GpGraphics *",
+          "description": "A pointer to a graphics object. If this parameter is not NULL, the function transforms the region by the transformation matrix of the graphics object before retrieving the handle."
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN *",
+          "description": "A pointer to a variable that receives the handle to the region."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, the function returns Ok. If one of the input parameters is invalid, the function returns InvalidParameter."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipIsEmptyRegion",
+      "description": "This function checks if a region is empty by getting the region bounds and comparing the width and height to zero.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "Pointer to the region to be checked."
+        },
+        {
+          "name": "graphics",
+          "type": "GpGraphics *",
+          "description": "Pointer to the graphics object used for drawing."
+        },
+        {
+          "name": "res",
+          "type": "BOOL *",
+          "description": "Pointer to a boolean value where the result is stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters are null, or the status of the 'GdipGetRegionBounds' function if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipIsEqualRegion",
+      "description": "This function checks if two regions are equal using the graphics context provided. It also checks if the regions are infinite.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "First region to compare"
+        },
+        {
+          "name": "region2",
+          "type": "GpRegion *",
+          "description": "Second region to compare"
+        },
+        {
+          "name": "graphics",
+          "type": "GpGraphics *",
+          "description": "Graphics context used for comparison"
+        },
+        {
+          "name": "res",
+          "type": "BOOL *",
+          "description": "Pointer to store the result of the comparison"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any parameter is NULL, or other status codes depending on the result of the region comparison and deletion operations"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipIsInfiniteRegion",
+      "description": "This function checks if a region is infinite or not. It ignores the graphics parameter.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "Pointer to the region to be checked"
+        },
+        {
+          "name": "graphics",
+          "type": "GpGraphics *",
+          "description": "Pointer to the graphics, but it is ignored in this function"
+        },
+        {
+          "name": "res",
+          "type": "BOOL *",
+          "description": "Pointer to the result, it will be set to true if the region is infinite, otherwise false"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the function call. Returns 'InvalidParameter' if any of the parameters is NULL, otherwise returns 'Ok'"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipIsVisibleRegionRect",
+      "description": "This function checks if a specified region is visible within a rectangle. It also deletes the region object after checking.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion*",
+          "description": "Pointer to the region to check"
+        },
+        {
+          "name": "x",
+          "type": "REAL",
+          "description": "X-coordinate of the rectangle"
+        },
+        {
+          "name": "y",
+          "type": "REAL",
+          "description": "Y-coordinate of the rectangle"
+        },
+        {
+          "name": "w",
+          "type": "REAL",
+          "description": "Width of the rectangle"
+        },
+        {
+          "name": "h",
+          "type": "REAL",
+          "description": "Height of the rectangle"
+        },
+        {
+          "name": "graphics",
+          "type": "GpGraphics*",
+          "description": "Pointer to the graphics object"
+        },
+        {
+          "name": "res",
+          "type": "BOOL*",
+          "description": "Pointer to the result, TRUE if the region is visible, FALSE otherwise"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if parameters are null, or other status codes based on the result of GdipGetRegionHRgn function"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipIsVisibleRegionRectI",
+      "description": "This function checks if a given rectangular region is visible within the graphics object.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion*",
+          "description": "Pointer to the region to check visibility for."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the top-left corner of the rectangle."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the top-left corner of the rectangle."
+        },
+        {
+          "name": "w",
+          "type": "INT",
+          "description": "The width of the rectangle."
+        },
+        {
+          "name": "h",
+          "type": "INT",
+          "description": "The height of the rectangle."
+        },
+        {
+          "name": "graphics",
+          "type": "GpGraphics*",
+          "description": "Pointer to the graphics object to check visibility within."
+        },
+        {
+          "name": "res",
+          "type": "BOOL*",
+          "description": "Pointer to a boolean variable where the result will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if either 'region' or 'res' is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "get_region_bounding_box",
+      "description": "This function calculates the bounding box for a given region element. It handles different types of region elements and different combine modes. It also takes into account whether the region is empty or infinite.",
+      "parameters": [
+        {
+          "name": "element",
+          "type": "struct region_element*",
+          "description": "The region element for which the bounding box is to be calculated."
+        },
+        {
+          "name": "min_x",
+          "type": "REAL*",
+          "description": "Pointer to store the minimum x-coordinate of the bounding box."
+        },
+        {
+          "name": "min_y",
+          "type": "REAL*",
+          "description": "Pointer to store the minimum y-coordinate of the bounding box."
+        },
+        {
+          "name": "max_x",
+          "type": "REAL*",
+          "description": "Pointer to store the maximum x-coordinate of the bounding box."
+        },
+        {
+          "name": "max_y",
+          "type": "REAL*",
+          "description": "Pointer to store the maximum y-coordinate of the bounding box."
+        },
+        {
+          "name": "empty",
+          "type": "BOOL*",
+          "description": "Pointer to a boolean value indicating whether the region is empty."
+        },
+        {
+          "name": "infinite",
+          "type": "BOOL*",
+          "description": "Pointer to a boolean value indicating whether the region is infinite."
+        }
+      ],
+      "return_type": "void, as the function does not return a value but modifies the values pointed to by the parameter pointers."
+    }
+  },
+  {
+    "function": {
+      "name": "point_in_region",
+      "description": "This function checks if a point is within a specified region. The region can be of different types and the function handles each type differently.",
+      "parameters": [
+        {
+          "name": "element",
+          "type": "struct region_element*",
+          "description": "This is the region within which the point is being checked."
+        },
+        {
+          "name": "x",
+          "type": "REAL",
+          "description": "This is the x-coordinate of the point being checked."
+        },
+        {
+          "name": "y",
+          "type": "REAL",
+          "description": "This is the y-coordinate of the point being checked."
+        },
+        {
+          "name": "res",
+          "type": "BOOL*",
+          "description": "This is a pointer to a boolean value where the result of the check is stored. If the point is within the region, the value is set to TRUE, otherwise it is set to FALSE."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can return Ok if the operation was successful, or NotImplemented if the region type is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipIsVisibleRegionPoint",
+      "description": "This function checks if a point is visible in a region after applying the specified graphics transformation. If the graphics transformation is not provided, it checks the point in the region as is.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion*",
+          "description": "The region in which to check the visibility of the point."
+        },
+        {
+          "name": "x",
+          "type": "REAL",
+          "description": "The x-coordinate of the point."
+        },
+        {
+          "name": "y",
+          "type": "REAL",
+          "description": "The y-coordinate of the point."
+        },
+        {
+          "name": "graphics",
+          "type": "GpGraphics*",
+          "description": "The graphics transformation to apply to the point before checking its visibility. If this is NULL, no transformation is applied."
+        },
+        {
+          "name": "res",
+          "type": "BOOL*",
+          "description": "A pointer to a BOOL that receives the result. If the point is visible in the region, this is set to TRUE; otherwise, it is set to FALSE."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns Ok. If any of the input parameters is NULL, it returns InvalidParameter. If there is an error during the transformation or region operations, it returns the corresponding error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipIsVisibleRegionPointI",
+      "description": "This function checks if a point is visible in a specified region. The point's coordinates are given as integers.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion*",
+          "description": "Pointer to the region in which visibility of the point is checked"
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the point"
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the point"
+        },
+        {
+          "name": "graphics",
+          "type": "GpGraphics*",
+          "description": "Pointer to the graphics object used for rendering"
+        },
+        {
+          "name": "res",
+          "type": "BOOL*",
+          "description": "Pointer to a boolean value where the result is stored. TRUE if the point is visible, FALSE otherwise"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation was successful, it returns Ok. If the operation failed, it returns one of the error statuses"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetEmpty",
+      "description": "This function empties a given region by deleting its elements and initializing it with empty rectangle data.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "A pointer to the region to be emptied."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, whether it was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetInfinite",
+      "description": "This function deletes the existing region, initializes it as an infinite rectangle, and returns the status of these operations.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "Pointer to the region to be set to infinite"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, whether it was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "transform_region_element",
+      "description": "This function transforms a region element based on a given matrix. The transformation depends on the type of the region element. It can handle empty rectangles, infinite rectangles, regular rectangles, and paths. If the transformation is successful, it returns Ok status.",
+      "parameters": [
+        {
+          "name": "element",
+          "type": "region_element*",
+          "description": "This is the region element that needs to be transformed."
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix*",
+          "description": "This is the transformation matrix that will be applied to the region element."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the transformation. If the transformation is successful, it returns Ok."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipTransformRegion",
+      "description": "This function transforms a region using a specified matrix.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "This is a pointer to the region to be transformed."
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "This is a pointer to the matrix to be used for transformation."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the transformation operation. Returns InvalidParameter if either region or matrix is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "translate_region_element",
+      "description": "This function translates a region element by the specified dx and dy values. The translation varies depending on the type of the region element.",
+      "parameters": [
+        {
+          "name": "element",
+          "type": "region_element*",
+          "description": "The region element to be translated"
+        },
+        {
+          "name": "dx",
+          "type": "REAL",
+          "description": "The distance to translate in the x direction"
+        },
+        {
+          "name": "dy",
+          "type": "REAL",
+          "description": "The distance to translate in the y direction"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipTranslateRegion",
+      "description": "This function translates a region by the specified dimensions.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion*",
+          "description": "Pointer to the region to be translated"
+        },
+        {
+          "name": "dx",
+          "type": "REAL",
+          "description": "The horizontal translation dimension"
+        },
+        {
+          "name": "dy",
+          "type": "REAL",
+          "description": "The vertical translation dimension"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns 'InvalidParameter' if the region is null, otherwise returns 'Ok'"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipTranslateRegionI",
+      "description": "This function translates a region by the specified dimensions.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "Pointer to the region to be translated."
+        },
+        {
+          "name": "dx",
+          "type": "INT",
+          "description": "The x-coordinate of the translation vector."
+        },
+        {
+          "name": "dy",
+          "type": "INT",
+          "description": "The y-coordinate of the translation vector."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, whether it was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "get_region_scans_data",
+      "description": "This function clones a region, transforms it, gets its handle, and retrieves its data. If the handle exists, it gets the region data and allocates memory for it. If the handle doesn't exist, it allocates memory for a region data header and a rectangle, and copies the rectangle to the buffer. It then deletes the cloned region and returns the status.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "Pointer to the region to be cloned and transformed"
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "Pointer to the matrix used for transforming the region"
+        },
+        {
+          "name": "data",
+          "type": "LPRGNDATA *",
+          "description": "Pointer to the pointer to the region data to be retrieved"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operations performed in the function"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetRegionScansCount",
+      "description": "This function retrieves the number of scans in a region and stores it in the 'count' parameter. It returns a status indicating whether the operation was successful or not.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "Pointer to the region from which the scan count is to be retrieved."
+        },
+        {
+          "name": "count",
+          "type": "UINT *",
+          "description": "Pointer to a variable where the scan count will be stored."
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "Pointer to the transformation matrix applied to the region."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation was successful, 'InvalidParameter' if any of the parameters are null, or other error codes depending on the result of the 'get_region_scans_data' function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetRegionScansI",
+      "description": "This function retrieves the set of rectangles that make up the region, transforms them by the specified matrix, and stores them in an array of rectangles.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion*",
+          "description": "Pointer to the region to get the scans from."
+        },
+        {
+          "name": "scans",
+          "type": "GpRect*",
+          "description": "Pointer to an array of rectangles to receive the scans."
+        },
+        {
+          "name": "count",
+          "type": "INT*",
+          "description": "Pointer to an integer to receive the number of scans."
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix*",
+          "description": "Pointer to the matrix to be used for transformation."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetRegionScans",
+      "description": "This function retrieves the set of rectangles that make up the region, transforms them by a specified matrix, and stores them in an array.",
+      "parameters": [
+        {
+          "name": "region",
+          "type": "GpRegion *",
+          "description": "Pointer to the region to get scans from."
+        },
+        {
+          "name": "scans",
+          "type": "GpRectF *",
+          "description": "Pointer to an array of rectangles to receive the scans."
+        },
+        {
+          "name": "count",
+          "type": "INT *",
+          "description": "Pointer to an integer to receive the number of scans."
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "Pointer to the matrix to be used for transformation."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters is NULL."
+    }
+  }
+]

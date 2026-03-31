@@ -1,0 +1,2308 @@
+[
+  {
+    "function": {
+      "name": "NtUserCreateAcceleratorTable",
+      "description": "This function creates an accelerator table and returns a handle to it. It also checks for valid parameters and handles memory allocation.",
+      "parameters": [
+        {
+          "name": "table",
+          "type": "ACCEL *",
+          "description": "Pointer to an array of ACCEL structures that describes the accelerator table."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of ACCEL structures in the array."
+        }
+      ],
+      "return_type": "HACCEL, a handle to the created accelerator table. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserDestroyAcceleratorTable",
+      "description": "This function is used to destroy an accelerator table. It frees the user handle and the accelerator object.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HACCEL",
+          "description": "This is a handle to the accelerator table that needs to be destroyed."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the accelerator table was successfully destroyed and FALSE indicates that the operation failed."
+    }
+  },
+  {
+    "function": {
+      "name": "debugstr_menuitem",
+      "description": "This function generates a debug string for a menu item. It checks various properties of the menu item and appends them to a buffer, which is then returned as a string.",
+      "parameters": [
+        {
+          "name": "item",
+          "type": "const struct menu_item *",
+          "description": "This is a pointer to the menu item that needs to be debugged."
+        }
+      ],
+      "return_type": "char. It represents a string that contains the debug information of the menu item."
+    }
+  },
+  {
+    "function": {
+      "name": "grab_menu_ptr",
+      "description": "This function retrieves a pointer to a menu structure associated with a given handle. It also increments the reference count of the menu if it's valid, and issues a warning if the menu belongs to another process or if the handle is invalid.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "This is the handle associated with the menu structure to be retrieved."
+        }
+      ],
+      "return_type": "struct menu pointer. It represents a pointer to the menu structure associated with the given handle. If the menu belongs to another process or if the handle is invalid, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "release_menu_ptr",
+      "description": "This function decreases the reference count of the menu object and releases the user handle pointer of the menu if the menu exists.",
+      "parameters": [
+        {
+          "name": "menu",
+          "type": "struct menu *",
+          "description": "This is a pointer to the menu structure that needs to be released."
+        }
+      ],
+      "return_type": "void, meaning this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "unsafe_menu_ptr",
+      "description": "This function grabs a menu pointer using a handle, releases it if it exists, and then returns it.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "This parameter is used to grab the menu pointer."
+        }
+      ],
+      "return_type": "struct menu, represents the grabbed menu pointer."
+    }
+  },
+  {
+    "function": {
+      "name": "is_menu",
+      "description": "This function checks if the provided handle corresponds to a valid menu. It grabs the menu pointer associated with the handle, checks if it's not null, and then releases the menu pointer. If the menu pointer is null, it sets the last Win32 error to ERROR_INVALID_MENU_HANDLE.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "This parameter is a handle to the menu that needs to be checked."
+        }
+      ],
+      "return_type": "BOOL, represents whether the provided handle corresponds to a valid menu or not."
+    }
+  },
+  {
+    "function": {
+      "name": "get_win_sys_menu",
+      "description": "This function retrieves the system menu of a window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window whose system menu is to be retrieved."
+        }
+      ],
+      "return_type": "HMENU, represents a handle to the system menu of the window. Returns 0 if the window does not exist or is not a normal window."
+    }
+  },
+  {
+    "function": {
+      "name": "find_menu_item",
+      "description": "This function is used to find a menu item by its handle and id. It also uses flags to determine the search method and returns the position of the found item.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "Handle to the menu"
+        },
+        {
+          "name": "id",
+          "type": "UINT",
+          "description": "Identifier of the menu item"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to determine the search method"
+        },
+        {
+          "name": "pos",
+          "type": "UINT *",
+          "description": "Pointer to store the position of the found item"
+        }
+      ],
+      "return_type": "struct menu*, represents the found menu item or NULL if not found"
+    }
+  },
+  {
+    "function": {
+      "name": "insert_menu_item",
+      "description": "This function inserts a new item into a menu at a specific position. It first finds where to insert the new item, ensures that MDI system buttons stay on the right side, allocates memory for the new item, copies the old array into the new one, increments the number of items in the menu, and forces size recalculation.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "Handle to the menu where the new item will be inserted"
+        },
+        {
+          "name": "id",
+          "type": "UINT",
+          "description": "Identifier of the new menu item"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to control the behavior of the function"
+        },
+        {
+          "name": "ret_pos",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the position of the new menu item"
+        }
+      ],
+      "return_type": "struct menu *; returns a pointer to the updated menu structure. If the function fails to insert the new item, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "is_win_menu_disallowed",
+      "description": "This function checks if a window menu is disallowed by checking if the window style is a child window but not a popup window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This parameter is a handle to the window."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the window menu is disallowed, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "find_submenu",
+      "description": "This function searches for a submenu within a menu. It uses recursion to traverse through all submenus until it finds the target submenu.",
+      "parameters": [
+        {
+          "name": "handle_ptr",
+          "type": "HMENU*",
+          "description": "A pointer to a handle to the menu. It is used to traverse through the menu items and submenus."
+        },
+        {
+          "name": "target",
+          "type": "HMENU",
+          "description": "The handle to the target submenu that needs to be found."
+        }
+      ],
+      "return_type": "UINT. It represents the position of the target submenu within the menu. If the target submenu is not found, it returns NO_SELECTED_ITEM."
+    }
+  },
+  {
+    "function": {
+      "name": "adjust_menu_item_rect",
+      "description": "This function adjusts the position of a menu item rectangle based on the menu's items_rect and scroll position.",
+      "parameters": [
+        {
+          "name": "menu",
+          "type": "struct menu *",
+          "description": "A pointer to the menu structure that contains the information about the menu."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "A pointer to the rectangle structure that represents the menu item's position and size."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "find_item_by_coords",
+      "description": "This function finds an item in a menu by its coordinates. It checks if the point is within the window and the menu items rectangle. If the point is outside the items rectangle but within the window, it checks if it's on a scroll arrow. It then iterates over the menu items to find the one that contains the point.",
+      "parameters": [
+        {
+          "name": "menu",
+          "type": "struct menu *",
+          "description": "Pointer to the menu structure where the item is to be found"
+        },
+        {
+          "name": "pt",
+          "type": "POINT",
+          "description": "The point in the coordinate system where the item is to be found"
+        },
+        {
+          "name": "pos",
+          "type": "UINT *",
+          "description": "Pointer to an unsigned integer where the position of the found item will be stored"
+        }
+      ],
+      "return_type": "enum hittest, represents the area of the menu where the point is located (e.g., on an item, on a border, on a scroll arrow, or nowhere)"
+    }
+  },
+  {
+    "function": {
+      "name": "get_menu",
+      "description": "This function retrieves the menu associated with a window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window whose menu is to be retrieved."
+        }
+      ],
+      "return_type": "HMENU, represents a handle to the menu of the window."
+    }
+  },
+  {
+    "function": {
+      "name": "create_menu",
+      "description": "This function creates a new menu, either a standard or a popup menu depending on the input parameter. It allocates memory for the menu, sets its initial properties, and assigns a user handle to it.",
+      "parameters": [
+        {
+          "name": "is_popup",
+          "type": "BOOL",
+          "description": "A boolean flag indicating whether the menu to be created is a popup menu or not."
+        }
+      ],
+      "return_type": "HMENU, which represents a handle to the newly created menu. If the menu creation fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserCreateMenu",
+      "description": "This function creates a menu and returns a handle to the new menu.",
+      "parameters": [],
+      "return_type": "HMENU, a handle to the newly created menu"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserCreatePopupMenu",
+      "description": "This function creates a pop-up menu.",
+      "parameters": [],
+      "return_type": "HMENU, a handle to the newly created pop-up menu"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserDestroyMenu",
+      "description": "This function is used to destroy a menu and free up the memory it was using. It also recursively destroys any submenus.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "This is a handle to the menu that is to be destroyed."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the menu was successfully destroyed and FALSE indicates that the operation failed."
+    }
+  },
+  {
+    "function": {
+      "name": "set_window_menu",
+      "description": "This function sets a window's menu using the provided menu handle. If the handle is not a menu handle or if the window menu is disallowed, the function returns false. If the handle is valid, the function grabs the menu pointer, sets the window handle and height to the menu, and releases the menu pointer. Finally, it sets the window long value and returns true.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window for which the menu is being set."
+        },
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "This is a handle to the menu that is to be set to the window."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the window's menu was successfully set and FALSE indicates that it was not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetMenu",
+      "description": "This function sets a new menu for a window and updates the window's position and size.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that the menu will be set for"
+        },
+        {
+          "name": "menu",
+          "type": "HMENU",
+          "description": "A handle to the new menu"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully sets the new menu and updates the window's position and size, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserCheckMenuItem",
+      "description": "This function checks a menu item based on the provided parameters, modifies its state, and returns the original state of the item.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "Handle to the menu that contains the item to be checked"
+        },
+        {
+          "name": "id",
+          "type": "UINT",
+          "description": "Identifier of the menu item to be checked"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to determine the state of the menu item"
+        }
+      ],
+      "return_type": "DWORD, represents the original state of the menu item before it was checked or unchecked"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserEnableMenuItem",
+      "description": "This function enables or disables a menu item in a given menu. It also updates the close button if the menu item is a close item and its state has changed.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "Handle to the menu that contains the menu item."
+        },
+        {
+          "name": "id",
+          "type": "UINT",
+          "description": "Identifier of the menu item to enable or disable."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to specify the action to be taken on the menu item. It can be a combination of MF_GRAYED and MF_DISABLED."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not. Returns the old flags of the menu item."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserDrawMenuBar",
+      "description": "This function checks if a window exists and if a menu is allowed for the window. If a menu exists, it resets the menu height and sets the owner of the menu to the window. Finally, it changes the size, position, and Z order of the window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the menu bar is to be redrawn."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in drawing the menu bar or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetMenuItemRect",
+      "description": "This function retrieves the dimensions of the specified menu item. It also adjusts the coordinates, depending on whether the menu item is in a popup menu or a system menu.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that owns the menu."
+        },
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "A handle to the menu that contains the menu item."
+        },
+        {
+          "name": "item",
+          "type": "UINT",
+          "description": "The identifier or position of the menu item."
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "A pointer to a RECT structure that receives the dimensions of the menu item."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "set_menu_info",
+      "description": "This function sets the information for a menu. It also applies the same information to all submenus if the MIM_APPLYTOSUBMENUS flag is set in the MENUINFO structure.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "A handle to the menu for which the information is to be set."
+        },
+        {
+          "name": "info",
+          "type": "MENUINFO*",
+          "description": "A pointer to a MENUINFO structure that contains the new menu information."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully sets the menu information, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserThunkedMenuInfo",
+      "description": "This function checks the validity of the menu and its information, sets the last error if any issues are found, and handles specific styles if they are set in the menu info.",
+      "parameters": [
+        {
+          "name": "menu",
+          "type": "HMENU",
+          "description": "Handle to the menu to be checked"
+        },
+        {
+          "name": "info",
+          "type": "MENUINFO *",
+          "description": "Pointer to a MENUINFO structure that contains the new menu information"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully checks the menu and its information, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "get_menu_info",
+      "description": "This function retrieves information about a menu.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "This is a handle to the menu."
+        },
+        {
+          "name": "info",
+          "type": "MENUINFO*",
+          "description": "This is a pointer to a MENUINFO structure that receives the information about the menu."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "menu_depth",
+      "description": "This function calculates the depth of a menu structure recursively. It also checks if the depth exceeds a maximum limit (MAXMENUDEPTH).",
+      "parameters": [
+        {
+          "name": "pmenu",
+          "type": "struct menu*",
+          "description": "Pointer to the menu structure whose depth is to be calculated."
+        },
+        {
+          "name": "depth",
+          "type": "int",
+          "description": "The current depth of the menu structure."
+        }
+      ],
+      "return_type": "int, represents the depth of the menu structure."
+    }
+  },
+  {
+    "function": {
+      "name": "set_menu_item_info",
+      "description": "This function sets the information for a menu item. It updates the menu item's properties based on the provided information.",
+      "parameters": [
+        {
+          "name": "menu",
+          "type": "struct menu_item *",
+          "description": "A pointer to the menu item that needs to be updated."
+        },
+        {
+          "name": "info",
+          "type": "MENUITEMINFOW *",
+          "description": "A pointer to a MENUITEMINFOW structure that contains the new menu item information."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully updates the menu item, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "get_menu_state",
+      "description": "This function retrieves the state of a menu item in a given menu. It first finds the menu item using the provided handle, item_id, and flags. If the item is a popup, it retrieves the state from the submenu, otherwise it retrieves the state directly from the item.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "Handle to the menu"
+        },
+        {
+          "name": "item_id",
+          "type": "UINT",
+          "description": "Identifier of the menu item"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Additional flags to modify the behavior of the function"
+        }
+      ],
+      "return_type": "UINT, represents the state of the menu item. If the menu item is not found, it returns -1"
+    }
+  },
+  {
+    "function": {
+      "name": "get_menu_item_info",
+      "description": "This function retrieves information about a menu item in a specified menu.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "A handle to the menu that contains the menu item."
+        },
+        {
+          "name": "id",
+          "type": "UINT",
+          "description": "The identifier or position of the menu item to get information about."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Indicates whether the function should search for menu items by identifier or by position."
+        },
+        {
+          "name": "info",
+          "type": "MENUITEMINFOW*",
+          "description": "A pointer to a MENUITEMINFOW structure that receives information about the menu item."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "A flag indicating whether the function should convert the retrieved string information to ANSI or leave it as Unicode."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "check_menu_radio_item",
+      "description": "This function checks a range of menu items and sets the radio check mark of a specified item while removing it from others. It also releases the memory allocated to the menu items after checking.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "Handle to the menu"
+        },
+        {
+          "name": "first",
+          "type": "UINT",
+          "description": "Specifies the identifier or position of the first menu item to check"
+        },
+        {
+          "name": "last",
+          "type": "UINT",
+          "description": "Specifies the identifier or position of the last menu item to check"
+        },
+        {
+          "name": "check",
+          "type": "UINT",
+          "description": "Specifies the identifier or position of the menu item to check"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies the function options"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully checks a menu item, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "get_sub_menu",
+      "description": "This function retrieves a submenu from a menu at a specified position. If the menu item is not a submenu, it returns 0.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "This is a handle to the menu."
+        },
+        {
+          "name": "pos",
+          "type": "INT",
+          "description": "This is the position of the menu item."
+        }
+      ],
+      "return_type": "HMENU, which is a handle to the submenu if it exists, or 0 if it does not."
+    }
+  },
+  {
+    "function": {
+      "name": "get_menu_default_item",
+      "description": "This function retrieves the default item from a menu. It also handles the case where the default item is a submenu, and can optionally return disabled items.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "Handle to the menu"
+        },
+        {
+          "name": "bypos",
+          "type": "UINT",
+          "description": "Determines whether the function returns the identifier of the default item or its position"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Controls the search and the return value"
+        }
+      ],
+      "return_type": "UINT, represents the identifier or position of the default menu item, or -1 if no default item is found"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserThunkedMenuItemInfo",
+      "description": "This function handles various menu-related operations based on the method parameter. It can check a menu radio item, get a menu default item, get a menu item ID, get menu item info, get a sub menu, insert a menu item, set menu item info, and get menu state.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "Handle to the menu"
+        },
+        {
+          "name": "pos",
+          "type": "UINT",
+          "description": "Position of the menu item"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to specify the menu item"
+        },
+        {
+          "name": "method",
+          "type": "UINT",
+          "description": "Method to specify the operation to be performed"
+        },
+        {
+          "name": "info",
+          "type": "MENUITEMINFOW *",
+          "description": "Pointer to MENUITEMINFOW structure that contains information about the menu item"
+        },
+        {
+          "name": "str",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to UNICODE_STRING structure that contains a Unicode string"
+        }
+      ],
+      "return_type": "UINT, represents the result of the operation. Depending on the method, it can be a boolean value indicating success or failure, an identifier of a menu item, or a state of a menu item."
+    }
+  },
+  {
+    "function": {
+      "name": "get_menu_item_count",
+      "description": "This function retrieves the number of items in a menu identified by a given handle.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "This is a handle to the menu whose item count is to be retrieved."
+        }
+      ],
+      "return_type": "INT, represents the number of items in the menu. Returns -1 if the menu cannot be accessed."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserRemoveMenu",
+      "description": "This function removes a menu item from a menu. If the menu becomes empty after the removal, it also frees the memory allocated for the menu items. If the menu still has items, it reallocates the memory to fit the remaining items.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "Handle to the menu from which the item is to be removed."
+        },
+        {
+          "name": "id",
+          "type": "UINT",
+          "description": "Identifier of the menu item to be removed."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Controls the search and remove process."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the menu item was successfully removed, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserDeleteMenu",
+      "description": "This function deletes a menu item from the specified menu. If the menu item opens a submenu, the function destroys the submenu before removing the item. After the item is removed, the function releases the menu.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "A handle to the menu"
+        },
+        {
+          "name": "id",
+          "type": "UINT",
+          "description": "The identifier or position of the menu item to delete"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Indicates how the function should interpret the id parameter"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully deletes the menu item, or FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetMenuContextHelpId",
+      "description": "This function sets the context help id for a menu.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "This is a handle to the menu for which the context help id is to be set."
+        },
+        {
+          "name": "id",
+          "type": "DWORD",
+          "description": "This is the context help id to be set."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the context help id is successfully set, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "copy_sys_popup",
+      "description": "This function loads a system menu, modifies it, and returns a handle to the modified menu.",
+      "parameters": [
+        {
+          "name": "mdi",
+          "type": "BOOL",
+          "description": "A boolean value indicating whether the system menu is for a Multiple Document Interface (MDI) child window."
+        }
+      ],
+      "return_type": "HMENU, which is a handle to the modified system menu. If the function fails to load the system menu, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "get_sys_menu",
+      "description": "This function is used to get the system menu for a given window and popup menu. It creates a new menu, sets its properties, and then returns its handle.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the system menu is to be obtained."
+        },
+        {
+          "name": "popup_menu",
+          "type": "HMENU",
+          "description": "Handle to the popup menu that is to be used. If this parameter is NULL, the function creates a new popup menu."
+        }
+      ],
+      "return_type": "HMENU. This is a handle to the system menu for the given window and popup menu. If the function fails to create a new menu or to set its properties, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserMenuItemFromPoint",
+      "description": "This function retrieves the menu item at a specified location.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that owns the menu."
+        },
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "A handle to the menu."
+        },
+        {
+          "name": "x",
+          "type": "int",
+          "description": "The x-coordinate of the location."
+        },
+        {
+          "name": "y",
+          "type": "int",
+          "description": "The y-coordinate of the location."
+        }
+      ],
+      "return_type": "INT. It represents the position of the menu item at the specified location. If no item is found at the location, the function returns -1."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetSystemMenu",
+      "description": "This function retrieves the system menu for a window and optionally resets the system menu back to the default state. It also handles the refresh of the close button if the SC_CLOSE item changes.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that will receive the system menu."
+        },
+        {
+          "name": "revert",
+          "type": "BOOL",
+          "description": "Specifies whether the function should reset the system menu back to the default state."
+        }
+      ],
+      "return_type": "HMENU, represents a handle to the copy of the window's system (or context) menu. If the window does not have a system menu, or if an error occurs, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetSystemMenu",
+      "description": "This function sets the system menu for a window. It first retrieves the window pointer, checks if it's valid and not a special case. If the window already has a system menu, it destroys it. Then it sets the system menu to a new one and releases the window pointer.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window for which to set the system menu."
+        },
+        {
+          "name": "menu",
+          "type": "HMENU",
+          "description": "A handle to the new system menu."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function successfully sets the system menu, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_sys_sub_menu",
+      "description": "This function retrieves the system submenu for a given window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window for which the system submenu is to be retrieved."
+        }
+      ],
+      "return_type": "HMENU, represents a handle to the system submenu for the given window."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetMenuDefaultItem",
+      "description": "This function sets the default item in a menu. It first resets all default-item flags, then sets the default item based on the input parameters.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "Handle to the menu"
+        },
+        {
+          "name": "item",
+          "type": "UINT",
+          "description": "Identifier or position of the menu item to make default"
+        },
+        {
+          "name": "bypos",
+          "type": "UINT",
+          "description": "Indicates whether 'item' parameter is by position. If this parameter is TRUE, 'item' is a position. If it is FALSE, 'item' is an identifier"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, and FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "translate_accelerator",
+      "description": "This function translates accelerator key messages. It checks if the key pressed matches the specified key and if the correct combination of control, alt, and shift keys are pressed. If the conditions are met, it sends a message to the window to perform the corresponding command.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that receives the message."
+        },
+        {
+          "name": "message",
+          "type": "UINT",
+          "description": "The message to be translated."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "virt",
+          "type": "BYTE",
+          "description": "The virtual-key code of the accelerator key."
+        },
+        {
+          "name": "key",
+          "type": "WORD",
+          "description": "The accelerator key."
+        },
+        {
+          "name": "cmd",
+          "type": "WORD",
+          "description": "The command to be executed when the accelerator key is pressed."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the accelerator key message is translated and the command is sent. Returns FALSE if the conditions are not met."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserTranslateAccelerator",
+      "description": "This function translates accelerator keys into messages for the specified window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that will receive the translated messages."
+        },
+        {
+          "name": "accel",
+          "type": "HACCEL",
+          "description": "Handle to the accelerator table that translates the keys."
+        },
+        {
+          "name": "msg",
+          "type": "MSG*",
+          "description": "Pointer to a MSG structure that contains message information for the key specified in the accelerator table."
+        }
+      ],
+      "return_type": "INT, represents whether the function was successful in translating the accelerator keys. Returns 0 if unsuccessful."
+    }
+  },
+  {
+    "function": {
+      "name": "get_menu_font",
+      "description": "This function returns the font for a menu. It checks if a font is already set, if not, it creates a new one based on system parameters. If the 'bold' parameter is true, it increases the font weight. If another thread has already set the font, it deletes the newly created one and uses the existing one.",
+      "parameters": [
+        {
+          "name": "bold",
+          "type": "BOOL",
+          "description": "This parameter determines if the font weight should be increased or not."
+        }
+      ],
+      "return_type": "HFONT, which represents the handle to the font for the menu."
+    }
+  },
+  {
+    "function": {
+      "name": "get_arrow_bitmap",
+      "description": "This function checks if the arrow_bitmap is not initialized, if so, it loads an image into the arrow_bitmap. It then returns the arrow_bitmap.",
+      "parameters": [],
+      "return_type": "HBITMAP, which represents the handle to the arrow bitmap image"
+    }
+  },
+  {
+    "function": {
+      "name": "get_bitmap_item_size",
+      "description": "This function calculates the size of a bitmap item in a menu. It handles different types of menu items and adjusts the size accordingly.",
+      "parameters": [
+        {
+          "name": "item",
+          "type": "struct menu_item*",
+          "description": "Pointer to the menu item whose size is to be calculated."
+        },
+        {
+          "name": "size",
+          "type": "SIZE*",
+          "description": "Pointer to a SIZE structure where the calculated size will be stored."
+        },
+        {
+          "name": "owner",
+          "type": "HWND",
+          "description": "Handle to the window that owns the menu."
+        }
+      ],
+      "return_type": "void, this function does not return a value but modifies the SIZE structure pointed by the 'size' parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "calc_menu_item_size",
+      "description": "This function calculates the size of a menu item. It takes into account various properties of the menu item such as whether it is owner-drawn, a separator, or a text item. It also considers the presence of a bitmap and adjusts the size accordingly.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context"
+        },
+        {
+          "name": "item",
+          "type": "struct menu_item *",
+          "description": "Pointer to the menu item whose size is to be calculated"
+        },
+        {
+          "name": "owner",
+          "type": "HWND",
+          "description": "Handle to the owner window of the menu"
+        },
+        {
+          "name": "org_x",
+          "type": "INT",
+          "description": "The original x-coordinate of the menu item"
+        },
+        {
+          "name": "org_y",
+          "type": "INT",
+          "description": "The original y-coordinate of the menu item"
+        },
+        {
+          "name": "menu_bar",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether the menu is a menu bar"
+        },
+        {
+          "name": "menu",
+          "type": "struct menu *",
+          "description": "Pointer to the menu containing the item"
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "calc_menu_bar_size",
+      "description": "This function calculates the size of a menu bar. It iterates over the items in the menu, calculates their size, and adjusts the menu bar's dimensions accordingly. It also handles special cases like right-justified items and multi-line menus.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context. Used for drawing the menu items."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that specifies the dimensions of the menu bar."
+        },
+        {
+          "name": "menu",
+          "type": "struct menu *",
+          "description": "Pointer to a menu structure that contains the menu items."
+        },
+        {
+          "name": "owner",
+          "type": "HWND",
+          "description": "Handle to the window that owns the menu."
+        }
+      ],
+      "return_type": "void, this function does not return a value. It modifies the menu and rect structures passed as parameters."
+    }
+  },
+  {
+    "function": {
+      "name": "get_menu_bar_height",
+      "description": "This function calculates and returns the height of the menu bar of a given window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the menu bar height is to be calculated."
+        },
+        {
+          "name": "width",
+          "type": "UINT",
+          "description": "Width of the menu bar."
+        },
+        {
+          "name": "org_x",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the menu bar."
+        },
+        {
+          "name": "org_y",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the menu bar."
+        }
+      ],
+      "return_type": "UINT, represents the height of the menu bar."
+    }
+  },
+  {
+    "function": {
+      "name": "draw_popup_arrow",
+      "description": "This function draws an arrow on a popup by creating a compatible device context, selecting the arrow bitmap into it, and then copying the bitmap to the original device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "rect",
+          "type": "RECT",
+          "description": "Structure that contains the coordinates of the upper-left and lower-right corners of the rectangle."
+        },
+        {
+          "name": "arrow_width",
+          "type": "UINT",
+          "description": "Width of the arrow."
+        },
+        {
+          "name": "arrow_height",
+          "type": "UINT",
+          "description": "Height of the arrow."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "draw_bitmap_item",
+      "description": "This function draws a bitmap item on a menu. It handles different types of menu items, including system, restore, minimize, close, and callback. It also handles magic bitmaps using marlett font characters.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window where the bitmap item is to be drawn"
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context for the window"
+        },
+        {
+          "name": "item",
+          "type": "struct menu_item *",
+          "description": "Pointer to the menu item structure"
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that specifies the dimensions and position of the bitmap item"
+        },
+        {
+          "name": "menu",
+          "type": "struct menu *",
+          "description": "Pointer to the menu structure"
+        },
+        {
+          "name": "owner",
+          "type": "HWND",
+          "description": "Handle to the window that owns the menu"
+        },
+        {
+          "name": "odaction",
+          "type": "UINT",
+          "description": "Unsigned integer that specifies the action to be taken"
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "draw_menu_item",
+      "description": "This function is used to draw a menu item. It handles different types of menu items including those with bitmaps, checkmarks, and owner-drawn items. It also handles different states of menu items such as highlighted, grayed out, and default. It adjusts the colors, background, and text of the menu item based on its state and type.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that owns the menu."
+        },
+        {
+          "name": "menu",
+          "type": "struct menu *",
+          "description": "Pointer to the menu structure."
+        },
+        {
+          "name": "owner",
+          "type": "HWND",
+          "description": "Handle to the window that owns the menu item."
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context for the menu item."
+        },
+        {
+          "name": "item",
+          "type": "struct menu_item *",
+          "description": "Pointer to the menu item structure."
+        },
+        {
+          "name": "menu_bar",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether the menu item is part of a menu bar."
+        },
+        {
+          "name": "odaction",
+          "type": "UINT",
+          "description": "Unsigned integer representing the action to be taken for owner-drawn menu items."
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserDrawMenuBarTemp",
+      "description": "This function draws a menu bar temporarily with the given parameters. It calculates the menu bar size if not provided, fills the rectangle area with the system color, and draws each menu item. If no items are present, it returns the system metrics for the menu height.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window where the menu bar is to be drawn"
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context for the window"
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to the RECT structure that specifies the dimensions of the menu bar"
+        },
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "Handle to the menu to be drawn"
+        },
+        {
+          "name": "font",
+          "type": "HFONT",
+          "description": "Handle to the font to be used for drawing the menu"
+        }
+      ],
+      "return_type": "DWORD, represents the height of the menu bar drawn"
+    }
+  },
+  {
+    "function": {
+      "name": "get_scroll_arrow_height",
+      "description": "This function calculates and returns the height of the scroll arrow in a menu.",
+      "parameters": [
+        {
+          "name": "menu",
+          "type": "struct menu*",
+          "description": "This parameter is a pointer to the menu structure where the scroll arrow is located."
+        }
+      ],
+      "return_type": "UINT, represents the height of the scroll arrow in the menu."
+    }
+  },
+  {
+    "function": {
+      "name": "draw_scroll_arrow",
+      "description": "This function draws a scroll arrow on a given device context. The arrow can be drawn in an upward or downward direction and can be enabled or disabled.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context where the arrow is to be drawn."
+        },
+        {
+          "name": "x",
+          "type": "int",
+          "description": "The x-coordinate of the starting point of the arrow."
+        },
+        {
+          "name": "top",
+          "type": "int",
+          "description": "The top y-coordinate of the arrow."
+        },
+        {
+          "name": "height",
+          "type": "int",
+          "description": "The height of the arrow."
+        },
+        {
+          "name": "up",
+          "type": "BOOL",
+          "description": "A boolean value that determines whether the arrow points upwards or downwards."
+        },
+        {
+          "name": "enabled",
+          "type": "BOOL",
+          "description": "A boolean value that determines whether the arrow is enabled or disabled."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "draw_scroll_arrows",
+      "description": "This function draws the scroll arrows on a menu. It calculates the height of the arrows and determines if the scroll is at the end. Then it draws the top and bottom scroll arrows.",
+      "parameters": [
+        {
+          "name": "menu",
+          "type": "struct menu*",
+          "description": "A pointer to the menu structure that contains information about the menu, such as its dimensions and scroll position."
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "A handle to the device context. It is used for drawing the scroll arrows."
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "frame_rect",
+      "description": "This function draws a frame around a rectangle using a specified brush.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to the RECT structure that specifies the logical coordinates of the rectangle."
+        },
+        {
+          "name": "hbrush",
+          "type": "HBRUSH",
+          "description": "Handle to the brush used to draw the frame."
+        }
+      ],
+      "return_type": "int, returns TRUE if the function succeeds, and zero if the rectangle is empty or the brush selection fails."
+    }
+  },
+  {
+    "function": {
+      "name": "draw_popup_menu",
+      "description": "This function is used to draw a popup menu on a window. It gets the system color brush, retrieves the menu, gets the client rectangle, and then draws the menu items if any. It also handles the case of a flat menu and a scrolling menu.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window where the popup menu will be drawn"
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context for the window"
+        },
+        {
+          "name": "hmenu",
+          "type": "HMENU",
+          "description": "Handle to the menu to be drawn"
+        }
+      ],
+      "return_type": "void, as this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "popup_menu_window_proc",
+      "description": "This function handles various window messages for a popup menu window. It processes messages such as creation, mouse activation, painting, client printing, erasing background, destruction, showing window, and getting the handle to the menu of a window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "message",
+          "type": "UINT",
+          "description": "The message to be processed."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "A flag indicating whether the function should use the ANSI or Unicode version of the function."
+        }
+      ],
+      "return_type": "LRESULT. The return value is the result of the message processing and depends on the message sent."
+    }
+  },
+  {
+    "function": {
+      "name": "is_menu_active",
+      "description": "This function returns the top popup window handle.",
+      "parameters": [],
+      "return_type": "HWND, which represents the handle to the top popup window"
+    }
+  },
+  {
+    "function": {
+      "name": "calc_popup_menu_size",
+      "description": "This function calculates the size of a popup menu. It adjusts the menu's height if it exceeds the maximum height and sets the scrolling property of the menu accordingly. It also sets the text offset based on whether any menu items have both text and bitmap.",
+      "parameters": [
+        {
+          "name": "menu",
+          "type": "struct menu*",
+          "description": "A pointer to the menu structure whose size is to be calculated."
+        },
+        {
+          "name": "max_height",
+          "type": "UINT",
+          "description": "The maximum height allowed for the menu."
+        }
+      ],
+      "return_type": "void, this function does not return anything as it modifies the menu structure directly."
+    }
+  },
+  {
+    "function": {
+      "name": "show_popup",
+      "description": "This function displays a popup menu at a specified location, with specified properties. It adjusts the popup menu position so that it fits within the desktop.",
+      "parameters": [
+        {
+          "name": "owner",
+          "type": "HWND",
+          "description": "Handle to the owner window for the popup menu."
+        },
+        {
+          "name": "hmenu",
+          "type": "HMENU",
+          "description": "Handle to the menu to be shown."
+        },
+        {
+          "name": "id",
+          "type": "UINT",
+          "description": "Identifier of the menu item."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies how the function positions the popup menu."
+        },
+        {
+          "name": "x",
+          "type": "int",
+          "description": "Specifies the horizontal location of the popup menu, in screen coordinates."
+        },
+        {
+          "name": "y",
+          "type": "int",
+          "description": "Specifies the vertical location of the popup menu, in screen coordinates."
+        },
+        {
+          "name": "xanchor",
+          "type": "INT",
+          "description": "Specifies the horizontal anchor point of the popup menu, in screen coordinates."
+        },
+        {
+          "name": "yanchor",
+          "type": "INT",
+          "description": "Specifies the vertical anchor point of the popup menu, in screen coordinates."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully shows the popup menu, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "ensure_menu_item_visible",
+      "description": "This function ensures that a given menu item is visible. If the menu is scrollable and the item is not in the visible area, it adjusts the scroll position.",
+      "parameters": [
+        {
+          "name": "menu",
+          "type": "struct menu*",
+          "description": "Pointer to the menu structure."
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "Index of the menu item to ensure visibility."
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context. This parameter is not used in the function."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "select_item",
+      "description": "This function selects an item from a menu in a Windows application. It highlights the selected item, ensures it is visible, and sends a message to the owner of the menu to indicate the selection. If the selected item is a submenu, it finds the submenu and sends a message to the owner with the submenu details.",
+      "parameters": [
+        {
+          "name": "owner",
+          "type": "HWND",
+          "description": "Handle to the window that owns the menu."
+        },
+        {
+          "name": "hmenu",
+          "type": "HMENU",
+          "description": "Handle to the menu."
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "Index of the item to be selected."
+        },
+        {
+          "name": "send_select",
+          "type": "BOOL",
+          "description": "Flag indicating whether a message should be sent to the owner window upon selection."
+        },
+        {
+          "name": "topmenu",
+          "type": "HMENU",
+          "description": "Handle to the top-level menu, if any."
+        }
+      ],
+      "return_type": "void, as this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "move_selection",
+      "description": "This function moves the selection in a menu. It skips over separators and wraps around the list of items.",
+      "parameters": [
+        {
+          "name": "owner",
+          "type": "HWND",
+          "description": "A handle to the window that owns the menu"
+        },
+        {
+          "name": "hmenu",
+          "type": "HMENU",
+          "description": "A handle to the menu"
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "The number of items to move the selection by"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "hide_sub_popups",
+      "description": "This function hides sub popups of a menu in a window. It recursively calls itself to hide nested sub popups. It also sends a message to the owner window to uninitialize the menu popup.",
+      "parameters": [
+        {
+          "name": "owner",
+          "type": "HWND",
+          "description": "Handle to the owner window of the popup menus."
+        },
+        {
+          "name": "hmenu",
+          "type": "HMENU",
+          "description": "Handle to the menu that contains the sub popups."
+        },
+        {
+          "name": "send_select",
+          "type": "BOOL",
+          "description": "Flag indicating whether to send a selection message to the owner window."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags controlling the behavior of the function."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "init_sys_menu_popup",
+      "description": "This function initializes the system menu popup by enabling or disabling menu items based on the style and class_style parameters.",
+      "parameters": [
+        {
+          "name": "hmenu",
+          "type": "HMENU",
+          "description": "Handle to the menu to be initialized."
+        },
+        {
+          "name": "style",
+          "type": "DWORD",
+          "description": "Specifies the window styles."
+        },
+        {
+          "name": "class_style",
+          "type": "DWORD",
+          "description": "Specifies the class styles."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "init_popup",
+      "description": "This function initializes a popup menu in a window. It checks if the owner window and menu are valid, sets the owner of the menu, and creates the popup window.",
+      "parameters": [
+        {
+          "name": "owner",
+          "type": "HWND",
+          "description": "Handle to the owner window for the popup menu."
+        },
+        {
+          "name": "hmenu",
+          "type": "HMENU",
+          "description": "Handle to the menu to be initialized as a popup."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to modify the behavior of the popup menu."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the popup menu is successfully initialized, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "show_sub_popup",
+      "description": "This function is used to show a submenu popup in a Windows application. It handles the drawing of the menu, the positioning of the menu, and the selection of the first item if specified.",
+      "parameters": [
+        {
+          "name": "owner",
+          "type": "HWND",
+          "description": "Handle to the window that owns the popup menu."
+        },
+        {
+          "name": "hmenu",
+          "type": "HMENU",
+          "description": "Handle to the menu to be displayed."
+        },
+        {
+          "name": "select_first",
+          "type": "BOOL",
+          "description": "Flag indicating whether to automatically select the first item in the menu."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags specifying the behavior and appearance of the new menu."
+        }
+      ],
+      "return_type": "HMENU, represents the handle to the displayed submenu."
+    }
+  },
+  {
+    "function": {
+      "name": "exec_focused_item",
+      "description": "This function executes the focused item in a menu. It checks the state and type of the item, and based on these conditions, it either shows a sub-popup, returns an error code, or posts a message to the owner window.",
+      "parameters": [
+        {
+          "name": "pmt",
+          "type": "MTRACKER*",
+          "description": "Pointer to a menu tracker structure, which keeps track of the state of the menu"
+        },
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "Handle to the menu that contains the item to be executed"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags that control the behavior of the function"
+        }
+      ],
+      "return_type": "INT. Returns the ID of the executed item. If the item cannot be executed due to certain conditions (e.g., it is disabled or it is a separator), it returns -1. If a sub-popup is shown, it returns -2."
+    }
+  },
+  {
+    "function": {
+      "name": "switch_tracking",
+      "description": "This function switches the tracking between different menus in a menu system. It hides sub-popups of the top menu if the top menu is not the current menu and both are not pop-up menus. It then selects an item in the current menu.",
+      "parameters": [
+        {
+          "name": "pmt",
+          "type": "MTRACKER*",
+          "description": "Pointer to a menu tracker structure that keeps track of the top menu and owner window"
+        },
+        {
+          "name": "pt_menu",
+          "type": "HMENU",
+          "description": "Handle to the current menu"
+        },
+        {
+          "name": "id",
+          "type": "UINT",
+          "description": "Identifier of the menu item to be selected"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags to control the behavior of hiding sub-popups"
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "menu_button_down",
+      "description": "This function handles the button down event for a menu. It checks if the menu is a system menu and if the message is a left button double click. It also finds the item by coordinates and switches tracking if the focused item is not the selected one. It shows a sub popup if the popup menu is not already 'popped'. It returns true if a click on an item or anywhere on a popup keeps tracking going, otherwise it returns false.",
+      "parameters": [
+        {
+          "name": "pmt",
+          "type": "MTRACKER*",
+          "description": "Pointer to a menu tracker"
+        },
+        {
+          "name": "message",
+          "type": "UINT",
+          "description": "Message for the event"
+        },
+        {
+          "name": "pt_menu",
+          "type": "HMENU",
+          "description": "Handle to the menu"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags for the event"
+        }
+      ],
+      "return_type": "BOOL, represents whether the tracking continues or not"
+    }
+  },
+  {
+    "function": {
+      "name": "menu_button_up",
+      "description": "This function handles the event of a menu button being released. It checks if the menu is a system menu or a user-defined menu, finds the item by coordinates, and executes the focused item if it's not a popup. If the menu is a system menu or the top menu and the button up event is received, it stops the menu tracking and closes the opened submenus. If the menu is a system menu or the current menu of the window, it sets the button up event flag.",
+      "parameters": [
+        {
+          "name": "pmt",
+          "type": "MTRACKER*",
+          "description": "Pointer to a menu tracker structure which keeps track of the menu state"
+        },
+        {
+          "name": "pt_menu",
+          "type": "HMENU",
+          "description": "Handle to the menu"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags that specify the behavior of the function"
+        }
+      ],
+      "return_type": "INT. Returns the ID of the executed menu item if successful, 0 if the menu tracking should be stopped and submenus closed, or -1 if an error occurred or no action should be taken"
+    }
+  },
+  {
+    "function": {
+      "name": "end_menu",
+      "description": "This function ends a menu if the top popup menu is the same as the menu associated with the provided window handle.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window associated with the menu to end."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "menu_mouse_move",
+      "description": "This function handles the mouse move events in a menu. It checks if a menu item is selected based on the mouse coordinates. If no item is selected, it deselects any previously selected item. If a different item is selected, it switches the tracking to the new item and shows its sub-popup if it exists.",
+      "parameters": [
+        {
+          "name": "pmt",
+          "type": "MTRACKER*",
+          "description": "Pointer to a MTRACKER structure that holds information about the menu and tracking state."
+        },
+        {
+          "name": "pt_menu",
+          "type": "HMENU",
+          "description": "Handle to the menu where the mouse event occurred."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags that specify additional information about the mouse event."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE always indicating the function executed successfully."
+    }
+  },
+  {
+    "function": {
+      "name": "do_next_menu",
+      "description": "This function handles the navigation of menu items in a menu bar. It checks the direction of navigation (left or right), and whether the menu is a system menu or not. It also handles special cases such as skipping system icons, switching to the menu bar or system menu, and switching to a new menu returned by an application.",
+      "parameters": [
+        {
+          "name": "pmt",
+          "type": "MTRACKER*",
+          "description": "Pointer to a menu tracker structure, which keeps track of the current state of the menu navigation."
+        },
+        {
+          "name": "vk",
+          "type": "UINT",
+          "description": "Virtual key code representing the direction of navigation (VK_LEFT or VK_RIGHT)."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags that control the behavior of the function."
+        }
+      ],
+      "return_type": "LRESULT, represents whether the function was successful in navigating to the next menu item. Returns TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_sub_popup",
+      "description": "This function retrieves a submenu (if any) of a menu item that is both a popup and is currently selected by the mouse.",
+      "parameters": [
+        {
+          "name": "hmenu",
+          "type": "HMENU",
+          "description": "Handle to the main menu."
+        }
+      ],
+      "return_type": "HMENU, represents a handle to the submenu if it exists and meets the conditions, otherwise returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "menu_key_escape",
+      "description": "This function handles the escape key event for a menu. If the current menu is not the top menu and is a popup, it closes the topmost popup and sets the current menu to the previous menu.",
+      "parameters": [
+        {
+          "name": "pmt",
+          "type": "MTRACKER*",
+          "description": "Pointer to a MTRACKER structure that contains information about the menu."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags that specify the options for the function."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the current menu is the top menu or not a popup, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "get_start_of_next_column",
+      "description": "This function retrieves the index of the start of the next column in a menu. If no next column is found, it returns a constant indicating no selected item.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "A handle to the menu structure from which the start of the next column is to be retrieved."
+        }
+      ],
+      "return_type": "UINT, representing the index of the start of the next column in the menu. If no next column is found, the return value is a constant indicating no selected item."
+    }
+  },
+  {
+    "function": {
+      "name": "get_start_of_prev_column",
+      "description": "This function is used to find the start of the previous column in a menu. It iterates backwards from the currently focused item until it finds a menu break or menu bar break, which signifies the start of a column.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "This is a handle to the menu where the operation is performed."
+        }
+      ],
+      "return_type": "UINT, represents the index of the start of the previous column. If no previous column is found, it returns NO_SELECTED_ITEM."
+    }
+  },
+  {
+    "function": {
+      "name": "suspend_popup",
+      "description": "This function handles the suspension of a popup based on the message received. It checks for specific keydown events and modifies the tracking flags accordingly.",
+      "parameters": [
+        {
+          "name": "pmt",
+          "type": "MTRACKER*",
+          "description": "Pointer to a MTRACKER structure which contains information about the tracking state of the popup."
+        },
+        {
+          "name": "message",
+          "type": "UINT",
+          "description": "The message that is being processed. This can be a keydown, keyup, or paint message."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the popup is suspended due to a left or right keydown event, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "menu_key_left",
+      "description": "This function handles the left key press in a menu. It tries to move one column to the left if possible, otherwise, it closes the topmost popup. If no more popups are left, it moves the menu bar selection. If a sublevel menu was displayed, it displays the next one unless there is another displacement coming up.",
+      "parameters": [
+        {
+          "name": "pmt",
+          "type": "MTRACKER*",
+          "description": "Pointer to a menu tracker structure that keeps track of the current state of the menu"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags that control the behavior of the function"
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "Message to be processed"
+        }
+      ],
+      "return_type": "void, does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "menu_right_key",
+      "description": "This function handles the right key press in a menu. It checks if the current menu is a popup or not, and if it is, it tries to display a sub-popup. If there's another column in the current menu, it selects the first item in the next column. If the current menu is not a popup, it hides any sub-popups and tries to move to the next item in the menu bar.",
+      "parameters": [
+        {
+          "name": "pmt",
+          "type": "MTRACKER*",
+          "description": "Pointer to a MTRACKER structure that contains information about the menu"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags that control the behavior of the function"
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "Message to be processed"
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "menu_from_point",
+      "description": "This function recursively checks if a menu item is a subpopup and if it is selected by mouse. If not, it checks if the current window is a popup, system menu, or a menu and returns the appropriate handle.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "Handle to the menu"
+        },
+        {
+          "name": "pt",
+          "type": "POINT",
+          "description": "Structure that defines the coordinates of a point"
+        }
+      ],
+      "return_type": "HMENU, represents the handle to the menu or sub-menu. Returns 0 if no menu or sub-menu is found."
+    }
+  },
+  {
+    "function": {
+      "name": "find_item_by_key",
+      "description": "This function searches for a menu item by its key in a given menu. If the menu is not valid, it retrieves the system menu of the specified window and searches in it. It also handles special cases for Japanese Win16.",
+      "parameters": [
+        {
+          "name": "owner",
+          "type": "HWND",
+          "description": "Handle to the window that owns the menu."
+        },
+        {
+          "name": "hmenu",
+          "type": "HMENU",
+          "description": "Handle to the menu where the search will be performed."
+        },
+        {
+          "name": "key",
+          "type": "WCHAR",
+          "description": "Character key of the menu item to search for."
+        },
+        {
+          "name": "force_menu_char",
+          "type": "BOOL",
+          "description": "If this parameter is TRUE, the function will not perform a search and will directly send a WM_MENUCHAR message to the owner window."
+        }
+      ],
+      "return_type": "UINT. It represents the position of the found menu item in the menu. If the item is not found, it returns -1. If the WM_MENUCHAR message returns MNC_CLOSE, it returns -2."
+    }
+  },
+  {
+    "function": {
+      "name": "track_menu",
+      "description": "This function tracks a menu, handling user interactions and controlling the menu's behavior based on various flags and parameters.",
+      "parameters": [
+        {
+          "name": "hmenu",
+          "type": "HMENU",
+          "description": "Handle to the menu to be tracked."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags that control the tracking and behavior of the menu."
+        },
+        {
+          "name": "x",
+          "type": "int",
+          "description": "The x-coordinate of the location where the function is called."
+        },
+        {
+          "name": "y",
+          "type": "int",
+          "description": "The y-coordinate of the location where the function is called."
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that owns the menu."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to a RECT structure that specifies the location and dimensions of the menu."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function succeeds, or FALSE otherwise. If the TPM_RETURNCMD flag is set, the return value is the menu item identifier of the user's selection."
+    }
+  },
+  {
+    "function": {
+      "name": "init_tracking",
+      "description": "This function initializes the tracking of a menu in a window. It hides the caret, sets the menu's window handle, sets the top popup if it's not already set, sends WM_ENTERMENULOOP and WM_INITMENU messages if the TPM_NONOTIFY flag is not specified, and sets the cursor.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window where the menu is located"
+        },
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "Handle to the menu to be tracked"
+        },
+        {
+          "name": "is_popup",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether the menu is a popup or not"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Flags that control the behavior of the function"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully initializes tracking, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "exit_tracking",
+      "description": "This function sends a message to exit menu loop, hides the caret, resets the top popup and top popup menu, and returns true.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to a window."
+        },
+        {
+          "name": "is_popup",
+          "type": "BOOL",
+          "description": "A boolean value indicating whether the window is a popup or not."
+        }
+      ],
+      "return_type": "BOOL representing whether the function executed successfully or not."
+    }
+  },
+  {
+    "function": {
+      "name": "track_mouse_menu_bar",
+      "description": "This function is used to track the mouse movements on the menu bar. It checks if the mouse is over the system menu or the window menu, and then initiates tracking. If the window layout is right-to-left, it adjusts the tracking flags accordingly. If the handle points to a valid menu, it initiates, executes, and then exits tracking.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that contains the menu bar."
+        },
+        {
+          "name": "ht",
+          "type": "INT",
+          "description": "The hit-test value. It is HTSYSMENU if the mouse is over the system menu, otherwise it represents the menu item under the mouse."
+        },
+        {
+          "name": "x",
+          "type": "int",
+          "description": "The x-coordinate of the mouse cursor, relative to the upper-left corner of the window."
+        },
+        {
+          "name": "y",
+          "type": "int",
+          "description": "The y-coordinate of the mouse cursor, relative to the upper-left corner of the window."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "track_keyboard_menu_bar",
+      "description": "This function tracks the keyboard input on a menu bar. It checks if the window has a menu, if it has to track a system menu, and if the menu is valid. It then initializes tracking, fetches the window menu, finds items by key, selects items, moves selection if no item is selected, and finally tracks the menu and exits tracking.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that contains the menu bar."
+        },
+        {
+          "name": "wparam",
+          "type": "UINT",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "ch",
+          "type": "WCHAR",
+          "description": "Character input from the keyboard."
+        }
+      ],
+      "return_type": "void, meaning it does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserTrackPopupMenuEx",
+      "description": "This function tracks a pop-up menu or submenu and retrieves the identifier of the selected item.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "A handle to the menu to be tracked"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies function options"
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The horizontal location of the menu, in screen coordinates"
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The vertical location of the menu, in screen coordinates"
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that owns the menu"
+        },
+        {
+          "name": "params",
+          "type": "TPMPARAMS*",
+          "description": "A pointer to a TPMPARAMS structure that specifies an area of the screen the menu should not overlap"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, and FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserHiliteMenuItem",
+      "description": "This function is used to highlight a specific menu item in a menu. It first finds the menu item, then checks if the focused item is not the same as the position of the item to be highlighted. If they are not the same, it hides sub popups and selects the item to be highlighted.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that contains the menu."
+        },
+        {
+          "name": "handle",
+          "type": "HMENU",
+          "description": "Handle to the menu that contains the item to be highlighted."
+        },
+        {
+          "name": "item",
+          "type": "UINT",
+          "description": "Identifier of the menu item to be highlighted."
+        },
+        {
+          "name": "hilite",
+          "type": "UINT",
+          "description": "Specifies how the menu item should be highlighted."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully highlights the menu item, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetMenuBarInfo",
+      "description": "This function retrieves the information about a menu bar. It checks the validity of the window and the parameters, gets the menu based on the id, and fills the MENUBARINFO structure with the appropriate information.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that contains the menu bar."
+        },
+        {
+          "name": "id",
+          "type": "LONG",
+          "description": "The identifier of the menu bar. It can be OBJID_CLIENT, OBJID_MENU, or OBJID_SYSMENU."
+        },
+        {
+          "name": "item",
+          "type": "LONG",
+          "description": "The zero-based position of the item in the specified menu bar."
+        },
+        {
+          "name": "info",
+          "type": "MENUBARINFO*",
+          "description": "A pointer to a MENUBARINFO structure that receives information about the menu bar."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function succeeds, or FALSE otherwise. If the function fails, the extended error information can be retrieved using GetLastError."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserEndMenu",
+      "description": "This function checks if we are in the menu code and it is active, then terminates the menu handling code. It posts a message to wake up the internal menu handler which will now terminate the menu, in the event that the main window was minimized, or lost focus, so we don't end up with an orphaned menu.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters"
+        }
+      ],
+      "return_type": "BOOL, represents whether the menu handling code was terminated or not"
+    }
+  }
+]

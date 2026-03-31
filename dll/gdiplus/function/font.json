@@ -1,0 +1,908 @@
+[
+  {
+    "function": {
+      "name": "GdipCreateFont",
+      "description": "This function creates a font object with specified parameters and assigns it to the provided pointer.",
+      "parameters": [
+        {
+          "name": "fontFamily",
+          "type": "GDIPCONST GpFontFamily*",
+          "description": "Pointer to the font family object."
+        },
+        {
+          "name": "emSize",
+          "type": "REAL",
+          "description": "The em size for the font."
+        },
+        {
+          "name": "style",
+          "type": "INT",
+          "description": "The style of the font."
+        },
+        {
+          "name": "unit",
+          "type": "Unit",
+          "description": "The unit of measure for the font size."
+        },
+        {
+          "name": "font",
+          "type": "GpFont**",
+          "description": "Pointer to a pointer to a GpFont object. The function assigns the created font to this pointer."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the function execution. It returns 'Ok' if the function executes successfully, 'InvalidParameter' if the parameters are not valid, 'NotTrueTypeFont' if the font is not a TrueType font, and 'OutOfMemory' if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateFontFromLogfontW",
+      "description": "This function creates a font based on a logical font, and returns a pointer to the new font object.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "logfont",
+          "type": "GDIPCONST LOGFONTW *",
+          "description": "Pointer to a LOGFONTW structure that defines the logical font."
+        },
+        {
+          "name": "font",
+          "type": "GpFont **",
+          "description": "Pointer to a pointer that receives the new font object."
+        }
+      ],
+      "return_type": "GpStatus. It represents the status of the operation. It can return 'InvalidParameter' if any of the parameters is NULL, 'NotTrueTypeFont' if the font is not a TrueType font, 'OutOfMemory' if memory allocation fails, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateFontFromLogfontA",
+      "description": "This function creates a font based on a logical font structure. It first checks if the parameters are valid, then copies the LOGFONTA structure to a LOGFONTW structure, converts the face name to wide characters, and finally calls GdipCreateFontFromLogfontW to create the font.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "lfa",
+          "type": "GDIPCONST LOGFONTA *",
+          "description": "Pointer to a LOGFONTA structure that defines the logical font."
+        },
+        {
+          "name": "font",
+          "type": "GpFont **",
+          "description": "Pointer to a pointer to a GpFont object where the function will store the created font."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can be 'InvalidParameter' if any of the parameters is null, 'GenericError' if the face name conversion fails, or the return value of GdipCreateFontFromLogfontW."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipDeleteFont",
+      "description": "This function deletes a font object and its associated font family, then frees the memory allocated to the font object.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "GpFont*",
+          "description": "This is a pointer to the font object that is to be deleted."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the font object is null, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateFontFromDC",
+      "description": "This function creates a font object from a device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "font",
+          "type": "GpFont **",
+          "description": "Pointer to a pointer to a GpFont object. This will be filled with the created font object."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It returns 'InvalidParameter' if the font parameter is null, 'GenericError' if the current object is not a font or if the object cannot be retrieved, and the status of the 'GdipCreateFontFromLogfontW' function otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetFamily",
+      "description": "This function checks if the font and family parameters are not null and then clones the font family from the font object.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "GpFont *",
+          "description": "Pointer to the GpFont object"
+        },
+        {
+          "name": "family",
+          "type": "GpFontFamily **",
+          "description": "Pointer to a pointer to the GpFontFamily object"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns InvalidParameter if either font or family is null, otherwise it returns the status of the GdipCloneFontFamily function"
+    }
+  },
+  {
+    "function": {
+      "name": "get_font_size",
+      "description": "This function returns the size of the font.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "GpFont *",
+          "description": "This is a pointer to the font object from which the size is to be retrieved."
+        }
+      ],
+      "return_type": "REAL, represents the size of the font."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetFontSize",
+      "description": "This function retrieves the font size of the given font object.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "GpFont *",
+          "description": "This is a pointer to the font object whose size is to be retrieved."
+        },
+        {
+          "name": "size",
+          "type": "REAL *",
+          "description": "This is a pointer to a REAL variable where the retrieved font size will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either of the input parameters is null."
+    }
+  },
+  {
+    "function": {
+      "name": "get_font_style",
+      "description": "This function determines the style of a given font based on its weight, italic, underlined, and struck out properties.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "GpFont *",
+          "description": "A pointer to the font whose style is to be determined."
+        }
+      ],
+      "return_type": "INT, represents the style of the font (bold, regular, italic, underline, strikeout)."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetFontStyle",
+      "description": "This function retrieves the style of a given font.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "GpFont *",
+          "description": "A pointer to the font object from which the style is to be retrieved."
+        },
+        {
+          "name": "style",
+          "type": "INT *",
+          "description": "A pointer to an integer where the retrieved font style will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either of the input parameters is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetFontUnit",
+      "description": "This function retrieves the unit of measurement for a specified font.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "GpFont *",
+          "description": "Pointer to the font object from which to retrieve the unit of measurement."
+        },
+        {
+          "name": "unit",
+          "type": "Unit *",
+          "description": "Pointer to a variable that receives the unit of measurement."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the input parameters are null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetLogFontA",
+      "description": "This function retrieves the logical font information for a specified font object. It converts the font information from wide characters to multibyte characters.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "GpFont *",
+          "description": "Pointer to the font object for which to get the logical font information."
+        },
+        {
+          "name": "graphics",
+          "type": "GpGraphics *",
+          "description": "Pointer to the graphics object."
+        },
+        {
+          "name": "lfa",
+          "type": "LOGFONTA *",
+          "description": "Pointer to a LOGFONTA structure that receives the logical font information."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns 'Ok'. If the operation fails, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetLogFontW",
+      "description": "This function retrieves the logical font information for a specified font object. It also performs various calculations and transformations based on the graphics object and font properties.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "GpFont *",
+          "description": "Pointer to the font object from which to retrieve the logical font information."
+        },
+        {
+          "name": "graphics",
+          "type": "GpGraphics *",
+          "description": "Pointer to the graphics object used for transformations and calculations."
+        },
+        {
+          "name": "lf",
+          "type": "LOGFONTW *",
+          "description": "Pointer to a LOGFONTW structure that receives the logical font information."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It returns 'InvalidParameter' if any of the input parameters is NULL, otherwise it returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCloneFont",
+      "description": "This function clones a GpFont object.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "GpFont *",
+          "description": "Pointer to the GpFont object to be cloned."
+        },
+        {
+          "name": "cloneFont",
+          "type": "GpFont **",
+          "description": "Pointer to a pointer, where the cloned GpFont object will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the input parameters are null, 'OutOfMemory' if memory allocation fails, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetFontHeight",
+      "description": "This function retrieves the height of a specified font, given a graphics context. If no graphics context is provided, it returns the height for the default DPI.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "GDIPCONST GpFont *",
+          "description": "A pointer to the font object for which the height is to be retrieved."
+        },
+        {
+          "name": "graphics",
+          "type": "GDIPCONST GpGraphics *",
+          "description": "A pointer to the graphics context. If this parameter is NULL, the function uses the default DPI to calculate the font height."
+        },
+        {
+          "name": "height",
+          "type": "REAL *",
+          "description": "A pointer to a REAL variable that receives the font height."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns 'Ok'. If any of the input parameters is NULL, it returns 'InvalidParameter'. If there is an error in getting the font height or the DPI, it returns the error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetFontHeightGivenDPI",
+      "description": "This function calculates the height of a font given a specific DPI (dots per inch) value.",
+      "parameters": [
+        {
+          "name": "font",
+          "type": "GDIPCONST GpFont *",
+          "description": "A pointer to the GpFont structure that specifies the font."
+        },
+        {
+          "name": "dpi",
+          "type": "REAL",
+          "description": "The DPI value to be used in the calculation."
+        },
+        {
+          "name": "height",
+          "type": "REAL *",
+          "description": "A pointer to a REAL value that receives the calculated height of the font."
+        }
+      ],
+      "return_type": "GpStatus, which indicates the status of the operation. It returns 'Ok' if the operation is successful, 'InvalidParameter' if the parameters are not valid, or other error status if the operation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "is_font_installed_proc",
+      "description": "This function checks if a specific font type is installed and replaces the substituted font name with the real one.",
+      "parameters": [
+        {
+          "name": "elf",
+          "type": "LOGFONTW *",
+          "description": "Pointer to a logical font structure."
+        },
+        {
+          "name": "ntm",
+          "type": "TEXTMETRICW *",
+          "description": "Pointer to a text metric structure."
+        },
+        {
+          "name": "type",
+          "type": "DWORD",
+          "description": "Specifies the font type."
+        },
+        {
+          "name": "lParam",
+          "type": "LPARAM",
+          "description": "Pointer to a logical font structure where the real font name will be stored."
+        }
+      ],
+      "return_type": "INT. Returns 1 if the font type is raster, otherwise returns 0 after replacing the substituted font name with the real one."
+    }
+  },
+  {
+    "function": {
+      "name": "get_font_metrics",
+      "description": "This function retrieves the font metrics for a given device context and font metrics structure.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "fm",
+          "type": "struct font_metrics*",
+          "description": "Pointer to the font metrics structure to be filled."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully retrieves the font metrics, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateFontFamilyFromName",
+      "description": "This function creates a font family object based on a specified font name from a given font collection. If the font collection is not provided, it creates a new installed font collection. It also checks if the font is installed and clones the font family if it is found in the collection.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "GDIPCONST WCHAR *",
+          "description": "The name of the font family to be created."
+        },
+        {
+          "name": "collection",
+          "type": "GpFontCollection *",
+          "description": "The font collection from which the font family is to be created. If this parameter is NULL, a new installed font collection is created."
+        },
+        {
+          "name": "family",
+          "type": "GpFontFamily **",
+          "description": "A pointer to a pointer to a GpFontFamily object. This object receives the created font family."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the function execution. It returns 'InvalidParameter' if the 'name' or 'family' parameter is NULL, 'FontFamilyNotFound' if the font family is not found in the collection, or the status of the 'GdipCloneFontFamily' function if the font family is found and cloned successfully."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCloneFontFamily",
+      "description": "This function clones a font family. If the font family is not installed, it increments the reference count.",
+      "parameters": [
+        {
+          "name": "family",
+          "type": "GpFontFamily *",
+          "description": "Pointer to the font family to be cloned."
+        },
+        {
+          "name": "clone",
+          "type": "GpFontFamily **",
+          "description": "Pointer to the pointer where the cloned font family will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if any of the parameters is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetFamilyName",
+      "description": "This function retrieves the name of a font family. It also checks for null parameters and handles language neutrality.",
+      "parameters": [
+        {
+          "name": "family",
+          "type": "GDIPCONST GpFontFamily *",
+          "description": "Pointer to the font family object"
+        },
+        {
+          "name": "name",
+          "type": "WCHAR *",
+          "description": "Pointer to the name of the font family"
+        },
+        {
+          "name": "language",
+          "type": "LANGID",
+          "description": "Language ID for the font family name"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the family is null, 'Ok' if the name is null or after successfully copying the family name to the name parameter"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipDeleteFontFamily",
+      "description": "This function deletes a font family object if it is not installed and its reference count is zero.",
+      "parameters": [
+        {
+          "name": "FontFamily",
+          "type": "GpFontFamily *",
+          "description": "This is a pointer to the font family object to be deleted."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the FontFamily is null, 'Ok' otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetCellAscent",
+      "description": "This function retrieves the ascent value of a font family and assigns it to the CellAscent parameter. It returns a status indicating whether the operation was successful or not.",
+      "parameters": [
+        {
+          "name": "family",
+          "type": "GDIPCONST GpFontFamily *",
+          "description": "A pointer to the font family from which the ascent value is to be retrieved."
+        },
+        {
+          "name": "style",
+          "type": "INT",
+          "description": "The style of the font. This parameter is not used in the function."
+        },
+        {
+          "name": "CellAscent",
+          "type": "UINT16 *",
+          "description": "A pointer to a variable where the ascent value will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either 'family' or 'CellAscent' is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetCellDescent",
+      "description": "This function retrieves the cell descent value from the specified font family and style, and assigns it to the CellDescent parameter.",
+      "parameters": [
+        {
+          "name": "family",
+          "type": "GDIPCONST GpFontFamily *",
+          "description": "This is a pointer to the font family from which the cell descent value is retrieved."
+        },
+        {
+          "name": "style",
+          "type": "INT",
+          "description": "This is the style of the font."
+        },
+        {
+          "name": "CellDescent",
+          "type": "UINT16 *",
+          "description": "This is a pointer to a variable where the cell descent value will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either 'family' or 'CellDescent' is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetEmHeight",
+      "description": "This function retrieves the em height of the specified font family and style.",
+      "parameters": [
+        {
+          "name": "family",
+          "type": "GDIPCONST GpFontFamily *",
+          "description": "Pointer to the font family object."
+        },
+        {
+          "name": "style",
+          "type": "INT",
+          "description": "The style of the font."
+        },
+        {
+          "name": "EmHeight",
+          "type": "UINT16 *",
+          "description": "Pointer to the variable that receives the em height."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the parameters are not valid."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetLineSpacing",
+      "description": "This function retrieves the line spacing of a font family.",
+      "parameters": [
+        {
+          "name": "family",
+          "type": "GDIPCONST GpFontFamily *",
+          "description": "Pointer to the font family."
+        },
+        {
+          "name": "style",
+          "type": "INT",
+          "description": "The style of the font. Currently ignored."
+        },
+        {
+          "name": "LineSpacing",
+          "type": "UINT16 *",
+          "description": "Pointer to the variable that receives the line spacing."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters are null."
+    }
+  },
+  {
+    "function": {
+      "name": "font_has_style_proc",
+      "description": "This function checks the style of a font and compares it with a given style.",
+      "parameters": [
+        {
+          "name": "elf",
+          "type": "LOGFONTW*",
+          "description": "Pointer to a LOGFONTW structure that defines the logical attributes of a font."
+        },
+        {
+          "name": "ntm",
+          "type": "TEXTMETRICW*",
+          "description": "Pointer to a TEXTMETRICW structure that contains basic metric information about the font."
+        },
+        {
+          "name": "type",
+          "type": "DWORD",
+          "description": "Not used in this function."
+        },
+        {
+          "name": "lParam",
+          "type": "LPARAM",
+          "description": "Represents a font style that will be compared with the style of the font defined by the other parameters."
+        }
+      ],
+      "return_type": "INT, returns 1 if the TEXTMETRICW pointer is NULL, otherwise returns whether the font style is different from the lParam."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipIsStyleAvailable",
+      "description": "This function checks if a specific style is available for a given font family. It creates a compatible device context, enumerates the font families, and sets the IsStyleAvailable flag to TRUE if the style is found.",
+      "parameters": [
+        {
+          "name": "family",
+          "type": "GDIPCONST GpFontFamily*",
+          "description": "This is a pointer to the font family to check the style for."
+        },
+        {
+          "name": "style",
+          "type": "INT",
+          "description": "This is the style to check for in the font family."
+        },
+        {
+          "name": "IsStyleAvailable",
+          "type": "BOOL*",
+          "description": "This is a pointer to a boolean flag that will be set to TRUE if the style is available in the font family, and FALSE otherwise."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. Returns 'InvalidParameter' if the family or IsStyleAvailable pointers are NULL, and 'Ok' otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetGenericFontFamilyMonospace",
+      "description": "This function attempts to create a monospace font family object from a list of predefined font names. If the creation is successful, the function returns the status and the created font family object.",
+      "parameters": [
+        {
+          "name": "nativeFamily",
+          "type": "GpFontFamily**",
+          "description": "This is a pointer to a pointer to a GpFontFamily object. The function will attempt to create a font family object and assign it to this pointer."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the function call. It can indicate success, or it can specify an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetGenericFontFamilySerif",
+      "description": "This function attempts to create a font family object for 'Times New Roman' or 'Liberation Serif'. If both are not found, it defaults to a generic sans-serif font family. The created font family object is returned via the 'nativeFamily' parameter.",
+      "parameters": [
+        {
+          "name": "nativeFamily",
+          "type": "GpFontFamily**",
+          "description": "A pointer to a pointer to a GpFontFamily object. This function will attempt to create a font family object and return it via this parameter."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns Ok. If the 'nativeFamily' parameter is NULL, it returns InvalidParameter. If the font family is not found, it returns FontFamilyNotFound."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetGenericFontFamilySansSerif",
+      "description": "This function attempts to create a font family object from a list of predefined font names. If the creation fails for a font, it tries the next one in the list. The function returns the status of the operation.",
+      "parameters": [
+        {
+          "name": "nativeFamily",
+          "type": "GpFontFamily**",
+          "description": "A pointer to a pointer to a GpFontFamily object. This is where the function will store the pointer to the created font family object."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the font family object creation. It can be a value indicating success or a specific error code."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipNewPrivateFontCollection",
+      "description": "This function initializes a new private font collection.",
+      "parameters": [
+        {
+          "name": "fontCollection",
+          "type": "GpFontCollection**",
+          "description": "A pointer to a pointer to a GpFontCollection object. This function will allocate memory for a new GpFontCollection and store the pointer in *fontCollection."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns 'InvalidParameter' if the input parameter is NULL, 'OutOfMemory' if memory allocation fails, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipDeletePrivateFontCollection",
+      "description": "This function deletes a private font collection by freeing the memory allocated for the font families and the font collection itself.",
+      "parameters": [
+        {
+          "name": "fontCollection",
+          "type": "GpFontCollection**",
+          "description": "A pointer to a pointer to a GpFontCollection object that represents the private font collection to be deleted."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the fontCollection is NULL, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipPrivateAddFontFile",
+      "description": "This function adds a private font file to a font collection. It first checks if the parameters are valid, then it opens the file, creates a file mapping, maps the file into memory, and finally adds the memory font to the collection.",
+      "parameters": [
+        {
+          "name": "collection",
+          "type": "GpFontCollection *",
+          "description": "This is a pointer to the font collection where the font file will be added."
+        },
+        {
+          "name": "name",
+          "type": "GDIPCONST WCHAR *",
+          "description": "This is a pointer to the name of the font file to be added."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns InvalidParameter if any of the parameters are null, if the file cannot be opened, if the file size cannot be obtained, if the file mapping cannot be created, or if the file cannot be mapped into memory. Otherwise, it returns the status of the GdipPrivateAddMemoryFont function."
+    }
+  },
+  {
+    "function": {
+      "name": "get_mac_code_page",
+      "description": "This function returns the Mac code page based on the encoding id of the tt_name_record object.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "tt_name_record *",
+          "description": "This is a pointer to a tt_name_record object whose encoding id is used to determine the Mac code page."
+        }
+      ],
+      "return_type": "WORD, represents the Mac code page. If the encoding id is TT_MAC_ID_SIMPLIFIED_CHINESE, it returns 10008. Otherwise, it returns 10000 plus the encoding id."
+    }
+  },
+  {
+    "function": {
+      "name": "match_name_table_language",
+      "description": "This function matches the language ID of a name record in a TrueType font with a given language ID, and returns a value based on the match.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "tt_name_record *",
+          "description": "Pointer to a name record in a TrueType font."
+        },
+        {
+          "name": "lang",
+          "type": "LANGID",
+          "description": "Language ID to match with the name record's language ID."
+        }
+      ],
+      "return_type": "int, represents the level of match between the name record's language ID and the given language ID. Returns 3 if they are exactly the same, 2 if their primary language IDs are the same, 1 if the name record's language ID is English, and 0 otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "copy_name_table_string",
+      "description": "This function copies a name table string from a TrueType font file. It handles different platform IDs and converts the string to wide characters if necessary.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "const tt_name_record *",
+          "description": "Pointer to a tt_name_record structure that contains information about the name table string to be copied."
+        },
+        {
+          "name": "data",
+          "type": "const BYTE *",
+          "description": "Pointer to the data of the name table string to be copied."
+        }
+      ],
+      "return_type": "WCHAR *; Returns a pointer to the copied name table string in wide character format. If the function fails, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "load_ttf_name_id",
+      "description": "This function loads a TrueType font (TTF) name ID from memory. It iterates over the name records in the font's 'name' table, matching the platform and language ID to the system's default language ID. If a match is found, the corresponding string is copied and returned.",
+      "parameters": [
+        {
+          "name": "mem",
+          "type": "const BYTE *",
+          "description": "Pointer to the memory where the TTF is loaded."
+        },
+        {
+          "name": "size",
+          "type": "DWORD_PTR",
+          "description": "Size of the memory block where the TTF is loaded."
+        },
+        {
+          "name": "id",
+          "type": "DWORD",
+          "description": "The name ID to be loaded from the TTF."
+        }
+      ],
+      "return_type": "WCHAR *. Returns a pointer to the string that corresponds to the name ID in the TTF. If no match is found, or if an error occurs, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipPrivateAddMemoryFont",
+      "description": "This function loads a font from memory and adds it to a font collection. It also handles errors such as invalid parameters and out of memory.",
+      "parameters": [
+        {
+          "name": "fontCollection",
+          "type": "GpFontCollection*",
+          "description": "A pointer to the font collection where the loaded font will be added."
+        },
+        {
+          "name": "memory",
+          "type": "GDIPCONST void*",
+          "description": "A pointer to the memory location where the font data is stored."
+        },
+        {
+          "name": "length",
+          "type": "INT",
+          "description": "The length of the font data in memory."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It returns 'Ok' if the operation is successful, 'InvalidParameter' if the parameters are not valid, and 'OutOfMemory' if the system runs out of memory during the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetFontCollectionFamilyCount",
+      "description": "This function retrieves the number of elements in the font collection.",
+      "parameters": [
+        {
+          "name": "fontCollection",
+          "type": "GpFontCollection*",
+          "description": "A pointer to the font collection object."
+        },
+        {
+          "name": "numFound",
+          "type": "INT*",
+          "description": "A pointer to an integer that receives the number of elements in the font collection."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either parameter is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetFontCollectionFamilyList",
+      "description": "This function retrieves the font families from a font collection and stores them in an array. The number of font families retrieved is limited by the numSought parameter. The actual number of font families retrieved is stored in the numFound parameter.",
+      "parameters": [
+        {
+          "name": "fontCollection",
+          "type": "GpFontCollection*",
+          "description": "A pointer to the font collection from which to retrieve the font families."
+        },
+        {
+          "name": "numSought",
+          "type": "INT",
+          "description": "The maximum number of font families to retrieve."
+        },
+        {
+          "name": "gpfamilies",
+          "type": "GpFontFamily*[]",
+          "description": "An array in which to store the retrieved font families."
+        },
+        {
+          "name": "numFound",
+          "type": "INT*",
+          "description": "A pointer to an integer in which to store the actual number of font families retrieved."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters are null."
+    }
+  },
+  {
+    "function": {
+      "name": "free_installed_fonts",
+      "description": "This function frees up the memory allocated to the installed fonts and resets the font collection.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "add_font_proc",
+      "description": "This function is used to add a font to a font collection. It checks for duplicates, allocates memory for new fonts, and handles errors.",
+      "parameters": [
+        {
+          "name": "lfw",
+          "type": "LOGFONTW *",
+          "description": "Pointer to a LOGFONTW structure that defines the logical attributes of a font."
+        },
+        {
+          "name": "ntm",
+          "type": "TEXTMETRICW *",
+          "description": "Pointer to a TEXTMETRICW structure that contains basic metric information for a physical font."
+        },
+        {
+          "name": "type",
+          "type": "DWORD",
+          "description": "Type of the font. If it's a raster font, the function will return early."
+        },
+        {
+          "name": "lParam",
+          "type": "LPARAM",
+          "description": "Pointer to a structure that contains parameters for adding a font."
+        }
+      ],
+      "return_type": "INT. Returns 1 if the font was successfully added or already exists, 0 if there was an error (e.g., out of memory)."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipNewInstalledFontCollection",
+      "description": "This function creates a new installed font collection. It checks if the font collection is null, and if not, it enters a critical section. It then checks if the installed font collection count is zero, and if so, it creates a compatible DC, sets up a LOGFONTW structure, and enumerates font families. If the enumeration fails, it frees installed fonts, deletes the DC, leaves the critical section, and returns the status. If the enumeration is successful, it deletes the DC, leaves the critical section, assigns the address of the installed font collection to the font collection pointer, and returns Ok.",
+      "parameters": [
+        {
+          "name": "fontCollection",
+          "type": "GpFontCollection**",
+          "description": "This is a pointer to a pointer to a GpFontCollection object. The function assigns the address of the installed font collection to this pointer."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the function execution. It can return InvalidParameter if the font collection is null, the status of the enumeration if it fails, or Ok if the function executes successfully."
+    }
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "function": {
+      "name": "LHashValOfNameSysA",
+      "description": "This function calculates a hash value for a given string, considering the system kind and locale ID. It uses different lookup tables and offsets depending on the primary language ID derived from the locale ID.",
+      "parameters": [
+        {
+          "name": "skind",
+          "type": "SYSKIND",
+          "description": "This parameter represents the kind of system. It determines the mask used in the hash calculation."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "This parameter represents the locale identifier. It is used to determine the primary language ID, which influences the lookup table and offset used in the hash calculation."
+        },
+        {
+          "name": "lpStr",
+          "type": "LPCSTR",
+          "description": "This parameter is the string for which the hash value is calculated."
+        }
+      ],
+      "return_type": "ULONG. This represents the calculated hash value for the given string, considering the system kind and locale ID."
+    }
+  },
+  {
+    "function": {
+      "name": "LHashValOfNameSys",
+      "description": "This function converts a wide character string to a new character string, computes the hash value of the string in the context of a specified locale and system, and then frees the allocated memory.",
+      "parameters": [
+        {
+          "name": "skind",
+          "type": "SYSKIND",
+          "description": "Specifies the type of system."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Specifies the locale identifier."
+        },
+        {
+          "name": "str",
+          "type": "LPCOLESTR",
+          "description": "Pointer to the wide character string to be converted and hashed."
+        }
+      ],
+      "return_type": "ULONG. It represents the computed hash value of the string. If the input string is NULL, the function returns 0."
+    }
+  }
+]

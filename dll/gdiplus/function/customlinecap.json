@@ -1,0 +1,493 @@
+[
+  {
+    "function": {
+      "name": "GdipCloneCustomLineCap",
+      "description": "This function clones a custom line cap object. If the source object is of the default type, a new object of the same type is created. If the source object is of the adjustable arrow cap type, a new object of that type is created. The path data of the source object is also duplicated to the new object.",
+      "parameters": [
+        {
+          "name": "from",
+          "type": "GpCustomLineCap*",
+          "description": "This is the source custom line cap object that is to be cloned."
+        },
+        {
+          "name": "to",
+          "type": "GpCustomLineCap**",
+          "description": "This is a pointer to the destination custom line cap object. The function will allocate memory for the new object and assign the pointer to this parameter."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It returns 'InvalidParameter' if the input parameters are null, 'OutOfMemory' if memory allocation fails, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "init_custom_linecap",
+      "description": "This function initializes a custom line cap with given parameters, allocating memory for points and types, copying data from the provided pathdata, and setting default values for other properties.",
+      "parameters": [
+        {
+          "name": "cap",
+          "type": "GpCustomLineCap *",
+          "description": "Pointer to the custom line cap to be initialized"
+        },
+        {
+          "name": "pathdata",
+          "type": "GpPathData *",
+          "description": "Pointer to the path data to be used for initialization"
+        },
+        {
+          "name": "fill",
+          "type": "BOOL",
+          "description": "Boolean value to determine if the line cap should be filled or not"
+        },
+        {
+          "name": "basecap",
+          "type": "GpLineCap",
+          "description": "Base cap type for the custom line cap"
+        },
+        {
+          "name": "base_inset",
+          "type": "REAL",
+          "description": "Base inset value for the custom line cap"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the function execution. Returns 'Ok' if the function executes successfully, 'OutOfMemory' if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateCustomLineCap",
+      "description": "This function creates a custom line cap and initializes it with the provided parameters.",
+      "parameters": [
+        {
+          "name": "fillPath",
+          "type": "GpPath*",
+          "description": "Pointer to the fill path for the custom line cap."
+        },
+        {
+          "name": "strokePath",
+          "type": "GpPath*",
+          "description": "Pointer to the stroke path for the custom line cap."
+        },
+        {
+          "name": "baseCap",
+          "type": "GpLineCap",
+          "description": "The base cap type for the custom line cap."
+        },
+        {
+          "name": "baseInset",
+          "type": "REAL",
+          "description": "The base inset for the custom line cap."
+        },
+        {
+          "name": "customCap",
+          "type": "GpCustomLineCap**",
+          "description": "Double pointer to the custom line cap to be created."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if the customCap is null or both fillPath and strokePath are null, 'OutOfMemory' if memory allocation fails, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipDeleteCustomLineCap",
+      "description": "This function deletes a custom line cap by freeing the memory allocated to its path data points, types and the cap itself.",
+      "parameters": [
+        {
+          "name": "customCap",
+          "type": "GpCustomLineCap*",
+          "description": "This is a pointer to the custom line cap to be deleted."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the input is null, otherwise returns 'Ok' after successful deletion."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetCustomLineCapStrokeJoin",
+      "description": "This function retrieves the line join style of the specified custom line cap.",
+      "parameters": [
+        {
+          "name": "customCap",
+          "type": "GpCustomLineCap*",
+          "description": "A pointer to the custom line cap."
+        },
+        {
+          "name": "lineJoin",
+          "type": "GpLineJoin*",
+          "description": "A pointer to a variable that receives the line join style."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the parameters are null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetCustomLineCapWidthScale",
+      "description": "This function retrieves the scale for the width of a custom line cap.",
+      "parameters": [
+        {
+          "name": "custom",
+          "type": "GpCustomLineCap*",
+          "description": "A pointer to the custom line cap."
+        },
+        {
+          "name": "widthScale",
+          "type": "REAL*",
+          "description": "A pointer to a variable that receives the width scale."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetCustomLineCapStrokeCaps",
+      "description": "This function sets the start and end caps of a custom line cap.",
+      "parameters": [
+        {
+          "name": "custom",
+          "type": "GpCustomLineCap*",
+          "description": "Pointer to the custom line cap object"
+        },
+        {
+          "name": "startcap",
+          "type": "GpLineCap",
+          "description": "The start cap of the line"
+        },
+        {
+          "name": "endcap",
+          "type": "GpLineCap",
+          "description": "The end cap of the line"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns 'Ok' if successful, 'InvalidParameter' if parameters are not valid"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetCustomLineCapBaseCap",
+      "description": "This function sets the base cap for a custom line cap.",
+      "parameters": [
+        {
+          "name": "custom",
+          "type": "GpCustomLineCap*",
+          "description": "This is a pointer to a custom line cap."
+        },
+        {
+          "name": "basecap",
+          "type": "GpLineCap",
+          "description": "This is the base cap to be set."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the custom line cap is null or the base cap is greater than 'LineCapTriangle', otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetCustomLineCapBaseInset",
+      "description": "This function retrieves the inset of a custom line cap.",
+      "parameters": [
+        {
+          "name": "custom",
+          "type": "GpCustomLineCap*",
+          "description": "A pointer to the custom line cap."
+        },
+        {
+          "name": "inset",
+          "type": "REAL*",
+          "description": "A pointer to a variable that receives the inset of the custom line cap."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetCustomLineCapBaseInset",
+      "description": "This function sets the base inset of a custom line cap.",
+      "parameters": [
+        {
+          "name": "custom",
+          "type": "GpCustomLineCap*",
+          "description": "A pointer to a GpCustomLineCap object whose base inset is to be set."
+        },
+        {
+          "name": "inset",
+          "type": "REAL",
+          "description": "The new value for the base inset."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the custom line cap pointer is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetCustomLineCapStrokeJoin",
+      "description": "This function sets the stroke join style for a custom line cap.",
+      "parameters": [
+        {
+          "name": "custom",
+          "type": "GpCustomLineCap*",
+          "description": "A pointer to the custom line cap."
+        },
+        {
+          "name": "join",
+          "type": "GpLineJoin",
+          "description": "The line join style to set."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the custom line cap pointer is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetCustomLineCapWidthScale",
+      "description": "This function sets the width scale of a custom line cap.",
+      "parameters": [
+        {
+          "name": "custom",
+          "type": "GpCustomLineCap*",
+          "description": "A pointer to the custom line cap."
+        },
+        {
+          "name": "width",
+          "type": "REAL",
+          "description": "The width scale to be set."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the custom line cap pointer is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetCustomLineCapBaseCap",
+      "description": "This function retrieves the base cap style for a CustomLineCap object.",
+      "parameters": [
+        {
+          "name": "customCap",
+          "type": "GpCustomLineCap*",
+          "description": "Pointer to the CustomLineCap object."
+        },
+        {
+          "name": "baseCap",
+          "type": "GpLineCap*",
+          "description": "Pointer to a GpLineCap object that receives the base cap style."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetCustomLineCapType",
+      "description": "This function retrieves the type of a custom line cap.",
+      "parameters": [
+        {
+          "name": "customCap",
+          "type": "GpCustomLineCap*",
+          "description": "A pointer to the custom line cap."
+        },
+        {
+          "name": "type",
+          "type": "CustomLineCapType*",
+          "description": "A pointer to a variable that receives the type of the custom line cap."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "arrowcap_update_path",
+      "description": "This function updates the path of an adjustable arrow cap. It modifies the path data based on whether the cap is filled or not, and adjusts the inset based on the width of the cap.",
+      "parameters": [
+        {
+          "name": "cap",
+          "type": "GpAdjustableArrowCap *",
+          "description": "This is a pointer to the adjustable arrow cap whose path data is to be updated."
+        }
+      ],
+      "return_type": "void, as this function does not return any value but modifies the input parameter directly."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateAdjustableArrowCap",
+      "description": "This function creates an adjustable arrow cap and initializes it with the specified height, width, and fill mode.",
+      "parameters": [
+        {
+          "name": "height",
+          "type": "REAL",
+          "description": "The height of the arrow cap."
+        },
+        {
+          "name": "width",
+          "type": "REAL",
+          "description": "The width of the arrow cap."
+        },
+        {
+          "name": "fill",
+          "type": "BOOL",
+          "description": "The fill mode of the arrow cap."
+        },
+        {
+          "name": "cap",
+          "type": "GpAdjustableArrowCap **",
+          "description": "A pointer to a pointer to a GpAdjustableArrowCap object. This function will allocate memory for a new GpAdjustableArrowCap object, and store the pointer to it in *cap."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It returns 'Ok' if the operation is successful, 'InvalidParameter' if the cap parameter is NULL, and 'OutOfMemory' if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetAdjustableArrowCapFillState",
+      "description": "This function retrieves the fill state of an adjustable arrow cap.",
+      "parameters": [
+        {
+          "name": "cap",
+          "type": "GpAdjustableArrowCap*",
+          "description": "A pointer to the adjustable arrow cap object."
+        },
+        {
+          "name": "fill",
+          "type": "BOOL*",
+          "description": "A pointer to a BOOL variable that receives the fill state of the arrow cap."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either of the parameters is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetAdjustableArrowCapHeight",
+      "description": "This function retrieves the height of an adjustable arrow cap.",
+      "parameters": [
+        {
+          "name": "cap",
+          "type": "GpAdjustableArrowCap*",
+          "description": "A pointer to an adjustable arrow cap object."
+        },
+        {
+          "name": "height",
+          "type": "REAL*",
+          "description": "A pointer to a variable that receives the height of the adjustable arrow cap."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either parameter is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetAdjustableArrowCapMiddleInset",
+      "description": "This function retrieves the middle inset of an adjustable arrow cap.",
+      "parameters": [
+        {
+          "name": "cap",
+          "type": "GpAdjustableArrowCap*",
+          "description": "A pointer to the adjustable arrow cap object."
+        },
+        {
+          "name": "middle",
+          "type": "REAL*",
+          "description": "A pointer to a REAL type where the middle inset value will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either of the parameters is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetAdjustableArrowCapWidth",
+      "description": "This function retrieves the width of the adjustable arrow cap.",
+      "parameters": [
+        {
+          "name": "cap",
+          "type": "GpAdjustableArrowCap*",
+          "description": "A pointer to the adjustable arrow cap."
+        },
+        {
+          "name": "width",
+          "type": "REAL*",
+          "description": "A pointer to a variable that receives the width of the adjustable arrow cap."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the cap or width is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetAdjustableArrowCapFillState",
+      "description": "This function sets the fill state of an adjustable arrow cap and updates its path.",
+      "parameters": [
+        {
+          "name": "cap",
+          "type": "GpAdjustableArrowCap*",
+          "description": "This is a pointer to the adjustable arrow cap whose fill state is to be set."
+        },
+        {
+          "name": "fill",
+          "type": "BOOL",
+          "description": "This is a boolean value that represents the fill state to be set for the adjustable arrow cap."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the cap is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetAdjustableArrowCapHeight",
+      "description": "This function sets the height of an adjustable arrow cap and updates its path.",
+      "parameters": [
+        {
+          "name": "cap",
+          "type": "GpAdjustableArrowCap*",
+          "description": "A pointer to the adjustable arrow cap whose height is to be set."
+        },
+        {
+          "name": "height",
+          "type": "REAL",
+          "description": "The new height to be set for the adjustable arrow cap."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the cap is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetAdjustableArrowCapMiddleInset",
+      "description": "This function sets the middle inset of an adjustable arrow cap and updates the arrow cap path.",
+      "parameters": [
+        {
+          "name": "cap",
+          "type": "GpAdjustableArrowCap*",
+          "description": "A pointer to the adjustable arrow cap object."
+        },
+        {
+          "name": "middle",
+          "type": "REAL",
+          "description": "The value to set as the middle inset of the arrow cap."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the cap is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetAdjustableArrowCapWidth",
+      "description": "This function sets the width of an adjustable arrow cap and updates its path.",
+      "parameters": [
+        {
+          "name": "cap",
+          "type": "GpAdjustableArrowCap*",
+          "description": "This is a pointer to the adjustable arrow cap whose width is to be set."
+        },
+        {
+          "name": "width",
+          "type": "REAL",
+          "description": "This is the new width to be set for the adjustable arrow cap."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the cap is null, otherwise returns 'Ok'."
+    }
+  }
+]

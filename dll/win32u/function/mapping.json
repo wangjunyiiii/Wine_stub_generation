@@ -1,0 +1,343 @@
+[
+  {
+    "function": {
+      "name": "muldiv",
+      "description": "This function multiplies two integers and divides the result by a third integer, rounding the result. It also handles edge cases such as division by zero and overflow.",
+      "parameters": [
+        {
+          "name": "a",
+          "type": "int",
+          "description": "The first integer to be multiplied"
+        },
+        {
+          "name": "b",
+          "type": "int",
+          "description": "The second integer to be multiplied"
+        },
+        {
+          "name": "c",
+          "type": "int",
+          "description": "The integer by which the product of the first two integers is divided"
+        }
+      ],
+      "return_type": "int, represents the result of the multiplication and division. Returns -1 if division by zero or overflow occurs"
+    }
+  },
+  {
+    "function": {
+      "name": "get_dc_virtual_size",
+      "description": "This function retrieves the virtual size of a device context. If the virtual size is not set, it uses the NtGdiGetDeviceCaps function to get the horizontal and vertical sizes.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This is a pointer to the device context whose virtual size is to be retrieved."
+        }
+      ],
+      "return_type": "SIZE, which represents the virtual size of the device context."
+    }
+  },
+  {
+    "function": {
+      "name": "get_dc_virtual_res",
+      "description": "This function retrieves the virtual resolution of a device context. If the resolution is not set, it uses the NtGdiGetDeviceCaps function to get the horizontal and vertical resolution.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This is a pointer to the device context whose virtual resolution is to be retrieved."
+        }
+      ],
+      "return_type": "SIZE, which represents the virtual resolution of the device context."
+    }
+  },
+  {
+    "function": {
+      "name": "MAPPING_FixIsotropic",
+      "description": "This function adjusts the viewport extension of the given device context to maintain isotropy. It calculates the dimensions based on the virtual size and resolution, and then updates the viewport extension accordingly.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This is a pointer to the device context that needs to be adjusted."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "set_map_mode",
+      "description": "This function sets the mapping mode of the specified device context. It also updates the transformation matrices if the map mode is changed.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This is a pointer to the device context."
+        },
+        {
+          "name": "mode",
+          "type": "int",
+          "description": "This is the mapping mode to be set."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully sets the mapping mode, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "dp_to_lp",
+      "description": "This function converts device points to logical points using the viewport-to-world transformation if it's valid. It iterates over the points, updating their x and y coordinates based on the transformation matrix. The function returns whether the count of points is less than 0 after the conversion.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "Pointer to the device context, which contains the viewport-to-world transformation matrix."
+        },
+        {
+          "name": "points",
+          "type": "POINT *",
+          "description": "Pointer to the array of points to be converted."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of points in the array."
+        }
+      ],
+      "return_type": "BOOL, returns true if the count of points is less than 0 after the conversion, false otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiTransformPoints",
+      "description": "This function transforms points from logical to device coordinates or vice versa depending on the mode.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "points_in",
+          "type": "const POINT*",
+          "description": "Pointer to an array of points to be transformed."
+        },
+        {
+          "name": "points_out",
+          "type": "POINT*",
+          "description": "Pointer to an array where the transformed points will be stored."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of points to be transformed."
+        },
+        {
+          "name": "mode",
+          "type": "UINT",
+          "description": "Mode of transformation. It can be either NtGdiLPtoDP for logical to device coordinates or NtGdiDPtoLP for device to logical coordinates."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the transformation was successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "lp_to_dp",
+      "description": "This function converts logical points to device points using the transformation matrix in the DC structure.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This is a pointer to a DC structure that contains the transformation matrix."
+        },
+        {
+          "name": "points",
+          "type": "POINT *",
+          "description": "This is a pointer to an array of POINT structures that represent the logical points to be converted."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "This represents the number of points in the array."
+        }
+      ],
+      "return_type": "void, this function does not return a value but modifies the points in place."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiComputeXformCoefficients",
+      "description": "This function computes the transformation coefficients for a given device context. It first retrieves the device context, checks if the mapping mode is isotropic and if so, fixes it. Then it updates the transformations and releases the device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This is a handle to the device context."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the function executed successfully and FALSE indicates that it failed."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiScaleViewportExtEx",
+      "description": "This function scales the viewport for a device context using the ratios provided. It also updates the viewport if the map mode is isotropic or anisotropic.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "x_num",
+          "type": "INT",
+          "description": "The numerator of the x scaling factor."
+        },
+        {
+          "name": "x_denom",
+          "type": "INT",
+          "description": "The denominator of the x scaling factor."
+        },
+        {
+          "name": "y_num",
+          "type": "INT",
+          "description": "The numerator of the y scaling factor."
+        },
+        {
+          "name": "y_denom",
+          "type": "INT",
+          "description": "The denominator of the y scaling factor."
+        },
+        {
+          "name": "size",
+          "type": "SIZE *",
+          "description": "Pointer to a SIZE structure that will receive the previous viewport extent."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiScaleWindowExtEx",
+      "description": "This function scales the window extents of a device context using the provided ratios. It also updates the transformation if the mapping mode is isotropic or anisotropic.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "x_num",
+          "type": "INT",
+          "description": "The numerator of the x scaling factor."
+        },
+        {
+          "name": "x_denom",
+          "type": "INT",
+          "description": "The denominator of the x scaling factor."
+        },
+        {
+          "name": "y_num",
+          "type": "INT",
+          "description": "The numerator of the y scaling factor."
+        },
+        {
+          "name": "y_denom",
+          "type": "INT",
+          "description": "The denominator of the y scaling factor."
+        },
+        {
+          "name": "size",
+          "type": "SIZE *",
+          "description": "Pointer to a SIZE structure that receives the previous window extents, if not NULL."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiModifyWorldTransform",
+      "description": "This function modifies the current world transformation for the specified device context using the specified mode.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "xform",
+          "type": "XFORM *",
+          "description": "Pointer to the XFORM structure that contains the transformation data."
+        },
+        {
+          "name": "mode",
+          "type": "DWORD",
+          "description": "Specifies the mode of operation."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function is successful; otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSetVirtualResolution",
+      "description": "This function sets the virtual resolution and size for a device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "horz_res",
+          "type": "DWORD",
+          "description": "Horizontal resolution."
+        },
+        {
+          "name": "vert_res",
+          "type": "DWORD",
+          "description": "Vertical resolution."
+        },
+        {
+          "name": "horz_size",
+          "type": "DWORD",
+          "description": "Horizontal size."
+        },
+        {
+          "name": "vert_size",
+          "type": "DWORD",
+          "description": "Vertical size."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully sets the virtual resolution and size. Returns FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "combine_transform",
+      "description": "This function combines two transformations by multiplying their matrices and stores the result in a third transformation. It handles the case where the result may be the same as one of the inputs.",
+      "parameters": [
+        {
+          "name": "result",
+          "type": "XFORM*",
+          "description": "Pointer to the transformation where the result is stored"
+        },
+        {
+          "name": "xform1",
+          "type": "const XFORM*",
+          "description": "Pointer to the first transformation to be combined"
+        },
+        {
+          "name": "xform2",
+          "type": "const XFORM*",
+          "description": "Pointer to the second transformation to be combined"
+        }
+      ],
+      "return_type": "void, as the function does not return a value but modifies the 'result' parameter"
+    }
+  }
+]

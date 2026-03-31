@@ -1,0 +1,856 @@
+[
+  {
+    "function": {
+      "name": "rop_uses_src",
+      "description": "This function checks if the given DWORD parameter, when shifted right by 2 and bitwise ANDed with 0x330000, is not equal to the DWORD parameter bitwise ANDed with 0x330000.",
+      "parameters": [
+        {
+          "name": "rop",
+          "type": "DWORD",
+          "description": "This parameter is used for bitwise operations to determine the return value."
+        }
+      ],
+      "return_type": "BOOL, represents whether the bitwise operation on the parameter 'rop' results in a non-equal comparison."
+    }
+  },
+  {
+    "function": {
+      "name": "intersect_vis_rectangles",
+      "description": "This function intersects two rectangles, possibly stretching one to fit the other. It adjusts the coordinates of the source and destination rectangles based on their dimensions and positions, and checks if they intersect. If they do not intersect, the function returns FALSE. If they do intersect, the function modifies the source and destination rectangles to be the intersection, and returns TRUE.",
+      "parameters": [
+        {
+          "name": "dst",
+          "type": "struct bitblt_coords*",
+          "description": "This is the destination rectangle. Its coordinates and dimensions may be modified by this function."
+        },
+        {
+          "name": "src",
+          "type": "struct bitblt_coords*",
+          "description": "This is the source rectangle. Its coordinates and dimensions may be modified by this function."
+        }
+      ],
+      "return_type": "BOOL, represents whether the source and destination rectangles intersect. Returns TRUE if they intersect, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_vis_rectangles",
+      "description": "This function calculates the visible rectangles for the source and destination bitblt coordinates, and checks if they intersect.",
+      "parameters": [
+        {
+          "name": "dc_dst",
+          "type": "DC *",
+          "description": "Pointer to the destination device context"
+        },
+        {
+          "name": "dst",
+          "type": "struct bitblt_coords *",
+          "description": "Pointer to the destination bitblt coordinates"
+        },
+        {
+          "name": "dc_src",
+          "type": "DC *",
+          "description": "Pointer to the source device context"
+        },
+        {
+          "name": "src",
+          "type": "struct bitblt_coords *",
+          "description": "Pointer to the source bitblt coordinates"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the source and destination visible rectangles intersect, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "free_heap_bits",
+      "description": "This function frees the memory allocated to the pointer in the gdi_image_bits structure.",
+      "parameters": [
+        {
+          "name": "bits",
+          "type": "struct gdi_image_bits *",
+          "description": "This parameter is a pointer to a gdi_image_bits structure. The function will free the memory allocated to the pointer within this structure."
+        }
+      ],
+      "return_type": "void, which means this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "convert_bits",
+      "description": "This function converts the bits of a source bitmap into a destination bitmap, handling memory allocation and error checking.",
+      "parameters": [
+        {
+          "name": "src_info",
+          "type": "BITMAPINFO*",
+          "description": "Pointer to the source bitmap information structure."
+        },
+        {
+          "name": "src",
+          "type": "struct bitblt_coords*",
+          "description": "Pointer to the source bitmap coordinates structure."
+        },
+        {
+          "name": "dst_info",
+          "type": "BITMAPINFO*",
+          "description": "Pointer to the destination bitmap information structure."
+        },
+        {
+          "name": "bits",
+          "type": "struct gdi_image_bits*",
+          "description": "Pointer to the structure containing the bits of the image."
+        }
+      ],
+      "return_type": "DWORD, represents the error code. If the function executes successfully, it returns the error code from convert_bitmapinfo function. If memory allocation fails, it returns ERROR_OUTOFMEMORY."
+    }
+  },
+  {
+    "function": {
+      "name": "stretch_bits",
+      "description": "This function stretches the bits of a source bitmap to fit the dimensions of a destination bitmap. It also handles memory allocation for the destination bitmap and error handling.",
+      "parameters": [
+        {
+          "name": "src_info",
+          "type": "BITMAPINFO*",
+          "description": "Pointer to the source bitmap information"
+        },
+        {
+          "name": "src",
+          "type": "struct bitblt_coords*",
+          "description": "Coordinates of the source bitmap"
+        },
+        {
+          "name": "dst_info",
+          "type": "BITMAPINFO*",
+          "description": "Pointer to the destination bitmap information"
+        },
+        {
+          "name": "dst",
+          "type": "struct bitblt_coords*",
+          "description": "Coordinates of the destination bitmap"
+        },
+        {
+          "name": "bits",
+          "type": "struct gdi_image_bits*",
+          "description": "Pointer to the structure that holds the image bits"
+        },
+        {
+          "name": "mode",
+          "type": "int",
+          "description": "Mode of operation"
+        }
+      ],
+      "return_type": "DWORD, represents the error code. If the function executes successfully, it returns the result of the stretch_bitmapinfo function. If memory allocation fails, it returns ERROR_OUTOFMEMORY."
+    }
+  },
+  {
+    "function": {
+      "name": "blend_bits",
+      "description": "This function blends two bitmaps using the specified blend function. It first checks if the destination bits are a copy, if not, it creates a copy of the destination bits. Then it calls the blend_bitmapinfo function to blend the source and destination bitmaps.",
+      "parameters": [
+        {
+          "name": "src_info",
+          "type": "BITMAPINFO*",
+          "description": "Pointer to the source bitmap information"
+        },
+        {
+          "name": "src_bits",
+          "type": "struct gdi_image_bits*",
+          "description": "Pointer to the source image bits"
+        },
+        {
+          "name": "src",
+          "type": "struct bitblt_coords*",
+          "description": "Pointer to the source bit block transfer coordinates"
+        },
+        {
+          "name": "dst_info",
+          "type": "BITMAPINFO*",
+          "description": "Pointer to the destination bitmap information"
+        },
+        {
+          "name": "dst_bits",
+          "type": "struct gdi_image_bits*",
+          "description": "Pointer to the destination image bits"
+        },
+        {
+          "name": "dst",
+          "type": "struct bitblt_coords*",
+          "description": "Pointer to the destination bit block transfer coordinates"
+        },
+        {
+          "name": "blend",
+          "type": "BLENDFUNCTION",
+          "description": "Blend function to be used for blending the source and destination bitmaps"
+        }
+      ],
+      "return_type": "DWORD, represents the status of the operation. It returns ERROR_OUTOFMEMORY if memory allocation fails, otherwise it returns the result of the blend_bitmapinfo function"
+    }
+  },
+  {
+    "function": {
+      "name": "get_dc_rgb_color",
+      "description": "This function retrieves the RGB color value from a given device context, color table size, and color reference. It handles different color formats including PALETTEINDEX and DIBINDEX.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "Pointer to the device context from which the color is retrieved"
+        },
+        {
+          "name": "color_table_size",
+          "type": "int",
+          "description": "Size of the color table"
+        },
+        {
+          "name": "color",
+          "type": "COLORREF",
+          "description": "Color reference value to be converted to RGB"
+        }
+      ],
+      "return_type": "RGBQUAD, represents the RGB color value retrieved from the given device context and color reference"
+    }
+  },
+  {
+    "function": {
+      "name": "get_mono_dc_colors",
+      "description": "This function sets the colors for a monochrome device context (DC) using a color table and a bitmap information structure. It also sets the number of color indexes in the bitmap that are actually used by the DC.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC*",
+          "description": "Pointer to the device context whose colors are to be set"
+        },
+        {
+          "name": "color_table_size",
+          "type": "int",
+          "description": "Size of the color table"
+        },
+        {
+          "name": "info",
+          "type": "BITMAPINFO*",
+          "description": "Pointer to a BITMAPINFO structure that contains information about the bitmap"
+        },
+        {
+          "name": "count",
+          "type": "int",
+          "description": "Number of color indexes in the bitmap that are actually used by the device context"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_StretchBlt",
+      "description": "This function is used to stretch and/or translate the colors of a source bitmap into a destination bitmap.",
+      "parameters": [
+        {
+          "name": "dst_dev",
+          "type": "PHYSDEV",
+          "description": "This is the destination device."
+        },
+        {
+          "name": "dst",
+          "type": "struct bitblt_coords *",
+          "description": "This is the destination bitmap coordinates."
+        },
+        {
+          "name": "src_dev",
+          "type": "PHYSDEV",
+          "description": "This is the source device."
+        },
+        {
+          "name": "src",
+          "type": "struct bitblt_coords *",
+          "description": "This is the source bitmap coordinates."
+        },
+        {
+          "name": "rop",
+          "type": "DWORD",
+          "description": "This is the raster-operation code. It defines how the color data for the source rectangle is to be combined with the color data for the destination rectangle to achieve the final color."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function is successful, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_AlphaBlend",
+      "description": "This function blends two images using the specified blending function. It handles errors and performs necessary conversions and transformations.",
+      "parameters": [
+        {
+          "name": "dst_dev",
+          "type": "PHYSDEV",
+          "description": "Destination device context"
+        },
+        {
+          "name": "dst",
+          "type": "struct bitblt_coords*",
+          "description": "Coordinates for the destination image"
+        },
+        {
+          "name": "src_dev",
+          "type": "PHYSDEV",
+          "description": "Source device context"
+        },
+        {
+          "name": "src",
+          "type": "struct bitblt_coords*",
+          "description": "Coordinates for the source image"
+        },
+        {
+          "name": "func",
+          "type": "BLENDFUNCTION",
+          "description": "The blending function to be used"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation is successful, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_BlendImage",
+      "description": "This function blends an image using the provided blend function, source and destination coordinates, and image bits. It also handles errors and updates the format if necessary.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to perform operations on"
+        },
+        {
+          "name": "info",
+          "type": "BITMAPINFO*",
+          "description": "Information about the image to blend"
+        },
+        {
+          "name": "bits",
+          "type": "struct gdi_image_bits*",
+          "description": "Bits of the image to blend"
+        },
+        {
+          "name": "src",
+          "type": "struct bitblt_coords*",
+          "description": "Source coordinates for the blend operation"
+        },
+        {
+          "name": "dst",
+          "type": "struct bitblt_coords*",
+          "description": "Destination coordinates for the blend operation"
+        },
+        {
+          "name": "blend",
+          "type": "BLENDFUNCTION",
+          "description": "Blend function to use for the operation"
+        }
+      ],
+      "return_type": "DWORD, represents the status of the operation. It can return various error codes or ERROR_SUCCESS if the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GradientFill",
+      "description": "This function fills a region with a gradient color. The region can be a rectangle or a triangle. The function uses device context, vertices array, gradient array, and mode to perform the operation.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the device context."
+        },
+        {
+          "name": "vert_array",
+          "type": "TRIVERTEX*",
+          "description": "This is an array of vertices."
+        },
+        {
+          "name": "nvert",
+          "type": "ULONG",
+          "description": "This is the number of vertices."
+        },
+        {
+          "name": "grad_array",
+          "type": "void*",
+          "description": "This is the gradient array."
+        },
+        {
+          "name": "ngrad",
+          "type": "ULONG",
+          "description": "This is the number of gradients."
+        },
+        {
+          "name": "mode",
+          "type": "ULONG",
+          "description": "This is the mode of gradient fill. It can be either GRADIENT_FILL_TRIANGLE or GRADIENT_FILL_RECT."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not. Returns TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_GetPixel",
+      "description": "This function retrieves the color of the pixel at the specified coordinates.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "This is the physical device."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "This is the x-coordinate of the pixel."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "This is the y-coordinate of the pixel."
+        }
+      ],
+      "return_type": "COLORREF, which represents the color of the pixel at the specified coordinates. If the pixel is outside the current clipping region, the return value is CLR_INVALID."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiPatBlt",
+      "description": "This function performs a bit-block transfer of the color data corresponding to a rectangle of pixels from the specified source device context into a destination device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the destination device context."
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "Specifies the x-coordinate (in logical units) of the upper-left corner of the destination rectangle."
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "Specifies the y-coordinate (in logical units) of the upper-left corner of the destination rectangle."
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "Specifies the width (in logical units) of the source and destination rectangles."
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "Specifies the height (in logical units) of the source and the destination rectangles."
+        },
+        {
+          "name": "rop",
+          "type": "DWORD",
+          "description": "Specifies a raster-operation code. These codes define how the color data for the source rectangle is to be combined with the color data for the destination rectangle to achieve the final color."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful or not. If the function succeeds, the return value is TRUE. If the function fails, the return value is FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiBitBlt",
+      "description": "This function performs a bit-block transfer of the color data corresponding to a rectangle of pixels from the specified source device context into a destination device context.",
+      "parameters": [
+        {
+          "name": "hdc_dst",
+          "type": "HDC",
+          "description": "Handle to the destination device context."
+        },
+        {
+          "name": "x_dst",
+          "type": "INT",
+          "description": "The x-coordinate, in logical units, of the upper-left corner of the destination rectangle."
+        },
+        {
+          "name": "y_dst",
+          "type": "INT",
+          "description": "The y-coordinate, in logical units, of the upper-left corner of the destination rectangle."
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "The width, in logical units, of the source and destination rectangles."
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "The height, in logical units, of the source and the destination rectangles."
+        },
+        {
+          "name": "hdc_src",
+          "type": "HDC",
+          "description": "Handle to the source device context."
+        },
+        {
+          "name": "x_src",
+          "type": "INT",
+          "description": "The x-coordinate, in logical units, of the upper-left corner of the source rectangle."
+        },
+        {
+          "name": "y_src",
+          "type": "INT",
+          "description": "The y-coordinate, in logical units, of the upper-left corner of the source rectangle."
+        },
+        {
+          "name": "rop",
+          "type": "DWORD",
+          "description": "A raster-operation code. These codes define how the color data for the source rectangle is to be combined with the color data for the destination rectangle to achieve the final color."
+        },
+        {
+          "name": "bk_color",
+          "type": "DWORD",
+          "description": "Background color."
+        },
+        {
+          "name": "fl",
+          "type": "FLONG",
+          "description": "A set of bit flags that specify clipping options."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiStretchBlt",
+      "description": "This function stretches or compresses the source rectangle in memory and then copies the result to the destination rectangle.",
+      "parameters": [
+        {
+          "name": "hdcDst",
+          "type": "HDC",
+          "description": "Handle to the destination device context."
+        },
+        {
+          "name": "xDst",
+          "type": "INT",
+          "description": "The x-coordinate, in logical units, of the upper-left corner of the destination rectangle."
+        },
+        {
+          "name": "yDst",
+          "type": "INT",
+          "description": "The y-coordinate, in logical units, of the upper-left corner of the destination rectangle."
+        },
+        {
+          "name": "widthDst",
+          "type": "INT",
+          "description": "The width, in logical units, of the destination rectangle."
+        },
+        {
+          "name": "heightDst",
+          "type": "INT",
+          "description": "The height, in logical units, of the destination rectangle."
+        },
+        {
+          "name": "hdcSrc",
+          "type": "HDC",
+          "description": "Handle to the source device context."
+        },
+        {
+          "name": "xSrc",
+          "type": "INT",
+          "description": "The x-coordinate, in logical units, of the upper-left corner of the source rectangle."
+        },
+        {
+          "name": "ySrc",
+          "type": "INT",
+          "description": "The y-coordinate, in logical units, of the upper-left corner of the source rectangle."
+        },
+        {
+          "name": "widthSrc",
+          "type": "INT",
+          "description": "The width, in logical units, of the source rectangle."
+        },
+        {
+          "name": "heightSrc",
+          "type": "INT",
+          "description": "The height, in logical units, of the source rectangle."
+        },
+        {
+          "name": "rop",
+          "type": "DWORD",
+          "description": "The raster operation code. This code defines how the color data for the source rectangle is to be combined with the color data for the destination rectangle to achieve the final color."
+        },
+        {
+          "name": "bk_color",
+          "type": "COLORREF",
+          "description": "The background color. The system uses the color data for the source rectangle's current background color."
+        }
+      ],
+      "return_type": "BOOL. If the function succeeds, the return value is TRUE. If the function fails, the return value is FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiMaskBlt",
+      "description": "This function performs a bit-block transfer of the color data corresponding to a rectangle of pixels from the specified source device context into a destination device context, using a specified mask and raster operation code (ROP).",
+      "parameters": [
+        {
+          "name": "hdcDest",
+          "type": "HDC",
+          "description": "Handle to the destination device context."
+        },
+        {
+          "name": "nXDest",
+          "type": "INT",
+          "description": "The x-coordinate, in logical units, of the upper-left corner of the destination rectangle."
+        },
+        {
+          "name": "nYDest",
+          "type": "INT",
+          "description": "The y-coordinate, in logical units, of the upper-left corner of the destination rectangle."
+        },
+        {
+          "name": "nWidth",
+          "type": "INT",
+          "description": "The width, in logical units, of the source and destination rectangles."
+        },
+        {
+          "name": "nHeight",
+          "type": "INT",
+          "description": "The height, in logical units, of the source and the destination rectangles."
+        },
+        {
+          "name": "hdcSrc",
+          "type": "HDC",
+          "description": "Handle to the source device context."
+        },
+        {
+          "name": "nXSrc",
+          "type": "INT",
+          "description": "The x-coordinate, in logical units, of the upper-left corner of the source rectangle."
+        },
+        {
+          "name": "nYSrc",
+          "type": "INT",
+          "description": "The y-coordinate, in logical units, of the upper-left corner of the source rectangle."
+        },
+        {
+          "name": "hbmMask",
+          "type": "HBITMAP",
+          "description": "Handle to the monochrome bitmap that will be used to create the mask."
+        },
+        {
+          "name": "xMask",
+          "type": "INT",
+          "description": "The horizontal pixel offset for the mask bitmap."
+        },
+        {
+          "name": "yMask",
+          "type": "INT",
+          "description": "The vertical pixel offset for the mask bitmap."
+        },
+        {
+          "name": "dwRop",
+          "type": "DWORD",
+          "description": "The raster operation code."
+        },
+        {
+          "name": "bk_color",
+          "type": "DWORD",
+          "description": "The background color."
+        }
+      ],
+      "return_type": "BOOL. If the function succeeds, the return value is TRUE. If the function fails, the return value is FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiTransparentBlt",
+      "description": "This function performs a bit-block transfer of the color data corresponding to a rectangle of pixels from the specified source device context into a destination device context, transforming colors based on the given transparent color.",
+      "parameters": [
+        {
+          "name": "hdcDest",
+          "type": "HDC",
+          "description": "Handle to the destination device context."
+        },
+        {
+          "name": "xDest",
+          "type": "int",
+          "description": "The x-coordinate, in logical units, of the upper-left corner of the destination rectangle."
+        },
+        {
+          "name": "yDest",
+          "type": "int",
+          "description": "The y-coordinate, in logical units, of the upper-left corner of the destination rectangle."
+        },
+        {
+          "name": "widthDest",
+          "type": "int",
+          "description": "The width, in logical units, of the destination rectangle."
+        },
+        {
+          "name": "heightDest",
+          "type": "int",
+          "description": "The height, in logical units, of the destination rectangle."
+        },
+        {
+          "name": "hdcSrc",
+          "type": "HDC",
+          "description": "Handle to the source device context."
+        },
+        {
+          "name": "xSrc",
+          "type": "int",
+          "description": "The x-coordinate, in logical units, of the upper-left corner of the source rectangle."
+        },
+        {
+          "name": "ySrc",
+          "type": "int",
+          "description": "The y-coordinate, in logical units, of the upper-left corner of the source rectangle."
+        },
+        {
+          "name": "widthSrc",
+          "type": "int",
+          "description": "The width, in logical units, of the source rectangle."
+        },
+        {
+          "name": "heightSrc",
+          "type": "int",
+          "description": "The height, in logical units, of the source rectangle."
+        },
+        {
+          "name": "crTransparent",
+          "type": "UINT",
+          "description": "The RGB color in the source bitmap to treat as transparent."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function succeeded or not. If the function succeeds, the return value is nonzero. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiAlphaBlend",
+      "description": "This function performs bit-block transfers of the color data corresponding to a rectangle of pixels from the specified source device context into a destination device context, with alpha blending.",
+      "parameters": [
+        {
+          "name": "hdcDst",
+          "type": "HDC",
+          "description": "Handle to the destination device context."
+        },
+        {
+          "name": "xDst",
+          "type": "int",
+          "description": "The x-coordinate, in logical units, of the upper-left corner of the destination rectangle."
+        },
+        {
+          "name": "yDst",
+          "type": "int",
+          "description": "The y-coordinate, in logical units, of the upper-left corner of the destination rectangle."
+        },
+        {
+          "name": "widthDst",
+          "type": "int",
+          "description": "The width, in logical units, of the destination rectangle."
+        },
+        {
+          "name": "heightDst",
+          "type": "int",
+          "description": "The height, in logical units, of the destination rectangle."
+        },
+        {
+          "name": "hdcSrc",
+          "type": "HDC",
+          "description": "Handle to the source device context."
+        },
+        {
+          "name": "xSrc",
+          "type": "int",
+          "description": "The x-coordinate, in logical units, of the upper-left corner of the source rectangle."
+        },
+        {
+          "name": "ySrc",
+          "type": "int",
+          "description": "The y-coordinate, in logical units, of the upper-left corner of the source rectangle."
+        },
+        {
+          "name": "widthSrc",
+          "type": "int",
+          "description": "The width, in logical units, of the source rectangle."
+        },
+        {
+          "name": "heightSrc",
+          "type": "int",
+          "description": "The height, in logical units, of the source rectangle."
+        },
+        {
+          "name": "blend_func",
+          "type": "DWORD",
+          "description": "The alpha blending function for source and destination bitmaps."
+        },
+        {
+          "name": "xform",
+          "type": "HANDLE",
+          "description": "Handle to the transformation object."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, FALSE if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiPlgBlt",
+      "description": "This function performs a bit-block transfer of the color data corresponding to a rectangle of pixels from the specified source device context into a parallelogram in the specified destination device context.",
+      "parameters": [
+        {
+          "name": "hdcDest",
+          "type": "HDC",
+          "description": "Handle to the destination device context."
+        },
+        {
+          "name": "lpPoint",
+          "type": "POINT*",
+          "description": "Pointer to an array of three points in logical space that identify three corners of the destination parallelogram."
+        },
+        {
+          "name": "hdcSrc",
+          "type": "HDC",
+          "description": "Handle to the source device context."
+        },
+        {
+          "name": "nXSrc",
+          "type": "INT",
+          "description": "The x-coordinate, in logical units, of the upper-left corner of the source rectangle."
+        },
+        {
+          "name": "nYSrc",
+          "type": "INT",
+          "description": "The y-coordinate, in logical units, of the upper-left corner of the source rectangle."
+        },
+        {
+          "name": "nWidth",
+          "type": "INT",
+          "description": "The width, in logical units, of the source rectangle."
+        },
+        {
+          "name": "nHeight",
+          "type": "INT",
+          "description": "The height, in logical units, of the source rectangle."
+        },
+        {
+          "name": "hbmMask",
+          "type": "HBITMAP",
+          "description": "Handle to the optional monochrome bitmap that will be used to mask the colors in the source device context."
+        },
+        {
+          "name": "xMask",
+          "type": "INT",
+          "description": "The x-coordinate, in logical units, which will be used for the upper-left corner of the mask bitmap."
+        },
+        {
+          "name": "yMask",
+          "type": "INT",
+          "description": "The y-coordinate, in logical units, which will be used for the upper-left corner of the mask bitmap."
+        },
+        {
+          "name": "bk_color",
+          "type": "DWORD",
+          "description": "Specifies the color to be used as the background color in the destination device context."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function is successful, otherwise it returns FALSE."
+    }
+  }
+]

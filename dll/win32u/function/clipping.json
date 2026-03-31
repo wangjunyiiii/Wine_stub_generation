@@ -1,0 +1,381 @@
+[
+  {
+    "function": {
+      "name": "get_dc_device_rect",
+      "description": "This function gets the device rectangle from the DC structure, offsets it by the top left corner of the visible rectangle, and checks if the resulting rectangle is empty.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC*",
+          "description": "Pointer to the DC structure from which the device rectangle is obtained."
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "Pointer to the RECT structure where the result is stored."
+        }
+      ],
+      "return_type": "BOOL, returns true if the resulting rectangle is not empty, false otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_clip_rect",
+      "description": "This function sets the values of a RECT structure, converts the logical values to device values, and adjusts the values if the layout is right-to-left.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This is a device context. It is used for the lp_to_dp function and to check the layout."
+        },
+        {
+          "name": "left",
+          "type": "int",
+          "description": "This is the left value of the RECT structure."
+        },
+        {
+          "name": "top",
+          "type": "int",
+          "description": "This is the top value of the RECT structure."
+        },
+        {
+          "name": "right",
+          "type": "int",
+          "description": "This is the right value of the RECT structure."
+        },
+        {
+          "name": "bottom",
+          "type": "int",
+          "description": "This is the bottom value of the RECT structure."
+        }
+      ],
+      "return_type": "RECT, which represents a rectangle. The rectangle is defined by the left, top, right, and bottom integers."
+    }
+  },
+  {
+    "function": {
+      "name": "clip_device_rect",
+      "description": "This function clips a source rectangle to fit within a device context's rectangle. If the device context's rectangle can be retrieved, it intersects the source rectangle with the device context's rectangle and stores the result in the destination rectangle. If the device context's rectangle cannot be retrieved, it simply copies the source rectangle to the destination rectangle.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC*",
+          "description": "This is a pointer to the device context."
+        },
+        {
+          "name": "dst",
+          "type": "RECT*",
+          "description": "This is a pointer to the destination rectangle."
+        },
+        {
+          "name": "src",
+          "type": "const RECT*",
+          "description": "This is a pointer to the source rectangle."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not. Returns TRUE if the operation is successful, otherwise returns the result of intersect_rect function."
+    }
+  },
+  {
+    "function": {
+      "name": "clip_visrect",
+      "description": "This function clips a visible rectangle. It first checks if the device rectangle can be clipped. If not, it returns FALSE. If it can, it gets the region box of the device context and checks if it intersects with the destination rectangle. If it does, it returns the result of the intersection. If it doesn't, it returns TRUE.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This is a pointer to the device context."
+        },
+        {
+          "name": "dst",
+          "type": "RECT *",
+          "description": "This is a pointer to the destination rectangle."
+        },
+        {
+          "name": "src",
+          "type": "RECT *",
+          "description": "This is a pointer to the source rectangle."
+        }
+      ],
+      "return_type": "BOOL, represents whether the visible rectangle was successfully clipped or not."
+    }
+  },
+  {
+    "function": {
+      "name": "update_dc_clipping",
+      "description": "This function updates the clipping regions of a device context (DC). It combines the visible, clip, and meta regions into a single region if more than one exists. If only one region exists, it deletes the total region.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "A pointer to the device context to be updated"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "create_default_clip_region",
+      "description": "This function creates a default clipping region for a device context. If the device context doesn't have a rectangle, it sets the rectangle to the device's horizontal and vertical resolution.",
+      "parameters": [
+        {
+          "name": "dc",
+          "type": "DC *",
+          "description": "This is a pointer to a device context."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiExtSelectClipRgn",
+      "description": "This function is used to select a new clipping region for the specified device context. It can also be used to create, modify, or delete the clipping region of a device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "rgn",
+          "type": "HRGN",
+          "description": "Handle to the region."
+        },
+        {
+          "name": "mode",
+          "type": "INT",
+          "description": "Specifies the way to use the region."
+        }
+      ],
+      "return_type": "INT. The function returns an integer value. If the function succeeds, the return value specifies the type of the resulting region. If the function fails, the return value is ERROR."
+    }
+  },
+  {
+    "function": {
+      "name": "set_visible_region",
+      "description": "This function sets the visible region of a window surface. It maps the region to DC coordinates, updates the DC attributes, and sets the window surface.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "hrgn",
+          "type": "HRGN",
+          "description": "Handle to the region."
+        },
+        {
+          "name": "vis_rect",
+          "type": "const RECT *",
+          "description": "Pointer to the visible rectangle."
+        },
+        {
+          "name": "device_rect",
+          "type": "const RECT *",
+          "description": "Pointer to the device rectangle."
+        },
+        {
+          "name": "surface",
+          "type": "struct window_surface *",
+          "description": "Pointer to the window surface structure."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiOffsetClipRgn",
+      "description": "This function offsets the clipping region of a device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The horizontal offset."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The vertical offset."
+        }
+      ],
+      "return_type": "INT, represents the result of the operation. It returns NULLREGION if the device context doesn't have a clipping region, ERROR if the device context is not valid, or the result of the NtGdiOffsetRgn function call."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiExcludeClipRect",
+      "description": "This function excludes a rectangular area from the current clipping region of a device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "Specifies the x-coordinate of the upper-left corner of the rectangle."
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "Specifies the y-coordinate of the upper-left corner of the rectangle."
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "Specifies the x-coordinate of the lower-right corner of the rectangle."
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "Specifies the y-coordinate of the lower-right corner of the rectangle."
+        }
+      ],
+      "return_type": "INT, represents the status of the operation. If the function succeeds, the return value is not ERROR, otherwise, it is ERROR."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiIntersectClipRect",
+      "description": "This function intersects a given rectangle with the current clipping region of a device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "left",
+          "type": "INT",
+          "description": "Specifies the x-coordinate of the upper-left corner of the rectangle."
+        },
+        {
+          "name": "top",
+          "type": "INT",
+          "description": "Specifies the y-coordinate of the upper-left corner of the rectangle."
+        },
+        {
+          "name": "right",
+          "type": "INT",
+          "description": "Specifies the x-coordinate of the lower-right corner of the rectangle."
+        },
+        {
+          "name": "bottom",
+          "type": "INT",
+          "description": "Specifies the y-coordinate of the lower-right corner of the rectangle."
+        }
+      ],
+      "return_type": "INT, represents the status of the operation. It returns ERROR if the operation fails, otherwise it returns SIMPLEREGION or the result of the NtGdiCombineRgn function."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiPtVisible",
+      "description": "This function checks if a given point is visible within the device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the point."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the point."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the point is visible, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiRectVisible",
+      "description": "This function checks if a rectangle is visible in the device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "rect",
+          "type": "RECT *",
+          "description": "Pointer to the RECT structure that specifies the rectangle."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the rectangle is visible, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetAppClipBox",
+      "description": "This function retrieves the application clipping box, updates the device context, checks if the region is empty, and modifies the rectangle coordinates based on the layout. It also transforms device coordinates into logical coordinates.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "rect",
+          "type": "RECT*",
+          "description": "Pointer to a RECT structure that will receive the coordinates of the application clipping box."
+        }
+      ],
+      "return_type": "INT. Returns a region type that specifies the complexity of the region that the function obtains. It can be ERROR, SIMPLEREGION, or NULLREGION."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetRandomRgn",
+      "description": "This function retrieves a specified type of region from a device context. It can handle clipping regions, meta regions, and system regions. It also has the ability to handle mirrored and DPI-aware regions.",
+      "parameters": [
+        {
+          "name": "hDC",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "hRgn",
+          "type": "HRGN",
+          "description": "Handle to the region where the result is to be stored."
+        },
+        {
+          "name": "iCode",
+          "type": "INT",
+          "description": "Specifies the type of region to be retrieved. This can be a clipping region, a meta region, or a system region."
+        }
+      ],
+      "return_type": "INT. Returns 1 if the function is successful. If the function fails, it returns -1. If the specified region does not exist, the function returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSetMetaRgn",
+      "description": "This function sets the meta region of a device context. If the device context has a clip region, it becomes the new meta region. If the meta region already exists, the intersection of the clip region and the meta region becomes the new meta region. The function returns the bounding box of the meta region.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        }
+      ],
+      "return_type": "INT, represents the bounding box of the meta region."
+    }
+  }
+]

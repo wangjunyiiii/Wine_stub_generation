@@ -1,0 +1,973 @@
+[
+  {
+    "function": {
+      "name": "find_winproc",
+      "description": "This function searches for a window procedure in an array of window procedures. It first checks all procedures, then only checks ANSI or Unicode procedures based on the 'ansi' parameter.",
+      "parameters": [
+        {
+          "name": "func",
+          "type": "WNDPROC",
+          "description": "The window procedure to find in the array."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "A flag indicating whether to search for an ANSI or Unicode window procedure."
+        }
+      ],
+      "return_type": "Returns a pointer to the found window procedure, or NULL if it was not found."
+    }
+  },
+  {
+    "function": {
+      "name": "get_winproc_ptr",
+      "description": "This function returns a pointer to a WINDOWPROC object. It checks if the handle is valid, if it's within the range of MAX_WINPROCS and winproc_used, and then returns the address of the corresponding element in the winproc_array.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "WNDPROC",
+          "description": "This is a handle to the window procedure."
+        }
+      ],
+      "return_type": "WINDOWPROC*. It represents a pointer to a WINDOWPROC object. If the handle is invalid or out of range, it returns NULL or WINPROC_PROC16."
+    }
+  },
+  {
+    "function": {
+      "name": "proc_to_handle",
+      "description": "This function handles the process of converting a WINDOWPROC pointer to a WNDPROC type.",
+      "parameters": [
+        {
+          "name": "proc",
+          "type": "WINDOWPROC *",
+          "description": "This is a pointer to the WINDOWPROC that needs to be converted."
+        }
+      ],
+      "return_type": "WNDPROC, which represents the converted WINDOWPROC pointer."
+    }
+  },
+  {
+    "function": {
+      "name": "alloc_winproc_ptr",
+      "description": "This function allocates a winproc pointer. It checks if the function is already a win proc, if not, it checks if we already have a winproc for that function. If not, it allocates a new one if the maximum number of winprocs is not reached. It also locks and unlocks the winproc_lock to ensure thread safety.",
+      "parameters": [
+        {
+          "name": "func",
+          "type": "WNDPROC",
+          "description": "This is the function for which a winproc is to be allocated."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "This parameter determines whether the function is an ANSI function or not."
+        }
+      ],
+      "return_type": "WINDOWPROC. It represents the allocated winproc pointer. If the function is already a win proc or if the maximum number of winprocs is reached, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "alloc_winproc",
+      "description": "This function allocates a new window procedure, checks if the procedure is equal to WINPROC_PROC16, and returns the handle to the procedure if it is not.",
+      "parameters": [
+        {
+          "name": "func",
+          "type": "WNDPROC",
+          "description": "This is the window procedure to be allocated."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "This parameter determines whether the procedure is ANSI or not."
+        }
+      ],
+      "return_type": "WNDPROC, which represents the handle to the window procedure."
+    }
+  },
+  {
+    "function": {
+      "name": "get_winproc",
+      "description": "This function retrieves the window procedure associated with a given procedure and a boolean indicating whether the procedure is ANSI or not.",
+      "parameters": [
+        {
+          "name": "proc",
+          "type": "WNDPROC",
+          "description": "This is the procedure for which the window procedure is to be retrieved."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "This boolean value indicates whether the procedure is ANSI or not."
+        }
+      ],
+      "return_type": "WNDPROC, which represents the window procedure associated with the given procedure. If no such procedure is found, the function returns the original procedure."
+    }
+  },
+  {
+    "function": {
+      "name": "is_winproc_unicode",
+      "description": "Determines if a window procedure is Unicode or not.",
+      "parameters": [
+        {
+          "name": "proc",
+          "type": "WNDPROC",
+          "description": "The window procedure to check."
+        },
+        {
+          "name": "def_val",
+          "type": "BOOL",
+          "description": "The default value to return if the procedure can be both Unicode and non-Unicode."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the window procedure is Unicode, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_winproc_params",
+      "description": "This function retrieves the window procedure parameters. It checks the procedure pointer and sets the procA and procW parameters accordingly. If the fixup_ansi_dst flag is set, it also adjusts the ansi_dst parameter based on the procA and procW values.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "struct win_proc_params*",
+          "description": "Pointer to a structure that holds the window procedure parameters. The function modifies the values of this structure."
+        },
+        {
+          "name": "fixup_ansi_dst",
+          "type": "BOOL",
+          "description": "Flag that indicates whether the ansi_dst parameter of the params structure should be adjusted."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the params structure."
+    }
+  },
+  {
+    "function": {
+      "name": "get_dialog_proc",
+      "description": "This function retrieves the dialog procedure based on the provided parameters.",
+      "parameters": [
+        {
+          "name": "ret",
+          "type": "DLGPROC",
+          "description": "This is the initial dialog procedure."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "This is a boolean value that determines which procedure to return."
+        }
+      ],
+      "return_type": "DLGPROC, which represents the dialog procedure that was retrieved."
+    }
+  },
+  {
+    "function": {
+      "name": "init_user",
+      "description": "This function initializes the user by querying system information and initializing various system parameters and services.",
+      "parameters": [],
+      "return_type": "void, meaning this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserInitializeClientPfnArrays",
+      "description": "This function initializes the client function pointer arrays and sets the user module. It also ensures the initialization is done only once.",
+      "parameters": [
+        {
+          "name": "client_procsA",
+          "type": "ntuser_client_func_ptr *",
+          "description": "Pointer to the first client function pointer array"
+        },
+        {
+          "name": "client_procsW",
+          "type": "ntuser_client_func_ptr *",
+          "description": "Pointer to the second client function pointer array"
+        },
+        {
+          "name": "client_workers",
+          "type": "ntuser_client_func_ptr *",
+          "description": "Pointer to the client workers function pointer array"
+        },
+        {
+          "name": "user_module",
+          "type": "HINSTANCE",
+          "description": "Handle to the user module"
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the function execution. Returns STATUS_SUCCESS on successful execution."
+    }
+  },
+  {
+    "function": {
+      "name": "get_int_atom_value",
+      "description": "This function retrieves the integer atom value from a given UNICODE_STRING. It checks if the string is an integer resource, if not, it checks if the string starts with '#'. If it does, it then converts the string to an integer, ensuring that the value does not exceed MAXINTATOM.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to the UNICODE_STRING from which the integer atom value is to be retrieved."
+        }
+      ],
+      "return_type": "ATOM. This represents the integer atom value retrieved from the UNICODE_STRING. If the string is not an integer resource and does not start with '#', or if the converted integer value exceeds MAXINTATOM, the function returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "wine_server_add_atom",
+      "description": "This function adds an atom to the wine server. If the atom does not exist, it adds data to the wine server.",
+      "parameters": [
+        {
+          "name": "req",
+          "type": "void*",
+          "description": "This parameter is used for the request to the wine server."
+        },
+        {
+          "name": "str",
+          "type": "UNICODE_STRING*",
+          "description": "This parameter is used to represent the atom to be added to the wine server."
+        }
+      ],
+      "return_type": "atom_t, which represents the atom added to the wine server."
+    }
+  },
+  {
+    "function": {
+      "name": "is_desktop_class",
+      "description": "This function checks if the given name matches the predefined desktop class name.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "UNICODE_STRING *",
+          "description": "This is a pointer to the UNICODE_STRING structure that contains the name to be checked."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the name matches the desktop class name, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "is_message_class",
+      "description": "This function checks if the given UNICODE_STRING is equal to the string 'Message'.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to the UNICODE_STRING to be checked"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the given UNICODE_STRING is equal to 'Message', otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "is_integral_atom",
+      "description": "This function checks if the given string represents an integral atom. It performs various checks and computations on the string and returns different status codes based on the results.",
+      "parameters": [
+        {
+          "name": "atomstr",
+          "type": "WCHAR*",
+          "description": "This is the string that is checked to see if it represents an integral atom."
+        },
+        {
+          "name": "len",
+          "type": "ULONG",
+          "description": "This is the length of the string that is being checked."
+        },
+        {
+          "name": "ret_atom",
+          "type": "RTL_ATOM*",
+          "description": "This is a pointer to a variable where the function stores the computed atom if the string represents an integral atom."
+        }
+      ],
+      "return_type": "unsigned int, represents different status codes. STATUS_OBJECT_NAME_INVALID if the length is 0, STATUS_INVALID_PARAMETER if the length is greater than MAX_ATOM_LEN or if the computed atom is greater than MAXINTATOM, STATUS_MORE_ENTRIES if the string does not represent an integral atom, and STATUS_SUCCESS if the string represents an integral atom and the atom is successfully computed and stored."
+    }
+  },
+  {
+    "function": {
+      "name": "integral_atom_name",
+      "description": "This function converts an atom into a string and stores it in a buffer, returning the length of the string in bytes.",
+      "parameters": [
+        {
+          "name": "buffer",
+          "type": "WCHAR*",
+          "description": "A pointer to the buffer where the string representation of the atom will be stored."
+        },
+        {
+          "name": "len",
+          "type": "ULONG",
+          "description": "The length of the buffer."
+        },
+        {
+          "name": "atom",
+          "type": "RTL_ATOM",
+          "description": "The atom to be converted into a string."
+        }
+      ],
+      "return_type": "ULONG, representing the length of the string stored in the buffer in bytes."
+    }
+  },
+  {
+    "function": {
+      "name": "get_class_ptr",
+      "description": "This function retrieves a pointer to a CLASS object associated with a given window handle. It also handles access permissions and errors.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window for which the CLASS pointer is to be retrieved."
+        },
+        {
+          "name": "write_access",
+          "type": "BOOL",
+          "description": "This is a boolean value indicating whether write access is required."
+        }
+      ],
+      "return_type": "Returns a pointer to a CLASS object associated with the window handle. If the window handle is invalid or access is denied, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "get_shared_class",
+      "description": "This function acquires a sequence lock on a shared object associated with a class, and returns the status of the operation.",
+      "parameters": [
+        {
+          "name": "class",
+          "type": "CLASS *",
+          "description": "Pointer to the class whose shared object is to be accessed."
+        },
+        {
+          "name": "lock",
+          "type": "struct object_lock *",
+          "description": "Pointer to the lock object used for acquiring a sequence lock on the shared object."
+        },
+        {
+          "name": "class_shm",
+          "type": "class_shm_t **",
+          "description": "Double pointer to a class_shm_t type. If the sequence lock is successfully acquired, this parameter is updated to point to the shared memory segment of the shared object."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. It returns STATUS_INVALID_HANDLE if the class does not have a shared object, STATUS_PENDING if the sequence lock is successfully acquired, and STATUS_SUCCESS if the lock was already held."
+    }
+  },
+  {
+    "function": {
+      "name": "get_shared_window_class",
+      "description": "This function retrieves the shared window class. If the lock id is present, it gets the shared object from the class shared memory. If not, it locates the window class and finds the shared session object. If the object is not found, it returns an invalid handle status. If the lock id is not present or the shared object release sequence lock is not successful, it acquires a sequence lock on the shared object, updates the class shared memory, updates the lock id and returns a pending status. If everything is successful, it returns a success status.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the shared class is to be retrieved"
+        },
+        {
+          "name": "lock",
+          "type": "struct object_lock *",
+          "description": "Pointer to the object lock structure"
+        },
+        {
+          "name": "class_shm",
+          "type": "const class_shm_t **",
+          "description": "Pointer to the pointer of the class shared memory structure"
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. It can be STATUS_INVALID_HANDLE if the shared session object is not found, STATUS_PENDING if the sequence lock is acquired and the shared memory and lock id are updated, or STATUS_SUCCESS if everything is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "release_class_ptr",
+      "description": "This function releases a lock on a class pointer",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "CLASS *",
+          "description": "This is a pointer to the class that needs to be unlocked"
+        }
+      ],
+      "return_type": "void, it does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "class_name_matches",
+      "description": "This function checks if the name of the given class matches the provided UNICODE string.",
+      "parameters": [
+        {
+          "name": "class",
+          "type": "CLASS *",
+          "description": "Pointer to the class whose name is to be matched"
+        },
+        {
+          "name": "name",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to the UNICODE string against which the class name is to be matched"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the class name matches the provided UNICODE string, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "get_class_instance",
+      "description": "This function retrieves an instance of a class from shared memory. It continues to try retrieving the instance as long as the status is pending. If the status is anything other than pending, it returns 0.",
+      "parameters": [
+        {
+          "name": "class",
+          "type": "CLASS *",
+          "description": "This is a pointer to the class for which an instance is to be retrieved."
+        }
+      ],
+      "return_type": "UINT_PTR, which represents the instance of the class retrieved from shared memory, or 0 if the retrieval was unsuccessful."
+    }
+  },
+  {
+    "function": {
+      "name": "find_class",
+      "description": "This function searches for a class in a module by its name. It locks the user, iterates through each class in the class list, checks if the class name matches the provided name, and if the class instance matches the module instance. If a match is found, it traces the class and returns it. If no match is found, it unlocks the user and returns NULL.",
+      "parameters": [
+        {
+          "name": "module",
+          "type": "HINSTANCE",
+          "description": "The module in which to search for the class"
+        },
+        {
+          "name": "name",
+          "type": "UNICODE_STRING *",
+          "description": "The name of the class to search for"
+        }
+      ],
+      "return_type": "CLASS. It represents the class found in the module by its name. If no class is found, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "get_class_winproc",
+      "description": "This function returns the window procedure associated with a given class.",
+      "parameters": [
+        {
+          "name": "class",
+          "type": "CLASS*",
+          "description": "A pointer to the class object for which the window procedure is to be retrieved."
+        }
+      ],
+      "return_type": "WNDPROC, which represents the window procedure associated with the given class."
+    }
+  },
+  {
+    "function": {
+      "name": "get_class_dce",
+      "description": "This function returns the 'dce' field of a given 'class' object.",
+      "parameters": [
+        {
+          "name": "class",
+          "type": "CLASS *",
+          "description": "Pointer to the class object whose 'dce' field is to be returned"
+        }
+      ],
+      "return_type": "struct dce *; represents a pointer to the 'dce' field of the given class object"
+    }
+  },
+  {
+    "function": {
+      "name": "set_class_dce",
+      "description": "This function sets the dce member of a CLASS struct if it is not already set.",
+      "parameters": [
+        {
+          "name": "class",
+          "type": "CLASS *",
+          "description": "Pointer to the CLASS struct where the dce member is to be set."
+        },
+        {
+          "name": "dce",
+          "type": "struct dce *",
+          "description": "Pointer to the dce struct that is to be set as the dce member of the CLASS struct."
+        }
+      ],
+      "return_type": "struct dce *; Returns a pointer to the dce struct that was set as the dce member of the CLASS struct."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserRegisterClassExWOW",
+      "description": "This function registers a window class for subsequent use in calls to the CreateWindow or CreateWindowEx function.",
+      "parameters": [
+        {
+          "name": "wc",
+          "type": "WNDCLASSEXW *",
+          "description": "Pointer to a WNDCLASSEX structure that contains the class definition."
+        },
+        {
+          "name": "name",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to a UNICODE_STRING structure that contains the class name."
+        },
+        {
+          "name": "version",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to a UNICODE_STRING structure that contains the class version."
+        },
+        {
+          "name": "client_menu_name",
+          "type": "struct client_menu_name *",
+          "description": "Pointer to a client_menu_name structure that contains the class menu name."
+        },
+        {
+          "name": "fnid",
+          "type": "DWORD",
+          "description": "Function ID, used to check if the class is built-in."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags that control the creation of the class."
+        },
+        {
+          "name": "wow",
+          "type": "DWORD *",
+          "description": "Pointer to a DWORD that receives additional information about the class."
+        }
+      ],
+      "return_type": "ATOM, represents the class atom that uniquely identifies the class being registered. This atom can only be used by the CreateWindow, CreateWindowEx, GetClassInfo, GetClassInfoEx, FindWindow, FindWindowEx, and UnregisterClass functions and the IActiveIMMap::FilterClientWindows method."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserUnregisterClass",
+      "description": "This function unregisters a class, freeing associated resources and removing it from the system's class registry.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "UNICODE_STRING *",
+          "description": "Pointer to the name of the class to be unregistered."
+        },
+        {
+          "name": "instance",
+          "type": "HINSTANCE",
+          "description": "Handle to the instance of the module that created the class."
+        },
+        {
+          "name": "client_menu_name",
+          "type": "struct client_menu_name *",
+          "description": "Pointer to a structure that receives the name of the class menu, if any."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the class was successfully unregistered, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetClassInfoEx",
+      "description": "This function retrieves the class information for a window. It is used to get the WNDCLASSEX structure for a window class.",
+      "parameters": [
+        {
+          "name": "instance",
+          "type": "HINSTANCE",
+          "description": "Handle to the instance that contains the window procedure for the class."
+        },
+        {
+          "name": "name",
+          "type": "UNICODE_STRING*",
+          "description": "Pointer to a UNICODE_STRING structure that contains the class name."
+        },
+        {
+          "name": "wc",
+          "type": "WNDCLASSEXW*",
+          "description": "Pointer to a WNDCLASSEXW structure that receives the information about the class."
+        },
+        {
+          "name": "menu_name",
+          "type": "struct client_menu_name*",
+          "description": "Pointer to a client_menu_name structure that receives the menu name for the class."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "Boolean value that specifies whether the class is ANSI or not."
+        }
+      ],
+      "return_type": "ATOM. Returns the atom that uniquely identifies the class. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetAtomName",
+      "description": "This function retrieves the name of an atom from the global atom table, given the atom's identifier.",
+      "parameters": [
+        {
+          "name": "atom",
+          "type": "ATOM",
+          "description": "This is the identifier of the atom whose name is to be retrieved."
+        },
+        {
+          "name": "name",
+          "type": "UNICODE_STRING*",
+          "description": "This is a pointer to a buffer that receives the atom name."
+        }
+      ],
+      "return_type": "ULONG. This represents the length of the atom name. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserRegisterWindowMessage",
+      "description": "This function registers a new window message that is identified by a string. If the function is successful, the return value is a new atom that uniquely identifies the string. If the function fails, the return value is zero.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "UNICODE_STRING *",
+          "description": "This parameter is a pointer to a UNICODE_STRING structure that contains the string to be registered."
+        }
+      ],
+      "return_type": "ATOM. If the function is successful, the return value is a new atom that uniquely identifies the string. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetClassName",
+      "description": "This function retrieves the class name of a window and stores it in a UNICODE_STRING structure.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose class name is to be retrieved."
+        },
+        {
+          "name": "real",
+          "type": "BOOL",
+          "description": "Boolean value that specifies whether to retrieve the real class name."
+        },
+        {
+          "name": "name",
+          "type": "UNICODE_STRING*",
+          "description": "Pointer to a UNICODE_STRING structure that receives the class name."
+        }
+      ],
+      "return_type": "INT, represents the length of the class name. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "set_server_info",
+      "description": "This function sets the server information by making a request to the server with the new information and retrieves the old information.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "Offset for the server request"
+        },
+        {
+          "name": "newval",
+          "type": "LONG_PTR",
+          "description": "New value to be set in the server"
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "Size of the new value"
+        },
+        {
+          "name": "oldval",
+          "type": "ULONG_PTR*",
+          "description": "Pointer to store the old value from the server"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the server call is successful, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "set_class_long_size",
+      "description": "This function sets the value of a specified offset in the extra class memory or the WNDCLASSEX structure for the class to which the specified window belongs.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window and identifies the class to which the window belongs."
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "Specifies the zero-based byte offset of the value to be set. Valid values are in the range zero through the number of bytes of extra window memory, minus eight; for example, if you specified 12 or more bytes of extra memory, a value of 8 would be an index to the third 32-bit integer."
+        },
+        {
+          "name": "newval",
+          "type": "LONG_PTR",
+          "description": "Specifies the replacement value."
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "Specifies the size of the replacement value."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "Specifies whether the replacement value is ANSI or not."
+        }
+      ],
+      "return_type": "ULONG_PTR, represents the previous value of the specified offset."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetClassLong",
+      "description": "This function sets the size of a class long.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window whose class long is to be set."
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "The zero-based byte offset of the value to be set."
+        },
+        {
+          "name": "newval",
+          "type": "LONG",
+          "description": "The replacement value."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "A boolean value that specifies whether the system should set the ANSI or Unicode version of the class long."
+        }
+      ],
+      "return_type": "DWORD, represents the previous value of the specified 32-bit integer. If the previous value is zero, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetClassLongPtr",
+      "description": "This function sets the size of a class long pointer.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "Offset of the long pointer"
+        },
+        {
+          "name": "newval",
+          "type": "LONG_PTR",
+          "description": "New value for the long pointer"
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "Boolean value to check if the system uses ANSI or not"
+        }
+      ],
+      "return_type": "ULONG_PTR, represents the previous value of the specified 32-bit integer"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetClassWord",
+      "description": "This function sets the value of a class word for the specified window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window and context for the class word."
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "Specifies the zero-based byte offset of the class word."
+        },
+        {
+          "name": "newval",
+          "type": "WORD",
+          "description": "Specifies the replacement value."
+        }
+      ],
+      "return_type": "WORD, represents the previous value of the class word."
+    }
+  },
+  {
+    "function": {
+      "name": "get_class_long_shm",
+      "description": "This function retrieves the value of the specified long value from the WNDCLASSEX structure of the specified window. The function also checks the validity of the window and the offset.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window and its associated class."
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "The zero-based byte offset of the value to be retrieved. Valid values are in the range zero through the number of bytes of extra window memory, minus the size of an ULONG_PTR."
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "The size of the value to be retrieved."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "A flag that indicates whether the function should operate in ANSI or Unicode mode. This parameter is not used in the function."
+        }
+      ],
+      "return_type": "ULONG_PTR. It represents the requested value if the function succeeds. If the function fails, the return value is zero. An error occurs if the specified offset is greater than the number of bytes of extra window memory, or if the function is called from a thread other than the one that created the window."
+    }
+  },
+  {
+    "function": {
+      "name": "get_class_long_size",
+      "description": "This function retrieves the value of a specified offset in the extra class memory or the WNDCLASSEX structure for the class to which the specified window belongs.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window and identifies the class to which this window belongs."
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "Specifies the zero-based offset to the value to be retrieved. Valid values are in the range zero through the number of bytes of extra class memory, minus eight; for example, if you specified 10 or more bytes of extra class memory, a value of 2 would be an index to the third integer."
+        },
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "Specifies the size of the parameter."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "Specifies whether the function should be in ANSI mode or not."
+        }
+      ],
+      "return_type": "ULONG_PTR and it represents the requested value if the function succeeds. Specifically, if the offset is -8, the return value is a handle to the small icon associated with the class. If the offset is -12, the return value is a handle to the large icon associated with the class. If the offset is -16, the return value is a handle to the cursor associated with the class. If the offset is -20, the return value is the background color of the class. If the offset is -24, the return value is a handle to the menu associated with the class. If the offset is -26, the return value is the window-procedure address, or a handle to the window-procedure address. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "get_class_long",
+      "description": "This function retrieves the value of a specified DWORD in the extra class memory or the WNDCLASSEX structure for the class to which the specified window belongs.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window and identifies the class to which this window belongs."
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "The zero-based byte offset of the value to be retrieved. Valid values are in the range zero through the number of bytes of extra window memory, minus four; for example, if you specified 12 or more bytes of extra memory, a value of 8 would be an index to the third 32-bit integer."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "A flag that specifies whether the function should retrieve the ANSI or Unicode version of the string."
+        }
+      ],
+      "return_type": "DWORD, represents the requested 32-bit value indicates the value of the specified 32-bit (DWORD) value in the WNDCLASSEX structure or the extra window memory."
+    }
+  },
+  {
+    "function": {
+      "name": "get_class_long_ptr",
+      "description": "This function is used to get the class long pointer size.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the class long pointer size is to be retrieved"
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "Specifies the zero-based offset to the value to be retrieved"
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "Specifies whether the function should be ANSI or not"
+        }
+      ],
+      "return_type": "ULONG_PTR representing the class long pointer size"
+    }
+  },
+  {
+    "function": {
+      "name": "get_class_word",
+      "description": "This function retrieves the specified 16-bit (WORD) value from the WNDCLASSEX structure associated with the specified window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window and, indirectly, the class to which the window belongs."
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "The zero-based offset to the value to be retrieved. Valid values are in the range zero through the number of bytes of extra window memory, minus two; for example, if you specified 10 or more bytes of extra memory, a value of 8 would be an index to the third 16-bit integer."
+        }
+      ],
+      "return_type": "WORD. The function returns the requested 16-bit value if the function succeeds. Otherwise, it returns zero."
+    }
+  },
+  {
+    "function": {
+      "name": "register_builtin",
+      "description": "This function registers a built-in class with the system. It sets up a WNDCLASSEXW structure with the details from the passed in descriptor, converts the ASCII name to Unicode, and then calls NtUserRegisterClassExWOW to register the class. If the registration fails and a cursor was loaded, it destroys the cursor.",
+      "parameters": [
+        {
+          "name": "descr",
+          "type": "struct builtin_class_descr *",
+          "description": "This is a pointer to a descriptor structure that contains the details of the built-in class to register."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "register_builtins",
+      "description": "This function registers built-in classes and initializes them. It also makes a user mode callback to initialize built-in classes.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "register_builtin_classes",
+      "description": "This function registers built-in classes in a thread-safe manner using pthread_once.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not accept any parameters."
+        }
+      ],
+      "return_type": "void, as this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "register_desktop_class",
+      "description": "This function registers the desktop and message built-in classes.",
+      "parameters": [],
+      "return_type": "void, this function does not return anything"
+    }
+  }
+]

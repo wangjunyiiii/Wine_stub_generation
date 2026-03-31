@@ -1,0 +1,668 @@
+[
+  {
+    "function": {
+      "name": "dvaspect_to_miscfields",
+      "description": "This function converts a given aspect to its corresponding miscellaneous field.",
+      "parameters": [
+        {
+          "name": "aspect",
+          "type": "DWORD",
+          "description": "This parameter represents the aspect to be converted."
+        }
+      ],
+      "return_type": "enum comclass_miscfields, representing the corresponding miscellaneous field of the given aspect"
+    }
+  },
+  {
+    "function": {
+      "name": "actctx_get_miscstatus",
+      "description": "This function retrieves the miscellaneous status of an activation context section for a given class identifier (CLSID) and aspect. It also modifies the status based on the miscellaneous fields and flags of the comclass.",
+      "parameters": [
+        {
+          "name": "clsid",
+          "type": "const CLSID*",
+          "description": "Pointer to the class identifier of the activation context section."
+        },
+        {
+          "name": "aspect",
+          "type": "DWORD",
+          "description": "The aspect to consider when retrieving the miscellaneous status."
+        },
+        {
+          "name": "status",
+          "type": "DWORD*",
+          "description": "Pointer to a variable that receives the miscellaneous status."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully retrieves the miscellaneous status, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "create_key",
+      "description": "This function creates a new key in the Windows registry. If the key path does not exist, it creates the necessary subkeys.",
+      "parameters": [
+        {
+          "name": "retkey",
+          "type": "HKEY*",
+          "description": "A pointer to a variable that receives a handle to the opened or created key."
+        },
+        {
+          "name": "access",
+          "type": "ACCESS_MASK",
+          "description": "An access mask that specifies the desired access to the key."
+        },
+        {
+          "name": "attr",
+          "type": "OBJECT_ATTRIBUTES*",
+          "description": "A pointer to an OBJECT_ATTRIBUTES structure that contains the name of the key to be created or opened."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the key creation. Returns STATUS_SUCCESS on successful key creation, or an error status on failure."
+    }
+  },
+  {
+    "function": {
+      "name": "create_classes_root_hkey",
+      "description": "This function creates a handle to the HKEY_CLASSES_ROOT key in the Windows registry. It uses the specified access rights to determine the handle's permissions.",
+      "parameters": [
+        {
+          "name": "access",
+          "type": "DWORD",
+          "description": "The access rights for the handle. This parameter can be one or more of the KEY_* constants, combined using the bitwise-OR operator."
+        }
+      ],
+      "return_type": "HKEY, which is a handle to the created key. If the function fails, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "get_classes_root_hkey",
+      "description": "This function retrieves the HKEY for the classes root, considering the access rights and system architecture. It also handles the creation of a new classes root HKEY if necessary.",
+      "parameters": [
+        {
+          "name": "hkey",
+          "type": "HKEY",
+          "description": "The initial HKEY value."
+        },
+        {
+          "name": "access",
+          "type": "REGSAM",
+          "description": "The access rights for the HKEY."
+        }
+      ],
+      "return_type": "HKEY, representing the HKEY for the classes root."
+    }
+  },
+  {
+    "function": {
+      "name": "create_classes_key",
+      "description": "This function creates a new registry key with the specified access rights, and returns a handle to the new key.",
+      "parameters": [
+        {
+          "name": "hkey",
+          "type": "HKEY",
+          "description": "A handle to an open registry key."
+        },
+        {
+          "name": "name",
+          "type": "WCHAR",
+          "description": "The name of the registry key to be created."
+        },
+        {
+          "name": "access",
+          "type": "REGSAM",
+          "description": "The access rights to the key."
+        },
+        {
+          "name": "retkey",
+          "type": "HKEY",
+          "description": "A pointer to a variable that receives a handle to the new key."
+        }
+      ],
+      "return_type": "LSTATUS, which represents the status of the operation. If the function succeeds, the return value is ERROR_SUCCESS. If the function fails, the return value is a system error code."
+    }
+  },
+  {
+    "function": {
+      "name": "open_classes_key",
+      "description": "This function opens a key in the Windows registry.",
+      "parameters": [
+        {
+          "name": "hkey",
+          "type": "HKEY",
+          "description": "A handle to an open registry key."
+        },
+        {
+          "name": "name",
+          "type": "WCHAR *",
+          "description": "The name of the registry key to be opened."
+        },
+        {
+          "name": "access",
+          "type": "REGSAM",
+          "description": "A mask that specifies the desired access rights to the key."
+        },
+        {
+          "name": "retkey",
+          "type": "HKEY *",
+          "description": "A pointer to a variable that receives a handle to the opened key."
+        }
+      ],
+      "return_type": "LSTATUS, which represents the status of the function call. If the function succeeds, the return value is ERROR_SUCCESS. If the function fails, the return value is a system error code."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_ISynchronize",
+      "description": "This function returns the containing record for the given interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ISynchronize*",
+          "description": "Pointer to ISynchronize interface"
+        }
+      ],
+      "return_type": "MREImpl* - Pointer to the containing record of the given interface"
+    }
+  },
+  {
+    "function": {
+      "name": "ISynchronize_fnQueryInterface",
+      "description": "This function is used to query an interface and return a pointer to that interface if it is supported.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ISynchronize*",
+          "description": "Pointer to the ISynchronize interface."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Address of a pointer variable that receives the interface pointer requested in riid. Upon successful return, *ppv contains the requested interface pointer. If the object does not support the interface, *ppv will contain NULL."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns S_OK if the interface is supported, and E_NOINTERFACE if not."
+    }
+  },
+  {
+    "function": {
+      "name": "ISynchronize_fnAddRef",
+      "description": "This function increments the reference count of the ISynchronize interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ISynchronize*",
+          "description": "Pointer to the ISynchronize interface whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after increment."
+    }
+  },
+  {
+    "function": {
+      "name": "ISynchronize_fnRelease",
+      "description": "This function decrements the reference count of the ISynchronize interface. If the reference count reaches zero, it closes the handle to the event and frees the memory allocated to the interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ISynchronize*",
+          "description": "Pointer to the ISynchronize interface whose reference count is to be decremented"
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count after decrement"
+    }
+  },
+  {
+    "function": {
+      "name": "ISynchronize_fnWait",
+      "description": "This function waits for multiple handles and returns when one of them is signaled or the timeout period elapses.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ISynchronize*",
+          "description": "Pointer to an ISynchronize interface"
+        },
+        {
+          "name": "dwFlags",
+          "type": "DWORD",
+          "description": "Flags to modify the wait behavior"
+        },
+        {
+          "name": "dwMilliseconds",
+          "type": "DWORD",
+          "description": "The time-out interval, in milliseconds"
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. It can indicate success, error, or warning."
+    }
+  },
+  {
+    "function": {
+      "name": "ISynchronize_fnSignal",
+      "description": "This function signals an event associated with the 'ISynchronize' interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ISynchronize*",
+          "description": "Pointer to an 'ISynchronize' interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation was successful."
+    }
+  },
+  {
+    "function": {
+      "name": "ISynchronize_fnReset",
+      "description": "This function resets the event associated with the ISynchronize interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ISynchronize*",
+          "description": "Pointer to an ISynchronize interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, S_OK if the operation was successful"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_ISynchronizeHandle",
+      "description": "This function returns the containing record for the given interface pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ISynchronizeHandle*",
+          "description": "This is an interface pointer used to get the containing record."
+        }
+      ],
+      "return_type": "MREImpl* - a pointer to the containing record of the given interface pointer."
+    }
+  },
+  {
+    "function": {
+      "name": "SynchronizeHandle_QueryInterface",
+      "description": "This function is used to retrieve the interface for a Synchronize Handle object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ISynchronizeHandle*",
+          "description": "Pointer to the ISynchronizeHandle interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier (IID) of the interface being requested"
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns the interface pointer requested in riid upon successful completion"
+    }
+  },
+  {
+    "function": {
+      "name": "SynchronizeHandle_AddRef",
+      "description": "This function adds a reference to a SynchronizeHandle object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ISynchronizeHandle*",
+          "description": "This is a pointer to the SynchronizeHandle interface."
+        }
+      ],
+      "return_type": "ULONG, which represents the new reference count after the addition."
+    }
+  },
+  {
+    "function": {
+      "name": "SynchronizeHandle_Release",
+      "description": "This function releases the ISynchronize interface of the given ISynchronizeHandle interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ISynchronizeHandle*",
+          "description": "This is a pointer to the ISynchronizeHandle interface that needs to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count to the ISynchronize interface after it has been released."
+    }
+  },
+  {
+    "function": {
+      "name": "SynchronizeHandle_GetHandle",
+      "description": "This function retrieves the event handle from the ISynchronizeHandle interface implementation and assigns it to the provided pointer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "ISynchronizeHandle*",
+          "description": "Pointer to the ISynchronizeHandle interface implementation."
+        },
+        {
+          "name": "ph",
+          "type": "HANDLE*",
+          "description": "Pointer to a HANDLE variable where the event handle will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns S_OK if the function succeeds."
+    }
+  },
+  {
+    "function": {
+      "name": "ManualResetEvent_CreateInstance",
+      "description": "This function creates an instance of a manual reset event, sets its properties, and queries its interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IClassFactory *",
+          "description": "Pointer to an interface class factory"
+        },
+        {
+          "name": "outer",
+          "type": "IUnknown *",
+          "description": "Pointer to an unknown outer interface"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier"
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Pointer to the pointer of the interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. If the function succeeds, it returns S_OK. If the function fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "CoBuildVersion",
+      "description": "This function returns the version and build of a software by shifting the version (rmm) by 16 bits to the left and adding the build (rup).",
+      "parameters": [],
+      "return_type": "DWORD, represents the combined version and build number"
+    }
+  },
+  {
+    "function": {
+      "name": "CoInitialize",
+      "description": "This function delegates to the newer method CoInitializeEx.",
+      "parameters": [
+        {
+          "name": "lpReserved",
+          "type": "LPVOID",
+          "description": "This parameter is passed to the CoInitializeEx function."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "COM_OpenKeyForCLSID",
+      "description": "This function opens a registry key associated with a CLSID. If the key does not exist, it returns an error. If the key exists, it opens it with the specified access rights and returns a handle to the key.",
+      "parameters": [
+        {
+          "name": "clsid",
+          "type": "REFCLSID",
+          "description": "The CLSID for which the key is to be opened."
+        },
+        {
+          "name": "keyname",
+          "type": "LPCWSTR",
+          "description": "The name of the subkey to be opened."
+        },
+        {
+          "name": "access",
+          "type": "REGSAM",
+          "description": "The access rights requested for the key."
+        },
+        {
+          "name": "subkey",
+          "type": "HKEY*",
+          "description": "A pointer to a variable that receives a handle to the opened key."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, the return value is S_OK. If the function fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "CoLoadLibrary",
+      "description": "This function loads a dynamic-link library (DLL) module and returns a handle to the module.",
+      "parameters": [
+        {
+          "name": "lpszLibName",
+          "type": "LPOLESTR",
+          "description": "This is a pointer to a null-terminated string that specifies the name of the DLL module."
+        },
+        {
+          "name": "bAutoFree",
+          "type": "BOOL",
+          "description": "This parameter is not used in the function, but generally, a BOOL type parameter is used to specify a condition."
+        }
+      ],
+      "return_type": "HINSTANCE. It represents a handle to the DLL module that the function loads."
+    }
+  },
+  {
+    "function": {
+      "name": "CoFreeLibrary",
+      "description": "This function is used to free the loaded dynamic-link library (DLL) module and, if necessary, decrement its reference count. When the reference count reaches zero, the module is unloaded from the address space of the calling process and the handle is no longer valid.",
+      "parameters": [
+        {
+          "name": "hLibrary",
+          "type": "HINSTANCE",
+          "description": "A handle to the loaded library module. This handle is returned by the LoadLibrary, LoadLibraryEx, GetModuleHandle, or GetModuleHandleEx function."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "CoFreeAllLibraries",
+      "description": "This function does not perform any operation (NOP). It is a placeholder that might be used for future implementation.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "void, meaning this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "CoGetState",
+      "description": "This function retrieves the current state of the COM object and increases the reference count of the state if it exists.",
+      "parameters": [
+        {
+          "name": "ppv",
+          "type": "IUnknown **",
+          "description": "A pointer to a pointer to an IUnknown interface. This will be set to the current state of the COM object."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns S_OK if successful, or an error code if not."
+    }
+  },
+  {
+    "function": {
+      "name": "CoSetState",
+      "description": "This function sets the state of a COM object to the provided IUnknown interface pointer. If the current state exists, it releases it before setting the new state.",
+      "parameters": [
+        {
+          "name": "pv",
+          "type": "IUnknown *",
+          "description": "Pointer to the IUnknown interface that the state will be set to."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error code if the operation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "IsEqualGUID",
+      "description": "This function compares two GUIDs to check if they are equal.",
+      "parameters": [
+        {
+          "name": "rguid1",
+          "type": "REFGUID",
+          "description": "The first GUID to be compared."
+        },
+        {
+          "name": "rguid2",
+          "type": "REFGUID",
+          "description": "The second GUID to be compared."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the GUIDs are equal, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "CoAllowSetForegroundWindow",
+      "description": "This function is a stub and does not have a specific functionality. It returns S_OK as a placeholder.",
+      "parameters": [
+        {
+          "name": "pUnk",
+          "type": "IUnknown*",
+          "description": "This parameter is a pointer to an unknown interface."
+        },
+        {
+          "name": "pvReserved",
+          "type": "void*",
+          "description": "This parameter is a reserved pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function. In this case, it always returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "CoGetObject",
+      "description": "This function retrieves a pointer to an interface on an object that is bound to the specified moniker.",
+      "parameters": [
+        {
+          "name": "pszName",
+          "type": "LPCWSTR",
+          "description": "Pointer to a string that represents the display name to be parsed."
+        },
+        {
+          "name": "pBindOptions",
+          "type": "BIND_OPTS *",
+          "description": "Pointer to a BIND_OPTS structure that contains parameters to be used during the moniker binding operation."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "The IID of the interface the caller intends to use to communicate with the object that the moniker identifies."
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *ppv contains the requested interface pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. If the function succeeds, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "get_object_dll_path",
+      "description": "This function retrieves the path of a DLL object from the registry or activation context, depending on the origin of the class registration data.",
+      "parameters": [
+        {
+          "name": "regdata",
+          "type": "struct class_reg_data*",
+          "description": "Pointer to a structure containing class registration data."
+        },
+        {
+          "name": "dst",
+          "type": "WCHAR*",
+          "description": "Pointer to a buffer that receives the DLL path."
+        },
+        {
+          "name": "dstlen",
+          "type": "DWORD",
+          "description": "Size of the 'dst' buffer."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully retrieves the DLL path, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "Handler_DllGetClassObject",
+      "description": "This function opens a registry key for a given CLSID, retrieves the DLL path for the object, checks if it matches 'ole32.dll', and if so, creates a handler for the class object. If the DLL path does not match or cannot be retrieved, it logs a warning and closes the registry key. If the registry key cannot be opened, it returns an error indicating the class is not available.",
+      "parameters": [
+        {
+          "name": "rclsid",
+          "type": "REFCLSID",
+          "description": "The CLSID for which to open a registry key and create a handler."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "The interface identifier to be used when creating the handler."
+        },
+        {
+          "name": "ppv",
+          "type": "LPVOID *",
+          "description": "A pointer to a pointer to receive the interface pointer to the new handler object."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. It returns CLASS_E_CLASSNOTAVAILABLE if the class is not available or if the registry key cannot be opened. Otherwise, it returns the result of HandlerCF_Create."
+    }
+  },
+  {
+    "function": {
+      "name": "DllMain",
+      "description": "This function is an entry point to a DLL. It gets called when processes and threads are initialized and terminated, or upon calls to the LoadLibrary and FreeLibrary functions. It handles the DLL_PROCESS_ATTACH and DLL_PROCESS_DETACH cases.",
+      "parameters": [
+        {
+          "name": "hinstDLL",
+          "type": "HINSTANCE",
+          "description": "A handle to the DLL module. The value is the base address of the DLL."
+        },
+        {
+          "name": "fdwReason",
+          "type": "DWORD",
+          "description": "The reason code that indicates why the DLL entry-point function is being called."
+        },
+        {
+          "name": "reserved",
+          "type": "LPVOID",
+          "description": "If fdwReason is DLL_PROCESS_DETACH, reserved is NULL for dynamic unloads and non-NULL for process termination."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if successful or FALSE otherwise. If the return value is FALSE when DllMain is called because the process uses the LoadLibrary function, LoadLibrary returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "DllRegisterServer",
+      "description": "This function calls the OLE32_DllRegisterServer function and returns its result.",
+      "parameters": [],
+      "return_type": "HRESULT, represents the result of the OLE32_DllRegisterServer function call"
+    }
+  },
+  {
+    "function": {
+      "name": "DllUnregisterServer",
+      "description": "This function unregisters a Component Object Model (COM) server from the Windows registry by calling the OLE32_DllUnregisterServer function.",
+      "parameters": [],
+      "return_type": "HRESULT, represents the success or failure of the function. It returns the result of the OLE32_DllUnregisterServer function call."
+    }
+  }
+]

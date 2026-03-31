@@ -1,0 +1,498 @@
+[
+  {
+    "function": {
+      "name": "FormatCompareFn",
+      "description": "This function compares two strings in a case-insensitive manner.",
+      "parameters": [
+        {
+          "name": "l",
+          "type": "void*",
+          "description": "Pointer to the first string to be compared"
+        },
+        {
+          "name": "r",
+          "type": "void*",
+          "description": "Pointer to the second string to be compared"
+        }
+      ],
+      "return_type": "int, returns a negative, zero, or positive value based on the comparison of the two strings"
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_GetNamedFormat",
+      "description": "This function searches for a named format in an array of named formats using binary search. If found, it returns the format, otherwise it returns NULL.",
+      "parameters": [
+        {
+          "name": "lpszFormat",
+          "type": "LPCWSTR",
+          "description": "This is the name of the format to be searched for in the array of named formats."
+        }
+      ],
+      "return_type": "BYTE pointer. It represents the named format if found, otherwise NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "VarTokenizeFormatString",
+      "description": "This function tokenizes a format string and stores the tokens in a byte array. It is used for parsing and formatting date, time, number and string formats.",
+      "parameters": [
+        {
+          "name": "lpszFormat",
+          "type": "LPOLESTR",
+          "description": "Pointer to the format string to be tokenized."
+        },
+        {
+          "name": "rgbTok",
+          "type": "LPBYTE",
+          "description": "Pointer to the byte array where the tokens will be stored."
+        },
+        {
+          "name": "cbTok",
+          "type": "int",
+          "description": "Size of the byte array."
+        },
+        {
+          "name": "nFirstDay",
+          "type": "int",
+          "description": "Specifies the first day of the week."
+        },
+        {
+          "name": "nFirstWeek",
+          "type": "int",
+          "description": "Specifies the first week of the year."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Locale identifier that specifies the locale."
+        },
+        {
+          "name": "pcbActual",
+          "type": "int*",
+          "description": "Pointer to an integer that receives the actual size of the tokenized format string."
+        }
+      ],
+      "return_type": "HRESULT - Returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_FormatNumber",
+      "description": "This function formats a number according to the specified format, flags, and locale. It handles different number types, including integers, fractions, and exponents, and applies appropriate formatting rules such as adding thousand separators or handling negative numbers.",
+      "parameters": [
+        {
+          "name": "pVarIn",
+          "type": "LPVARIANT",
+          "description": "Pointer to the input VARIANT that contains the number to be formatted."
+        },
+        {
+          "name": "lpszFormat",
+          "type": "LPOLESTR",
+          "description": "Pointer to the format string that specifies how the number should be formatted."
+        },
+        {
+          "name": "rgbTok",
+          "type": "LPBYTE",
+          "description": "Pointer to the token array used for parsing the format string."
+        },
+        {
+          "name": "dwFlags",
+          "type": "ULONG",
+          "description": "Flags that control the formatting process."
+        },
+        {
+          "name": "pbstrOut",
+          "type": "BSTR*",
+          "description": "Pointer to the output BSTR where the formatted number string will be stored."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Locale identifier that specifies the locale to use for formatting."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_FormatDate",
+      "description": "This function formats a date in a VARIANT structure according to the specified format, flags, and locale.",
+      "parameters": [
+        {
+          "name": "pVarIn",
+          "type": "LPVARIANT",
+          "description": "Pointer to the VARIANT structure that contains the date to format."
+        },
+        {
+          "name": "lpszFormat",
+          "type": "LPOLESTR",
+          "description": "Pointer to the format string that specifies the formatting of the date."
+        },
+        {
+          "name": "rgbTok",
+          "type": "LPBYTE",
+          "description": "Pointer to the tokenized format string."
+        },
+        {
+          "name": "dwFlags",
+          "type": "ULONG",
+          "description": "Flags that control the function's behavior."
+        },
+        {
+          "name": "pbstrOut",
+          "type": "BSTR*",
+          "description": "Pointer to the BSTR that receives the formatted date string."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Locale identifier that specifies the locale."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, the return value is S_OK. If the function fails, the return value is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_FormatString",
+      "description": "This function formats a string based on the provided parameters and returns the result.",
+      "parameters": [
+        {
+          "name": "pVarIn",
+          "type": "LPVARIANT",
+          "description": "Pointer to the variant to be formatted"
+        },
+        {
+          "name": "lpszFormat",
+          "type": "LPOLESTR",
+          "description": "Pointer to the format string"
+        },
+        {
+          "name": "rgbTok",
+          "type": "LPBYTE",
+          "description": "Pointer to the token array"
+        },
+        {
+          "name": "dwFlags",
+          "type": "ULONG",
+          "description": "Flags to control the formatting"
+        },
+        {
+          "name": "pbstrOut",
+          "type": "BSTR*",
+          "description": "Pointer to the output BSTR"
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Locale identifier to be used for formatting"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function execution"
+    }
+  },
+  {
+    "function": {
+      "name": "VarFormatFromTokens",
+      "description": "This function formats a variant according to the specified format, tokens, flags, and locale. The result is stored in an output string.",
+      "parameters": [
+        {
+          "name": "pVarIn",
+          "type": "LPVARIANT",
+          "description": "Pointer to the variant to format."
+        },
+        {
+          "name": "lpszFormat",
+          "type": "LPOLESTR",
+          "description": "Pointer to the format string."
+        },
+        {
+          "name": "rgbTok",
+          "type": "LPBYTE",
+          "description": "Pointer to the token array."
+        },
+        {
+          "name": "dwFlags",
+          "type": "ULONG",
+          "description": "Flags to control the format."
+        },
+        {
+          "name": "pbstrOut",
+          "type": "BSTR*",
+          "description": "Pointer to the output string where the result is stored."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Locale identifier to use for the format."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK if the function succeeds, and an error code if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "VarFormat",
+      "description": "This function formats a variant and stores the result in a string.",
+      "parameters": [
+        {
+          "name": "pVarIn",
+          "type": "LPVARIANT",
+          "description": "Pointer to the variant to format."
+        },
+        {
+          "name": "lpszFormat",
+          "type": "LPOLESTR",
+          "description": "Pointer to the format string."
+        },
+        {
+          "name": "nFirstDay",
+          "type": "int",
+          "description": "Specifies the first day of the week."
+        },
+        {
+          "name": "nFirstWeek",
+          "type": "int",
+          "description": "Specifies the first week of the year."
+        },
+        {
+          "name": "dwFlags",
+          "type": "ULONG",
+          "description": "Flags to control the function behavior."
+        },
+        {
+          "name": "pbstrOut",
+          "type": "BSTR*",
+          "description": "Pointer to the BSTR where the result is stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function."
+    }
+  },
+  {
+    "function": {
+      "name": "VarFormatDateTime",
+      "description": "This function formats a date and time variant into a string, based on the given format and flags.",
+      "parameters": [
+        {
+          "name": "pVarIn",
+          "type": "LPVARIANT",
+          "description": "Pointer to the variant to be formatted."
+        },
+        {
+          "name": "nFormat",
+          "type": "INT",
+          "description": "The format to be used for the date and time."
+        },
+        {
+          "name": "dwFlags",
+          "type": "ULONG",
+          "description": "Flags to be used in formatting."
+        },
+        {
+          "name": "pbstrOut",
+          "type": "BSTR*",
+          "description": "Pointer to the output string where the formatted date and time will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns E_INVALIDARG if the input parameters are invalid."
+    }
+  },
+  {
+    "function": {
+      "name": "VarFormatNumber",
+      "description": "This function formats a variant number according to the specified format settings.",
+      "parameters": [
+        {
+          "name": "pVarIn",
+          "type": "LPVARIANT",
+          "description": "Pointer to the variant to format."
+        },
+        {
+          "name": "nDigits",
+          "type": "INT",
+          "description": "Number of digits to use in the format."
+        },
+        {
+          "name": "nLeading",
+          "type": "INT",
+          "description": "Specifies whether to use leading zeros in the format."
+        },
+        {
+          "name": "nParens",
+          "type": "INT",
+          "description": "Specifies whether to use parentheses for negative numbers in the format."
+        },
+        {
+          "name": "nGrouping",
+          "type": "INT",
+          "description": "Specifies the grouping of digits in the format."
+        },
+        {
+          "name": "dwFlags",
+          "type": "ULONG",
+          "description": "Flags to control the format."
+        },
+        {
+          "name": "pbstrOut",
+          "type": "BSTR *",
+          "description": "Pointer to the output BSTR where the formatted string will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns E_INVALIDARG if the input parameters are invalid, E_OUTOFMEMORY if memory allocation fails, DISP_E_TYPEMISMATCH if the type conversion fails, and S_OK if the function succeeds."
+    }
+  },
+  {
+    "function": {
+      "name": "VarFormatPercent",
+      "description": "This function formats a variant into a percentage string. It first checks the validity of the input parameters, then copies the input variant, changes its type to double, multiplies it by 100, and formats it into a number. If all these operations succeed, it appends a percentage sign to the end of the string, frees the original string, and allocates a new string to hold the result.",
+      "parameters": [
+        {
+          "name": "pVarIn",
+          "type": "LPVARIANT",
+          "description": "Pointer to the variant to be formatted"
+        },
+        {
+          "name": "nDigits",
+          "type": "INT",
+          "description": "Number of digits after the decimal point"
+        },
+        {
+          "name": "nLeading",
+          "type": "INT",
+          "description": "Number of leading zeros"
+        },
+        {
+          "name": "nParens",
+          "type": "INT",
+          "description": "Whether to use parentheses for negative numbers"
+        },
+        {
+          "name": "nGrouping",
+          "type": "INT",
+          "description": "Grouping of digits"
+        },
+        {
+          "name": "dwFlags",
+          "type": "ULONG",
+          "description": "Flags controlling the function's behavior"
+        },
+        {
+          "name": "pbstrOut",
+          "type": "BSTR *",
+          "description": "Pointer to the output string"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It can be a success code, an error code, or a warning code"
+    }
+  },
+  {
+    "function": {
+      "name": "VarFormatCurrency",
+      "description": "This function formats a variant into a currency string. It uses the system locale settings to format the currency.",
+      "parameters": [
+        {
+          "name": "pVarIn",
+          "type": "LPVARIANT",
+          "description": "Pointer to the variant to format."
+        },
+        {
+          "name": "nDigits",
+          "type": "INT",
+          "description": "Number of digits after the decimal point."
+        },
+        {
+          "name": "nLeading",
+          "type": "INT",
+          "description": "Determines if leading zeros should be used."
+        },
+        {
+          "name": "nParens",
+          "type": "INT",
+          "description": "Determines if negative numbers are enclosed in parentheses."
+        },
+        {
+          "name": "nGrouping",
+          "type": "INT",
+          "description": "Determines the size of number groups."
+        },
+        {
+          "name": "dwFlags",
+          "type": "ULONG",
+          "description": "Flags to control the function's behavior."
+        },
+        {
+          "name": "pbstrOut",
+          "type": "BSTR *",
+          "description": "Pointer to the BSTR that receives the formatted string."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns standard COM error codes."
+    }
+  },
+  {
+    "function": {
+      "name": "VarMonthName",
+      "description": "This function retrieves the name of a month based on the input parameters. It supports both abbreviated and full month names, and handles localization.",
+      "parameters": [
+        {
+          "name": "iMonth",
+          "type": "INT",
+          "description": "This parameter represents the month number (1-12)."
+        },
+        {
+          "name": "fAbbrev",
+          "type": "INT",
+          "description": "This parameter determines whether the function returns the abbreviated (if non-zero) or full (if zero) month name."
+        },
+        {
+          "name": "dwFlags",
+          "type": "ULONG",
+          "description": "This parameter is currently not supported and is ignored."
+        },
+        {
+          "name": "pbstrOut",
+          "type": "BSTR*",
+          "description": "This is an output parameter. The function will store the resulting month name in the BSTR pointed to by this parameter."
+        }
+      ],
+      "return_type": "HRESULT. It represents the status of the operation. It will return S_OK if the operation is successful, E_INVALIDARG if the month number is out of range, E_OUTOFMEMORY if memory allocation fails, or the error code of the failed Windows API function."
+    }
+  },
+  {
+    "function": {
+      "name": "VarWeekdayName",
+      "description": "This function retrieves the localized weekday name for a given weekday and locale settings. It validates the input parameters, determines the first day of the week, and retrieves the localized weekday name.",
+      "parameters": [
+        {
+          "name": "iWeekday",
+          "type": "INT",
+          "description": "The number of the weekday (1-7)."
+        },
+        {
+          "name": "fAbbrev",
+          "type": "INT",
+          "description": "Flag to determine if the abbreviated weekday name should be returned."
+        },
+        {
+          "name": "iFirstDay",
+          "type": "INT",
+          "description": "The first day of the week (0-7). If 0, the default first day of the week for the locale is used."
+        },
+        {
+          "name": "dwFlags",
+          "type": "ULONG",
+          "description": "Flags to modify the function's behavior. Currently not supported."
+        },
+        {
+          "name": "pbstrOut",
+          "type": "BSTR*",
+          "description": "Pointer to a BSTR to receive the weekday name."
+        }
+      ],
+      "return_type": "HRESULT. It represents the status of the operation. It returns S_OK on success, E_INVALIDARG if the arguments are invalid, E_OUTOFMEMORY if memory allocation fails, or the error code from GetLastError if the GetLocaleInfoW function fails."
+    }
+  }
+]

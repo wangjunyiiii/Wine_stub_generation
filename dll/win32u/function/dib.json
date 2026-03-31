@@ -1,0 +1,963 @@
+[
+  {
+    "function": {
+      "name": "bitmap_info_size",
+      "description": "This function calculates the size of a bitmap information structure, taking into account the color usage and the type of bitmap header.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "BITMAPINFO*",
+          "description": "Pointer to the bitmap information structure"
+        },
+        {
+          "name": "coloruse",
+          "type": "WORD",
+          "description": "Specifies the usage of color in the bitmap"
+        }
+      ],
+      "return_type": "int, represents the size of the bitmap information structure in bytes"
+    }
+  },
+  {
+    "function": {
+      "name": "is_valid_dib_format",
+      "description": "This function checks if the provided DIB format is valid or not. It checks various conditions related to width, height, compression, size, bit count, and planes of the BITMAPINFOHEADER. It also checks for size overflow.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "BITMAPINFOHEADER*",
+          "description": "This is a pointer to the BITMAPINFOHEADER structure that contains information about the dimensions and color format of a DIB."
+        },
+        {
+          "name": "allow_compression",
+          "type": "BOOL",
+          "description": "This parameter determines if compression is allowed or not."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the DIB format is valid, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "bitmapinfoheader_from_user_bitmapinfo",
+      "description": "This function converts a user provided bitmap info into a bitmap info header. It checks the size of the provided info and based on that, it either converts a core header into a bitmap info header or directly copies the info into the destination. If the size is not recognized, it warns the user and returns false.",
+      "parameters": [
+        {
+          "name": "dst",
+          "type": "BITMAPINFOHEADER*",
+          "description": "This is the destination pointer where the converted or copied info will be stored."
+        },
+        {
+          "name": "info",
+          "type": "BITMAPINFOHEADER*",
+          "description": "This is the source pointer from where the info is to be converted or copied."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the conversion or copy was successful, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "bitmapinfo_from_user_bitmapinfo",
+      "description": "This function validates and converts a user-provided bitmap information structure to a system-recognized format.",
+      "parameters": [
+        {
+          "name": "dst",
+          "type": "BITMAPINFO*",
+          "description": "Pointer to the destination bitmap information structure."
+        },
+        {
+          "name": "info",
+          "type": "BITMAPINFO*",
+          "description": "Pointer to the source user-provided bitmap information structure."
+        },
+        {
+          "name": "coloruse",
+          "type": "UINT",
+          "description": "Specifies how the color table is used for color bitmaps."
+        },
+        {
+          "name": "allow_compression",
+          "type": "BOOL",
+          "description": "Flag indicating whether compression is allowed or not."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the conversion is successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "fill_color_table_from_palette",
+      "description": "This function fills a color table from a palette. It calculates the number of colors based on the bit count in the bitmap info header, then retrieves the palette entries and sets the color values in the bitmap info color table.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "BITMAPINFO*",
+          "description": "A pointer to a BITMAPINFO structure that contains information about the dimensions of color format for a DIB."
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "A handle to the device context."
+        }
+      ],
+      "return_type": "int, represents the number of colors in the color table. If the palette is not available or the palette entries could not be retrieved, the function returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "fill_color_table_from_pal_colors",
+      "description": "This function fills a color table from palette colors. It gets the palette entries, fills the RGBQUAD table with the corresponding colors, and then copies this table into the bmiColors field of the BITMAPINFO structure. If there are any unused entries in the bmiColors field, it sets them to zero.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "BITMAPINFO*",
+          "description": "A pointer to a BITMAPINFO structure. This structure contains information about the dimensions and color format of a DIB. The function modifies the bmiColors field of this structure."
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "A handle to a device context. The function uses this handle to retrieve the current palette."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully fills the color table, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "get_pixel_ptr",
+      "description": "This function returns a pointer to a specific pixel in a bitmap image.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "const BITMAPINFO *",
+          "description": "Pointer to the bitmap information structure."
+        },
+        {
+          "name": "bits",
+          "type": "void *",
+          "description": "Pointer to the bitmap pixel data."
+        },
+        {
+          "name": "x",
+          "type": "int",
+          "description": "The x-coordinate of the pixel."
+        },
+        {
+          "name": "y",
+          "type": "int",
+          "description": "The y-coordinate of the pixel."
+        }
+      ],
+      "return_type": "void pointer. It represents the address of the pixel at the specified x and y coordinates."
+    }
+  },
+  {
+    "function": {
+      "name": "build_rle_bitmap",
+      "description": "This function builds a run-length encoded bitmap from the given parameters.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "BITMAPINFO *",
+          "description": "Pointer to a BITMAPINFO structure that contains information about the dimensions and color format of a DIB."
+        },
+        {
+          "name": "bits",
+          "type": "struct gdi_image_bits *",
+          "description": "Pointer to a gdi_image_bits structure that contains information about the bitmap bits."
+        },
+        {
+          "name": "clip",
+          "type": "HRGN *",
+          "description": "Pointer to a HRGN structure that defines the clipping region."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully builds the bitmap, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_StretchDIBits",
+      "description": "This function is used to stretch or compress the bitmap image to the dimensions specified by the destination rectangle. If the dimensions of the source rectangle and destination rectangle are not the same, the source bitmap is stretched or compressed to fit the destination rectangle.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Device context to be used"
+        },
+        {
+          "name": "xDst",
+          "type": "INT",
+          "description": "x-coordinate of the upper-left corner of the destination rectangle"
+        },
+        {
+          "name": "yDst",
+          "type": "INT",
+          "description": "y-coordinate of the upper-left corner of the destination rectangle"
+        },
+        {
+          "name": "widthDst",
+          "type": "INT",
+          "description": "Width of the destination rectangle"
+        },
+        {
+          "name": "heightDst",
+          "type": "INT",
+          "description": "Height of the destination rectangle"
+        },
+        {
+          "name": "xSrc",
+          "type": "INT",
+          "description": "x-coordinate of the upper-left corner of the source rectangle"
+        },
+        {
+          "name": "ySrc",
+          "type": "INT",
+          "description": "y-coordinate of the upper-left corner of the source rectangle"
+        },
+        {
+          "name": "widthSrc",
+          "type": "INT",
+          "description": "Width of the source rectangle"
+        },
+        {
+          "name": "heightSrc",
+          "type": "INT",
+          "description": "Height of the source rectangle"
+        },
+        {
+          "name": "bits",
+          "type": "void *",
+          "description": "Pointer to the bitmap bits"
+        },
+        {
+          "name": "src_info",
+          "type": "BITMAPINFO *",
+          "description": "Pointer to a BITMAPINFO structure that contains information about the DIB"
+        },
+        {
+          "name": "coloruse",
+          "type": "UINT",
+          "description": "Specifies whether the bmiColors member of the BITMAPINFO structure contains explicit red, green, blue, and alpha values or indexes"
+        },
+        {
+          "name": "rop",
+          "type": "DWORD",
+          "description": "Raster operation code. These codes define how the color data for the source rectangle is to be combined with the color data for the destination rectangle to achieve the final color"
+        }
+      ],
+      "return_type": "INT, represents the height of the original bitmap if the function is successful. Otherwise, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiStretchDIBitsInternal",
+      "description": "This function is used to stretch or compress the bitmap image and copy the color data for the rectangle it defines into the specified destination rectangle.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the destination device context."
+        },
+        {
+          "name": "xDst",
+          "type": "INT",
+          "description": "The x-coordinate, in logical units, of the upper-left corner of the destination rectangle."
+        },
+        {
+          "name": "yDst",
+          "type": "INT",
+          "description": "The y-coordinate, in logical units, of the upper-left corner of the destination rectangle."
+        },
+        {
+          "name": "widthDst",
+          "type": "INT",
+          "description": "The width, in logical units, of the destination rectangle."
+        },
+        {
+          "name": "heightDst",
+          "type": "INT",
+          "description": "The height, in logical units, of the destination rectangle."
+        },
+        {
+          "name": "xSrc",
+          "type": "INT",
+          "description": "The x-coordinate, in logical units, of the lower-left corner of the source rectangle."
+        },
+        {
+          "name": "ySrc",
+          "type": "INT",
+          "description": "The y-coordinate, in logical units, of the lower-left corner of the source rectangle."
+        },
+        {
+          "name": "widthSrc",
+          "type": "INT",
+          "description": "The width, in logical units, of the source rectangle."
+        },
+        {
+          "name": "heightSrc",
+          "type": "INT",
+          "description": "The height, in logical units, of the source rectangle."
+        },
+        {
+          "name": "bits",
+          "type": "void *",
+          "description": "Pointer to the bitmap bits."
+        },
+        {
+          "name": "bmi",
+          "type": "BITMAPINFO *",
+          "description": "Pointer to a BITMAPINFO structure that contains information about the DIB."
+        },
+        {
+          "name": "coloruse",
+          "type": "UINT",
+          "description": "Specifies whether the bmiColors member of the BITMAPINFO structure contains explicit red, green, blue color data or a palette index."
+        },
+        {
+          "name": "rop",
+          "type": "DWORD",
+          "description": "A raster-operation code."
+        },
+        {
+          "name": "max_info",
+          "type": "UINT",
+          "description": "Specifies the maximum amount of information to be updated in the bitmap info."
+        },
+        {
+          "name": "max_bits",
+          "type": "UINT",
+          "description": "Specifies the maximum amount of bits to be updated in the bitmap."
+        },
+        {
+          "name": "xform",
+          "type": "HANDLE",
+          "description": "Handle to the transformation to be applied."
+        }
+      ],
+      "return_type": "INT, represents the height of the source bitmap if the function succeeds. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "set_di_bits",
+      "description": "This function sets the bits of a device-independent bitmap (DIB) to the specified values.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "hbitmap",
+          "type": "HBITMAP",
+          "description": "Handle to the bitmap."
+        },
+        {
+          "name": "startscan",
+          "type": "UINT",
+          "description": "Specifies the starting scan line of the array."
+        },
+        {
+          "name": "lines",
+          "type": "UINT",
+          "description": "Specifies the number of scan lines found in the array."
+        },
+        {
+          "name": "bits",
+          "type": "LPCVOID",
+          "description": "Pointer to the array of DIB bits."
+        },
+        {
+          "name": "info",
+          "type": "BITMAPINFO *",
+          "description": "Pointer to a BITMAPINFO structure that contains information about the DIB."
+        },
+        {
+          "name": "coloruse",
+          "type": "UINT",
+          "description": "Specifies whether the bmiColors member of the BITMAPINFO structure contains explicit red, green, blue (RGB) values or indexes."
+        }
+      ],
+      "return_type": "int, represents the number of scan lines set, or zero if the function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_SetDIBitsToDevice",
+      "description": "This function sets the pixels in a rectangle of a device context using color data from a DIB.",
+      "parameters": [
+        {
+          "name": "dev",
+          "type": "PHYSDEV",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "x_dst",
+          "type": "INT",
+          "description": "The x-coordinate, in logical units, of the upper-left corner of the destination rectangle."
+        },
+        {
+          "name": "y_dst",
+          "type": "INT",
+          "description": "The y-coordinate, in logical units, of the upper-left corner of the destination rectangle."
+        },
+        {
+          "name": "cx",
+          "type": "DWORD",
+          "description": "The width, in logical units, of the rectangle."
+        },
+        {
+          "name": "cy",
+          "type": "DWORD",
+          "description": "The height, in logical units, of the rectangle."
+        },
+        {
+          "name": "x_src",
+          "type": "INT",
+          "description": "The x-coordinate, in logical units, of the upper-left corner of the source rectangle in the DIB."
+        },
+        {
+          "name": "y_src",
+          "type": "INT",
+          "description": "The y-coordinate, in logical units, of the upper-left corner of the source rectangle in the DIB."
+        },
+        {
+          "name": "startscan",
+          "type": "UINT",
+          "description": "The starting scan line in the DIB."
+        },
+        {
+          "name": "lines",
+          "type": "UINT",
+          "description": "The number of DIB scan lines to set in the device context."
+        },
+        {
+          "name": "bits",
+          "type": "void *",
+          "description": "Pointer to the DIB bits, which are an array of bytes."
+        },
+        {
+          "name": "src_info",
+          "type": "BITMAPINFO *",
+          "description": "Pointer to a BITMAPINFO structure that contains information about the DIB."
+        },
+        {
+          "name": "coloruse",
+          "type": "UINT",
+          "description": "Specifies whether the bmiColors member of the BITMAPINFO structure contains explicit red, green, blue color data or a palette index."
+        }
+      ],
+      "return_type": "INT, represents the number of scan lines set, zero indicates failure."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiSetDIBitsToDeviceInternal",
+      "description": "This function sets the pixels in a rectangle of a Windows device context using color data from a DIB.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "A handle to the device context."
+        },
+        {
+          "name": "xDest",
+          "type": "INT",
+          "description": "The x-coordinate, in logical units, of the upper-left corner of the destination rectangle."
+        },
+        {
+          "name": "yDest",
+          "type": "INT",
+          "description": "The y-coordinate, in logical units, of the upper-left corner of the destination rectangle."
+        },
+        {
+          "name": "cx",
+          "type": "DWORD",
+          "description": "The width, in logical units, of the rectangle."
+        },
+        {
+          "name": "cy",
+          "type": "DWORD",
+          "description": "The height, in logical units, of the rectangle."
+        },
+        {
+          "name": "xSrc",
+          "type": "INT",
+          "description": "The x-coordinate, in logical units, of the lower-left corner of the source rectangle."
+        },
+        {
+          "name": "ySrc",
+          "type": "INT",
+          "description": "The y-coordinate, in logical units, of the lower-left corner of the source rectangle."
+        },
+        {
+          "name": "startscan",
+          "type": "UINT",
+          "description": "The starting scan line in the source bitmap."
+        },
+        {
+          "name": "lines",
+          "type": "UINT",
+          "description": "The number of scan lines found in the array pointed to by the lpvBits parameter."
+        },
+        {
+          "name": "bits",
+          "type": "void *",
+          "description": "A pointer to the color data stored in a DIB format."
+        },
+        {
+          "name": "bmi",
+          "type": "BITMAPINFO *",
+          "description": "A pointer to a BITMAPINFO structure that contains information about the DIB."
+        },
+        {
+          "name": "coloruse",
+          "type": "UINT",
+          "description": "Specifies whether the bmiColors member of the BITMAPINFO structure contains explicit red, green, blue color values or indexes."
+        },
+        {
+          "name": "max_bits",
+          "type": "UINT",
+          "description": "The maximum number of bits that can be set."
+        },
+        {
+          "name": "max_info",
+          "type": "UINT",
+          "description": "The maximum amount of information that can be set."
+        },
+        {
+          "name": "xform_coords",
+          "type": "BOOL",
+          "description": "A flag indicating whether the coordinates should be transformed."
+        },
+        {
+          "name": "xform",
+          "type": "HANDLE",
+          "description": "A handle to the transformation if xform_coords is TRUE."
+        }
+      ],
+      "return_type": "INT, represents the number of scan lines set, or zero if the function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "set_dib_dc_color_table",
+      "description": "This function sets the color table of a device-independent bitmap (DIB) for a device context (DC).",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "startpos",
+          "type": "UINT",
+          "description": "The starting position in the color table where colors should be set."
+        },
+        {
+          "name": "entries",
+          "type": "UINT",
+          "description": "The number of color entries to set."
+        },
+        {
+          "name": "colors",
+          "type": "RGBQUAD*",
+          "description": "Pointer to an array of RGBQUAD structures containing color data."
+        }
+      ],
+      "return_type": "UINT, represents the number of color entries that were actually set in the color table."
+    }
+  },
+  {
+    "function": {
+      "name": "get_dib_dc_color_table",
+      "description": "This function retrieves a specified range of color table entries from the DIB section of a specified device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "startpos",
+          "type": "UINT",
+          "description": "Specifies the first color table entry to retrieve."
+        },
+        {
+          "name": "entries",
+          "type": "UINT",
+          "description": "Specifies the number of color table entries to retrieve."
+        },
+        {
+          "name": "colors",
+          "type": "RGBQUAD*",
+          "description": "Pointer to an array of RGBQUAD structures to receive the color table entries."
+        }
+      ],
+      "return_type": "UINT, represents the number of color table entries actually retrieved."
+    }
+  },
+  {
+    "function": {
+      "name": "fill_query_info",
+      "description": "This function fills the bitmap information for a given bitmap object and returns the height of the bitmap.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "BITMAPINFO *",
+          "description": "Pointer to a BITMAPINFO structure that will be filled with the bitmap information."
+        },
+        {
+          "name": "bmp",
+          "type": "BITMAPOBJ *",
+          "description": "Pointer to a BITMAPOBJ structure that contains the bitmap object to be queried."
+        }
+      ],
+      "return_type": "int, represents the height of the bitmap."
+    }
+  },
+  {
+    "function": {
+      "name": "copy_color_info",
+      "description": "This function copies color information from a source BITMAPINFO structure to a destination BITMAPINFO structure, based on the color usage parameter.",
+      "parameters": [
+        {
+          "name": "dst",
+          "type": "BITMAPINFO*",
+          "description": "Pointer to the destination BITMAPINFO structure where color information will be copied."
+        },
+        {
+          "name": "src",
+          "type": "BITMAPINFO*",
+          "description": "Pointer to the source BITMAPINFO structure from where color information will be copied."
+        },
+        {
+          "name": "coloruse",
+          "type": "UINT",
+          "description": "Specifies the color usage. It can be DIB_PAL_COLORS or DIB_RGB_COLORS."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "get_default_color_table",
+      "description": "This function returns a pointer to a color table based on the bits per pixel (bpp) value provided. It defines three color tables for 1, 4, and 8 bpp respectively and returns the appropriate one.",
+      "parameters": [
+        {
+          "name": "bpp",
+          "type": "int",
+          "description": "This parameter represents the bits per pixel for which the color table is required."
+        }
+      ],
+      "return_type": "RGBQUAD pointer, representing the color table corresponding to the provided bits per pixel value."
+    }
+  },
+  {
+    "function": {
+      "name": "fill_default_color_table",
+      "description": "This function fills the default color table of a given BITMAPINFO structure.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "BITMAPINFO*",
+          "description": "A pointer to the BITMAPINFO structure whose color table is to be filled."
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "get_ddb_bitmapinfo",
+      "description": "This function sets the properties of a BITMAPINFO structure using the values from a BITMAPOBJ structure.",
+      "parameters": [
+        {
+          "name": "bmp",
+          "type": "BITMAPOBJ*",
+          "description": "A pointer to a BITMAPOBJ structure that contains the bitmap information to be used."
+        },
+        {
+          "name": "info",
+          "type": "BITMAPINFO*",
+          "description": "A pointer to a BITMAPINFO structure that will be filled with the bitmap information from the BITMAPOBJ structure."
+        }
+      ],
+      "return_type": "void, this function does not return a value but modifies the BITMAPINFO structure pointed to by the 'info' parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "copy_packed_dib",
+      "description": "This function copies a packed device-independent bitmap (DIB) from a source BITMAPINFO structure to a newly allocated BITMAPINFO structure, and returns a pointer to the new structure.",
+      "parameters": [
+        {
+          "name": "src_info",
+          "type": "const BITMAPINFO *",
+          "description": "A pointer to the source BITMAPINFO structure that contains the DIB to be copied."
+        },
+        {
+          "name": "usage",
+          "type": "UINT",
+          "description": "Specifies the usage of the DIB. This parameter can be one of the following values: DIB_RGB_COLORS or DIB_PAL_COLORS."
+        }
+      ],
+      "return_type": "BITMAPINFO pointer. It represents a pointer to the newly allocated BITMAPINFO structure that contains the copied DIB. If the function fails, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiGetDIBitsInternal",
+      "description": "This function retrieves the bits of a specified compatible bitmap and copies them into a buffer using the specified format.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "A handle to the device context."
+        },
+        {
+          "name": "hbitmap",
+          "type": "HBITMAP",
+          "description": "A handle to the bitmap."
+        },
+        {
+          "name": "startscan",
+          "type": "UINT",
+          "description": "The first scan line to retrieve."
+        },
+        {
+          "name": "lines",
+          "type": "UINT",
+          "description": "The number of scan lines to retrieve."
+        },
+        {
+          "name": "bits",
+          "type": "void *",
+          "description": "A pointer to a buffer to receive the bitmap data."
+        },
+        {
+          "name": "info",
+          "type": "BITMAPINFO *",
+          "description": "A pointer to a BITMAPINFO structure that specifies the desired format for the bitmap data."
+        },
+        {
+          "name": "coloruse",
+          "type": "UINT",
+          "description": "The expected usage of the color table in the BITMAPINFO structure."
+        },
+        {
+          "name": "max_bits",
+          "type": "UINT",
+          "description": "The maximum number of bits that the function can set."
+        },
+        {
+          "name": "max_info",
+          "type": "UINT",
+          "description": "The maximum number of BITMAPINFO structures that the function can return."
+        }
+      ],
+      "return_type": "INT. The function returns the number of scan lines copied from the bitmap into the buffer, or 0 if the function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiCreateDIBitmapInternal",
+      "description": "This function creates a device-independent bitmap (DIB) that applications can write to directly. The function gives you a pointer to the location of the bitmap bit values.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "The bitmap width, in pixels."
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "The bitmap height, in pixels."
+        },
+        {
+          "name": "init",
+          "type": "DWORD",
+          "description": "Specifies whether the bitmap is initialized."
+        },
+        {
+          "name": "bits",
+          "type": "void *",
+          "description": "Pointer to an array of bytes that contains the initial bitmap data."
+        },
+        {
+          "name": "data",
+          "type": "BITMAPINFO *",
+          "description": "Pointer to a BITMAPINFO structure that describes the dimensions and color format of the bitmap."
+        },
+        {
+          "name": "coloruse",
+          "type": "UINT",
+          "description": "Specifies how the system interprets values in the color table of the BITMAPINFO structure."
+        },
+        {
+          "name": "max_info",
+          "type": "UINT",
+          "description": "Specifies the maximum number of BITMAPINFO structures that the function can process."
+        },
+        {
+          "name": "max_bits",
+          "type": "UINT",
+          "description": "Specifies the maximum number of bytes that the function can add to the bitmap."
+        },
+        {
+          "name": "flags",
+          "type": "ULONG",
+          "description": "Specifies one or more flags."
+        },
+        {
+          "name": "xform",
+          "type": "HANDLE",
+          "description": "Handle to the transformation."
+        }
+      ],
+      "return_type": "HBITMAP. It represents the handle to the DIB if the function is successful. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiCreateDIBSection",
+      "description": "This function creates a DIB section that applications can write to directly. It is used to create a device-independent bitmap (DIB) that applications can write to directly.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "section",
+          "type": "HANDLE",
+          "description": "Handle to a file-mapping object that the function will use to create the DIB."
+        },
+        {
+          "name": "offset",
+          "type": "DWORD",
+          "description": "Specifies the offset from the beginning of the file-mapping object referenced by section."
+        },
+        {
+          "name": "bmi",
+          "type": "BITMAPINFO *",
+          "description": "Pointer to a BITMAPINFO structure that contains information about the DIB."
+        },
+        {
+          "name": "usage",
+          "type": "UINT",
+          "description": "Specifies the type of color indices that should be used for the bitmap."
+        },
+        {
+          "name": "header_size",
+          "type": "UINT",
+          "description": "Specifies the size of the DIB header."
+        },
+        {
+          "name": "flags",
+          "type": "ULONG",
+          "description": "Specifies flags that control the type of DIB to be created."
+        },
+        {
+          "name": "color_space",
+          "type": "ULONG_PTR",
+          "description": "Specifies the color space of the DIB."
+        },
+        {
+          "name": "bits",
+          "type": "void **",
+          "description": "Pointer to a variable that receives a pointer to the location of the DIB bit values."
+        }
+      ],
+      "return_type": "HBITMAP. If the function succeeds, the return value is a handle to the DIB section. If the function fails, the return value is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "memory_dib_DeleteObject",
+      "description": "This function deletes a memory device-independent bitmap (DIB) object, freeing its associated resources.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "This is a handle to the DIB object to be deleted."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the DIB object was successfully deleted, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDICreateDCFromMemory",
+      "description": "This function creates a device context (DC) for a bitmap from memory, using the specified format, width, height, and pitch. It also handles the allocation of necessary resources and error checking.",
+      "parameters": [
+        {
+          "name": "desc",
+          "type": "D3DKMT_CREATEDCFROMMEMORY *",
+          "description": "This is a pointer to a structure that contains information about the bitmap to be created, including its format, width, height, pitch, device DC, color table, and memory location."
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the status of the function execution. It returns STATUS_SUCCESS if the function executes successfully. If there is an error (e.g., invalid parameters or memory allocation failure), it returns STATUS_INVALID_PARAMETER."
+    }
+  },
+  {
+    "function": {
+      "name": "NtGdiDdDDIDestroyDCFromMemory",
+      "description": "This function destroys a device context (DC) and its associated bitmap from memory. It checks if the given parameters are valid and of the correct type, deletes the bitmap and the DC, and then returns a status code.",
+      "parameters": [
+        {
+          "name": "desc",
+          "type": "D3DKMT_DESTROYDCFROMMEMORY *",
+          "description": "This is a pointer to a D3DKMT_DESTROYDCFROMMEMORY structure that describes the DC and the bitmap to be destroyed."
+        }
+      ],
+      "return_type": "NTSTATUS, which represents the status of the operation. It returns STATUS_INVALID_PARAMETER if the input parameter is null or if the objects are not of the correct type, and STATUS_SUCCESS if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "DIB_GetObject",
+      "description": "This function retrieves information for a specified graphics object. Depending on the second parameter, this function can return different types of objects.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "Handle to the graphics object"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Specifies the number of bytes of information to be written to the buffer"
+        },
+        {
+          "name": "buffer",
+          "type": "LPVOID",
+          "description": "Pointer to a buffer that receives the information about the specified graphics object"
+        }
+      ],
+      "return_type": "INT, represents the number of bytes stored into the buffer"
+    }
+  },
+  {
+    "function": {
+      "name": "DIB_DeleteObject",
+      "description": "This function deletes a bitmap object associated with the given handle. It frees the memory allocated for the bitmap object and its color table.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HGDIOBJ",
+          "description": "This is a handle to the bitmap object that needs to be deleted."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the bitmap object is successfully deleted, otherwise returns FALSE."
+    }
+  }
+]

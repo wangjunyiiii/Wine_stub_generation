@@ -1,0 +1,467 @@
+[
+  {
+    "function": {
+      "name": "init_generic_string_formats",
+      "description": "This function initializes the generic default and typographic formats by copying the values from the default drawstring format. It also sets specific attributes, trimming, and typographic properties for the generic typographic format.",
+      "parameters": [],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "free_generic_string_formats",
+      "description": "This function frees the memory allocated for character ranges and tabs in both generic default and typographic formats",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateStringFormat",
+      "description": "This function creates a new string format object, initializes it with the specified attributes and language, and assigns it to the provided pointer.",
+      "parameters": [
+        {
+          "name": "attr",
+          "type": "INT",
+          "description": "This parameter specifies the attributes to be used for the string format."
+        },
+        {
+          "name": "lang",
+          "type": "LANGID",
+          "description": "This parameter specifies the language to be used for the string format."
+        },
+        {
+          "name": "format",
+          "type": "GpStringFormat **",
+          "description": "This is a pointer to a pointer to a GpStringFormat object. The function will create a new GpStringFormat object and assign its address to this pointer."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It returns 'InvalidParameter' if the format pointer is null, 'OutOfMemory' if memory allocation fails, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipDeleteStringFormat",
+      "description": "This function deletes a string format by freeing the memory allocated for character ranges, tabs and the format itself. It returns an error if the format is null or if it matches the generic default or typographic format.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GpStringFormat *",
+          "description": "This is a pointer to the string format to be deleted."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if the format is null, or 'Ok' if the format matches the generic default or typographic format."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipStringFormatGetGenericDefault",
+      "description": "This function checks if the format parameter is not null, assigns it the address of the generic_default_format, and returns Ok. If the format parameter is null, it returns InvalidParameter.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GpStringFormat **",
+          "description": "A pointer to a pointer to a GpStringFormat object. This parameter is used to store the address of the generic_default_format."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns Ok if the operation is successful, and InvalidParameter if the format parameter is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetStringFormatAlign",
+      "description": "This function retrieves the alignment field from a GpStringFormat object and assigns it to a StringAlignment variable.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GpStringFormat *",
+          "description": "Pointer to the GpStringFormat object from which to retrieve the alignment field."
+        },
+        {
+          "name": "align",
+          "type": "StringAlignment *",
+          "description": "Pointer to a StringAlignment variable where the retrieved alignment field will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if any of the input parameters is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetStringFormatDigitSubstitution",
+      "description": "This function retrieves the language and digit substitution for the specified string format.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GDIPCONST GpStringFormat *",
+          "description": "A pointer to the string format to retrieve the language and digit substitution from."
+        },
+        {
+          "name": "language",
+          "type": "LANGID *",
+          "description": "A pointer to a variable that receives the language of the string format."
+        },
+        {
+          "name": "substitute",
+          "type": "StringDigitSubstitute *",
+          "description": "A pointer to a variable that receives the digit substitution of the string format."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the format is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetStringFormatFlags",
+      "description": "This function checks if the format and flags parameters are not null, assigns the attribute of the format to the flags, and returns a status.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GDIPCONST GpStringFormat*",
+          "description": "Pointer to the GpStringFormat structure."
+        },
+        {
+          "name": "flags",
+          "type": "INT*",
+          "description": "Pointer to an integer where the format's attribute will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if either of the input parameters is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetStringFormatHotkeyPrefix",
+      "description": "This function checks if the parameters are not null, assigns the value of the 'hkprefix' field of the 'format' parameter to 'hkpx', and returns a status.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GDIPCONST GpStringFormat*",
+          "description": "Pointer to a GpStringFormat structure."
+        },
+        {
+          "name": "hkpx",
+          "type": "INT*",
+          "description": "Pointer to an integer where the hotkey prefix will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if any of the parameters is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetStringFormatLineAlign",
+      "description": "This function gets the line alignment of a string format.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GpStringFormat *",
+          "description": "This is the string format from which the line alignment is to be retrieved."
+        },
+        {
+          "name": "align",
+          "type": "StringAlignment *",
+          "description": "This is the pointer where the retrieved line alignment will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if any of the input parameters is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetStringFormatMeasurableCharacterRangeCount",
+      "description": "This function checks if the parameters are not null, assigns the range_count of the format to count, and returns a status.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GDIPCONST GpStringFormat *",
+          "description": "A pointer to the GpStringFormat structure."
+        },
+        {
+          "name": "count",
+          "type": "INT *",
+          "description": "A pointer to an integer where the range_count of the format will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns InvalidParameter if either of the parameters is null, otherwise returns Ok."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetStringFormatTabStopCount",
+      "description": "This function retrieves the number of tab stops in the specified string format.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GDIPCONST GpStringFormat *",
+          "description": "A pointer to the string format object."
+        },
+        {
+          "name": "count",
+          "type": "INT *",
+          "description": "A pointer to the variable that receives the number of tab stops."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns 'InvalidParameter' if the input parameters are null, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetStringFormatTabStops",
+      "description": "This function retrieves the tab stops for the specified string format.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GDIPCONST GpStringFormat *",
+          "description": "Pointer to the string format object."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of elements in the tabs array."
+        },
+        {
+          "name": "firsttab",
+          "type": "REAL *",
+          "description": "Pointer to the first tab stop."
+        },
+        {
+          "name": "tabs",
+          "type": "REAL *",
+          "description": "Pointer to the array of tab stops."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters are null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetStringFormatTrimming",
+      "description": "This function checks the validity of the parameters and assigns the trimming property of the format to the trimming parameter.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GpStringFormat *",
+          "description": "Pointer to the string format object."
+        },
+        {
+          "name": "trimming",
+          "type": "StringTrimming *",
+          "description": "Pointer to the string trimming object."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if any parameter is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetStringFormatAlign",
+      "description": "This function sets the alignment of a string format.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GpStringFormat *",
+          "description": "This is a pointer to the string format to be aligned."
+        },
+        {
+          "name": "align",
+          "type": "StringAlignment",
+          "description": "This is the alignment to be set."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the format is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetStringFormatDigitSubstitution",
+      "description": "This function sets the language and method used for digit substitution in a specified StringFormat object.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GpStringFormat *",
+          "description": "Pointer to the StringFormat object where the digit substitution settings are to be applied."
+        },
+        {
+          "name": "language",
+          "type": "LANGID",
+          "description": "Specifies the language to be used for digit substitution."
+        },
+        {
+          "name": "substitute",
+          "type": "StringDigitSubstitute",
+          "description": "Specifies the method to be used for digit substitution."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the format parameter is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetStringFormatHotkeyPrefix",
+      "description": "This function sets the hotkey prefix for a given string format.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GpStringFormat *",
+          "description": "This is a pointer to the string format to set the hotkey prefix for."
+        },
+        {
+          "name": "hkpx",
+          "type": "INT",
+          "description": "This is the hotkey prefix to set. It should be a value between 0 and 2."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the parameters are not valid, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetStringFormatLineAlign",
+      "description": "This function sets the line alignment for a given string format.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GpStringFormat *",
+          "description": "This is a pointer to the string format to be modified."
+        },
+        {
+          "name": "align",
+          "type": "StringAlignment",
+          "description": "This is the alignment to be set for the string format."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the format is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetStringFormatMeasurableCharacterRanges",
+      "description": "This function sets the measurable character ranges for a given string format.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GpStringFormat *",
+          "description": "Pointer to the string format to set the measurable character ranges for."
+        },
+        {
+          "name": "rangeCount",
+          "type": "INT",
+          "description": "The number of character ranges."
+        },
+        {
+          "name": "ranges",
+          "type": "GDIPCONST CharacterRange *",
+          "description": "Pointer to the array of character ranges to be set."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the format or ranges is NULL, 'OutOfMemory' if memory allocation fails, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetStringFormatTabStops",
+      "description": "This function sets the tab stops in the specified string format object. It also reallocates memory if the current tab count is less than the new count.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GpStringFormat *",
+          "description": "Pointer to the string format object"
+        },
+        {
+          "name": "firsttab",
+          "type": "REAL",
+          "description": "The position of the first tab stop"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "The number of tab stops"
+        },
+        {
+          "name": "tabs",
+          "type": "GDIPCONST REAL *",
+          "description": "Pointer to the array of tab stops"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return Ok if the operation is successful, InvalidParameter if the parameters are not valid, NotImplemented if the first tab stop is negative, or OutOfMemory if memory reallocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetStringFormatTrimming",
+      "description": "This function sets the trimming for the specified string format.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GpStringFormat *",
+          "description": "This is a pointer to the string format to be set."
+        },
+        {
+          "name": "trimming",
+          "type": "StringTrimming",
+          "description": "This parameter specifies the trimming to be set."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the format is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetStringFormatFlags",
+      "description": "This function sets the attribute of the format object to the value of flags.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GpStringFormat *",
+          "description": "This is a pointer to the format object whose attribute is to be set."
+        },
+        {
+          "name": "flags",
+          "type": "INT",
+          "description": "This is the value to which the attribute of the format object is to be set."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the format object pointer is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCloneStringFormat",
+      "description": "This function clones a string format. If the original format has tab stops or character ranges, it allocates memory for these arrays in the new format and copies the data from the original format.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GDIPCONST GpStringFormat *",
+          "description": "Pointer to the original string format to be cloned."
+        },
+        {
+          "name": "newFormat",
+          "type": "GpStringFormat **",
+          "description": "Pointer to a pointer, which will point to the newly cloned string format."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can return 'InvalidParameter' if any of the parameters is NULL, 'OutOfMemory' if memory allocation fails, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipStringFormatGetGenericTypographic",
+      "description": "This function checks if the format is null, if not, it assigns the address of generic_typographic_format to the format and returns Ok. If the format is null, it returns InvalidParameter.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "GpStringFormat **",
+          "description": "This is a pointer to a pointer to a GpStringFormat object. It is used to store the address of generic_typographic_format."
+        }
+      ],
+      "return_type": "GpStatus, it represents the status of the operation. It returns Ok if the operation is successful, otherwise it returns InvalidParameter."
+    }
+  }
+]

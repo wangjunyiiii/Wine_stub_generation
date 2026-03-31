@@ -1,0 +1,116 @@
+[
+  {
+    "function": {
+      "name": "StdMarshalCF_QueryInterface",
+      "description": "This function checks if the provided interface ID matches either IID_IUnknown or IID_IClassFactory. If it does, it sets the value of the third parameter to the interface and returns S_OK. If it doesn't, it returns E_NOINTERFACE.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPCLASSFACTORY",
+          "description": "Pointer to the interface that is being queried"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier that is being requested"
+        },
+        {
+          "name": "ppv",
+          "type": "LPVOID *",
+          "description": "Pointer to a pointer that, on successful return, points to the requested interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the interface is supported, E_NOINTERFACE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "StdMarshalCF_AddRef",
+      "description": "This function returns a static value of 2, indicating a non-heap based object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPCLASSFACTORY",
+          "description": "This parameter is not used in the function."
+        }
+      ],
+      "return_type": "ULONG, represents a non-heap based object."
+    }
+  },
+  {
+    "function": {
+      "name": "StdMarshalCF_Release",
+      "description": "This function returns a static value 1, indicating a non-heap based object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPCLASSFACTORY",
+          "description": "This parameter is an interface pointer of type LPCLASSFACTORY."
+        }
+      ],
+      "return_type": "ULONG, representing a non-heap based object."
+    }
+  },
+  {
+    "function": {
+      "name": "StdMarshalCF_CreateInstance",
+      "description": "This function checks if the provided interface identifier (riid) is equal to IID_IUnknown or IID_IMarshal. If it is, it calls the InternalCoStdMarshalObject function. If it's not, it returns an error message indicating that the interface is not supported.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPCLASSFACTORY",
+          "description": "Pointer to the class factory interface"
+        },
+        {
+          "name": "pUnk",
+          "type": "LPUNKNOWN",
+          "description": "Pointer to the unknown interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier"
+        },
+        {
+          "name": "ppv",
+          "type": "LPVOID *",
+          "description": "Pointer to the void pointer where the result or the created instance is stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. Returns a success code if the interface is supported, otherwise returns E_NOINTERFACE"
+    }
+  },
+  {
+    "function": {
+      "name": "StdMarshalCF_LockServer",
+      "description": "This function is a stub and currently only logs the fLock parameter value and returns S_OK.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "LPCLASSFACTORY",
+          "description": "This parameter is not used in the current implementation of the function."
+        },
+        {
+          "name": "fLock",
+          "type": "BOOL",
+          "description": "This parameter is logged but not otherwise used in the current implementation of the function."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, in this case always returns S_OK indicating a successful operation."
+    }
+  },
+  {
+    "function": {
+      "name": "MARSHAL_GetStandardMarshalCF",
+      "description": "This function assigns the address of StdMarshalCF to the pointer *ppv and returns S_OK.",
+      "parameters": [
+        {
+          "name": "ppv",
+          "type": "LPVOID*",
+          "description": "A pointer to a pointer to a void. It is used to store the address of StdMarshalCF."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns S_OK indicating a successful operation."
+    }
+  }
+]

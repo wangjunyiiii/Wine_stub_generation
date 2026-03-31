@@ -1,0 +1,564 @@
+[
+  {
+    "function": {
+      "name": "read_ushort_be",
+      "description": "This function reads a 16-bit unsigned integer from a byte array in big-endian order.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "BYTE*",
+          "description": "A pointer to the byte array from which to read the unsigned short."
+        }
+      ],
+      "return_type": "USHORT, representing a 16-bit unsigned integer read from the byte array."
+    }
+  },
+  {
+    "function": {
+      "name": "read_ulong_be",
+      "description": "This function reads 4 bytes from the input data and combines them into a single unsigned long integer, interpreting the bytes as a big-endian number.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "BYTE*",
+          "description": "A pointer to the input data from which to read the bytes."
+        }
+      ],
+      "return_type": "ULONG, represents the combined unsigned long integer."
+    }
+  },
+  {
+    "function": {
+      "name": "LoadTextMetadata",
+      "description": "This function reads a PNG chunk, processes the metadata, and assigns it to a handler.",
+      "parameters": [
+        {
+          "name": "handler",
+          "type": "MetadataHandler *",
+          "description": "Pointer to the metadata handler where the processed metadata will be stored."
+        },
+        {
+          "name": "stream",
+          "type": "IStream *",
+          "description": "Pointer to the input stream from which the PNG chunk is read."
+        },
+        {
+          "name": "preferred_vendor",
+          "type": "GUID *",
+          "description": "Pointer to the preferred vendor's GUID."
+        },
+        {
+          "name": "persist_options",
+          "type": "DWORD",
+          "description": "Options for how the metadata should be persisted."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful, E_FAIL if the name length is greater than 79 or if the name end pointer is null, and E_OUTOFMEMORY if memory allocation for result, name, or value fails."
+    }
+  },
+  {
+    "function": {
+      "name": "PngTextReader_CreateInstance",
+      "description": "This function creates an instance of a PNG text reader.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "This is an interface identifier that the caller will use to communicate with the PNG text reader."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "This is a pointer to a pointer. The function will set this pointer to point to the new PNG text reader instance."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "create_gamma_item",
+      "description": "This function creates a gamma item, initializes its properties, and assigns a gamma value to it.",
+      "parameters": [
+        {
+          "name": "gamma",
+          "type": "ULONG",
+          "description": "This parameter represents the gamma value to be assigned to the item."
+        },
+        {
+          "name": "item",
+          "type": "MetadataItem**",
+          "description": "This is a pointer to a pointer of a MetadataItem. The function will allocate memory for this item, initialize its properties and assign the gamma value to it."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails to allocate memory, it returns E_OUTOFMEMORY. If the initialization of properties fails, it returns the error code from the failed function."
+    }
+  },
+  {
+    "function": {
+      "name": "LoadGamaMetadata",
+      "description": "This function loads gamma metadata from a PNG chunk, creates a gamma item, frees any existing items in the handler, and assigns the new item to the handler.",
+      "parameters": [
+        {
+          "name": "handler",
+          "type": "MetadataHandler*",
+          "description": "A pointer to a MetadataHandler object where the loaded metadata will be stored."
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "A pointer to an IStream object that represents the PNG data stream."
+        },
+        {
+          "name": "preferred_vendor",
+          "type": "GUID*",
+          "description": "A pointer to a GUID that represents the preferred vendor. This parameter is not used in the function."
+        },
+        {
+          "name": "persist_options",
+          "type": "DWORD",
+          "description": "A DWORD value that represents persist options. This parameter is not used in the function."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful; otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "CreateGamaHandler",
+      "description": "This function creates a gamma handler. It first creates a gamma item and if successful, assigns the item to the handler and sets the item count to 1.",
+      "parameters": [
+        {
+          "name": "handler",
+          "type": "MetadataHandler*",
+          "description": "This is a pointer to the handler where the created gamma item will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK if the function executes successfully, otherwise it returns the error code."
+    }
+  },
+  {
+    "function": {
+      "name": "PngGamaReader_CreateInstance",
+      "description": "This function creates an instance of a PNG Gama Reader.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "This is the reference to the interface identifier."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "This is a pointer to the pointer of the created instance."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "create_chrm_items",
+      "description": "This function creates a set of metadata items for chromaticity coordinates. It initializes each item with a name and a value, and returns the items through the 'ret' parameter. If memory allocation or property initialization fails, it cleans up and returns an error.",
+      "parameters": [
+        {
+          "name": "values",
+          "type": "const ULONG *",
+          "description": "An array of ULONG values to be assigned to the metadata items."
+        },
+        {
+          "name": "ret",
+          "type": "MetadataItem **",
+          "description": "A pointer to a pointer to a MetadataItem. This function will allocate a new array of MetadataItems, and return it through this parameter."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function execution. It returns S_OK if the function succeeds, or an error code if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "LoadChrmMetadata",
+      "description": "This function reads a PNG chunk, checks the data size, reads ulong values, creates chroma items, frees any previous items and assigns new items and item count to the handler. It returns a status code based on the success or failure of these operations.",
+      "parameters": [
+        {
+          "name": "handler",
+          "type": "MetadataHandler*",
+          "description": "Pointer to a MetadataHandler object which will hold the metadata items and their count"
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "Pointer to an IStream object from which the PNG chunk is read"
+        },
+        {
+          "name": "preferred_vendor",
+          "type": "GUID*",
+          "description": "Pointer to a GUID object representing the preferred vendor"
+        },
+        {
+          "name": "persist_options",
+          "type": "DWORD",
+          "description": "Options for persisting the metadata"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operations performed in the function. It returns S_OK if all operations are successful, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "CreateChrmHandler",
+      "description": "This function creates a Chromaticity Handler by populating the handler with metadata items created from a predefined array of values.",
+      "parameters": [
+        {
+          "name": "handler",
+          "type": "MetadataHandler*",
+          "description": "A pointer to the MetadataHandler structure to be populated with metadata items."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, otherwise it returns the error code."
+    }
+  },
+  {
+    "function": {
+      "name": "PngChrmReader_CreateInstance",
+      "description": "This function creates an instance of a Chrominance Reader for PNG files.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Interface identifier for the Chrominance Reader."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to the location where the new Chrominance Reader instance will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation was successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "create_hist_item",
+      "description": "This function creates a histogram item by allocating memory for it, initializing its id with a string, setting its value type, count and data, and returns a status code.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "USHORT *",
+          "description": "Pointer to the data to be used for the histogram item"
+        },
+        {
+          "name": "count",
+          "type": "ULONG",
+          "description": "The count of elements in the data"
+        },
+        {
+          "name": "item",
+          "type": "MetadataItem **",
+          "description": "Double pointer to the MetadataItem structure where the histogram item will be created"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function execution. It returns E_OUTOFMEMORY if memory allocation fails, the error code if initialization of id fails, and S_OK if the function executes successfully"
+    }
+  },
+  {
+    "function": {
+      "name": "LoadHistMetadata",
+      "description": "This function loads metadata from a PNG chunk, creates a histogram item from the metadata, frees any existing items in the handler, and assigns the new item to the handler. If any step fails, it cleans up any allocated memory and returns an error.",
+      "parameters": [
+        {
+          "name": "handler",
+          "type": "MetadataHandler*",
+          "description": "Pointer to a MetadataHandler object where the loaded metadata will be stored"
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "Pointer to an IStream object from which the PNG chunk will be read"
+        },
+        {
+          "name": "preferred_vendor",
+          "type": "const GUID*",
+          "description": "Pointer to a GUID object representing the preferred vendor, not used in this function"
+        },
+        {
+          "name": "persist_options",
+          "type": "DWORD",
+          "description": "A DWORD value representing persist options, not used in this function"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. Returns S_OK if the function executes successfully, otherwise returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "CreateHistHandler",
+      "description": "This function creates a history handler by initializing a metadata item and assigning it to the handler. The item count of the handler is also set to 1.",
+      "parameters": [
+        {
+          "name": "handler",
+          "type": "MetadataHandler*",
+          "description": "A pointer to the handler to which the created history item will be assigned."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK if the function is successful, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "PngHistReader_CreateInstance",
+      "description": "This function creates an instance of a PNG histogram reader.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "This is the reference to the interface identifier."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "This is a pointer to the pointer of the instance to be created."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation was successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "create_time_items",
+      "description": "This function initializes a MetadataItem array with time data and handles memory allocation and deallocation for the array. It also handles error checking for memory allocation and property initialization.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "struct time_data *",
+          "description": "Pointer to a time_data structure from which the time data is extracted"
+        },
+        {
+          "name": "ret",
+          "type": "MetadataItem **",
+          "description": "Double pointer to a MetadataItem. It is used to return the address of the allocated MetadataItem array"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function execution. It returns S_OK if the function executes successfully, E_OUTOFMEMORY if memory allocation fails, or the error code returned by init_propvar_from_string function if it fails"
+    }
+  },
+  {
+    "function": {
+      "name": "LoadTimeMetadata",
+      "description": "This function reads a PNG chunk from a stream, validates the data size, extracts time data, creates time items, frees any existing items in the handler, assigns the new items to the handler and sets the item count to 6.",
+      "parameters": [
+        {
+          "name": "handler",
+          "type": "MetadataHandler*",
+          "description": "Pointer to a MetadataHandler object that will hold the result"
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "Pointer to an IStream object from which the PNG chunk is read"
+        },
+        {
+          "name": "preferred_vendor",
+          "type": "GUID*",
+          "description": "Pointer to a GUID object representing the preferred vendor"
+        },
+        {
+          "name": "persist_options",
+          "type": "DWORD",
+          "description": "DWORD value representing persist options"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful, otherwise returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "CreateTimeHandler",
+      "description": "This function creates a time handler by initializing the time_data structure, creating time items, and assigning them to the handler. It also sets the item count of the handler to 6.",
+      "parameters": [
+        {
+          "name": "handler",
+          "type": "MetadataHandler*",
+          "description": "This is a pointer to the MetadataHandler structure where the time items will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function execution. It returns S_OK if the function executes successfully, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "PngTimeReader_CreateInstance",
+      "description": "This function creates an instance of a PNG time reader.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Interface identifier to be used for the creation of the PNG time reader"
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to the interface pointer that receives the interface pointer to the new PNG time reader"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation was successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "PngTimeWriter_CreateInstance",
+      "description": "This function creates an instance of a PNG time writer.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Interface identifier for the instance."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to the instance."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, whether it was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "create_bkgd_item",
+      "description": "This function creates a new background metadata item. It initializes the item with a 'BackgroundColor' id and assigns the provided value to it. If any memory allocation or initialization fails, it cleans up and returns an error.",
+      "parameters": [
+        {
+          "name": "value",
+          "type": "const PROPVARIANT *",
+          "description": "Pointer to the value to be assigned to the new metadata item"
+        },
+        {
+          "name": "ret",
+          "type": "MetadataItem **",
+          "description": "Double pointer to a MetadataItem object where the address of the newly created item will be stored"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function execution. It returns S_OK if the function executes successfully, E_OUTOFMEMORY if memory allocation fails, or other error codes if initialization fails"
+    }
+  },
+  {
+    "function": {
+      "name": "LoadBkgdMetadata",
+      "description": "This function reads a PNG chunk, initializes a PROPVARIANT value based on the data size, creates a background item if successful, clears the PROPVARIANT value if failed, frees any existing items in the handler, assigns the result to the handler's items, sets the handler's item count to 1, and returns the HRESULT status.",
+      "parameters": [
+        {
+          "name": "handler",
+          "type": "MetadataHandler*",
+          "description": "Pointer to the metadata handler"
+        },
+        {
+          "name": "stream",
+          "type": "IStream*",
+          "description": "Pointer to the input stream"
+        },
+        {
+          "name": "preferred_vendor",
+          "type": "GUID*",
+          "description": "Pointer to the preferred vendor GUID"
+        },
+        {
+          "name": "persist_options",
+          "type": "DWORD",
+          "description": "Persistence options"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function execution. S_OK if successful, error code if failed."
+    }
+  },
+  {
+    "function": {
+      "name": "CreateBkgdHandler",
+      "description": "This function initializes a PROPVARIANT value, creates a background item, assigns it to the handler's items and sets the handler's item count to 1.",
+      "parameters": [
+        {
+          "name": "handler",
+          "type": "MetadataHandler*",
+          "description": "A pointer to a MetadataHandler object that will be updated with the new background item."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, it returns S_OK. If the operation fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "PngBkgdReader_CreateInstance",
+      "description": "This function creates an instance of a PNG background reader.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "This is the reference to the interface identifier."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "This is a pointer to the pointer of the created instance."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation was successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "PngBkgdWriter_CreateInstance",
+      "description": "This function creates an instance of a PNG background writer.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Interface identifier for the instance to be created"
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to the location where the new instance will be stored"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "PngDecoder_CreateInstance",
+      "description": "This function creates an instance of a PNG decoder.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Interface identifier for the decoder instance."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to the location where the function stores the output."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "PngEncoder_CreateInstance",
+      "description": "This function creates an instance of a PNG encoder.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "This is an interface identifier that the function uses to create the encoder instance."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "This is a pointer to a pointer. The function uses it to return the created encoder instance."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK if the function succeeds; otherwise, it returns an error code."
+    }
+  }
+]

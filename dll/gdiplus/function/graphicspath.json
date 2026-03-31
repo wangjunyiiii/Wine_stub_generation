@@ -1,0 +1,2549 @@
+[
+  {
+    "function": {
+      "name": "init_path_list",
+      "description": "This function initializes a path list node with given x and y coordinates, sets the type to 'PathPointTypeStart', and sets the next node to NULL.",
+      "parameters": [
+        {
+          "name": "node",
+          "type": "path_list_node_t **",
+          "description": "A pointer to a pointer to a path list node. The function will allocate memory for the node and update the pointer."
+        },
+        {
+          "name": "x",
+          "type": "REAL",
+          "description": "The x-coordinate to be set in the path list node."
+        },
+        {
+          "name": "y",
+          "type": "REAL",
+          "description": "The y-coordinate to be set in the path list node."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the node is successfully initialized and memory allocation is successful, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "free_path_list",
+      "description": "This function is used to free the memory allocated to a linked list of path nodes.",
+      "parameters": [
+        {
+          "name": "node",
+          "type": "path_list_node_t *",
+          "description": "This is the head node of the linked list to be freed."
+        }
+      ],
+      "return_type": "void, as this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "add_path_list_node",
+      "description": "This function creates a new node in a linked list, sets its values, and inserts it after the given node.",
+      "parameters": [
+        {
+          "name": "node",
+          "type": "path_list_node_t*",
+          "description": "The node after which the new node will be inserted"
+        },
+        {
+          "name": "x",
+          "type": "REAL",
+          "description": "The X coordinate to be set in the new node"
+        },
+        {
+          "name": "y",
+          "type": "REAL",
+          "description": "The Y coordinate to be set in the new node"
+        },
+        {
+          "name": "type",
+          "type": "BOOL",
+          "description": "The type value to be set in the new node"
+        }
+      ],
+      "return_type": "path_list_node_t*; returns the newly created node, or NULL if memory allocation failed"
+    }
+  },
+  {
+    "function": {
+      "name": "path_list_count",
+      "description": "This function counts the number of nodes in a linked list.",
+      "parameters": [
+        {
+          "name": "node",
+          "type": "path_list_node_t *",
+          "description": "This is a pointer to the first node of the linked list."
+        }
+      ],
+      "return_type": "INT, represents the count of nodes in the linked list"
+    }
+  },
+  {
+    "function": {
+      "name": "path_list_to_path",
+      "description": "This function converts a list of path nodes into a path. It counts the nodes, allocates memory for points and types, and assigns them to the path. If memory allocation fails, it frees the allocated memory and returns FALSE. Otherwise, it frees any existing points and types in the path, assigns the new points and types, updates the count and datalen of the path, and returns TRUE.",
+      "parameters": [
+        {
+          "name": "node",
+          "type": "path_list_node_t *",
+          "description": "This is the head of the list of path nodes to be converted into a path."
+        },
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is the path where the converted nodes will be stored."
+        }
+      ],
+      "return_type": "BOOL, represents whether the conversion was successful or not. Returns TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "flatten_bezier_add",
+      "description": "This function creates a new flatten_bezier_job, initializes it with the provided parameters, and adds it to the list of jobs.",
+      "parameters": [
+        {
+          "name": "jobs",
+          "type": "struct list *",
+          "description": "A pointer to the list of jobs."
+        },
+        {
+          "name": "start",
+          "type": "path_list_node_t *",
+          "description": "A pointer to the start node of the path."
+        },
+        {
+          "name": "x2",
+          "type": "REAL",
+          "description": "The x-coordinate of the second point."
+        },
+        {
+          "name": "y2",
+          "type": "REAL",
+          "description": "The y-coordinate of the second point."
+        },
+        {
+          "name": "x3",
+          "type": "REAL",
+          "description": "The x-coordinate of the third point."
+        },
+        {
+          "name": "y3",
+          "type": "REAL",
+          "description": "The y-coordinate of the third point."
+        },
+        {
+          "name": "end",
+          "type": "path_list_node_t *",
+          "description": "A pointer to the end node of the path."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the job was successfully added to the list, and FALSE if the job could not be created due to insufficient memory."
+    }
+  },
+  {
+    "function": {
+      "name": "flatten_bezier",
+      "description": "This function flattens a bezier curve by breaking it down into smaller segments that approximate the curve. It uses a list of jobs to keep track of the segments that still need to be processed. The function continues to break down the curve until the segments are flat enough, as determined by the flatness parameter.",
+      "parameters": [
+        {
+          "name": "start",
+          "type": "path_list_node_t *",
+          "description": "Pointer to the start node of the path list"
+        },
+        {
+          "name": "x2",
+          "type": "REAL",
+          "description": "X-coordinate of the second control point"
+        },
+        {
+          "name": "y2",
+          "type": "REAL",
+          "description": "Y-coordinate of the second control point"
+        },
+        {
+          "name": "x3",
+          "type": "REAL",
+          "description": "X-coordinate of the third control point"
+        },
+        {
+          "name": "y3",
+          "type": "REAL",
+          "description": "Y-coordinate of the third control point"
+        },
+        {
+          "name": "end",
+          "type": "path_list_node_t *",
+          "description": "Pointer to the end node of the path list"
+        },
+        {
+          "name": "flatness",
+          "type": "REAL",
+          "description": "Parameter to determine the flatness of the curve. The smaller the value, the flatter the curve"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully flattens the bezier curve, and FALSE if it fails at any point"
+    }
+  },
+  {
+    "function": {
+      "name": "extend_current_figure",
+      "description": "This function extends the current figure by adding new points to the path. It checks if the new figure starts at the same point as the last point in the path, and if so, it skips the first point. It then lengthens the path, copies the new points into the path, sets the type of the first point, and fills the rest of the types with the specified type. Finally, it sets the newfigure flag to FALSE and increments the count of points in the path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path to be extended"
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST PointF *",
+          "description": "Pointer to the array of points to be added to the path"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of points in the array"
+        },
+        {
+          "name": "type",
+          "type": "BYTE",
+          "description": "Type to be assigned to the new points"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'OutOfMemory' if the path cannot be lengthened"
+    }
+  },
+  {
+    "function": {
+      "name": "add_closed_figure",
+      "description": "This function adds a closed figure to a path. It first checks if the count is zero, if so it returns Ok. If not, it tries to lengthen the path by the count. If it fails, it returns OutOfMemory. Then it copies the points to the path at the insert_index and sets the type of the first point to PathPointTypeStart. The rest of the types are set to the input type. It then sets newfigure to TRUE, increases the pathdata count by count and sets the last type to PathPointTypeCloseSubpath. Finally, it returns Ok.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path where the closed figure will be added"
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST PointF *",
+          "description": "Pointer to the points that define the closed figure"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of points in the closed figure"
+        },
+        {
+          "name": "type",
+          "type": "BYTE",
+          "description": "Type of the points in the closed figure"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can be Ok if the operation was successful or OutOfMemory if the path could not be lengthened"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathArc",
+      "description": "This function adds an arc to the specified path. The arc is defined with a rectangle, a start angle, and a sweep angle.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path where the arc will be added."
+        },
+        {
+          "name": "x",
+          "type": "REAL",
+          "description": "The x-coordinate of the upper-left corner of the rectangle that defines the arc."
+        },
+        {
+          "name": "y",
+          "type": "REAL",
+          "description": "The y-coordinate of the upper-left corner of the rectangle that defines the arc."
+        },
+        {
+          "name": "width",
+          "type": "REAL",
+          "description": "The width of the rectangle that defines the arc."
+        },
+        {
+          "name": "height",
+          "type": "REAL",
+          "description": "The height of the rectangle that defines the arc."
+        },
+        {
+          "name": "startAngle",
+          "type": "REAL",
+          "description": "The start angle of the arc."
+        },
+        {
+          "name": "sweepAngle",
+          "type": "REAL",
+          "description": "The sweep angle of the arc."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can be Ok if the operation was successful, InvalidParameter if the parameters are not valid, or OutOfMemory if there was not enough memory to complete the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathArcI",
+      "description": "This function adds an arc to the specified path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path where the arc is to be added."
+        },
+        {
+          "name": "x1",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the rectangle that defines the ellipse."
+        },
+        {
+          "name": "y1",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the rectangle that defines the ellipse."
+        },
+        {
+          "name": "x2",
+          "type": "INT",
+          "description": "The x-coordinate of the lower-right corner of the rectangle that defines the ellipse."
+        },
+        {
+          "name": "y2",
+          "type": "INT",
+          "description": "The y-coordinate of the lower-right corner of the rectangle that defines the ellipse."
+        },
+        {
+          "name": "startAngle",
+          "type": "REAL",
+          "description": "Angle in degrees measured clockwise from the x-axis to the starting point of the arc."
+        },
+        {
+          "name": "sweepAngle",
+          "type": "REAL",
+          "description": "Angle in degrees measured clockwise from the startAngle parameter to ending point of the arc."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns Ok. Otherwise, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathBezier",
+      "description": "This function adds a bezier curve to the path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path to which the bezier curve is added."
+        },
+        {
+          "name": "x1",
+          "type": "REAL",
+          "description": "X-coordinate of the first point of the bezier curve."
+        },
+        {
+          "name": "y1",
+          "type": "REAL",
+          "description": "Y-coordinate of the first point of the bezier curve."
+        },
+        {
+          "name": "x2",
+          "type": "REAL",
+          "description": "X-coordinate of the second point of the bezier curve."
+        },
+        {
+          "name": "y2",
+          "type": "REAL",
+          "description": "Y-coordinate of the second point of the bezier curve."
+        },
+        {
+          "name": "x3",
+          "type": "REAL",
+          "description": "X-coordinate of the third point of the bezier curve."
+        },
+        {
+          "name": "y3",
+          "type": "REAL",
+          "description": "Y-coordinate of the third point of the bezier curve."
+        },
+        {
+          "name": "x4",
+          "type": "REAL",
+          "description": "X-coordinate of the fourth point of the bezier curve."
+        },
+        {
+          "name": "y4",
+          "type": "REAL",
+          "description": "Y-coordinate of the fourth point of the bezier curve."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the path is null, otherwise it returns the result of 'extend_current_figure' function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathBezierI",
+      "description": "This function adds a Bezier curve to the specified path by using the provided integer coordinates.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path where the Bezier curve will be added."
+        },
+        {
+          "name": "x1",
+          "type": "INT",
+          "description": "X-coordinate of the starting point of the curve."
+        },
+        {
+          "name": "y1",
+          "type": "INT",
+          "description": "Y-coordinate of the starting point of the curve."
+        },
+        {
+          "name": "x2",
+          "type": "INT",
+          "description": "X-coordinate of the first control point for the curve."
+        },
+        {
+          "name": "y2",
+          "type": "INT",
+          "description": "Y-coordinate of the first control point for the curve."
+        },
+        {
+          "name": "x3",
+          "type": "INT",
+          "description": "X-coordinate of the second control point for the curve."
+        },
+        {
+          "name": "y3",
+          "type": "INT",
+          "description": "Y-coordinate of the second control point for the curve."
+        },
+        {
+          "name": "x4",
+          "type": "INT",
+          "description": "X-coordinate of the ending point of the curve."
+        },
+        {
+          "name": "y4",
+          "type": "INT",
+          "description": "Y-coordinate of the ending point of the curve."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the function is successful, it returns Ok. Otherwise, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathBeziers",
+      "description": "This function adds a series of bezier curves to the path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is the path to which the bezier curves are added."
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPointF *",
+          "description": "These are the points that define the bezier curves."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "This is the number of points in the array."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. Returns InvalidParameter if the path or points are null, or if the count is not a multiple of 3 plus 1. Otherwise, it returns the status of the extend_current_figure function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathBeziersI",
+      "description": "This function adds a series of Bezier curves to the path. It first checks if the points are valid and if the count is a multiple of 3. It then allocates memory for the points, converts them to floating point, adds them to the path, and finally frees the allocated memory.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is the path to which the Bezier curves are added."
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPoint *",
+          "description": "These are the points that define the Bezier curves."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "This is the number of points."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can be 'InvalidParameter' if the points are null or the count is not a multiple of 3, 'OutOfMemory' if memory allocation fails, or the status of the 'GdipAddPathBeziers' function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathClosedCurve",
+      "description": "This function adds a closed curve to a specified path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is a pointer to the path where the closed curve will be added."
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPointF *",
+          "description": "This is a pointer to the array of points that define the closed curve."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "This represents the number of points in the array."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns Ok. Otherwise, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathClosedCurveI",
+      "description": "This function adds a closed curve to a path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is a pointer to the path where the closed curve will be added."
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPoint *",
+          "description": "This is a constant pointer to the points that define the closed curve."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "This is the number of points in the curve."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns Ok. Otherwise, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathClosedCurve2",
+      "description": "This function adds a closed curve to a path. The curve is specified by an array of points and a tension. The curve is closed by connecting the last point to the first point.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path where the curve will be added."
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPointF *",
+          "description": "Pointer to an array of points that define the curve."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "The number of points in the array."
+        },
+        {
+          "name": "tension",
+          "type": "REAL",
+          "description": "The tension of the curve. A value of 1.0 creates a variation of a Catmull-Rom spline, and a value of 0.0 creates a straight line."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns Ok. If the operation fails, it returns an error status code."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathClosedCurve2I",
+      "description": "This function adds a closed curve to a path. The curve is specified by an array of points and a tension value. The function checks the validity of the parameters, allocates memory for the points, converts them to a different type, adds the curve to the path, and then frees the allocated memory.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path to which the curve is to be added"
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPoint *",
+          "description": "Pointer to an array of points that define the curve"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of points in the array"
+        },
+        {
+          "name": "tension",
+          "type": "REAL",
+          "description": "Value that controls the shape of the curve"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can be 'InvalidParameter' if the parameters are not valid, 'OutOfMemory' if memory allocation fails, or the status of the 'GdipAddPathClosedCurve2' function call"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathCurve",
+      "description": "This function adds a curve to a path using the specified points.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is a pointer to the path where the curve will be added."
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPointF *",
+          "description": "This is a pointer to the array of points that define the curve."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "This represents the number of points in the array."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns Ok. Otherwise, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathCurveI",
+      "description": "This function adds a curve to a path using an array of points.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path where the curve will be added."
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPoint *",
+          "description": "Pointer to an array of points that define the curve."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of points in the array."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation was successful, it returns Ok. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathCurve3",
+      "description": "This function adds a Bézier curve to the specified path by using the specified array of points and tension.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path where the curve is to be added"
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPointF*",
+          "description": "Pointer to an array of points that define the curve"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of elements in the points array"
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "Index of the element in the points array where the curve is to start"
+        },
+        {
+          "name": "nseg",
+          "type": "INT",
+          "description": "Number of segments in the curve"
+        },
+        {
+          "name": "tension",
+          "type": "REAL",
+          "description": "Value that specifies the amount of tension to apply to the curve"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the method is successful, it returns Ok, otherwise it returns an error status code."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathCurve2I",
+      "description": "This function adds a curve to a path using the specified points, count, and tension.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path where the curve will be added"
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPoint *",
+          "description": "Pointer to the array of points that define the curve"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of points in the array"
+        },
+        {
+          "name": "tension",
+          "type": "REAL",
+          "description": "Value that specifies the amount of tension to apply to the curve"
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathCurve2",
+      "description": "This function adds a curve to a path using the specified points and tension.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path where the curve is to be added."
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPointF *",
+          "description": "Pointer to an array of points that define the curve."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of points in the points array."
+        },
+        {
+          "name": "tension",
+          "type": "REAL",
+          "description": "Value that specifies the amount of tension to apply to the curve."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns Ok. Otherwise, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathCurve3I",
+      "description": "This function adds a Bézier spline to the specified path by specifying the number of spline segments and the control points as integers.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path where the curve is to be added."
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPoint *",
+          "description": "Pointer to an array of points that represent the control points for the spline."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Integer that specifies the number of elements in the array of points."
+        },
+        {
+          "name": "offset",
+          "type": "INT",
+          "description": "Integer that specifies the index of the element in the array of points at which to start drawing the curve."
+        },
+        {
+          "name": "nseg",
+          "type": "INT",
+          "description": "Integer that specifies the number of segments in the spline."
+        },
+        {
+          "name": "tension",
+          "type": "REAL",
+          "description": "Real number that represents the tension of the curve."
+        }
+      ],
+      "return_type": "GpStatus, which indicates whether the function call was successful. If the function call fails, it returns an error value."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathEllipse",
+      "description": "This function adds an ellipse to the specified path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path where the ellipse will be added."
+        },
+        {
+          "name": "x",
+          "type": "REAL",
+          "description": "The x-coordinate of the upper-left corner of the bounding rectangle that defines the ellipse."
+        },
+        {
+          "name": "y",
+          "type": "REAL",
+          "description": "The y-coordinate of the upper-left corner of the bounding rectangle that defines the ellipse."
+        },
+        {
+          "name": "width",
+          "type": "REAL",
+          "description": "The width of the bounding rectangle that defines the ellipse."
+        },
+        {
+          "name": "height",
+          "type": "REAL",
+          "description": "The height of the bounding rectangle that defines the ellipse."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return Ok if the operation was successful, InvalidParameter if the path is null, OutOfMemory if there is not enough memory to lengthen the path, or GenericError if the number of points is not equal to MAX_ARC_PTS."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathEllipseI",
+      "description": "This function adds an ellipse to the specified path at the specified location and with the specified dimensions.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path where the ellipse is to be added."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the bounding rectangle that defines the ellipse."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the bounding rectangle that defines the ellipse."
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "The width of the bounding rectangle that defines the ellipse."
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "The height of the bounding rectangle that defines the ellipse."
+        }
+      ],
+      "return_type": "GpStatus, which indicates whether the operation was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathLine2",
+      "description": "This function extends the current figure in a path with a series of lines defined by an array of points.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path to be extended."
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPointF *",
+          "description": "Pointer to an array of points that define the lines."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of points in the array."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if any of the parameters is null or count is less than 1, otherwise it returns the status of 'extend_current_figure' function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathLine2I",
+      "description": "This function converts an array of GpPoint to GpPointF, adds them to a path, and then frees the memory allocated for the GpPointF array.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "A pointer to the path where the points will be added."
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPoint *",
+          "description": "A pointer to the array of points to be added to the path."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "The number of points in the array."
+        }
+      ],
+      "return_type": "GpStatus, which indicates the status of the operation. It can return 'InvalidParameter' if the count is less than or equal to 0, 'OutOfMemory' if memory allocation fails, or the status of the 'GdipAddPathLine2' function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathLine",
+      "description": "This function adds a line to a path from one point to another point.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path where the line is to be added."
+        },
+        {
+          "name": "x1",
+          "type": "REAL",
+          "description": "X-coordinate of the starting point of the line."
+        },
+        {
+          "name": "y1",
+          "type": "REAL",
+          "description": "Y-coordinate of the starting point of the line."
+        },
+        {
+          "name": "x2",
+          "type": "REAL",
+          "description": "X-coordinate of the ending point of the line."
+        },
+        {
+          "name": "y2",
+          "type": "REAL",
+          "description": "Y-coordinate of the ending point of the line."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the path is null, otherwise it returns the status of the 'extend_current_figure' function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathLineI",
+      "description": "This function adds a line to a path from the point (x1, y1) to the point (x2, y2). The points are defined by integers.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path where the line is to be added"
+        },
+        {
+          "name": "x1",
+          "type": "INT",
+          "description": "The x-coordinate of the starting point of the line"
+        },
+        {
+          "name": "y1",
+          "type": "INT",
+          "description": "The y-coordinate of the starting point of the line"
+        },
+        {
+          "name": "x2",
+          "type": "INT",
+          "description": "The x-coordinate of the ending point of the line"
+        },
+        {
+          "name": "y2",
+          "type": "INT",
+          "description": "The y-coordinate of the ending point of the line"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation was successful, it returns Ok. Otherwise, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathPath",
+      "description": "This function adds a path to an existing path, with the option to connect the two paths or start a new figure.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path to which the new path is to be added."
+        },
+        {
+          "name": "addingPath",
+          "type": "GDIPCONST GpPath*",
+          "description": "Pointer to the path that is to be added to the existing path."
+        },
+        {
+          "name": "connect",
+          "type": "BOOL",
+          "description": "Boolean value that determines whether the new path is connected to the existing path or starts a new figure."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if the input parameters are null, 'OutOfMemory' if the path cannot be lengthened, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathPie",
+      "description": "This function adds a pie shape to the specified path. It first checks if the path is valid and if the width and height are greater than a very small number. If the width or height is too small, it adds a single point to the path. Otherwise, it calculates the number of points needed to represent the pie shape, allocates memory for these points, and then adds them to the path. If there is not enough memory to allocate for the points, it returns an out of memory error. Finally, it closes the path and returns a status indicating success.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "The path to which the pie shape will be added."
+        },
+        {
+          "name": "x",
+          "type": "REAL",
+          "description": "The x-coordinate of the upper-left corner of the bounding rectangle that defines the pie shape."
+        },
+        {
+          "name": "y",
+          "type": "REAL",
+          "description": "The y-coordinate of the upper-left corner of the bounding rectangle that defines the pie shape."
+        },
+        {
+          "name": "width",
+          "type": "REAL",
+          "description": "The width of the bounding rectangle that defines the pie shape."
+        },
+        {
+          "name": "height",
+          "type": "REAL",
+          "description": "The height of the bounding rectangle that defines the pie shape."
+        },
+        {
+          "name": "startAngle",
+          "type": "REAL",
+          "description": "The starting angle for the pie shape, measured in degrees clockwise from the x-axis."
+        },
+        {
+          "name": "sweepAngle",
+          "type": "REAL",
+          "description": "The sweep angle for the pie shape, measured in degrees clockwise from the startAngle."
+        }
+      ],
+      "return_type": "GpStatus, which indicates the status of the operation. It can be Ok if the operation was successful, InvalidParameter if the path is null or the width or height is too small, or OutOfMemory if there is not enough memory to allocate for the points."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathPieI",
+      "description": "This function adds a pie shape to the specified path at the specified location and with the specified dimensions and angles.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path where the pie shape will be added."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the bounding rectangle that defines the pie shape."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the bounding rectangle that defines the pie shape."
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "The width of the bounding rectangle that defines the pie shape."
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "The height of the bounding rectangle that defines the pie shape."
+        },
+        {
+          "name": "startAngle",
+          "type": "REAL",
+          "description": "Angle in degrees measured clockwise from the x-axis to the first side of the pie shape."
+        },
+        {
+          "name": "sweepAngle",
+          "type": "REAL",
+          "description": "Angle in degrees measured clockwise from the startAngle parameter to the second side of the pie shape."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the method succeeds, it returns Ok, which is an element of the GpStatus enumeration. If the method fails, it returns one of the other elements of the GpStatus enumeration."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathPolygon",
+      "description": "This function adds a polygon to a path. It checks if the path and points are valid and if there are at least 3 points. If the path can be lengthened, it copies the points into the path's points array, sets the types of the points, and increments the path's count by the number of points.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is a pointer to the path where the polygon will be added."
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPointF *",
+          "description": "This is a pointer to the array of points that define the polygon."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "This is the number of points in the polygon."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can return InvalidParameter if the path or points are null or if there are less than 3 points, OutOfMemory if the path cannot be lengthened, or Ok if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathPolygonI",
+      "description": "This function adds a polygon to the specified path using an array of integer points.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is a pointer to the path where the polygon will be added."
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPoint *",
+          "description": "This is a pointer to an array of points that define the polygon."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "This is the number of points in the array."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can return 'InvalidParameter' if the points are null or count is less than 3, 'OutOfMemory' if memory allocation fails, or the status of the 'GdipAddPathPolygon' function."
+    }
+  },
+  {
+    "function": {
+      "name": "fromfixedpoint",
+      "description": "This function converts a fixed point number to a floating point number.",
+      "parameters": [
+        {
+          "name": "v",
+          "type": "FIXED",
+          "description": "A fixed point number to be converted to a floating point number."
+        }
+      ],
+      "return_type": "float, representing the converted floating point number from the fixed point input."
+    }
+  },
+  {
+    "function": {
+      "name": "format_string_callback",
+      "description": "This function formats a string by applying a callback function to each character in the string. It also handles underlining, font linking, and glyph outlining. It modifies the path of the string based on the scale provided in the arguments.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "struct gdip_format_string_info*",
+          "description": "This parameter is a pointer to a structure that contains information about the string to be formatted. This includes the string itself, its length, the font link information, the bounds and rectangle of the string, and the device context."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can return Ok if the operation was successful, GenericError if there was an error, or OutOfMemory if there was not enough memory to complete the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathString",
+      "description": "This function adds a string to a path in a specific font, size, and format. It also scales the layout rectangle based on the emSize and native height of the font.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path where the string will be added"
+        },
+        {
+          "name": "string",
+          "type": "GDIPCONST WCHAR*",
+          "description": "The string to be added to the path"
+        },
+        {
+          "name": "length",
+          "type": "INT",
+          "description": "The length of the string to be added"
+        },
+        {
+          "name": "family",
+          "type": "GDIPCONST GpFontFamily*",
+          "description": "The font family of the string"
+        },
+        {
+          "name": "style",
+          "type": "INT",
+          "description": "The style of the font"
+        },
+        {
+          "name": "emSize",
+          "type": "REAL",
+          "description": "The size of the font in em units"
+        },
+        {
+          "name": "layoutRect",
+          "type": "GDIPCONST RectF*",
+          "description": "The layout rectangle for the string"
+        },
+        {
+          "name": "format",
+          "type": "GDIPCONST GpStringFormat*",
+          "description": "The format of the string"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns 'Ok'. If not, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathStringI",
+      "description": "This function adds a string to a path using specified font, layout rectangle, and format information, but works with integers instead of floating-point numbers.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path where the string will be added"
+        },
+        {
+          "name": "string",
+          "type": "GDIPCONST WCHAR*",
+          "description": "The string to add to the path"
+        },
+        {
+          "name": "length",
+          "type": "INT",
+          "description": "The length of the string"
+        },
+        {
+          "name": "family",
+          "type": "GDIPCONST GpFontFamily*",
+          "description": "The font family to use for the string"
+        },
+        {
+          "name": "style",
+          "type": "INT",
+          "description": "The font style to use for the string"
+        },
+        {
+          "name": "emSize",
+          "type": "REAL",
+          "description": "The font size in ems"
+        },
+        {
+          "name": "layoutRect",
+          "type": "GDIPCONST Rect*",
+          "description": "The layout rectangle for the string"
+        },
+        {
+          "name": "format",
+          "type": "GDIPCONST GpStringFormat*",
+          "description": "The string format"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns 'InvalidParameter' if layoutRect is NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipClonePath",
+      "description": "This function clones a given path. If the path data count is non-zero, it creates a new path with the same data. Otherwise, it allocates memory for a new path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "The original path to be cloned."
+        },
+        {
+          "name": "clone",
+          "type": "GpPath**",
+          "description": "Pointer to a pointer where the address of the cloned path will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if the input parameters are null, 'OutOfMemory' if memory allocation fails, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipClosePathFigure",
+      "description": "This function closes the current figure in a path. If the path is not empty, it sets the last point type to PathPointTypeCloseSubpath and sets the newfigure flag to TRUE.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "This is a pointer to the path that needs to be closed."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the path is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipClosePathFigures",
+      "description": "This function closes all open figures in a path by connecting a line from the last point to the first point in each figure.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "A pointer to the path object that contains the figures to be closed."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the path is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreatePath",
+      "description": "This function creates a new path and initializes it with the specified fill mode.",
+      "parameters": [
+        {
+          "name": "fill",
+          "type": "GpFillMode",
+          "description": "This parameter specifies the fill mode for the path."
+        },
+        {
+          "name": "path",
+          "type": "GpPath**",
+          "description": "This is a pointer to a pointer to a GpPath object. The function will allocate memory for a new GpPath object and store the pointer in the location pointed to by this parameter."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if the path parameter is NULL, 'OutOfMemory' if memory allocation fails, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreatePath2",
+      "description": "This function creates a new path object and initializes it with the specified array of points and types. It also checks for invalid parameters and memory allocation errors.",
+      "parameters": [
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPointF*",
+          "description": "Pointer to an array of points that define the path."
+        },
+        {
+          "name": "types",
+          "type": "GDIPCONST BYTE*",
+          "description": "Pointer to an array of types that specify the type of each point in the corresponding points array."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of elements in the points array and types array."
+        },
+        {
+          "name": "fill",
+          "type": "GpFillMode",
+          "description": "Enumeration that specifies how the interior of the path is filled."
+        },
+        {
+          "name": "path",
+          "type": "GpPath**",
+          "description": "Pointer to a pointer that receives the new path object."
+        }
+      ],
+      "return_type": "GpStatus. It represents the status of the operation. It can return 'InvalidParameter' if the parameters are null or invalid, 'OutOfMemory' if memory allocation fails, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreatePath2I",
+      "description": "This function creates a path from an array of points and types. It first allocates memory for an array of floating point values, then it converts the integer points to floating point values, creates the path, and finally frees the allocated memory.",
+      "parameters": [
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPoint*",
+          "description": "Pointer to an array of points"
+        },
+        {
+          "name": "types",
+          "type": "GDIPCONST BYTE*",
+          "description": "Pointer to an array of types"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of elements in the points and types arrays"
+        },
+        {
+          "name": "fill",
+          "type": "GpFillMode",
+          "description": "Specifies the fill mode of the path"
+        },
+        {
+          "name": "path",
+          "type": "GpPath **",
+          "description": "Pointer to a pointer to a path object where the result will be stored"
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation was successful, it returns Ok. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipDeletePath",
+      "description": "This function deletes a path by freeing the memory allocated to its points, types and the path itself.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path to be deleted"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns 'InvalidParameter' if the path is null, otherwise returns 'Ok'"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipFlattenPath",
+      "description": "This function is used to flatten a path in GDI+. It transforms the path using a specified matrix, then flattens it by replacing curves with sequences of connected straight lines that approximate those curves.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is a pointer to the path to be flattened."
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "This is a pointer to the matrix to be used for transforming the path before flattening."
+        },
+        {
+          "name": "flatness",
+          "type": "REAL",
+          "description": "This parameter specifies the maximum error between the flattened path and the original path. Smaller values produce more accurate results but require more processing."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can return Ok if the operation was successful, InvalidParameter if the path is null, or OutOfMemory if there is not enough memory to complete the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathData",
+      "description": "This function copies the path data from a source path to a destination path data. The allocation and freeing of the path data is controlled by a wrapper class. It is assumed that the path data is wide enough to receive all data.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is the source path from which data is to be copied."
+        },
+        {
+          "name": "pathData",
+          "type": "GpPathData *",
+          "description": "This is the destination path data where the data from the source path is to be copied."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if either of the parameters is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathFillMode",
+      "description": "This function retrieves the fill mode value from the path object and assigns it to the fillmode pointer.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is a pointer to the path object from which the fill mode value is to be retrieved."
+        },
+        {
+          "name": "fillmode",
+          "type": "GpFillMode *",
+          "description": "This is a pointer to a GpFillMode variable where the fill mode value will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either of the parameters is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathLastPoint",
+      "description": "This function retrieves the last point in a path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "A pointer to the path from which to retrieve the last point."
+        },
+        {
+          "name": "lastPoint",
+          "type": "GpPointF*",
+          "description": "A pointer to a GpPointF structure that receives the last point in the path."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if any of the parameters is null, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathPoints",
+      "description": "This function retrieves the points of a path and copies them into an array of points. It checks if the path is valid and if the buffer is sufficient to hold the points.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path from which points are to be retrieved."
+        },
+        {
+          "name": "points",
+          "type": "GpPointF *",
+          "description": "Pointer to the array where the retrieved points will be stored."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "The number of points to be retrieved."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the path is null, 'InsufficientBuffer' if the count is less than the number of points in the path, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathPointsI",
+      "description": "This function gets the points of a path, rounds them and stores them in an array. It returns a status code indicating success or failure.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path from which points are to be retrieved"
+        },
+        {
+          "name": "points",
+          "type": "GpPoint *",
+          "description": "Pointer to an array where the rounded points will be stored"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of points to be retrieved from the path"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can be 'Ok' for successful operation, 'InvalidParameter' if count is less than or equal to 0, or 'OutOfMemory' if memory allocation fails"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathTypes",
+      "description": "This function retrieves the types of the points in the path and copies them into the specified array.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path object."
+        },
+        {
+          "name": "types",
+          "type": "BYTE*",
+          "description": "Pointer to the array that will receive the types of the points in the path."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of elements in the array."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the path is null, 'InsufficientBuffer' if the count is less than the number of points in the path, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathWorldBounds",
+      "description": "This function calculates the world bounds for a given path, taking into account the transformation matrix and pen attributes if provided.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path for which the world bounds are to be calculated."
+        },
+        {
+          "name": "bounds",
+          "type": "GpRectF*",
+          "description": "Pointer to the structure where the calculated bounds will be stored."
+        },
+        {
+          "name": "matrix",
+          "type": "GDIPCONST GpMatrix*",
+          "description": "Pointer to the transformation matrix to be applied to the path. Can be null."
+        },
+        {
+          "name": "pen",
+          "type": "GDIPCONST GpPen*",
+          "description": "Pointer to the pen attributes to be considered in the calculation. Can be null."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if either 'path' or 'bounds' is null, 'Ok' otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathWorldBoundsI",
+      "description": "This function gets the world bounds of a path, applies a matrix transformation and a pen style, and stores the result in an integer rectangle.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path to get the world bounds from."
+        },
+        {
+          "name": "bounds",
+          "type": "GpRect*",
+          "description": "Pointer to the rectangle where the world bounds will be stored."
+        },
+        {
+          "name": "matrix",
+          "type": "GDIPCONST GpMatrix*",
+          "description": "Pointer to the matrix to apply to the path."
+        },
+        {
+          "name": "pen",
+          "type": "GDIPCONST GpPen*",
+          "description": "Pointer to the pen to apply to the path."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If it's 'Ok', the operation was successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPointCount",
+      "description": "This function retrieves the number of points in the path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is a pointer to the path from which the point count is to be retrieved."
+        },
+        {
+          "name": "count",
+          "type": "INT *",
+          "description": "This is a pointer to an integer where the count of points will be stored."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns 'InvalidParameter' if the path is null, otherwise it returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipReversePath",
+      "description": "This function reverses the order of points in a given path. It also adjusts the types of the points to maintain the integrity of the path's structure in the reversed order.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "This is a pointer to the path object that is to be reversed."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns 'Ok' if the operation is successful, 'InvalidParameter' if the path is null, and 'OutOfMemory' if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipIsOutlineVisiblePathPointI",
+      "description": "This function checks if the outline of a specified path point is visible when drawn with a specified pen and graphics.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path to check."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the point."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the point."
+        },
+        {
+          "name": "pen",
+          "type": "GpPen*",
+          "description": "Pointer to the pen to use for drawing."
+        },
+        {
+          "name": "graphics",
+          "type": "GpGraphics*",
+          "description": "Pointer to the graphics to use for drawing."
+        },
+        {
+          "name": "result",
+          "type": "BOOL*",
+          "description": "Pointer to a BOOL variable that receives the result."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, success or failure."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipIsOutlineVisiblePathPoint",
+      "description": "This function checks if the outline of a given path is visible at a specific point. It first clones the path, then transforms it if necessary, widens it, and finally checks if the point is visible in the path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path to check."
+        },
+        {
+          "name": "x",
+          "type": "REAL",
+          "description": "X-coordinate of the point to check."
+        },
+        {
+          "name": "y",
+          "type": "REAL",
+          "description": "Y-coordinate of the point to check."
+        },
+        {
+          "name": "pen",
+          "type": "GpPen*",
+          "description": "Pointer to the pen that outlines the path."
+        },
+        {
+          "name": "graphics",
+          "type": "GpGraphics*",
+          "description": "Pointer to the graphics context."
+        },
+        {
+          "name": "result",
+          "type": "BOOL*",
+          "description": "Pointer to a BOOL variable where the result will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation was successful, it returns Ok. If not, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipIsVisiblePathPointI",
+      "description": "This function checks if a given point is visible in the path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path to check."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the point."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the point."
+        },
+        {
+          "name": "graphics",
+          "type": "GpGraphics*",
+          "description": "Pointer to the graphics object."
+        },
+        {
+          "name": "result",
+          "type": "BOOL*",
+          "description": "Pointer to the boolean variable where the result will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipIsVisiblePathPoint",
+      "description": "This function checks if a given point is visible in a specified path. It creates a region from the path, gets the handle to the region, checks if the point is in the region, and then deletes the region and the handle.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path to check."
+        },
+        {
+          "name": "x",
+          "type": "REAL",
+          "description": "X-coordinate of the point to check."
+        },
+        {
+          "name": "y",
+          "type": "REAL",
+          "description": "Y-coordinate of the point to check."
+        },
+        {
+          "name": "graphics",
+          "type": "GpGraphics*",
+          "description": "Pointer to the graphics context."
+        },
+        {
+          "name": "result",
+          "type": "BOOL*",
+          "description": "Pointer to the boolean result. It will be set to TRUE if the point is in the path, FALSE otherwise."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation was successful, 'InvalidParameter' if the path or result is NULL, or other status codes if there were errors during the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipStartPathFigure",
+      "description": "This function starts a new figure in the specified path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is a pointer to the path where the new figure will be started."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if the path is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipResetPath",
+      "description": "This function resets the path data, sets a new figure flag to true and sets the fill mode to alternate.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is a pointer to the path that needs to be reset."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the path is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPathFillMode",
+      "description": "This function sets the fill mode of a given path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is a pointer to the path object whose fill mode is to be set."
+        },
+        {
+          "name": "fill",
+          "type": "GpFillMode",
+          "description": "This is the fill mode to be set for the path."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns 'InvalidParameter' if the path is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipTransformPath",
+      "description": "This function transforms a path using a specified matrix.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path to be transformed."
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "Pointer to the matrix to be used for transformation."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the path is null, 'Ok' if the path data count is zero or matrix is null, otherwise it returns the status of 'GdipTransformMatrixPoints' function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipWarpPath",
+      "description": "This function is used to warp a path according to the specified parameters. However, it is currently not implemented.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path to be warped"
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "Pointer to the transformation matrix"
+        },
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPointF *",
+          "description": "Pointer to the points for the warp transformation"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of points in the points array"
+        },
+        {
+          "name": "x",
+          "type": "REAL",
+          "description": "X-coordinate of the upper-left corner of the rectangle that bounds the warped path"
+        },
+        {
+          "name": "y",
+          "type": "REAL",
+          "description": "Y-coordinate of the upper-left corner of the rectangle that bounds the warped path"
+        },
+        {
+          "name": "width",
+          "type": "REAL",
+          "description": "Width of the rectangle that bounds the warped path"
+        },
+        {
+          "name": "height",
+          "type": "REAL",
+          "description": "Height of the rectangle that bounds the warped path"
+        },
+        {
+          "name": "warpmode",
+          "type": "WarpMode",
+          "description": "Specifies the type of warp to be applied"
+        },
+        {
+          "name": "flatness",
+          "type": "REAL",
+          "description": "Specifies the maximum error between the path and its approximation in device units"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. In this case, it always returns NotImplemented"
+    }
+  },
+  {
+    "function": {
+      "name": "add_bevel_point",
+      "description": "This function calculates the bevel point in a path and adds it to the path list. It takes into account the direction of the path and whether the bevel should be on the right or left side.",
+      "parameters": [
+        {
+          "name": "endpoint",
+          "type": "GpPointF *",
+          "description": "The end point of the current path segment."
+        },
+        {
+          "name": "nextpoint",
+          "type": "GpPointF *",
+          "description": "The next point in the path."
+        },
+        {
+          "name": "pen_width",
+          "type": "REAL",
+          "description": "The width of the pen that is drawing the path."
+        },
+        {
+          "name": "right_side",
+          "type": "int",
+          "description": "A flag indicating whether the bevel should be on the right side of the path (1) or the left (0)."
+        },
+        {
+          "name": "last_point",
+          "type": "path_list_node_t **",
+          "description": "A pointer to the last point in the path list. This function will update it to point to the new bevel point."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the path list in place."
+    }
+  },
+  {
+    "function": {
+      "name": "widen_joint",
+      "description": "This function widens the joint between three points based on the type of line join specified in the pen object. It calculates the distance and length between the points, and adds a new node to the path list based on these calculations.",
+      "parameters": [
+        {
+          "name": "p1",
+          "type": "GpPointF *",
+          "description": "Pointer to the first point"
+        },
+        {
+          "name": "p2",
+          "type": "GpPointF *",
+          "description": "Pointer to the second point"
+        },
+        {
+          "name": "p3",
+          "type": "GpPointF *",
+          "description": "Pointer to the third point"
+        },
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "Pointer to the pen object that specifies the type of line join"
+        },
+        {
+          "name": "pen_width",
+          "type": "REAL",
+          "description": "Width of the pen"
+        },
+        {
+          "name": "last_point",
+          "type": "path_list_node_t **",
+          "description": "Pointer to the last point in the path list"
+        }
+      ],
+      "return_type": "void, does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "widen_cap",
+      "description": "This function widens the cap of a line segment based on the given parameters.",
+      "parameters": [
+        {
+          "name": "endpoint",
+          "type": "GpPointF *",
+          "description": "The endpoint of the line segment."
+        },
+        {
+          "name": "nextpoint",
+          "type": "GpPointF *",
+          "description": "The next point in the line segment."
+        },
+        {
+          "name": "pen_width",
+          "type": "REAL",
+          "description": "The width of the pen used to draw the line segment."
+        },
+        {
+          "name": "cap",
+          "type": "GpLineCap",
+          "description": "The cap style of the line segment."
+        },
+        {
+          "name": "custom_cap",
+          "type": "GpCustomLineCap *",
+          "description": "The custom cap style of the line segment."
+        },
+        {
+          "name": "add_first_points",
+          "type": "int",
+          "description": "Flag to determine if the first points should be added."
+        },
+        {
+          "name": "add_last_point",
+          "type": "int",
+          "description": "Flag to determine if the last point should be added."
+        },
+        {
+          "name": "last_point",
+          "type": "path_list_node_t **",
+          "description": "The last point in the path list node."
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "add_anchor",
+      "description": "This function adds an anchor point to a path based on the type of line cap specified. It calculates the necessary parameters and calls the appropriate function to add the anchor point to the path.",
+      "parameters": [
+        {
+          "name": "endpoint",
+          "type": "GpPointF *",
+          "description": "The end point of the line segment."
+        },
+        {
+          "name": "nextpoint",
+          "type": "GpPointF *",
+          "description": "The next point in the line segment."
+        },
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "The pen used to draw the line segment."
+        },
+        {
+          "name": "pen_width",
+          "type": "REAL",
+          "description": "The width of the pen."
+        },
+        {
+          "name": "cap",
+          "type": "GpLineCap",
+          "description": "The type of line cap to add."
+        },
+        {
+          "name": "custom",
+          "type": "GpCustomLineCap *",
+          "description": "The custom line cap to add, if any."
+        },
+        {
+          "name": "last_point",
+          "type": "path_list_node_t **",
+          "description": "The last point in the path to which the anchor point is added."
+        }
+      ],
+      "return_type": "void"
+    }
+  },
+  {
+    "function": {
+      "name": "widen_open_figure",
+      "description": "This function widens an open figure by adjusting the start and end points, and the joints in between. It also sets the type of the last point and the next point of the previous point.",
+      "parameters": [
+        {
+          "name": "points",
+          "type": "GpPointF *",
+          "description": "Pointer to the points of the figure"
+        },
+        {
+          "name": "start",
+          "type": "int",
+          "description": "The start index of the points array"
+        },
+        {
+          "name": "end",
+          "type": "int",
+          "description": "The end index of the points array"
+        },
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "The pen used to draw the figure"
+        },
+        {
+          "name": "pen_width",
+          "type": "REAL",
+          "description": "The width of the pen"
+        },
+        {
+          "name": "start_cap",
+          "type": "GpLineCap",
+          "description": "The style of the start cap of the figure"
+        },
+        {
+          "name": "custom_start",
+          "type": "GpCustomLineCap *",
+          "description": "Custom start cap of the figure"
+        },
+        {
+          "name": "end_cap",
+          "type": "GpLineCap",
+          "description": "The style of the end cap of the figure"
+        },
+        {
+          "name": "custom_end",
+          "type": "GpCustomLineCap *",
+          "description": "Custom end cap of the figure"
+        },
+        {
+          "name": "last_point",
+          "type": "path_list_node_t **",
+          "description": "Pointer to the last point of the figure"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "widen_closed_figure",
+      "description": "This function widens a closed figure by modifying the points of the figure based on the pen width. It outlines both the left and right sides of the figure.",
+      "parameters": [
+        {
+          "name": "points",
+          "type": "GpPointF *",
+          "description": "Pointer to the points of the figure"
+        },
+        {
+          "name": "start",
+          "type": "int",
+          "description": "The starting index of the points array"
+        },
+        {
+          "name": "end",
+          "type": "int",
+          "description": "The ending index of the points array"
+        },
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "Pointer to the pen used to draw the figure"
+        },
+        {
+          "name": "pen_width",
+          "type": "REAL",
+          "description": "The width of the pen"
+        },
+        {
+          "name": "last_point",
+          "type": "path_list_node_t **",
+          "description": "Pointer to the last point in the path list node"
+        }
+      ],
+      "return_type": "void, as this function does not return any value but modifies the points of the figure"
+    }
+  },
+  {
+    "function": {
+      "name": "widen_dashed_figure",
+      "description": "This function widens a dashed figure based on the provided parameters. It calculates the dash pattern, scales it, and then applies it to the figure. It also handles the allocation and deallocation of memory for the dash pattern and temporary points.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path of the figure to be widened"
+        },
+        {
+          "name": "start",
+          "type": "int",
+          "description": "The start index of the figure"
+        },
+        {
+          "name": "end",
+          "type": "int",
+          "description": "The end index of the figure"
+        },
+        {
+          "name": "closed",
+          "type": "int",
+          "description": "Flag indicating whether the figure is closed or not"
+        },
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "Pointer to the pen used to draw the figure"
+        },
+        {
+          "name": "pen_width",
+          "type": "REAL",
+          "description": "The width of the pen"
+        },
+        {
+          "name": "last_point",
+          "type": "path_list_node_t **",
+          "description": "Pointer to the last point in the figure"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "widen_anchors",
+      "description": "This function is used to widen the anchors of a given path. It iterates through the path data and applies the start and end cap styles to the path's anchors.",
+      "parameters": [
+        {
+          "name": "flat_path",
+          "type": "GpPath*",
+          "description": "A pointer to the path that needs its anchors widened."
+        },
+        {
+          "name": "pen",
+          "type": "GpPen*",
+          "description": "A pointer to the pen that defines the style of the path."
+        },
+        {
+          "name": "pen_width",
+          "type": "REAL",
+          "description": "The width of the pen."
+        },
+        {
+          "name": "last_point",
+          "type": "path_list_node_t**",
+          "description": "A pointer to the last point in the path."
+        }
+      ],
+      "return_type": "void, this function does not return anything as it modifies the path in-place."
+    }
+  },
+  {
+    "function": {
+      "name": "widen_flat_path_anchors",
+      "description": "This function widens the flat path anchors. It creates a path, widens the anchors, converts the path list to a path, and handles memory allocation and deallocation. It also handles error conditions.",
+      "parameters": [
+        {
+          "name": "flat_path",
+          "type": "GpPath *",
+          "description": "Pointer to the flat path"
+        },
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "Pointer to the pen"
+        },
+        {
+          "name": "pen_width",
+          "type": "REAL",
+          "description": "Width of the pen"
+        },
+        {
+          "name": "anchors",
+          "type": "GpPath **",
+          "description": "Double pointer to the anchors of the path"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, whether it was successful or if there was an error"
+    }
+  },
+  {
+    "function": {
+      "name": "points_equal",
+      "description": "This function checks if two points in an array are equal by comparing their memory contents.",
+      "parameters": [
+        {
+          "name": "points",
+          "type": "PointF*",
+          "description": "This is a pointer to an array of PointF structures."
+        },
+        {
+          "name": "index1",
+          "type": "int",
+          "description": "This is the index of the first point in the array to compare."
+        },
+        {
+          "name": "index2",
+          "type": "int",
+          "description": "This is the index of the second point in the array to compare."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the points are equal, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "remove_repeated_points",
+      "description": "This function removes repeated points from a given path. It iterates through the path data, checks for start and end points of subpaths and removes any repeated points found.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is a pointer to the path from which repeated points are to be removed."
+        }
+      ],
+      "return_type": "void, as the function does not return any value but modifies the path data in place."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipWidenPath",
+      "description": "This function widens a given path according to the specified pen and matrix. It also handles different pen properties such as dash style, line join, alignment, and compound array size. The function also manages memory allocation and deallocation for the path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path to be widened"
+        },
+        {
+          "name": "pen",
+          "type": "GpPen *",
+          "description": "Pointer to the pen used to define the characteristics of the widened path"
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "Pointer to the transformation matrix applied to the path"
+        },
+        {
+          "name": "flatness",
+          "type": "REAL",
+          "description": "Defines the maximum error between the path and its approximation with line segments"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can be Ok if the operation was successful, or an error status like InvalidParameter or OutOfMemory if the operation failed"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathRectangle",
+      "description": "This function adds a rectangle to a given path. If the width or height is less than or equal to 0, it returns Ok without making changes. It makes a backup of the path before making changes and reverts to the backup if any operation fails.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path to which the rectangle is to be added"
+        },
+        {
+          "name": "x",
+          "type": "REAL",
+          "description": "X-coordinate of the top-left corner of the rectangle"
+        },
+        {
+          "name": "y",
+          "type": "REAL",
+          "description": "Y-coordinate of the top-left corner of the rectangle"
+        },
+        {
+          "name": "width",
+          "type": "REAL",
+          "description": "Width of the rectangle"
+        },
+        {
+          "name": "height",
+          "type": "REAL",
+          "description": "Height of the rectangle"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns Ok if the operation is successful, InvalidParameter if the path is null, or the status of the failed operation"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathRectangleI",
+      "description": "This function adds a rectangle to the specified path at the specified location and with the specified dimensions.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path where the rectangle is to be added."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the rectangle."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the rectangle."
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "The width of the rectangle."
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "The height of the rectangle."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns Ok. Otherwise, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathRectangles",
+      "description": "This function adds rectangles to a path. It first checks if the parameters are valid, then makes a backup of the path. It then iterates over the rectangles, adding each one to the path. If an error occurs during this process, it reverts the path to its original state using the backup.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is the path to which the rectangles will be added."
+        },
+        {
+          "name": "rects",
+          "type": "GDIPCONST GpRectF *",
+          "description": "This is an array of rectangles that will be added to the path."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "This is the number of rectangles in the array."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can return 'InvalidParameter' if the parameters are not valid, 'OutOfMemory' if the count is less than 0, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipAddPathRectanglesI",
+      "description": "This function adds rectangles to a path. It first checks if the rectangles array is valid and if the count is not zero or negative. It then allocates memory for the rectangles, sets the rectangles, adds them to the path, and finally frees the allocated memory.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is a pointer to the path where the rectangles will be added."
+        },
+        {
+          "name": "rects",
+          "type": "GDIPCONST GpRect *",
+          "description": "This is a pointer to an array of rectangles that will be added to the path."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "This is the number of rectangles in the array."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can return 'InvalidParameter' if the rectangles array is null or the count is zero, 'OutOfMemory' if the count is negative, or the status of the 'GdipAddPathRectangles' function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPathMarker",
+      "description": "This function sets a marker flag on the last point in the path if the path contains at least one point.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "This is a pointer to the path where the marker flag is to be set."
+        }
+      ],
+      "return_type": "GpStatus, it represents the status of the operation. Returns 'InvalidParameter' if the path is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipClearPathMarkers",
+      "description": "This function clears all path markers in a given path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "This is a pointer to the path from which the path markers will be cleared."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the path is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipWindingModeOutline",
+      "description": "This function is currently a stub and not implemented. It is expected to outline a path using the winding mode.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path to be outlined"
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "Pointer to the transformation matrix"
+        },
+        {
+          "name": "flatness",
+          "type": "REAL",
+          "description": "Defines the maximum error between the true curve and its approximation in the outline"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, currently returns NotImplemented"
+    }
+  },
+  {
+    "function": {
+      "name": "is_integer_path",
+      "description": "This function checks if all points in a given path have integer coordinates. It iterates over each point in the path, rounds the x and y coordinates to the nearest integer, and then checks if the original coordinates are equal to the rounded ones. If any point has non-integer coordinates, the function returns FALSE. If all points have integer coordinates, it returns TRUE.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "This is a pointer to the path that will be checked for integer coordinates."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if all points in the path have integer coordinates, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "write_path_data",
+      "description": "This function writes path data into a structure and calculates the size of the data. It checks if the path is an integer path and writes the data accordingly. It also sets the version, count, and flags of the path header. If the data parameter is NULL, it returns the size without writing any data.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "This is a pointer to the path data to be written."
+        },
+        {
+          "name": "data",
+          "type": "void*",
+          "description": "This is a pointer to the data where the path data will be written. If this is NULL, the function will only calculate the size of the data without writing anything."
+        }
+      ],
+      "return_type": "DWORD, represents the size of the data that would be written or has been written."
+    }
+  }
+]

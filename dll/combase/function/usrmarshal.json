@@ -1,0 +1,625 @@
+[
+  {
+    "function": {
+      "name": "debugstr_user_flags",
+      "description": "This function returns a string representation of user flags. It uses a switch statement to determine the string representation of the lower word of the flags. It then checks the higher word of the flags to determine the final return string.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "A pointer to user flags"
+        }
+      ],
+      "return_type": "char: A string representation of user flags"
+    }
+  },
+  {
+    "function": {
+      "name": "handle_UserSize",
+      "description": "This function handles the size of the user by checking if the low word of the flag is equal to MSHCTX_DIFFERENTMACHINE. If it is, an error is raised and the function returns the starting size. If not, the starting size is aligned to the length of 3 and the size of RemotableHandle is added to it.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to a flag that is checked against MSHCTX_DIFFERENTMACHINE"
+        },
+        {
+          "name": "StartingSize",
+          "type": "ULONG",
+          "description": "The initial size that is returned or adjusted based on the flag"
+        },
+        {
+          "name": "handle",
+          "type": "HANDLE *",
+          "description": "Pointer to a handle that is not directly used in this function"
+        }
+      ],
+      "return_type": "ULONG, represents the final calculated size"
+    }
+  },
+  {
+    "function": {
+      "name": "handle_UserMarshal",
+      "description": "This function handles the marshalling of user data. It checks if the data is from a different machine, raises an exception if it is, aligns the buffer pointer, sets the context and inproc handle, and returns the buffer pointer incremented by the size of the RemotableHandle.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to flags that determine the context of the call"
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char*",
+          "description": "Pointer to the buffer where the RemotableHandle is stored"
+        },
+        {
+          "name": "handle",
+          "type": "HANDLE*",
+          "description": "Pointer to the handle that is being marshalled"
+        }
+      ],
+      "return_type": "unsigned char*, represents the buffer pointer incremented by the size of the RemotableHandle"
+    }
+  },
+  {
+    "function": {
+      "name": "handle_UserUnmarshal",
+      "description": "This function aligns the pointer to the buffer, checks if the remote handle context is not an in-process call, raises an exception if it is, assigns the in-process handle to the handle pointer, and returns the buffer pointer incremented by the size of the RemotableHandle.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to flags, not used in this function"
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char*",
+          "description": "Pointer to a buffer that is cast to a RemotableHandle and used to check the context and retrieve the in-process handle"
+        },
+        {
+          "name": "handle",
+          "type": "HANDLE*",
+          "description": "Pointer to a handle that is assigned the in-process handle from the RemotableHandle"
+        }
+      ],
+      "return_type": "unsigned char*; returns the buffer pointer incremented by the size of the RemotableHandle"
+    }
+  },
+  {
+    "function": {
+      "name": "handle_UserFree",
+      "description": "This function currently does not perform any operation.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable"
+        },
+        {
+          "name": "handle",
+          "type": "HANDLE*",
+          "description": "Pointer to a HANDLE variable"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "CLIPFORMAT_UserSize",
+      "description": "Calculates the buffer size required to marshal a clip format.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to flags. Even though the function is documented to take a pointer to an unsigned long, it actually takes a pointer to a USER_MARSHAL_CB structure, of which the first parameter is an unsigned long."
+        },
+        {
+          "name": "size",
+          "type": "ULONG",
+          "description": "Starting size of the buffer. This value is added on to the buffer size required for the clip format."
+        },
+        {
+          "name": "pCF",
+          "type": "CLIPFORMAT *",
+          "description": "Clip format to size."
+        }
+      ],
+      "return_type": "ULONG. The buffer size required to marshal a clip format plus the starting size."
+    }
+  },
+  {
+    "function": {
+      "name": "CLIPFORMAT_UserMarshal",
+      "description": "This function marshals the CLIPFORMAT data for remote or in-process calls. It checks if the CLIPFORMAT is a pre-defined type and if the call is going remote. If so, it gets the clipboard format name and raises an exception if the length is zero. It then copies the format name into the buffer. If the call is not going remote, it simply sets the buffer for an in-process call.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to the flags used to determine the type of marshalling required"
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char*",
+          "description": "Pointer to the buffer where the marshalled data will be stored"
+        },
+        {
+          "name": "pCF",
+          "type": "CLIPFORMAT*",
+          "description": "Pointer to the CLIPFORMAT that needs to be marshalled"
+        }
+      ],
+      "return_type": "unsigned char* representing the updated buffer after marshalling"
+    }
+  },
+  {
+    "function": {
+      "name": "CLIPFORMAT_UserUnmarshal",
+      "description": "This function unmarshals a CLIPFORMAT object from a buffer. It handles different contexts of the unmarshaling process, raising exceptions for invalid bounds and tags.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to user flags"
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char*",
+          "description": "Pointer to the buffer from which the CLIPFORMAT object is unmarshaled"
+        },
+        {
+          "name": "pCF",
+          "type": "CLIPFORMAT*",
+          "description": "Pointer to the CLIPFORMAT object that is unmarshaled"
+        }
+      ],
+      "return_type": "unsigned char*, represents the updated position in the buffer after unmarshaling"
+    }
+  },
+  {
+    "function": {
+      "name": "CLIPFORMAT_UserFree",
+      "description": "This function does not perform any operation as there is no inverse of the RegisterClipboardFormat function.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable."
+        },
+        {
+          "name": "pCF",
+          "type": "CLIPFORMAT*",
+          "description": "Pointer to a CLIPFORMAT variable."
+        }
+      ],
+      "return_type": "void, meaning this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "HBITMAP_UserSize",
+      "description": "This function calculates the size of the user object for a bitmap handle. It aligns the size to the nearest multiple of 3, then adds the size of ULONG. Depending on the flags, it may add additional sizes.",
+      "parameters": [
+        {
+          "name": "flags",
+          "type": "ULONG*",
+          "description": "Pointer to flags that determine how the size is calculated"
+        },
+        {
+          "name": "size",
+          "type": "ULONG",
+          "description": "Initial size value"
+        },
+        {
+          "name": "bmp",
+          "type": "HBITMAP*",
+          "description": "Pointer to the bitmap handle"
+        }
+      ],
+      "return_type": "ULONG, represents the calculated size of the user object for the bitmap handle"
+    }
+  },
+  {
+    "function": {
+      "name": "HBITMAP_UserMarshal",
+      "description": "This function marshals a bitmap handle from the client to the server.",
+      "parameters": [
+        {
+          "name": "flags",
+          "type": "ULONG *",
+          "description": "Pointer to flags that control the marshalling process."
+        },
+        {
+          "name": "buffer",
+          "type": "unsigned char *",
+          "description": "Pointer to the buffer where the marshalled data is stored."
+        },
+        {
+          "name": "bmp",
+          "type": "HBITMAP *",
+          "description": "Pointer to the bitmap handle that is to be marshalled."
+        }
+      ],
+      "return_type": "unsigned char *; Returns a pointer to the buffer after the bitmap handle has been marshalled into it."
+    }
+  },
+  {
+    "function": {
+      "name": "HBITMAP_UserUnmarshal",
+      "description": "This function unmarshals a bitmap from a buffer. It checks the context of the call and accordingly, either directly assigns the bitmap from the buffer or creates a new bitmap from the buffer data.",
+      "parameters": [
+        {
+          "name": "flags",
+          "type": "ULONG *",
+          "description": "Pointer to flags that provide additional information about the unmarshalling process"
+        },
+        {
+          "name": "buffer",
+          "type": "unsigned char *",
+          "description": "Pointer to the buffer from which the bitmap is to be unmarshalled"
+        },
+        {
+          "name": "bmp",
+          "type": "HBITMAP *",
+          "description": "Pointer to the bitmap that is to be unmarshalled from the buffer"
+        }
+      ],
+      "return_type": "unsigned char *; Returns the buffer pointer after the unmarshalling process"
+    }
+  },
+  {
+    "function": {
+      "name": "HBITMAP_UserFree",
+      "description": "This function frees a bitmap object if it is not used in the same process.",
+      "parameters": [
+        {
+          "name": "flags",
+          "type": "ULONG*",
+          "description": "Pointer to flags that determine the context in which the bitmap is used."
+        },
+        {
+          "name": "bmp",
+          "type": "HBITMAP*",
+          "description": "Pointer to the bitmap object to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "HPALETTE_UserSize",
+      "description": "This function is currently a stub and returns the starting size passed to it.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to flags, currently not used in the function"
+        },
+        {
+          "name": "StartingSize",
+          "type": "ULONG",
+          "description": "The starting size, which is returned by the function"
+        },
+        {
+          "name": "phPal",
+          "type": "HPALETTE *",
+          "description": "Pointer to a palette handle, currently not used in the function"
+        }
+      ],
+      "return_type": "ULONG, represents the starting size passed to the function"
+    }
+  },
+  {
+    "function": {
+      "name": "HPALETTE_UserMarshal",
+      "description": "This function is a stub, intended to be replaced by real functionality. Currently, it simply returns the second parameter passed to it.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to a ULONG variable, usage not defined in provided context"
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char *",
+          "description": "Pointer to a buffer, which is returned as is"
+        },
+        {
+          "name": "phPal",
+          "type": "HPALETTE *",
+          "description": "Pointer to a HPALETTE variable, usage not defined in provided context"
+        }
+      ],
+      "return_type": "unsigned char *: Returns the pBuffer passed to it"
+    }
+  },
+  {
+    "function": {
+      "name": "HPALETTE_UserUnmarshal",
+      "description": "This function is a stub, it does not perform any operation and returns the input buffer as it is.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable, not used in this function."
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char*",
+          "description": "Pointer to a buffer, returned as it is by the function."
+        },
+        {
+          "name": "phPal",
+          "type": "HPALETTE*",
+          "description": "Pointer to a HPALETTE variable, not used in this function."
+        }
+      ],
+      "return_type": "unsigned char*, represents the same buffer passed as input."
+    }
+  },
+  {
+    "function": {
+      "name": "HGLOBAL_UserSize",
+      "description": "This function calculates the size of a global memory object, considering the flags and starting size provided. It also aligns the size and adds additional sizes based on the flags and the global memory object.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to the flags used to control the function's behavior"
+        },
+        {
+          "name": "StartingSize",
+          "type": "ULONG",
+          "description": "The initial size to be used for the calculation"
+        },
+        {
+          "name": "phGlobal",
+          "type": "HGLOBAL*",
+          "description": "Pointer to the global memory object whose size is to be calculated"
+        }
+      ],
+      "return_type": "ULONG, representing the calculated size of the global memory object"
+    }
+  },
+  {
+    "function": {
+      "name": "HGLOBAL_UserMarshal",
+      "description": "This function marshals data from a HGLOBAL structure into a buffer. It handles different cases depending on the flags and the size of the HGLOBAL structure.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to flags that determine the marshalling behavior"
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char*",
+          "description": "Pointer to the buffer where the marshalled data will be stored"
+        },
+        {
+          "name": "phGlobal",
+          "type": "HGLOBAL*",
+          "description": "Pointer to the HGLOBAL structure to be marshalled"
+        }
+      ],
+      "return_type": "unsigned char* representing the updated buffer pointer after the marshalling operation"
+    }
+  },
+  {
+    "function": {
+      "name": "HGLOBAL_UserUnmarshal",
+      "description": "This function unmarshals a HGLOBAL user object from a buffer. It checks the context of the call and handles the unmarshalling differently based on the context. It also checks for consistency and raises exceptions if inconsistencies are found.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to user flags"
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char *",
+          "description": "Pointer to the buffer from where the HGLOBAL user object is unmarshalled"
+        },
+        {
+          "name": "phGlobal",
+          "type": "HGLOBAL *",
+          "description": "Pointer to the HGLOBAL user object that is unmarshalled"
+        }
+      ],
+      "return_type": "unsigned char * - Returns the updated buffer pointer after unmarshalling the HGLOBAL user object"
+    }
+  },
+  {
+    "function": {
+      "name": "HGLOBAL_UserFree",
+      "description": "This function frees a global memory object, if the specified flag is not MSHCTX_INPROC and the memory object is not null.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a flag that determines whether the global memory object should be freed."
+        },
+        {
+          "name": "phGlobal",
+          "type": "HGLOBAL*",
+          "description": "Pointer to the global memory object to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "HPALETTE_UserFree",
+      "description": "This function is a stub, meaning it is intended to be replaced by a complete function definition in future.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to a ULONG variable, usage not defined in the stub"
+        },
+        {
+          "name": "phPal",
+          "type": "HPALETTE *",
+          "description": "Pointer to a HPALETTE variable, usage not defined in the stub"
+        }
+      ],
+      "return_type": "void, meaning it does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "WdtpInterfacePointer_UserSize",
+      "description": "This function calculates the size required to marshal an interface pointer.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to flags that control the marshalling process"
+        },
+        {
+          "name": "RealFlags",
+          "type": "ULONG",
+          "description": "Actual flags that control the marshalling process"
+        },
+        {
+          "name": "StartingSize",
+          "type": "ULONG",
+          "description": "Initial size for the marshalling process"
+        },
+        {
+          "name": "punk",
+          "type": "IUnknown *",
+          "description": "Pointer to the interface to be marshalled"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface to be marshalled"
+        }
+      ],
+      "return_type": "ULONG, represents the size required to marshal the interface pointer"
+    }
+  },
+  {
+    "function": {
+      "name": "WdtpInterfacePointer_UserMarshal",
+      "description": "This function marshals an interface pointer and stores the marshaled data in a buffer. It also handles memory allocation and error checking for the marshaling process.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to flags that control the marshaling process"
+        },
+        {
+          "name": "RealFlags",
+          "type": "ULONG",
+          "description": "Actual flags that control the marshaling process"
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char *",
+          "description": "Pointer to the buffer where the marshaled data will be stored"
+        },
+        {
+          "name": "punk",
+          "type": "IUnknown *",
+          "description": "Pointer to the interface to be marshaled"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface to be marshaled"
+        }
+      ],
+      "return_type": "unsigned char *; Returns a pointer to the buffer containing the marshaled data, or NULL if the marshaling process fails"
+    }
+  },
+  {
+    "function": {
+      "name": "WdtpInterfacePointer_UserUnmarshal",
+      "description": "This function unmarshals an interface pointer from a buffer. It also checks for memory allocation and raises exceptions in case of errors.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to user flags"
+        },
+        {
+          "name": "pBuffer",
+          "type": "unsigned char*",
+          "description": "Buffer from which the interface pointer is unmarshaled"
+        },
+        {
+          "name": "ppunk",
+          "type": "IUnknown**",
+          "description": "Pointer to the interface pointer that is unmarshaled"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface"
+        }
+      ],
+      "return_type": "unsigned char*: Returns a pointer to the buffer after the unmarshaled data"
+    }
+  },
+  {
+    "function": {
+      "name": "WdtpInterfacePointer_UserFree",
+      "description": "This function releases an interface pointer if it is not null.",
+      "parameters": [
+        {
+          "name": "punk",
+          "type": "IUnknown *",
+          "description": "This is a pointer to an unknown interface that will be released if it is not null."
+        }
+      ],
+      "return_type": "void, meaning this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "HSTRING_UserSize",
+      "description": "This function calculates the size of a user string, taking into account the flags and the size provided. It adjusts the size based on the type of string (in-process or local).",
+      "parameters": [
+        {
+          "name": "flags",
+          "type": "ULONG *",
+          "description": "Pointer to flags that determine the type of string"
+        },
+        {
+          "name": "size",
+          "type": "ULONG",
+          "description": "Initial size of the string"
+        },
+        {
+          "name": "str",
+          "type": "HSTRING *",
+          "description": "Pointer to the string whose size is to be calculated"
+        }
+      ],
+      "return_type": "ULONG, represents the calculated size of the string"
+    }
+  },
+  {
+    "function": {
+      "name": "HSTRING_UserFree",
+      "description": "This function traces the user flags and hstring, and deletes the string if the lower word of the flags is MSHCTX_INPROC.",
+      "parameters": [
+        {
+          "name": "flags",
+          "type": "ULONG*",
+          "description": "Pointer to user flags"
+        },
+        {
+          "name": "str",
+          "type": "HSTRING*",
+          "description": "Pointer to the string to be deleted"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  }
+]

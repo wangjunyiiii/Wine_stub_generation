@@ -1,0 +1,854 @@
+[
+  {
+    "function": {
+      "name": "impl_from_IWICBitmapEncoder",
+      "description": "This function returns the containing record of the given interface, which is of type CommonEncoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This parameter is a pointer to an IWICBitmapEncoder interface."
+        }
+      ],
+      "return_type": "CommonEncoder pointer, which represents the containing record of the given interface."
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IWICBitmapFrameEncode",
+      "description": "This function returns a pointer to the CommonEncoderFrame structure that contains the given IWICBitmapFrameEncode interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to an IWICBitmapFrameEncode interface"
+        }
+      ],
+      "return_type": "CommonEncoderFrame pointer, representing the CommonEncoderFrame structure that contains the given IWICBitmapFrameEncode interface"
+    }
+  },
+  {
+    "function": {
+      "name": "impl_from_IWICMetadataBlockWriter",
+      "description": "This function returns the containing record for the given interface, effectively casting the interface to the CommonEncoderFrame type.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter *",
+          "description": "Pointer to an IWICMetadataBlockWriter interface"
+        }
+      ],
+      "return_type": "CommonEncoderFrame pointer, representing the containing record for the given interface"
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_QueryInterface",
+      "description": "This function queries an interface of a common encoder frame. If the requested interface is supported, it returns a pointer to that interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to the IWICBitmapFrameEncode interface of the object"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface being requested"
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Address of a pointer variable that receives the interface pointer requested in iid. Upon successful return, *ppv contains the requested interface pointer. If the object does not support the interface, *ppv will contain NULL."
+        }
+      ],
+      "return_type": "HRESULT. If the method succeeds, it returns S_OK. If it fails, it returns an error code. Specifically, if ppv is NULL, it returns E_INVALIDARG. If the requested interface is not supported, it returns E_NOINTERFACE."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_AddRef",
+      "description": "This function increments the reference count of the CommonEncoderFrame object and returns the updated reference count.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is a pointer to the IWICBitmapFrameEncode interface of the CommonEncoderFrame object whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "ULONG, represents the updated reference count of the CommonEncoderFrame object."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_Release",
+      "description": "This function releases the CommonEncoderFrame object and decrements its reference count. If the reference count reaches zero, it releases the associated IWICBitmapEncoder object and frees the memory allocated to the CommonEncoderFrame object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is a pointer to the IWICBitmapFrameEncode interface of the CommonEncoderFrame object."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count of the CommonEncoderFrame object after it has been decremented."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_Initialize",
+      "description": "This function initializes the common encoder frame. It reads the encoder options from the property bag, sets the interlace and filter options, and then locks the parent object to set the encoder frame and initialization status.",
+      "parameters": [
+        {
+          "name": "IWICBitmapFrameEncode *iface",
+          "type": "pointer",
+          "description": "This is a pointer to the interface of the bitmap frame that is to be encoded."
+        },
+        {
+          "name": "IPropertyBag2 *pIEncoderOptions",
+          "type": "pointer",
+          "description": "This is a pointer to the property bag that contains the encoder options."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function execution. If the function executes successfully, it returns S_OK. If the function fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_SetSize",
+      "description": "This function sets the size of a common encoder frame. It checks if the width and height are valid for ICNS icon generation, and if the frame is initialized and not created yet, it sets the width and height of the encoder frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to an interface of a bitmap frame encode"
+        },
+        {
+          "name": "uiWidth",
+          "type": "UINT",
+          "description": "The width of the frame"
+        },
+        {
+          "name": "uiHeight",
+          "type": "UINT",
+          "description": "The height of the frame"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the width and height are not valid for ICNS icon generation, and WINCODEC_ERR_WRONGSTATE if the frame is not initialized or already created."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_SetResolution",
+      "description": "This function sets the resolution of a common encoder frame. It first checks if the frame is initialized and not created. If these conditions are met, it sets the dpiX and dpiY values of the encoder frame and returns S_OK. Otherwise, it returns WINCODEC_ERR_WRONGSTATE.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to an interface of a bitmap frame encode"
+        },
+        {
+          "name": "dpiX",
+          "type": "double",
+          "description": "The horizontal resolution to set for the encoder frame"
+        },
+        {
+          "name": "dpiY",
+          "type": "double",
+          "description": "The vertical resolution to set for the encoder frame"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation was successful, otherwise returns WINCODEC_ERR_WRONGSTATE"
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_SetPixelFormat",
+      "description": "This function sets the pixel format for a common encoder frame. It checks if the frame is initialized and not created, gets the supported format from the encoder, and if successful, sets the pixel format, bits per pixel, and indexed values for the encoder frame.",
+      "parameters": [
+        {
+          "name": "IWICBitmapFrameEncode *iface",
+          "type": "pointer",
+          "description": "This is a pointer to the interface of the bitmap frame that needs to be encoded."
+        },
+        {
+          "name": "WICPixelFormatGUID *pPixelFormat",
+          "type": "pointer",
+          "description": "This is a pointer to the pixel format GUID that needs to be set for the encoder frame."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns WINCODEC_ERR_WRONGSTATE if the frame is not initialized or already created, otherwise it returns the result of getting the supported format from the encoder."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_SetColorContexts",
+      "description": "This function is a stub and not yet implemented. It is intended to set color contexts for a common encoder frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Interface for the bitmap frame encoder"
+        },
+        {
+          "name": "cCount",
+          "type": "UINT",
+          "description": "Count of color contexts"
+        },
+        {
+          "name": "ppIColorContext",
+          "type": "IWICColorContext **",
+          "description": "Pointer to the color context"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, in this case it returns E_NOTIMPL indicating the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_SetPalette",
+      "description": "This function sets the palette for a common encoder frame. It checks if the palette and the frame are initialized and created, respectively. If not, it returns an error. If they are, it gets the colors from the palette and assigns them to the encoder frame's palette.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is an interface to a bitmap frame encoder."
+        },
+        {
+          "name": "palette",
+          "type": "IWICPalette *",
+          "description": "This is the palette to be set to the encoder frame."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It can be a success or an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_SetThumbnail",
+      "description": "This function is a stub and currently does not perform any operation. It is intended to set the thumbnail for a common encoder frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is an interface to a bitmap frame encode object."
+        },
+        {
+          "name": "pIThumbnail",
+          "type": "IWICBitmapSource *",
+          "description": "This is a pointer to the thumbnail bitmap source."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. Currently, it always returns WINCODEC_ERR_UNSUPPORTEDOPERATION indicating that the operation is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_WritePixels",
+      "description": "This function writes pixel data to an encoder frame. It checks if the frame is initialized and has valid dimensions. If the frame is not created yet, it creates one. Then it writes the lines to the encoder. It also manages thread safety using critical sections.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to an interface for a bitmap frame encoder."
+        },
+        {
+          "name": "lineCount",
+          "type": "UINT",
+          "description": "The number of lines to write."
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "The stride, or width in memory, of the lines to write."
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "The size of the buffer that contains the pixel data."
+        },
+        {
+          "name": "pbPixels",
+          "type": "BYTE *",
+          "description": "Pointer to the pixel data to write."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, WINCODEC_ERR_WRONGSTATE if the frame is not initialized or has invalid dimensions, E_INVALIDARG if the arguments are invalid, or the error code from the encoder_write_lines function."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_WriteSource",
+      "description": "This function writes the source of a common encoder frame. It first checks if the frame is initialized. If not, it returns an error. If it is initialized, it configures the write source and writes the source.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Interface for the bitmap frame encode"
+        },
+        {
+          "name": "pIBitmapSource",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to the bitmap source"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to the rectangle area of the bitmap source"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, it returns S_OK. If the frame is not initialized, it returns WINCODEC_ERR_WRONGSTATE. If there is an error during the operation, it returns the corresponding error code."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_Commit",
+      "description": "This function commits the frame for the common encoder. It checks if the frame is created and if the lines written are equal to the height of the encoder frame. If not, it returns an error. If yes, it commits the frame to the encoder and updates the status of the frame and the uncommitted frame in the parent encoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is an interface to the bitmap frame that needs to be encoded."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation is successful, it returns S_OK. If the frame is not created or the lines written are not equal to the height of the encoder frame or the frame is already committed, it returns WINCODEC_ERR_WRONGSTATE."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_GetMetadataQueryWriter",
+      "description": "This function retrieves a metadata query writer from a common encoder frame.",
+      "parameters": [
+        {
+          "name": "IWICBitmapFrameEncode *iface",
+          "type": "pointer",
+          "description": "This is an interface pointer to a bitmap frame encoder."
+        },
+        {
+          "name": "IWICMetadataQueryWriter **ppIMetadataQueryWriter",
+          "type": "pointer to pointer",
+          "description": "This is a pointer to a pointer to a metadata query writer. The function fills this with the requested metadata query writer."
+        }
+      ],
+      "return_type": "HRESULT, which is a type used in Windows programming to represent error or success codes. If the function succeeds, it returns S_OK. If the ppIMetadataQueryWriter parameter is NULL, it returns E_INVALIDARG. If the encoder is not initialized, it returns WINCODEC_ERR_NOTINITIALIZED. If the encoder does not support metadata, it returns WINCODEC_ERR_UNSUPPORTEDOPERATION."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoder_QueryInterface",
+      "description": "This function checks if the provided interface supports the specified interface ID (IID). If it does, it returns a pointer to that interface; otherwise, it returns an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to the IWICBitmapEncoder interface."
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "The interface ID to query for."
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "If the interface is supported, this will point to the interface; otherwise, it will be set to NULL."
+        }
+      ],
+      "return_type": "HRESULT. If the function succeeds, it returns S_OK. If the interface is not supported, it returns E_NOINTERFACE. If ppv is NULL, it returns E_INVALIDARG."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoder_AddRef",
+      "description": "This function increments the reference count of the CommonEncoder object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is a pointer to the IWICBitmapEncoder interface."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after incrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoder_Release",
+      "description": "This function releases the resources associated with the IWICBitmapEncoder interface. It decrements the reference count and if it reaches zero, it deletes the critical section, releases the stream, destroys the encoder and frees the memory.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is a pointer to the IWICBitmapEncoder interface whose resources are to be released."
+        }
+      ],
+      "return_type": "ULONG, represents the new reference count after decrementing."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoder_Initialize",
+      "description": "This function initializes the common encoder with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is an interface to the bitmap encoder."
+        },
+        {
+          "name": "pIStream",
+          "type": "IStream *",
+          "description": "This is a pointer to the input stream."
+        },
+        {
+          "name": "cacheOption",
+          "type": "WICBitmapEncoderCacheOption",
+          "description": "This is the cache option for the bitmap encoder."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the function execution. It returns S_OK on successful execution, E_POINTER if the input stream is null, and WINCODEC_ERR_WRONGSTATE if the stream is already initialized."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoder_GetContainerFormat",
+      "description": "This function retrieves the container format of a common encoder object.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder*",
+          "description": "Pointer to an IWICBitmapEncoder interface."
+        },
+        {
+          "name": "format",
+          "type": "GUID*",
+          "description": "Pointer to a GUID to receive the container format."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoder_GetEncoderInfo",
+      "description": "This function retrieves the encoder information for a given bitmap encoder interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is the interface of the bitmap encoder for which the information is to be retrieved."
+        },
+        {
+          "name": "info",
+          "type": "IWICBitmapEncoderInfo **",
+          "description": "This is a pointer to a pointer to an IWICBitmapEncoderInfo object. The function fills this with the retrieved encoder information."
+        }
+      ],
+      "return_type": "HRESULT, which is a data type used in Windows programming to represent error conditions, and warning conditions. The function returns S_OK if it succeeds or an error code if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoder_SetColorContexts",
+      "description": "This function is a stub and not yet implemented. It is intended to set color contexts for a bitmap encoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to an instance of a bitmap encoder"
+        },
+        {
+          "name": "cCount",
+          "type": "UINT",
+          "description": "Count of color contexts"
+        },
+        {
+          "name": "ppIColorContext",
+          "type": "IWICColorContext **",
+          "description": "Pointer to a pointer of color context"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, in this case it returns E_NOTIMPL indicating the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoder_SetPalette",
+      "description": "This function sets the palette for a common encoder. It checks if the stream is initialized and returns an error code based on the result.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is an interface to the bitmap encoder."
+        },
+        {
+          "name": "palette",
+          "type": "IWICPalette *",
+          "description": "This is the palette to be set for the encoder."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns WINCODEC_ERR_UNSUPPORTEDOPERATION if the stream is initialized, otherwise it returns WINCODEC_ERR_NOTINITIALIZED."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoder_SetThumbnail",
+      "description": "This function sets the thumbnail for a common encoder. However, the operation is not supported and will always return an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is an interface to the bitmap encoder."
+        },
+        {
+          "name": "pIThumbnail",
+          "type": "IWICBitmapSource *",
+          "description": "This is a pointer to the bitmap source for the thumbnail."
+        }
+      ],
+      "return_type": "HRESULT, which is a type used in Windows programming to represent error conditions, and warning, informational, or success results. In this case, it always returns WINCODEC_ERR_UNSUPPORTEDOPERATION indicating that the operation is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoder_SetPreview",
+      "description": "This function is used to set the preview of a common encoder. However, it is currently unsupported and will return an error.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is an interface to the bitmap encoder."
+        },
+        {
+          "name": "pIPreview",
+          "type": "IWICBitmapSource *",
+          "description": "This is a pointer to the bitmap source for the preview."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns WINCODEC_ERR_UNSUPPORTEDOPERATION indicating that the operation is unsupported."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_Block_QueryInterface",
+      "description": "This function queries the interface of a common encoder frame block.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter *",
+          "description": "Pointer to the interface of the metadata block writer"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier"
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Pointer to the pointer to the interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_Block_AddRef",
+      "description": "This function adds a reference to a common encoder frame block.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter *",
+          "description": "This parameter is used to interface with the metadata block writer."
+        }
+      ],
+      "return_type": "ULONG, represents the reference count after the addition."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_Block_Release",
+      "description": "This function releases the CommonEncoderFrame block by calling the IWICBitmapFrameEncode_Release function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter *",
+          "description": "This parameter is used to get the CommonEncoderFrame instance from the IWICMetadataBlockWriter interface."
+        }
+      ],
+      "return_type": "ULONG, represents the status of the release operation."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_Block_GetContainerFormat",
+      "description": "This function is a stub and not yet implemented. It is intended to get the container format of a metadata block writer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter*",
+          "description": "Pointer to an instance of a metadata block writer interface."
+        },
+        {
+          "name": "container_format",
+          "type": "GUID*",
+          "description": "Pointer to a GUID that will receive the container format."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_Block_GetCount",
+      "description": "This function is a stub, not yet implemented, intended to get the count of metadata blocks in a common encoder frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter*",
+          "description": "Pointer to an interface for writing metadata blocks."
+        },
+        {
+          "name": "count",
+          "type": "UINT*",
+          "description": "Pointer to an unsigned integer where the count of metadata blocks will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_Block_GetReaderByIndex",
+      "description": "This function is a stub and not yet implemented. It is intended to get a metadata reader by index from a metadata block writer interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter *",
+          "description": "Pointer to the metadata block writer interface."
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "Index of the metadata reader to get."
+        },
+        {
+          "name": "metadata_reader",
+          "type": "IWICMetadataReader **",
+          "description": "Pointer to a pointer to receive the metadata reader."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_Block_GetEnumerator",
+      "description": "This function is a stub and not yet implemented. It is intended to get an enumerator for a block writer interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter *",
+          "description": "This is a pointer to the block writer interface."
+        },
+        {
+          "name": "enum_metadata",
+          "type": "IEnumUnknown **",
+          "description": "This is a pointer to a pointer to the enumerator for the metadata."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_Block_InitializeFromBlockReader",
+      "description": "This function is a stub and not yet implemented. It is intended to initialize a block writer from a block reader.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter *",
+          "description": "Pointer to an interface for a metadata block writer."
+        },
+        {
+          "name": "metadata_block_reader",
+          "type": "IWICMetadataBlockReader *",
+          "description": "Pointer to an interface for a metadata block reader."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_Block_GetWriterByIndex",
+      "description": "This function is a stub and not yet implemented. It is expected to get a metadata writer by index from a metadata block writer interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter *",
+          "description": "Pointer to the metadata block writer interface"
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "Index of the metadata writer to get"
+        },
+        {
+          "name": "metadata_writer",
+          "type": "IWICMetadataWriter **",
+          "description": "Pointer to a pointer to receive the metadata writer"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_Block_AddWriter",
+      "description": "This function is not implemented yet and returns an error code indicating that.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter *",
+          "description": "Interface for writing blocks of metadata."
+        },
+        {
+          "name": "metadata_writer",
+          "type": "IWICMetadataWriter *",
+          "description": "Interface for writing metadata."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, in this case, it returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_Block_SetWriterByIndex",
+      "description": "This function is a stub and not yet implemented. It is intended to set a metadata writer at a specific index in a metadata block writer.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter*",
+          "description": "Pointer to an interface of a metadata block writer"
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "The index at which the metadata writer should be set"
+        },
+        {
+          "name": "metadata_writer",
+          "type": "IWICMetadataWriter*",
+          "description": "Pointer to the metadata writer to be set"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoderFrame_Block_RemoveWriterByIndex",
+      "description": "This function is not implemented yet. It is supposed to remove a writer from a metadata block by its index.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockWriter*",
+          "description": "Pointer to an interface of a metadata block writer."
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "Index of the writer to be removed."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoder_CreateNewFrame",
+      "description": "This function creates a new frame for a common encoder. It initializes the frame, sets up the encoder options, and manages the encoder's state.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to an IWICBitmapEncoder interface that represents the encoder."
+        },
+        {
+          "name": "ppIFrameEncode",
+          "type": "IWICBitmapFrameEncode **",
+          "description": "Pointer to a pointer to an IWICBitmapFrameEncode interface that will receive the new frame."
+        },
+        {
+          "name": "ppIEncoderOptions",
+          "type": "IPropertyBag2 **",
+          "description": "Pointer to a pointer to an IPropertyBag2 interface that will receive the encoder options."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the function succeeds, WINCODEC_ERR_UNSUPPORTEDOPERATION if the encoder does not support multiple frames, WINCODEC_ERR_NOTINITIALIZED if the encoder is not initialized, or E_OUTOFMEMORY if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoder_Commit",
+      "description": "This function commits the encoder if it is not already committed or if there is no uncommitted frame. It locks the encoder during the operation to prevent other threads from accessing it simultaneously.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is a pointer to an interface of a Windows Imaging Component (WIC) bitmap encoder."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. It returns WINCODEC_ERR_WRONGSTATE if the encoder is already committed or if there is an uncommitted frame. Otherwise, it returns the result of the encoder_commit_file function."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoder_GetMetadataQueryWriter",
+      "description": "This function is a stub and not yet implemented. It is intended to get the metadata query writer from a common encoder.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to an IWICBitmapEncoder interface"
+        },
+        {
+          "name": "ppIMetadataQueryWriter",
+          "type": "IWICMetadataQueryWriter **",
+          "description": "Pointer to a pointer to an IWICMetadataQueryWriter interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "CommonEncoder_CreateInstance",
+      "description": "This function creates an instance of a CommonEncoder, initializes it, and queries an interface based on the provided IID. If the instance creation fails, it destroys the encoder and returns an error.",
+      "parameters": [
+        {
+          "name": "encoder",
+          "type": "struct encoder *",
+          "description": "Pointer to an encoder structure that the function will use to create a CommonEncoder instance"
+        },
+        {
+          "name": "encoder_info",
+          "type": "struct encoder_info *",
+          "description": "Pointer to an encoder_info structure that the function will use to initialize the CommonEncoder instance"
+        },
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Interface Identifier (IID) that the function will use to query an interface on the created CommonEncoder instance"
+        },
+        {
+          "name": "ppv",
+          "type": "void **",
+          "description": "Pointer to a pointer where the function will store the queried interface if successful"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns E_OUTOFMEMORY if the instance creation fails, otherwise it returns the result of the interface query operation"
+    }
+  }
+]

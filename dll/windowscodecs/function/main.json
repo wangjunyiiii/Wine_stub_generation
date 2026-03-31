@@ -1,0 +1,121 @@
+[
+  {
+    "function": {
+      "name": "DllMain",
+      "description": "This function is an entry point to a DLL. It handles process and thread initialization and termination.",
+      "parameters": [
+        {
+          "name": "hinstDLL",
+          "type": "HINSTANCE",
+          "description": "A handle to the DLL module."
+        },
+        {
+          "name": "fdwReason",
+          "type": "DWORD",
+          "description": "The reason the DLL entry-point function is being called."
+        },
+        {
+          "name": "lpvReserved",
+          "type": "LPVOID",
+          "description": "If fdwReason is DLL_PROCESS_DETACH, lpvReserved is used to indicate whether the DLL is being unloaded as a result of a call to FreeLibrary and FreeLibraryAndExitThread or the process is terminating."
+        }
+      ],
+      "return_type": "BOOL, indicates the success or failure. Returns a nonzero value if successful; otherwise, it returns zero."
+    }
+  },
+  {
+    "function": {
+      "name": "get_pixelformat_bpp",
+      "description": "This function retrieves the number of bits per pixel for a given pixel format.",
+      "parameters": [
+        {
+          "name": "pixelformat",
+          "type": "const GUID*",
+          "description": "A pointer to the GUID of the pixel format."
+        },
+        {
+          "name": "bpp",
+          "type": "UINT*",
+          "description": "A pointer to a UINT that receives the number of bits per pixel."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "TiffDecoder_CreateInstance",
+      "description": "This function creates an instance of a TIFF decoder.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "This is an identifier for the interface."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "This is a pointer to the interface pointer that receives the interface pointer requested in iid."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation was successful, the return value is S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "TiffEncoder_CreateInstance",
+      "description": "This function creates an instance of a TIFF encoder.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "Interface identifier for the encoder instance."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "Pointer to the location where the function stores the output encoder instance."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "JpegDecoder_CreateInstance",
+      "description": "This function creates an instance of a JPEG decoder.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "This parameter is used to identify the interface that the caller is to use to communicate with the JPEG decoder."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "This is a pointer to a pointer variable that receives the interface pointer requested in iid. Upon successful return, *ppv contains the requested interface pointer."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation was successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "JpegEncoder_CreateInstance",
+      "description": "This function creates an instance of a JPEG encoder.",
+      "parameters": [
+        {
+          "name": "iid",
+          "type": "REFIID",
+          "description": "This is an interface identifier that the function uses to create an instance of a specific interface."
+        },
+        {
+          "name": "ppv",
+          "type": "void**",
+          "description": "This is a pointer to a pointer. The function uses this to return the address of the created instance."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  }
+]

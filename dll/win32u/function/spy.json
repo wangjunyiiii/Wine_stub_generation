@@ -1,0 +1,303 @@
+[
+  {
+    "function": {
+      "name": "exclude_msg",
+      "description": "This function checks if a message should be excluded based on its ID. It uses the 'spy_exclude' array and the 'SPY_MAX_MSGNUM' constant to determine the result.",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "This is the ID of the message to be checked."
+        }
+      ],
+      "return_type": "BOOL, represents whether the message should be excluded or not."
+    }
+  },
+  {
+    "function": {
+      "name": "exclude_dwp",
+      "description": "This function returns the value of the spy_exclude array at the index SPY_MAX_MSGNUM + 1.",
+      "parameters": [],
+      "return_type": "BOOL, represents the value of the spy_exclude array at the index SPY_MAX_MSGNUM + 1"
+    }
+  },
+  {
+    "function": {
+      "name": "get_indent_level",
+      "description": "This function retrieves the indentation level from the user thread information.",
+      "parameters": [],
+      "return_type": "INT_PTR, represents the indentation level of the user thread."
+    }
+  },
+  {
+    "function": {
+      "name": "set_indent_level",
+      "description": "This function sets the indentation level for the user thread info spy_indent field.",
+      "parameters": [
+        {
+          "name": "level",
+          "type": "INT_PTR",
+          "description": "This parameter represents the indentation level to be set."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "SPY_GetMsgInternal",
+      "description": "This function is used to get the message type name based on the message number. It checks the range of the message number and returns the corresponding message type name. If the message number does not fall within any of the defined ranges, it returns NULL.",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "This parameter represents the message number for which the message type name is to be returned."
+        }
+      ],
+      "return_type": "char, represents the message type name corresponding to the message number. If the message number does not fall within any of the defined ranges, it returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "SPY_Bsearch_Msg",
+      "description": "This function performs a binary search on an array of USER_MSG structures, looking for a specific code. If the code is found, it returns a pointer to the corresponding USER_MSG. If the code is not found, it returns NULL.",
+      "parameters": [
+        {
+          "name": "msgs",
+          "type": "const USER_MSG *",
+          "description": "Pointer to the array of USER_MSG structures to be searched"
+        },
+        {
+          "name": "count",
+          "type": "UINT",
+          "description": "Number of elements in the msgs array"
+        },
+        {
+          "name": "code",
+          "type": "UINT",
+          "description": "The code to search for in the msgs array"
+        }
+      ],
+      "return_type": "USER_MSG pointer. It represents a pointer to the USER_MSG structure in the msgs array that matches the specified code, or NULL if no match is found"
+    }
+  },
+  {
+    "function": {
+      "name": "SPY_GetClassName",
+      "description": "This function retrieves the class name of a given instance and checks if it is a property sheet dialog. If it is, it sets the window class to WC_PROPSHEETW, otherwise it retrieves the class name using NtUserGetClassName.",
+      "parameters": [
+        {
+          "name": "sp_e",
+          "type": "SPY_INSTANCE*",
+          "description": "Pointer to the instance whose class name is to be retrieved."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "SPY_GetMsgStuff",
+      "description": "This function retrieves message information for a given SPY_INSTANCE. It sets the message name and data length in the SPY_INSTANCE structure based on the message number. It also handles special cases for certain message numbers and class names.",
+      "parameters": [
+        {
+          "name": "sp_e",
+          "type": "SPY_INSTANCE*",
+          "description": "Pointer to a SPY_INSTANCE structure. This structure contains information about a message, including its number, name, and data length."
+        }
+      ],
+      "return_type": "void, this function does not return a value but modifies the SPY_INSTANCE structure passed as a parameter"
+    }
+  },
+  {
+    "function": {
+      "name": "SPY_GetWndName",
+      "description": "This function retrieves the window name. If the name is not available, it gets the class name and formats it within curly braces.",
+      "parameters": [
+        {
+          "name": "sp_e",
+          "type": "SPY_INSTANCE*",
+          "description": "Pointer to an instance of SPY_INSTANCE structure. This structure contains information about the window."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "debugstr_msg_name",
+      "description": "This function retrieves the last error code, sets up a SPY_INSTANCE structure, gets message information, restores the error code, and returns a formatted debug string.",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "This parameter is used to store the message number."
+        },
+        {
+          "name": "hWnd",
+          "type": "HWND",
+          "description": "This parameter is used to store the handle to the window."
+        }
+      ],
+      "return_type": "char, represents a formatted debug string"
+    }
+  },
+  {
+    "function": {
+      "name": "debugstr_vkey_name",
+      "description": "This function returns the name of a virtual key corresponding to a given WPARAM value. If the WPARAM value is not valid, it returns a default string 'VK_???'",
+      "parameters": [
+        {
+          "name": "wParam",
+          "type": "WPARAM",
+          "description": "This parameter represents the virtual key code to be translated into a string"
+        }
+      ],
+      "return_type": "char: It represents the string name of the virtual key"
+    }
+  },
+  {
+    "function": {
+      "name": "SPY_Bsearch_Notify",
+      "description": "This function performs a binary search on the 'spnfy_array' for a given 'code'. If the 'code' is found, it returns a pointer to the corresponding element in the 'spnfy_array'. If the 'code' is not found, it returns NULL.",
+      "parameters": [
+        {
+          "name": "code",
+          "type": "UINT",
+          "description": "The code to search for in the 'spnfy_array'"
+        }
+      ],
+      "return_type": "SPY_NOTIFY pointer. It represents a pointer to an element in the 'spnfy_array' if the 'code' is found, otherwise NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "SPY_DumpMem",
+      "description": "This function dumps the memory content in a structured format. It iterates over the memory block, printing the content in chunks of 4 bytes. The size of the last chunk can be 4, 8, 12 or 16 bytes, depending on the total length of the memory block.",
+      "parameters": [
+        {
+          "name": "header",
+          "type": "LPCSTR",
+          "description": "A string that is printed at the beginning of each line of the memory dump."
+        },
+        {
+          "name": "q",
+          "type": "UINT *",
+          "description": "A pointer to the memory block that needs to be dumped."
+        },
+        {
+          "name": "len",
+          "type": "INT",
+          "description": "The length of the memory block that needs to be dumped."
+        }
+      ],
+      "return_type": "void, this function does not return a value, it only prints the memory dump."
+    }
+  },
+  {
+    "function": {
+      "name": "SPY_DumpStructure",
+      "description": "This function is used to dump the structure of a SPY_INSTANCE based on the message number it contains. It handles a variety of cases, each corresponding to a different message number, and performs different operations based on these cases.",
+      "parameters": [
+        {
+          "name": "sp_e",
+          "type": "SPY_INSTANCE *",
+          "description": "This is a pointer to the SPY_INSTANCE whose structure is to be dumped."
+        },
+        {
+          "name": "enter",
+          "type": "BOOL",
+          "description": "This boolean value is used in conditional checks within the function to determine the flow of execution."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "spy_init",
+      "description": "This function initializes a spy feature, setting up exclusions and inclusions for message tracing. It reads from the registry to determine which messages to include or exclude, and whether to exclude DWP messages. If the 'SpyExclude' registry key is set to 'EXCLUDEALL', all messages are excluded. If the 'SpyInclude' registry key is set to 'INCLUDEALL', all messages are included. Otherwise, individual messages are included or excluded based on their presence in the 'SpyInclude' or 'SpyExclude' registry keys.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the spy feature was successfully initialized, and FALSE indicates that it was not."
+    }
+  },
+  {
+    "function": {
+      "name": "spy_enter_message",
+      "description": "This function logs messages sent to a window, including the message number, window handle, and parameters. It also handles different types of messages based on the iFlag parameter.",
+      "parameters": [
+        {
+          "name": "iFlag",
+          "type": "INT",
+          "description": "This parameter is used to determine the type of message being processed."
+        },
+        {
+          "name": "hWnd",
+          "type": "HWND",
+          "description": "This parameter represents the handle to the window that the message is being sent to."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "This parameter represents the message number."
+        },
+        {
+          "name": "wParam",
+          "type": "WPARAM",
+          "description": "This parameter is an additional message-specific information."
+        },
+        {
+          "name": "lParam",
+          "type": "LPARAM",
+          "description": "This parameter is an additional message-specific information."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "spy_exit_message",
+      "description": "This function logs the exit message of a window procedure and restores the last error value for the current thread. It also handles the indentation level for the log and dumps the structure of the message if the message was processed successfully.",
+      "parameters": [
+        {
+          "name": "iFlag",
+          "type": "INT",
+          "description": "Flag to determine the type of the message result"
+        },
+        {
+          "name": "hWnd",
+          "type": "HWND",
+          "description": "Handle to the window that received the message"
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message number"
+        },
+        {
+          "name": "lReturn",
+          "type": "LRESULT",
+          "description": "The return value of the window procedure"
+        },
+        {
+          "name": "wParam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "lParam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  }
+]

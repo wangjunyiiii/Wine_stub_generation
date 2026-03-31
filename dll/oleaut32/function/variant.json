@@ -1,0 +1,1122 @@
+[
+  {
+    "function": {
+      "name": "VARIANT_Coerce",
+      "description": "This function is used to coerce or convert variant types from one type to another.",
+      "parameters": [
+        {
+          "name": "pd",
+          "type": "VARIANTARG*",
+          "description": "Pointer to a VARIANTARG structure that receives the converted value."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Locale identifier used for type conversion."
+        },
+        {
+          "name": "wFlags",
+          "type": "USHORT",
+          "description": "Flags that control the coercion."
+        },
+        {
+          "name": "ps",
+          "type": "VARIANTARG*",
+          "description": "Pointer to a VARIANTARG structure that contains the value to be converted."
+        },
+        {
+          "name": "vt",
+          "type": "VARTYPE",
+          "description": "Target variant type to which the value is to be converted."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. S_OK indicates success and DISP_E_TYPEMISMATCH indicates that the variant type conversion was not possible."
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_CoerceArray",
+      "description": "This function is used to coerce an array of VARIANTARG type. It checks the type of the source VARIANTARG and the desired type, and then performs the appropriate coercion operation.",
+      "parameters": [
+        {
+          "name": "pd",
+          "type": "VARIANTARG*",
+          "description": "Pointer to the destination VARIANTARG"
+        },
+        {
+          "name": "ps",
+          "type": "VARIANTARG*",
+          "description": "Pointer to the source VARIANTARG"
+        },
+        {
+          "name": "vt",
+          "type": "VARTYPE",
+          "description": "The desired VARTYPE for the coercion"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns DISP_E_TYPEMISMATCH if the types do not match, and the result of the coercion operation otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_FetchDispatchValue",
+      "description": "This function fetches the value of a dispatch variant. If the variant type is not dispatch, it returns a type mismatch error.",
+      "parameters": [
+        {
+          "name": "pvDispatch",
+          "type": "LPVARIANT",
+          "description": "Pointer to the variant from which to fetch the dispatch value."
+        },
+        {
+          "name": "pValue",
+          "type": "LPVARIANT",
+          "description": "Pointer to the variant where the fetched dispatch value will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. It returns DISP_E_TYPEMISMATCH if the variant type is not dispatch or if the dispatch is NULL, otherwise it returns the result of IDispatch_Invoke."
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_ValidateType",
+      "description": "This function validates the type of a VARIANT. It checks if the VARIANT type is within the acceptable range or if it matches specific acceptable types. If the type is not valid, it returns an error code.",
+      "parameters": [
+        {
+          "name": "vt",
+          "type": "VARTYPE",
+          "description": "This parameter represents the VARIANT type that needs to be validated."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. It returns S_OK if the VARIANT type is valid, otherwise it returns DISP_E_BADVARTYPE indicating an error."
+    }
+  },
+  {
+    "function": {
+      "name": "VariantInit",
+      "description": "This function initializes a VARIANTARG structure to zero.",
+      "parameters": [
+        {
+          "name": "pVarg",
+          "type": "VARIANTARG*",
+          "description": "A pointer to a VARIANTARG structure to be initialized."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_ClearInd",
+      "description": "This function validates the type of the VARIANTARG, performs an action based on the type, and then sets the type to VT_EMPTY. The actions performed can include releasing unknown types, freeing strings, clearing variants, and destroying safe arrays.",
+      "parameters": [
+        {
+          "name": "pVarg",
+          "type": "VARIANTARG*",
+          "description": "A pointer to a VARIANTARG structure that needs to be cleared."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "VariantClear",
+      "description": "This function clears a VARIANTARG object and sets its type to VT_EMPTY. It handles different types of VARIANTARG, including arrays, strings, records, and dispatch interfaces.",
+      "parameters": [
+        {
+          "name": "pVarg",
+          "type": "VARIANTARG*",
+          "description": "A pointer to the VARIANTARG object to be cleared"
+        }
+      ],
+      "return_type": "DECLSPEC_HOTPATCH, represents the status of the operation, successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_CopyIRecordInfo",
+      "description": "This function copies the IRecordInfo from the source VARIANT to the destination VARIANT. It also handles memory allocation for the destination VARIANT.",
+      "parameters": [
+        {
+          "name": "dest",
+          "type": "VARIANT*",
+          "description": "This is the destination VARIANT where the IRecordInfo will be copied to."
+        },
+        {
+          "name": "src",
+          "type": "VARIANT*",
+          "description": "This is the source VARIANT from where the IRecordInfo will be copied."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, E_INVALIDARG if the source VARIANT does not contain IRecordInfo, E_OUTOFMEMORY if memory allocation fails, or other HRESULT values if the IRecordInfo_GetSize or IRecordInfo_RecordCopy functions fail."
+    }
+  },
+  {
+    "function": {
+      "name": "VariantCopy",
+      "description": "This function copies a VARIANTARG from source to destination. It handles different types of VARIANTARG and performs a deep copy when necessary.",
+      "parameters": [
+        {
+          "name": "pvargDest",
+          "type": "VARIANTARG*",
+          "description": "This is the destination where the source VARIANTARG will be copied to."
+        },
+        {
+          "name": "pvargSrc",
+          "type": "const VARIANTARG*",
+          "description": "This is the source VARIANTARG that will be copied."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, DISP_E_BADVARTYPE if the VARIANT type is invalid, E_OUTOFMEMORY if there is not enough memory to complete the operation, or other error codes depending on the specific failure."
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_DataSize",
+      "description": "This function determines the size of the data type of a VARIANT object.",
+      "parameters": [
+        {
+          "name": "pv",
+          "type": "VARIANT*",
+          "description": "Pointer to a VARIANT object whose data size is to be determined."
+        }
+      ],
+      "return_type": "size_t, represents the size of the data type of the VARIANT object in bytes."
+    }
+  },
+  {
+    "function": {
+      "name": "VariantCopyInd",
+      "description": "This function copies the contents of one VARIANTARG structure to another. It handles special cases where the source VARIANTARG is a by-reference variant.",
+      "parameters": [
+        {
+          "name": "pvargDest",
+          "type": "VARIANT *",
+          "description": "Pointer to the destination VARIANTARG structure."
+        },
+        {
+          "name": "pvargSrc",
+          "type": "VARIANTARG *",
+          "description": "Pointer to the source VARIANTARG structure."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. It returns S_OK if the function succeeds; otherwise, it returns an HRESULT error code."
+    }
+  },
+  {
+    "function": {
+      "name": "VariantChangeType",
+      "description": "This function changes the type of a variant.",
+      "parameters": [
+        {
+          "name": "pvargDest",
+          "type": "VARIANTARG*",
+          "description": "Pointer to the destination variant"
+        },
+        {
+          "name": "pvargSrc",
+          "type": "VARIANTARG*",
+          "description": "Pointer to the source variant"
+        },
+        {
+          "name": "wFlags",
+          "type": "USHORT",
+          "description": "Flags that control the type conversion"
+        },
+        {
+          "name": "vt",
+          "type": "VARTYPE",
+          "description": "Target variant type to which the source variant is converted"
+        }
+      ],
+      "return_type": "DECLSPEC_HOTPATCH, represents the result of the type conversion"
+    }
+  },
+  {
+    "function": {
+      "name": "VariantChangeTypeEx",
+      "description": "This function attempts to change the type of a variant. It validates the source and target types, handles special cases for arrays and by-reference variants, and performs the type coercion.",
+      "parameters": [
+        {
+          "name": "pvargDest",
+          "type": "VARIANTARG*",
+          "description": "Pointer to the destination variant. The function will attempt to change its type."
+        },
+        {
+          "name": "pvargSrc",
+          "type": "const VARIANTARG*",
+          "description": "Pointer to the source variant. Its type will be used as the basis for the type change."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Locale identifier to be used in the type change."
+        },
+        {
+          "name": "wFlags",
+          "type": "USHORT",
+          "description": "Flags that control the type change."
+        },
+        {
+          "name": "vt",
+          "type": "VARTYPE",
+          "description": "The target variant type. The function will attempt to change the type of pvargDest to this type."
+        }
+      ],
+      "return_type": "HRESULT. It represents the success or failure of the function. It returns S_OK if the function succeeds, DISP_E_BADVARTYPE if the target type is VT_CLSID, DISP_E_TYPEMISMATCH if the source variant is by-reference but has no valid value, or other error codes as appropriate."
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_JulianFromDate",
+      "description": "This function converts a given date into Julian date format.",
+      "parameters": [
+        {
+          "name": "dateIn",
+          "type": "int",
+          "description": "This parameter represents the date to be converted into Julian date format."
+        }
+      ],
+      "return_type": "int, represents the converted Julian date from the input date."
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_DateFromJulian",
+      "description": "This function converts a Julian date to a date in the Gregorian calendar.",
+      "parameters": [
+        {
+          "name": "dateIn",
+          "type": "int",
+          "description": "This parameter represents the input Julian date."
+        }
+      ],
+      "return_type": "int, represents the converted date in the Gregorian calendar."
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_DMYFromJulian",
+      "description": "This function converts a Julian date to a day, month, and year.",
+      "parameters": [
+        {
+          "name": "jd",
+          "type": "int",
+          "description": "The Julian date to be converted."
+        },
+        {
+          "name": "year",
+          "type": "USHORT*",
+          "description": "Pointer to an unsigned short where the year will be stored."
+        },
+        {
+          "name": "month",
+          "type": "USHORT*",
+          "description": "Pointer to an unsigned short where the month will be stored."
+        },
+        {
+          "name": "day",
+          "type": "USHORT*",
+          "description": "Pointer to an unsigned short where the day will be stored."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but instead modifies the values of the passed pointers."
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_JulianFromDMY",
+      "description": "This function calculates the Julian date from the day, month, and year.",
+      "parameters": [
+        {
+          "name": "year",
+          "type": "USHORT",
+          "description": "This parameter represents the year."
+        },
+        {
+          "name": "month",
+          "type": "USHORT",
+          "description": "This parameter represents the month."
+        },
+        {
+          "name": "day",
+          "type": "USHORT",
+          "description": "This parameter represents the day."
+        }
+      ],
+      "return_type": "double, represents the Julian date calculated from the input parameters"
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_RollUdate",
+      "description": "This function adjusts the date and time values in a UDATE structure to be within their normal ranges.",
+      "parameters": [
+        {
+          "name": "lpUd",
+          "type": "UDATE*",
+          "description": "Pointer to a UDATE structure that contains the date and time values to adjust."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "DosDateTimeToVariantTime",
+      "description": "This function converts DOS date and time into variant time format.",
+      "parameters": [
+        {
+          "name": "wDosDate",
+          "type": "USHORT",
+          "description": "This parameter represents the DOS date."
+        },
+        {
+          "name": "wDosTime",
+          "type": "USHORT",
+          "description": "This parameter represents the DOS time."
+        },
+        {
+          "name": "pDateOut",
+          "type": "DOUBLE *",
+          "description": "This is a pointer to the output variable where the converted variant time will be stored."
+        }
+      ],
+      "return_type": "INT. The function returns a boolean value. It returns FALSE if the year is greater than 2099, month is greater than 12, hour is greater than 23, minute or second is greater than 59. Otherwise, it returns the result of the VarDateFromUdate function."
+    }
+  },
+  {
+    "function": {
+      "name": "VariantTimeToDosDateTime",
+      "description": "This function converts a variant time to DOS date and time.",
+      "parameters": [
+        {
+          "name": "dateIn",
+          "type": "DOUBLE",
+          "description": "The input date in variant time format."
+        },
+        {
+          "name": "pwDosDate",
+          "type": "USHORT*",
+          "description": "Pointer to a variable that receives the converted DOS date."
+        },
+        {
+          "name": "pwDosTime",
+          "type": "USHORT*",
+          "description": "Pointer to a variable that receives the converted DOS time."
+        }
+      ],
+      "return_type": "INT, returns TRUE if the conversion is successful, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "SystemTimeToVariantTime",
+      "description": "This function converts a SYSTEMTIME structure into a variant time, which is the number of days from midnight, December 30, 1899.",
+      "parameters": [
+        {
+          "name": "lpSt",
+          "type": "LPSYSTEMTIME",
+          "description": "Pointer to a SYSTEMTIME structure that contains the date and time to be converted."
+        },
+        {
+          "name": "pDateOut",
+          "type": "DOUBLE*",
+          "description": "Pointer to a variable that receives the converted date and time."
+        }
+      ],
+      "return_type": "INT, returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "VariantTimeToSystemTime",
+      "description": "This function converts a variant time to system time.",
+      "parameters": [
+        {
+          "name": "dateIn",
+          "type": "DOUBLE",
+          "description": "This parameter represents the variant time to be converted."
+        },
+        {
+          "name": "lpSt",
+          "type": "LPSYSTEMTIME",
+          "description": "This is a pointer to a SYSTEMTIME structure that receives the converted time."
+        }
+      ],
+      "return_type": "INT, returns TRUE if the function succeeds, or FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "VarDateFromUdateEx",
+      "description": "This function converts a UDATE structure to a variant date, considering the specified locale and flags.",
+      "parameters": [
+        {
+          "name": "pUdateIn",
+          "type": "UDATE *",
+          "description": "Pointer to a UDATE structure that contains the date and time to convert."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Locale identifier that specifies the locale."
+        },
+        {
+          "name": "dwFlags",
+          "type": "ULONG",
+          "description": "Flags that control the conversion."
+        },
+        {
+          "name": "pDateOut",
+          "type": "DATE *",
+          "description": "Pointer to the DATE to receive the converted date and time."
+        }
+      ],
+      "return_type": "HRESULT, which indicates the success or failure of the function."
+    }
+  },
+  {
+    "function": {
+      "name": "VarDateFromUdate",
+      "description": "This function converts a UDATE structure to a variant date, using language and region settings specified by a locale identifier.",
+      "parameters": [
+        {
+          "name": "pUdateIn",
+          "type": "UDATE*",
+          "description": "Pointer to a UDATE structure that contains the date to convert."
+        },
+        {
+          "name": "dwFlags",
+          "type": "ULONG",
+          "description": "Flags that control the conversion."
+        },
+        {
+          "name": "pDateOut",
+          "type": "DATE*",
+          "description": "Pointer to a DATE structure that receives the converted date."
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function. If the function succeeds, the return value is S_OK. If the function fails, the return value is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "VarUdateFromDate",
+      "description": "This function converts a DATE to a UDATE structure, adjusting the time/date forward if needed.",
+      "parameters": [
+        {
+          "name": "dateIn",
+          "type": "DATE",
+          "description": "The date to be converted to a UDATE structure."
+        },
+        {
+          "name": "dwFlags",
+          "type": "ULONG",
+          "description": "Flags that control the conversion."
+        },
+        {
+          "name": "lpUdate",
+          "type": "UDATE *",
+          "description": "Pointer to a UDATE structure that receives the converted date."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if successful, or an error value otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_GetLocalisedNumberChars",
+      "description": "This function gets localized number characters based on the provided locale ID and flags. It also handles errors related to buffer size for LOCALE_SCURRENCY.",
+      "parameters": [
+        {
+          "name": "lpChars",
+          "type": "VARIANT_NUMBER_CHARS*",
+          "description": "Pointer to a VARIANT_NUMBER_CHARS structure that receives the localized number characters."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Locale identifier that specifies the locale for which to get the number characters."
+        },
+        {
+          "name": "dwFlags",
+          "type": "DWORD",
+          "description": "Flags that determine the function's behavior. This value is used to get the LCTYPE value."
+        }
+      ],
+      "return_type": "void, this function does not return a value but modifies the lpChars parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "is_digit",
+      "description": "This function checks if a given character is a digit (0-9).",
+      "parameters": [
+        {
+          "name": "c",
+          "type": "WCHAR",
+          "description": "This is the character that will be checked if it's a digit or not."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the character is a digit (0-9), FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "VarParseNumFromStr",
+      "description": "This function parses a string to extract a number and its associated properties. It handles different number formats including decimal, hexadecimal, and octal. It also manages different flags that control the parsing process.",
+      "parameters": [
+        {
+          "name": "lpszStr",
+          "type": "const OLECHAR *",
+          "description": "Pointer to the string to be parsed."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Locale identifier to consider during parsing."
+        },
+        {
+          "name": "dwFlags",
+          "type": "ULONG",
+          "description": "Flags that control the parsing process."
+        },
+        {
+          "name": "pNumprs",
+          "type": "NUMPARSE *",
+          "description": "Pointer to a NUMPARSE structure that receives information about the parsed number."
+        },
+        {
+          "name": "rgbDig",
+          "type": "BYTE *",
+          "description": "Pointer to a buffer that receives the digits of the parsed number."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful, otherwise an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "VarNumFromParseNum",
+      "description": "This function parses a number and converts it into a VARIANT type. It handles different number types including hex, octal, real, and decimal numbers. It also handles overflow and underflow conditions.",
+      "parameters": [
+        {
+          "name": "pNumprs",
+          "type": "NUMPARSE*",
+          "description": "Pointer to a NUMPARSE structure that contains the parsed number to be converted."
+        },
+        {
+          "name": "rgbDig",
+          "type": "BYTE*",
+          "description": "Pointer to an array of bytes that represent the digits of the number to be converted."
+        },
+        {
+          "name": "dwVtBits",
+          "type": "ULONG",
+          "description": "Specifies the acceptable types of the output VARIANT."
+        },
+        {
+          "name": "pVarDst",
+          "type": "VARIANT*",
+          "description": "Pointer to the VARIANT that receives the converted number."
+        }
+      ],
+      "return_type": "HRESULT. It returns S_OK if the function succeeds, and DISP_E_OVERFLOW if the number overflows the specified type."
+    }
+  },
+  {
+    "function": {
+      "name": "VarCat",
+      "description": "This function concatenates two variants and handles various types and error conditions.",
+      "parameters": [
+        {
+          "name": "left",
+          "type": "LPVARIANT",
+          "description": "The first variant to be concatenated."
+        },
+        {
+          "name": "right",
+          "type": "LPVARIANT",
+          "description": "The second variant to be concatenated."
+        },
+        {
+          "name": "out",
+          "type": "LPVARIANT",
+          "description": "The output of the concatenation of the first and second variants."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful, otherwise an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "_VarChangeTypeExWrap",
+      "description": "This function wraps the VariantChangeTypeEx function, performing a bitwise operation on the source variant type to remove reserved bits before calling the wrapped function.",
+      "parameters": [
+        {
+          "name": "pvargDest",
+          "type": "VARIANTARG*",
+          "description": "Pointer to the destination variant argument."
+        },
+        {
+          "name": "pvargSrc",
+          "type": "VARIANTARG*",
+          "description": "Pointer to the source variant argument."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Locale identifier."
+        },
+        {
+          "name": "wFlags",
+          "type": "USHORT",
+          "description": "Flags to be passed to the VariantChangeTypeEx function."
+        },
+        {
+          "name": "vt",
+          "type": "VARTYPE",
+          "description": "Variant type to be passed to the VariantChangeTypeEx function."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function call."
+    }
+  },
+  {
+    "function": {
+      "name": "VarCmp",
+      "description": "This function compares two variants and returns a result indicating if the first variant is less than, equal to, or greater than the second variant. It also handles various types of data and performs necessary type conversions.",
+      "parameters": [
+        {
+          "name": "left",
+          "type": "LPVARIANT",
+          "description": "The first variant to be compared."
+        },
+        {
+          "name": "right",
+          "type": "LPVARIANT",
+          "description": "The second variant to be compared."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Locale identifier to consider while comparing."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags that control the comparison."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the comparison. It can indicate whether the first variant is less than, equal to, or greater than the second variant, or if an error occurred during the comparison."
+    }
+  },
+  {
+    "function": {
+      "name": "VarAnd",
+      "description": "This function performs a bitwise AND operation on the provided left and right variants and stores the result in the result variant. It handles various types of variants and performs necessary type conversions.",
+      "parameters": [
+        {
+          "name": "left",
+          "type": "LPVARIANT",
+          "description": "The left operand for the bitwise AND operation."
+        },
+        {
+          "name": "right",
+          "type": "LPVARIANT",
+          "description": "The right operand for the bitwise AND operation."
+        },
+        {
+          "name": "result",
+          "type": "LPVARIANT",
+          "description": "The pointer to the variant where the result of the bitwise AND operation is stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. S_OK indicates success, while other values indicate an error."
+    }
+  },
+  {
+    "function": {
+      "name": "VarAdd",
+      "description": "This function adds two variants together. It handles different variant types and performs type coercion as necessary. It also handles special cases such as concatenation for BSTR types and overflow detection.",
+      "parameters": [
+        {
+          "name": "left",
+          "type": "LPVARIANT",
+          "description": "The first variant to add."
+        },
+        {
+          "name": "right",
+          "type": "LPVARIANT",
+          "description": "The second variant to add."
+        },
+        {
+          "name": "result",
+          "type": "LPVARIANT",
+          "description": "A pointer to a VARIANT where the result of the addition will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. S_OK indicates success, while other values indicate an error."
+    }
+  },
+  {
+    "function": {
+      "name": "VarMul",
+      "description": "This function multiplies two variants and stores the result in a third variant. It handles different variant types and performs type coercion as necessary.",
+      "parameters": [
+        {
+          "name": "left",
+          "type": "LPVARIANT",
+          "description": "The first variant to be multiplied."
+        },
+        {
+          "name": "right",
+          "type": "LPVARIANT",
+          "description": "The second variant to be multiplied."
+        },
+        {
+          "name": "result",
+          "type": "LPVARIANT",
+          "description": "A pointer to a variant where the result of the multiplication will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "VarDiv",
+      "description": "This function performs division operation on the given variants. It handles different variant types and errors such as division by zero and overflow.",
+      "parameters": [
+        {
+          "name": "left",
+          "type": "LPVARIANT",
+          "description": "The dividend in the division operation."
+        },
+        {
+          "name": "right",
+          "type": "LPVARIANT",
+          "description": "The divisor in the division operation."
+        },
+        {
+          "name": "result",
+          "type": "LPVARIANT",
+          "description": "The result of the division operation."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful, error code otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "VarSub",
+      "description": "This function subtracts the value of the 'right' parameter from the 'left' parameter and stores the result in the 'result' parameter. It handles various types of data and performs type checking and conversion as necessary.",
+      "parameters": [
+        {
+          "name": "left",
+          "type": "LPVARIANT",
+          "description": "This is the minuend in the subtraction operation."
+        },
+        {
+          "name": "right",
+          "type": "LPVARIANT",
+          "description": "This is the subtrahend in the subtraction operation."
+        },
+        {
+          "name": "result",
+          "type": "LPVARIANT",
+          "description": "This is the result of the subtraction operation."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK if the function succeeds and an error code if it fails."
+    }
+  },
+  {
+    "function": {
+      "name": "VarOr",
+      "description": "This function performs a bitwise OR operation on the values of the two input parameters and stores the result in the output parameter. It also handles various data types and edge cases.",
+      "parameters": [
+        {
+          "name": "pVarLeft",
+          "type": "LPVARIANT",
+          "description": "The first input parameter for the OR operation."
+        },
+        {
+          "name": "pVarRight",
+          "type": "LPVARIANT",
+          "description": "The second input parameter for the OR operation."
+        },
+        {
+          "name": "pVarOut",
+          "type": "LPVARIANT",
+          "description": "The output parameter where the result of the OR operation is stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation is successful, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "VarAbs",
+      "description": "This function calculates the absolute value of a variant type. It handles various types of data including integers, booleans, floats, strings, dates, decimals, and others. It also handles errors and exceptions related to type mismatch and overflow.",
+      "parameters": [
+        {
+          "name": "pVarIn",
+          "type": "LPVARIANT",
+          "description": "This is the input parameter. The function calculates the absolute value of this variant."
+        },
+        {
+          "name": "pVarOut",
+          "type": "LPVARIANT",
+          "description": "This is the output parameter. The function stores the result of the absolute value operation in this variant."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function executes successfully, it returns S_OK. In case of an error, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "VarFix",
+      "description": "This function is used to convert a variant type to another variant type. It handles different variant types and performs the conversion accordingly. It also handles errors and exceptions during the conversion process.",
+      "parameters": [
+        {
+          "name": "pVarIn",
+          "type": "LPVARIANT",
+          "description": "This is the input parameter representing the variant to be converted."
+        },
+        {
+          "name": "pVarOut",
+          "type": "LPVARIANT",
+          "description": "This is the output parameter where the result of the conversion is stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "VarInt",
+      "description": "This function converts the input variant to an integer variant. It handles different types of variants such as VT_DISPATCH, VT_R4, VT_BSTR, VT_DATE, VT_R8, VT_CY, VT_DECIMAL, and others. It also handles errors and edge cases.",
+      "parameters": [
+        {
+          "name": "pVarIn",
+          "type": "LPVARIANT",
+          "description": "This is the input variant that needs to be converted to an integer variant."
+        },
+        {
+          "name": "pVarOut",
+          "type": "LPVARIANT",
+          "description": "This is the output parameter where the result of the conversion is stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "VarXor",
+      "description": "This function performs a bitwise XOR operation on the values of the input parameters and stores the result in the output parameter. It handles various types of input and performs necessary type conversions.",
+      "parameters": [
+        {
+          "name": "pVarLeft",
+          "type": "LPVARIANT",
+          "description": "The left operand for the XOR operation."
+        },
+        {
+          "name": "pVarRight",
+          "type": "LPVARIANT",
+          "description": "The right operand for the XOR operation."
+        },
+        {
+          "name": "pVarOut",
+          "type": "LPVARIANT",
+          "description": "The output parameter where the result of the XOR operation is stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function execution. S_OK indicates success, while other values indicate various types of errors."
+    }
+  },
+  {
+    "function": {
+      "name": "VarEqv",
+      "description": "This function performs the logical equivalence operation on the values of the two input parameters and stores the result in the output parameter. It uses the VarXor function to perform the operation and then inverts the result.",
+      "parameters": [
+        {
+          "name": "pVarLeft",
+          "type": "LPVARIANT",
+          "description": "The first input parameter for the equivalence operation."
+        },
+        {
+          "name": "pVarRight",
+          "type": "LPVARIANT",
+          "description": "The second input parameter for the equivalence operation."
+        },
+        {
+          "name": "pVarOut",
+          "type": "LPVARIANT",
+          "description": "The output parameter where the result of the equivalence operation is stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "VarNeg",
+      "description": "This function negates the value of a given variant and stores the result in another variant. It handles different variant types including integers, booleans, floating point numbers, dates, currency, decimal, string, empty, and null. It also handles special cases like VT_CLSID and validates the variant type.",
+      "parameters": [
+        {
+          "name": "pVarIn",
+          "type": "LPVARIANT",
+          "description": "This is the input variant whose value is to be negated."
+        },
+        {
+          "name": "pVarOut",
+          "type": "LPVARIANT",
+          "description": "This is the output variant where the negated value of the input variant is stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation is successful, it returns S_OK. If the operation fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "VarNot",
+      "description": "This function performs a bitwise NOT operation on the specified variant and returns the result. It handles different types of variants including integers, booleans, decimals, etc. If the variant type is not supported, it returns an error.",
+      "parameters": [
+        {
+          "name": "pVarIn",
+          "type": "LPVARIANT",
+          "description": "Pointer to the input variant on which the NOT operation is performed."
+        },
+        {
+          "name": "pVarOut",
+          "type": "LPVARIANT",
+          "description": "Pointer to the output variant where the result of the NOT operation is stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function execution. S_OK indicates success, while other values indicate an error."
+    }
+  },
+  {
+    "function": {
+      "name": "VarRound",
+      "description": "This function rounds a variant to a specified number of decimal places.",
+      "parameters": [
+        {
+          "name": "pVarIn",
+          "type": "LPVARIANT",
+          "description": "Input variant to be rounded."
+        },
+        {
+          "name": "deci",
+          "type": "int",
+          "description": "Number of decimal places to round to."
+        },
+        {
+          "name": "pVarOut",
+          "type": "LPVARIANT",
+          "description": "Output variant after rounding."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful, otherwise an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "VarIdiv",
+      "description": "This function performs integer division on two variants and stores the result in a third variant. It handles different variant types and includes error checking for division by zero and invalid variant types.",
+      "parameters": [
+        {
+          "name": "left",
+          "type": "LPVARIANT",
+          "description": "The dividend in the division operation."
+        },
+        {
+          "name": "right",
+          "type": "LPVARIANT",
+          "description": "The divisor in the division operation."
+        },
+        {
+          "name": "result",
+          "type": "LPVARIANT",
+          "description": "A pointer to a variant where the result of the division operation will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. S_OK indicates success, DISP_E_DIVBYZERO indicates division by zero, and DISP_E_BADVARTYPE indicates an invalid variant type."
+    }
+  },
+  {
+    "function": {
+      "name": "VarMod",
+      "description": "This function performs the modulo operation on two variants and stores the result in a third variant. It handles various types of variants and performs necessary type conversions. It also checks for invalid inputs and handles errors accordingly.",
+      "parameters": [
+        {
+          "name": "left",
+          "type": "LPVARIANT",
+          "description": "The first operand of the modulo operation."
+        },
+        {
+          "name": "right",
+          "type": "LPVARIANT",
+          "description": "The second operand of the modulo operation."
+        },
+        {
+          "name": "result",
+          "type": "LPVARIANT",
+          "description": "The result of the modulo operation is stored in this parameter."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns S_OK if the operation is successful, and an error code if the operation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "VarPow",
+      "description": "This function calculates the power of two variants and handles different types of variant inputs.",
+      "parameters": [
+        {
+          "name": "left",
+          "type": "LPVARIANT",
+          "description": "The base for the power operation."
+        },
+        {
+          "name": "right",
+          "type": "LPVARIANT",
+          "description": "The exponent for the power operation."
+        },
+        {
+          "name": "result",
+          "type": "LPVARIANT",
+          "description": "The result of the power operation."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if successful, error code otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "VarImp",
+      "description": "This function performs bitwise implication on two variants and stores the result in a third variant. It handles various types of variants and their special cases.",
+      "parameters": [
+        {
+          "name": "left",
+          "type": "LPVARIANT",
+          "description": "The first operand of the bitwise implication operation."
+        },
+        {
+          "name": "right",
+          "type": "LPVARIANT",
+          "description": "The second operand of the bitwise implication operation."
+        },
+        {
+          "name": "result",
+          "type": "LPVARIANT",
+          "description": "A pointer to a variant where the result of the bitwise implication operation will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. S_OK indicates success, while other values indicate various types of failure."
+    }
+  }
+]

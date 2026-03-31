@@ -1,0 +1,1352 @@
+[
+  {
+    "function": {
+      "name": "has_extension",
+      "description": "This function checks if a given string (list) contains a specific extension (ext).",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "char *",
+          "description": "This is the string where the function will look for the extension."
+        },
+        {
+          "name": "ext",
+          "type": "char *",
+          "description": "This is the extension that the function will look for in the string."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the extension is found in the string, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "dump_extensions",
+      "description": "This function iterates over a list of extensions and prints them. If an extension is longer than 128 characters, it only prints the first 128 characters.",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "char *",
+          "description": "A string containing a list of extensions separated by spaces."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "register_extension",
+      "description": "This function registers an extension if it does not already exist in the list. It adds the extension to the list, separated by a space if the list is not empty.",
+      "parameters": [
+        {
+          "name": "list",
+          "type": "char *",
+          "description": "A list of extensions"
+        },
+        {
+          "name": "size",
+          "type": "size_t",
+          "description": "The size of the list"
+        },
+        {
+          "name": "name",
+          "type": "char *",
+          "description": "The name of the extension to be registered"
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "opengl_drawable_create",
+      "description": "This function creates an OpenGL drawable object, initializes its properties, and returns a pointer to it.",
+      "parameters": [
+        {
+          "name": "size",
+          "type": "UINT",
+          "description": "The size of the drawable object to be created."
+        },
+        {
+          "name": "funcs",
+          "type": "const struct opengl_drawable_funcs *",
+          "description": "Pointer to the structure containing the function pointers for the drawable object."
+        },
+        {
+          "name": "format",
+          "type": "int",
+          "description": "The pixel format of the drawable object."
+        },
+        {
+          "name": "client",
+          "type": "struct client_surface *",
+          "description": "Pointer to the client surface where the drawable object will be created."
+        }
+      ],
+      "return_type": "void *: Returns a pointer to the created opengl_drawable object. Returns NULL if the object could not be created."
+    }
+  },
+  {
+    "function": {
+      "name": "opengl_drawable_add_ref",
+      "description": "This function increments the reference count of the opengl_drawable object.",
+      "parameters": [
+        {
+          "name": "drawable",
+          "type": "struct opengl_drawable*",
+          "description": "This is the opengl_drawable object whose reference count is to be incremented."
+        }
+      ],
+      "return_type": "void, this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "opengl_drawable_release",
+      "description": "This function decreases the reference count of the opengl_drawable object. If the reference count reaches zero, it destroys the drawable, releases the client surface if it exists, and frees the memory allocated to the drawable.",
+      "parameters": [
+        {
+          "name": "drawable",
+          "type": "struct opengl_drawable*",
+          "description": "A pointer to the opengl_drawable object whose reference count is to be decreased."
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "opengl_drawable_set_context",
+      "description": "This function sets the context for the given OpenGL drawable. If the context is not null, it sets the driver_private of the context to the drawable's set_context function.",
+      "parameters": [
+        {
+          "name": "drawable",
+          "type": "struct opengl_drawable*",
+          "description": "This is the OpenGL drawable whose context is to be set."
+        },
+        {
+          "name": "context",
+          "type": "struct wgl_context*",
+          "description": "This is the context to be set. If it is not null, its driver_private is used."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "opengl_drawable_flush",
+      "description": "This function flushes the OpenGL drawable object. It checks if the client surface window is not null, updates the drawable object if necessary, sets the interval, and finally calls the flush function of the drawable object if certain conditions are met.",
+      "parameters": [
+        {
+          "name": "drawable",
+          "type": "struct opengl_drawable *",
+          "description": "This is the OpenGL drawable object that is to be flushed."
+        },
+        {
+          "name": "interval",
+          "type": "int",
+          "description": "This parameter represents the interval at which the drawable object is to be flushed."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "This parameter is used for setting various flags that control the behavior of the flush operation."
+        }
+      ],
+      "return_type": "void, this function does not return anything."
+    }
+  },
+  {
+    "function": {
+      "name": "opengl_drawable_swap",
+      "description": "This function checks if the client surface window is valid, if not, it returns FALSE. If it is valid, it calls the swap function of the drawable object.",
+      "parameters": [
+        {
+          "name": "drawable",
+          "type": "struct opengl_drawable *",
+          "description": "This parameter is a pointer to an opengl_drawable structure. It is used to access the client and funcs properties of the drawable object."
+        }
+      ],
+      "return_type": "BOOL, represents whether the swap operation was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "read_drm_device_prop",
+      "description": "This function reads a property of a DRM device by opening a file in the sysfs interface, reading the property value, and returning it.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "char *",
+          "description": "The name of the DRM device."
+        },
+        {
+          "name": "prop",
+          "type": "char *",
+          "description": "The property of the DRM device to read."
+        }
+      ],
+      "return_type": "UINT, represents the value of the requested property of the DRM device. Returns -1 if the property cannot be read."
+    }
+  },
+  {
+    "function": {
+      "name": "init_device_info",
+      "description": "This function initializes the device information. It sets up the versions, contexts, extensions, configurations, and other properties related to the device. It also handles the creation and destruction of contexts.",
+      "parameters": [
+        {
+          "name": "egl",
+          "type": "struct egl_platform *",
+          "description": "This is a pointer to the egl platform structure which contains information about the egl platform."
+        },
+        {
+          "name": "funcs",
+          "type": "struct opengl_funcs *",
+          "description": "This is a pointer to the opengl functions structure which contains function pointers to opengl functions."
+        }
+      ],
+      "return_type": "void, this function does not return anything as it modifies the input structures in place."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_get_proc_address",
+      "description": "This function returns NULL for a given name",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "const char *",
+          "description": "This parameter represents the name for which the function returns NULL"
+        }
+      ],
+      "return_type": "void *: represents a pointer to the return type of the function"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_init_pixel_formats",
+      "description": "This function initializes the pixel formats for the null driver by setting the onscreen_count to the size of the nulldrv_pixel_formats array and returning the same value.",
+      "parameters": [
+        {
+          "name": "onscreen_count",
+          "type": "UINT *",
+          "description": "Pointer to a UINT variable where the function will store the size of the nulldrv_pixel_formats array."
+        }
+      ],
+      "return_type": "UINT, representing the size of the nulldrv_pixel_formats array"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_describe_pixel_format",
+      "description": "This function describes the pixel format by setting the properties of the 'descr' parameter based on the 'format' parameter. It returns FALSE if the 'format' is out of range, otherwise it returns TRUE after successfully setting the properties.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "int",
+          "description": "This parameter is used to determine the pixel format to be described."
+        },
+        {
+          "name": "descr",
+          "type": "struct wgl_pixel_format*",
+          "description": "This parameter is a pointer to a struct that will be filled with the details of the pixel format."
+        }
+      ],
+      "return_type": "BOOL, represents whether the pixel format was successfully described or not."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_init_wgl_extensions",
+      "description": "This function initializes WGL extensions in the Null driver.",
+      "parameters": [
+        {
+          "name": "funcs",
+          "type": "struct opengl_funcs *",
+          "description": "Pointer to the opengl_funcs structure"
+        }
+      ],
+      "return_type": "char: Returns an empty string"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_surface_create",
+      "description": "This function is used to create a surface with null driver.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to a window"
+        },
+        {
+          "name": "format",
+          "type": "int",
+          "description": "Format of the surface to be created"
+        },
+        {
+          "name": "drawable",
+          "type": "struct opengl_drawable **",
+          "description": "Pointer to a pointer of opengl_drawable structure"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE indicating successful creation of surface"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_pbuffer_create",
+      "description": "This function is used to create a null driver pixel buffer but always returns FALSE indicating failure.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context"
+        },
+        {
+          "name": "format",
+          "type": "int",
+          "description": "Specifies the pixel format"
+        },
+        {
+          "name": "largest",
+          "type": "BOOL",
+          "description": "Indicates whether to create the largest pbuffer possible"
+        },
+        {
+          "name": "texture_format",
+          "type": "GLenum",
+          "description": "Specifies the texture format"
+        },
+        {
+          "name": "texture_target",
+          "type": "GLenum",
+          "description": "Specifies the texture target"
+        },
+        {
+          "name": "max_level",
+          "type": "GLint",
+          "description": "Specifies the maximum level of detail for the texture"
+        },
+        {
+          "name": "width",
+          "type": "GLsizei*",
+          "description": "Pointer to the width of the pbuffer"
+        },
+        {
+          "name": "height",
+          "type": "GLsizei*",
+          "description": "Pointer to the height of the pbuffer"
+        },
+        {
+          "name": "drawable",
+          "type": "struct opengl_drawable**",
+          "description": "Pointer to the opengl drawable structure"
+        }
+      ],
+      "return_type": "BOOL, represents whether the pbuffer was successfully created or not"
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_pbuffer_updated",
+      "description": "This function returns a boolean value indicating the status of the pbuffer update in the null driver.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "drawable",
+          "type": "struct opengl_drawable *",
+          "description": "Pointer to the OpenGL drawable structure."
+        },
+        {
+          "name": "cube_face",
+          "type": "GLenum",
+          "description": "Enumeration value representing the cube face."
+        },
+        {
+          "name": "mipmap_level",
+          "type": "GLint",
+          "description": "Integer representing the mipmap level."
+        }
+      ],
+      "return_type": "BOOL, represents whether the pbuffer update in the null driver was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_pbuffer_bind",
+      "description": "This function is used to bind a pbuffer to a drawable object. It returns -1 to use the default implementation.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "drawable",
+          "type": "struct opengl_drawable*",
+          "description": "Pointer to the drawable object."
+        },
+        {
+          "name": "buffer",
+          "type": "GLenum",
+          "description": "Specifies the buffer to bind."
+        }
+      ],
+      "return_type": "UINT, represents the status of the binding operation. Returns -1 to use the default implementation."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_context_create",
+      "description": "This function is used to create a context in the null driver. However, it always returns FALSE, indicating that the context creation was unsuccessful.",
+      "parameters": [
+        {
+          "name": "format",
+          "type": "int",
+          "description": "This parameter is used to specify the format."
+        },
+        {
+          "name": "share",
+          "type": "void *",
+          "description": "This parameter is used to share data across different contexts."
+        },
+        {
+          "name": "attribs",
+          "type": "int *",
+          "description": "This parameter is used to specify the attributes."
+        },
+        {
+          "name": "private",
+          "type": "void **",
+          "description": "This parameter is used to store private data."
+        }
+      ],
+      "return_type": "BOOL, represents whether the context creation was successful or not. In this case, it always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_context_destroy",
+      "description": "This function is used to destroy a null driver context.",
+      "parameters": [
+        {
+          "name": "private",
+          "type": "void *",
+          "description": "This parameter is a pointer to the private context to be destroyed."
+        }
+      ],
+      "return_type": "BOOL, represents whether the context was successfully destroyed. In this case, it always returns FALSE, indicating failure."
+    }
+  },
+  {
+    "function": {
+      "name": "nulldrv_make_current",
+      "description": "This function is used to set the current OpenGL drawable objects, but it always returns FALSE indicating that the operation was not successful.",
+      "parameters": [
+        {
+          "name": "draw_base",
+          "type": "struct opengl_drawable*",
+          "description": "This parameter is used to specify the base drawable object for drawing operations."
+        },
+        {
+          "name": "read_base",
+          "type": "struct opengl_drawable*",
+          "description": "This parameter is used to specify the base drawable object for reading operations."
+        },
+        {
+          "name": "private",
+          "type": "void*",
+          "description": "This parameter is used to pass any additional private data required by the function."
+        }
+      ],
+      "return_type": "BOOL, represents whether the operation was successful or not. In this case, it always returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglGetExtensionsStringARB",
+      "description": "This function returns the extensions of the wgl. It first traces the hdc, checks if the trace is on wgl, and then dumps the wgl extensions.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        }
+      ],
+      "return_type": "char: Returns the wgl extensions."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglGetExtensionsStringEXT",
+      "description": "This function returns the extensions of the wgl. It first traces and then dumps the extensions if the trace is on. Finally, it returns the wgl extensions.",
+      "parameters": [],
+      "return_type": "char: This represents the wgl extensions that the function returns."
+    }
+  },
+  {
+    "function": {
+      "name": "get_dc_pixel_format",
+      "description": "This function retrieves the pixel format for a device context or a window. If the handle is invalid, it sets the last error to ERROR_INVALID_HANDLE and returns -1. If the pixel format is offscreen and can't be used with traditional WGL calls, it returns 1.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "internal",
+          "type": "BOOL",
+          "description": "Boolean value that indicates whether the pixel format is internal or not."
+        }
+      ],
+      "return_type": "int, represents the pixel format of the device context or window. Returns -1 if the handle is invalid, 1 if the pixel format is offscreen and can't be used with traditional WGL calls."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglGetPixelFormat",
+      "description": "This function gets the pixel format of a device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This parameter is a handle to the device context."
+        }
+      ],
+      "return_type": "int, represents the pixel format of the device context. If the format is not greater than 0, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "set_window_opengl_drawable",
+      "description": "This function sets the OpenGL drawable for a window, either as the current drawable or as an unused drawable. It also manages the reference count of the drawable objects.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the OpenGL drawable is to be set."
+        },
+        {
+          "name": "new_drawable",
+          "type": "struct opengl_drawable*",
+          "description": "Pointer to the new OpenGL drawable to be set for the window."
+        },
+        {
+          "name": "current",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether the new drawable is to be set as the current drawable. If false, the new drawable is set as an unused drawable."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_current_drawable",
+      "description": "This function retrieves the current drawable object associated with a given window handle.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window for which the current drawable object is to be retrieved."
+        }
+      ],
+      "return_type": "struct opengl_drawable*; it represents a pointer to the current drawable object associated with the window. If no such object exists, the function returns NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_unused_drawable",
+      "description": "This function retrieves an unused drawable from a window if available. If not, it creates a new one. It also ensures that the drawable format matches the requested format.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window from which to retrieve the unused drawable."
+        },
+        {
+          "name": "format",
+          "type": "int",
+          "description": "The desired format of the drawable."
+        }
+      ],
+      "return_type": "struct opengl_drawable*, represents the unused drawable from the window or a newly created one if no unused drawable was available."
+    }
+  },
+  {
+    "function": {
+      "name": "set_dc_opengl_drawable",
+      "description": "This function sets a new OpenGL drawable for a device context, releases the old drawable if it exists, and adds a reference to the new drawable.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This is a handle to the device context."
+        },
+        {
+          "name": "new_drawable",
+          "type": "struct opengl_drawable*",
+          "description": "This is a pointer to the new OpenGL drawable to be set."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "get_dc_opengl_drawable",
+      "description": "This function retrieves the opengl_drawable from the device context if it exists, adds a reference to it, and then releases the device context. It then returns the opengl_drawable.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This is a handle to the device context."
+        }
+      ],
+      "return_type": "struct opengl_drawable*, represents the opengl_drawable retrieved from the device context."
+    }
+  },
+  {
+    "function": {
+      "name": "create_memory_pbuffer",
+      "description": "This function creates a pixel buffer for memory device context. It checks if the device context is valid, if it's drawable, and if it's a memory device context. If all checks pass, it gets the bitmap associated with the device context, initializes a DIB (Device Independent Bitmap) from the bitmap, and releases the bitmap. If the pixel format is valid, it creates a pixel buffer and sets it as the drawable for the device context, and then destroys the pixel buffer.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context for which the pixel buffer is to be created."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the pixel buffer is successfully created, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "flush_memory_dc",
+      "description": "This function is used to flush the memory device context. It checks the type of GDI object, gets the image from the bitmap, and then either draws or reads pixels based on the 'write' parameter. It also releases the DC pointer at the end.",
+      "parameters": [
+        {
+          "name": "context",
+          "type": "struct wgl_context *",
+          "description": "Pointer to the wgl_context structure"
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context"
+        },
+        {
+          "name": "write",
+          "type": "BOOL",
+          "description": "Flag to determine whether to draw or read pixels"
+        },
+        {
+          "name": "flush",
+          "type": "void (*) (void)",
+          "description": "Pointer to the function to flush the memory"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "set_dc_pixel_format",
+      "description": "This function sets the pixel format for a device context. It first checks if the new format is valid. If it is, it gets the window associated with the device context. If the window exists, it sets the pixel format for the window. If the window does not exist, it sets the pixel format for the device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This is the handle to the device context for which the pixel format is to be set."
+        },
+        {
+          "name": "new_format",
+          "type": "int",
+          "description": "This is the new pixel format to be set."
+        },
+        {
+          "name": "internal",
+          "type": "BOOL",
+          "description": "This parameter is used to determine whether the function should return the old format if it exists and is not internal."
+        }
+      ],
+      "return_type": "BOOL, it represents whether the pixel format was successfully set or not."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglSetPixelFormat",
+      "description": "This function sets the pixel format of the specified device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "format",
+          "type": "int",
+          "description": "Specifies the index number of the pixel format to be set."
+        },
+        {
+          "name": "pfd",
+          "type": "PIXELFORMATDESCRIPTOR *",
+          "description": "Pointer to a PIXELFORMATDESCRIPTOR structure that contains the logical pixel format specification."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the pixel format was set successfully; otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglSetPixelFormatWINE",
+      "description": "This function sets the pixel format of the specified device context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "This is a handle to the device context."
+        },
+        {
+          "name": "format",
+          "type": "int",
+          "description": "This specifies the pixel format to be set."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the pixel format was set successfully, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglGetProcAddress",
+      "description": "This function checks if the input string starts with 'wgl'. If it does, it returns NULL. Otherwise, it gets the address of the procedure specified by the name and returns it.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "const char *",
+          "description": "The name of the procedure for which the address is to be retrieved."
+        }
+      ],
+      "return_type": "PROC, which represents the address of the procedure specified by the name parameter. If the name starts with 'wgl', NULL is returned."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_get_pixel_formats",
+      "description": "This function copies pixel formats into a provided buffer, and sets the number of formats and onscreen formats.",
+      "parameters": [
+        {
+          "name": "formats",
+          "type": "struct wgl_pixel_format *",
+          "description": "Pointer to a buffer where the pixel formats will be copied."
+        },
+        {
+          "name": "max_formats",
+          "type": "UINT",
+          "description": "The maximum number of pixel formats that can be copied into the buffer."
+        },
+        {
+          "name": "num_formats",
+          "type": "UINT *",
+          "description": "Pointer to a variable where the function will store the total number of pixel formats."
+        },
+        {
+          "name": "num_onscreen_formats",
+          "type": "UINT *",
+          "description": "Pointer to a variable where the function will store the number of onscreen pixel formats."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "context_exchange_drawables",
+      "description": "This function exchanges the draw and read pointers in the given context with the provided new draw and read pointers.",
+      "parameters": [
+        {
+          "name": "context",
+          "type": "struct wgl_context*",
+          "description": "Pointer to the context where the draw and read pointers are to be exchanged."
+        },
+        {
+          "name": "draw",
+          "type": "struct opengl_drawable**",
+          "description": "Pointer to the new draw pointer to be set in the context."
+        },
+        {
+          "name": "read",
+          "type": "struct opengl_drawable**",
+          "description": "Pointer to the new read pointer to be set in the context."
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "context_unset_current",
+      "description": "This function unsets the current context and then resets it, possibly to a different context. It also handles the case where the draw and read contexts are different.",
+      "parameters": [
+        {
+          "name": "context",
+          "type": "struct wgl_context *",
+          "description": "The context to be unset and then reset."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the driver's current context is successfully unset, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "get_updated_drawable",
+      "description": "This function updates the drawable object based on the given HDC and format. If the window still has a drawable, it keeps using the one it has. Otherwise, it gets an updated drawable with the desired format.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "format",
+          "type": "int",
+          "description": "Format to be used for the drawable."
+        },
+        {
+          "name": "drawable",
+          "type": "struct opengl_drawable *",
+          "description": "Pointer to the drawable object to be updated."
+        }
+      ],
+      "return_type": "struct opengl_drawable *: Returns an updated drawable object based on the given HDC and format. If the window still has a drawable, it returns the existing one. If not, it returns a new drawable with the desired format."
+    }
+  },
+  {
+    "function": {
+      "name": "context_sync_drawables",
+      "description": "This function synchronizes the drawables in a given context, updates the current window drawable to the last used draw surface, and manages the ownership of the previous context drawables.",
+      "parameters": [
+        {
+          "name": "context",
+          "type": "struct wgl_context *",
+          "description": "This is the context in which the drawables are to be synchronized."
+        },
+        {
+          "name": "draw_hdc",
+          "type": "HDC",
+          "description": "This is the device context for the drawable to be drawn."
+        },
+        {
+          "name": "read_hdc",
+          "type": "HDC",
+          "description": "This is the device context for the drawable to be read."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the synchronization was successful, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "push_internal_context",
+      "description": "This function creates an internal context if it does not exist and makes it the current context.",
+      "parameters": [
+        {
+          "name": "context",
+          "type": "struct wgl_context*",
+          "description": "Pointer to a wgl_context structure"
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context"
+        },
+        {
+          "name": "format",
+          "type": "int",
+          "description": "Format to be used for creating the context"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "pop_internal_context",
+      "description": "This function is used to make the current context for the given draw, read, and driver_private fields of the passed wgl_context structure.",
+      "parameters": [
+        {
+          "name": "context",
+          "type": "struct wgl_context*",
+          "description": "This parameter is a pointer to a wgl_context structure. It is used to access the draw, read, and driver_private fields within the function."
+        }
+      ],
+      "return_type": "void, which means this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglMakeContextCurrentARB",
+      "description": "This function is used to make a specified OpenGL rendering context the calling thread's current rendering context. All subsequent OpenGL calls made by the thread are drawn on the context identified by 'context'. It also checks the validity of the pixel format of the draw_hdc and the format of the context, and sets the error if they are invalid or mismatched.",
+      "parameters": [
+        {
+          "name": "draw_hdc",
+          "type": "HDC",
+          "description": "Handle to a device context for the device on which the drawing is to be rendered."
+        },
+        {
+          "name": "read_hdc",
+          "type": "HDC",
+          "description": "Handle to a device context for the device from which the pixels are to be read."
+        },
+        {
+          "name": "context",
+          "type": "struct wgl_context *",
+          "description": "Pointer to a 'wgl_context' structure that specifies the OpenGL rendering context."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the function succeeded in making the specified OpenGL rendering context the calling thread's current rendering context, and FALSE indicates that the function failed."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglMakeCurrent",
+      "description": "This function makes a specified OpenGL context the calling thread's current rendering context.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "context",
+          "type": "struct wgl_context *",
+          "description": "Pointer to a wgl_context structure."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in making the specified OpenGL context the current rendering context."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglCreatePbufferARB",
+      "description": "This function creates a pixel buffer and sets its properties based on the provided attributes. It also handles error checking for invalid parameters and system resource availability.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context."
+        },
+        {
+          "name": "format",
+          "type": "int",
+          "description": "Specifies the pixel format."
+        },
+        {
+          "name": "width",
+          "type": "int",
+          "description": "Specifies the width of the pixel buffer."
+        },
+        {
+          "name": "height",
+          "type": "int",
+          "description": "Specifies the height of the pixel buffer."
+        },
+        {
+          "name": "attribs",
+          "type": "const int *",
+          "description": "Pointer to an array of attributes for the pixel buffer."
+        }
+      ],
+      "return_type": "struct wgl_pbuffer *; Returns a pointer to a wgl_pbuffer structure if successful, otherwise NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglDestroyPbufferARB",
+      "description": "This function releases the opengl drawable, deletes the object application associated with the pbuffer's device context handle, and frees the memory allocated to the pbuffer. It then returns GL_TRUE.",
+      "parameters": [
+        {
+          "name": "pbuffer",
+          "type": "struct wgl_pbuffer*",
+          "description": "This is a pointer to the wgl_pbuffer structure that is to be destroyed."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function executed successfully. Returns GL_TRUE after successful execution."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglGetPbufferDCARB",
+      "description": "This function returns the device context handle associated with the given pixel buffer.",
+      "parameters": [
+        {
+          "name": "pbuffer",
+          "type": "struct wgl_pbuffer*",
+          "description": "A pointer to the pixel buffer whose device context handle is to be retrieved."
+        }
+      ],
+      "return_type": "HDC, which represents the device context handle associated with the given pixel buffer."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglReleasePbufferDCARB",
+      "description": "This function checks if the given device context (hdc) matches the one in the provided wgl_pbuffer structure. If not, it sets the last Win32 error to ERROR_DC_NOT_FOUND and returns FALSE. Otherwise, it returns TRUE.",
+      "parameters": [
+        {
+          "name": "pbuffer",
+          "type": "struct wgl_pbuffer*",
+          "description": "Pointer to a wgl_pbuffer structure"
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context"
+        }
+      ],
+      "return_type": "int, returns TRUE if the hdc matches the one in the pbuffer structure, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglQueryPbufferARB",
+      "description": "This function queries the properties of a pbuffer. The queried property is determined by the 'attrib' parameter, and the result is stored in the 'value' parameter.",
+      "parameters": [
+        {
+          "name": "pbuffer",
+          "type": "struct wgl_pbuffer*",
+          "description": "A pointer to the pbuffer to be queried."
+        },
+        {
+          "name": "attrib",
+          "type": "int",
+          "description": "The attribute of the pbuffer to be queried. This can be one of several predefined constants."
+        },
+        {
+          "name": "value",
+          "type": "int*",
+          "description": "A pointer to an integer where the result of the query will be stored."
+        }
+      ],
+      "return_type": "BOOL, returns GL_TRUE on successful execution."
+    }
+  },
+  {
+    "function": {
+      "name": "binding_from_target",
+      "description": "This function returns the binding constant associated with the given texture target. If the target is not supported, it logs an error and returns 0.",
+      "parameters": [
+        {
+          "name": "target",
+          "type": "GLenum",
+          "description": "This is the texture target for which the binding constant is to be returned."
+        }
+      ],
+      "return_type": "GLenum, represents the binding constant associated with the given texture target. Returns 0 if the target is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglBindTexImageARB",
+      "description": "This function binds a texture image to a pbuffer. It handles different types of source buffers and sets the appropriate OpenGL source. It also handles errors and sets the last Win32 error accordingly.",
+      "parameters": [
+        {
+          "name": "pbuffer",
+          "type": "struct wgl_pbuffer*",
+          "description": "A pointer to the pbuffer to which the texture image will be bound."
+        },
+        {
+          "name": "buffer",
+          "type": "int",
+          "description": "The buffer type. It determines the source buffer to be used in the binding process."
+        }
+      ],
+      "return_type": "BOOL, represents whether the binding was successful or not. It returns GL_FALSE if there was an error, and GL_TRUE if the binding was successful."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglReleaseTexImageARB",
+      "description": "This function releases a texture image from a pbuffer and returns a boolean value indicating the success or failure of the operation.",
+      "parameters": [
+        {
+          "name": "pbuffer",
+          "type": "struct wgl_pbuffer*",
+          "description": "A pointer to the pbuffer from which the texture image is to be released."
+        },
+        {
+          "name": "buffer",
+          "type": "int",
+          "description": "An integer representing the buffer."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the operation was successful and FALSE indicates that it failed."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglSetPbufferAttribARB",
+      "description": "This function sets the attributes of a pixel buffer. It checks the texture format of the pixel buffer and sets the last win32 error if it's invalid. It then loops through the attributes and sets the mipmap level and cube face based on the attribute values. If an invalid attribute or unknown texture face is encountered, it sets the last win32 error and returns false. Finally, it calls the pbuffer updated function of the driver functions with the pixel buffer's device context, drawable, cube face, and maximum of mipmap level and 0.",
+      "parameters": [
+        {
+          "name": "pbuffer",
+          "type": "struct wgl_pbuffer *",
+          "description": "Pointer to the pixel buffer whose attributes are to be set"
+        },
+        {
+          "name": "attribs",
+          "type": "int *",
+          "description": "Pointer to the array of attributes to be set for the pixel buffer"
+        }
+      ],
+      "return_type": "BOOL, represents whether the attributes were successfully set or not"
+    }
+  },
+  {
+    "function": {
+      "name": "get_window_swap_interval",
+      "description": "This function retrieves the swap interval of a window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window whose swap interval is to be retrieved."
+        }
+      ],
+      "return_type": "int, represents the swap interval of the window. If the window pointer is not found, or the window is a desktop or another process, it returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wgl_context_reset",
+      "description": "This function resets the given WGL context. If the context has an internal context or a driver private, it destroys them. If a device context handle is provided, it creates a new driver context for the given WGL context.",
+      "parameters": [
+        {
+          "name": "context",
+          "type": "struct wgl_context *",
+          "description": "The WGL context to be reset."
+        },
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to a device context. If not NULL, a new driver context is created for the WGL context."
+        },
+        {
+          "name": "share",
+          "type": "struct wgl_context *",
+          "description": "The WGL context to share resources with. If not NULL, its driver private is used when creating a new driver context."
+        },
+        {
+          "name": "attribs",
+          "type": "int *",
+          "description": "Pointer to an array of attributes for the new driver context."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully resets the WGL context, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "flush_memory_pbuffer",
+      "description": "This function creates a memory pbuffer, syncs drawables if a context exists, flushes memory DC if created, and finally flushes memory DC with the provided flush function.",
+      "parameters": [
+        {
+          "name": "flush",
+          "type": "void (*)(void)",
+          "description": "This is a function pointer to a function that takes no parameters and returns no value. It is used to flush the memory DC."
+        }
+      ],
+      "return_type": "BOOL, represents whether the memory DC was successfully flushed or not."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wgl_context_flush",
+      "description": "This function is used to flush the given OpenGL context, potentially forcing a buffer swap.",
+      "parameters": [
+        {
+          "name": "context",
+          "type": "struct wgl_context *",
+          "description": "The OpenGL context to be flushed."
+        },
+        {
+          "name": "flush",
+          "type": "void (*) (void)",
+          "description": "A pointer to a function that will be called to perform the actual flushing operation."
+        },
+        {
+          "name": "force_swap",
+          "type": "BOOL",
+          "description": "A boolean value that, if true, forces a buffer swap after the flush operation."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE always indicating the successful execution of the function."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglSwapBuffers",
+      "description": "This function handles the swapping of buffers in a Windows OpenGL context. It retrieves the current OpenGL context, checks the swap interval for the window, and then either syncs the drawables if a context exists or gets the current drawable for the window. It then flushes the drawable, swaps the drawable, and releases the drawable.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context for the window where the buffers are to be swapped."
+        }
+      ],
+      "return_type": "BOOL, represents whether the buffer swap was successful or not."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglSwapIntervalEXT",
+      "description": "This function sets the swap interval for a window. It first retrieves the device context for the current thread and the window associated with it. If it fails to find either, it sets the last error to ERROR_DC_NOT_FOUND and returns FALSE. If the window is the desktop or belongs to another process, it logs a warning and returns TRUE. Otherwise, it sets the swap interval for the window, releases the window pointer, and returns TRUE.",
+      "parameters": [
+        {
+          "name": "interval",
+          "type": "int",
+          "description": "The swap interval to set for the window."
+        }
+      ],
+      "return_type": "BOOL, representing whether the operation was successful. Returns FALSE if the device context or window could not be found, TRUE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglGetSwapIntervalEXT",
+      "description": "This function retrieves the swap interval for the current OpenGL rendering context. It handles errors and warnings related to the window and the device context.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not accept any parameters."
+        }
+      ],
+      "return_type": "int, represents the swap interval for the current OpenGL rendering context. If an error occurs, it returns 0 or TRUE depending on the error."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglQueryRendererIntegerWINE",
+      "description": "This function queries the renderer for various attributes and returns the value in the 'value' parameter. It also checks if the renderer is within the range of available devices.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "renderer",
+          "type": "GLint",
+          "description": "The index of the renderer to query."
+        },
+        {
+          "name": "attribute",
+          "type": "GLenum",
+          "description": "The attribute of the renderer to query."
+        },
+        {
+          "name": "value",
+          "type": "GLuint *",
+          "description": "Pointer to a variable where the queried value will be stored."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the operation was successful and the attribute is supported, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglQueryRendererStringWINE",
+      "description": "This function queries the renderer string for a given device context, renderer, and attribute. It returns the device name or vendor name based on the attribute provided. If the renderer is not supported or the attribute is not recognized, it returns NULL.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context"
+        },
+        {
+          "name": "renderer",
+          "type": "GLint",
+          "description": "The renderer to be queried"
+        },
+        {
+          "name": "attribute",
+          "type": "GLenum",
+          "description": "The attribute to be queried, can be either WGL_RENDERER_DEVICE_ID_WINE or WGL_RENDERER_VENDOR_ID_WINE"
+        }
+      ],
+      "return_type": "char pointer, represents the device name or vendor name based on the attribute provided. Returns NULL if the renderer is not supported or the attribute is not recognized."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglQueryCurrentRendererIntegerWINE",
+      "description": "This function queries the current renderer integer for a given attribute and stores the result in the provided value pointer. It iterates over the devices until it finds the current device. If the device is found, it calls another function to get the renderer integer. If the device is not found, it logs a warning and returns FALSE.",
+      "parameters": [
+        {
+          "name": "attribute",
+          "type": "GLenum",
+          "description": "This parameter represents the attribute for which the renderer integer is being queried."
+        },
+        {
+          "name": "value",
+          "type": "GLuint *",
+          "description": "This is a pointer to a GLuint where the result of the query will be stored."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was able to successfully query the renderer integer. Returns TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "win32u_wglQueryCurrentRendererStringWINE",
+      "description": "This function queries the current renderer string for a given attribute. It iterates through the devices until it finds the one that matches the current display device. If it finds a match, it returns the renderer string for that device. If it doesn't find a match, it warns the user and returns NULL.",
+      "parameters": [
+        {
+          "name": "attribute",
+          "type": "GLenum",
+          "description": "This parameter represents the attribute for which the renderer string is being queried."
+        }
+      ],
+      "return_type": "char. It represents the renderer string for the current device if found, otherwise NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "display_funcs_init",
+      "description": "This function initializes the display functions, sets up the pixel formats, and registers various extensions. It also handles error checking for the initialization of the driver OpenGL functions and the allocation of memory for pixel formats.",
+      "parameters": [],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "__wine_get_wgl_driver",
+      "description": "This function gets the WGL driver for a given device context and version, and initializes the display functions if necessary. It returns a pointer to the display functions if successful, otherwise it returns NULL.",
+      "parameters": [
+        {
+          "name": "hdc",
+          "type": "HDC",
+          "description": "Handle to the device context."
+        },
+        {
+          "name": "version",
+          "type": "UINT",
+          "description": "Version of the WGL driver."
+        },
+        {
+          "name": "null_funcs",
+          "type": "const struct opengl_funcs *",
+          "description": "Pointer to the opengl_funcs structure."
+        }
+      ],
+      "return_type": "struct opengl_funcs. It represents the OpenGL functions that the WGL driver provides."
+    }
+  }
+]

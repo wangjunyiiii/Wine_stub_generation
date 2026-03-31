@@ -1,0 +1,2464 @@
+[
+  {
+    "function": {
+      "name": "IPropertyBag2_Write_Proxy",
+      "description": "This function is a proxy that calls the IPropertyBag2_Write function with the same parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IPropertyBag2 *",
+          "description": "Pointer to an interface object"
+        },
+        {
+          "name": "cProperties",
+          "type": "ULONG",
+          "description": "Number of properties"
+        },
+        {
+          "name": "ppropbag",
+          "type": "PROPBAG2 *",
+          "description": "Pointer to a property bag object"
+        },
+        {
+          "name": "pvarValue",
+          "type": "VARIANT *",
+          "description": "Pointer to a VARIANT type value"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns the result of the IPropertyBag2_Write function call."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapClipper_Initialize_Proxy_W",
+      "description": "This function initializes a bitmap clipper proxy with a given source and rectangle.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapClipper*",
+          "description": "Pointer to the bitmap clipper interface"
+        },
+        {
+          "name": "pISource",
+          "type": "IWICBitmapSource*",
+          "description": "Pointer to the bitmap source"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect*",
+          "description": "Pointer to the rectangle to be clipped"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapCodecInfo_GetContainerFormat_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapCodecInfo_GetContainerFormat function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapCodecInfo *",
+          "description": "This is a pointer to an instance of IWICBitmapCodecInfo interface."
+        },
+        {
+          "name": "pguidContainerFormat",
+          "type": "GUID *",
+          "description": "This is a pointer to a GUID variable where the container format will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. It indicates success or failure, as well as additional information about the result of the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapCodecInfo_GetDeviceManufacturer_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapCodecInfo_GetDeviceManufacturer function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapCodecInfo *",
+          "description": "Pointer to an IWICBitmapCodecInfo interface"
+        },
+        {
+          "name": "cchDeviceManufacturer",
+          "type": "UINT",
+          "description": "Size of the device manufacturer string"
+        },
+        {
+          "name": "wzDeviceManufacturer",
+          "type": "WCHAR *",
+          "description": "Pointer to a buffer that receives the device manufacturer string"
+        },
+        {
+          "name": "pcchActual",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the actual size of the device manufacturer string"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapCodecInfo_GetDeviceModels_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapCodecInfo_GetDeviceModels function with the same parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapCodecInfo *",
+          "description": "Pointer to an IWICBitmapCodecInfo interface"
+        },
+        {
+          "name": "cchDeviceModels",
+          "type": "UINT",
+          "description": "Size of the device models"
+        },
+        {
+          "name": "wzDeviceModels",
+          "type": "WCHAR *",
+          "description": "Pointer to a buffer that receives the device models"
+        },
+        {
+          "name": "pcchActual",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the actual size of the device models"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapCodecInfo_GetMimeTypes_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapCodecInfo_GetMimeTypes function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapCodecInfo *",
+          "description": "Pointer to an IWICBitmapCodecInfo interface."
+        },
+        {
+          "name": "cchMimeTypes",
+          "type": "UINT",
+          "description": "The size of the wzMimeTypes buffer."
+        },
+        {
+          "name": "wzMimeTypes",
+          "type": "WCHAR *",
+          "description": "Pointer to a buffer that receives the MIME types."
+        },
+        {
+          "name": "pcchActual",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the actual size of the MIME types."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapCodecInfo_GetFileExtensions_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapCodecInfo_GetFileExtensions function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapCodecInfo *",
+          "description": "Pointer to an IWICBitmapCodecInfo interface"
+        },
+        {
+          "name": "cchFileExtensions",
+          "type": "UINT",
+          "description": "The size of the wzFileExtensions buffer"
+        },
+        {
+          "name": "wzFileExtensions",
+          "type": "WCHAR *",
+          "description": "Pointer to a buffer that receives the file name extension(s)"
+        },
+        {
+          "name": "pcchActual",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the actual size of the file name extension(s)"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. If the function succeeds, it returns S_OK. If the function fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapCodecInfo_DoesSupportAnimation_Proxy_W",
+      "description": "This function is a proxy that checks if the IWICBitmapCodecInfo interface supports animation.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapCodecInfo *",
+          "description": "Pointer to the IWICBitmapCodecInfo interface."
+        },
+        {
+          "name": "pfSupportAnimation",
+          "type": "BOOL *",
+          "description": "Pointer to a BOOL that receives whether the interface supports animation."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapCodecInfo_DoesSupportLossless_Proxy_W",
+      "description": "This function is a proxy that checks if the IWICBitmapCodecInfo interface supports lossless compression.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapCodecInfo*",
+          "description": "Pointer to the IWICBitmapCodecInfo interface."
+        },
+        {
+          "name": "pfSupportLossless",
+          "type": "BOOL*",
+          "description": "Pointer to a boolean value that receives the result of whether the interface supports lossless compression or not."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function call."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapCodecInfo_DoesSupportMultiframe_Proxy_W",
+      "description": "This function is a proxy that checks if the IWICBitmapCodecInfo interface supports multi-frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapCodecInfo *",
+          "description": "This is a pointer to the IWICBitmapCodecInfo interface."
+        },
+        {
+          "name": "pfSupportMultiframe",
+          "type": "BOOL *",
+          "description": "This is a pointer to a boolean value that will be set to TRUE if the interface supports multi-frame, and FALSE otherwise."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the operation. It will return S_OK if the operation was successful, and an error code otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapDecoder_GetDecoderInfo_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapDecoder_GetDecoderInfo function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to an IWICBitmapDecoder interface"
+        },
+        {
+          "name": "ppIDecoderInfo",
+          "type": "IWICBitmapDecoderInfo **",
+          "description": "Pointer to a pointer to an IWICBitmapDecoderInfo interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapDecoder_CopyPalette_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapDecoder_CopyPalette function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to an IWICBitmapDecoder interface"
+        },
+        {
+          "name": "pIPalette",
+          "type": "IWICPalette *",
+          "description": "Pointer to an IWICPalette interface"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns standard HRESULT error codes."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapDecoder_GetMetadataQueryReader_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapDecoder_GetMetadataQueryReader function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "A pointer to an IWICBitmapDecoder interface."
+        },
+        {
+          "name": "ppIMetadataQueryReader",
+          "type": "IWICMetadataQueryReader **",
+          "description": "A pointer to a pointer to an IWICMetadataQueryReader interface."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the call to the IWICBitmapDecoder_GetMetadataQueryReader function."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapDecoder_GetPreview_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapDecoder_GetPreview function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to the IWICBitmapDecoder interface"
+        },
+        {
+          "name": "ppIBitmapSource",
+          "type": "IWICBitmapSource **",
+          "description": "Address of a pointer to the IWICBitmapSource interface"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapDecoder_GetColorContexts_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapDecoder_GetColorContexts function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to an IWICBitmapDecoder interface"
+        },
+        {
+          "name": "cCount",
+          "type": "UINT",
+          "description": "The number of color contexts to retrieve"
+        },
+        {
+          "name": "ppIColorContexts",
+          "type": "IWICColorContext **",
+          "description": "Pointer to an array of IWICColorContext pointers"
+        },
+        {
+          "name": "pcActualCount",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the actual number of color contexts retrieved"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapDecoder_GetThumbnail_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapDecoder_GetThumbnail function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder*",
+          "description": "This is a pointer to an IWICBitmapDecoder interface."
+        },
+        {
+          "name": "ppIThumbnail",
+          "type": "IWICBitmapSource**",
+          "description": "This is a pointer to a pointer to an IWICBitmapSource interface, which will receive the thumbnail."
+        }
+      ],
+      "return_type": "HRESULT, which is the result of the IWICBitmapDecoder_GetThumbnail function call. It indicates success or failure of the function."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapDecoder_GetFrameCount_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapDecoder_GetFrameCount function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder*",
+          "description": "This is a pointer to an IWICBitmapDecoder interface."
+        },
+        {
+          "name": "pCount",
+          "type": "UINT*",
+          "description": "This is a pointer to a UINT that receives the number of frames in the image."
+        }
+      ],
+      "return_type": "HRESULT, which is the return code of the function. It indicates success or failure of the function call."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapDecoder_GetFrame_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapDecoder_GetFrame function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to an IWICBitmapDecoder interface"
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "Index of the frame to retrieve"
+        },
+        {
+          "name": "ppIBitmapFrame",
+          "type": "IWICBitmapFrameDecode **",
+          "description": "Address of a pointer to an IWICBitmapFrameDecode interface, which receives the interface pointer to the requested frame"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapEncoder_Initialize_Proxy_W",
+      "description": "This function initializes a bitmap encoder with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder*",
+          "description": "Pointer to the bitmap encoder interface"
+        },
+        {
+          "name": "pIStream",
+          "type": "IStream*",
+          "description": "Pointer to the stream where the bitmap data will be written"
+        },
+        {
+          "name": "cacheOption",
+          "type": "WICBitmapEncoderCacheOption",
+          "description": "Specifies the cache option for the bitmap encoder"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapEncoder_GetEncoderInfo_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapEncoder_GetEncoderInfo function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to an IWICBitmapEncoder interface"
+        },
+        {
+          "name": "ppIEncoderInfo",
+          "type": "IWICBitmapEncoderInfo **",
+          "description": "Address of a pointer to an IWICBitmapEncoderInfo interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, the return value is S_OK. Otherwise, it's an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapEncoder_SetPalette_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapEncoder_SetPalette function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is a pointer to an instance of the IWICBitmapEncoder interface."
+        },
+        {
+          "name": "pIPalette",
+          "type": "IWICPalette *",
+          "description": "This is a pointer to an instance of the IWICPalette interface."
+        }
+      ],
+      "return_type": "HRESULT, which is a data type used in Windows programming to represent error conditions, and warning conditions. The function returns the HRESULT of the IWICBitmapEncoder_SetPalette function call."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapEncoder_SetThumbnail_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapEncoder_SetThumbnail function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "A pointer to an IWICBitmapEncoder interface"
+        },
+        {
+          "name": "pIThumbnail",
+          "type": "IWICBitmapSource *",
+          "description": "A pointer to an IWICBitmapSource interface that represents the thumbnail"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. A successful operation returns S_OK, otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapEncoder_CreateNewFrame_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapEncoder_CreateNewFrame function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to an IWICBitmapEncoder interface"
+        },
+        {
+          "name": "ppIFrameEncode",
+          "type": "IWICBitmapFrameEncode **",
+          "description": "Address of a pointer to an IWICBitmapFrameEncode interface"
+        },
+        {
+          "name": "ppIEncoderOptions",
+          "type": "IPropertyBag2 **",
+          "description": "Address of a pointer to an IPropertyBag2 interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapEncoder_Commit_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapEncoder_Commit function using the provided interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "This is the interface used to call the IWICBitmapEncoder_Commit function."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function call. It can indicate success or failure, and provide additional detailed error information."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapEncoder_GetMetadataQueryWriter_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapEncoder_GetMetadataQueryWriter function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapEncoder *",
+          "description": "Pointer to an IWICBitmapEncoder interface."
+        },
+        {
+          "name": "ppIMetadataQueryWriter",
+          "type": "IWICMetadataQueryWriter **",
+          "description": "Address of a pointer to an IWICMetadataQueryWriter interface."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapFlipRotator_Initialize_Proxy_W",
+      "description": "This function initializes a bitmap flip rotator.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFlipRotator *",
+          "description": "Pointer to the bitmap flip rotator interface"
+        },
+        {
+          "name": "pISource",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to the bitmap source"
+        },
+        {
+          "name": "options",
+          "type": "WICBitmapTransformOptions",
+          "description": "Options for bitmap transformation"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapFrameEncode_Initialize_Proxy_W",
+      "description": "This function initializes the IWICBitmapFrameEncode interface proxy with the provided encoder options.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to the IWICBitmapFrameEncode interface"
+        },
+        {
+          "name": "pIEncoderOptions",
+          "type": "IPropertyBag2 *",
+          "description": "Pointer to the encoder options"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapFrameEncode_SetSize_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapFrameEncode_SetSize function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to an IWICBitmapFrameEncode interface"
+        },
+        {
+          "name": "uiWidth",
+          "type": "UINT",
+          "description": "The width of the bitmap frame"
+        },
+        {
+          "name": "uiHeight",
+          "type": "UINT",
+          "description": "The height of the bitmap frame"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapFrameEncode_SetResolution_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapFrameEncode_SetResolution function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is a pointer to an instance of IWICBitmapFrameEncode."
+        },
+        {
+          "name": "dpiX",
+          "type": "double",
+          "description": "This represents the horizontal resolution."
+        },
+        {
+          "name": "dpiY",
+          "type": "double",
+          "description": "This represents the vertical resolution."
+        }
+      ],
+      "return_type": "HRESULT, which is the result of the IWICBitmapFrameEncode_SetResolution function call."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapFrameEncode_SetColorContexts_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapFrameEncode_SetColorContexts function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "A pointer to an IWICBitmapFrameEncode interface"
+        },
+        {
+          "name": "cCount",
+          "type": "UINT",
+          "description": "The count of color contexts"
+        },
+        {
+          "name": "ppIColorContext",
+          "type": "IWICColorContext **",
+          "description": "A pointer to a pointer to an IWICColorContext interface"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns standard HRESULT error codes."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapFrameEncode_SetThumbnail_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapFrameEncode_SetThumbnail function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is a pointer to an instance of the IWICBitmapFrameEncode interface."
+        },
+        {
+          "name": "pIThumbnail",
+          "type": "IWICBitmapSource *",
+          "description": "This is a pointer to an instance of the IWICBitmapSource interface that represents the thumbnail."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapFrameEncode_WriteSource_Proxy_W",
+      "description": "This function checks the dimensions of a given rectangle and calls the IWICBitmapFrameEncode_WriteSource function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to an IWICBitmapFrameEncode interface"
+        },
+        {
+          "name": "pIBitmapSource",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to an IWICBitmapSource interface"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to a WICRect structure. If the width or height of the rectangle is less than or equal to 0, it is set to NULL"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, it returns S_OK. Otherwise, it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapFrameEncode_Commit_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapFrameEncode_Commit function using the provided interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is a pointer to an IWICBitmapFrameEncode interface which is used to commit the bitmap frame encode."
+        }
+      ],
+      "return_type": "HRESULT, which is the result of the IWICBitmapFrameEncode_Commit function call. It represents the status of the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapFrameEncode_GetMetadataQueryWriter_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapFrameEncode_GetMetadataQueryWriter function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "This is a pointer to an IWICBitmapFrameEncode interface."
+        },
+        {
+          "name": "ppIMetadataQueryWriter",
+          "type": "IWICMetadataQueryWriter **",
+          "description": "This is a pointer to a pointer to an IWICMetadataQueryWriter interface."
+        }
+      ],
+      "return_type": "HRESULT, which is a data type used in Windows to represent error conditions, and warning conditions. The function returns the HRESULT of the IWICBitmapFrameEncode_GetMetadataQueryWriter function call."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapLock_GetDataPointer_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapLock_GetDataPointer function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapLock *",
+          "description": "Pointer to an IWICBitmapLock interface"
+        },
+        {
+          "name": "pcbBufferSize",
+          "type": "UINT *",
+          "description": "Pointer to a UINT that receives the size of the buffer"
+        },
+        {
+          "name": "ppbData",
+          "type": "BYTE **",
+          "description": "Pointer to a BYTE pointer that receives the buffer"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. If the function succeeds, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapLock_GetStride_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapLock_GetStride function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapLock *",
+          "description": "Pointer to an IWICBitmapLock interface"
+        },
+        {
+          "name": "pcbStride",
+          "type": "UINT *",
+          "description": "Pointer to a UINT where the stride of the bitmap will be stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapScaler_Initialize_Proxy_W",
+      "description": "This function initializes a bitmap scaler proxy with specified parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapScaler *",
+          "description": "Pointer to the bitmap scaler interface"
+        },
+        {
+          "name": "pISource",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to the bitmap source"
+        },
+        {
+          "name": "uiWidth",
+          "type": "UINT",
+          "description": "Width of the bitmap"
+        },
+        {
+          "name": "uiHeight",
+          "type": "UINT",
+          "description": "Height of the bitmap"
+        },
+        {
+          "name": "mode",
+          "type": "WICBitmapInterpolationMode",
+          "description": "Interpolation mode for the bitmap scaling"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, the return value is S_OK. If the function fails, the return value can be one of the error values."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapSource_GetSize_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapSource_GetSize function to get the size of the bitmap source.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to the bitmap source interface"
+        },
+        {
+          "name": "puiWidth",
+          "type": "UINT *",
+          "description": "Pointer to store the width of the bitmap source"
+        },
+        {
+          "name": "puiHeight",
+          "type": "UINT *",
+          "description": "Pointer to store the height of the bitmap source"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapSource_GetPixelFormat_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapSource_GetPixelFormat function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to an IWICBitmapSource interface"
+        },
+        {
+          "name": "pPixelFormat",
+          "type": "WICPixelFormatGUID *",
+          "description": "Pointer to a WICPixelFormatGUID structure"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapSource_GetResolution_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapSource_GetResolution function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to an IWICBitmapSource interface"
+        },
+        {
+          "name": "pDpiX",
+          "type": "double *",
+          "description": "Pointer to a double that receives the horizontal resolution"
+        },
+        {
+          "name": "pDpiY",
+          "type": "double *",
+          "description": "Pointer to a double that receives the vertical resolution"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapSource_CopyPalette_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapSource_CopyPalette function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapSource *",
+          "description": "This is a pointer to an instance of IWICBitmapSource."
+        },
+        {
+          "name": "pIPalette",
+          "type": "IWICPalette *",
+          "description": "This is a pointer to an instance of IWICPalette."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapSource_CopyPixels_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapSource_CopyPixels function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to an IWICBitmapSource interface"
+        },
+        {
+          "name": "prc",
+          "type": "WICRect *",
+          "description": "Pointer to a WICRect structure that specifies the portion of the bitmap to copy"
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "The stride, or pitch, of the bitmap. The stride is the number of bytes from one row of pixels in memory to the next row of pixels in memory."
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "The size of the buffer to receive the bitmap data"
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to a buffer that receives the bitmap data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, the return value is S_OK. If the function fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmap_Lock_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmap_Lock function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmap *",
+          "description": "Pointer to an IWICBitmap interface"
+        },
+        {
+          "name": "prcLock",
+          "type": "WICRect *",
+          "description": "Pointer to a WICRect structure that specifies the portion of the bitmap to lock"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Specifies the access level to be assigned to the bitmap lock"
+        },
+        {
+          "name": "ppILock",
+          "type": "IWICBitmapLock **",
+          "description": "Pointer to a pointer to an IWICBitmapLock interface that receives the bitmap lock"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmap_SetPalette_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmap_SetPalette function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmap *",
+          "description": "This is a pointer to an IWICBitmap object."
+        },
+        {
+          "name": "pIPalette",
+          "type": "IWICPalette *",
+          "description": "This is a pointer to an IWICPalette object."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmap_SetResolution_Proxy_W",
+      "description": "This function sets the resolution of a bitmap image.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmap*",
+          "description": "This is a pointer to the bitmap image whose resolution is to be set."
+        },
+        {
+          "name": "dpiX",
+          "type": "double",
+          "description": "This is the horizontal resolution to be set."
+        },
+        {
+          "name": "dpiY",
+          "type": "double",
+          "description": "This is the vertical resolution to be set."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICColorContext_InitializeFromMemory_Proxy_W",
+      "description": "This function initializes a color context from memory.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICColorContext*",
+          "description": "Pointer to an IWICColorContext interface"
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE*",
+          "description": "Pointer to the buffer that contains the color context data"
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "Size of the buffer that contains the color context data"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICComponentFactory_CreateMetadataWriterFromReader_Proxy_W",
+      "description": "This function is a proxy that calls the IWICComponentFactory_CreateMetadataWriterFromReader function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Pointer to an IWICComponentFactory interface"
+        },
+        {
+          "name": "pIReader",
+          "type": "IWICMetadataReader *",
+          "description": "Pointer to an IWICMetadataReader interface"
+        },
+        {
+          "name": "pguidVendor",
+          "type": "GUID *",
+          "description": "Pointer to a GUID structure that represents the vendor"
+        },
+        {
+          "name": "ppIWriter",
+          "type": "IWICMetadataWriter **",
+          "description": "Pointer to a pointer to an IWICMetadataWriter interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, the return value is S_OK. If the function fails, it can return an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICComponentFactory_CreateQueryWriterFromBlockWriter_Proxy_W",
+      "description": "This function is a proxy that calls the IWICComponentFactory_CreateQueryWriterFromBlockWriter function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentFactory *",
+          "description": "Pointer to an instance of IWICComponentFactory interface."
+        },
+        {
+          "name": "pIBlockWriter",
+          "type": "IWICMetadataBlockWriter *",
+          "description": "Pointer to an instance of IWICMetadataBlockWriter interface."
+        },
+        {
+          "name": "ppIQueryWriter",
+          "type": "IWICMetadataQueryWriter **",
+          "description": "Pointer to a pointer to an instance of IWICMetadataQueryWriter interface. This is typically used to receive the output of the function."
+        }
+      ],
+      "return_type": "HRESULT, which is a data type used in Windows to represent error conditions, and warning conditions. The return value is the result of the IWICComponentFactory_CreateQueryWriterFromBlockWriter function call."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICComponentInfo_GetCLSID_Proxy_W",
+      "description": "This function is a proxy that calls the IWICComponentInfo_GetCLSID function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentInfo *",
+          "description": "Pointer to an IWICComponentInfo interface."
+        },
+        {
+          "name": "pclsid",
+          "type": "CLSID *",
+          "description": "Pointer to a CLSID to receive the CLSID of the component."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICComponentInfo_GetAuthor_Proxy_W",
+      "description": "This function is a proxy that calls the IWICComponentInfo_GetAuthor function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentInfo*",
+          "description": "Pointer to an IWICComponentInfo interface"
+        },
+        {
+          "name": "cchAuthor",
+          "type": "UINT",
+          "description": "Size of the buffer that receives the author name"
+        },
+        {
+          "name": "wzAuthor",
+          "type": "WCHAR*",
+          "description": "Pointer to a buffer that receives the author name"
+        },
+        {
+          "name": "pcchActual",
+          "type": "UINT*",
+          "description": "Pointer to a variable that receives the actual length of the author name"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICComponentInfo_GetVersion_Proxy_W",
+      "description": "This function is a proxy that calls the IWICComponentInfo_GetVersion function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentInfo *",
+          "description": "Pointer to an IWICComponentInfo interface"
+        },
+        {
+          "name": "cchVersion",
+          "type": "UINT",
+          "description": "Size of the version string buffer"
+        },
+        {
+          "name": "wzVersion",
+          "type": "WCHAR *",
+          "description": "Pointer to a buffer that receives the version string"
+        },
+        {
+          "name": "pcchActual",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the actual size of the version string"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICComponentInfo_GetSpecVersion_Proxy_W",
+      "description": "This function is a proxy that calls the IWICComponentInfo_GetSpecVersion function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentInfo *",
+          "description": "Pointer to an IWICComponentInfo interface."
+        },
+        {
+          "name": "cchSpecVersion",
+          "type": "UINT",
+          "description": "The size of the buffer that receives the specification version string."
+        },
+        {
+          "name": "wzSpecVersion",
+          "type": "WCHAR *",
+          "description": "Pointer to a buffer that receives the specification version string."
+        },
+        {
+          "name": "pcchActual",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the actual number of characters written to the specification version string."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. If the function succeeds, it returns S_OK. If the function fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICComponentInfo_GetFriendlyName_Proxy_W",
+      "description": "This function is a proxy that calls the IWICComponentInfo_GetFriendlyName function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICComponentInfo *",
+          "description": "Pointer to an IWICComponentInfo interface."
+        },
+        {
+          "name": "cchFriendlyName",
+          "type": "UINT",
+          "description": "Size of the friendly name string."
+        },
+        {
+          "name": "wzFriendlyName",
+          "type": "WCHAR *",
+          "description": "Pointer to a buffer that receives the friendly name string."
+        },
+        {
+          "name": "pcchActual",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the actual size of the friendly name string."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, success or an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICFastMetadataEncoder_Commit_Proxy_W",
+      "description": "This function is a proxy that calls the IWICFastMetadataEncoder_Commit function using the provided interface.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICFastMetadataEncoder *",
+          "description": "This is the interface used to call the IWICFastMetadataEncoder_Commit function."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns the result of the IWICFastMetadataEncoder_Commit function."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICFastMetadataEncoder_GetMetadataQueryWriter_Proxy_W",
+      "description": "This function is a proxy that calls the IWICFastMetadataEncoder_GetMetadataQueryWriter function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICFastMetadataEncoder*",
+          "description": "A pointer to an instance of IWICFastMetadataEncoder interface."
+        },
+        {
+          "name": "ppIMetadataQueryWriter",
+          "type": "IWICMetadataQueryWriter**",
+          "description": "A pointer to a pointer to an IWICMetadataQueryWriter interface."
+        }
+      ],
+      "return_type": "HRESULT, which is the result of the IWICFastMetadataEncoder_GetMetadataQueryWriter function call. It represents the status of the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapFrameDecode_GetMetadataQueryReader_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapFrameDecode_GetMetadataQueryReader function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "This is a pointer to an IWICBitmapFrameDecode interface."
+        },
+        {
+          "name": "ppIMetadataQueryReader",
+          "type": "IWICMetadataQueryReader **",
+          "description": "This is a pointer to a pointer to an IWICMetadataQueryReader interface."
+        }
+      ],
+      "return_type": "HRESULT, which is a data type used in Windows programming to represent error conditions, and warning conditions as well. The full set of codes and their meanings are defined in the Winerror.h header file."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapFrameDecode_GetColorContexts_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapFrameDecode_GetColorContexts function to get the color contexts of a bitmap frame.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Pointer to the IWICBitmapFrameDecode interface"
+        },
+        {
+          "name": "cCount",
+          "type": "UINT",
+          "description": "The number of color contexts to retrieve"
+        },
+        {
+          "name": "ppIColorContexts",
+          "type": "IWICColorContext **",
+          "description": "Pointer to an array of IWICColorContext pointers that receive the color contexts"
+        },
+        {
+          "name": "pcActualCount",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the actual number of color contexts retrieved"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICBitmapFrameDecode_GetThumbnail_Proxy_W",
+      "description": "This function is a proxy that calls the IWICBitmapFrameDecode_GetThumbnail function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "This is a pointer to an instance of the IWICBitmapFrameDecode interface."
+        },
+        {
+          "name": "ppIThumbnail",
+          "type": "IWICBitmapSource **",
+          "description": "This is a pointer to a pointer to an IWICBitmapSource interface, which will receive the thumbnail."
+        }
+      ],
+      "return_type": "HRESULT, which is a data type used in Windows programming to represent error conditions, and warning conditions. The function returns the HRESULT of the IWICBitmapFrameDecode_GetThumbnail function call."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICFormatConverter_Initialize_Proxy_W",
+      "description": "This function initializes a format converter proxy with specified parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICFormatConverter *",
+          "description": "Pointer to the format converter interface"
+        },
+        {
+          "name": "pISource",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to the bitmap source"
+        },
+        {
+          "name": "dstFormat",
+          "type": "REFWICPixelFormatGUID",
+          "description": "Destination pixel format"
+        },
+        {
+          "name": "dither",
+          "type": "WICBitmapDitherType",
+          "description": "Type of dithering to apply"
+        },
+        {
+          "name": "pIPalette",
+          "type": "IWICPalette *",
+          "description": "Pointer to the palette"
+        },
+        {
+          "name": "alphaThresholdPercent",
+          "type": "double",
+          "description": "Alpha threshold percentage"
+        },
+        {
+          "name": "paletteTranslate",
+          "type": "WICBitmapPaletteType",
+          "description": "Type of palette translation to apply"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreateBitmapClipper_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreateBitmapClipper function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory*",
+          "description": "Pointer to an IWICImagingFactory object"
+        },
+        {
+          "name": "ppIBitmapClipper",
+          "type": "IWICBitmapClipper**",
+          "description": "Pointer to a pointer to an IWICBitmapClipper object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or the error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreateBitmapFlipRotator_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreateBitmapFlipRotator function.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory *",
+          "description": "A pointer to an IWICImagingFactory object."
+        },
+        {
+          "name": "ppIBitmapFlipRotator",
+          "type": "IWICBitmapFlipRotator **",
+          "description": "A pointer to a pointer to an IWICBitmapFlipRotator object."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreateBitmapFromHBITMAP_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreateBitmapFromHBITMAP function, which creates a bitmap from a given HBITMAP.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory *",
+          "description": "Pointer to an IWICImagingFactory interface"
+        },
+        {
+          "name": "hBitmap",
+          "type": "HBITMAP",
+          "description": "Handle to the bitmap to create"
+        },
+        {
+          "name": "hPalette",
+          "type": "HPALETTE",
+          "description": "Handle to the palette to use"
+        },
+        {
+          "name": "options",
+          "type": "WICBitmapAlphaChannelOption",
+          "description": "Options for the alpha channel"
+        },
+        {
+          "name": "ppIBitmap",
+          "type": "IWICBitmap **",
+          "description": "Pointer to a location to receive the created IWICBitmap interface pointer"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreateBitmapFromHICON_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreateBitmapFromHICON function to create a bitmap from an HICON.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory*",
+          "description": "Pointer to an IWICImagingFactory interface"
+        },
+        {
+          "name": "hIcon",
+          "type": "HICON",
+          "description": "Handle to the icon to create the bitmap from"
+        },
+        {
+          "name": "ppIBitmap",
+          "type": "IWICBitmap**",
+          "description": "Address of a pointer to receive the created IWICBitmap interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreateBitmapFromMemory_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreateBitmapFromMemory function to create a bitmap from memory.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory *",
+          "description": "Pointer to the IWICImagingFactory interface"
+        },
+        {
+          "name": "uiWidth",
+          "type": "UINT",
+          "description": "The width of the bitmap"
+        },
+        {
+          "name": "uiHeight",
+          "type": "UINT",
+          "description": "The height of the bitmap"
+        },
+        {
+          "name": "pixelFormat",
+          "type": "REFWICPixelFormatGUID",
+          "description": "The pixel format of the bitmap"
+        },
+        {
+          "name": "cbStride",
+          "type": "UINT",
+          "description": "The stride, or width in bytes, of a single row of pixel data"
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "UINT",
+          "description": "The size of the buffer that contains the pixel data"
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer that contains the pixel data"
+        },
+        {
+          "name": "ppIBitmap",
+          "type": "IWICBitmap **",
+          "description": "Pointer to a pointer to the IWICBitmap interface that receives the bitmap"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreateBitmapFromSource_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreateBitmapFromSource function to create a bitmap from a source.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory *",
+          "description": "Pointer to an IWICImagingFactory interface"
+        },
+        {
+          "name": "piBitmapSource",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to an IWICBitmapSource interface"
+        },
+        {
+          "name": "option",
+          "type": "WICBitmapCreateCacheOption",
+          "description": "Enumeration value that specifies the cache option"
+        },
+        {
+          "name": "ppIBitmap",
+          "type": "IWICBitmap **",
+          "description": "Address of a pointer to an IWICBitmap interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreateBitmapScaler_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreateBitmapScaler function.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory *",
+          "description": "Pointer to an IWICImagingFactory object"
+        },
+        {
+          "name": "ppIBitmapScaler",
+          "type": "IWICBitmapScaler **",
+          "description": "Pointer to a pointer to an IWICBitmapScaler object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreateBitmap_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreateBitmap function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory *",
+          "description": "Pointer to an IWICImagingFactory interface"
+        },
+        {
+          "name": "uiWidth",
+          "type": "UINT",
+          "description": "The width of the bitmap to create"
+        },
+        {
+          "name": "uiHeight",
+          "type": "UINT",
+          "description": "The height of the bitmap to create"
+        },
+        {
+          "name": "pixelFormat",
+          "type": "REFWICPixelFormatGUID",
+          "description": "The pixel format of the bitmap to create"
+        },
+        {
+          "name": "option",
+          "type": "WICBitmapCreateCacheOption",
+          "description": "The cache option for the bitmap creation"
+        },
+        {
+          "name": "ppIBitmap",
+          "type": "IWICBitmap **",
+          "description": "Pointer to a pointer to an IWICBitmap interface where the created bitmap will be returned"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, the return value is S_OK. If the function fails, the return value can be one of the error values defined in Winerror.h."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreateComponentInfo_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreateComponentInfo function.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory *",
+          "description": "Pointer to an IWICImagingFactory interface"
+        },
+        {
+          "name": "clsidComponent",
+          "type": "REFCLSID",
+          "description": "Class identifier of the component"
+        },
+        {
+          "name": "ppIInfo",
+          "type": "IWICComponentInfo **",
+          "description": "Address of a pointer to an IWICComponentInfo interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreateDecoderFromFileHandle_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreateDecoderFromFileHandle function to create a decoder from a file handle.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory *",
+          "description": "Pointer to an IWICImagingFactory interface"
+        },
+        {
+          "name": "hFile",
+          "type": "ULONG_PTR",
+          "description": "Handle to the file"
+        },
+        {
+          "name": "pguidVendor",
+          "type": "GUID *",
+          "description": "Pointer to a GUID structure that identifies the vendor"
+        },
+        {
+          "name": "metadataOptions",
+          "type": "WICDecodeOptions",
+          "description": "Specifies the metadata options for the decoder"
+        },
+        {
+          "name": "ppIDecoder",
+          "type": "IWICBitmapDecoder **",
+          "description": "Address of a pointer to an IWICBitmapDecoder interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreateDecoderFromFilename_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreateDecoderFromFilename function to create a decoder for the specified file.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory *",
+          "description": "Pointer to an IWICImagingFactory interface"
+        },
+        {
+          "name": "wzFilename",
+          "type": "LPCWSTR",
+          "description": "Pointer to a wide-character string that represents the name of the file for which a decoder is requested"
+        },
+        {
+          "name": "pguidVendor",
+          "type": "GUID *",
+          "description": "Pointer to a GUID that specifies the preferred decoder vendor"
+        },
+        {
+          "name": "dwDesiredAccess",
+          "type": "DWORD",
+          "description": "Specifies the desired access to the file"
+        },
+        {
+          "name": "metadataOptions",
+          "type": "WICDecodeOptions",
+          "description": "Specifies the metadata options for the decoder"
+        },
+        {
+          "name": "ppIDecoder",
+          "type": "IWICBitmapDecoder **",
+          "description": "Pointer to a pointer to an IWICBitmapDecoder interface that receives the decoder"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreateDecoderFromStream_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreateDecoderFromStream function to create a decoder from a stream.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory *",
+          "description": "A pointer to an IWICImagingFactory object."
+        },
+        {
+          "name": "pIStream",
+          "type": "IStream *",
+          "description": "A pointer to an IStream object from which the decoder is created."
+        },
+        {
+          "name": "pguidVendor",
+          "type": "GUID *",
+          "description": "A pointer to a GUID that identifies the vendor for the decoder."
+        },
+        {
+          "name": "metadataOptions",
+          "type": "WICDecodeOptions",
+          "description": "An enumeration that specifies the metadata options for the decoder."
+        },
+        {
+          "name": "ppIDecoder",
+          "type": "IWICBitmapDecoder **",
+          "description": "A pointer to a pointer to an IWICBitmapDecoder object that receives the decoder."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreateEncoder_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreateEncoder function to create an encoder.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory *",
+          "description": "Pointer to an IWICImagingFactory interface"
+        },
+        {
+          "name": "guidContainerFormat",
+          "type": "REFGUID",
+          "description": "Reference to the GUID of the container format"
+        },
+        {
+          "name": "pguidVendor",
+          "type": "GUID *",
+          "description": "Pointer to the GUID of the vendor"
+        },
+        {
+          "name": "ppIEncoder",
+          "type": "IWICBitmapEncoder **",
+          "description": "Pointer to a pointer to an IWICBitmapEncoder interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreateFastMetadataEncoderFromDecoder_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreateFastMetadataEncoderFromDecoder function.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory *",
+          "description": "Pointer to an IWICImagingFactory object"
+        },
+        {
+          "name": "pIDecoder",
+          "type": "IWICBitmapDecoder *",
+          "description": "Pointer to an IWICBitmapDecoder object"
+        },
+        {
+          "name": "ppIFastEncoder",
+          "type": "IWICFastMetadataEncoder **",
+          "description": "Pointer to a pointer to an IWICFastMetadataEncoder object"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns standard HRESULT error codes."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreateFastMetadataEncoderFromFrameDecode_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreateFastMetadataEncoderFromFrameDecode function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory *",
+          "description": "Pointer to an IWICImagingFactory object"
+        },
+        {
+          "name": "pIFrameDecoder",
+          "type": "IWICBitmapFrameDecode *",
+          "description": "Pointer to an IWICBitmapFrameDecode object"
+        },
+        {
+          "name": "ppIFastEncoder",
+          "type": "IWICFastMetadataEncoder **",
+          "description": "Pointer to a pointer to an IWICFastMetadataEncoder object. This will be filled with the created IWICFastMetadataEncoder."
+        }
+      ],
+      "return_type": "HRESULT, which is a data type used in Windows programming to represent error conditions, and warning conditions. The return value will be the result of the IWICImagingFactory_CreateFastMetadataEncoderFromFrameDecode function call."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreateFormatConverter_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreateFormatConverter function.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory *",
+          "description": "Pointer to an IWICImagingFactory interface."
+        },
+        {
+          "name": "ppIFormatConverter",
+          "type": "IWICFormatConverter **",
+          "description": "Address of a pointer to an IWICFormatConverter interface."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreatePalette_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreatePalette function.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory *",
+          "description": "Pointer to an IWICImagingFactory object."
+        },
+        {
+          "name": "ppIPalette",
+          "type": "IWICPalette **",
+          "description": "Pointer to a pointer to an IWICPalette object."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreateQueryWriterFromReader_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreateQueryWriterFromReader function.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory *",
+          "description": "Pointer to an IWICImagingFactory object"
+        },
+        {
+          "name": "pIQueryReader",
+          "type": "IWICMetadataQueryReader *",
+          "description": "Pointer to an IWICMetadataQueryReader object"
+        },
+        {
+          "name": "pguidVendor",
+          "type": "GUID *",
+          "description": "Pointer to a GUID object that represents the vendor"
+        },
+        {
+          "name": "ppIQueryWriter",
+          "type": "IWICMetadataQueryWriter **",
+          "description": "Pointer to a pointer to an IWICMetadataQueryWriter object"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreateQueryWriter_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreateQueryWriter function.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory *",
+          "description": "A pointer to an IWICImagingFactory object."
+        },
+        {
+          "name": "guidMetadataFormat",
+          "type": "REFGUID",
+          "description": "A reference to the GUID that specifies the format of the metadata."
+        },
+        {
+          "name": "pguidVendor",
+          "type": "GUID *",
+          "description": "A pointer to the GUID of the vendor."
+        },
+        {
+          "name": "ppIQueryWriter",
+          "type": "IWICMetadataQueryWriter **",
+          "description": "A pointer to a pointer to an IWICMetadataQueryWriter object."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICImagingFactory_CreateStream_Proxy_W",
+      "description": "This function is a proxy that calls the IWICImagingFactory_CreateStream function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "pFactory",
+          "type": "IWICImagingFactory *",
+          "description": "Pointer to an IWICImagingFactory object"
+        },
+        {
+          "name": "ppIWICStream",
+          "type": "IWICStream **",
+          "description": "Pointer to a pointer to an IWICStream object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICMetadataBlockReader_GetCount_Proxy_W",
+      "description": "This function is a proxy that calls the IWICMetadataBlockReader_GetCount function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockReader *",
+          "description": "Pointer to an instance of IWICMetadataBlockReader interface."
+        },
+        {
+          "name": "pcCount",
+          "type": "UINT *",
+          "description": "Pointer to a UINT variable where the count of metadata blocks will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICMetadataBlockReader_GetReaderByIndex_Proxy_W",
+      "description": "This function is a proxy that calls the IWICMetadataBlockReader_GetReaderByIndex function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataBlockReader *",
+          "description": "Pointer to an IWICMetadataBlockReader interface"
+        },
+        {
+          "name": "nIndex",
+          "type": "UINT",
+          "description": "Index of the metadata reader to retrieve"
+        },
+        {
+          "name": "ppIMetadataReader",
+          "type": "IWICMetadataReader **",
+          "description": "Pointer to a pointer that receives the IWICMetadataReader interface at the specified index"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICMetadataQueryReader_GetContainerFormat_Proxy_W",
+      "description": "This function is a proxy that calls the IWICMetadataQueryReader_GetContainerFormat function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataQueryReader*",
+          "description": "Pointer to an interface of a metadata query reader."
+        },
+        {
+          "name": "pguidContainerFormat",
+          "type": "GUID*",
+          "description": "Pointer to a GUID that receives the container format."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICMetadataQueryReader_GetLocation_Proxy_W",
+      "description": "This function is a proxy to the IWICMetadataQueryReader_GetLocation function, it calls the function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataQueryReader *",
+          "description": "Pointer to an IWICMetadataQueryReader interface"
+        },
+        {
+          "name": "cchMaxLength",
+          "type": "UINT",
+          "description": "The maximum length of the namespace string"
+        },
+        {
+          "name": "wzNamespace",
+          "type": "WCHAR *",
+          "description": "Pointer to a WCHAR string where the namespace will be stored"
+        },
+        {
+          "name": "pcchActualLength",
+          "type": "UINT *",
+          "description": "Pointer to a UINT where the actual length of the namespace string will be stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, success or the error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICMetadataQueryReader_GetMetadataByName_Proxy_W",
+      "description": "This function is a proxy that calls the IWICMetadataQueryReader_GetMetadataByName function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataQueryReader *",
+          "description": "Pointer to an IWICMetadataQueryReader interface"
+        },
+        {
+          "name": "wzName",
+          "type": "LPCWSTR",
+          "description": "Pointer to a constant wide string that represents the name of the metadata"
+        },
+        {
+          "name": "pvarValue",
+          "type": "PROPVARIANT *",
+          "description": "Pointer to a PROPVARIANT structure that receives the value of the metadata"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICMetadataQueryReader_GetEnumerator_Proxy_W",
+      "description": "This function is a proxy that calls the IWICMetadataQueryReader_GetEnumerator function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataQueryReader*",
+          "description": "A pointer to an IWICMetadataQueryReader interface."
+        },
+        {
+          "name": "ppIEnumString",
+          "type": "IEnumString**",
+          "description": "A pointer to a pointer to an IEnumString interface."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function call. It can indicate success, failure, or specific error conditions."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICMetadataQueryWriter_SetMetadataByName_Proxy_W",
+      "description": "This function is a proxy that calls the IWICMetadataQueryWriter_SetMetadataByName function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataQueryWriter*",
+          "description": "Pointer to an IWICMetadataQueryWriter interface."
+        },
+        {
+          "name": "wzName",
+          "type": "LPCWSTR",
+          "description": "Pointer to a constant wide string that represents the name."
+        },
+        {
+          "name": "pvarValue",
+          "type": "PROPVARIANT*",
+          "description": "Pointer to a PROPVARIANT structure that contains the value."
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICMetadataQueryWriter_RemoveMetadataByName_Proxy_W",
+      "description": "This function is a proxy that calls the IWICMetadataQueryWriter_RemoveMetadataByName function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICMetadataQueryWriter*",
+          "description": "Pointer to an instance of IWICMetadataQueryWriter interface"
+        },
+        {
+          "name": "wzName",
+          "type": "LPCWSTR",
+          "description": "Pointer to a constant wide string that represents the name of the metadata to remove"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICPalette_InitializePredefined_Proxy_W",
+      "description": "This function initializes a predefined proxy for IWICPalette.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICPalette *",
+          "description": "Pointer to an IWICPalette interface"
+        },
+        {
+          "name": "ePaletteType",
+          "type": "WICBitmapPaletteType",
+          "description": "Type of the bitmap palette"
+        },
+        {
+          "name": "fAddTransparentColor",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether to add a transparent color or not"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICPalette_InitializeCustom_Proxy_W",
+      "description": "This function initializes a custom palette with specified colors.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICPalette*",
+          "description": "Pointer to an IWICPalette interface"
+        },
+        {
+          "name": "pColors",
+          "type": "WICColor*",
+          "description": "Pointer to an array of WICColor structures"
+        },
+        {
+          "name": "colorCount",
+          "type": "UINT",
+          "description": "Number of colors in the array"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICPalette_InitializeFromBitmap_Proxy_W",
+      "description": "This function initializes a palette from a bitmap source.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICPalette *",
+          "description": "Pointer to the IWICPalette interface"
+        },
+        {
+          "name": "pISurface",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to the IWICBitmapSource interface"
+        },
+        {
+          "name": "colorCount",
+          "type": "UINT",
+          "description": "The number of colors in the palette"
+        },
+        {
+          "name": "fAddTransparentColor",
+          "type": "BOOL",
+          "description": "Boolean value to decide whether to add a transparent color or not"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICPalette_InitializeFromPalette_Proxy_W",
+      "description": "This function is a proxy that calls the IWICPalette_InitializeFromPalette function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICPalette *",
+          "description": "This is the first parameter for the IWICPalette_InitializeFromPalette function."
+        },
+        {
+          "name": "pIPalette",
+          "type": "IWICPalette *",
+          "description": "This is the second parameter for the IWICPalette_InitializeFromPalette function."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function call."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICPalette_GetType_Proxy_W",
+      "description": "This function is a proxy that calls the IWICPalette_GetType function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICPalette *",
+          "description": "This is a pointer to an IWICPalette interface."
+        },
+        {
+          "name": "pePaletteType",
+          "type": "WICBitmapPaletteType *",
+          "description": "This is a pointer to a WICBitmapPaletteType enumeration that receives the palette type."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function call. It will return standard HRESULT error codes on failure, or S_OK on success."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICPalette_GetColorCount_Proxy_W",
+      "description": "This function is a proxy that calls the IWICPalette_GetColorCount function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICPalette *",
+          "description": "Pointer to an IWICPalette interface"
+        },
+        {
+          "name": "pcCount",
+          "type": "UINT *",
+          "description": "Pointer to a UINT that receives the color count"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICPalette_GetColors_Proxy_W",
+      "description": "This function is a proxy that calls the IWICPalette_GetColors function with the given parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICPalette*",
+          "description": "Pointer to an IWICPalette interface"
+        },
+        {
+          "name": "colorCount",
+          "type": "UINT",
+          "description": "Number of colors to get"
+        },
+        {
+          "name": "pColors",
+          "type": "WICColor*",
+          "description": "Pointer to an array of WICColor structures that receives the palette colors"
+        },
+        {
+          "name": "pcActualColors",
+          "type": "UINT*",
+          "description": "Pointer to a variable that receives the actual number of colors retrieved"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, success or failure"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICPalette_HasAlpha_Proxy_W",
+      "description": "This function is a proxy that calls the IWICPalette_HasAlpha function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICPalette *",
+          "description": "This is a pointer to an IWICPalette interface."
+        },
+        {
+          "name": "pfHasAlpha",
+          "type": "BOOL *",
+          "description": "This is a pointer to a BOOL that will be set to indicate whether the palette has alpha."
+        }
+      ],
+      "return_type": "HRESULT, which is a data type used in Windows programming to represent error conditions, and warning conditions as well. The 'S' in HRESULT stands for Severity. If it is 0, it means success, and if it is 1, it means failure."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICStream_InitializeFromIStream_Proxy_W",
+      "description": "This function initializes a WIC stream from an IStream.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICStream*",
+          "description": "Pointer to the WIC stream to be initialized"
+        },
+        {
+          "name": "pIStream",
+          "type": "IStream*",
+          "description": "Pointer to the IStream from which the WIC stream is initialized"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or the error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICStream_InitializeFromMemory_Proxy_W",
+      "description": "This function initializes a stream from memory.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICStream*",
+          "description": "Pointer to an IWICStream interface"
+        },
+        {
+          "name": "pbBuffer",
+          "type": "BYTE*",
+          "description": "Pointer to a buffer"
+        },
+        {
+          "name": "cbBufferSize",
+          "type": "DWORD",
+          "description": "Size of the buffer"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or the error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICPixelFormatInfo_GetBitsPerPixel_Proxy_W",
+      "description": "This function is a proxy that calls the IWICPixelFormatInfo_GetBitsPerPixel function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICPixelFormatInfo *",
+          "description": "Pointer to an IWICPixelFormatInfo interface"
+        },
+        {
+          "name": "bpp",
+          "type": "UINT *",
+          "description": "Pointer to a UINT to receive the number of bits per pixel"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IWICPixelFormatInfo_GetChannelCount_Proxy_W",
+      "description": "This function is a proxy that calls the IWICPixelFormatInfo_GetChannelCount function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICPixelFormatInfo *",
+          "description": "A pointer to an IWICPixelFormatInfo interface."
+        },
+        {
+          "name": "count",
+          "type": "UINT *",
+          "description": "A pointer to a UINT variable where the channel count will be stored."
+        }
+      ],
+      "return_type": "HRESULT, which represents the result of the function call. It indicates success or failure, and what type of failure occurred."
+    }
+  },
+  {
+    "function": {
+      "name": "IWICPixelFormatInfo_GetChannelMask_Proxy_W",
+      "description": "This function is a proxy that calls the IWICPixelFormatInfo_GetChannelMask function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICPixelFormatInfo *",
+          "description": "Pointer to an IWICPixelFormatInfo interface"
+        },
+        {
+          "name": "channel",
+          "type": "UINT",
+          "description": "The channel for which to get the mask"
+        },
+        {
+          "name": "buffer_size",
+          "type": "UINT",
+          "description": "The size of the buffer"
+        },
+        {
+          "name": "buffer",
+          "type": "BYTE *",
+          "description": "Pointer to the buffer that receives the channel mask"
+        },
+        {
+          "name": "actual",
+          "type": "UINT *",
+          "description": "Pointer to a variable that receives the actual size of the channel mask"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code."
+    }
+  },
+  {
+    "function": {
+      "name": "WICCreateColorContext_Proxy",
+      "description": "This function creates a color context by calling the IWICImagingFactory_CreateColorContext function.",
+      "parameters": [
+        {
+          "name": "iface",
+          "type": "IWICImagingFactory *",
+          "description": "Pointer to an IWICImagingFactory interface."
+        },
+        {
+          "name": "ppIWICColorContext",
+          "type": "IWICColorContext **",
+          "description": "Pointer to a pointer to an IWICColorContext interface."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "WICCreateImagingFactory_Proxy",
+      "description": "This function creates an instance of the Imaging Factory.",
+      "parameters": [
+        {
+          "name": "SDKVersion",
+          "type": "UINT",
+          "description": "The version of the SDK to be used."
+        },
+        {
+          "name": "ppIImagingFactory",
+          "type": "IWICImagingFactory**",
+          "description": "A pointer to a pointer to an IWICImagingFactory interface."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "WICSetEncoderFormat_Proxy",
+      "description": "This function sets the encoder format for a bitmap source, potentially converting the source if the pixel formats do not match.",
+      "parameters": [
+        {
+          "name": "pSourceIn",
+          "type": "IWICBitmapSource *",
+          "description": "Pointer to the input bitmap source"
+        },
+        {
+          "name": "pIPalette",
+          "type": "IWICPalette *",
+          "description": "Pointer to the palette, currently ignored"
+        },
+        {
+          "name": "pIFrameEncode",
+          "type": "IWICBitmapFrameEncode *",
+          "description": "Pointer to the frame encoder"
+        },
+        {
+          "name": "ppSourceOut",
+          "type": "IWICBitmapSource **",
+          "description": "Pointer to the output bitmap source"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns S_OK on success, or an error code on failure"
+    }
+  }
+]

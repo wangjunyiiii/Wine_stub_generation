@@ -1,0 +1,2421 @@
+[
+  {
+    "function": {
+      "name": "atomic_load_long",
+      "description": "This function is used to perform an atomic load operation on a LONG variable. It returns the value of the variable pointed to by ptr. The function uses different methods depending on the architecture of the system.",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "LONG *",
+          "description": "A pointer to the LONG variable that the function will perform the atomic load operation on."
+        }
+      ],
+      "return_type": "LONG, which represents the value of the variable pointed to by ptr after the atomic load operation."
+    }
+  },
+  {
+    "function": {
+      "name": "atomic_load_ulong",
+      "description": "This function returns the value of a ULONG pointer. It uses different methods depending on the architecture of the system.",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "ULONG *",
+          "description": "This is a pointer to the ULONG value to be loaded."
+        }
+      ],
+      "return_type": "ULONG, which represents the value of the pointer on the system's architecture."
+    }
+  },
+  {
+    "function": {
+      "name": "get_tick_count",
+      "description": "This function retrieves the current tick count from the user shared data. It does so by continuously loading the high and low parts of the tick count until the high part remains consistent across two consecutive loads. The tick count is then returned as a 64-bit unsigned integer, with the high part shifted to the upper 32 bits and the low part in the lower 32 bits.",
+      "parameters": [],
+      "return_type": "UINT64, representing the current tick count"
+    }
+  },
+  {
+    "function": {
+      "name": "is_pointer_message",
+      "description": "This function checks if a given message is a pointer message by comparing it with predefined conditions and returns a boolean value based on the result.",
+      "parameters": [
+        {
+          "name": "message",
+          "type": "UINT",
+          "description": "This parameter represents the message that is to be checked."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "This parameter is used in bitwise operation to check a specific condition."
+        }
+      ],
+      "return_type": "BOOL, represents whether the given message is a pointer message or not."
+    }
+  },
+  {
+    "function": {
+      "name": "init_win_proc_params",
+      "description": "This function initializes the parameters for a window procedure. It checks if the function pointer in the parameters is not null, gets the full window handle, sets the message, wparam, lparam, and ansi values, sets the character mapping, gets the DPI awareness context, and gets the window procedure parameters.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "struct win_proc_params *",
+          "description": "Pointer to the structure that holds the window procedure parameters"
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message for the window"
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "Flag to indicate whether the parameters are ANSI or not"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function successfully initializes the parameters, otherwise returns FALSE"
+    }
+  },
+  {
+    "function": {
+      "name": "init_window_call_params",
+      "description": "This function initializes the parameters for a window call. It checks if the current thread is a window, retrieves the window pointer, and sets the parameters for the window procedure call. It also checks if the window is a dialog and retrieves the full window handle.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "struct win_proc_params *",
+          "description": "Pointer to the structure that holds the window procedure parameters"
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window"
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be sent"
+        },
+        {
+          "name": "wParam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "lParam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "Flag to indicate if the parameters are ANSI"
+        },
+        {
+          "name": "mapping",
+          "type": "enum wm_char_mapping",
+          "description": "Enumeration value for character mapping"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the initialization is successful, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "dispatch_win_proc_params",
+      "description": "This function dispatches window procedure parameters, handles recursion, and manages the return values.",
+      "parameters": [
+        {
+          "name": "params",
+          "type": "struct win_proc_params *",
+          "description": "Pointer to the window procedure parameters"
+        },
+        {
+          "name": "size",
+          "type": "size_t",
+          "description": "Size of the window procedure parameters"
+        },
+        {
+          "name": "client_ret",
+          "type": "void **",
+          "description": "Pointer to the client return value"
+        },
+        {
+          "name": "client_ret_size",
+          "type": "size_t *",
+          "description": "Pointer to the size of the client return value"
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the dispatched window procedure"
+    }
+  },
+  {
+    "function": {
+      "name": "push_data",
+      "description": "This function pushes data into a packed_message structure, incrementing the count after each push.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "struct packed_message*",
+          "description": "Pointer to the packed_message structure where the data will be pushed"
+        },
+        {
+          "name": "ptr",
+          "type": "void*",
+          "description": "Pointer to the data to be pushed"
+        },
+        {
+          "name": "size",
+          "type": "size_t",
+          "description": "Size of the data to be pushed"
+        }
+      ],
+      "return_type": "void, as this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "pack_ptr",
+      "description": "This function casts a pointer to a ULONG_PTR",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "void *",
+          "description": "This is the pointer that will be cast to ULONG_PTR"
+        }
+      ],
+      "return_type": "ULONGLONG, which represents the pointer after being cast to ULONG_PTR"
+    }
+  },
+  {
+    "function": {
+      "name": "unpack_ptr",
+      "description": "This function checks if the provided 64-bit pointer value is valid. If it is not, it returns null. If it is valid, it casts the value to a pointer and returns it.",
+      "parameters": [
+        {
+          "name": "ptr64",
+          "type": "ULONGLONG",
+          "description": "A 64-bit integer representing a pointer value"
+        }
+      ],
+      "return_type": "void pointer, representing the original pointer value if it is valid, or null if it is not"
+    }
+  },
+  {
+    "function": {
+      "name": "push_string",
+      "description": "This function pushes a string into a packed message data structure.",
+      "parameters": [
+        {
+          "name": "data",
+          "type": "struct packed_message*",
+          "description": "This is a pointer to the packed_message structure where the string will be pushed."
+        },
+        {
+          "name": "str",
+          "type": "LPCWSTR",
+          "description": "This is the string that will be pushed into the packed_message structure."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "get_buffer_space",
+      "description": "This function reallocates memory for a buffer if the requested size is larger than the current buffer size. If reallocation is successful, it updates the buffer pointer and the buffer size.",
+      "parameters": [
+        {
+          "name": "buffer",
+          "type": "void**",
+          "description": "A pointer to the buffer pointer that may be reallocated"
+        },
+        {
+          "name": "size",
+          "type": "size_t",
+          "description": "The requested size for the buffer"
+        },
+        {
+          "name": "buffer_size",
+          "type": "size_t*",
+          "description": "A pointer to the variable holding the current buffer size"
+        }
+      ],
+      "return_type": "void* and it represents the pointer to the (possibly reallocated) buffer"
+    }
+  },
+  {
+    "function": {
+      "name": "combobox_has_strings",
+      "description": "This function checks if a combobox has strings.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the combobox."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the combobox has strings, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "listbox_has_strings",
+      "description": "This function checks if a listbox has strings.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the listbox window."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the listbox has strings, otherwise FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "is_keyboard_message",
+      "description": "This function checks if the given message is a keyboard message by comparing it with predefined keyboard message range.",
+      "parameters": [
+        {
+          "name": "message",
+          "type": "UINT",
+          "description": "This is the message that is to be checked if it is a keyboard message."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the message is a keyboard message, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "is_mouse_message",
+      "description": "This function checks if the given message is within the range of predefined mouse messages.",
+      "parameters": [
+        {
+          "name": "message",
+          "type": "UINT",
+          "description": "This parameter represents the message that is to be checked if it is a mouse message."
+        }
+      ],
+      "return_type": "BOOL, represents whether the given message is a mouse message or not."
+    }
+  },
+  {
+    "function": {
+      "name": "check_hwnd_filter",
+      "description": "This function checks if the hwnd_filter is null or equals to the desktop window. If true, it returns TRUE. Otherwise, it checks if the message's hwnd equals to the hwnd_filter or if the message's hwnd is a child of hwnd_filter.",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "MSG *",
+          "description": "This is a pointer to a MSG structure that contains message information."
+        },
+        {
+          "name": "hwnd_filter",
+          "type": "HWND",
+          "description": "This is a handle to a window. The function checks this hwnd_filter against the message's hwnd."
+        }
+      ],
+      "return_type": "BOOL. It returns TRUE if the hwnd_filter is null or equals to the desktop window, or if the message's hwnd equals to the hwnd_filter or if the message's hwnd is a child of hwnd_filter. Otherwise, it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "unpack_message",
+      "description": "This function unpacks a message and its parameters from a buffer. It handles different types of messages and their specific unpacking requirements. It is used in the context of inter-process communication, where messages and their parameters need to be serialized (packed) into a buffer to be sent, and then deserialized (unpacked) to be received and processed.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that will receive the message."
+        },
+        {
+          "name": "message",
+          "type": "UINT",
+          "description": "The message to be unpacked."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM*",
+          "description": "A pointer to an additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM*",
+          "description": "A pointer to an additional message-specific information."
+        },
+        {
+          "name": "buffer",
+          "type": "void**",
+          "description": "A pointer to the buffer that contains the packed message and its parameters."
+        },
+        {
+          "name": "size",
+          "type": "size_t",
+          "description": "The size of the buffer."
+        },
+        {
+          "name": "buffer_size",
+          "type": "size_t*",
+          "description": "A pointer to a variable that receives the size of the unpacked message and its parameters."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the message and its parameters were successfully unpacked from the buffer, and FALSE indicates that the function failed."
+    }
+  },
+  {
+    "function": {
+      "name": "pack_message",
+      "description": "This function packs a message into a structured format for further processing. It handles a wide range of message types, packing the relevant data based on the message type.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window for which the message is intended."
+        },
+        {
+          "name": "message",
+          "type": "UINT",
+          "description": "The message to be packed."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "data",
+          "type": "struct packed_message *",
+          "description": "A pointer to a structure where the packed message data will be stored."
+        }
+      ],
+      "return_type": "size_t, representing the size of the packed message data."
+    }
+  },
+  {
+    "function": {
+      "name": "pack_reply",
+      "description": "This function packs a reply message into a data structure based on the message type. It handles different types of messages and packs the relevant data accordingly.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that receives the message."
+        },
+        {
+          "name": "message",
+          "type": "UINT",
+          "description": "The message to be processed."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "res",
+          "type": "LRESULT",
+          "description": "The result of the message processing."
+        },
+        {
+          "name": "data",
+          "type": "struct packed_message *",
+          "description": "A pointer to the data structure where the packed message will be stored."
+        }
+      ],
+      "return_type": "void, as this function does not return a value but modifies the data structure pointed to by the 'data' parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "unpack_reply",
+      "description": "This function unpacks the reply from a message and performs different operations based on the message type.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "message",
+          "type": "UINT",
+          "description": "The message to be processed."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "buffer",
+          "type": "void *",
+          "description": "A pointer to the buffer that contains the data to be processed."
+        },
+        {
+          "name": "size",
+          "type": "size_t",
+          "description": "The size of the data in the buffer."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "char_size",
+      "description": "This function returns the size of a character. The size is determined based on whether the character is ANSI or not.",
+      "parameters": [
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "This parameter determines if the character is ANSI or not."
+        }
+      ],
+      "return_type": "size_t, represents the size of the character in bytes."
+    }
+  },
+  {
+    "function": {
+      "name": "string_size",
+      "description": "This function calculates the size of a string. If the string is ANSI, it returns the length of the string plus one. If the string is not ANSI, it returns the length of the string plus one, multiplied by the size of WCHAR.",
+      "parameters": [
+        {
+          "name": "str",
+          "type": "void*",
+          "description": "This is the string whose size is to be calculated."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "This parameter indicates whether the string is ANSI or not."
+        }
+      ],
+      "return_type": "size_t, representing the size of the string."
+    }
+  },
+  {
+    "function": {
+      "name": "copy_string",
+      "description": "This function copies a string from one memory location to another and returns the size of the copied string.",
+      "parameters": [
+        {
+          "name": "ptr",
+          "type": "void *",
+          "description": "This is the destination pointer where the string will be copied to."
+        },
+        {
+          "name": "str",
+          "type": "const void *",
+          "description": "This is the source pointer from where the string will be copied."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "This parameter determines the method to calculate the size of the string."
+        }
+      ],
+      "return_type": "size_t, represents the size of the copied string"
+    }
+  },
+  {
+    "function": {
+      "name": "user_message_size",
+      "description": "This function calculates the size of a user message based on the message type and parameters. It is used in the context of Windows programming, where messages are sent between windows and the system.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window that will receive the message."
+        },
+        {
+          "name": "message",
+          "type": "UINT",
+          "description": "The message identifier."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "other_process",
+          "type": "BOOL",
+          "description": "Indicates whether the message is sent from another process."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "Indicates whether the message is ANSI or Unicode."
+        },
+        {
+          "name": "reply_size",
+          "type": "size_t *",
+          "description": "Pointer to a variable that receives the size of the message."
+        }
+      ],
+      "return_type": "size_t, represents the size of the user message in bytes."
+    }
+  },
+  {
+    "function": {
+      "name": "pack_user_message",
+      "description": "This function packs a user message into a buffer. It handles different types of messages and performs different operations based on the message type.",
+      "parameters": [
+        {
+          "name": "buffer",
+          "type": "void *",
+          "description": "Pointer to the buffer where the packed message will be stored."
+        },
+        {
+          "name": "size",
+          "type": "size_t",
+          "description": "Size of the buffer."
+        },
+        {
+          "name": "message",
+          "type": "UINT",
+          "description": "The message to be packed."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "Flag indicating whether the message is ANSI or not."
+        },
+        {
+          "name": "ret_extra_buffer",
+          "type": "void **",
+          "description": "Pointer to a pointer that will be set to the address of an extra buffer, if one is allocated."
+        }
+      ],
+      "return_type": "void, does not return a value but modifies the buffer and possibly ret_extra_buffer."
+    }
+  },
+  {
+    "function": {
+      "name": "copy_user_result",
+      "description": "This function copies user result data from a source buffer to a destination based on the message type. It handles different types of messages and accordingly copies the data. It also checks the size of the data to be copied and ensures it does not exceed the provided size.",
+      "parameters": [
+        {
+          "name": "buffer",
+          "type": "void *",
+          "description": "This is the source buffer from where the data is to be copied."
+        },
+        {
+          "name": "size",
+          "type": "size_t",
+          "description": "This represents the size of the data to be copied."
+        },
+        {
+          "name": "result",
+          "type": "LRESULT",
+          "description": "This is the result of the message processing."
+        },
+        {
+          "name": "message",
+          "type": "UINT",
+          "description": "This is the message based on which the data is to be copied."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "This is an additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "This is an additional message-specific information."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "This is a flag indicating whether the string is ANSI or not."
+        }
+      ],
+      "return_type": "void, as this function does not return anything. It performs the operation of copying data based on the provided parameters."
+    }
+  },
+  {
+    "function": {
+      "name": "reply_message",
+      "description": "This function handles the reply to a received message. It checks if the message has been replied to or not, and if not, it packs the reply and sends it.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "struct received_message_info *",
+          "description": "Pointer to the structure containing information about the received message"
+        },
+        {
+          "name": "result",
+          "type": "LRESULT",
+          "description": "The result of the message processing"
+        },
+        {
+          "name": "msg",
+          "type": "MSG *",
+          "description": "Pointer to the message that needs to be replied to"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserReplyMessage",
+      "description": "This function retrieves the user thread information, checks if there is any received message info, replies to the message if it exists and returns a boolean value indicating the success or failure of the operation.",
+      "parameters": [
+        {
+          "name": "result",
+          "type": "LRESULT",
+          "description": "This parameter is used to hold the result of the message reply."
+        }
+      ],
+      "return_type": "BOOL, where TRUE indicates that the message reply was successful and FALSE indicates that there was no received message info."
+    }
+  },
+  {
+    "function": {
+      "name": "reply_winproc_result",
+      "description": "This function retrieves the user thread information, checks if the received message info is not null, sets the message parameters, replies to the message, and updates the receive info and receive flags of the thread info. Returns TRUE if successful, FALSE otherwise.",
+      "parameters": [
+        {
+          "name": "result",
+          "type": "LRESULT",
+          "description": "The result to reply with"
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window"
+        },
+        {
+          "name": "message",
+          "type": "UINT",
+          "description": "The message to be sent"
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function executed successfully or not"
+    }
+  },
+  {
+    "function": {
+      "name": "handle_internal_message",
+      "description": "This function handles internal messages for a window. It processes different types of messages based on the 'msg' parameter and performs corresponding actions.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be processed."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing. The exact meaning depends on the specific message processed."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetGUIThreadInfo",
+      "description": "This function retrieves information about the active window or a specified GUI thread.",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "DWORD",
+          "description": "The identifier for the thread for which information is to be retrieved."
+        },
+        {
+          "name": "info",
+          "type": "GUITHREADINFO *",
+          "description": "A pointer to a GUITHREADINFO structure that receives information about the specified thread."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds, or FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "call_window_proc",
+      "description": "This function handles the calling of a window procedure. It manages the packing and unpacking of user messages, the calling of message hooks, and the dispatching of window procedure parameters.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window for which the procedure is called"
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be processed"
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "type",
+          "type": "enum message_type",
+          "description": "The type of the message"
+        },
+        {
+          "name": "same_thread",
+          "type": "BOOL",
+          "description": "Flag indicating whether the message is from the same thread"
+        },
+        {
+          "name": "mapping",
+          "type": "enum wm_char_mapping",
+          "description": "The character mapping for the message"
+        },
+        {
+          "name": "ansi_dst",
+          "type": "BOOL",
+          "description": "Flag indicating whether the destination is ANSI"
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing"
+    }
+  },
+  {
+    "function": {
+      "name": "call_sendmsg_callback",
+      "description": "This function calls a callback function for sending a message asynchronously. It prepares the parameters, traces the call, makes the callback, and traces the return.",
+      "parameters": [
+        {
+          "name": "callback",
+          "type": "SENDASYNCPROC",
+          "description": "The callback function to be called"
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window for which the message is intended"
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be sent"
+        },
+        {
+          "name": "data",
+          "type": "ULONG_PTR",
+          "description": "Additional message-specific data"
+        },
+        {
+          "name": "result",
+          "type": "LRESULT",
+          "description": "The result of the message processing"
+        }
+      ],
+      "return_type": "void, as this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "accept_hardware_message",
+      "description": "This function accepts a hardware message by assigning the hardware id to the request and then making a server call. If the server call fails, it outputs an error message.",
+      "parameters": [
+        {
+          "name": "hw_id",
+          "type": "UINT",
+          "description": "This parameter represents the hardware id that is to be assigned to the request."
+        }
+      ],
+      "return_type": "void, meaning this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "send_parent_notify",
+      "description": "This function sends a notification to the parent window of a given window. It adjusts the point to be in the client coordinates of the parent window and sends the notification message.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose parent will receive the notification."
+        },
+        {
+          "name": "event",
+          "type": "WORD",
+          "description": "Specifies the event to be notified."
+        },
+        {
+          "name": "idChild",
+          "type": "WORD",
+          "description": "Identifier of the child window."
+        },
+        {
+          "name": "pt",
+          "type": "POINT",
+          "description": "Specifies a POINT structure that the function uses to define the x- and y- coordinates of a point."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "process_pointer_message",
+      "description": "This function processes a pointer message by converting the physical point to window DPI and updating the message point. It always returns TRUE.",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "MSG*",
+          "description": "Pointer to the message to be processed"
+        },
+        {
+          "name": "hw_id",
+          "type": "UINT",
+          "description": "Hardware ID associated with the message"
+        },
+        {
+          "name": "msg_data",
+          "type": "struct hardware_msg_data*",
+          "description": "Pointer to the data associated with the hardware message"
+        }
+      ],
+      "return_type": "BOOL, represents whether the function executed successfully. Always returns TRUE in this case."
+    }
+  },
+  {
+    "function": {
+      "name": "process_keyboard_message",
+      "description": "This function processes keyboard messages, applies filters, handles special keys, and calls appropriate hooks based on the message and parameters.",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "MSG*",
+          "description": "Pointer to the message to be processed."
+        },
+        {
+          "name": "hw_id",
+          "type": "UINT",
+          "description": "Hardware id of the device that generated the message."
+        },
+        {
+          "name": "hwnd_filter",
+          "type": "HWND",
+          "description": "Handle to the window that is used as a filter."
+        },
+        {
+          "name": "first",
+          "type": "UINT",
+          "description": "The lower bound of the message filter range."
+        },
+        {
+          "name": "last",
+          "type": "UINT",
+          "description": "The upper bound of the message filter range."
+        },
+        {
+          "name": "remove",
+          "type": "BOOL",
+          "description": "Flag indicating whether to remove the message after processing."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the message was successfully processed and passed all filters, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "process_mouse_message",
+      "description": "This function processes mouse messages and determines how to handle them based on various conditions. It also updates the mouse window, translates double clicks, and sends necessary messages to the window.",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "MSG *",
+          "description": "Pointer to a MSG structure that contains message information."
+        },
+        {
+          "name": "hw_id",
+          "type": "UINT",
+          "description": "Hardware ID of the mouse."
+        },
+        {
+          "name": "extra_info",
+          "type": "ULONG_PTR",
+          "description": "Additional information about the mouse event."
+        },
+        {
+          "name": "hwnd_filter",
+          "type": "HWND",
+          "description": "Handle to the window that is filtering the messages."
+        },
+        {
+          "name": "first",
+          "type": "UINT",
+          "description": "The first message in the range of messages to be processed."
+        },
+        {
+          "name": "last",
+          "type": "UINT",
+          "description": "The last message in the range of messages to be processed."
+        },
+        {
+          "name": "remove",
+          "type": "BOOL",
+          "description": "Specifies whether the message should be removed after processing."
+        }
+      ],
+      "return_type": "BOOL. Returns TRUE if the message is processed and FALSE if it is not."
+    }
+  },
+  {
+    "function": {
+      "name": "process_hardware_message",
+      "description": "This function processes hardware messages, mapping raw coordinates to virtual ones, and dispatches them to the appropriate handler based on the message type.",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "MSG*",
+          "description": "Pointer to the message to be processed"
+        },
+        {
+          "name": "hw_id",
+          "type": "UINT",
+          "description": "Hardware ID associated with the message"
+        },
+        {
+          "name": "msg_data",
+          "type": "struct hardware_msg_data*",
+          "description": "Pointer to the data associated with the hardware message"
+        },
+        {
+          "name": "hwnd_filter",
+          "type": "HWND",
+          "description": "Handle to the window that is the target of the message"
+        },
+        {
+          "name": "first",
+          "type": "UINT",
+          "description": "Specifies the first message in the range of messages to be processed"
+        },
+        {
+          "name": "last",
+          "type": "UINT",
+          "description": "Specifies the last message in the range of messages to be processed"
+        },
+        {
+          "name": "remove",
+          "type": "BOOL",
+          "description": "Specifies whether the message should be removed after processing"
+        }
+      ],
+      "return_type": "BOOL, represents whether the message was successfully processed or not"
+    }
+  },
+  {
+    "function": {
+      "name": "check_queue_bits",
+      "description": "This function checks the status of a shared queue and updates the wake and changed bits if necessary. It also checks if the queue is signaled or if some bits need to be cleared. If the queue is not ready, it waits and checks again. The function also avoids hung queue by checking the access time of the queue.",
+      "parameters": [
+        {
+          "name": "wake_mask",
+          "type": "UINT",
+          "description": "The wake mask to be checked against the shared queue's wake mask"
+        },
+        {
+          "name": "changed_mask",
+          "type": "UINT",
+          "description": "The changed mask to be checked against the shared queue's changed mask"
+        },
+        {
+          "name": "signal_bits",
+          "type": "UINT",
+          "description": "The signal bits to be checked against the shared queue's wake bits"
+        },
+        {
+          "name": "clear_bits",
+          "type": "UINT",
+          "description": "The clear bits to be checked against the shared queue's changed bits"
+        },
+        {
+          "name": "wake_bits",
+          "type": "UINT*",
+          "description": "Pointer to the variable where the shared queue's wake bits will be stored"
+        },
+        {
+          "name": "changed_bits",
+          "type": "UINT*",
+          "description": "Pointer to the variable where the shared queue's changed bits will be stored"
+        },
+        {
+          "name": "internal",
+          "type": "BOOL",
+          "description": "Flag to indicate whether the function is called internally or not"
+        }
+      ],
+      "return_type": "BOOL, returns FALSE if the status of the shared queue is not pending, otherwise it returns the value of the 'skip' variable which indicates whether the function should skip the current iteration or not"
+    }
+  },
+  {
+    "function": {
+      "name": "peek_message",
+      "description": "This function is used to peek at messages in the message queue of a thread without removing them from the queue. It also handles different types of messages such as ASCII, Unicode, Notify, Callback, Winevent, Hook_LL, Other_Process, Hardware and Posted messages.",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "MSG *",
+          "description": "Pointer to a MSG structure that receives message information from the thread's message queue."
+        },
+        {
+          "name": "filter",
+          "type": "struct peek_message_filter *",
+          "description": "Pointer to a peek_message_filter structure that specifies the filtering conditions for the messages to be peeked."
+        }
+      ],
+      "return_type": "int, represents the status of the operation. It returns 1 if a message is available and has been placed in the msg parameter. It returns 0 if no messages are available. It returns -1 if an error occurred."
+    }
+  },
+  {
+    "function": {
+      "name": "process_sent_messages",
+      "description": "This function processes sent messages by peeking the message and removing it from the queue if it is a sent message.",
+      "parameters": [],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "get_server_queue_handle",
+      "description": "This function retrieves the handle to the server message queue for the current user thread. If the handle is not already stored in the thread information, it sends a request to the server to get the handle and stores it in the thread information for future use.",
+      "parameters": [
+        {
+          "name": "void",
+          "type": "void",
+          "description": "This function does not take any parameters."
+        }
+      ],
+      "return_type": "HANDLE, which represents the handle to the server message queue for the current user thread."
+    }
+  },
+  {
+    "function": {
+      "name": "is_queue_signaled",
+      "description": "This function checks if a shared queue is signaled by examining its wake and change bits. It returns a boolean value indicating whether the queue is signaled or not.",
+      "parameters": [],
+      "return_type": "BOOL, a boolean value indicating whether the shared queue is signaled or not"
+    }
+  },
+  {
+    "function": {
+      "name": "check_queue_masks",
+      "description": "This function checks the wake and changed masks of a shared queue. It continues to check until the status of the shared queue is not pending. If the masks do not match the input parameters, it sets a skip flag to false. If they match, it checks if the queue is hung and sets the skip flag accordingly. If the status is not zero after the loop, it returns false, otherwise it returns the skip flag.",
+      "parameters": [
+        {
+          "name": "wake_mask",
+          "type": "UINT",
+          "description": "The wake mask to check against the shared queue's wake mask"
+        },
+        {
+          "name": "changed_mask",
+          "type": "UINT",
+          "description": "The changed mask to check against the shared queue's changed mask"
+        }
+      ],
+      "return_type": "BOOL, represents whether the queue should be skipped or not"
+    }
+  },
+  {
+    "function": {
+      "name": "check_internal_bits",
+      "description": "This function checks if certain bits are set in the internal bits of a shared queue. It initializes an object lock, gets the shared queue, and checks if the internal bits of the queue match the provided mask.",
+      "parameters": [
+        {
+          "name": "mask",
+          "type": "UINT",
+          "description": "This parameter is a mask that is used to check against the internal bits of the shared queue."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the internal bits of the shared queue match the provided mask, otherwise returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "process_driver_events",
+      "description": "This function processes driver events, checks queue masks, sets queue masks, processes internal hardware messages, and checks if the queue is signaled.",
+      "parameters": [
+        {
+          "name": "events_mask",
+          "type": "UINT",
+          "description": "Mask of events to be processed"
+        },
+        {
+          "name": "wake_mask",
+          "type": "UINT",
+          "description": "Mask of wake events"
+        },
+        {
+          "name": "changed_mask",
+          "type": "UINT",
+          "description": "Mask of changed events"
+        }
+      ],
+      "return_type": "BOOL, represents whether the queue is signaled or not"
+    }
+  },
+  {
+    "function": {
+      "name": "check_for_events",
+      "description": "This function checks for certain events based on the provided flags. If no events are processed and the QS_PAINT flag is not set, it flushes the window surfaces.",
+      "parameters": [
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "This parameter is used to determine which events to process and whether to flush the window surfaces."
+        }
+      ],
+      "return_type": "void, this function does not return any value"
+    }
+  },
+  {
+    "function": {
+      "name": "get_driver_check_time",
+      "description": "This function gets the driver check time by querying the performance counter and then calculating the time in 8kHz.",
+      "parameters": [],
+      "return_type": "LONGLONG, represents the driver check time in 8kHz"
+    }
+  },
+  {
+    "function": {
+      "name": "check_for_driver_events",
+      "description": "This function checks for any new driver events. If there are any, it flushes the window surfaces and processes the driver events. It then updates the last driver time in the user thread info to the current driver check time.",
+      "parameters": [],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "get_nt_timeout",
+      "description": "This function calculates the NT-style timeout from a DWORD timeout. If the timeout is infinite, it returns NULL. Otherwise, it multiplies the timeout by -10000 and assigns it to the QuadPart of the LARGE_INTEGER structure.",
+      "parameters": [
+        {
+          "name": "time",
+          "type": "LARGE_INTEGER*",
+          "description": "Pointer to a LARGE_INTEGER structure where the NT-style timeout will be stored"
+        },
+        {
+          "name": "timeout",
+          "type": "DWORD",
+          "description": "The timeout value to be converted to NT-style"
+        }
+      ],
+      "return_type": "Returns a pointer to a LARGE_INTEGER structure containing the NT-style timeout, or NULL if the timeout is infinite"
+    }
+  },
+  {
+    "function": {
+      "name": "wait_message",
+      "description": "This function waits for multiple objects for a specified amount of time, processes driver events, and handles various conditions based on the return value of the wait operation.",
+      "parameters": [
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "The number of object handles in the array pointed by 'handles' parameter"
+        },
+        {
+          "name": "handles",
+          "type": "HANDLE*",
+          "description": "Pointer to an array of object handles"
+        },
+        {
+          "name": "timeout",
+          "type": "DWORD",
+          "description": "The time-out interval, in milliseconds"
+        },
+        {
+          "name": "wake_mask",
+          "type": "DWORD",
+          "description": "Input mask that specifies the input types for which an input event object handle will be added to the array of object handles"
+        },
+        {
+          "name": "changed_mask",
+          "type": "DWORD",
+          "description": "Input mask that specifies the input types for which a change in state will cause a wait operation to return"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "The wait options"
+        }
+      ],
+      "return_type": "DWORD, represents the return status of the function. It could be the index of the object that satisfied the wait, WAIT_TIMEOUT if the function returns due to a timeout, or WAIT_FAILED if the function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "wait_objects",
+      "description": "This function ensures that we have at least the server queue, flushes window surfaces and waits for a message.",
+      "parameters": [
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "Number of objects to wait for"
+        },
+        {
+          "name": "handles",
+          "type": "HANDLE*",
+          "description": "Pointer to an array of object handles"
+        },
+        {
+          "name": "timeout",
+          "type": "DWORD",
+          "description": "Maximum time to wait for, in milliseconds"
+        },
+        {
+          "name": "wake_mask",
+          "type": "DWORD",
+          "description": "Mask to wake up the wait"
+        },
+        {
+          "name": "changed_mask",
+          "type": "DWORD",
+          "description": "Mask to change the wait"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags to control the wait"
+        }
+      ],
+      "return_type": "DWORD, represents the status after waiting for a message"
+    }
+  },
+  {
+    "function": {
+      "name": "normalize_std_handle",
+      "description": "This function checks if the input handle matches any of the standard handles (input, output, error). If it does, it returns the corresponding handle from the current thread's environment block. If it doesn't match any, it returns the input handle itself.",
+      "parameters": [
+        {
+          "name": "handle",
+          "type": "HANDLE",
+          "description": "The handle that needs to be normalized"
+        }
+      ],
+      "return_type": "HANDLE, represents the normalized standard handle"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserMsgWaitForMultipleObjectsEx",
+      "description": "This function waits for multiple objects and returns when either any one or all of the objects are in the signaled state, or the time-out interval elapses.",
+      "parameters": [
+        {
+          "name": "count",
+          "type": "DWORD",
+          "description": "The number of object handles in the array."
+        },
+        {
+          "name": "handles",
+          "type": "HANDLE*",
+          "description": "An array of object handles."
+        },
+        {
+          "name": "timeout",
+          "type": "DWORD",
+          "description": "The time-out interval, in milliseconds."
+        },
+        {
+          "name": "mask",
+          "type": "DWORD",
+          "description": "The mask to be used."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "The flags to be used."
+        }
+      ],
+      "return_type": "DWORD, represents the status after waiting for objects. It can be WAIT_FAILED in case of error or the index of the object that satisfied the wait."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserWaitForInputIdle",
+      "description": "This function waits for the specified process to become idle or until the time-out interval elapses. It is used in the Windows operating system to wait for a process to finish its initialization and enter the idle state.",
+      "parameters": [
+        {
+          "name": "process",
+          "type": "HANDLE",
+          "description": "A handle to the process."
+        },
+        {
+          "name": "timeout",
+          "type": "DWORD",
+          "description": "The time-out interval, in milliseconds."
+        },
+        {
+          "name": "wow",
+          "type": "BOOL",
+          "description": "A boolean value that indicates whether the function should wait for a 16-bit process (if set to TRUE) or a 32-bit process (if set to FALSE)."
+        }
+      ],
+      "return_type": "DWORD. It returns 0 if the function succeeds, WAIT_TIMEOUT if the function times out, and WAIT_FAILED if the function fails."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserWaitMessage",
+      "description": "This function waits for a message to arrive and then returns. It uses the NtUserMsgWaitForMultipleObjectsEx function to wait for multiple objects and checks if the wait was not failed.",
+      "parameters": [],
+      "return_type": "BOOL, represents whether the wait for the message was successful or not. If the wait was not failed, it returns TRUE, otherwise FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserPeekMessage",
+      "description": "This function peeks at the messages in the message queue, checks for driver events, and copies back the internal safe copy of message data to msg_out. It also handles the case where msg_out is NULL, setting the last Win32 error to ERROR_NOACCESS and returning FALSE.",
+      "parameters": [
+        {
+          "name": "msg_out",
+          "type": "MSG*",
+          "description": "Pointer to a MSG structure that receives message information"
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose messages are to be examined"
+        },
+        {
+          "name": "first",
+          "type": "UINT",
+          "description": "Specifies the value of the first message in the range of messages to be examined"
+        },
+        {
+          "name": "last",
+          "type": "UINT",
+          "description": "Specifies the value of the last message in the range of messages to be examined"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies how messages are to be handled"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if a message is available and FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetMessage",
+      "description": "This function retrieves a message from the calling thread's message queue and places it in the specified structure. The function also checks for certain types of messages and modifies a mask accordingly.",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "MSG*",
+          "description": "Pointer to an MSG structure that receives message information from the thread's message queue."
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window whose messages are to be retrieved."
+        },
+        {
+          "name": "first",
+          "type": "UINT",
+          "description": "The integer value of the first message in the range of messages to be examined."
+        },
+        {
+          "name": "last",
+          "type": "UINT",
+          "description": "The integer value of the last message in the range of messages to be examined."
+        }
+      ],
+      "return_type": "BOOL. Returns a nonzero value if a message is available and the function places the message in the msg parameter. The function returns zero if no messages are available or if an error occurs."
+    }
+  },
+  {
+    "function": {
+      "name": "put_message_in_queue",
+      "description": "This function is used to put a message into a queue. It handles different types of messages and applies different logic based on the type of the message. It also checks for timeout and sets it to infinite if not specified. It packs the message data and sends the message to the server.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "struct send_message_info *",
+          "description": "This is a pointer to a struct that contains information about the message to be sent."
+        },
+        {
+          "name": "reply_size",
+          "type": "size_t *",
+          "description": "This is a pointer to a variable where the size of the reply will be stored."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the message is successfully put in the queue, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "post_dde_message_call",
+      "description": "This function posts a DDE message call, setting up the request parameters and making a server call.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window for the DDE message."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be posted."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "params",
+          "type": "struct post_dde_message_call_params *",
+          "description": "A pointer to a structure containing the parameters for the DDE message call."
+        }
+      ],
+      "return_type": "NTSTATUS, representing the status of the operation."
+    }
+  },
+  {
+    "function": {
+      "name": "wait_message_reply",
+      "description": "This function waits for a message reply from a server queue. It continuously checks the queue bits and processes sent messages immediately. The function returns when it receives a result.",
+      "parameters": [
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "This parameter is used to determine the wake mask. If the SMTO_BLOCK flag is set, the function will not block; otherwise, it will."
+        }
+      ],
+      "return_type": "void, this function does not return a value but rather performs an operation"
+    }
+  },
+  {
+    "function": {
+      "name": "retrieve_reply",
+      "description": "This function retrieves a reply from a server request, unpacks the reply if it exists and sets the last error if there was a status error.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "struct send_message_info *",
+          "description": "Pointer to a structure containing information about the message to be sent"
+        },
+        {
+          "name": "reply_size",
+          "type": "size_t",
+          "description": "Size of the reply to be retrieved"
+        },
+        {
+          "name": "result",
+          "type": "LRESULT *",
+          "description": "Pointer to a variable where the result of the function will be stored"
+        }
+      ],
+      "return_type": "LRESULT, represents the status of the function execution. Returns 0 if there was no status error, otherwise returns non-zero."
+    }
+  },
+  {
+    "function": {
+      "name": "send_inter_thread_message",
+      "description": "This function sends a message between threads, checks if the message is put in the queue, and retrieves the reply if necessary.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "const struct send_message_info *",
+          "description": "This parameter is a pointer to the information about the message to be sent."
+        },
+        {
+          "name": "res_ptr",
+          "type": "LRESULT *",
+          "description": "This parameter is a pointer to the result of the message retrieval."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message sending operation. It returns 0 if the message is not put in the queue, 1 if there's no reply to wait for on notify/callback messages, and the result of the retrieve_reply function otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "send_inter_thread_callback",
+      "description": "This function assigns values to the members of the send_message_info structure and then calls the send_inter_thread_message function.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be sent."
+        },
+        {
+          "name": "wp",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lp",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "result",
+          "type": "LRESULT*",
+          "description": "A pointer to the result value."
+        },
+        {
+          "name": "arg",
+          "type": "void*",
+          "description": "A pointer to a send_message_info structure."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the send_inter_thread_message function call."
+    }
+  },
+  {
+    "function": {
+      "name": "send_internal_message_timeout",
+      "description": "This function sends an internal message with a timeout. It checks if the destination thread is exiting or if it is the current thread. Depending on the conditions, it either handles the internal message directly or sends an inter-thread message.",
+      "parameters": [
+        {
+          "name": "dest_pid",
+          "type": "DWORD",
+          "description": "The destination process ID"
+        },
+        {
+          "name": "dest_tid",
+          "type": "DWORD",
+          "description": "The destination thread ID"
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be sent"
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "The flags to be used for the message"
+        },
+        {
+          "name": "timeout",
+          "type": "UINT",
+          "description": "The timeout for the message"
+        },
+        {
+          "name": "res_ptr",
+          "type": "PDWORD_PTR",
+          "description": "Pointer to a variable that receives the result"
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message send operation. If the function succeeds, the return value is non-zero. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "send_hardware_message",
+      "description": "This function sends a hardware message to the server. It handles different types of input such as mouse, keyboard, and hardware. The function also handles different flags and conditions.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that will receive the message."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "The flags that specify various options."
+        },
+        {
+          "name": "input",
+          "type": "INPUT*",
+          "description": "A pointer to an INPUT structure that contains the message to be sent."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "An additional message-specific information."
+        }
+      ],
+      "return_type": "NTSTATUS, represents the status of the operation. If the function succeeds, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserPostQuitMessage",
+      "description": "This function posts a quit message to the server with a specified exit code.",
+      "parameters": [
+        {
+          "name": "exit_code",
+          "type": "INT",
+          "description": "This parameter represents the exit code that will be sent to the server."
+        }
+      ],
+      "return_type": "BOOL, represents whether the quit message was successfully posted or not. Always returns TRUE in this implementation."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserDispatchMessage",
+      "description": "This function dispatches a message to the window procedure. It processes timer messages, system timer messages, and paint messages. It also handles cases where the window handle is null or invalid.",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "MSG *",
+          "description": "This is a pointer to the message to be dispatched."
+        }
+      ],
+      "return_type": "LRESULT, which represents the result of the message processing. It returns 0 in case of failure or if the window handle is null."
+    }
+  },
+  {
+    "function": {
+      "name": "is_message_broadcastable",
+      "description": "Determines if a given message is broadcastable based on its value",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be checked for broadcastability"
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the message is broadcastable, FALSE otherwise"
+    }
+  },
+  {
+    "function": {
+      "name": "broadcast_message",
+      "description": "This function broadcasts a message to all window children. It checks if the message is broadcastable, gets the list of window children, and sends the message to each child window based on the message type. It also sets the value of res_ptr to 1 before returning.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "struct send_message_info*",
+          "description": "Pointer to a structure containing information about the message to be broadcasted, including the message, type, parameters, flags, timeout, callback, and data."
+        },
+        {
+          "name": "res_ptr",
+          "type": "DWORD_PTR*",
+          "description": "Pointer to a DWORD_PTR. If this pointer is not null, the function sets its value to 1."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function executed successfully. Always returns TRUE."
+    }
+  },
+  {
+    "function": {
+      "name": "get_buffer",
+      "description": "This function checks if the size is greater than or equal to the needed size. If it is, it returns the static buffer. Otherwise, it allocates memory of the needed size.",
+      "parameters": [
+        {
+          "name": "static_buffer",
+          "type": "void *",
+          "description": "Pointer to the static buffer"
+        },
+        {
+          "name": "size",
+          "type": "size_t",
+          "description": "The current size of the buffer"
+        },
+        {
+          "name": "need",
+          "type": "size_t",
+          "description": "The needed size of the buffer"
+        }
+      ],
+      "return_type": "void * - Returns a pointer to the static buffer if the size is sufficient, otherwise returns a pointer to the newly allocated memory"
+    }
+  },
+  {
+    "function": {
+      "name": "free_buffer",
+      "description": "This function frees the memory allocated to the 'buffer' if it is not the same as 'static_buffer'.",
+      "parameters": [
+        {
+          "name": "static_buffer",
+          "type": "void *",
+          "description": "Pointer to a static buffer."
+        },
+        {
+          "name": "buffer",
+          "type": "void *",
+          "description": "Pointer to a buffer that needs to be freed."
+        }
+      ],
+      "return_type": "void, as this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "test_lb_for_string",
+      "description": "This function checks if a string can be used for a list box or combo box based on the style of the window and the message passed to it.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "Message to be processed."
+        }
+      ],
+      "return_type": "BOOL, represents whether the string can be used for the list box or combo box."
+    }
+  },
+  {
+    "function": {
+      "name": "get_input_codepage",
+      "description": "This function retrieves the input code page for the current keyboard layout. If the default ANSI code page is not UTF-8, it gets the code page table for the default ANSI code page.",
+      "parameters": [],
+      "return_type": "CPTABLEINFO pointer, representing the code page table information for the current keyboard layout's default ANSI code page, or the ANSI code page if the default is UTF-8"
+    }
+  },
+  {
+    "function": {
+      "name": "map_wparam_AtoW",
+      "description": "This function maps WPARAM from ANSI to Wide Char based on the message type. It uses a switch case to handle different message types and applies the appropriate mapping.",
+      "parameters": [
+        {
+          "name": "message",
+          "type": "UINT",
+          "description": "This is the message type that determines how the WPARAM will be mapped."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM*",
+          "description": "This is a pointer to the WPARAM that will be mapped."
+        },
+        {
+          "name": "mapping",
+          "type": "enum wm_char_mapping",
+          "description": "This is the enumeration that defines the mapping from ANSI to Wide Char."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE after successful execution of the function."
+    }
+  },
+  {
+    "function": {
+      "name": "call_messageAtoW",
+      "description": "This function is used to handle and process various window messages. It converts ASCII messages to wide character messages and then calls the appropriate callback function.",
+      "parameters": [
+        {
+          "name": "callback",
+          "type": "winproc_callback_t",
+          "description": "This is the callback function that will be called to process the window message."
+        },
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window that will receive the message."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "This is the message that will be sent to the window."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "This is additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "This is additional message-specific information."
+        },
+        {
+          "name": "result",
+          "type": "LRESULT *",
+          "description": "This is a pointer to a variable that receives the result of the message processing."
+        },
+        {
+          "name": "arg",
+          "type": "void *",
+          "description": "This is an additional argument that can be used by the callback function."
+        },
+        {
+          "name": "mapping",
+          "type": "enum wm_char_mapping",
+          "description": "This is an enumeration value that specifies how character messages should be mapped."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing."
+    }
+  },
+  {
+    "function": {
+      "name": "process_message",
+      "description": "This function processes a message by getting thread info, checking if it's a broadcast message, getting window thread, checking if it's an exiting thread, initializing window call parameters if conditions are met, and sending inter thread message or calling window proc based on conditions. It also handles message source and spy enter/exit messages.",
+      "parameters": [
+        {
+          "name": "info",
+          "type": "struct send_message_info *",
+          "description": "Pointer to the structure containing the message to be processed"
+        },
+        {
+          "name": "res_ptr",
+          "type": "DWORD_PTR *",
+          "description": "Pointer to the result of the process"
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "Boolean value indicating whether the message is ANSI or not"
+        }
+      ],
+      "return_type": "BOOL, represents whether the message was processed successfully or not"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetTimer",
+      "description": "This function sets a timer for a window and an associated callback function to be invoked when the timer expires.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window associated with the timer."
+        },
+        {
+          "name": "id",
+          "type": "UINT_PTR",
+          "description": "Unique identifier for the timer."
+        },
+        {
+          "name": "timeout",
+          "type": "UINT",
+          "description": "Time interval, in milliseconds, after which the timer should expire."
+        },
+        {
+          "name": "proc",
+          "type": "TIMERPROC",
+          "description": "Pointer to the callback function to be invoked when the timer expires."
+        },
+        {
+          "name": "tolerance",
+          "type": "ULONG",
+          "description": "The maximum amount of time, in milliseconds, that the system can wait beyond the scheduled time for the timer."
+        }
+      ],
+      "return_type": "UINT_PTR, represents the identifier of the new timer if the function is successful. Otherwise, it returns zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserSetSystemTimer",
+      "description": "This function sets a system timer for a window and returns the identifier of the new timer. The function adjusts the timeout value to ensure it is within the valid range, and then sends a request to the server to set the timer.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window associated with the timer."
+        },
+        {
+          "name": "id",
+          "type": "UINT_PTR",
+          "description": "An identifier for the timer."
+        },
+        {
+          "name": "timeout",
+          "type": "UINT",
+          "description": "The time-out value, in milliseconds."
+        }
+      ],
+      "return_type": "UINT_PTR, represents the identifier of the new timer. If the function fails, the return value is zero."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserKillTimer",
+      "description": "This function is used to terminate a timer for a specific window.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "This is a handle to the window associated with the timer to be killed."
+        },
+        {
+          "name": "id",
+          "type": "UINT_PTR",
+          "description": "This is an identifier for the timer to be killed."
+        }
+      ],
+      "return_type": "BOOL, where the return value is TRUE if the function succeeds, and FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserKillSystemTimer",
+      "description": "This function is used to kill a system timer.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window associated with the system timer."
+        },
+        {
+          "name": "id",
+          "type": "UINT_PTR",
+          "description": "The identifier of the system timer."
+        }
+      ],
+      "return_type": "BOOL, represents whether the system timer was successfully killed or not."
+    }
+  },
+  {
+    "function": {
+      "name": "send_window_message",
+      "description": "This function sends a message to a window or windows. It calls the window procedure for the specified window and does not return until the window procedure has processed the message.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window whose window procedure will receive the message."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be sent."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "client_params",
+          "type": "struct win_proc_params *",
+          "description": "A pointer to a structure of type win_proc_params that contains additional data which may be used in the processing of the message."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "A flag that indicates whether the message is ANSI or UNICODE."
+        }
+      ],
+      "return_type": "LRESULT, the result of the message processing. It depends on the message sent."
+    }
+  },
+  {
+    "function": {
+      "name": "send_client_message",
+      "description": "This function sends a message to a client. It sets up the message info and then processes the message.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that will receive the message."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be sent."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "The flags that specify various options."
+        },
+        {
+          "name": "timeout",
+          "type": "UINT",
+          "description": "The duration for which the function should wait for the message processing to complete."
+        },
+        {
+          "name": "res_ptr",
+          "type": "DWORD_PTR*",
+          "description": "A pointer to the variable that receives the result of the message processing."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "A flag that indicates whether the message is ANSI or UNICODE."
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing."
+    }
+  },
+  {
+    "function": {
+      "name": "send_message_timeout",
+      "description": "This function sends a message with a timeout. If the message is not a pointer message, it sends the message to the client. Otherwise, it processes the message.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window where the message is sent"
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be sent"
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies how to send the message"
+        },
+        {
+          "name": "timeout",
+          "type": "UINT",
+          "description": "The duration for the message to be sent"
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "A flag that indicates whether the message is ANSI or not"
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message sent"
+    }
+  },
+  {
+    "function": {
+      "name": "send_message",
+      "description": "This function sends a message to a window or windows. It calls the send_message_timeout function with a normal timeout.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window whose window procedure will receive the message."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be sent."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "LRESULT, the result of the message processing and depends on the message sent."
+    }
+  },
+  {
+    "function": {
+      "name": "send_notify_message",
+      "description": "This function sends a notification message. It first checks if the message is a pointer message, and if so, sets the last Win32 error to ERROR_MESSAGE_SYNC_ONLY and returns FALSE. Otherwise, it sets up a send_message_info structure with the provided parameters and calls process_message.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window that will receive the message."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be sent."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "A flag indicating whether the message is ANSI or UNICODE."
+        }
+      ],
+      "return_type": "BOOL, represents whether the message was successfully processed or not."
+    }
+  },
+  {
+    "function": {
+      "name": "send_message_callback",
+      "description": "This function processes a message and returns a boolean value based on the result. It also sets an error if the message is a pointer message.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be processed."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "params",
+          "type": "struct send_message_callback_params *",
+          "description": "A pointer to a structure that contains the callback function and data."
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "A boolean value that indicates whether the message is ANSI or not."
+        }
+      ],
+      "return_type": "BOOL, represents whether the message was processed successfully or not."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserPostMessage",
+      "description": "This function is used to post a message to the message queue associated with the specified window or all windows in the current thread's message queue.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "A handle to the window whose window procedure is to receive the message."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be posted."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "BOOL, represents whether the function was successful in posting the message. Returns TRUE if successful, FALSE otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserPostThreadMessage",
+      "description": "This function is used to post a message to the message queue of the specified thread. It returns a boolean value indicating whether the operation was successful or not.",
+      "parameters": [
+        {
+          "name": "thread",
+          "type": "DWORD",
+          "description": "This is the identifier of the thread to which the message will be posted."
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "This is the message to be posted."
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information."
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information."
+        }
+      ],
+      "return_type": "BOOL. It returns TRUE if the function succeeds in posting the message, otherwise it returns FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserMessageCall",
+      "description": "This function handles various types of user messages based on the type parameter. It calls different functions depending on the type of the message.",
+      "parameters": [
+        {
+          "name": "hwnd",
+          "type": "HWND",
+          "description": "Handle to the window where the message is sent"
+        },
+        {
+          "name": "msg",
+          "type": "UINT",
+          "description": "The message to be sent"
+        },
+        {
+          "name": "wparam",
+          "type": "WPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "lparam",
+          "type": "LPARAM",
+          "description": "Additional message-specific information"
+        },
+        {
+          "name": "result_info",
+          "type": "void *",
+          "description": "Pointer to a structure that receives information about the result of the message processing"
+        },
+        {
+          "name": "type",
+          "type": "DWORD",
+          "description": "The type of the message to be processed"
+        },
+        {
+          "name": "ansi",
+          "type": "BOOL",
+          "description": "Flag indicating whether the message is ANSI or Unicode"
+        }
+      ],
+      "return_type": "LRESULT, represents the result of the message processing"
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserTranslateMessage",
+      "description": "This function translates virtual-key messages into character messages. The character messages are posted to the calling thread's message queue, to be read the next time the thread calls the GetMessage or PeekMessage function.",
+      "parameters": [
+        {
+          "name": "msg",
+          "type": "MSG*",
+          "description": "Pointer to an MSG structure that contains message information retrieved from the calling thread's message queue."
+        },
+        {
+          "name": "flags",
+          "type": "UINT",
+          "description": "Specifies the behavior of the function. If this parameter is TRUE, the function performs the translation based on the WM_KEYDOWN or WM_KEYUP message. If this parameter is FALSE, the function translates the message and posts the character message to the calling thread's message queue."
+        }
+      ],
+      "return_type": "BOOL. If the message is translated (that is, a character message is posted to the thread's message queue), the return value is TRUE. If the message is WM_KEYDOWN, WM_KEYUP, WM_SYSKEYDOWN, or WM_SYSKEYUP, the return value is TRUE, regardless of the translation. If the message is not translated (that is, a character message is not posted to the thread's message queue), the return value is FALSE."
+    }
+  },
+  {
+    "function": {
+      "name": "NtUserGetCurrentInputMessageSource",
+      "description": "This function retrieves the current input message source.",
+      "parameters": [
+        {
+          "name": "source",
+          "type": "INPUT_MESSAGE_SOURCE *",
+          "description": "A pointer to an INPUT_MESSAGE_SOURCE structure that receives the current input message source."
+        }
+      ],
+      "return_type": "BOOL, returns TRUE if the function succeeds and FALSE if it fails. If the function fails, the reason for failure can be retrieved using RtlSetLastWin32Error."
+    }
+  }
+]

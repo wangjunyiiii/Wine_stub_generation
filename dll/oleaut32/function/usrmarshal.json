@@ -1,0 +1,2861 @@
+[
+  {
+    "function": {
+      "name": "dump_user_flags",
+      "description": "This function checks the high word of the flag and traces the corresponding message. It then checks the low word of the flag and traces the corresponding message.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to a ULONG variable that holds flags to be checked and traced"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "CLEANLOCALSTORAGE_UserSize",
+      "description": "This function aligns the start parameter to a boundary of 3 and then adds the size of DWORD to it.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable"
+        },
+        {
+          "name": "Start",
+          "type": "ULONG",
+          "description": "The start value to be aligned and added with size of DWORD"
+        },
+        {
+          "name": "pstg",
+          "type": "CLEANLOCALSTORAGE*",
+          "description": "Pointer to a CLEANLOCALSTORAGE structure"
+        }
+      ],
+      "return_type": "ULONG, represents the aligned start value added with size of DWORD"
+    }
+  },
+  {
+    "function": {
+      "name": "CLEANLOCALSTORAGE_UserMarshal",
+      "description": "This function aligns a buffer pointer, sets the buffer to the flags of a CLEANLOCALSTORAGE object, checks if the pInterface of the CLEANLOCALSTORAGE object is NULL, and if not, releases the appropriate attribute based on the flag. It then sets the pStorage of the CLEANLOCALSTORAGE object to NULL, releases the pInterface, sets pInterface to NULL, and returns the buffer pointer incremented by the size of DWORD.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to flags"
+        },
+        {
+          "name": "Buffer",
+          "type": "unsigned char*",
+          "description": "Pointer to a buffer"
+        },
+        {
+          "name": "pstg",
+          "type": "CLEANLOCALSTORAGE*",
+          "description": "Pointer to a CLEANLOCALSTORAGE object"
+        }
+      ],
+      "return_type": "unsigned char*, represents a pointer to a buffer incremented by the size of DWORD"
+    }
+  },
+  {
+    "function": {
+      "name": "CLEANLOCALSTORAGE_UserUnmarshal",
+      "description": "This function aligns the pointer to the buffer, assigns the value at the buffer to the flags field of the CLEANLOCALSTORAGE structure, and returns the buffer pointer incremented by the size of DWORD.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable"
+        },
+        {
+          "name": "Buffer",
+          "type": "unsigned char*",
+          "description": "Pointer to a buffer"
+        },
+        {
+          "name": "pstr",
+          "type": "CLEANLOCALSTORAGE*",
+          "description": "Pointer to a CLEANLOCALSTORAGE structure"
+        }
+      ],
+      "return_type": "unsigned char*: Returns the buffer pointer incremented by the size of DWORD"
+    }
+  },
+  {
+    "function": {
+      "name": "CLEANLOCALSTORAGE_UserFree",
+      "description": "This function does not perform any operation.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable"
+        },
+        {
+          "name": "pstr",
+          "type": "CLEANLOCALSTORAGE*",
+          "description": "Pointer to a CLEANLOCALSTORAGE structure"
+        }
+      ],
+      "return_type": "void, it does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "BSTR_UserSize",
+      "description": "This function calculates the size of a BSTR string after alignment and adding the size of the wire representation of the BSTR string.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to flags used in the function"
+        },
+        {
+          "name": "Start",
+          "type": "ULONG",
+          "description": "Initial size value"
+        },
+        {
+          "name": "pstr",
+          "type": "BSTR *",
+          "description": "Pointer to the BSTR string whose size is to be calculated"
+        }
+      ],
+      "return_type": "ULONG, represents the calculated size of the BSTR string"
+    }
+  },
+  {
+    "function": {
+      "name": "BSTR_UserMarshal",
+      "description": "This function marshals a BSTR into a buffer for transmission over the network or for storage.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to flags that control the marshalling process."
+        },
+        {
+          "name": "Buffer",
+          "type": "unsigned char*",
+          "description": "Pointer to the buffer where the marshalled data will be stored."
+        },
+        {
+          "name": "pstr",
+          "type": "BSTR*",
+          "description": "Pointer to the BSTR that will be marshalled."
+        }
+      ],
+      "return_type": "unsigned char*; represents the position in the buffer immediately following the marshalled data."
+    }
+  },
+  {
+    "function": {
+      "name": "BSTR_UserUnmarshal",
+      "description": "This function unmarshals a BSTR from a buffer, reallocates the string length, and returns the buffer after the header and the string.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to flags used in the function"
+        },
+        {
+          "name": "Buffer",
+          "type": "unsigned char*",
+          "description": "Buffer from which the BSTR is unmarshaled"
+        },
+        {
+          "name": "pstr",
+          "type": "BSTR*",
+          "description": "Pointer to the BSTR that is unmarshaled"
+        }
+      ],
+      "return_type": "unsigned char*; Returns the buffer after the header and the string"
+    }
+  },
+  {
+    "function": {
+      "name": "BSTR_UserFree",
+      "description": "This function frees a BSTR string and sets its pointer to NULL",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable"
+        },
+        {
+          "name": "pstr",
+          "type": "BSTR*",
+          "description": "Pointer to a BSTR string to be freed"
+        }
+      ],
+      "return_type": "void, this function does not return a value"
+    }
+  },
+  {
+    "function": {
+      "name": "get_type_size",
+      "description": "This function returns the size of a given type. It checks the type and returns the size accordingly. If the type is not handled, it returns 0.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable. However, it is not used in the function."
+        },
+        {
+          "name": "vt",
+          "type": "VARTYPE",
+          "description": "Variable of VARTYPE enum. It represents the type for which the size is to be returned."
+        }
+      ],
+      "return_type": "unsigned int, represents the size of the type passed as parameter vt"
+    }
+  },
+  {
+    "function": {
+      "name": "get_type_alignment",
+      "description": "This function calculates the alignment of a type based on its size and flags.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to flags that define the type"
+        },
+        {
+          "name": "vt",
+          "type": "VARTYPE",
+          "description": "Variable type"
+        }
+      ],
+      "return_type": "unsigned int representing the alignment of the type"
+    }
+  },
+  {
+    "function": {
+      "name": "interface_user_size",
+      "description": "This function calculates the size of the interface variant buffer and returns the start position incremented by the calculated size.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to flags used in the interface pointer user size calculation"
+        },
+        {
+          "name": "Start",
+          "type": "ULONG",
+          "description": "Initial position or start value to which the calculated size will be added"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier"
+        },
+        {
+          "name": "punk",
+          "type": "IUnknown *",
+          "description": "Pointer to the IUnknown interface"
+        }
+      ],
+      "return_type": "unsigned, represents the start position incremented by the calculated size of the interface variant buffer"
+    }
+  },
+  {
+    "function": {
+      "name": "wire_extra_user_size",
+      "description": "This function determines the size of the user based on the type of the VARIANT pointed by pvar and returns the size. It also handles different types of VARIANTs.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to a ULONG that may be used in the size calculation."
+        },
+        {
+          "name": "Start",
+          "type": "ULONG",
+          "description": "Initial size value that may be used in the size calculation."
+        },
+        {
+          "name": "pvar",
+          "type": "VARIANT *",
+          "description": "Pointer to a VARIANT whose type is checked to determine the appropriate size calculation."
+        }
+      ],
+      "return_type": "ULONG, represents the size of the user based on the type of the VARIANT pointed by pvar."
+    }
+  },
+  {
+    "function": {
+      "name": "interface_user_marshal",
+      "description": "This function marshals an interface pointer into a buffer. If the interface pointer is null, it fills the buffer with zeros and returns a pointer to the next position in the buffer. Otherwise, it stores the interface pointer in the buffer and calls another function to continue the marshalling process.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to flags that control the marshalling process"
+        },
+        {
+          "name": "Buffer",
+          "type": "unsigned char*",
+          "description": "Buffer to store the marshalled data"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Identifier of the interface to be marshalled"
+        },
+        {
+          "name": "punk",
+          "type": "IUnknown*",
+          "description": "Pointer to the interface to be marshalled"
+        }
+      ],
+      "return_type": "unsigned char*; Returns a pointer to the next position in the buffer after the marshalled data"
+    }
+  },
+  {
+    "function": {
+      "name": "interface_user_unmarshal",
+      "description": "This function unmarshals an interface pointer from a buffer. It skips the pointer part itself and returns the buffer if the pointer is null. Otherwise, it calls the WdtpInterfacePointer_UserUnmarshal function.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable that receives flags."
+        },
+        {
+          "name": "Buffer",
+          "type": "unsigned char*",
+          "description": "Pointer to the buffer that contains the marshaled interface pointer."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Identifier of the interface to be unmarshaled."
+        },
+        {
+          "name": "ppunk",
+          "type": "IUnknown**",
+          "description": "Address of pointer variable that receives the interface pointer."
+        }
+      ],
+      "return_type": "unsigned char*; Returns the updated buffer pointer after unmarshaling the interface pointer."
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_UserSize",
+      "description": "This function calculates the buffer size necessary to marshal a VARIANT.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to the flags that control the serialization process."
+        },
+        {
+          "name": "Start",
+          "type": "ULONG",
+          "description": "The initial buffer size."
+        },
+        {
+          "name": "pvar",
+          "type": "VARIANT *",
+          "description": "Pointer to the VARIANT to be sized."
+        }
+      ],
+      "return_type": "ULONG, represents the size of the buffer required to marshal the VARIANT."
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_UserMarshal",
+      "description": "This function marshals a VARIANT structure into a buffer for use in RPC calls.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to flags that control the marshalling process."
+        },
+        {
+          "name": "Buffer",
+          "type": "unsigned char*",
+          "description": "Pointer to the buffer where the marshalled data will be stored."
+        },
+        {
+          "name": "pvar",
+          "type": "VARIANT*",
+          "description": "Pointer to the VARIANT structure to be marshalled."
+        }
+      ],
+      "return_type": "unsigned char* representing the position in the buffer after the marshalled data."
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_UserUnmarshal",
+      "description": "This function unmarshals data from a buffer into a VARIANT structure. It handles different types of data, including arrays and different types of references. It also clears the VARIANT structure before use and sets its value type and reserved fields.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to flags that control the unmarshalling process"
+        },
+        {
+          "name": "Buffer",
+          "type": "unsigned char*",
+          "description": "Pointer to the buffer from which data is unmarshalled"
+        },
+        {
+          "name": "pvar",
+          "type": "VARIANT*",
+          "description": "Pointer to the VARIANT structure into which data is unmarshalled"
+        }
+      ],
+      "return_type": "unsigned char*. It represents the position in the buffer after unmarshalling"
+    }
+  },
+  {
+    "function": {
+      "name": "VARIANT_UserFree",
+      "description": "This function is used to free memory allocated for a VARIANT type object. It also handles different types of VARIANT objects, including arrays, BSTR, VARIANT, RECORD, UNKNOWN, and DISPATCH.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to a ULONG variable that contains flags"
+        },
+        {
+          "name": "pvar",
+          "type": "VARIANT *",
+          "description": "Pointer to a VARIANT type object that needs to be freed"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "SAFEARRAY_GetCellCount",
+      "description": "This function calculates the total number of cells in a SAFEARRAY structure by multiplying the number of elements in each dimension.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "const SAFEARRAY*",
+          "description": "Pointer to the SAFEARRAY structure whose cell count is to be calculated."
+        }
+      ],
+      "return_type": "ULONG, represents the total number of cells in the SAFEARRAY. If any dimension has zero elements, the function returns 0."
+    }
+  },
+  {
+    "function": {
+      "name": "SAFEARRAY_GetUnionType",
+      "description": "This function retrieves the union type of a SAFEARRAY. It first tries to get the VARTYPE of the SAFEARRAY. If it fails, it checks if the SAFEARRAY has the FADF_VARIANT feature, and if so, returns SF_VARIANT. If not, it checks the size of the elements in the SAFEARRAY and assigns a corresponding VARTYPE. If the SAFEARRAY has the FADF_HAVEIID feature, it returns SF_HAVEIID. Finally, it checks the VARTYPE and returns a corresponding SF_TYPE.",
+      "parameters": [
+        {
+          "name": "psa",
+          "type": "SAFEARRAY*",
+          "description": "A pointer to the SAFEARRAY whose union type is to be retrieved."
+        }
+      ],
+      "return_type": "SF_TYPE, representing the union type of the SAFEARRAY."
+    }
+  },
+  {
+    "function": {
+      "name": "elem_wire_size",
+      "description": "This function returns the size of the wire element based on the SF_TYPE passed. It uses a switch case to determine the size.",
+      "parameters": [
+        {
+          "name": "lpsa",
+          "type": "LPSAFEARRAY",
+          "description": "This parameter is used to access the cbElements property in the default case."
+        },
+        {
+          "name": "sftype",
+          "type": "SF_TYPE",
+          "description": "This parameter is used to determine the case in the switch statement, which then determines the return value."
+        }
+      ],
+      "return_type": "DWORD, represents the size of the wire element."
+    }
+  },
+  {
+    "function": {
+      "name": "elem_mem_size",
+      "description": "This function determines the memory size of an element based on its type.",
+      "parameters": [
+        {
+          "name": "wiresa",
+          "type": "wireSAFEARRAY",
+          "description": "This parameter is used to access the size of the elements in the array when the type is not known."
+        },
+        {
+          "name": "sftype",
+          "type": "SF_TYPE",
+          "description": "This parameter is used to determine the type of the elements in the array."
+        }
+      ],
+      "return_type": "DWORD, represents the memory size of an element in the array."
+    }
+  },
+  {
+    "function": {
+      "name": "LPSAFEARRAY_UserSize",
+      "description": "This function calculates the size of a safe array, including all its elements, based on the flags and starting size provided.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to flags that control the behavior of the function."
+        },
+        {
+          "name": "StartingSize",
+          "type": "ULONG",
+          "description": "The initial size of the safe array."
+        },
+        {
+          "name": "ppsa",
+          "type": "LPSAFEARRAY *",
+          "description": "Pointer to the safe array whose size is to be calculated."
+        }
+      ],
+      "return_type": "ULONG, represents the calculated size of the safe array."
+    }
+  },
+  {
+    "function": {
+      "name": "LPSAFEARRAY_UserMarshal",
+      "description": "This function marshals a safe array into a buffer.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to flags that control the marshaling process."
+        },
+        {
+          "name": "Buffer",
+          "type": "unsigned char *",
+          "description": "Pointer to the buffer where the marshaled data is stored."
+        },
+        {
+          "name": "ppsa",
+          "type": "LPSAFEARRAY *",
+          "description": "Pointer to the safe array to be marshaled."
+        }
+      ],
+      "return_type": "unsigned char *: Returns a pointer to the buffer where the marshaled data is stored."
+    }
+  },
+  {
+    "function": {
+      "name": "LPSAFEARRAY_UserUnmarshal",
+      "description": "This function unmarshals a safe array from a buffer.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to flags that control the unmarshalling process."
+        },
+        {
+          "name": "Buffer",
+          "type": "unsigned char *",
+          "description": "Pointer to the buffer from which the safe array is unmarshalled."
+        },
+        {
+          "name": "ppsa",
+          "type": "LPSAFEARRAY *",
+          "description": "Pointer to a pointer to a safe array. The unmarshalled safe array is stored in the location pointed to by this pointer."
+        }
+      ],
+      "return_type": "unsigned char *; Returns a pointer to the buffer position after the last byte used in the unmarshalling process."
+    }
+  },
+  {
+    "function": {
+      "name": "LPSAFEARRAY_UserFree",
+      "description": "This function destroys a safe array and sets its pointer to NULL.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to user flags."
+        },
+        {
+          "name": "ppsa",
+          "type": "LPSAFEARRAY*",
+          "description": "Pointer to a safe array."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "HFONT_UserSize",
+      "description": "This function is currently a stub and does not perform any operation.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG *",
+          "description": "Pointer to a ULONG variable"
+        },
+        {
+          "name": "Start",
+          "type": "ULONG",
+          "description": "A ULONG value"
+        },
+        {
+          "name": "phfont",
+          "type": "HFONT *",
+          "description": "Pointer to a HFONT variable"
+        }
+      ],
+      "return_type": "ULONG, currently it returns 0 as the function is a stub"
+    }
+  },
+  {
+    "function": {
+      "name": "HFONT_UserMarshal",
+      "description": "This function is currently a stub, meaning it is intended to be implemented in the future. It does not perform any operation.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable, its use is not defined in the stub function"
+        },
+        {
+          "name": "Buffer",
+          "type": "unsigned char*",
+          "description": "Pointer to a buffer, its use is not defined in the stub function"
+        },
+        {
+          "name": "phfont",
+          "type": "HFONT*",
+          "description": "Pointer to a HFONT variable, its use is not defined in the stub function"
+        }
+      ],
+      "return_type": "unsigned char* which is a pointer. In this stub function, it returns NULL"
+    }
+  },
+  {
+    "function": {
+      "name": "HFONT_UserUnmarshal",
+      "description": "This function is currently a stub, meaning it is intended to be implemented in the future. It currently does nothing and returns NULL.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable, usage to be determined when function is implemented."
+        },
+        {
+          "name": "Buffer",
+          "type": "unsigned char*",
+          "description": "Pointer to a buffer, usage to be determined when function is implemented."
+        },
+        {
+          "name": "phfont",
+          "type": "HFONT*",
+          "description": "Pointer to a HFONT variable, usage to be determined when function is implemented."
+        }
+      ],
+      "return_type": "unsigned char*; currently returns NULL as function is a stub."
+    }
+  },
+  {
+    "function": {
+      "name": "HFONT_UserFree",
+      "description": "This function is a stub, meaning it is intended to be replaced by a complete function definition in the future. Currently, it does not perform any operation.",
+      "parameters": [
+        {
+          "name": "pFlags",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable, usage not defined in the stub function."
+        },
+        {
+          "name": "phfont",
+          "type": "HFONT*",
+          "description": "Pointer to a HFONT variable, usage not defined in the stub function."
+        }
+      ],
+      "return_type": "void, meaning this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "IDispatch_Invoke_Proxy",
+      "description": "This function is a proxy for invoking a method or property through the IDispatch interface.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IDispatch*",
+          "description": "Pointer to the IDispatch interface."
+        },
+        {
+          "name": "dispIdMember",
+          "type": "DISPID",
+          "description": "Identifier of the member."
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Locale context in which to interpret arguments."
+        },
+        {
+          "name": "wFlags",
+          "type": "WORD",
+          "description": "Flags describing the context of the call."
+        },
+        {
+          "name": "pDispParams",
+          "type": "DISPPARAMS*",
+          "description": "Pointer to a structure containing an array of arguments."
+        },
+        {
+          "name": "pVarResult",
+          "type": "VARIANT*",
+          "description": "Pointer to the location where the result is to be stored."
+        },
+        {
+          "name": "pExcepInfo",
+          "type": "EXCEPINFO*",
+          "description": "Pointer to a structure that contains exception information."
+        },
+        {
+          "name": "puArgErr",
+          "type": "UINT*",
+          "description": "Pointer to the index of the first argument that has an error."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function."
+    }
+  },
+  {
+    "function": {
+      "name": "IDispatch_Invoke_Stub",
+      "description": "This function is a stub for the IDispatch Invoke method. It initializes out parameters, makes a copy of the in parameters, calls the real Invoke method, and then cleans up.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IDispatch*",
+          "description": "Pointer to the IDispatch interface"
+        },
+        {
+          "name": "dispIdMember",
+          "type": "DISPID",
+          "description": "Identifier of the member"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier"
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Locale identifier"
+        },
+        {
+          "name": "dwFlags",
+          "type": "DWORD",
+          "description": "Flags describing the context of the Invoke call"
+        },
+        {
+          "name": "pDispParams",
+          "type": "DISPPARAMS*",
+          "description": "Pointer to a structure containing an array of arguments"
+        },
+        {
+          "name": "pVarResult",
+          "type": "VARIANT*",
+          "description": "Pointer to the location where the result is to be stored"
+        },
+        {
+          "name": "pExcepInfo",
+          "type": "EXCEPINFO*",
+          "description": "Pointer to a structure that contains exception information"
+        },
+        {
+          "name": "pArgErr",
+          "type": "UINT*",
+          "description": "Pointer to the argument that caused the error"
+        },
+        {
+          "name": "cVarRef",
+          "type": "UINT",
+          "description": "Count of the reference arguments"
+        },
+        {
+          "name": "rgVarRefIdx",
+          "type": "UINT*",
+          "description": "Pointer to an array of indices of reference arguments"
+        },
+        {
+          "name": "rgVarRef",
+          "type": "VARIANTARG*",
+          "description": "Pointer to an array of VARIANTARG that contains reference arguments"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function"
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumVARIANT_Next_Proxy",
+      "description": "This function is a proxy for the IEnumVARIANT_RemoteNext_Proxy function. It checks if the pCeltFetched pointer is null, and if so, assigns it to the address of a local variable. Then it calls the IEnumVARIANT_RemoteNext_Proxy function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumVARIANT*",
+          "description": "A pointer to the IEnumVARIANT interface."
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "The number of elements to be fetched."
+        },
+        {
+          "name": "rgVar",
+          "type": "VARIANT*",
+          "description": "A pointer to the VARIANT array where the elements are to be stored."
+        },
+        {
+          "name": "pCeltFetched",
+          "type": "ULONG*",
+          "description": "A pointer to a ULONG variable that receives the number of elements actually fetched."
+        }
+      ],
+      "return_type": "HRESULT, which indicates the success or failure of the function call."
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumVARIANT_Next_Stub",
+      "description": "This function is a stub for the IEnumVARIANT_Next method. It attempts to get the next 'celt' elements in the enumeration sequence, then places them in the 'rgVar' array and returns the number of elements actually retrieved in 'pCeltFetched'.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumVARIANT*",
+          "description": "Pointer to the IEnumVARIANT interface."
+        },
+        {
+          "name": "celt",
+          "type": "ULONG",
+          "description": "The number of elements to retrieve."
+        },
+        {
+          "name": "rgVar",
+          "type": "VARIANT*",
+          "description": "Pointer to the VARIANT array where the elements are to be stored."
+        },
+        {
+          "name": "pCeltFetched",
+          "type": "ULONG*",
+          "description": "Pointer to a location that receives the actual number of elements retrieved."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns S_OK if the function was successful, otherwise it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "free_embedded_arraydesc",
+      "description": "This function frees the memory allocated for the embedded array descriptor based on the variant type of the element in the array descriptor.",
+      "parameters": [
+        {
+          "name": "adesc",
+          "type": "ARRAYDESC*",
+          "description": "Pointer to the array descriptor to be freed"
+        }
+      ],
+      "return_type": "void, this function does not return anything"
+    }
+  },
+  {
+    "function": {
+      "name": "free_embedded_typedesc",
+      "description": "This function frees the memory allocated for the embedded TYPEDESC structure based on its variant type.",
+      "parameters": [
+        {
+          "name": "tdesc",
+          "type": "TYPEDESC*",
+          "description": "A pointer to the TYPEDESC structure to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "free_embedded_elemdesc",
+      "description": "This function frees the memory allocated for the embedded type description and the parameter description if it has a default value.",
+      "parameters": [
+        {
+          "name": "edesc",
+          "type": "ELEMDESC*",
+          "description": "Pointer to the element description to be freed."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeComp_Bind_Proxy",
+      "description": "This function is a proxy for binding type information components. It initializes the local storage, sets the default descriptor kind to none, and calls the remote bind proxy. If the operation is successful, it assigns the appropriate descriptor to the bind pointer based on the descriptor kind.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeComp*",
+          "description": "Pointer to the ITypeComp interface"
+        },
+        {
+          "name": "name",
+          "type": "LPOLESTR",
+          "description": "Pointer to the name of the identifier to bind"
+        },
+        {
+          "name": "lHashVal",
+          "type": "ULONG",
+          "description": "Hash value of the name"
+        },
+        {
+          "name": "flags",
+          "type": "WORD",
+          "description": "Flags associated with the identifier"
+        },
+        {
+          "name": "ti",
+          "type": "ITypeInfo**",
+          "description": "Pointer to the location of the resulting ITypeInfo interface pointer"
+        },
+        {
+          "name": "desckind",
+          "type": "DESCKIND*",
+          "description": "Pointer to the location of the resulting DESCKIND enumeration"
+        },
+        {
+          "name": "bindptr",
+          "type": "BINDPTR*",
+          "description": "Pointer to the location of the resulting BINDPTR union"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns S_OK if the operation was successful."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeComp_Bind_Stub",
+      "description": "This function is a stub for the ITypeComp_Bind method. It initializes several pointers to NULL, calls ITypeComp_Bind, and then based on the returned DESCKIND, sets the appropriate pointers and values.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeComp *",
+          "description": "Pointer to the ITypeComp interface"
+        },
+        {
+          "name": "name",
+          "type": "LPOLESTR",
+          "description": "Pointer to the name to bind"
+        },
+        {
+          "name": "lHashVal",
+          "type": "ULONG",
+          "description": "Hash value of the name"
+        },
+        {
+          "name": "flags",
+          "type": "WORD",
+          "description": "Flags associated with the binding"
+        },
+        {
+          "name": "ti",
+          "type": "ITypeInfo **",
+          "description": "Pointer to the ITypeInfo interface pointer"
+        },
+        {
+          "name": "desckind",
+          "type": "DESCKIND *",
+          "description": "Pointer to the DESCKIND enumeration"
+        },
+        {
+          "name": "funcdesc",
+          "type": "FUNCDESC **",
+          "description": "Pointer to the FUNCDESC structure pointer"
+        },
+        {
+          "name": "vardesc",
+          "type": "VARDESC **",
+          "description": "Pointer to the VARDESC structure pointer"
+        },
+        {
+          "name": "typecomp",
+          "type": "ITypeComp **",
+          "description": "Pointer to the ITypeComp interface pointer"
+        },
+        {
+          "name": "stg",
+          "type": "CLEANLOCALSTORAGE *",
+          "description": "Pointer to the CLEANLOCALSTORAGE structure"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. S_OK for success, and an error code for failure"
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeComp_BindType_Proxy",
+      "description": "This function binds a name to a type, and returns the bound type information and type component.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeComp*",
+          "description": "Pointer to the ITypeComp interface"
+        },
+        {
+          "name": "name",
+          "type": "LPOLESTR",
+          "description": "Pointer to the name to bind"
+        },
+        {
+          "name": "lHashVal",
+          "type": "ULONG",
+          "description": "Hash value of the name"
+        },
+        {
+          "name": "ti",
+          "type": "ITypeInfo**",
+          "description": "Pointer to the ITypeInfo interface pointer to receive the type information"
+        },
+        {
+          "name": "typecomp",
+          "type": "ITypeComp**",
+          "description": "Pointer to the ITypeComp interface pointer to receive the type component"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeComp_BindType_Stub",
+      "description": "This function is a stub for the ITypeComp_BindType method. It binds a name to a type, and releases the type component if it exists.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeComp*",
+          "description": "Pointer to the ITypeComp interface."
+        },
+        {
+          "name": "name",
+          "type": "LPOLESTR",
+          "description": "Pointer to the name to bind to a type."
+        },
+        {
+          "name": "lHashVal",
+          "type": "ULONG",
+          "description": "Hash value of the name."
+        },
+        {
+          "name": "ti",
+          "type": "ITypeInfo**",
+          "description": "Pointer to the ITypeInfo interface pointer."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, it returns S_OK. Otherwise, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_GetTypeAttr_Proxy",
+      "description": "This function is a proxy that calls the ITypeInfo_RemoteGetTypeAttr_Proxy function. It initializes a CLEANLOCALSTORAGE structure and passes it along with the original parameters to the remote function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to an instance of ITypeInfo"
+        },
+        {
+          "name": "ppTypeAttr",
+          "type": "TYPEATTR**",
+          "description": "Pointer to a pointer to a TYPEATTR structure"
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function call"
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_GetTypeAttr_Stub",
+      "description": "This function is a stub for getting type attributes from an ITypeInfo interface. It also sets up a CLEANLOCALSTORAGE structure.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to an ITypeInfo interface from which to get type attributes."
+        },
+        {
+          "name": "ppTypeAttr",
+          "type": "LPTYPEATTR*",
+          "description": "Pointer to a pointer to a TYPEATTR structure that receives the type description."
+        },
+        {
+          "name": "pDummy",
+          "type": "CLEANLOCALSTORAGE*",
+          "description": "Pointer to a CLEANLOCALSTORAGE structure that is set up by this function."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. S_OK indicates success."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_GetFuncDesc_Proxy",
+      "description": "This function is a proxy to get the function description from a type information interface.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to the type information interface."
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "Index of the function."
+        },
+        {
+          "name": "ppFuncDesc",
+          "type": "FUNCDESC**",
+          "description": "Pointer to a pointer to a function description."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function call."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_GetFuncDesc_Stub",
+      "description": "This function is a stub for the ITypeInfo_GetFuncDesc method. It retrieves the FUNCDESC structure that contains information about a specified function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to the ITypeInfo interface."
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "Index of the function of interest."
+        },
+        {
+          "name": "ppFuncDesc",
+          "type": "LPFUNCDESC*",
+          "description": "Address of a pointer variable that receives a pointer to the requested FUNCDESC structure."
+        },
+        {
+          "name": "pDummy",
+          "type": "CLEANLOCALSTORAGE*",
+          "description": "Pointer to a CLEANLOCALSTORAGE structure."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns S_OK if successful."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_GetVarDesc_Proxy",
+      "description": "This function is a proxy for getting variable description from ITypeInfo interface. It initializes a CLEANLOCALSTORAGE structure and calls the ITypeInfo_RemoteGetVarDesc_Proxy function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to the ITypeInfo interface."
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "Index of the variable description to get."
+        },
+        {
+          "name": "ppVarDesc",
+          "type": "VARDESC**",
+          "description": "Pointer to a pointer to a VARDESC structure to receive the variable description."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function call."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_GetVarDesc_Stub",
+      "description": "This function is a stub for getting variable description from a type information interface. It also sets up a dummy local storage.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to the type information interface."
+        },
+        {
+          "name": "index",
+          "type": "UINT",
+          "description": "Index of the variable in the type information."
+        },
+        {
+          "name": "ppVarDesc",
+          "type": "LPVARDESC*",
+          "description": "Pointer to a variable descriptor pointer, where the variable description will be stored."
+        },
+        {
+          "name": "pDummy",
+          "type": "CLEANLOCALSTORAGE*",
+          "description": "Pointer to a dummy local storage structure, which will be set up by this function."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. If the function succeeds, the return value is S_OK. If the function fails, the return value is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_GetNames_Proxy",
+      "description": "This function is a proxy that calls the ITypeInfo_RemoteGetNames_Proxy function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to an instance of ITypeInfo"
+        },
+        {
+          "name": "memid",
+          "type": "MEMBERID",
+          "description": "Identifier of the member"
+        },
+        {
+          "name": "rgBstrNames",
+          "type": "BSTR*",
+          "description": "Pointer to a BSTR array that receives the names"
+        },
+        {
+          "name": "cMaxNames",
+          "type": "UINT",
+          "description": "Maximum number of names to return"
+        },
+        {
+          "name": "pcNames",
+          "type": "UINT*",
+          "description": "Pointer to a location that receives the count of names returned"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_GetNames_Stub",
+      "description": "This function is a stub for the ITypeInfo_GetNames function. It logs the function call and its parameters, then calls the actual ITypeInfo_GetNames function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to the ITypeInfo interface."
+        },
+        {
+          "name": "memid",
+          "type": "MEMBERID",
+          "description": "The member identifier for the function."
+        },
+        {
+          "name": "rgBstrNames",
+          "type": "BSTR*",
+          "description": "Pointer to the array of names to be filled."
+        },
+        {
+          "name": "cMaxNames",
+          "type": "UINT",
+          "description": "The maximum number of names to be returned."
+        },
+        {
+          "name": "pcNames",
+          "type": "UINT*",
+          "description": "Pointer to the count of names returned."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function call."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_GetIDsOfNames_Proxy",
+      "description": "This function is a placeholder for a function that is not yet implemented. It is expected to get the IDs of names from the ITypeInfo interface.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to the ITypeInfo interface"
+        },
+        {
+          "name": "rgszNames",
+          "type": "LPOLESTR*",
+          "description": "Pointer to an array of names"
+        },
+        {
+          "name": "cNames",
+          "type": "UINT",
+          "description": "Count of the names"
+        },
+        {
+          "name": "pMemId",
+          "type": "MEMBERID*",
+          "description": "Pointer to the member ID"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_FAIL as the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_GetIDsOfNames_Stub",
+      "description": "This function is not implemented yet. It is a placeholder for a function that is expected to get the IDs of names from an ITypeInfo interface.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "This is a pointer to an ITypeInfo interface."
+        }
+      ],
+      "return_type": "HRESULT, which is a data type used in Windows programming to represent error conditions, and warning conditions. The function returns E_FAIL to indicate that it has failed."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_Invoke_Proxy",
+      "description": "This function is a placeholder for a function that is not yet implemented.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to the ITypeInfo interface."
+        },
+        {
+          "name": "pvInstance",
+          "type": "PVOID",
+          "description": "Pointer to the instance."
+        },
+        {
+          "name": "memid",
+          "type": "MEMBERID",
+          "description": "Identifier of the member."
+        },
+        {
+          "name": "wFlags",
+          "type": "WORD",
+          "description": "Flags used to control how the function is invoked."
+        },
+        {
+          "name": "pDispParams",
+          "type": "DISPPARAMS*",
+          "description": "Pointer to a structure containing an array of arguments."
+        },
+        {
+          "name": "pVarResult",
+          "type": "VARIANT*",
+          "description": "Pointer to the location where the result is to be stored."
+        },
+        {
+          "name": "pExcepInfo",
+          "type": "EXCEPINFO*",
+          "description": "Pointer to a structure that contains exception information."
+        },
+        {
+          "name": "puArgErr",
+          "type": "UINT*",
+          "description": "If Invoke returns DISP_E_TYPEMISMATCH, this argument indicates the index of the argument with the error."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Returns E_FAIL as the function is not yet implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_Invoke_Stub",
+      "description": "This function is not implemented yet, it returns a failure status.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to an instance of ITypeInfo"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, in this case a failure status"
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_GetDocumentation_Proxy",
+      "description": "This function is a proxy for getting the documentation of a type information object. It sets up dummy values for any null parameters and then calls the remote version of the function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo *",
+          "description": "Pointer to the type information object"
+        },
+        {
+          "name": "memid",
+          "type": "MEMBERID",
+          "description": "Identifier of the member whose documentation is to be retrieved"
+        },
+        {
+          "name": "name",
+          "type": "BSTR *",
+          "description": "Pointer to the name of the member"
+        },
+        {
+          "name": "doc_string",
+          "type": "BSTR *",
+          "description": "Pointer to the documentation string for the member"
+        },
+        {
+          "name": "help_context",
+          "type": "DWORD *",
+          "description": "Pointer to the help context of the member"
+        },
+        {
+          "name": "help_file",
+          "type": "BSTR *",
+          "description": "Pointer to the help file for the member"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function call"
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_GetDocumentation_Stub",
+      "description": "This function is a stub for getting the documentation of a type information object. It checks the flags to determine which parameters to set to NULL, then calls the actual ITypeInfo_GetDocumentation function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo *",
+          "description": "Pointer to the type information object"
+        },
+        {
+          "name": "memid",
+          "type": "MEMBERID",
+          "description": "Identifier of the member whose documentation is to be returned"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags that specify which documentation strings to return"
+        },
+        {
+          "name": "name",
+          "type": "BSTR *",
+          "description": "Pointer to the location for the member name"
+        },
+        {
+          "name": "doc_string",
+          "type": "BSTR *",
+          "description": "Pointer to the location for the documentation string"
+        },
+        {
+          "name": "help_context",
+          "type": "DWORD *",
+          "description": "Pointer to the location for the help context"
+        },
+        {
+          "name": "help_file",
+          "type": "BSTR *",
+          "description": "Pointer to the location for the help file name"
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function call"
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_GetDllEntry_Proxy",
+      "description": "This function is a proxy for getting the DLL entry information of a type info object. It handles null parameters by using dummy values.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo *",
+          "description": "Pointer to the ITypeInfo interface."
+        },
+        {
+          "name": "memid",
+          "type": "MEMBERID",
+          "description": "The member identifier."
+        },
+        {
+          "name": "invkind",
+          "type": "INVOKEKIND",
+          "description": "Specifies the kind of invocation."
+        },
+        {
+          "name": "dll_name",
+          "type": "BSTR *",
+          "description": "Pointer to the BSTR that receives the name of the DLL."
+        },
+        {
+          "name": "name",
+          "type": "BSTR *",
+          "description": "Pointer to the BSTR that receives the name of the entry."
+        },
+        {
+          "name": "ordinal",
+          "type": "WORD *",
+          "description": "Pointer to the WORD that receives the ordinal of the DLL entry."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_GetDllEntry_Stub",
+      "description": "This function is a stub for the ITypeInfo_GetDllEntry function. It sets the dll_name, name, and ordinal parameters based on the flags parameter and then calls the ITypeInfo_GetDllEntry function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo *",
+          "description": "Pointer to the ITypeInfo interface"
+        },
+        {
+          "name": "memid",
+          "type": "MEMBERID",
+          "description": "Identifier of the interface member"
+        },
+        {
+          "name": "invkind",
+          "type": "INVOKEKIND",
+          "description": "Specifies the kind of invocation"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags that control the behavior of the function"
+        },
+        {
+          "name": "dll_name",
+          "type": "BSTR *",
+          "description": "Pointer to the name of the DLL"
+        },
+        {
+          "name": "name",
+          "type": "BSTR *",
+          "description": "Pointer to the name of the entry"
+        },
+        {
+          "name": "ordinal",
+          "type": "WORD *",
+          "description": "Pointer to the ordinal of the entry"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function call"
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_AddressOfMember_Proxy",
+      "description": "This function is not implemented yet. It is supposed to handle the address of a member in a type information interface.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to an instance of ITypeInfo interface"
+        },
+        {
+          "name": "memid",
+          "type": "MEMBERID",
+          "description": "Identifier of the interface member"
+        },
+        {
+          "name": "invKind",
+          "type": "INVOKEKIND",
+          "description": "Specifies the kind of invocation"
+        },
+        {
+          "name": "ppv",
+          "type": "PVOID*",
+          "description": "Pointer to the location that receives the address of the specified member"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, in this case it always fails as the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_AddressOfMember_Stub",
+      "description": "This function is a stub and not yet implemented.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to an instance of ITypeInfo"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the function call, in this case always failure due to not being implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_CreateInstance_Proxy",
+      "description": "This function is a proxy for creating an instance of ITypeInfo. Currently, it is not implemented and always fails.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to the ITypeInfo instance"
+        },
+        {
+          "name": "pUnkOuter",
+          "type": "IUnknown*",
+          "description": "Pointer to the controlling IUnknown, if the object is being created as part of an aggregate"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface that the caller is to use to communicate with the object"
+        },
+        {
+          "name": "ppvObj",
+          "type": "PVOID*",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call. In this case, it always returns E_FAIL indicating that the function is not implemented"
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_CreateInstance_Stub",
+      "description": "A stub function for creating an instance of ITypeInfo. Currently not implemented.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to the ITypeInfo instance"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the interface identifier"
+        },
+        {
+          "name": "ppvObj",
+          "type": "IUnknown**",
+          "description": "Pointer to a pointer to the IUnknown interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, currently always fails"
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_GetContainingTypeLib_Proxy",
+      "description": "This function retrieves the type library that contains the type description and the index of the type description within the type library.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to the ITypeInfo interface"
+        },
+        {
+          "name": "ppTLib",
+          "type": "ITypeLib**",
+          "description": "Address of pointer variable that receives the ITypeLib interface pointer"
+        },
+        {
+          "name": "pIndex",
+          "type": "UINT*",
+          "description": "Pointer to location that receives the index of the type description within the type library"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function"
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_GetContainingTypeLib_Stub",
+      "description": "This function is a stub for the ITypeInfo_GetContainingTypeLib function. It calls the actual function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to the ITypeInfo interface."
+        },
+        {
+          "name": "ppTLib",
+          "type": "ITypeLib**",
+          "description": "Pointer to the pointer of the ITypeLib interface."
+        },
+        {
+          "name": "pIndex",
+          "type": "UINT*",
+          "description": "Pointer to the index of the type description within the type library."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function call."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_ReleaseTypeAttr_Proxy",
+      "description": "This function releases the memory allocated for the TYPEATTR structure and the embedded TYPEDESC structure within it.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to an instance of ITypeInfo interface."
+        },
+        {
+          "name": "pTypeAttr",
+          "type": "TYPEATTR*",
+          "description": "Pointer to a TYPEATTR structure that needs to be released."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_ReleaseTypeAttr_Stub",
+      "description": "This function does not perform any operation, it simply returns S_OK.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to an instance of ITypeInfo"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, in this case always returns S_OK indicating a successful operation"
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_ReleaseFuncDesc_Proxy",
+      "description": "This function releases the memory allocated to the function description and its associated elements.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to the ITypeInfo interface."
+        },
+        {
+          "name": "pFuncDesc",
+          "type": "FUNCDESC*",
+          "description": "Pointer to the FUNCDESC structure that contains the function description to be released."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_ReleaseFuncDesc_Stub",
+      "description": "This function does not perform any operation, it just returns S_OK.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to an instance of ITypeInfo"
+        }
+      ],
+      "return_type": "HRESULT, represents the result of the operation, in this case always returns S_OK"
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_ReleaseVarDesc_Proxy",
+      "description": "This function releases the memory allocated for a VARDESC structure and its members.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to an instance of ITypeInfo."
+        },
+        {
+          "name": "pVarDesc",
+          "type": "VARDESC*",
+          "description": "Pointer to a VARDESC structure to be released."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo_ReleaseVarDesc_Stub",
+      "description": "This function does not perform any operation, it simply returns S_OK.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo*",
+          "description": "Pointer to an instance of ITypeInfo"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, in this case always returns S_OK indicating a successful operation"
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo2_GetDocumentation2_Proxy",
+      "description": "This function is a proxy for getting the documentation of a type information object. It checks if the help_string, help_context, and help_dll parameters are null, and if so, assigns them to dummy variables. It then calls the ITypeInfo2_RemoteGetDocumentation2_Proxy function with the parameters and returns the HRESULT.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo2 *",
+          "description": "Pointer to the type information object."
+        },
+        {
+          "name": "memid",
+          "type": "MEMBERID",
+          "description": "Identifier of the member whose documentation is to be returned."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Locale identifier for the requested documentation."
+        },
+        {
+          "name": "help_string",
+          "type": "BSTR *",
+          "description": "Pointer to the location where the function writes the help string."
+        },
+        {
+          "name": "help_context",
+          "type": "DWORD *",
+          "description": "Pointer to the location where the function writes the help context."
+        },
+        {
+          "name": "help_dll",
+          "type": "BSTR *",
+          "description": "Pointer to the location where the function writes the name of the help file."
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeInfo2_GetDocumentation2_Stub",
+      "description": "This function is a stub for the ITypeInfo2_GetDocumentation2 method. It sets up the help_string, help_context, and help_dll based on the flags provided, then calls the actual method.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeInfo2 *",
+          "description": "Pointer to the ITypeInfo2 interface."
+        },
+        {
+          "name": "memid",
+          "type": "MEMBERID",
+          "description": "Identifier of the member for which to retrieve documentation."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Locale identifier for the requested documentation."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags that control the behavior of the function."
+        },
+        {
+          "name": "help_string",
+          "type": "BSTR *",
+          "description": "Pointer to the location where the function stores the help string if the corresponding flag is set."
+        },
+        {
+          "name": "help_context",
+          "type": "DWORD *",
+          "description": "Pointer to the location where the function stores the help context if the corresponding flag is set."
+        },
+        {
+          "name": "help_dll",
+          "type": "BSTR *",
+          "description": "Pointer to the location where the function stores the help DLL if the corresponding flag is set."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function call."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeLib_GetTypeInfoCount_Proxy",
+      "description": "This function gets the count of type information interfaces that can be accessed from a type library.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeLib*",
+          "description": "Pointer to the ITypeLib interface."
+        }
+      ],
+      "return_type": "UINT, represents the count of type information interfaces."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeLib_GetTypeInfoCount_Stub",
+      "description": "This function is a stub that gets the count of type information from an ITypeLib interface and assigns it to the pcTInfo parameter.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeLib*",
+          "description": "Pointer to an ITypeLib interface."
+        },
+        {
+          "name": "pcTInfo",
+          "type": "UINT*",
+          "description": "Pointer to a UINT variable where the count of type information will be stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeLib_GetLibAttr_Proxy",
+      "description": "This function is a proxy to get library attributes in a type library.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeLib*",
+          "description": "Pointer to the type library."
+        },
+        {
+          "name": "ppTLibAttr",
+          "type": "TLIBATTR**",
+          "description": "Pointer to the pointer of the type library attribute structure."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, success or failure."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeLib_GetLibAttr_Stub",
+      "description": "This function is a stub for getting library attributes. It calls the ITypeLib_GetLibAttr function and sets the pDummy object's properties based on the results.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeLib*",
+          "description": "Pointer to the ITypeLib object."
+        },
+        {
+          "name": "ppTLibAttr",
+          "type": "LPTLIBATTR*",
+          "description": "Pointer to the library attribute."
+        },
+        {
+          "name": "pDummy",
+          "type": "CLEANLOCALSTORAGE*",
+          "description": "Pointer to the CLEANLOCALSTORAGE object where the results are stored."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, it returns S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeLib_GetDocumentation_Proxy",
+      "description": "This function is a proxy for getting the documentation of a type library. It checks if the parameters are null and if so, assigns them to dummy variables. It then calls the ITypeLib_RemoteGetDocumentation_Proxy function with the parameters and returns the HRESULT.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeLib *",
+          "description": "Pointer to the type library"
+        },
+        {
+          "name": "index",
+          "type": "INT",
+          "description": "Index of the type library"
+        },
+        {
+          "name": "name",
+          "type": "BSTR *",
+          "description": "Pointer to the name of the type library"
+        },
+        {
+          "name": "doc_string",
+          "type": "BSTR *",
+          "description": "Pointer to the documentation string of the type library"
+        },
+        {
+          "name": "help_context",
+          "type": "DWORD *",
+          "description": "Pointer to the help context of the type library"
+        },
+        {
+          "name": "help_file",
+          "type": "BSTR *",
+          "description": "Pointer to the help file of the type library"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, it returns S_OK. If it failed, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeLib_GetDocumentation_Stub",
+      "description": "This function is a stub for getting the documentation of a type library. It sets the name, doc_string, and help_file to NULL and help_context to 0. Then, based on the flags, it may set some of these pointers to NULL. Finally, it calls ITypeLib_GetDocumentation with these parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeLib*",
+          "description": "Pointer to the type library"
+        },
+        {
+          "name": "index",
+          "type": "INT",
+          "description": "Index of the type library"
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags to determine which parameters to nullify"
+        },
+        {
+          "name": "name",
+          "type": "BSTR*",
+          "description": "Pointer to the name of the type library"
+        },
+        {
+          "name": "doc_string",
+          "type": "BSTR*",
+          "description": "Pointer to the documentation string of the type library"
+        },
+        {
+          "name": "help_context",
+          "type": "DWORD*",
+          "description": "Pointer to the help context of the type library"
+        },
+        {
+          "name": "help_file",
+          "type": "BSTR*",
+          "description": "Pointer to the help file of the type library"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. If the operation was successful, it will return S_OK. If it failed, it will return an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeLib_IsName_Proxy",
+      "description": "This function is not implemented yet. It is expected to check if a name exists in a type library.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeLib*",
+          "description": "Pointer to the type library"
+        },
+        {
+          "name": "szNameBuf",
+          "type": "LPOLESTR",
+          "description": "Buffer that contains the name to be checked"
+        },
+        {
+          "name": "lHashVal",
+          "type": "ULONG",
+          "description": "Hash value"
+        },
+        {
+          "name": "pfName",
+          "type": "BOOL*",
+          "description": "Pointer to a boolean value that indicates whether the name exists"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_FAIL as the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeLib_IsName_Stub",
+      "description": "This function is a stub and not yet implemented. It is expected to check if a name exists in a type library.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeLib*",
+          "description": "Pointer to the ITypeLib interface"
+        },
+        {
+          "name": "szNameBuf",
+          "type": "LPOLESTR",
+          "description": "Pointer to the name to be checked"
+        },
+        {
+          "name": "lHashVal",
+          "type": "ULONG",
+          "description": "Hash value of the name"
+        },
+        {
+          "name": "pfName",
+          "type": "BOOL*",
+          "description": "Pointer to a boolean value indicating whether the name exists"
+        },
+        {
+          "name": "pBstrLibName",
+          "type": "BSTR*",
+          "description": "Pointer to the library name where the name exists"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_FAIL as the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeLib_FindName_Proxy",
+      "description": "This function is not implemented yet. It is expected to find a name in a type library.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeLib*",
+          "description": "Pointer to the ITypeLib interface"
+        },
+        {
+          "name": "szNameBuf",
+          "type": "LPOLESTR",
+          "description": "Pointer to the buffer that contains the name to find"
+        },
+        {
+          "name": "lHashVal",
+          "type": "ULONG",
+          "description": "Hash value of the name to find"
+        },
+        {
+          "name": "ppTInfo",
+          "type": "ITypeInfo**",
+          "description": "Pointer to the ITypeInfo interface"
+        },
+        {
+          "name": "rgMemId",
+          "type": "MEMBERID*",
+          "description": "Pointer to the member ID"
+        },
+        {
+          "name": "pcFound",
+          "type": "USHORT*",
+          "description": "Pointer to the count of found items"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_FAIL as the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeLib_FindName_Stub",
+      "description": "This function is a stub and is not yet implemented. It is expected to find a name in the ITypeLib interface.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeLib*",
+          "description": "Pointer to the ITypeLib interface"
+        },
+        {
+          "name": "szNameBuf",
+          "type": "LPOLESTR",
+          "description": "Buffer for the name to be found"
+        },
+        {
+          "name": "lHashVal",
+          "type": "ULONG",
+          "description": "Hash value"
+        },
+        {
+          "name": "ppTInfo",
+          "type": "ITypeInfo**",
+          "description": "Pointer to the ITypeInfo interface"
+        },
+        {
+          "name": "rgMemId",
+          "type": "MEMBERID*",
+          "description": "Array of MEMBERID"
+        },
+        {
+          "name": "pcFound",
+          "type": "USHORT*",
+          "description": "Pointer to the number of found items"
+        },
+        {
+          "name": "pBstrLibName",
+          "type": "BSTR*",
+          "description": "Pointer to the library name"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_FAIL as the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeLib_ReleaseTLibAttr_Proxy",
+      "description": "This function releases the memory allocated to the TLIBATTR structure.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeLib*",
+          "description": "Pointer to the ITypeLib interface."
+        },
+        {
+          "name": "pTLibAttr",
+          "type": "TLIBATTR*",
+          "description": "Pointer to the TLIBATTR structure to be released."
+        }
+      ],
+      "return_type": "void, this function does not return any value."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeLib_ReleaseTLibAttr_Stub",
+      "description": "This function does not perform any operation, it just returns S_OK.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeLib*",
+          "description": "Pointer to an instance of ITypeLib"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, in this case always returns S_OK indicating a successful operation"
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeLib2_GetLibStatistics_Proxy",
+      "description": "This function is not implemented yet. It is expected to get library statistics.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeLib2*",
+          "description": "Pointer to the ITypeLib2 interface"
+        },
+        {
+          "name": "pcUniqueNames",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable that receives the count of unique names"
+        },
+        {
+          "name": "pcchUniqueNames",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable that receives the count of unique names length"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. In this case, it always returns E_FAIL as the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeLib2_GetLibStatistics_Stub",
+      "description": "This function is not implemented yet. It is expected to get library statistics.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeLib2*",
+          "description": "Pointer to an instance of ITypeLib2"
+        },
+        {
+          "name": "pcUniqueNames",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable to store the count of unique names"
+        },
+        {
+          "name": "pcchUniqueNames",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable to store the count of unique names"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_FAIL as the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeLib2_GetDocumentation2_Proxy",
+      "description": "This function is a proxy for getting the documentation of a type library. It checks if the help_string, help_context, and help_dll parameters are null, and if so, assigns them to dummy variables. It then calls the ITypeLib2_RemoteGetDocumentation2_Proxy function with these parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeLib2 *",
+          "description": "Pointer to the ITypeLib2 interface"
+        },
+        {
+          "name": "index",
+          "type": "INT",
+          "description": "Index of the type description within the type library"
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "Locale ID for the requested documentation strings"
+        },
+        {
+          "name": "help_string",
+          "type": "BSTR *",
+          "description": "Pointer to the location for BSTR that contains the documentation string for the specified type description"
+        },
+        {
+          "name": "help_context",
+          "type": "DWORD *",
+          "description": "Pointer to the location for the Help context ID associated with the specified type description"
+        },
+        {
+          "name": "help_dll",
+          "type": "BSTR *",
+          "description": "Pointer to the location for BSTR that contains the name of the Help file"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function call"
+    }
+  },
+  {
+    "function": {
+      "name": "ITypeLib2_GetDocumentation2_Stub",
+      "description": "This function is a stub for the ITypeLib2_GetDocumentation2 method. It sets up the help_string, help_context, and help_dll based on the provided flags, and then calls the actual ITypeLib2_GetDocumentation2 method.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "ITypeLib2 *",
+          "description": "Pointer to the ITypeLib2 interface."
+        },
+        {
+          "name": "index",
+          "type": "INT",
+          "description": "The index of the type description within the type library."
+        },
+        {
+          "name": "lcid",
+          "type": "LCID",
+          "description": "The locale ID for the requested documentation strings."
+        },
+        {
+          "name": "flags",
+          "type": "DWORD",
+          "description": "Flags that determine which documentation strings are returned."
+        },
+        {
+          "name": "help_string",
+          "type": "BSTR *",
+          "description": "Pointer to the location for the BSTR that contains the help string."
+        },
+        {
+          "name": "help_context",
+          "type": "DWORD *",
+          "description": "Pointer to the location for the DWORD that contains the help context identifier."
+        },
+        {
+          "name": "help_dll",
+          "type": "BSTR *",
+          "description": "Pointer to the location for the BSTR that contains the name of the help file."
+        }
+      ],
+      "return_type": "HRESULT, which represents the success or failure of the function. It returns the result of the ITypeLib2_GetDocumentation2 method."
+    }
+  },
+  {
+    "function": {
+      "name": "IPropertyBag_Read_Proxy",
+      "description": "This function reads a property from a property bag. It checks if the variant type is byref, array, or vector, and if it is, it returns an error. It also checks for specific variant types and assigns them to an IUnknown pointer. If the variant type is not recognized, it returns an error.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IPropertyBag*",
+          "description": "Pointer to the IPropertyBag interface"
+        },
+        {
+          "name": "pszPropName",
+          "type": "LPCOLESTR",
+          "description": "Pointer to the name of the property to read"
+        },
+        {
+          "name": "pVar",
+          "type": "VARIANT*",
+          "description": "Pointer to the VARIANT that receives the property value"
+        },
+        {
+          "name": "pErrorLog",
+          "type": "IErrorLog*",
+          "description": "Pointer to the IErrorLog interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. If the function succeeds, it returns S_OK. If it fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IPropertyBag_Read_Stub",
+      "description": "This function reads a property value from an object. It handles different variant types and implements error handling.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IPropertyBag*",
+          "description": "Pointer to the IPropertyBag interface"
+        },
+        {
+          "name": "pszPropName",
+          "type": "LPCOLESTR",
+          "description": "Pointer to the property name"
+        },
+        {
+          "name": "pVar",
+          "type": "VARIANT*",
+          "description": "Pointer to the VARIANT that receives the property value"
+        },
+        {
+          "name": "pErrorLog",
+          "type": "IErrorLog*",
+          "description": "Pointer to the IErrorLog interface"
+        },
+        {
+          "name": "varType",
+          "type": "DWORD",
+          "description": "Specifies the requested data type for the property"
+        },
+        {
+          "name": "pUnkObj",
+          "type": "IUnknown*",
+          "description": "Pointer to the IUnknown interface"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, the return value is S_OK. Otherwise, it is an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IClassFactory2_CreateInstanceLic_Proxy",
+      "description": "This function creates an instance of a class object with a license key. It checks if the outer unknown pointer is null, if not it returns an error. If it is null, it calls the IClassFactory2_RemoteCreateInstanceLic_Proxy function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IClassFactory2*",
+          "description": "Pointer to the IClassFactory2 interface"
+        },
+        {
+          "name": "pUnkOuter",
+          "type": "IUnknown*",
+          "description": "Pointer to the controlling IUnknown interface of the aggregate"
+        },
+        {
+          "name": "pUnkReserved",
+          "type": "IUnknown*",
+          "description": "Reserved, must be NULL"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface"
+        },
+        {
+          "name": "bstrKey",
+          "type": "BSTR",
+          "description": "License key"
+        },
+        {
+          "name": "ppvObj",
+          "type": "PVOID*",
+          "description": "Address of pointer variable that receives the interface pointer requested in riid"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the call to the function. It can be a success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IClassFactory2_CreateInstanceLic_Stub",
+      "description": "This function is a stub for creating an instance of a class factory with a license key.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IClassFactory2*",
+          "description": "Pointer to the IClassFactory2 interface"
+        },
+        {
+          "name": "riid",
+          "type": "REFIID",
+          "description": "Reference to the identifier of the interface"
+        },
+        {
+          "name": "bstrKey",
+          "type": "BSTR",
+          "description": "The license key for the class factory"
+        },
+        {
+          "name": "ppvObj",
+          "type": "IUnknown**",
+          "description": "Pointer to the interface pointer that receives the interface pointer to the new object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation, whether it was successful or not"
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumConnections_Next_Proxy",
+      "description": "This function is a proxy for the IEnumConnections_RemoteNext_Proxy function. It checks if the pcFetched parameter is null, and if so, assigns it to a local variable 'fetched'. Then it calls the IEnumConnections_RemoteNext_Proxy function with the given parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumConnections*",
+          "description": "Pointer to the IEnumConnections interface."
+        },
+        {
+          "name": "cConnections",
+          "type": "ULONG",
+          "description": "The number of connections to retrieve."
+        },
+        {
+          "name": "rgcd",
+          "type": "LPCONNECTDATA",
+          "description": "Pointer to an array of CONNECTDATA structures that receives the connection data."
+        },
+        {
+          "name": "pcFetched",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG variable that receives the number of connections actually retrieved. If pcFetched is null, it is assigned to a local variable 'fetched'."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. If the function succeeds, it returns S_OK. If the function fails, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumConnections_Next_Stub",
+      "description": "This function is a stub for the IEnumConnections_Next function. It initializes the fetched connections to zero, then calls the IEnumConnections_Next function. If the call is successful, it sets the fetched connections to the value of cConnections.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumConnections*",
+          "description": "Pointer to the IEnumConnections interface."
+        },
+        {
+          "name": "cConnections",
+          "type": "ULONG",
+          "description": "The number of connections to be fetched."
+        },
+        {
+          "name": "rgcd",
+          "type": "LPCONNECTDATA",
+          "description": "Pointer to an array of CONNECTDATA structures that receives the connection data."
+        },
+        {
+          "name": "pcFetched",
+          "type": "ULONG*",
+          "description": "Pointer to a ULONG that receives the number of connections actually fetched."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call. If the function call is successful, the return value is S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumConnectionPoints_Next_Proxy",
+      "description": "This function is a proxy for the IEnumConnectionPoints_RemoteNext_Proxy function. It checks if the pcFetched parameter is null, if so it assigns the address of the local variable 'fetched' to pcFetched. Then it calls the IEnumConnectionPoints_RemoteNext_Proxy function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumConnectionPoints*",
+          "description": "Pointer to the IEnumConnectionPoints interface"
+        },
+        {
+          "name": "cConnections",
+          "type": "ULONG",
+          "description": "Number of connection points to be fetched"
+        },
+        {
+          "name": "ppCP",
+          "type": "IConnectionPoint**",
+          "description": "Pointer to a pointer to the IConnectionPoint interface"
+        },
+        {
+          "name": "pcFetched",
+          "type": "ULONG*",
+          "description": "Pointer to the number of connection points fetched"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the function call, success or an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumConnectionPoints_Next_Stub",
+      "description": "This function is a stub for the method 'Next' of the 'IEnumConnectionPoints' interface. It fetches a specified number of connection points from the enumeration sequence and updates the fetched count.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumConnectionPoints*",
+          "description": "Pointer to the IEnumConnectionPoints interface."
+        },
+        {
+          "name": "cConnections",
+          "type": "ULONG",
+          "description": "The number of connection points to fetch."
+        },
+        {
+          "name": "ppCP",
+          "type": "IConnectionPoint**",
+          "description": "Pointer to the location where the fetched connection points are returned."
+        },
+        {
+          "name": "pcFetched",
+          "type": "ULONG*",
+          "description": "Pointer to the location where the count of fetched connection points is returned."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation is successful, the return value is S_OK."
+    }
+  },
+  {
+    "function": {
+      "name": "IPersistMemory_Load_Proxy",
+      "description": "This function loads a proxy for IPersistMemory. It checks if the memory pointer is null and if so, returns an error. Otherwise, it calls the IPersistMemory_RemoteLoad_Proxy function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IPersistMemory*",
+          "description": "Pointer to the IPersistMemory instance"
+        },
+        {
+          "name": "pMem",
+          "type": "LPVOID",
+          "description": "Pointer to the memory to be loaded"
+        },
+        {
+          "name": "cbSize",
+          "type": "ULONG",
+          "description": "Size of the memory block to be loaded"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns E_POINTER if the memory pointer is null, otherwise returns the result of IPersistMemory_RemoteLoad_Proxy function call"
+    }
+  },
+  {
+    "function": {
+      "name": "IPersistMemory_Load_Stub",
+      "description": "This function is a stub for loading IPersistMemory. It logs the memory pointer and size, then calls the IPersistMemory_Load function.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IPersistMemory*",
+          "description": "Pointer to the IPersistMemory instance"
+        },
+        {
+          "name": "pMem",
+          "type": "BYTE*",
+          "description": "Pointer to the memory to be loaded"
+        },
+        {
+          "name": "cbSize",
+          "type": "ULONG",
+          "description": "Size of the memory block to be loaded"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation. It returns the result of the IPersistMemory_Load function call"
+    }
+  },
+  {
+    "function": {
+      "name": "IPersistMemory_Save_Proxy",
+      "description": "This function saves the persist memory proxy. It first checks if the memory pointer is null, if so, it returns an error. Otherwise, it calls the IPersistMemory_RemoteSave_Proxy function with the given parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IPersistMemory*",
+          "description": "Pointer to the IPersistMemory object"
+        },
+        {
+          "name": "pMem",
+          "type": "LPVOID",
+          "description": "Pointer to the memory to be saved"
+        },
+        {
+          "name": "fClearDirty",
+          "type": "BOOL",
+          "description": "Boolean flag indicating whether to clear the dirty flag after saving"
+        },
+        {
+          "name": "cbSize",
+          "type": "ULONG",
+          "description": "Size of the memory block to be saved"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. It returns E_POINTER if the memory pointer is null, otherwise it returns the result of IPersistMemory_RemoteSave_Proxy function call"
+    }
+  },
+  {
+    "function": {
+      "name": "IPersistMemory_Save_Stub",
+      "description": "This function is a stub that calls the IPersistMemory_Save function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IPersistMemory*",
+          "description": "Pointer to the IPersistMemory object"
+        },
+        {
+          "name": "pMem",
+          "type": "BYTE*",
+          "description": "Pointer to the memory to be saved"
+        },
+        {
+          "name": "fClearDirty",
+          "type": "BOOL",
+          "description": "Flag indicating whether to clear the dirty state"
+        },
+        {
+          "name": "cbSize",
+          "type": "ULONG",
+          "description": "Size of the memory block to be saved"
+        }
+      ],
+      "return_type": "HRESULT, which represents the status of the operation"
+    }
+  },
+  {
+    "function": {
+      "name": "IAdviseSinkEx_OnViewStatusChange_Proxy",
+      "description": "This function is a proxy that calls the IAdviseSinkEx_RemoteOnViewStatusChange_Proxy function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IAdviseSinkEx*",
+          "description": "A pointer to an instance of IAdviseSinkEx."
+        },
+        {
+          "name": "dwViewStatus",
+          "type": "DWORD",
+          "description": "A DWORD value representing the view status."
+        }
+      ],
+      "return_type": "void, this function does not return a value."
+    }
+  },
+  {
+    "function": {
+      "name": "IAdviseSinkEx_OnViewStatusChange_Stub",
+      "description": "This function is a stub that calls the IAdviseSinkEx_OnViewStatusChange function with the given parameters and returns S_OK.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IAdviseSinkEx*",
+          "description": "Pointer to the IAdviseSinkEx instance."
+        },
+        {
+          "name": "dwViewStatus",
+          "type": "DWORD",
+          "description": "The view status to be changed."
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. Returns S_OK if the operation was successful."
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumOleUndoUnits_Next_Proxy",
+      "description": "This function is a proxy for the IEnumOleUndoUnits_RemoteNext_Proxy function. It checks if the pcEltFetched pointer is null, and if so, assigns it to the address of a local variable. Then it calls the IEnumOleUndoUnits_RemoteNext_Proxy function with the provided parameters.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumOleUndoUnits*",
+          "description": "Pointer to the IEnumOleUndoUnits interface"
+        },
+        {
+          "name": "cElt",
+          "type": "ULONG",
+          "description": "Number of elements to be fetched"
+        },
+        {
+          "name": "rgElt",
+          "type": "IOleUndoUnit**",
+          "description": "Pointer to the location where the fetched elements are to be stored"
+        },
+        {
+          "name": "pcEltFetched",
+          "type": "ULONG*",
+          "description": "Pointer to the location where the number of elements actually fetched is to be stored"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. If the operation was successful, it returns S_OK. If it failed, it returns an error code."
+    }
+  },
+  {
+    "function": {
+      "name": "IEnumOleUndoUnits_Next_Stub",
+      "description": "This function is a stub for the 'Next' method of the 'IEnumOleUndoUnits' interface. It retrieves a specified number of undo units from the enumeration sequence.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IEnumOleUndoUnits*",
+          "description": "Pointer to the 'IEnumOleUndoUnits' interface"
+        },
+        {
+          "name": "cElt",
+          "type": "ULONG",
+          "description": "The number of undo units to be retrieved"
+        },
+        {
+          "name": "rgElt",
+          "type": "IOleUndoUnit**",
+          "description": "Pointer to the location where the retrieved undo units are returned"
+        },
+        {
+          "name": "pcEltFetched",
+          "type": "ULONG*",
+          "description": "Pointer to the location where the number of undo units actually retrieved is returned"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. S_OK if the operation was successful, otherwise an error code"
+    }
+  },
+  {
+    "function": {
+      "name": "IQuickActivate_QuickActivate_Proxy",
+      "description": "This function is not implemented yet. It is a placeholder for a future implementation.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IQuickActivate*",
+          "description": "Pointer to an IQuickActivate object"
+        },
+        {
+          "name": "pQaContainer",
+          "type": "QACONTAINER*",
+          "description": "Pointer to a QACONTAINER object"
+        },
+        {
+          "name": "pQaControl",
+          "type": "QACONTROL*",
+          "description": "Pointer to a QACONTROL object"
+        }
+      ],
+      "return_type": "HRESULT, represents the status of the operation. In this case, it always returns E_NOTIMPL indicating that the function is not implemented."
+    }
+  },
+  {
+    "function": {
+      "name": "IQuickActivate_QuickActivate_Stub",
+      "description": "This function is a stub for the QuickActivate method of the IQuickActivate interface. It is currently not implemented.",
+      "parameters": [
+        {
+          "name": "This",
+          "type": "IQuickActivate*",
+          "description": "Pointer to the IQuickActivate interface"
+        },
+        {
+          "name": "pQaContainer",
+          "type": "QACONTAINER*",
+          "description": "Pointer to a QACONTAINER structure"
+        },
+        {
+          "name": "pQaControl",
+          "type": "QACONTROL*",
+          "description": "Pointer to a QACONTROL structure"
+        }
+      ],
+      "return_type": "HRESULT, represents the success or failure of the function. Currently always returns E_NOTIMPL indicating the function is not implemented."
+    }
+  }
+]

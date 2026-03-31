@@ -1,0 +1,2311 @@
+[
+  {
+    "function": {
+      "name": "GdipCloneBrush",
+      "description": "This function clones a brush object. It handles different types of brushes such as solid color, hatch fill, path gradient, linear gradient, and texture fill. The function also handles memory allocation and error checking for these operations.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpBrush *",
+          "description": "Pointer to the brush object to be cloned."
+        },
+        {
+          "name": "clone",
+          "type": "GpBrush **",
+          "description": "Pointer to a pointer, which will point to the cloned brush object after the function execution."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns 'Ok' if the operation is successful, 'InvalidParameter' if the input parameters are null, 'OutOfMemory' if there is not enough memory to complete the operation, and 'NotImplemented' if the brush type is not supported."
+    }
+  },
+  {
+    "function": {
+      "name": "get_hatch_data",
+      "description": "This function retrieves hatch data based on the provided hatch style. If the hatch style is within the range of the HatchBrushes array, it assigns the corresponding HatchBrushes element to the result pointer and returns 'Ok'. If the hatch style is out of range, it returns 'NotImplemented'.",
+      "parameters": [
+        {
+          "name": "hatchstyle",
+          "type": "GpHatchStyle",
+          "description": "This parameter represents the style of the hatch for which data is to be retrieved."
+        },
+        {
+          "name": "result",
+          "type": "unsigned char **",
+          "description": "This is a pointer to a pointer. The function assigns the address of the corresponding HatchBrushes element to this pointer."
+        }
+      ],
+      "return_type": "GpStatus. This represents the status of the function execution. It returns 'Ok' if the hatch style is within the range of the HatchBrushes array, otherwise it returns 'NotImplemented'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateHatchBrush",
+      "description": "This function creates a hatch brush with specified style, foreground color, and background color. It allocates memory for the brush and sets its properties.",
+      "parameters": [
+        {
+          "name": "hatchstyle",
+          "type": "GpHatchStyle",
+          "description": "This parameter defines the style of the hatch brush."
+        },
+        {
+          "name": "forecol",
+          "type": "ARGB",
+          "description": "This parameter defines the foreground color of the hatch brush."
+        },
+        {
+          "name": "backcol",
+          "type": "ARGB",
+          "description": "This parameter defines the background color of the hatch brush."
+        },
+        {
+          "name": "brush",
+          "type": "GpHatch **",
+          "description": "This is a pointer to a pointer to a GpHatch structure. The function allocates memory for this structure and the pointer is used to return it."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if the input parameters are not valid, 'OutOfMemory' if memory allocation fails, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "create_line_brush",
+      "description": "This function creates a linear gradient brush with specified parameters, and allocates memory for the brush and its properties. If memory allocation fails, it frees any allocated memory and returns an OutOfMemory status.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "GpRectF *",
+          "description": "Pointer to a GpRectF structure that specifies the rectangle"
+        },
+        {
+          "name": "startcolor",
+          "type": "ARGB",
+          "description": "Specifies the starting color of the gradient"
+        },
+        {
+          "name": "endcolor",
+          "type": "ARGB",
+          "description": "Specifies the ending color of the gradient"
+        },
+        {
+          "name": "wrap",
+          "type": "GpWrapMode",
+          "description": "Specifies the wrap mode for the gradient"
+        },
+        {
+          "name": "line",
+          "type": "GpLineGradient **",
+          "description": "Pointer to a pointer to a GpLineGradient structure. This structure will be allocated and filled within the function."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the function execution. It returns 'Ok' if the function executes successfully, and 'OutOfMemory' if memory allocation fails."
+    }
+  },
+  {
+    "function": {
+      "name": "linegradient_init_transform",
+      "description": "This function initializes the transformation for a line gradient. It calculates the translation, rotation, and scaling factors based on the start and end points of the gradient and the properties of the line gradient object.",
+      "parameters": [
+        {
+          "name": "startpoint",
+          "type": "GpPointF *",
+          "description": "This is the starting point of the line gradient."
+        },
+        {
+          "name": "endpoint",
+          "type": "GpPointF *",
+          "description": "This is the ending point of the line gradient."
+        },
+        {
+          "name": "line",
+          "type": "GpLineGradient *",
+          "description": "This is the line gradient object to be transformed."
+        }
+      ],
+      "return_type": "void, this function does not return a value but modifies the line gradient object passed as a parameter."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateLineBrush",
+      "description": "This function creates a line brush with a gradient. The gradient is defined by start and end points, and start and end colors. The wrap mode and line gradient are also parameters.",
+      "parameters": [
+        {
+          "name": "startpoint",
+          "type": "GDIPCONST GpPointF*",
+          "description": "The starting point of the gradient."
+        },
+        {
+          "name": "endpoint",
+          "type": "GDIPCONST GpPointF*",
+          "description": "The ending point of the gradient."
+        },
+        {
+          "name": "startcolor",
+          "type": "ARGB",
+          "description": "The color at the start of the gradient."
+        },
+        {
+          "name": "endcolor",
+          "type": "ARGB",
+          "description": "The color at the end of the gradient."
+        },
+        {
+          "name": "wrap",
+          "type": "GpWrapMode",
+          "description": "The wrap mode of the gradient."
+        },
+        {
+          "name": "line",
+          "type": "GpLineGradient**",
+          "description": "The line gradient to be created."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation was successful, it returns 'Ok'. If not, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateLineBrushI",
+      "description": "This function creates a line brush from a specified starting point to an ending point with specified colors and wrap mode.",
+      "parameters": [
+        {
+          "name": "startpoint",
+          "type": "GDIPCONST GpPoint*",
+          "description": "Pointer to the starting point of the line brush"
+        },
+        {
+          "name": "endpoint",
+          "type": "GDIPCONST GpPoint*",
+          "description": "Pointer to the ending point of the line brush"
+        },
+        {
+          "name": "startcolor",
+          "type": "ARGB",
+          "description": "Color at the starting point of the line brush"
+        },
+        {
+          "name": "endcolor",
+          "type": "ARGB",
+          "description": "Color at the ending point of the line brush"
+        },
+        {
+          "name": "wrap",
+          "type": "GpWrapMode",
+          "description": "Specifies how to tile the brush"
+        },
+        {
+          "name": "line",
+          "type": "GpLineGradient**",
+          "description": "Pointer to a pointer that receives the line gradient interface"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns 'Ok'. If any of the parameters is invalid, it returns 'InvalidParameter'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateLineBrushFromRect",
+      "description": "This function creates a line brush from a rectangle, with a gradient from start color to end color, in a specified mode and wrap.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "GDIPCONST GpRectF*",
+          "description": "Pointer to the rectangle from which to create the line brush"
+        },
+        {
+          "name": "startcolor",
+          "type": "ARGB",
+          "description": "The starting color of the gradient"
+        },
+        {
+          "name": "endcolor",
+          "type": "ARGB",
+          "description": "The ending color of the gradient"
+        },
+        {
+          "name": "mode",
+          "type": "LinearGradientMode",
+          "description": "The mode of the gradient (horizontal, vertical, forward diagonal, backward diagonal)"
+        },
+        {
+          "name": "wrap",
+          "type": "GpWrapMode",
+          "description": "The wrap mode of the gradient"
+        },
+        {
+          "name": "line",
+          "type": "GpLineGradient **",
+          "description": "Pointer to the line gradient object to be created"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns InvalidParameter if the line or rect pointers are null or if the mode is not recognized"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateLineBrushFromRectI",
+      "description": "This function creates a linear gradient brush from a rectangle with integer values.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "GDIPCONST GpRect*",
+          "description": "Pointer to the rectangle structure"
+        },
+        {
+          "name": "startcolor",
+          "type": "ARGB",
+          "description": "Starting color of the gradient"
+        },
+        {
+          "name": "endcolor",
+          "type": "ARGB",
+          "description": "Ending color of the gradient"
+        },
+        {
+          "name": "mode",
+          "type": "LinearGradientMode",
+          "description": "Mode of the gradient"
+        },
+        {
+          "name": "wrap",
+          "type": "GpWrapMode",
+          "description": "Specifies how a texture or gradient is tiled when it is smaller than the area being filled"
+        },
+        {
+          "name": "line",
+          "type": "GpLineGradient **",
+          "description": "Pointer to the line gradient structure"
+        }
+      ],
+      "return_type": "GpStatus, which indicates the status of the operation"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateLineBrushFromRectWithAngle",
+      "description": "This function creates a line brush from a rectangle with a specified angle. It calculates the start and end points of the gradient, and then creates the line brush.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "GDIPCONST GpRectF*",
+          "description": "Pointer to the rectangle structure"
+        },
+        {
+          "name": "startcolor",
+          "type": "ARGB",
+          "description": "The starting color of the gradient"
+        },
+        {
+          "name": "endcolor",
+          "type": "ARGB",
+          "description": "The ending color of the gradient"
+        },
+        {
+          "name": "angle",
+          "type": "REAL",
+          "description": "The angle of the gradient"
+        },
+        {
+          "name": "isAngleScalable",
+          "type": "BOOL",
+          "description": "A flag indicating whether the angle is scalable"
+        },
+        {
+          "name": "wrap",
+          "type": "GpWrapMode",
+          "description": "The wrap mode of the gradient"
+        },
+        {
+          "name": "line",
+          "type": "GpLineGradient **",
+          "description": "Pointer to the line gradient structure"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can be 'Ok' for successful operation, 'InvalidParameter' if the parameters are not valid, or 'OutOfMemory' if there is not enough memory to complete the operation"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateLineBrushFromRectWithAngleI",
+      "description": "This function creates a line brush from a rectangle with a specified angle.",
+      "parameters": [
+        {
+          "name": "rect",
+          "type": "GDIPCONST GpRect*",
+          "description": "Pointer to the rectangle structure"
+        },
+        {
+          "name": "startcolor",
+          "type": "ARGB",
+          "description": "Starting color of the gradient"
+        },
+        {
+          "name": "endcolor",
+          "type": "ARGB",
+          "description": "Ending color of the gradient"
+        },
+        {
+          "name": "angle",
+          "type": "REAL",
+          "description": "Angle of the gradient"
+        },
+        {
+          "name": "isAngleScalable",
+          "type": "BOOL",
+          "description": "Boolean value to determine if the angle is scalable"
+        },
+        {
+          "name": "wrap",
+          "type": "GpWrapMode",
+          "description": "Specifies the wrap mode of the gradient"
+        },
+        {
+          "name": "line",
+          "type": "GpLineGradient **",
+          "description": "Pointer to the line gradient structure"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation"
+    }
+  },
+  {
+    "function": {
+      "name": "create_path_gradient",
+      "description": "This function creates a path gradient. It calculates the center of the path and sets the gradient's properties accordingly. It also allocates memory for the gradient and its properties, and frees the memory if any allocation fails.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GpPath *",
+          "description": "Pointer to the path for which the gradient is to be created."
+        },
+        {
+          "name": "centercolor",
+          "type": "ARGB",
+          "description": "The color at the center of the gradient."
+        },
+        {
+          "name": "grad",
+          "type": "GpPathGradient **",
+          "description": "Pointer to a pointer to a GpPathGradient object. This function will allocate memory for the GpPathGradient object and update the pointer to point to it."
+        }
+      ],
+      "return_type": "GpStatus. Returns 'Ok' if the function successfully creates the gradient. Returns 'InvalidParameter' if either 'path' or 'grad' is NULL. Returns 'OutOfMemory' if there are fewer than 2 points in the path, or if memory allocation for the gradient or its properties fails."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreatePathGradient",
+      "description": "This function creates a path gradient and assigns it to the 'grad' parameter. It first checks if the 'grad' parameter is null or if the 'points' parameter is null or if 'count' is less than or equal to 0. If any of these conditions are met, it returns an error status. Otherwise, it creates a path, adds a line to the path using the points provided, and then creates a path gradient. If any of these operations fail, it cleans up and returns the error status. If all operations succeed, it sets the wrap mode of the gradient and returns the status.",
+      "parameters": [
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPointF*",
+          "description": "Pointer to an array of points that define the boundary of the path gradient."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of points in the array."
+        },
+        {
+          "name": "wrap",
+          "type": "GpWrapMode",
+          "description": "Specifies how to tile the gradient outside the path."
+        },
+        {
+          "name": "grad",
+          "type": "GpPathGradient**",
+          "description": "Pointer to a pointer that will receive the created path gradient."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation was successful, it returns 'Ok'. If the 'grad' parameter is null, it returns 'InvalidParameter'. If the 'points' parameter is null or 'count' is less than or equal to 0, it returns 'OutOfMemory'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreatePathGradientI",
+      "description": "This function creates a path gradient based on an array of points, count of points, wrap mode, and a pointer to the gradient path. It checks for valid parameters, creates a path, adds a line to the path, creates a path gradient, and sets the wrap mode of the gradient. It returns a status indicating success or failure of these operations.",
+      "parameters": [
+        {
+          "name": "points",
+          "type": "GDIPCONST GpPoint*",
+          "description": "Pointer to an array of points used to create the path"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of points in the array"
+        },
+        {
+          "name": "wrap",
+          "type": "GpWrapMode",
+          "description": "Specifies the wrap mode for the gradient"
+        },
+        {
+          "name": "grad",
+          "type": "GpPathGradient **",
+          "description": "Pointer to a pointer to the gradient path to be created"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the function execution. It can be 'Ok' for successful execution or 'InvalidParameter' and 'OutOfMemory' for unsuccessful execution"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreatePathGradientFromPath",
+      "description": "This function creates a path gradient from a given path. It first checks if the parameters are not null, then clones the path and creates a path gradient. If the creation of the path gradient is not successful, it deletes the cloned path.",
+      "parameters": [
+        {
+          "name": "path",
+          "type": "GDIPCONST GpPath*",
+          "description": "This is the path from which the gradient will be created."
+        },
+        {
+          "name": "grad",
+          "type": "GpPathGradient**",
+          "description": "This is a pointer to a pointer where the created path gradient will be stored."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can be Ok if the operation was successful, InvalidParameter if the grad parameter is null, or OutOfMemory if the path parameter is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateSolidFill",
+      "description": "This function creates a solid fill with a specified color.",
+      "parameters": [
+        {
+          "name": "color",
+          "type": "ARGB",
+          "description": "This parameter specifies the color of the solid fill."
+        },
+        {
+          "name": "sf",
+          "type": "GpSolidFill **",
+          "description": "This is a pointer to a pointer to a GpSolidFill structure. The function will allocate memory for a GpSolidFill structure, set its color to the specified color, and store the pointer to the structure in the location pointed to by this parameter."
+        }
+      ],
+      "return_type": "GpStatus. This represents the status of the operation. It can be Ok if the operation was successful, InvalidParameter if the sf parameter is NULL, or OutOfMemory if the function could not allocate memory for the GpSolidFill structure."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateTexture",
+      "description": "This function creates a texture using an image, a wrap mode, and a pointer to a texture object. It also handles errors and returns the status of the operation.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image to be used for creating the texture"
+        },
+        {
+          "name": "wrapmode",
+          "type": "GpWrapMode",
+          "description": "The wrap mode to be used for the texture"
+        },
+        {
+          "name": "texture",
+          "type": "GpTexture **",
+          "description": "Pointer to a pointer to a texture object where the created texture will be stored"
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can be 'Ok' if the operation was successful or 'InvalidParameter' if the input parameters are not valid."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateTexture2",
+      "description": "This function creates a texture from a portion of an image using specified image attributes.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image from which the texture is created"
+        },
+        {
+          "name": "wrapmode",
+          "type": "GpWrapMode",
+          "description": "Specifies the wrap mode for the texture"
+        },
+        {
+          "name": "x",
+          "type": "REAL",
+          "description": "The x-coordinate of the upper-left corner of the rectangle that bounds the portion of the source image to use as the texture"
+        },
+        {
+          "name": "y",
+          "type": "REAL",
+          "description": "The y-coordinate of the upper-left corner of the rectangle that bounds the portion of the source image to use as the texture"
+        },
+        {
+          "name": "width",
+          "type": "REAL",
+          "description": "The width of the rectangle that bounds the portion of the source image to use as the texture"
+        },
+        {
+          "name": "height",
+          "type": "REAL",
+          "description": "The height of the rectangle that bounds the portion of the source image to use as the texture"
+        },
+        {
+          "name": "texture",
+          "type": "GpTexture **",
+          "description": "Pointer to a pointer that receives the interface pointer to the new texture"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returning 'Ok' if successful"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateTextureIA",
+      "description": "This function creates a texture from a portion of an image using specified image attributes. It checks the validity of the parameters, clones the bitmap area, allocates memory for the texture, sets the matrix elements, clones or creates image attributes, sets the brush type, and handles any errors.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image from which to create the texture."
+        },
+        {
+          "name": "imageattr",
+          "type": "GDIPCONST GpImageAttributes *",
+          "description": "Pointer to the image attributes to use when creating the texture."
+        },
+        {
+          "name": "x",
+          "type": "REAL",
+          "description": "The x-coordinate of the upper-left corner of the portion of the image to use."
+        },
+        {
+          "name": "y",
+          "type": "REAL",
+          "description": "The y-coordinate of the upper-left corner of the portion of the image to use."
+        },
+        {
+          "name": "width",
+          "type": "REAL",
+          "description": "The width of the portion of the image to use."
+        },
+        {
+          "name": "height",
+          "type": "REAL",
+          "description": "The height of the portion of the image to use."
+        },
+        {
+          "name": "texture",
+          "type": "GpTexture **",
+          "description": "Pointer to a pointer to a GpTexture object. This function allocates memory for this object."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It can be Ok, InvalidParameter, NotImplemented, or OutOfMemory."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateTextureIAI",
+      "description": "This function creates a texture from a specified portion of an image using specified image attributes.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image from which the texture is created."
+        },
+        {
+          "name": "imageattr",
+          "type": "GDIPCONST GpImageAttributes *",
+          "description": "Pointer to the image attributes used for creating the texture."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the rectangle that encloses the portion of the image used to create the texture."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the rectangle that encloses the portion of the image used to create the texture."
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "The width of the rectangle that encloses the portion of the image used to create the texture."
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "The height of the rectangle that encloses the portion of the image used to create the texture."
+        },
+        {
+          "name": "texture",
+          "type": "GpTexture **",
+          "description": "Pointer to a pointer that receives the interface pointer to the new texture."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, the return value is Ok, otherwise it represents an error."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipCreateTexture2I",
+      "description": "This function creates a texture from a portion of an image using specified wrap mode.",
+      "parameters": [
+        {
+          "name": "image",
+          "type": "GpImage *",
+          "description": "Pointer to the image from which the texture is created."
+        },
+        {
+          "name": "wrapmode",
+          "type": "GpWrapMode",
+          "description": "Specifies the wrap mode used for the texture."
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "description": "The x-coordinate of the upper-left corner of the rectangle."
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "description": "The y-coordinate of the upper-left corner of the rectangle."
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "description": "The width of the rectangle."
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "description": "The height of the rectangle."
+        },
+        {
+          "name": "texture",
+          "type": "GpTexture **",
+          "description": "Pointer to a pointer that receives the interface pointer to the new texture."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, the return value is Ok."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetBrushType",
+      "description": "This function retrieves the type of the specified brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpBrush*",
+          "description": "A pointer to the brush object."
+        },
+        {
+          "name": "type",
+          "type": "GpBrushType*",
+          "description": "A pointer to a variable that receives the type of the brush."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetHatchBackgroundColor",
+      "description": "This function retrieves the background color of a hatch brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpHatch*",
+          "description": "A pointer to the hatch brush object."
+        },
+        {
+          "name": "backcol",
+          "type": "ARGB*",
+          "description": "A pointer to the ARGB structure that receives the background color of the hatch brush."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either of the parameters is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetHatchForegroundColor",
+      "description": "This function retrieves the foreground color of a hatch brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpHatch*",
+          "description": "A pointer to the hatch brush object."
+        },
+        {
+          "name": "forecol",
+          "type": "ARGB*",
+          "description": "A pointer to the ARGB structure that receives the foreground color of the hatch brush."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetHatchStyle",
+      "description": "This function retrieves the hatch style of a given brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpHatch *",
+          "description": "This is a pointer to the brush from which the hatch style is to be retrieved."
+        },
+        {
+          "name": "hatchstyle",
+          "type": "GpHatchStyle *",
+          "description": "This is a pointer to a variable where the retrieved hatch style will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either of the parameters is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipDeleteBrush",
+      "description": "This function deletes a brush object and frees the memory allocated for it. It also handles different types of brushes (PathGradient, LinearGradient, TextureFill) and frees their specific properties.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpBrush*",
+          "description": "This is a pointer to the brush object that is to be deleted."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if the brush pointer is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetLineGammaCorrection",
+      "description": "This function checks the validity of the line and usinggamma parameters. If valid, it assigns the value of the gamma property of the line to the usinggamma parameter.",
+      "parameters": [
+        {
+          "name": "line",
+          "type": "GpLineGradient*",
+          "description": "This is a pointer to the GpLineGradient object. It is used to access the gamma property of the line."
+        },
+        {
+          "name": "usinggamma",
+          "type": "BOOL*",
+          "description": "This is a pointer to a BOOL. The function assigns the value of the gamma property of the line to this parameter."
+        }
+      ],
+      "return_type": "GpStatus. This function returns a GpStatus value. If the parameters are not valid, it returns InvalidParameter. If the operation is successful, it returns Ok."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetLineWrapMode",
+      "description": "This function retrieves the wrap mode of a line gradient brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpLineGradient*",
+          "description": "A pointer to the line gradient brush object."
+        },
+        {
+          "name": "wrapmode",
+          "type": "GpWrapMode*",
+          "description": "A pointer to a variable that receives the wrap mode of the brush."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters is NULL or if the brush type is not BrushTypeLinearGradient."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathGradientBlend",
+      "description": "This function retrieves the blend factors and positions associated with the path gradient brush. It checks for valid parameters and buffer size, then copies the blend factors and positions from the brush to the provided arrays.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the path gradient brush."
+        },
+        {
+          "name": "blend",
+          "type": "REAL*",
+          "description": "Pointer to the array that receives the blend factors."
+        },
+        {
+          "name": "positions",
+          "type": "REAL*",
+          "description": "Pointer to the array that receives the positions."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "The number of elements in the blend and positions arrays."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if the parameters are not valid, 'InsufficientBuffer' if the buffer size is not enough, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathGradientBlendCount",
+      "description": "This function retrieves the number of blend factors in the path gradient brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the path gradient brush."
+        },
+        {
+          "name": "count",
+          "type": "INT*",
+          "description": "Pointer to the variable that receives the number of blend factors."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the brush is null, count is null, or brush type is not BrushTypePathGradient. Returns 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathGradientCenterPoint",
+      "description": "This function retrieves the center point of a path gradient.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the path gradient object."
+        },
+        {
+          "name": "point",
+          "type": "GpPointF*",
+          "description": "Pointer to the point object where the center point of the path gradient will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters is null or if the brush type of the gradient is not BrushTypePathGradient."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathGradientCenterPointI",
+      "description": "This function retrieves the center point of the path gradient and rounds the coordinates to the nearest integer value.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the path gradient object."
+        },
+        {
+          "name": "point",
+          "type": "GpPoint*",
+          "description": "Pointer to the GpPoint object that will receive the center point of the path gradient."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns 'Ok'. If the 'point' parameter is NULL, it returns 'InvalidParameter'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathGradientCenterColor",
+      "description": "This function retrieves the center color of a path gradient brush.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "A pointer to the path gradient brush."
+        },
+        {
+          "name": "colors",
+          "type": "ARGB*",
+          "description": "A pointer to the ARGB structure that receives the center color."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters are null or if the brush type is not BrushTypePathGradient."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathGradientFocusScales",
+      "description": "This function retrieves the focus scales of a path gradient.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the path gradient object."
+        },
+        {
+          "name": "x",
+          "type": "REAL*",
+          "description": "Pointer to the variable that receives the x-coordinate of the focus point."
+        },
+        {
+          "name": "y",
+          "type": "REAL*",
+          "description": "Pointer to the variable that receives the y-coordinate of the focus point."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters is null or if the brush type is not 'BrushTypePathGradient'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathGradientGammaCorrection",
+      "description": "This function checks the validity of the gradient and gamma parameters, and if valid, assigns the value of grad's gamma to the gamma parameter. If the parameters are not valid, it returns an error.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "Pointer to a GpPathGradient object. It is used to access the gamma property of the gradient."
+        },
+        {
+          "name": "gamma",
+          "type": "BOOL*",
+          "description": "Pointer to a BOOL variable. It is used to store the gamma correction value of the gradient."
+        }
+      ],
+      "return_type": "GpStatus. It represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if the parameters are not valid."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathGradientPath",
+      "description": "This function is not fully implemented yet. It is designed to get the path gradient path, but currently it only increments a static counter and returns a 'NotImplemented' status.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the gradient path object"
+        },
+        {
+          "name": "path",
+          "type": "GpPath*",
+          "description": "Pointer to the path object"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, currently always returns 'NotImplemented'"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathGradientPointCount",
+      "description": "This function retrieves the number of points in the path gradient's path.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "This is a pointer to the path gradient."
+        },
+        {
+          "name": "count",
+          "type": "INT*",
+          "description": "This is a pointer to an integer where the function will store the count of points in the path gradient's path."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns 'InvalidParameter' if the input parameters are invalid or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathGradientRect",
+      "description": "This function retrieves the bounding rectangle of the path gradient brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the path gradient brush."
+        },
+        {
+          "name": "rect",
+          "type": "GpRectF*",
+          "description": "Pointer to the rectangle that receives the bounding rectangle of the path gradient brush."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns 'Ok'. If any of the parameters is invalid, it returns 'InvalidParameter'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathGradientRectI",
+      "description": "This function gets the bounding rectangle of the path gradient (in integer values) associated with the brush and stores it in the rect structure. If the function call is unsuccessful, it returns an error status.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the path gradient."
+        },
+        {
+          "name": "rect",
+          "type": "GpRect*",
+          "description": "Pointer to the rectangle structure where the bounding rectangle of the path gradient will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the function call. Returns 'Ok' if successful, otherwise returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathGradientSurroundColorsWithCount",
+      "description": "This function retrieves the colors of the gradient path and the count of the colors. It also checks for invalid parameters and returns an error if any are found.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the gradient path object"
+        },
+        {
+          "name": "argb",
+          "type": "ARGB*",
+          "description": "Pointer to the array where the colors of the gradient path will be stored"
+        },
+        {
+          "name": "count",
+          "type": "INT*",
+          "description": "Pointer to an integer where the count of the colors will be stored"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any parameters are invalid"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathGradientSurroundColorCount",
+      "description": "This function returns the number of points in the path, which is the required size of a buffer to get the surround colors, rather than the number of surround colors. The real count is returned when getting the colors.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the path gradient brush"
+        },
+        {
+          "name": "count",
+          "type": "INT*",
+          "description": "Pointer to an integer where the count of points in the path will be stored"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the brush is null, the count is null, or the brush type is not 'BrushTypePathGradient'. Returns 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathGradientWrapMode",
+      "description": "This function retrieves the wrap mode of a path gradient brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpPathGradient*",
+          "description": "A pointer to the path gradient brush object."
+        },
+        {
+          "name": "wrapmode",
+          "type": "GpWrapMode*",
+          "description": "A pointer to a GpWrapMode enumeration that receives the wrap mode of the path gradient brush."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if parameters are null or brush type is not BrushTypePathGradient."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetSolidFillColor",
+      "description": "This function retrieves the color of a solid fill.",
+      "parameters": [
+        {
+          "name": "sf",
+          "type": "GpSolidFill*",
+          "description": "Pointer to the solid fill object."
+        },
+        {
+          "name": "argb",
+          "type": "ARGB*",
+          "description": "Pointer to store the color value."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either parameter is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetTextureImage",
+      "description": "This function gets the image from a texture brush and clones it.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpTexture *",
+          "description": "This is the texture brush from which the image is to be retrieved."
+        },
+        {
+          "name": "image",
+          "type": "GpImage **",
+          "description": "This is the pointer to the image that will hold the cloned image from the texture brush."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. Returns InvalidParameter if the brush or image is null, otherwise returns the status of the GdipCloneImage function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetTextureTransform",
+      "description": "This function retrieves the transformation matrix of a texture brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpTexture*",
+          "description": "This is a pointer to the texture brush."
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix*",
+          "description": "This is a pointer to the matrix where the transformation will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either brush or matrix is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetTextureWrapMode",
+      "description": "This function retrieves the wrap mode of a texture brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpTexture*",
+          "description": "A pointer to the texture brush."
+        },
+        {
+          "name": "wrapmode",
+          "type": "GpWrapMode*",
+          "description": "A pointer to a variable that receives the wrap mode of the texture brush."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if any of the input parameters is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipMultiplyTextureTransform",
+      "description": "This function multiplies the texture transform of a brush by a matrix in a specified order.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpTexture*",
+          "description": "This is a pointer to the brush whose texture transform is to be multiplied."
+        },
+        {
+          "name": "matrix",
+          "type": "GDIPCONST GpMatrix*",
+          "description": "This is a pointer to the matrix by which the texture transform is to be multiplied."
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "This specifies the order in which the multiplication is to be performed."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns 'Ok'. If any of the parameters is NULL, it returns 'InvalidParameter'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipResetTextureTransform",
+      "description": "This function resets the transformation applied to a texture brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpTexture*",
+          "description": "This is a pointer to the texture brush to reset."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns 'InvalidParameter' if the brush is null, otherwise it returns the status of the 'GdipSetMatrixElements' function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipScaleTextureTransform",
+      "description": "This function scales the texture transform of a brush object.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpTexture*",
+          "description": "This is the brush object whose texture transform is to be scaled."
+        },
+        {
+          "name": "sx",
+          "type": "REAL",
+          "description": "This is the scale factor in the x-direction."
+        },
+        {
+          "name": "sy",
+          "type": "REAL",
+          "description": "This is the scale factor in the y-direction."
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "This specifies the order in which transformations are applied."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the brush is NULL, it returns InvalidParameter. Otherwise, it returns the status of the GdipScaleMatrix operation."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetLineBlend",
+      "description": "This function sets the blend factors and positions for a line gradient brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpLineGradient *",
+          "description": "Pointer to the line gradient brush"
+        },
+        {
+          "name": "factors",
+          "type": "GDIPCONST REAL *",
+          "description": "Pointer to the blend factors"
+        },
+        {
+          "name": "positions",
+          "type": "GDIPCONST REAL *",
+          "description": "Pointer to the blend positions"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of blend factors and positions"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can be Ok, InvalidParameter or OutOfMemory"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetLineBlend",
+      "description": "This function retrieves the blend factors and positions associated with a line gradient brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpLineGradient *",
+          "description": "Pointer to the line gradient brush."
+        },
+        {
+          "name": "factors",
+          "type": "REAL *",
+          "description": "Pointer to the array of blend factors."
+        },
+        {
+          "name": "positions",
+          "type": "REAL *",
+          "description": "Pointer to the array of blend positions."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of elements in the factors and positions arrays."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if any of the parameters is invalid, 'InsufficientBuffer' if the count is less than the blend count, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetLineBlendCount",
+      "description": "This function retrieves the number of blend factors in a line gradient brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpLineGradient*",
+          "description": "Pointer to the line gradient brush object."
+        },
+        {
+          "name": "count",
+          "type": "INT*",
+          "description": "Pointer to an integer that receives the number of blend factors in the brush."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the parameters are null or the brush type is not BrushTypeLinearGradient."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetLineGammaCorrection",
+      "description": "This function sets the gamma correction for a line gradient brush.",
+      "parameters": [
+        {
+          "name": "line",
+          "type": "GpLineGradient*",
+          "description": "A pointer to the line gradient brush to set the gamma correction for."
+        },
+        {
+          "name": "usegamma",
+          "type": "BOOL",
+          "description": "A boolean value that specifies whether to use gamma correction."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the input parameters are not valid."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetLineSigmaBlend",
+      "description": "This function sets the sigma blend for a line gradient. It calculates the constants needed to normalize the error function to be between 0.0 and scale over the range needed. It then sets the blend for the line gradient using these calculated factors and positions.",
+      "parameters": [
+        {
+          "name": "line",
+          "type": "GpLineGradient*",
+          "description": "Pointer to the line gradient to set the sigma blend for."
+        },
+        {
+          "name": "focus",
+          "type": "REAL",
+          "description": "The focus of the sigma blend. Must be between 0.0 and 1.0."
+        },
+        {
+          "name": "scale",
+          "type": "REAL",
+          "description": "The scale of the sigma blend. Must be between 0.0 and 1.0."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the parameters are not valid, otherwise returns the status of the 'GdipSetLineBlend' function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetLineWrapMode",
+      "description": "This function sets the wrap mode for a line gradient brush.",
+      "parameters": [
+        {
+          "name": "line",
+          "type": "GpLineGradient*",
+          "description": "This is a pointer to the line gradient brush."
+        },
+        {
+          "name": "wrap",
+          "type": "GpWrapMode",
+          "description": "This is the wrap mode to be set for the line gradient brush."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the line is null, wrap mode is 'WrapModeClamp', or brush type is not 'BrushTypeLinearGradient'. Returns 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPathGradientBlend",
+      "description": "This function sets the blend factors and positions for the path gradient brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the path gradient brush."
+        },
+        {
+          "name": "blend",
+          "type": "GDIPCONST REAL*",
+          "description": "Pointer to the blend factors."
+        },
+        {
+          "name": "pos",
+          "type": "GDIPCONST REAL*",
+          "description": "Pointer to the blend positions."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of elements in the blend and position arrays."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if the parameters are not valid, 'OutOfMemory' if it fails to allocate memory, or 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPathGradientLinearBlend",
+      "description": "This function sets the linear blend for the path gradient. It checks the focus and scale, adjusts the factors and positions accordingly, and then calls the GdipSetPathGradientBlend function.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpPathGradient*",
+          "description": "This is the path gradient brush that the function will operate on."
+        },
+        {
+          "name": "focus",
+          "type": "REAL",
+          "description": "This is the focus of the linear blend. It determines the position of the center color in the gradient."
+        },
+        {
+          "name": "scale",
+          "type": "REAL",
+          "description": "This is the scale of the linear blend. It determines the range of the gradient."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns Ok. If not, it returns an error status."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPathGradientPresetBlend",
+      "description": "This function sets the color blend for a path gradient brush according to an array of preset colors and positions. It also checks for invalid parameters and handles memory allocation for the new color and position arrays.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the path gradient brush to set the color blend for"
+        },
+        {
+          "name": "blend",
+          "type": "GDIPCONST ARGB*",
+          "description": "Pointer to an array of colors to use for the blend"
+        },
+        {
+          "name": "pos",
+          "type": "GDIPCONST REAL*",
+          "description": "Pointer to an array of positions for the colors in the blend"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of elements in the blend and pos arrays"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if the parameters are not valid, 'OutOfMemory' if memory allocation fails, or 'Ok' if the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathGradientPresetBlend",
+      "description": "This function retrieves the preset blend of colors and positions associated with a path gradient brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the path gradient brush"
+        },
+        {
+          "name": "blend",
+          "type": "ARGB*",
+          "description": "Pointer to the array of colors"
+        },
+        {
+          "name": "pos",
+          "type": "REAL*",
+          "description": "Pointer to the array of positions"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of elements in the blend and pos arrays"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return Ok, OutOfMemory, InvalidParameter, or GenericError"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathGradientPresetBlendCount",
+      "description": "This function checks the validity of the brush and count parameters, and if valid, assigns the brush's blend count to the count parameter.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpPathGradient*",
+          "description": "Pointer to a GpPathGradient object"
+        },
+        {
+          "name": "count",
+          "type": "INT*",
+          "description": "Pointer to an integer where the blend count will be stored"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the parameters are not valid, otherwise returns 'Ok'"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPathGradientCenterColor",
+      "description": "This function sets the center color of the path gradient.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "This is a pointer to the path gradient object."
+        },
+        {
+          "name": "argb",
+          "type": "ARGB",
+          "description": "This is the color value that will be set as the center color of the path gradient."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the gradient pointer is null or the brush type is not BrushTypePathGradient. Returns 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPathGradientCenterPoint",
+      "description": "This function sets the center point of a path gradient.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "This is the path gradient to be modified."
+        },
+        {
+          "name": "point",
+          "type": "GpPointF*",
+          "description": "This is the new center point for the path gradient."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns 'Ok' if successful, 'InvalidParameter' if the parameters are not valid."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPathGradientCenterPointI",
+      "description": "This function sets the center point of a path gradient.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient *",
+          "description": "This is a pointer to the path gradient."
+        },
+        {
+          "name": "point",
+          "type": "GpPoint *",
+          "description": "This is a pointer to the point that will be set as the center of the path gradient."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns 'Ok'. If the point parameter is null, it returns 'InvalidParameter'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPathGradientFocusScales",
+      "description": "This function sets the focus scales of a path gradient.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the path gradient object"
+        },
+        {
+          "name": "x",
+          "type": "REAL",
+          "description": "The x-coordinate of the focus point"
+        },
+        {
+          "name": "y",
+          "type": "REAL",
+          "description": "The y-coordinate of the focus point"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns 'Ok' if successful, 'InvalidParameter' if the input parameters are not valid"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPathGradientGammaCorrection",
+      "description": "This function sets the gamma correction for a path gradient brush.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "This is a pointer to the path gradient brush."
+        },
+        {
+          "name": "gamma",
+          "type": "BOOL",
+          "description": "This is a boolean value that specifies whether to use gamma correction."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the brush type is not BrushTypePathGradient or the grad pointer is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPathGradientPath",
+      "description": "This function is not implemented yet. It is supposed to set the path gradient path but currently it only increments a static counter and returns a 'NotImplemented' status.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "Pointer to a GpPathGradient object"
+        },
+        {
+          "name": "path",
+          "type": "GDIPCONST GpPath*",
+          "description": "Constant pointer to a GpPath object"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, currently always returns 'NotImplemented'"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPathGradientSigmaBlend",
+      "description": "This function sets the blend of a path gradient brush using a sigma bell shape. It calculates the constants needed to normalize the error function to be between 0.0 and scale over the range needed. It also checks for invalid parameters and returns an error if found.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the path gradient brush"
+        },
+        {
+          "name": "focus",
+          "type": "REAL",
+          "description": "The focus of the sigma blend"
+        },
+        {
+          "name": "scale",
+          "type": "REAL",
+          "description": "The scale of the sigma blend"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the parameters are not valid, otherwise it returns the status of the 'GdipSetPathGradientBlend' function"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPathGradientSurroundColorsWithCount",
+      "description": "This function sets the surround colors for a path gradient brush. It checks if all colors are the same, if so, it only stores one color. It also handles memory allocation for the new surround colors.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient *",
+          "description": "A pointer to the path gradient brush to set the surround colors for"
+        },
+        {
+          "name": "argb",
+          "type": "GDIPCONST ARGB *",
+          "description": "A pointer to the array of ARGB values that represent the colors to set"
+        },
+        {
+          "name": "count",
+          "type": "INT *",
+          "description": "A pointer to an integer that specifies the number of colors in the array"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if the parameters are not valid, 'OutOfMemory' if memory allocation fails, or 'Ok' if the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPathGradientWrapMode",
+      "description": "This function sets the wrap mode of a path gradient.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the path gradient object"
+        },
+        {
+          "name": "wrap",
+          "type": "GpWrapMode",
+          "description": "The wrap mode to be set for the path gradient"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns 'InvalidParameter' if the gradient is null or not of type BrushTypePathGradient, otherwise returns 'Ok'"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetPathGradientTransform",
+      "description": "This function sets the transformation matrix of a path gradient brush.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the path gradient brush."
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix*",
+          "description": "Pointer to the transformation matrix."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the input parameters are null or the brush type is not 'BrushTypePathGradient', otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetPathGradientTransform",
+      "description": "This function retrieves the transformation matrix of a path gradient.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the path gradient object."
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix*",
+          "description": "Pointer to the matrix object where the transformation matrix will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if any of the parameters are null or if the brush type is not BrushTypePathGradient."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipMultiplyPathGradientTransform",
+      "description": "This function multiplies the transformation matrix of a path gradient brush by another matrix.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient *",
+          "description": "Pointer to the path gradient brush."
+        },
+        {
+          "name": "matrix",
+          "type": "GDIPCONST GpMatrix *",
+          "description": "Pointer to the matrix to be multiplied."
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "Order of matrix multiplication."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the brush type is not 'BrushTypePathGradient' or the 'grad' parameter is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipResetPathGradientTransform",
+      "description": "This function resets the transformation of the specified path gradient.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "A pointer to the path gradient to reset."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation, returns InvalidParameter if the input parameter is null or not of BrushTypePathGradient, otherwise returns the status of GdipSetMatrixElements function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipRotatePathGradientTransform",
+      "description": "This function rotates the gradient transform of a path.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the path gradient to be rotated"
+        },
+        {
+          "name": "angle",
+          "type": "REAL",
+          "description": "The angle by which the gradient transform is to be rotated"
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "The order in which the rotation is to be applied"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the gradient is null or not of type 'BrushTypePathGradient'. Otherwise, it returns the status of the 'GdipRotateMatrix' function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipScalePathGradientTransform",
+      "description": "This function scales the transformation matrix of a path gradient brush by the specified values.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the path gradient brush"
+        },
+        {
+          "name": "sx",
+          "type": "REAL",
+          "description": "The value by which to scale the transformation matrix in the x-axis direction"
+        },
+        {
+          "name": "sy",
+          "type": "REAL",
+          "description": "The value by which to scale the transformation matrix in the y-axis direction"
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "The order in which to apply the scale operation"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the brush is not a path gradient brush, otherwise returns the status of the scale operation"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipTranslatePathGradientTransform",
+      "description": "This function translates the transformation matrix of a path gradient brush by the specified dimensions.",
+      "parameters": [
+        {
+          "name": "grad",
+          "type": "GpPathGradient*",
+          "description": "Pointer to the path gradient brush."
+        },
+        {
+          "name": "dx",
+          "type": "REAL",
+          "description": "The amount to translate the matrix in the x-direction."
+        },
+        {
+          "name": "dy",
+          "type": "REAL",
+          "description": "The amount to translate the matrix in the y-direction."
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "Order of matrix transformation."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the brush type is not 'BrushTypePathGradient' or the gradient is null. Otherwise, it returns the status of the 'GdipTranslateMatrix' function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetSolidFillColor",
+      "description": "This function sets the color of a solid fill.",
+      "parameters": [
+        {
+          "name": "sf",
+          "type": "GpSolidFill*",
+          "description": "This is a pointer to the solid fill object."
+        },
+        {
+          "name": "argb",
+          "type": "ARGB",
+          "description": "This is the color value to set."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the solid fill pointer is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetTextureTransform",
+      "description": "This function sets the transformation matrix of a texture.",
+      "parameters": [
+        {
+          "name": "texture",
+          "type": "GpTexture *",
+          "description": "This is the texture whose transformation matrix is to be set."
+        },
+        {
+          "name": "matrix",
+          "type": "GDIPCONST GpMatrix *",
+          "description": "This is the transformation matrix to be set to the texture."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if the operation is successful, 'InvalidParameter' if either of the parameters is null."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetTextureWrapMode",
+      "description": "This function sets the wrap mode of a texture brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpTexture*",
+          "description": "This is a pointer to the texture brush to be modified."
+        },
+        {
+          "name": "wrapmode",
+          "type": "GpWrapMode",
+          "description": "This is the wrap mode to be set for the texture brush."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the brush pointer is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetLineColors",
+      "description": "This function sets the start and end colors of a linear gradient brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpLineGradient*",
+          "description": "Pointer to the gradient brush to set colors for"
+        },
+        {
+          "name": "color1",
+          "type": "ARGB",
+          "description": "The color to set as the start color of the gradient"
+        },
+        {
+          "name": "color2",
+          "type": "ARGB",
+          "description": "The color to set as the end color of the gradient"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the brush is null or not a linear gradient brush, otherwise returns 'Ok'"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetLineColors",
+      "description": "This function retrieves the start and end colors of a linear gradient brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpLineGradient*",
+          "description": "A pointer to the gradient brush to get the colors from."
+        },
+        {
+          "name": "colors",
+          "type": "ARGB*",
+          "description": "A pointer to an array where the start and end colors will be stored."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if the input parameters are null or the brush type is not a linear gradient."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipRotateTextureTransform",
+      "description": "This function rotates the texture transform of a brush object by a specified angle and order.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpTexture*",
+          "description": "The brush object whose texture transform is to be rotated."
+        },
+        {
+          "name": "angle",
+          "type": "REAL",
+          "description": "The angle by which the texture transform is to be rotated."
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "The order in which the rotation is to be applied."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the brush object is null, otherwise it returns the status of the GdipRotateMatrix function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetLineLinearBlend",
+      "description": "This function sets the blend factors and positions for a line gradient brush and returns the status of this operation.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpLineGradient*",
+          "description": "This is a pointer to the line gradient brush."
+        },
+        {
+          "name": "focus",
+          "type": "REAL",
+          "description": "This parameter specifies the focus of the gradient."
+        },
+        {
+          "name": "scale",
+          "type": "REAL",
+          "description": "This parameter specifies the scale of the gradient."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. If the operation is successful, it returns 'Ok'. If the brush parameter is null, it returns 'InvalidParameter'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetLinePresetBlend",
+      "description": "This function sets the blend and positions for a line gradient brush. It also checks for valid parameters and handles memory allocation for new blend and position arrays.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpLineGradient*",
+          "description": "Pointer to the line gradient brush to set the blend and positions for"
+        },
+        {
+          "name": "blend",
+          "type": "GDIPCONST ARGB*",
+          "description": "Pointer to the array of blend factors"
+        },
+        {
+          "name": "positions",
+          "type": "GDIPCONST REAL*",
+          "description": "Pointer to the array of blend positions"
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Number of elements in the blend and positions arrays"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if parameters are not valid, 'OutOfMemory' if memory allocation fails, or 'Ok' if the operation is successful"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetLinePresetBlend",
+      "description": "This function retrieves the blend of colors and their positions for a line gradient brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpLineGradient *",
+          "description": "Pointer to the line gradient brush."
+        },
+        {
+          "name": "blend",
+          "type": "ARGB *",
+          "description": "Pointer to an array of ARGB structures that receives the blend of colors."
+        },
+        {
+          "name": "positions",
+          "type": "REAL *",
+          "description": "Pointer to an array of REAL numbers that receives the positions of the colors."
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "description": "Integer that specifies the number of elements in the blend and positions arrays."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It can return 'InvalidParameter' if the parameters are not valid, 'GenericError' if the blend count is zero, 'InsufficientBuffer' if the count is less than the blend count, and 'Ok' if the operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetLinePresetBlendCount",
+      "description": "This function checks the validity of the brush and count parameters, and if valid, assigns the value of brush's pblendcount to count.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpLineGradient*",
+          "description": "Pointer to a GpLineGradient object"
+        },
+        {
+          "name": "count",
+          "type": "INT*",
+          "description": "Pointer to an integer where the count of preset blend of the line gradient will be stored"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if brush or count is null, or brush is not of type BrushTypeLinearGradient. Returns 'Ok' if operation is successful."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipResetLineTransform",
+      "description": "This function resets the transformation applied to a line gradient brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpLineGradient*",
+          "description": "This is a pointer to the line gradient brush whose transformation is to be reset."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns 'InvalidParameter' if the brush is null, otherwise it returns the status of the 'GdipSetMatrixElements' function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipSetLineTransform",
+      "description": "This function sets the transformation matrix of a line gradient brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpLineGradient *",
+          "description": "This is a pointer to the line gradient brush to be transformed."
+        },
+        {
+          "name": "matrix",
+          "type": "GDIPCONST GpMatrix *",
+          "description": "This is a pointer to the transformation matrix."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'Ok' if successful, 'InvalidParameter' if either of the parameters is NULL."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetLineTransform",
+      "description": "This function gets the transformation matrix of a line gradient brush.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpLineGradient *",
+          "description": "This is a pointer to the line gradient brush."
+        },
+        {
+          "name": "matrix",
+          "type": "GpMatrix *",
+          "description": "This is a pointer to the transformation matrix."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if either brush or matrix is null, otherwise returns 'Ok'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipScaleLineTransform",
+      "description": "This function scales the transformation matrix of a line gradient brush by the specified values.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpLineGradient*",
+          "description": "A pointer to the line gradient brush to scale."
+        },
+        {
+          "name": "sx",
+          "type": "REAL",
+          "description": "The value by which to scale the transformation matrix in the x-direction."
+        },
+        {
+          "name": "sy",
+          "type": "REAL",
+          "description": "The value by which to scale the transformation matrix in the y-direction."
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "The order in which to apply the scale operation."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the brush parameter is null, otherwise it returns the status of the 'GdipScaleMatrix' function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipMultiplyLineTransform",
+      "description": "This function multiplies the transformation matrix of a line gradient brush by another matrix.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpLineGradient*",
+          "description": "This is a pointer to the line gradient brush whose transformation matrix is to be multiplied."
+        },
+        {
+          "name": "matrix",
+          "type": "GDIPCONST GpMatrix*",
+          "description": "This is a pointer to the matrix by which the transformation matrix of the brush is to be multiplied."
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "This parameter specifies the order in which the multiplication is to be carried out."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It returns 'InvalidParameter' if the brush is null, 'Ok' if the matrix is null, and the result of the multiplication operation otherwise."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipTranslateLineTransform",
+      "description": "This function translates the line gradient transform by the specified dimensions.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpLineGradient *",
+          "description": "Pointer to the line gradient to be transformed"
+        },
+        {
+          "name": "dx",
+          "type": "REAL",
+          "description": "The horizontal translation dimension"
+        },
+        {
+          "name": "dy",
+          "type": "REAL",
+          "description": "The vertical translation dimension"
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "The order in which to apply the translation"
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns InvalidParameter if brush is NULL, otherwise returns the status of GdipTranslateMatrix operation"
+    }
+  },
+  {
+    "function": {
+      "name": "GdipTranslateTextureTransform",
+      "description": "This function translates the texture transform of a brush by the specified dimensions.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpTexture*",
+          "description": "The brush whose texture transform is to be translated."
+        },
+        {
+          "name": "dx",
+          "type": "REAL",
+          "description": "The amount to translate in the x-direction."
+        },
+        {
+          "name": "dy",
+          "type": "REAL",
+          "description": "The amount to translate in the y-direction."
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "The order in which to apply the translation."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. Returns 'InvalidParameter' if the brush is null, otherwise it returns the status of the GdipTranslateMatrix function."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetLineRect",
+      "description": "This function checks if the brush and rect parameters are not null and if the brush type is BrushTypeLinearGradient. If these conditions are met, it assigns the value of brush->rect to rect and returns Ok. If not, it returns InvalidParameter.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpLineGradient*",
+          "description": "Pointer to a GpLineGradient object. It is used to check the brush type and get the rect value."
+        },
+        {
+          "name": "rect",
+          "type": "GpRectF*",
+          "description": "Pointer to a GpRectF object. It is used to store the rect value from the brush object."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. It returns Ok if the operation is successful, otherwise it returns InvalidParameter."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipGetLineRectI",
+      "description": "This function retrieves the bounding rectangle of a line gradient, rounds the values to integers, and stores them in the specified GpRect structure.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpLineGradient*",
+          "description": "Pointer to the line gradient."
+        },
+        {
+          "name": "rect",
+          "type": "GpRect*",
+          "description": "Pointer to the GpRect structure that receives the bounding rectangle (rounded to integers)."
+        }
+      ],
+      "return_type": "GpStatus, represents the status of the operation. If the operation is successful, it returns 'Ok'. If the 'rect' parameter is null, it returns 'InvalidParameter'."
+    }
+  },
+  {
+    "function": {
+      "name": "GdipRotateLineTransform",
+      "description": "This function rotates the line gradient brush by a specified angle in a specified order. However, it is currently not implemented and only checks if the brush is not null and of the correct type.",
+      "parameters": [
+        {
+          "name": "brush",
+          "type": "GpLineGradient*",
+          "description": "This is a pointer to the line gradient brush to be rotated."
+        },
+        {
+          "name": "angle",
+          "type": "REAL",
+          "description": "This is the angle by which the line gradient brush should be rotated."
+        },
+        {
+          "name": "order",
+          "type": "GpMatrixOrder",
+          "description": "This specifies the order in which the rotation should be applied."
+        }
+      ],
+      "return_type": "GpStatus, which represents the status of the operation. It returns InvalidParameter if the brush is null or not of the correct type, and NotImplemented if the function is called."
+    }
+  }
+]
